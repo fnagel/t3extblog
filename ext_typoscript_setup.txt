@@ -1,35 +1,59 @@
 config.tx_extbase{
     persistence{
         classes{
-
             Tx_T3extblog_Domain_Model_Posts {
                 mapping {
                     tableName = tx_t3blog_post
-                    recordType = Tx_T3extblog_Posts
+                    # recordType = tx_t3blog_post
+					columns {						
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						title.mapOnProperty = title
+						author.mapOnProperty = author
+						date.mapOnProperty = publishDate
+						content.mapOnProperty = content
+						allow_comments.mapOnProperty = allowComments
+						cat.mapOnProperty = category
+						tagClouds.mapOnProperty = tagCloud
+						number_views.mapOnProperty = numberOfViews
+					}
                 }
-            }
-            
+            }            
             Tx_T3extblog_Domain_Model_Content {
-                mapping {
-                    tableName = tt_content
-                    recordType = Tx_T3extblog_Content
-                }
-            }
-            
+				mapping {
+					tableName = tt_content
+					columns {
+						altText.mapOnProperty = altText
+						titleText.mapOnProperty = titleText
+						colPos.mapOnProperty = colPos
+					}
+				}
+            }            
             Tx_T3extblog_Domain_Model_Category {
                 mapping {
                     tableName = tx_t3blog_cat
-                    recordType = Tx_T3extblog_Category
                 }
-            }
-            
+            }            
             Tx_T3extblog_Domain_Model_Comment {
                 mapping {
                     tableName = tx_t3blog_com
-                    recordType = Tx_T3extblog_Comment
                 }
-            }
-            
+            }            
     	}
     }
+}
+
+plugin.tx_t3extblog {
+	view {
+		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
+	}
+	features {
+		rewrittenPropertyMapper = 1
+	}
 }
