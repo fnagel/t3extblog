@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-28T23:09:28Z" product-name="t3extblog">
+		<header/>
+		<body>
+
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="author.description">
+				<source>author</source>
+			</trans-unit>
+			<trans-unit id="publish_date.description">
+				<source>publishDate</source>
+			</trans-unit>
+			<trans-unit id="allow_comments.description">
+				<source>allowComments</source>
+			</trans-unit>
+			<trans-unit id="tag_cloud.description">
+				<source>tagCloud</source>
+			</trans-unit>
+			<trans-unit id="number_of_views.description">
+				<source>numberOfViews</source>
+			</trans-unit>
+			<trans-unit id="content.description">
+				<source>content</source>
+			</trans-unit>
+			<trans-unit id="category.description">
+				<source>category</source>
+			</trans-unit>
+			<trans-unit id="comments.description">
+				<source>comments</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

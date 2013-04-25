@@ -1,0 +1,35 @@
+config.tx_extbase{
+    persistence{
+        classes{
+
+            Tx_T3extblog_Domain_Model_Posts {
+                mapping {
+                    tableName = tx_t3blog_post
+                    recordType = Tx_T3extblog_Posts
+                }
+            }
+            
+            Tx_T3extblog_Domain_Model_Content {
+                mapping {
+                    tableName = tt_content
+                    recordType = Tx_T3extblog_Content
+                }
+            }
+            
+            Tx_T3extblog_Domain_Model_Category {
+                mapping {
+                    tableName = tx_t3blog_cat
+                    recordType = Tx_T3extblog_Category
+                }
+            }
+            
+            Tx_T3extblog_Domain_Model_Comment {
+                mapping {
+                    tableName = tx_t3blog_com
+                    recordType = Tx_T3extblog_Comment
+                }
+            }
+            
+    	}
+    }
+}

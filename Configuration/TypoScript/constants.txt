@@ -1,0 +1,14 @@
+plugin.tx_t3extblog {
+	view {
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:t3extblog/Resources/Private/Templates/
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:t3extblog/Resources/Private/Partials/
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:t3extblog/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_t3extblog//a; type=string; label=Default storage PID
+		storagePid =
+	}
+}

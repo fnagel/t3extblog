@@ -1,0 +1,39 @@
+plugin.tx_t3extblog {
+	view {
+		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+}
+
+plugin.tx_t3extblog._CSS_DEFAULT_STYLE (
+	textarea.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-t3extblog table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-t3extblog table th {
+		font-weight:bold;
+	}
+
+	.tx-t3extblog table td {
+		vertical-align:top;
+	}
+)

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-28T23:09:28Z" product-name="t3extblog">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_t3extblog_domain_model_blog">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_blog.posts">
+				<source>Posts</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3extblog_domain_model_posts">
+				<source>Posts</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.publish_date">
+				<source>Publish Date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.allow_comments">
+				<source>Allow Comments</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.tag_cloud">
+				<source>Tag Cloud</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.number_of_views">
+				<source>Number Of Views</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.comments">
+				<source>Comments</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Posts">
+				<source>T3Blog Extbase Posts</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_content.title_text">
+				<source>Title Text</source>
+			</trans-unit>
+			
+			<trans-unit id="tt_content.tx_extbase_type.Tx_T3extblog_Content">
+				<source>T3Blog Extbase Content</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_category.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_category.description">
+				<source>Description</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3blog_cat.tx_extbase_type.Tx_T3extblog_Category">
+				<source>T3Blog Extbase Category</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.website">
+				<source>Website</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.approved">
+				<source>Approved</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.spam">
+				<source>Spam</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3blog_com.tx_extbase_type.Tx_T3extblog_Comment">
+				<source>T3Blog Extbase Comment</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

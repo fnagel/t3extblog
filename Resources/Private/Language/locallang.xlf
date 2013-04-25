@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-28T23:09:28Z" product-name="t3extblog">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_t3extblog_domain_model_blog">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_blog.posts">
+				<source>posts</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_posts">
+				<source>Posts</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.title">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.author">
+				<source>author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.publish_date">
+				<source>publishDate</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.allow_comments">
+				<source>allowComments</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.tag_cloud">
+				<source>tagCloud</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.number_of_views">
+				<source>numberOfViews</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.content">
+				<source>content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.category">
+				<source>category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_posts.comments">
+				<source>comments</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_content.title_text">
+				<source>titleText</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_category.name">
+				<source>name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_category.description">
+				<source>description</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.title">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.author">
+				<source>author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.email">
+				<source>email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.website">
+				<source>website</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.date">
+				<source>date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.text">
+				<source>text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.approved">
+				<source>approved</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.spam">
+				<source>spam</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>
