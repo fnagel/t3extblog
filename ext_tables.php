@@ -11,35 +11,6 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Blog Extbase');
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_t3extblog_domain_model_blog', 'EXT:t3extblog/Resources/Private/Language/locallang_csh_tx_t3extblog_domain_model_blog.xlf');
-t3lib_extMgm::allowTableOnStandardPages('tx_t3extblog_domain_model_blog');
-$TCA['tx_t3extblog_domain_model_blog'] = array(
-	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_blog',
-		'label' => 'posts',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
-		'dividers2tabs' => TRUE,
-
-		'versioningWS' => 2,
-		'versioning_followPages' => TRUE,
-		'origUid' => 't3_origuid',
-		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l10n_parent',
-		'transOrigDiffSourceField' => 'l10n_diffsource',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
-		),
-		'searchFields' => 'posts,',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Blog.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_t3extblog_domain_model_blog.gif'
-	),
-);
-
 $tmp_t3extblog_columns = array(
 
 	'title' => array(
@@ -187,12 +158,6 @@ $tmp_t3extblog_columns = array(
 			),
 		),
 	),
-);
-
-$tmp_t3extblog_columns['blog'] = array(
-	'config' => array(
-		'type' => 'passthrough',
-	)
 );
 
 t3lib_extMgm::addTCAcolumns('tx_t3blog_post',$tmp_t3extblog_columns);
