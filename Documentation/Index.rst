@@ -16,9 +16,9 @@ Extension Name
 :Version: 
 :Description: manuals covering TYPO3 extension "T3Blog Extbase"
 :Language: en
-:Author: 
+:Author: Felix Nagel
 :Creation: 2013-04-25
-:Generation: 23:17
+:Generation: 23:40
 :Licence: Open Content License available from `www.opencontent.org/opl.shtml <http://www.opencontent.org/opl.shtml>`_
 
 The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org

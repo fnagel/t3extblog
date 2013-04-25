@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-09T23:17:09Z" product-name="t3extblog">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-04T23:40:04Z" product-name="t3extblog">
 		<header/>
 		<body>
 
-			<trans-unit id="tx_t3extblog_domain_model_posts">
-				<source>Posts</source>
+			<trans-unit id="tx_t3extblog_domain_model_post">
+				<source>Post</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.title">
+			<trans-unit id="tx_t3extblog_domain_model_post.title">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.author">
+			<trans-unit id="tx_t3extblog_domain_model_post.author">
 				<source>Author</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.publish_date">
+			<trans-unit id="tx_t3extblog_domain_model_post.publish_date">
 				<source>Publish Date</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.allow_comments">
+			<trans-unit id="tx_t3extblog_domain_model_post.allow_comments">
 				<source>Allow Comments</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.tag_cloud">
+			<trans-unit id="tx_t3extblog_domain_model_post.tag_cloud">
 				<source>Tag Cloud</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.number_of_views">
+			<trans-unit id="tx_t3extblog_domain_model_post.number_of_views">
 				<source>Number Of Views</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.content">
+			<trans-unit id="tx_t3extblog_domain_model_post.content">
 				<source>Content</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.category">
+			<trans-unit id="tx_t3extblog_domain_model_post.category">
 				<source>Category</source>
 			</trans-unit>
-			<trans-unit id="tx_t3extblog_domain_model_posts.comments">
+			<trans-unit id="tx_t3extblog_domain_model_post.comments">
 				<source>Comments</source>
 			</trans-unit>
 			
-			<trans-unit id="tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Posts">
-				<source>T3Blog Extbase Posts</source>
+			<trans-unit id="tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Post">
+				<source>T3Blog Extbase Post</source>
 			</trans-unit>
 			
 			<trans-unit id="tx_t3extblog_domain_model_content">

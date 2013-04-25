@@ -31,7 +31,44 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_CategoryRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3extblog_Controller_PostController extends Tx_Extbase_MVC_Controller_ActionController {
+
+	/**
+	 * postRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 */
+	protected $postRepository;
+
+	/**
+	 * injectPostRepository
+	 *
+	 * @param Tx_T3extblog_Domain_Repository_PostRepository $postRepository
+	 * @return void
+	 */
+	public function injectPostRepository(Tx_T3extblog_Domain_Repository_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+
+	/**
+	 * action list
+	 *
+	 * @return void
+	 */
+	public function listAction() {
+		$posts = $this->postRepository->findAll();
+		$this->view->assign('posts', $posts);
+	}
+
+	/**
+	 * action show
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @return void
+	 */
+	public function showAction(Tx_T3extblog_Domain_Model_Post $post) {
+		$this->view->assign('post', $post);
+	}
 
 }
 ?>

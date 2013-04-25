@@ -4,13 +4,13 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
+ *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
  *  The GNU General Public License can be found at
@@ -25,13 +25,37 @@
  ***************************************************************/
 
 /**
+ * Test case for class Tx_T3extblog_Controller_PostController.
  *
- *
- * @package t3extblog
+ * @version $Id$
+ * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
+ * @package TYPO3
+ * @subpackage T3Blog Extbase
+ *
+ * @author Felix Nagel <info@felixnagel.com>
  */
-class Tx_T3extblog_Domain_Repository_CategoryRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3extblog_Controller_PostControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+	/**
+	 * @var Tx_T3extblog_Domain_Model_Post
+	 */
+	protected $fixture;
+
+	public function setUp() {
+		$this->fixture = new Tx_T3extblog_Domain_Model_Post();
+	}
+
+	public function tearDown() {
+		unset($this->fixture);
+	}
+
+	/**
+	 * @test
+	 */
+	public function dummyMethod() {
+		$this->markTestIncomplete();
+	}
 
 }
 ?>

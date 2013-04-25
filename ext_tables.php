@@ -15,7 +15,7 @@ $tmp_t3extblog_columns = array(
 
 	'title' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.title',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.title',
 		'config' => array(
 			'type' => 'input',
 			'size' => 30,
@@ -24,7 +24,7 @@ $tmp_t3extblog_columns = array(
 	),
 	'author' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.author',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.author',
 		'config' => array(
 			'type' => 'input',
 			'size' => 30,
@@ -33,7 +33,7 @@ $tmp_t3extblog_columns = array(
 	),
 	'publish_date' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.publish_date',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.publish_date',
 		'config' => array(
 			'type' => 'input',
 			'size' => 10,
@@ -44,7 +44,7 @@ $tmp_t3extblog_columns = array(
 	),
 	'allow_comments' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.allow_comments',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.allow_comments',
 		'config' => array(
 			'type' => 'check',
 			'default' => 0
@@ -52,7 +52,7 @@ $tmp_t3extblog_columns = array(
 	),
 	'tag_cloud' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.tag_cloud',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.tag_cloud',
 		'config' => array(
 			'type' => 'text',
 			'cols' => 40,
@@ -62,7 +62,7 @@ $tmp_t3extblog_columns = array(
 	),
 	'number_of_views' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.number_of_views',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.number_of_views',
 		'config' => array(
 			'type' => 'input',
 			'size' => 4,
@@ -71,11 +71,11 @@ $tmp_t3extblog_columns = array(
 	),
 	'content' => array(
 		'exclude' => 0,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.content',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.content',
 		'config' => array(
 			'type' => 'select',
 			'foreign_table' => 'tt_content',
-			'MM' => 'tx_t3extblog_posts_content_mm',
+			'MM' => 'tx_t3extblog_post_content_mm',
 			'size' => 10,
 			'autoSizeMax' => 30,
 			'maxitems' => 9999,
@@ -107,11 +107,11 @@ $tmp_t3extblog_columns = array(
 	),
 	'category' => array(
 		'exclude' => 0,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.category',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.category',
 		'config' => array(
 			'type' => 'select',
 			'foreign_table' => 'tx_t3blog_cat',
-			'MM' => 'tx_t3extblog_posts_category_mm',
+			'MM' => 'tx_t3extblog_post_category_mm',
 			'size' => 10,
 			'autoSizeMax' => 30,
 			'maxitems' => 9999,
@@ -143,11 +143,11 @@ $tmp_t3extblog_columns = array(
 	),
 	'comments' => array(
 		'exclude' => 0,
-		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts.comments',
+		'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post.comments',
 		'config' => array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_t3blog_com',
-			'foreign_field' => 'posts',
+			'foreign_field' => 'post',
 			'maxitems'      => 9999,
 			'appearance' => array(
 				'collapseAll' => 0,
@@ -162,11 +162,11 @@ $tmp_t3extblog_columns = array(
 
 t3lib_extMgm::addTCAcolumns('tx_t3blog_post',$tmp_t3extblog_columns);
 
-$TCA['tx_t3blog_post']['columns'][$TCA['tx_t3blog_post']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Posts','Tx_T3extblog_Posts');
+$TCA['tx_t3blog_post']['columns'][$TCA['tx_t3blog_post']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Post','Tx_T3extblog_Post');
 
-$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Posts']['showitem'] = $TCA['tx_t3blog_post']['types']['1']['showitem'];
-$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Posts']['showitem'] .= ',--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_posts,';
-$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Posts']['showitem'] .= 'title, author, publish_date, allow_comments, tag_cloud, number_of_views, content, category, comments';
+$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Post']['showitem'] = $TCA['tx_t3blog_post']['types']['1']['showitem'];
+$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Post']['showitem'] .= ',--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3extblog_domain_model_post,';
+$TCA['tx_t3blog_post']['types']['Tx_T3extblog_Post']['showitem'] .= 'title, author, publish_date, allow_comments, tag_cloud, number_of_views, content, category, comments';
 
 $tmp_t3extblog_columns = array(
 
@@ -319,7 +319,7 @@ $tmp_t3extblog_columns = array(
 	),
 );
 
-$tmp_t3extblog_columns['posts'] = array(
+$tmp_t3extblog_columns['post'] = array(
 	'config' => array(
 		'type' => 'passthrough',
 	)
