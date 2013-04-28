@@ -1,49 +1,19 @@
 <f:layout name="Default" />
 
-This Template is responsible for creating a table of domain objects.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1>Listing for Post</h1>
 
-<f:flashMessages />
+	<f:flashMessages />
 
-<table  class="tx_t3extblog" >
-	<tr>
-		<th><f:translate key="tx_t3extblog_domain_model_post.title" /></th>
-		<th><f:translate key="tx_t3extblog_domain_model_post.author" /></th>
-		<th><f:translate key="tx_t3extblog_domain_model_post.publish_date" /></th>
-		<th><f:translate key="tx_t3extblog_domain_model_post.allow_comments" /></th>
-		<th><f:translate key="tx_t3extblog_domain_model_post.tag_cloud" /></th>
-		<th><f:translate key="tx_t3extblog_domain_model_post.number_of_views" /></th>
-		<th> </th>
-		<th> </th>
-	</tr>
+	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.paginate}">
+		<f:debug>{paginatedPosts}</f:debug>
+		<f:for each="{paginatedPosts}" as="post">
+			<div class="post">			
+				<h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
+				<p class="author">{post.author.name}</p>
+				<span class="date">{post.publishDate -> f:format.date()}</span>
+				<p class="tags">{post.tagCloud}</p>
+			</div>
+		</f:for>
+	</f:widget.paginate>
 
-		<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.paginate}">
-			<f:debug>{paginatedPosts}</f:debug>
-			<f:for each="{paginatedPosts}" as="post">
-				<tr>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.title}</f:link.action></td>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.author}</f:link.action></td>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.publishDate -> f:format.date()}</f:link.action></td>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.allowComments}</f:link.action></td>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.tagCloud}</f:link.action></td>
-					<td><f:link.action action="show" arguments="{post : post}"> {post.numberOfViews}</f:link.action></td>
-					<td><f:link.action action="edit" arguments="{post : post}">Edit</f:link.action></td>
-					<td><f:link.action action="delete" arguments="{post : post}">Delete</f:link.action></td>
-				</tr>
-			</f:for>
-		</f:widget.paginate>
-</table>
-
-<f:link.action action="new">New Post</f:link.action>
 </f:section>

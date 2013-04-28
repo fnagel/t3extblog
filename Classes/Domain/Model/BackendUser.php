@@ -1,0 +1,124 @@
+<?php
+
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2013 Felix Nagel <info@felixnagel.com>
+ *  
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ *
+ *
+ * @package t3extblog
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ */
+class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_AbstractEntity {
+
+	/**
+	 * @var string
+	 */
+	protected $username;
+
+	/**
+	 * @var string
+	 */
+	protected $name;
+
+	/**
+	 * @var string
+	 */
+	protected $email = '';
+
+	/**
+	 * Constructs a new Backend-End User
+	 *
+	 * @api
+	 */
+	public function __construct($username = '') {
+		$this->username = $username;
+	}
+
+	/**
+	 * Sets the username value
+	 *
+	 * @param string $username
+	 * @return void
+	 * @api
+	 */
+	public function setUsername($username) {
+		$this->username = $username;
+	}
+
+	/**
+	 * Returns the username value
+	 *
+	 * @return string
+	 * @api
+	 */
+	public function getUsername() {
+		return $this->username;
+	}
+
+	/**
+	 * Sets the name value
+	 *
+	 * @param string $name
+	 * @return void
+	 * @api
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
+	 * Returns the name value
+	 *
+	 * @return string
+	 * @api
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * Sets the email value
+	 *
+	 * @param string $email
+	 * @return void
+	 * @api
+	 */
+	public function setEmail($email) {
+		$this->email = $email;
+	}
+
+	/**
+	 * Returns the email value
+	 *
+	 * @return string
+	 * @api
+	 */
+	public function getEmail() {
+		return $this->email;
+	}
+
+}
+?>

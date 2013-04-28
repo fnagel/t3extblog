@@ -62,6 +62,19 @@ config.tx_extbase{
 						spam.mapOnProperty = spam
 					}
                 }
+            }                      
+            Tx_T3extblog_Domain_Model_BackendUser {
+                mapping {
+                    tableName = be_users 
+					columns {				
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden						
+						username.mapOnProperty = username
+						realName.mapOnProperty = name
+						email.mapOnProperty = email
+					}
+                }
             }            
     	}
     }
@@ -78,8 +91,9 @@ plugin.tx_t3extblog {
 	settings {
 		paginate {
 			itemsPerPage = 10
-			insertAbove = 0 
-			insertBelow = 0
+			insertAbove = 0
+			insertBelow = 1
+			maximumNumberOfLinks = 10
 		}
 	
 	}

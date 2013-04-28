@@ -149,20 +149,29 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the author
 	 *
-	 * @return string $author
+	 * @return Tx_T3extblog_Domain_Model_BackendUser $author
 	 */
-	public function getAuthor() {
-		return $this->author;
+	public function getAuthor() {	
+		if (intval($this->author)) {
+			return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_BackendUserRepository")->findByUid($this->author);
+		}
+		
+		return NULL;
 	}
 
 	/**
 	 * Sets the author
 	 *
-	 * @param string $author
+	 * @param mixed $author
 	 * @return void
 	 */
 	public function setAuthor($author) {
-		$this->author = $author;
+		if ($author instanceof Tx_T3extblog_Domain_Model_BackendUser) {
+			$this->author = $author->getUid();
+		}	
+		elseif (intval($author)) {
+			$this->author = $author;
+		}
 	}
 
 	/**
