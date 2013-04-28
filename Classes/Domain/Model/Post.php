@@ -224,10 +224,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the tagCloud
 	 *
-	 * @return string $tagCloud
+	 * @return array $tagCloud
 	 */
 	public function getTagCloud() {
-		return $this->tagCloud;
+		return t3lib_div::trimExplode(",", $this->tagCloud, true);
 	}
 
 	/**
@@ -237,7 +237,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function setTagCloud($tagCloud) {
-		$this->tagCloud = $tagCloud;
+		if (is_array($tagCloud)) {
+			$this->tagCloud = implode(", ", $tagCloud);
+		} else {
+			$this->tagCloud = $tagCloud;
+		}		
 	}
 
 	/**
@@ -286,6 +290,20 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getContent() {
 		return $this->content;
+	}
+	
+	/**
+	 * Get id list of content elements
+	 *
+	 * @return string
+	 */
+	public function getContentIdList() {
+		$idList = array();
+		foreach ($this->getContent() as $contentElement) {
+			$idList[] = $contentElement->getUid();
+		}
+		
+		return implode(',', $idList);
 	}
 
 	/**

@@ -12,10 +12,43 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Single View for Post</h1>
 
-<f:flashMessages />
-<f:render partial="Post/Properties" arguments="{post:post}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Post</f:link.action>
+	<f:flashMessages />
+
+	<div class="post">			
+		<h1><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h1>
+		<p class="author">{post.author.name}</p>
+		<span class="date">{post.publishDate -> f:format.date()}</span>
+		
+		<f:if condition="{post.content}">	
+			<div class="content">	
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{post.contentIdList}</f:cObject>
+			</div>
+		</f:if>
+		
+		<f:if condition="{post.tagCloud}">
+			<p class="tags">
+				Tags: 						
+				<f:for each="{post.tagCloud}" as="tag">
+					<span class="tag">{tag}</span>
+				</f:for>
+			</p>
+		</f:if>
+		
+		<div class="comments">
+			<h2>Comments</h2>				
+			<f:if condition="{post.comments}">
+				<f:for each="{post.comments}" as="comment">
+					<div class="comment">
+						{comment.author}
+						<br />
+						{comment.text}
+					</div>
+					<br />
+				</f:for>
+			</f:if>
+		</div>
+	</div>
+
+	<f:link.action action="list">Back to list</f:link.action><br />
 </f:section>

@@ -11,7 +11,30 @@
 				<h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
 				<p class="author">{post.author.name}</p>
 				<span class="date">{post.publishDate -> f:format.date()}</span>
-				<p class="tags">{post.tagCloud}</p>
+				
+				<f:if condition="{post.content}">	
+					<div class="teaser">		
+					<f:for each="{post.content}" as="content" iteration="iterator">						
+						<f:if condition="{iterator.index} < 1">
+							<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+						</f:if>
+					</f:for>
+					</div>
+				</f:if>
+				
+				<f:if condition="{post.comments}">
+					<p class="comments">
+						Comments: <f:count subject="{post.comments}" />
+					</p>
+				</f:if>
+				<f:if condition="{post.tagCloud}">
+					<p class="tags">
+						Tags: 						
+						<f:for each="{post.tagCloud}" as="tag">
+							<span class="tag">{tag}</span>
+						</f:for>
+					</p>
+				</f:if>
 			</div>
 		</f:for>
 	</f:widget.paginate>

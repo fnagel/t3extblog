@@ -98,3 +98,12 @@ plugin.tx_t3extblog {
 	
 	}
 }
+
+# Rendering of content elements
+lib.tx_t3extblog.contentElementRendering = RECORDS
+lib.tx_t3extblog.contentElementRendering {
+	tables = tt_content
+	source.current = 1
+	dontCheckPid = 1
+}
+
