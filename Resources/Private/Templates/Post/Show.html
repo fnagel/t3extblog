@@ -12,9 +12,6 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-
-	<f:flashMessages />
-
 	<div class="post">			
 		<h1><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h1>
 		<p class="author">{post.author.name}</p>
@@ -26,27 +23,43 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			</div>
 		</f:if>
 		
-		<f:if condition="{post.tagCloud}">
-			<p class="tags">
-				Tags: 						
-				<f:for each="{post.tagCloud}" as="tag">
-					<span class="tag">{tag}</span>
-				</f:for>
-			</p>
-		</f:if>
+		<f:render partial="Post/TagCloud" arguments="{post: post}" />
 		
-		<div class="comments">
-			<h2>Comments</h2>				
-			<f:if condition="{post.comments}">
-				<f:for each="{post.comments}" as="comment">
-					<div class="comment">
-						{comment.author}
-						<br />
-						{comment.text}
-					</div>
-					<br />
-				</f:for>
-			</f:if>
+		<div class="comments">	
+			<f:flashMessages />
+
+			<div class="form">
+				<f:if condition="{post.allowComments} == 0">
+					<f:then>
+						<h2>New comment</h2>		
+						<f:render partial="FormErrors" arguments="{object:Comment}"/>
+
+						<f:form controller="Comment" action="create" name="newComment" object="{newComment}" arguments="{post: post}">
+							<f:render partial="Comment/FormFields" />
+							<f:form.submit value="Add comment" />
+						</f:form>
+					</f:then>
+					<f:else>
+						<p>Kommentarfunktion abgeschaltet</p>
+					</f:else>
+				</f:if>
+			</div>
+			<div class="list">
+				<h2><f:count subject="{post.comments}" /> Comments</h2>
+				
+				<f:if condition="{post.comments}">
+					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.comments.paginate}">
+						<f:for each="{paginatedComments}" as="comment">
+							<div class="comment">
+								{comment.author}
+								<br />
+								{comment.text}
+							</div>
+							<br />
+						</f:for>
+					</f:widget.paginate>
+				</f:if>
+			</div>
 		</div>
 	</div>
 

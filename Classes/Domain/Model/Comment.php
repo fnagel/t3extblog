@@ -92,6 +92,22 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	protected $spam = FALSE;
 
 	/**
+	 * postId
+	 *
+	 * @var integer
+	 */
+	protected $postId;
+
+	/**
+	 * __construct
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->date = time();
+	}
+
+	/**
 	 * Returns the title
 	 *
 	 * @return string $title
@@ -259,6 +275,25 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function isSpam() {
 		return $this->getSpam();
+	}
+
+	/**
+	 * Sets the postId
+	 *
+	 * @param integer $postId
+	 * @return void
+	 */
+	public function setPostId($postId) {
+		$this->postId = $postId;
+	}
+
+	/**
+	 * Returns the post id
+	 *
+	 * @return integer
+	 */
+	public function getPostId() {
+		return $this->postId();
 	}
 
 }

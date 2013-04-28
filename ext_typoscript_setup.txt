@@ -52,7 +52,7 @@ config.tx_extbase{
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden						
 						title.mapOnProperty = title
-						fk_post.mapOnProperty = fkPost
+						fk_post.mapOnProperty = postId
 						author.mapOnProperty = author
 						email.mapOnProperty = email
 						website.mapOnProperty = website
@@ -89,13 +89,24 @@ plugin.tx_t3extblog {
 		rewrittenPropertyMapper = 1
 	}
 	settings {
-		paginate {
-			itemsPerPage = 10
-			insertAbove = 0
-			insertBelow = 1
-			maximumNumberOfLinks = 10
+		posts {
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 0
+				insertBelow = 1
+				maximumNumberOfLinks = 100
+			}
 		}
-	
+		comments {
+			approved = 1
+			
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 1
+				insertBelow = 0
+				maximumNumberOfLinks = 100
+			}
+		}
 	}
 }
 

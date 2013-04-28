@@ -60,9 +60,9 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * allowComments
 	 *
-	 * @var boolean
+	 * @var integer
 	 */
-	protected $allowComments = FALSE;
+	protected $allowComments;
 
 	/**
 	 * tagCloud
@@ -196,7 +196,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the allowComments
 	 *
-	 * @return boolean $allowComments
+	 * @return integer $allowComments
 	 */
 	public function getAllowComments() {
 		return $this->allowComments;
@@ -205,7 +205,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Sets the allowComments
 	 *
-	 * @param boolean $allowComments
+	 * @param integer $allowComments
 	 * @return void
 	 */
 	public function setAllowComments($allowComments) {
@@ -354,23 +354,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function setCategory(Tx_Extbase_Persistence_ObjectStorage $category) {
 		$this->category = $category;
 	}
-	
-	/**
-	 * Inits comments
-	 *
-	 * @return void
-	 */
-	protected function initComments() {	
-		if ($this->comments === NULL) {
-			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
-			
-			$comments = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->findByFkPost($this->getUid());
-			foreach($comments as $comment) {
-				$this->comments->attach($comment);
-			}
-		}
-	}		
-	
+		
 	/**
 	 * Adds a Comment
 	 *
@@ -378,8 +362,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->initComments();
-		$this->comments->attach($comment);
+		$comment->setPostId($this->getUid());
+		t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->add($comment);
 	}
 
 	/**
@@ -389,29 +373,17 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
-		$this->initComments();
-		$this->comments->detach($commentToRemove);
+		$commentToRemove->setDeleted(TRUE);
+		t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->update($commentToRemove);
 	}
 
 	/**
 	 * Returns the comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return $comments
 	 */
 	public function getComments() {
-		$this->initComments();
-		
-		return $this->comments;
-	}
-
-	/**
-	 * Sets the comments
-	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
-	 * @return void
-	 */
-	public function setComments(Tx_Extbase_Persistence_ObjectStorage $comments) {
-		$this->comments = $comments;
+		return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->findByFkPost($this->getUid());
 	}
 
 }

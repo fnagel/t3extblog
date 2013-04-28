@@ -37,5 +37,20 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
 	
+	/**
+	 * Finds posts by the specified tag
+	 *
+	 * @param string $tag
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The posts
+	 */
+	public function findByTag($tag) {
+		$query = $this->createQuery();
+				
+		$query->matching(
+			$query->like('tagCloud', '%'. $tag . '%')
+		);
+				
+		return $query->execute();
+	}
 }
 ?>

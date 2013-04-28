@@ -4,7 +4,7 @@
 
 	<f:flashMessages />
 
-	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.paginate}">
+	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.posts.paginate}">
 		<f:debug>{paginatedPosts}</f:debug>
 		<f:for each="{paginatedPosts}" as="post">
 			<div class="post">			
@@ -27,14 +27,8 @@
 						Comments: <f:count subject="{post.comments}" />
 					</p>
 				</f:if>
-				<f:if condition="{post.tagCloud}">
-					<p class="tags">
-						Tags: 						
-						<f:for each="{post.tagCloud}" as="tag">
-							<span class="tag">{tag}</span>
-						</f:for>
-					</p>
-				</f:if>
+
+				<f:render partial="Post/TagCloud" arguments="{post: post}" />
 			</div>
 		</f:for>
 	</f:widget.paginate>

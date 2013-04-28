@@ -31,44 +31,46 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_PostController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_AbstractController {
 
 	/**
 	 * postRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @inject
 	 */
 	protected $postRepository;
-
+	
 	/**
-	 * injectPostRepository
+	 * Displays a list of posts. If $tag is set only posts matching this tag are shown
 	 *
-	 * @param Tx_T3extblog_Domain_Repository_PostRepository $postRepository
+	 * @param string $tag The name of the tag to show the posts for
 	 * @return void
 	 */
-	public function injectPostRepository(Tx_T3extblog_Domain_Repository_PostRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
-
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$posts = $this->postRepository->findAll();
+	public function listAction($tag = NULL) {
+		if (empty($tag)) {
+			$posts = $this->postRepository->findAll();
+		} else {
+			$tag = urldecode($tag);
+			$posts = $this->postRepository->findByTag($tag);
+			$this->view->assign('tag', $tag);
+		}
+		
 		$this->view->assign('posts', $posts);
 	}
 
 	/**
-	 * action show
+	 * Displays one single post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display
+	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
 	 * @return void
+	 * @dontvalidate $newComment
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Post $post) {
+	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
 		$this->view->assign('post', $post);
+		$this->view->assign('newComment', $newComment);
 	}
-
+	
 }
 ?>

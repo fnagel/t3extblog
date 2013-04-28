@@ -31,24 +31,15 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_CommentController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_AbstractController {
 
 	/**
 	 * commentRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @inject
 	 */
 	protected $commentRepository;
-
-	/**
-	 * injectCommentRepository
-	 *
-	 * @param Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository
-	 * @return void
-	 */
-	public function injectCommentRepository(Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository) {
-		$this->commentRepository = $commentRepository;
-	}
 
 	/**
 	 * action list
@@ -59,76 +50,38 @@ class Tx_T3extblog_Controller_CommentController extends Tx_Extbase_MVC_Controlle
 		$comments = $this->commentRepository->findAll();
 		$this->view->assign('comments', $comments);
 	}
-
+	
 	/**
-	 * action show
+	 * Adds a comment to a blog post and redirects to single view
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @todo add spam check
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 * @return void
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->view->assign('comment', $comment);
+	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
+		$newComment->setApproved($this->settings['comments']['approved']);
+		$post->addComment($newComment);
+		
+		$this->addFlashMessage('created');
+		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
 
 	/**
-	 * action new
+	 * Deletes an existing comment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
-	 * @dontvalidate $newComment
+	 * @todo access protection
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
 	 * @return void
 	 */
-	public function newAction(Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
-		if ($newComment == NULL) { // workaround for fluid bug ##5636
-			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
-		}
-		$this->view->assign('newComment', $newComment);
+	public function deleteAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
+		$post->removeComment($comment);
+		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
+		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
-
-	/**
-	 * action create
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
-	 * @return void
-	 */
-	public function createAction(Tx_T3extblog_Domain_Model_Comment $newComment) {
-		$this->commentRepository->add($newComment);
-		$this->flashMessageContainer->add('Your new Comment was created.');
-		$this->redirect('list');
-	}
-
-	/**
-	 * action edit
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @return void
-	 */
-	public function editAction(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->view->assign('comment', $comment);
-	}
-
-	/**
-	 * action update
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @return void
-	 */
-	public function updateAction(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->commentRepository->update($comment);
-		$this->flashMessageContainer->add('Your Comment was updated.');
-		$this->redirect('list');
-	}
-
-	/**
-	 * action delete
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @return void
-	 */
-	public function deleteAction(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->commentRepository->remove($comment);
-		$this->flashMessageContainer->add('Your Comment was removed.');
-		$this->redirect('list');
-	}
-
+	
 }
 ?>
