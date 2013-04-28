@@ -33,5 +33,9 @@
  */
 class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persistence_Repository {
 
+	protected $defaultOrderings = array(
+		'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+	);
+	
 }
 ?>

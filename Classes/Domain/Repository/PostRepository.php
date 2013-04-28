@@ -33,5 +33,9 @@
  */
 class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persistence_Repository {
 
+	protected $defaultOrderings = array(
+		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+	);
+	
 }
 ?>
