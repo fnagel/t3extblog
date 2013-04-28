@@ -99,7 +99,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
 	 * @lazy
 	 */
-	protected $comments;
+	protected $comments = NULL;
 
 	/**
 	 * __construct
@@ -125,8 +125,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 		
 		$this->category = new Tx_Extbase_Persistence_ObjectStorage();
-		
-		$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
 	/**
@@ -329,7 +327,23 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function setCategory(Tx_Extbase_Persistence_ObjectStorage $category) {
 		$this->category = $category;
 	}
-
+	
+	/**
+	 * Inits comments
+	 *
+	 * @return void
+	 */
+	protected function initComments() {	
+		if ($this->comments === NULL) {
+			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
+			
+			$comments = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->findByFkPost($this->getUid());
+			foreach($comments as $comment) {
+				$this->comments->attach($comment);
+			}
+		}
+	}		
+	
 	/**
 	 * Adds a Comment
 	 *
@@ -337,6 +351,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
+		$this->initComments();
 		$this->comments->attach($comment);
 	}
 
@@ -347,6 +362,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
+		$this->initComments();
 		$this->comments->detach($commentToRemove);
 	}
 
@@ -356,6 +372,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
 	 */
 	public function getComments() {
+		$this->initComments();
+		
 		return $this->comments;
 	}
 

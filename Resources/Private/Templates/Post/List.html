@@ -28,18 +28,21 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<th> </th>
 	</tr>
 
-	<f:for each="{posts}" as="post">
-		<tr>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.title}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.author}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.publishDate -> f:format.date()}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.allowComments}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.tagCloud}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{post : post}"> {post.numberOfViews}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{post : post}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{post : post}">Delete</f:link.action></td>
-		</tr>
-	</f:for>
+		<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.paginate}">
+			<f:debug>{paginatedPosts}</f:debug>
+			<f:for each="{paginatedPosts}" as="post">
+				<tr>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.title}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.author}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.publishDate -> f:format.date()}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.allowComments}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.tagCloud}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{post : post}"> {post.numberOfViews}</f:link.action></td>
+					<td><f:link.action action="edit" arguments="{post : post}">Edit</f:link.action></td>
+					<td><f:link.action action="delete" arguments="{post : post}">Delete</f:link.action></td>
+				</tr>
+			</f:for>
+		</f:widget.paginate>
 </table>
 
 <f:link.action action="new">New Post</f:link.action>
