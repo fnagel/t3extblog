@@ -1,0 +1,8 @@
+<f:if condition="{post.categories}">
+	<p class="tags">
+		Categories: 						
+		<f:for each="{post.categories}" as="category">
+			<span class="category"><f:link.action controller="Post" action="list" arguments="{category : '{category}'}">{category.name}</f:link.action></span>
+		</f:for>
+	</p>
+</f:if>

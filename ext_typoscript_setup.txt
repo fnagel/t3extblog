@@ -14,7 +14,7 @@ config.tx_extbase{
 						date.mapOnProperty = publishDate
 						content.mapOnProperty = content
 						allow_comments.mapOnProperty = allowComments
-						cat.mapOnProperty = category
+						cat.mapOnProperty = categories
 						tagClouds.mapOnProperty = tagCloud
 						number_views.mapOnProperty = numberOfViews
 					}
@@ -79,7 +79,7 @@ config.tx_extbase{
     	}
     }
 }
-
+config.no_cache=1
 plugin.tx_t3extblog {
 	persistence {
 		# storagePid = {$plugin.tx_t3extblog.persistence.storagePid}

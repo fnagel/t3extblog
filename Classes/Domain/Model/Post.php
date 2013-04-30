@@ -86,12 +86,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected $content;
 
 	/**
-	 * category
+	 * categories
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category>
 	 * @lazy
 	 */
-	protected $category;
+	protected $categories;
 
 	/**
 	 * comments
@@ -124,7 +124,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		 */
 		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 		
-		$this->category = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
 	/**
@@ -264,23 +264,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
-	 * Adds a Content
+	 * Rise the numberOfViews
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Content $content
 	 * @return void
 	 */
-	public function addContent(Tx_T3extblog_Domain_Model_Content $content) {
-		$this->content->attach($content);
-	}
-
-	/**
-	 * Removes a Content
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Content $contentToRemove The Content to be removed
-	 * @return void
-	 */
-	public function removeContent(Tx_T3extblog_Domain_Model_Content $contentToRemove) {
-		$this->content->detach($contentToRemove);
+	public function riseNumberOfViews() {
+		$this->numberOfViews = $$this->numberOfViews + 1;
 	}
 
 	/**
@@ -307,23 +296,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
-	 * Sets the content
-	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content> $content
-	 * @return void
-	 */
-	public function setContent(Tx_Extbase_Persistence_ObjectStorage $content) {
-		$this->content = $content;
-	}
-
-	/**
 	 * Adds a Category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param Tx_T3extblog_Domain_Model_Category $categories
 	 * @return void
 	 */
 	public function addCategory(Tx_T3extblog_Domain_Model_Category $category) {
-		$this->category->attach($category);
+		$this->categories->attach($category);
 	}
 
 	/**
@@ -333,26 +312,16 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function removeCategory(Tx_T3extblog_Domain_Model_Category $categoryToRemove) {
-		$this->category->detach($categoryToRemove);
+		$this->categories->detach($categoryToRemove);
 	}
 
 	/**
-	 * Returns the category
+	 * Returns the categories
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category> $category
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category> $categories
 	 */
-	public function getCategory() {
-		return $this->category;
-	}
-
-	/**
-	 * Sets the category
-	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category> $category
-	 * @return void
-	 */
-	public function setCategory(Tx_Extbase_Persistence_ObjectStorage $category) {
-		$this->category = $category;
+	public function getCategories() {
+		return $this->categories;
 	}
 		
 	/**

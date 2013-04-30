@@ -45,15 +45,20 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * Displays a list of posts. If $tag is set only posts matching this tag are shown
 	 *
 	 * @param string $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category 
 	 * @return void
 	 */
-	public function listAction($tag = NULL) {
-		if (empty($tag)) {
-			$posts = $this->postRepository->findAll();
-		} else {
+	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+		if (!empty($category)) {
+			$posts = $this->postRepository->findByCategory($category);
+			$this->view->assign('category', $category);
+		} 
+		elseif (!empty($category) && strlen($tag) > 2) {
 			$tag = urldecode($tag);
 			$posts = $this->postRepository->findByTag($tag);
 			$this->view->assign('tag', $tag);
+		} else {
+			$posts = $this->postRepository->findAll();
 		}
 		
 		$this->view->assign('posts', $posts);
@@ -68,6 +73,8 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @dontvalidate $newComment
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+		$post->riseNumberOfViews();
+		
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);
 	}

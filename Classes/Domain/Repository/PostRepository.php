@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -36,7 +36,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	protected $defaultOrderings = array(
 		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
-	
+
 	/**
 	 * Finds posts by the specified tag
 	 *
@@ -45,12 +45,26 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 */
 	public function findByTag($tag) {
 		$query = $this->createQuery();
-				
+
 		$query->matching(
 			$query->like('tagCloud', '%'. $tag . '%')
 		);
-				
+
 		return $query->execute();
 	}
+
+	/**
+	 * Returns all objects of this repository with matching category
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @return Tx_Extbase_Persistence_QueryResult
+	 */
+	public function findByCategory(Tx_T3extblog_Domain_Model_Category $category) {
+		$query = $this->createQuery();
+		$query->matching($query->contains('categories', $category));
+		$result = $query->execute();
+		return $result;
+	}
+
 }
 ?>

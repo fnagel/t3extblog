@@ -1,17 +1,7 @@
 <f:layout name="Default" />
 
-This Template is responsible for displaying a single view for a domain object
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Show.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
+	<f:debug>{post}</f:debug>
 	<div class="post">			
 		<h1><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h1>
 		<p class="author">{post.author.name}</p>
@@ -24,6 +14,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:if>
 		
 		<f:render partial="Post/TagCloud" arguments="{post: post}" />
+		<f:render partial="Post/Categories" arguments="{post: post}" />
 		
 		<div class="comments">	
 			<f:flashMessages />

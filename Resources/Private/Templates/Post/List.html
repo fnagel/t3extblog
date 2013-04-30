@@ -3,7 +3,14 @@
 <f:section name="main">
 
 	<f:flashMessages />
-
+	
+	<f:if condition="{category}">	
+		Filtered by: {category.name}
+	</f:if>
+	<f:if condition="{tag}">	
+		Filtered by: {tag}
+	</f:if>
+	
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.posts.paginate}">
 		<f:debug>{paginatedPosts}</f:debug>
 		<f:for each="{paginatedPosts}" as="post">
@@ -11,6 +18,7 @@
 				<h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
 				<p class="author">{post.author.name}</p>
 				<span class="date">{post.publishDate -> f:format.date()}</span>
+				<f:render partial="Post/Categories" arguments="{post: post}" />
 				
 				<f:if condition="{post.content}">	
 					<div class="teaser">		
