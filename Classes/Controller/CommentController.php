@@ -60,11 +60,16 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 * @return void
 	 */
-	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
-		$newComment->setApproved($this->settings['comments']['approved']);
-		$post->addComment($newComment);
-		
-		$this->addFlashMessage('created');
+	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {		
+		if ($post->getAllowComments === 0) {
+			$newComment->setApproved($this->settings['comments']['approved']);
+			$post->addComment($newComment);
+			
+			$this->addFlashMessage('created');
+		} else {
+			$this->addFlashMessage('notAllowed');
+		}	
+	
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
 
