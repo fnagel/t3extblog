@@ -329,5 +329,121 @@ class Tx_T3extblog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestC
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getSubscriptionsReturnsInitialValueForObjectStorageContainingTx_T3extblog_Domain_Model_Subscriber() { 
+		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getSubscriptions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setSubscriptionsForObjectStorageContainingTx_T3extblog_Domain_Model_SubscriberSetsSubscriptions() { 
+		$subscription = new Tx_T3extblog_Domain_Model_Subscriber();
+		$objectStorageHoldingExactlyOneSubscriptions = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneSubscriptions->attach($subscription);
+		$this->fixture->setSubscriptions($objectStorageHoldingExactlyOneSubscriptions);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneSubscriptions,
+			$this->fixture->getSubscriptions()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addSubscriptionToObjectStorageHoldingSubscriptions() {
+		$subscription = new Tx_T3extblog_Domain_Model_Subscriber();
+		$objectStorageHoldingExactlyOneSubscription = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneSubscription->attach($subscription);
+		$this->fixture->addSubscription($subscription);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneSubscription,
+			$this->fixture->getSubscriptions()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeSubscriptionFromObjectStorageHoldingSubscriptions() {
+		$subscription = new Tx_T3extblog_Domain_Model_Subscriber();
+		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$localObjectStorage->attach($subscription);
+		$localObjectStorage->detach($subscription);
+		$this->fixture->addSubscription($subscription);
+		$this->fixture->removeSubscription($subscription);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getSubscriptions()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getTrackbacksReturnsInitialValueForObjectStorageContaining() { 
+		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getTrackbacks()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setTrackbacksForObjectStorageContainingSetsTrackbacks() { 
+		$trackback = new ();
+		$objectStorageHoldingExactlyOneTrackbacks = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneTrackbacks->attach($trackback);
+		$this->fixture->setTrackbacks($objectStorageHoldingExactlyOneTrackbacks);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneTrackbacks,
+			$this->fixture->getTrackbacks()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function addTrackbackToObjectStorageHoldingTrackbacks() {
+		$trackback = new ();
+		$objectStorageHoldingExactlyOneTrackback = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneTrackback->attach($trackback);
+		$this->fixture->addTrackback($trackback);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneTrackback,
+			$this->fixture->getTrackbacks()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeTrackbackFromObjectStorageHoldingTrackbacks() {
+		$trackback = new ();
+		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$localObjectStorage->attach($trackback);
+		$localObjectStorage->detach($trackback);
+		$this->fixture->addTrackback($trackback);
+		$this->fixture->removeTrackback($trackback);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getTrackbacks()
+		);
+	}
+	
 }
 ?>

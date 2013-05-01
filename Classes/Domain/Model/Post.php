@@ -102,6 +102,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected $comments = NULL;
 
 	/**
+	 * subscriptions
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber>
+	 * @lazy
+	 */
+	protected $subscriptions;
 	 * __construct
 	 *
 	 * @return void
@@ -118,6 +124,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected function initStorageObjects() {
 		$this->content = new Tx_Extbase_Persistence_ObjectStorage();		
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
 	/**
@@ -369,5 +376,44 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		return $this->comments;
 	}
 
+
+	/**
+	 * Adds a Subscriber
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscription
+	 * @return void
+	 */
+	public function addSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscription) {
+		$this->subscriptions->attach($subscription);
+	}
+
+	/**
+	 * Removes a Subscriber
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove The Subscriber to be removed
+	 * @return void
+	 */
+	public function removeSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove) {
+		$this->subscriptions->detach($subscriptionToRemove);
+	}
+
+	/**
+	 * Returns the subscriptions
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 */
+	public function getSubscriptions() {
+		return $this->subscriptions;
+	}
+
+	/**
+	 * Sets the subscriptions
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 * @return void
+	 */
+	public function setSubscriptions(Tx_Extbase_Persistence_ObjectStorage $subscriptions) {
+		$this->subscriptions = $subscriptions;
+	}
 }
 ?>

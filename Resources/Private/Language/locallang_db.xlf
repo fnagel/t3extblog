@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-04-04T23:40:04Z" product-name="t3extblog">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-05-32T03:03:32Z" product-name="t3extblog">
 		<header/>
 		<body>
 
@@ -33,6 +33,12 @@
 			</trans-unit>
 			<trans-unit id="tx_t3extblog_domain_model_post.comments">
 				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_post.subscriptions">
+				<source>Subscriptions</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_post.trackbacks">
+				<source>Trackbacks</source>
 			</trans-unit>
 			
 			<trans-unit id="tx_t3blog_post.tx_extbase_type.Tx_T3extblog_Post">
@@ -94,6 +100,29 @@
 			
 			<trans-unit id="tx_t3blog_com.tx_extbase_type.Tx_T3extblog_Comment">
 				<source>T3Blog Extbase Comment</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3extblog_domain_model_subscriber">
+				<source>Subscriber</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_subscriber.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_subscriber.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_subscriber.post_uid">
+				<source>Post Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_subscriber.last_sent">
+				<source>Last Sent</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_subscriber.code">
+				<source>Code</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3blog_com_nl.tx_extbase_type.Tx_T3extblog_Subscriber">
+				<source>T3Blog Extbase Subscriber</source>
 			</trans-unit>
 			
 		</body>

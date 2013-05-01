@@ -75,7 +75,21 @@ config.tx_extbase{
 						email.mapOnProperty = email
 					}
                 }
-            }            
+            }   
+			Tx_T3extblog_Domain_Model_Subscriber {
+                mapping {
+                    tableName = tx_t3blog_com_nl
+                    recordType = Tx_T3extblog_Subscriber	
+					columns {				
+						# tstamp.mapOnProperty = tstamp
+						# deleted.mapOnProperty = deleted
+						# hidden.mapOnProperty = hidden						
+						# username.mapOnProperty = username
+						# realName.mapOnProperty = name
+						# email.mapOnProperty = email
+					}
+                }
+            }   
     	}
     }
 }

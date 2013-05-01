@@ -1,21 +1,25 @@
 <f:layout name="Default" />
 
-This Template is responsible for displaying a single view for a domain object
+This template displays a NEW form for the current domain object.
 
 If you modify this template, do not forget to change the overwrite settings
 in /Configuration/ExtensionBuilder/settings.yaml:
   Resources:
     Private:
       Templates:
-        Show.html: keep
+        New.html: keep
 
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Single View for Post</h1>
+<h1>New Subscriber</h1>
 
 <f:flashMessages />
-<f:render partial="Post/Properties" arguments="{post:post}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Post</f:link.action>
+
+<f:render partial="FormErrors" arguments="{object:Subscriber}"/>
+
+<f:form action="create"  name="newSubscriber" object="{newSubscriber}">
+<f:render partial="Subscriber/FormFields" />
+	<f:form.submit value="Create new" />
+</f:form>
 </f:section>

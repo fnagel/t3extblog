@@ -2,23 +2,31 @@
 	<f:translate key="tx_t3extblog_domain_model_comment.title" />
 </label><br />
 	<f:form.textfield property="title" /><br />
-	
 <label for="author">
 	<f:translate key="tx_t3extblog_domain_model_comment.author" />
 </label><br />
 	<f:form.textfield property="author" /><br />
-	
 <label for="email">
 	<f:translate key="tx_t3extblog_domain_model_comment.email" /> <span class="required">(required)</span>
 </label><br />
 	<f:form.textfield property="email" /><br />
-	
 <label for="website">
 	<f:translate key="tx_t3extblog_domain_model_comment.website" />
 </label><br />
 	<f:form.textfield property="website" /><br />
-	
+<label for="date">
+	<f:translate key="tx_t3extblog_domain_model_comment.date" />
+</label><br />
+	<f:form.textfield property="date"  value="{comment.date->f:format.date()}" /><br />
 <label for="text">
 	<f:translate key="tx_t3extblog_domain_model_comment.text" /> <span class="required">(required)</span>
 </label><br />
 	<f:form.textarea property="text" cols="40" rows="15" /><br />
+<label for="approved">
+	<f:translate key="tx_t3extblog_domain_model_comment.approved" />
+</label><br />
+	<f:form.checkbox property="approved" value="1" /><br />
+<label for="spam">
+	<f:translate key="tx_t3extblog_domain_model_comment.spam" />
+</label><br />
+	<f:form.checkbox property="spam" value="1" /><br />
