@@ -107,7 +107,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function __construct() {
-		//Do not remove the next line: It would break the functionality
 		$this->initStorageObjects();
 	}
 
@@ -117,13 +116,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */
-		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
-		
+		$this->content = new Tx_Extbase_Persistence_ObjectStorage();		
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
@@ -325,14 +318,31 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 		
 	/**
+	 * Inits comments
+	 *
+	 * mapping does not work as relation is not bidirectional, using a repository instead
+	 * and: its currently not possible to iterate via pagiante widget through storage objects
+	 *
+	 * @return void
+	 */
+	private function initComments() {	
+		if ($this->comments == NULL) {
+			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");			
+			$this->comments = $this->commentRepository->findByFkPost($this->getUid());
+		}
+	}
+
+	/**
 	 * Adds a Comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return void
 	 */
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
+		$this->initComments();
+		
 		$comment->setPostId($this->getUid());
-		t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->add($comment);
+		$this->commentRepository->add($comment);
 	}
 
 	/**
@@ -342,8 +352,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
+		$this->initComments();
+		
 		$commentToRemove->setDeleted(TRUE);
-		t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->update($commentToRemove);
+		$this->commentRepository->update($commentToRemove);
 	}
 
 	/**
@@ -352,7 +364,9 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return $comments
 	 */
 	public function getComments() {
-		return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository")->findByFkPost($this->getUid());
+		$this->initComments();
+		
+		return $this->comments;
 	}
 
 }

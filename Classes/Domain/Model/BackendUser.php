@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -51,20 +51,8 @@ class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_Abst
 	/**
 	 * Constructs a new Backend-End User
 	 *
-	 * @api
 	 */
 	public function __construct($username = '') {
-		$this->username = $username;
-	}
-
-	/**
-	 * Sets the username value
-	 *
-	 * @param string $username
-	 * @return void
-	 * @api
-	 */
-	public function setUsername($username) {
 		$this->username = $username;
 	}
 
@@ -72,49 +60,24 @@ class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_Abst
 	 * Returns the username value
 	 *
 	 * @return string
-	 * @api
 	 */
 	public function getUsername() {
 		return $this->username;
 	}
 
 	/**
-	 * Sets the name value
-	 *
-	 * @param string $name
-	 * @return void
-	 * @api
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
 	 * Returns the name value
 	 *
 	 * @return string
-	 * @api
 	 */
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
-	 * Sets the email value
-	 *
-	 * @param string $email
-	 * @return void
-	 * @api
-	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
-
-	/**
 	 * Returns the email value
 	 *
 	 * @return string
-	 * @api
 	 */
 	public function getEmail() {
 		return $this->email;

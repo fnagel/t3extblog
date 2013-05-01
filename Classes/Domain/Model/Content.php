@@ -162,26 +162,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $crdate
-	 * @return void
-	 */
-	public function setCrdate($crdate) {
-		$this->crdate = $crdate;
-	}
-
-	/**
 	 * @return DateTime
 	 */
 	public function getTstamp() {
 		return $this->tstamp;
-	}
-
-	/**
-	 * @param $tstamp
-	 * @return void
-	 */
-	public function setTstamp($tstamp) {
-		$this->tstamp = $tstamp;
 	}
 
 	/**
@@ -192,26 +176,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $ctype
-	 * @return void
-	 */
-	public function setCType($ctype) {
-		$this->CType = $ctype;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getHeader() {
 		return $this->header;
-	}
-
-	/**
-	 * @param $header
-	 * @return void
-	 */
-	public function setHeader($header) {
-		$this->header = $header;
 	}
 
 	/**
@@ -222,26 +190,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $headerPosition
-	 * @return void
-	 */
-	public function setHeaderPosition($headerPosition) {
-		$this->headerPosition = $headerPosition;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getBodytext() {
 		return $this->bodytext;
-	}
-
-	/**
-	 * @param $bodytext
-	 * @return void
-	 */
-	public function setBodytext($bodytext) {
-		$this->bodytext = $bodytext;
 	}
 
 	/**
@@ -254,28 +206,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * Set colpos
-	 *
-	 * @param integer $colPos
-	 * @return void
-	 */
-	public function setColPos($colPos) {
-		$this->colPos = $colPos;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getImage() {
 		return $this->image;
-	}
-
-	/**
-	 * @param $image
-	 * @return void
-	 */
-	public function setImage($image) {
-		$this->image = $image;
 	}
 
 	/**
@@ -286,26 +220,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $imagewidth
-	 * @return void
-	 */
-	public function setImagewidth($imagewidth) {
-		$this->imagewidth = $imagewidth;
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getImageorient() {
 		return $this->imageorient;
-	}
-
-	/**
-	 * @param $imageorient
-	 * @return void
-	 */
-	public function setImageorient($imageorient) {
-		$this->imageorient = $imageorient;
 	}
 
 	/**
@@ -314,28 +232,12 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	public function getImagecaption() {
 		return $this->imagecaption;
 	}
-
-	/**
-	 * @param $imagecaption
-	 * @return void
-	 */
-	public function setImagecaption($imagecaption) {
-		$this->imagecaption = $imagecaption;
-	}
-
+	
 	/**
 	 * @return int
 	 */
 	public function getImagecols() {
 		return $this->imagecols;
-	}
-
-	/**
-	 * @param $imagecols
-	 * @return void
-	 */
-	public function setImagecols($imagecols) {
-		$this->imagecols = $imagecols;
 	}
 
 	/**
@@ -346,26 +248,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $imageborder
-	 * @return void
-	 */
-	public function setImageborder($imageborder) {
-		$this->imageborder = $imageborder;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getMedia() {
 		return $this->media;
-	}
-
-	/**
-	 * @param $media
-	 * @return void
-	 */
-	public function setMedia($media) {
-		$this->media = $media;
 	}
 
 	/**
@@ -376,26 +262,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $layout
-	 * @return void
-	 */
-	public function setLayout($layout) {
-		$this->layout = $layout;
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getCols() {
 		return $this->cols;
-	}
-
-	/**
-	 * @param $cols
-	 * @return void
-	 */
-	public function setCols($cols) {
-		$this->cols = $cols;
 	}
 
 	/**
@@ -406,26 +276,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $subheader
-	 * @return void
-	 */
-	public function setSubheader($subheader) {
-		$this->subheader = $subheader;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getHeaderLink() {
 		return $this->headerLink;
-	}
-
-	/**
-	 * @param $headerLink
-	 * @return void
-	 */
-	public function setHeaderLink($headerLink) {
-		$this->headerLink = $headerLink;
 	}
 
 	/**
@@ -436,26 +290,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $imageLink
-	 * @return void
-	 */
-	public function setImageLink($imageLink) {
-		$this->imageLink = $imageLink;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getImageZoom() {
 		return $this->imageZoom;
-	}
-
-	/**
-	 * @param $imageZoom
-	 * @return void
-	 */
-	public function setImageZoom($imageZoom) {
-		$this->imageZoom = $imageZoom;
 	}
 
 	/**
@@ -466,26 +304,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $altText
-	 * @return void
-	 */
-	public function setAltText($altText) {
-		$this->altText = $altText;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getTitleText() {
 		return $this->titleText;
-	}
-
-	/**
-	 * @param $titleText
-	 * @return void
-	 */
-	public function setTitleText($titleText) {
-		$this->titleText = $titleText;
 	}
 
 	/**
@@ -496,26 +318,10 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
-	 * @param $headerLayout
-	 * @return void
-	 */
-	public function setHeaderLayout($headerLayout) {
-		$this->headerLayout = $headerLayout;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getListType() {
 		return $this->listType;
-	}
-
-	/**
-	 * @param $listType
-	 * @return void
-	 */
-	public function setListType($listType) {
-		$this->listType = $listType;
 	}
 
 }
