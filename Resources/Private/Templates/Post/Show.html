@@ -41,12 +41,7 @@
 				<f:if condition="{post.comments}">
 					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.comments.paginate}">
 						<f:for each="{paginatedComments}" as="comment">
-							<div class="comment">
-								{comment.author}
-								<br />
-								{comment.text}
-							</div>
-							<br />
+							<f:render partial="Comment/Show" arguments="{comment: comment}" />
 						</f:for>
 					</f:widget.paginate>
 				</f:if>

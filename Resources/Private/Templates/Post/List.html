@@ -32,7 +32,9 @@
 				
 				<f:if condition="{post.comments}">
 					<p class="comments">
-						Comments: <f:count subject="{post.comments}" />
+						<f:link.action controller="Post" action="show" arguments="{post : post}">
+							Comments: <f:count subject="{post.comments}" />
+						</f:link.action>
 					</p>
 				</f:if>
 

@@ -1,0 +1,11 @@
+<div class="comment">
+	<strong>{comment.author}</strong>
+	<f:if condition="{comment.title}">
+		<p>{comment.title}</p>
+	</f:if>
+	<f:if condition="{comment.website}">
+		<p><a href="{comment.website}">{comment.website}</a></p>
+	</f:if>
+	<p><f:format.html>{comment.text}</f:format.html></p>
+</div>
+<br />
