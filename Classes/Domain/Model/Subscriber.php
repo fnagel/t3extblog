@@ -121,6 +121,15 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	}
 
 	/**
+	 * Returns the post
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post $post
+	 */
+	public function getPost() {
+		return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByUid($this->postUid);
+	}
+
+	/**
 	 * Sets the postUid
 	 *
 	 * @param integer $postUid
@@ -133,7 +142,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Returns the lastSent
 	 *
-	 * @return integer $lastSent
+	 * @return DateTime $lastSent
 	 */
 	public function getLastSent() {
 		return $this->lastSent;
@@ -142,7 +151,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Sets the lastSent
 	 *
-	 * @param integer $lastSent
+	 * @param DateTime $lastSent
 	 * @return void
 	 */
 	public function setLastSent($lastSent) {

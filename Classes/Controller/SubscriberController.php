@@ -31,78 +31,112 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_SubscriberController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controller_AbstractController {
 
 	/**
 	 * subscriberRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_SubscriberRepository
+	 * @inject
 	 */
 	protected $subscriberRepository;
 
 	/**
-	 * injectSubscriberRepository
+	 * postRepository
 	 *
-	 * @param Tx_T3extblog_Domain_Repository_SubscriberRepository $subscriberRepository
+	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @inject
+	 */
+	protected $postRepository;
+	
+	/**
+	 * feuserService
+	 *
+	 * @var Tx_T3extblog_Service_FrontendUserService
+	 * @inject
+	 */
+	protected $feuserService;
+	
+	
+	/**
+	 * Init actions
+	 *
 	 * @return void
 	 */
-	public function injectSubscriberRepository(Tx_T3extblog_Domain_Repository_SubscriberRepository $subscriberRepository) {
-		$this->subscriberRepository = $subscriberRepository;
+	public function initializeAction() {
 	}
-
+	
 	/**
-	 * action list
+	 * Displays a list of all posts a user subscibed to
 	 *
 	 * @return void
 	 */
 	public function listAction() {
-		$subscribers = $this->subscriberRepository->findAll();
+		$this->checkAuth();
+		
+		$email = $this->feuserService->getEmail();		
+		$subscribers = $this->subscriberRepository->findByEmail($email);
+		
+		$this->view->assign('email', $email);
 		$this->view->assign('subscribers', $subscribers);
 	}
 
 	/**
-	 * action new
+	 * Checks if auth needed
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $newSubscriber
-	 * @dontvalidate $newSubscriber
 	 * @return void
 	 */
-	public function newAction(Tx_T3extblog_Domain_Model_Subscriber $newSubscriber = NULL) {
-		$this->view->assign('newSubscriber', $newSubscriber);
+	private function checkAuth() {	
+		if ($this->feuserService->hasAuth()) {
+			return;		
+		}	
+	
+		if (!$this->request->hasArgument("email") || !$this->request->hasArgument("code")) {		
+			$this->addFlashMessage('authNeeded');
+			$this->redirect("error");
+		}
+		
+		$email = $this->request->getArgument("email");
+		$code = $this->request->getArgument("code");
+		$this->requestAuth($email, $code);
+	}
+	
+	/**
+	 * Checks the given email and code, auth user if valid
+	 *
+	 * @param string $email The email address used for subscription
+	 * @param string $code The hash code to be verified 
+	 * @return void
+	 */
+	private function requestAuth($email, $code) {	
+		// check parameter
+		if (strlen($email) < 7 && strlen($code) < 32) {			
+			$this->addFlashMessage('wrongLink');
+			$this->redirect("error");
+		}
+	
+		// check code
+		$subscriber = $this->subscriberRepository->findOneByCode($code);
+		if ($subscriber === NULL || $subscriber->getEmail() !== $email) {
+			$this->addFlashMessage('authFailed');
+			$this->redirect("error");
+		}
+		// todo add working timstamp check
+		// if ($subscriber->getLastSent() + intval($this->settings['subscriber']['emailHashTimeout']) > time()) {
+			// $this->addFlashMessage('linkOutdated');
+			// $this->redirect("error");
+		// }
+		
+		$this->feuserService->authValid();
+		$this->feuserService->setEmail($email);
 	}
 
 	/**
-	 * action create
+	 * Error action
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $newSubscriber
 	 * @return void
 	 */
-	public function createAction(Tx_T3extblog_Domain_Model_Subscriber $newSubscriber) {
-		$this->subscriberRepository->add($newSubscriber);
-		$this->flashMessageContainer->add('Your new Subscriber was created.');
-		$this->redirect('list');
-	}
-
-	/**
-	 * action edit
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
-	 * @return void
-	 */
-	public function editAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
-		$this->view->assign('subscriber', $subscriber);
-	}
-
-	/**
-	 * action update
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
-	 * @return void
-	 */
-	public function updateAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
-		$this->subscriberRepository->update($subscriber);
-		$this->flashMessageContainer->add('Your Subscriber was updated.');
-		$this->redirect('list');
+	public function errorAction() {
 	}
 
 	/**
@@ -112,8 +146,10 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_Extbase_MVC_Contro
 	 * @return void
 	 */
 	public function deleteAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+		$this->checkAuth();
+		
 		$this->subscriberRepository->remove($subscriber);
-		$this->flashMessageContainer->add('Your Subscriber was removed.');
+		$this->addFlashMessage('removed');
 		$this->redirect('list');
 	}
 

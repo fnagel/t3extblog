@@ -9,17 +9,25 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array(
 		'Post' => 'list, show',
 		'Category' => 'list, show',
-		'Comment' => 'list, show, new, create, edit, update, delete',
-		'Subscriber' => 'list, new, create, edit, update, delete',
-		
+		'Comment' => 'list, show, new, create, edit, update, delete',		
 	),
 	// non-cacheable actions
 	array(
 		'Post' => '',
 		'Category' => '',
-		'Comment' => 'create, update, delete',
-		'Subscriber' => 'create, update, delete',
-		
+		'Comment' => 'create, update, delete',		
+	)
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'SubscriptionManager',
+	array(
+		'Subscriber' => 'list, delete, error',		
+	),
+	// non-cacheable actions
+	array(
+		'Subscriber' => 'list, delete, error',		
 	)
 );
 

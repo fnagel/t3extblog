@@ -1,0 +1,9 @@
+TS = dateTime
+
+rename subscriber to subscription
+
+INFO::::::::::::::
+Tx_Extbase_Utility_Debugger::var_dump($test);
+
+subscriber
+subscription
