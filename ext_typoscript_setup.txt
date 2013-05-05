@@ -106,6 +106,12 @@ plugin.tx_t3extblog {
 	}
 	settings {
 		posts {
+			viewCount {
+				#views: Amount of seconds which have to pass by until an returning visitor is recounted. Very cool: if you want to have counted each view just put a negative number.
+				timePeriod = 10000
+				BEUsers = 1
+			}
+			
 			paginate {
 				itemsPerPage = 10
 				insertAbove = 0
@@ -115,6 +121,16 @@ plugin.tx_t3extblog {
 		}
 		comments {
 			approved = 1
+			subscribeForComments = 1
+			splitLongWords = 1
+			
+			notifications {
+				senderEmail = 
+				admin {
+					approved = 1
+					email = 
+				}
+			}			
 			
 			paginate {
 				itemsPerPage = 10
@@ -122,6 +138,27 @@ plugin.tx_t3extblog {
 				insertBelow = 0
 				maximumNumberOfLinks = 100
 			}
+		}
+		
+		# check all news
+		
+		categories {
+		
+		}
+		latestPosts {
+		
+		}
+		latestComments {
+		
+		}
+		archive {
+		
+		}
+		archive {
+		
+		}
+		archive {
+		
 		}
 	}
 }
