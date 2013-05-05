@@ -42,7 +42,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	protected $postRepository;
 	
 	/**
-	 * Displays a list of posts. If $tag is set only posts matching this tag are shown
+	 * Displays a list of posts.
 	 *
 	 * @param string $tag The name of the tag to show the posts for
 	 * @param Tx_T3extblog_Domain_Model_Category $category 
@@ -53,11 +53,12 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
 		} 
-		elseif (!empty($category) && strlen($tag) > 2) {
+		elseif (strlen($tag) > 2) {
 			$tag = urldecode($tag);
 			$posts = $this->postRepository->findByTag($tag);
 			$this->view->assign('tag', $tag);
-		} else {
+		} 
+		else {
 			$posts = $this->postRepository->findAll();
 		}
 		
