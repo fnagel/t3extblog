@@ -1,9 +1,44 @@
+TODO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 TS = dateTime
 
 rename subscriber to subscription
 
-INFO::::::::::::::
+SubscriptionController
+	TS check
+
+
+
+INFO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Tx_Extbase_Utility_Debugger::var_dump($test);
 
 subscriber
 subscription
+
+
+
+
+
+PLANUNG:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+		
+Subscription Service
+	Service anlegen
+	Mail bei neiem Kommentar
+	Mail beim freischalten
+
+	
+Trackback / Pingback einbauen	
+	
+BE Verwaltung
+	Deaktivieren der t3blog Module
+	Hooks 
+		Auf Posts für Freischalten von Kommentaren
+		Auf Kommentare, beim Hinzufügen
+	
+	Eigene Module für
+		Posts
+		Kommentare
+		Trackbacks
+		Pingbacks
+	
+besseren SPAM schutz einbauen (EXT:wt_spamshield)
