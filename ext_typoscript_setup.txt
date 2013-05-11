@@ -104,11 +104,11 @@ plugin.tx_t3extblog {
 		rewrittenPropertyMapper = 1
 	}
 	settings {
-		posts {
+		posts {	
 			viewCount {
-				#views: Amount of seconds which have to pass by until an returning visitor is recounted. Very cool: if you want to have counted each view just put a negative number.
+				#views: Amount of seconds which have to pass by until an returning visitor is recounted. If you want to have counted each view just put a negative number.
 				timePeriod = 10000
-				BEUsers = 1
+				countBackendUsers = 1
 			}
 			
 			paginate {
@@ -119,15 +119,57 @@ plugin.tx_t3extblog {
 			}
 		}
 		comments {
-			approved = 1
+			allowed = 1
+			allowedUntil = 172800
+				
+			approvedByDefault = 1
+			
 			subscribeForComments = 1
+			
 			splitLongWords = 1
 			
+			spam {
+				honeypot {
+					enable = 1
+					block = 0
+				}
+				timestamp {
+					minimum = 10
+					enable = 1
+					block = 0
+				}
+				cookie {
+					enable = 1
+					block = 0
+				}
+				sfpantispam {
+					enable = 1
+					block = 0
+				}
+			}
+			
 			notifications {
-				senderEmail = 
 				admin {
-					approved = 1
-					email = 
+					enable = 1
+					to {
+						email =
+						name = 
+					}
+					from {
+						email =
+						name = 
+					}
+				}				
+				subscriber {
+					enable = 1
+					to {
+						email =
+						name = 
+					}
+					from {
+						email =
+						name = 
+					}					
 				}
 			}			
 			
