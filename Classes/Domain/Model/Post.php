@@ -108,6 +108,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @lazy
 	 */
 	protected $subscriptions;
+	
+	/**
 	 * __construct
 	 *
 	 * @return void
