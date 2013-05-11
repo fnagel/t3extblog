@@ -44,25 +44,49 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * action list
 	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
 	 * @return void
 	 */
-	public function listAction() {
-		$comments = $this->commentRepository->findAll();
+	public function listAction(Tx_T3extblog_Domain_Model_Post $post) {
+		$comments = $this->commentRepository->findByFkPost($post->getUid());
+		
 		$this->view->assign('comments', $comments);
+		$this->view->assign('post', $post);
+	}
+	
+	
+	/**
+	 * action new
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
+	 * @dontvalidate $newComment
+	 * @return void
+	 */
+	public function newAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+		if ($newComment == NULL) { // workaround for fluid bug ##5636
+			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
+		}
+		
+		$this->view->assign('newComment', $newComment);
+		$this->view->assign('post', $post);
 	}
 	
 	/**
 	 * Adds a comment to a blog post and redirects to single view
 	 *
 	 * @todo add spam check
+	 * @todo add allowedUnil check
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 * @return void
 	 */
 	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {		
-		if ($post->getAllowComments === 0) {
-			$newComment->setApproved($this->settings['comments']['approved']);
+		if ($this->settings['comments']['allowed'] && $post->getAllowComments === 0) {
+			// $this->checkForSpam($newComment);
+			
+			$newComment->setApproved($this->settings['comments']['approvedByDefault']);
 			$post->addComment($newComment);
 			
 			$this->addFlashMessage('created');
@@ -71,6 +95,36 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		}	
 	
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
+	}
+	
+	/**
+	 * action edit
+	 *
+	 * @todo access protection
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @return void
+	 */
+	public function editAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
+		$this->view->assign('comment', $comment);
+		$this->view->assign('post', $post);
+	}
+
+	/**
+	 * action update
+	 *
+	 * @todo access protection
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @return void
+	 */
+	public function updateAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
+		$this->commentRepository->update($comment);
+		$this->addFlashMessage->add('Your Comment was updated.');
+		
+		$this->redirect('list', NULL, NULL, array('post' => $post));
 	}
 
 	/**
@@ -85,6 +139,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	public function deleteAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$post->removeComment($comment);
 		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
+		
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
 	

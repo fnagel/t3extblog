@@ -1,0 +1,18 @@
+<f:if condition="{settings.comments.allowed}">
+	<div class="form" id="comment-form">	
+		<f:if condition="{post.allowComments} == 0">
+			<f:then>
+				<h2>New comment</h2>		
+				<f:render partial="FormErrors" arguments="{object:Comment}"/>
+
+				<f:form controller="Comment" action="create" name="newComment" object="{newComment}" arguments="{post: post}">
+					<f:render partial="Comment/FormFields" />
+					<f:form.submit value="Add comment" />
+				</f:form>
+			</f:then>
+			<f:else>
+				<p>Comments are disabled for this post.</p>
+			</f:else>
+		</f:if>
+	</div>
+</f:if>
