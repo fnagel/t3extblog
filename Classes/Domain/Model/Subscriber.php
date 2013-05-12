@@ -60,7 +60,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * lastSent
 	 *
-	 * @var integer
+	 * @var DateTime
 	 * @validate NotEmpty
 	 */
 	protected $lastSent;
