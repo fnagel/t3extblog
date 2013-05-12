@@ -120,31 +120,35 @@ plugin.tx_t3extblog {
 		}
 		comments {
 			allowed = 1
-			allowedUntil = 172800
 				
 			approvedByDefault = 1
 			
 			subscribeForComments = 1
 			
 			splitLongWords = 1
-			
+						
 			spam {
+				redirect {
+					pid = 292
+					arguments {
+					}
+				}
+			
 				honeypot {
 					enable = 1
-					block = 0
+					redirect = 0
 				}
-				timestamp {
-					minimum = 10
+				userAgent {
 					enable = 1
-					block = 0
+					redirect = 0
 				}
 				cookie {
 					enable = 1
-					block = 0
+					redirect = 0
 				}
 				sfpantispam {
 					enable = 1
-					block = 0
+					redirect = 0
 				}
 			}
 			
