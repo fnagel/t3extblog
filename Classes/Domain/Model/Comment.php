@@ -34,6 +34,16 @@
 class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
+	 * @var boolean
+	 */
+	protected $hidden;
+
+	/**
+	 * @var boolean
+	 */
+	protected $deleted;
+
+	/**
 	 * title
 	 *
 	 * @var string
@@ -52,6 +62,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 *
 	 * @var string
 	 * @validate NotEmpty
+	 * @validate EmailAddress
 	 */
 	protected $email;
 
@@ -104,7 +115,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function __construct() {
-		$this->date = time();
+		$this->date = new DateTime();
 	}
 
 	/**
@@ -278,6 +289,15 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
+	 * Mark comment as spam
+	 *
+	 * @return boolean
+	 */
+	public function markAsSpam() {
+		$this->spam = TRUE;
+	}
+
+	/**
 	 * Sets the postId
 	 *
 	 * @param integer $postId
@@ -294,6 +314,15 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getPostId() {
 		return $this->postId();
+	}
+
+	/**
+	 * If the comment is shown in frontend
+	 *
+	 * @return boolean
+	 */
+	public function isShown() {
+		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
 	}
 
 }
