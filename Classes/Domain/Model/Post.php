@@ -337,7 +337,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	private function initComments() {	
 		if ($this->comments == NULL) {
 			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");			
-			$this->comments = $this->commentRepository->findByFkPost($this->getUid());
+			$this->comments = $this->commentRepository->findForPost($this);
 		}
 	}
 

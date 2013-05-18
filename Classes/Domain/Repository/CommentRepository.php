@@ -37,5 +37,53 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
 	
+	/**
+	 * Finds all valid comments
+	 *
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findAllValid() {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$this->getValidConstraints($query)
+		);
+			
+		return $query->execute();
+	}
+	
+	/**
+	 * Finds all valid comments for the given post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findForPost(Tx_T3extblog_Domain_Model_Post $post) {
+		$query = $this->createQuery();
+
+		$constraints = $this->getValidConstraints($query);
+		$constraints [] = $query->equals('postId', $post->getUid());
+		
+		$query->matching(
+			$query->logicalAnd($constraints)
+		);
+			
+		return $query->execute();
+	}
+		
+	/**
+	 * Create constraints for valid comments
+	 *
+	 * @param Tx_Extbase_Persistence_QueryInterface $query
+	 * @return array
+	 */
+	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
+		$constraints = array(
+			$query->equals('spam', 0),
+			$query->equals('approved', 1)		
+		);
+			
+		return $constraints;
+	}
 }
 ?>
