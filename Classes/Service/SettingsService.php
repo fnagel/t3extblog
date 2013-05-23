@@ -41,12 +41,17 @@
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
+class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 
 	/**
 	 * @var mixed
 	 */
-	protected $settings = NULL;
+	protected $typoScriptSettings = NULL;
+
+	/**
+	 * @var mixed
+	 */
+	protected $frameworkSettings = NULL;
 
 	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
@@ -62,19 +67,33 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
-
+		
 	/**
-	 * Returns all settings.
+	 * Returns all framework settings.
 	 *
 	 * @return array
 	 */
-	public function getSettings() {
-		if ($this->settings === NULL) {
-			$this->settings = $this->configurationManager->getConfiguration(
+	public function getFrameworkSettings() {
+		if ($this->frameworkSettings === NULL) {
+			$this->frameworkSettings = $this->configurationManager->getConfiguration(
+					Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			);
+		}
+		return $this->frameworkSettings;
+	}
+
+	/**
+	 * Returns all TS settings.
+	 *
+	 * @return array
+	 */
+	public function getTypoScriptSettings() {
+		if ($this->typoScriptSettings === NULL) {
+			$this->typoScriptSettings = $this->configurationManager->getConfiguration(
 					Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
 			);
 		}
-		return $this->settings;
+		return $this->typoScriptSettings;
 	}
 
 	/**
@@ -87,8 +106,8 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @param string $path
 	 * @return mixed
 	 */
-	public function getByPath($path) {
-		return Tx_Extbase_Reflection_ObjectAccess::getPropertyPath($this->getSettings(), $path);
+	public function getTypoScriptByPath($path) {
+		return Tx_Extbase_Reflection_ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
 	}
 
 }
