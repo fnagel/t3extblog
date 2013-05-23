@@ -34,6 +34,23 @@
 class Tx_T3extblog_Service_FrontendUserService {
 
 	/**
+	 * Logging Service
+	 *
+	 * @var Tx_T3extblog_Service_LoggingService
+	 */
+	protected $log;
+		
+	/**
+	 * Injects the Logging Service
+	 *
+	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 * @return void
+	 */
+	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
+		$this->log = $loggingService;
+	}
+	
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -47,32 +64,52 @@ class Tx_T3extblog_Service_FrontendUserService {
 	 * @return boolean
 	 */
 	public function hasAuth() {
-		 return $this->restoreFromSession("auth");
+		return $this->restoreFromSession("auth");
 	}
 
 	/**
 	 *
 	 */
 	public function authValid() {
-		 $this->writeToSession("auth", TRUE);
+		$this->writeToSession("auth", TRUE);
 	}
 
 	/**
 	 *
-	 * @return boolean
+	 * @return void
 	 */
-	public function setEmail($email) {
-		 $this->writeToSession("email", $email);
+	public function setData($data) {	
+		$oldData = $this->restoreFromSession("data");
+		
+		if (is_array($oldData)) {
+			$this->writeToSession("data", array_merge($oldData, $newData));		
+		} else {
+			$this->writeToSession("data", $data);		
+		}
 	}
 
 	/**
 	 *
-	 * @return boolean
+	 * @return array
 	 */
-	public function getEmail() {
-		 return $this->restoreFromSession("email");
+	public function getData() {
+		return $this->restoreFromSession("data");
 	}
+		
+	/**
+	 *
+	 * @return array
+	 */
+	public function getDataByKey($key) {
+		$data = $this->restoreFromSession("data");
+		
+		if (is_array($data) && $data[$key]) {
+			return $data[$key];
+		}
 	
+		return NULL;
+	}
+		
     /**
      * Return stored session data
      */
@@ -84,6 +121,8 @@ class Tx_T3extblog_Service_FrontendUserService {
      * Write session data
      */
     private function writeToSession($key, $data) {
+		$this->log->dev("Write so FE session", $data);
+		
 		$this->frontendUser->setKey('ses', 'tx_t3extblog_' . $key, $data);
 		$this->frontendUser->storeSessionData();
     }

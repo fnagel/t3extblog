@@ -155,25 +155,18 @@ plugin.tx_t3extblog {
 			notifications {
 				admin {
 					enable = 1
-					to {
-						email =
-						name = 
+					mailTo {
+						info@felixnagel.com = Blog Moderator
 					}
-					from {
-						email =
-						name = 
+					mailFrom {
+						no-reply@felixnagel.com = FelixNagel.com Blog
 					}
 				}				
 				subscriber {
 					enable = 1
-					to {
-						email =
-						name = 
+					mailFrom {
+						no-reply@felixnagel.com = FelixNagel.com Blog
 					}
-					from {
-						email =
-						name = 
-					}					
 				}
 			}			
 			
@@ -204,6 +197,10 @@ plugin.tx_t3extblog {
 		}
 		archive {
 		
+		}
+		
+		debug {
+			disableEmailTransmission = 1
 		}
 	}
 }

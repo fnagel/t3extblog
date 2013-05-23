@@ -50,6 +50,14 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	protected $log;
 
 	/**
+	 * Notification Service
+	 *
+	 * @var Tx_T3extblog_Service_NotificationService
+	 * @inject
+	 */
+	protected $notificationService;
+
+	/**
 	 * action list
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
@@ -94,8 +102,12 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($this->settings['comments']['allowed'] && $post->getAllowComments() === 0) {
 			$this->checkIfCommentIsSpam($newComment);
 			
-			$newComment->setApproved($this->settings['comments']['approvedByDefault']);
+			if ($this->settings['comments']['approvedByDefault']) {
+				$newComment->setApproved(TRUE);
+			}
+			
 			$post->addComment($newComment);
+			$this->notificationService->processAddedComment($newComment);
 			
 			$this->addFlashMessage('created');
 		} else {
@@ -132,6 +144,8 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->checkIfCommentIsSpam($comment);
 		
 		$this->commentRepository->update($comment);
+		$this->notificationService->notifyAdmin($comment);
+			
 		$this->addFlashMessage->add('Your Comment was updated.');
 		
 		$this->redirect('list', NULL, NULL, array('post' => $post, 'comment' => $comment));
@@ -148,6 +162,8 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function deleteAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$post->removeComment($comment);
+		$this->notificationService->notifyAdmin($comment);
+		
 		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
 		
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
@@ -191,7 +207,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 					$this->processSpamRequest('sfpantispam');
 				}
 			} else {
-				$this->log->error("EXT:sfpantispam not installed!");
+				$this->log->error("EXT:sfpantispam not installed but enabled in configuration.");
 			}	
 		}
 	}
@@ -245,12 +261,12 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	protected function processSpamRequest($key) {
 		$settings = $this->settings['comments']['spam'];
-		
-		$this->log->notice("New comment blocked because of '" . $key ."' check");
-		
+				
 		if ($settings[$key]['redirect']) {
+			$this->log->notice("New comment blocked because of '" . $key ."' check.");
 			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
 		} else {
+			$this->log->notice("New comment marked as SPAM because of '" . $key ."' check.");
 			$this->addFlashMessage('markedAsSpam', t3lib_FlashMessage::INFO);			
 		}
 	}	

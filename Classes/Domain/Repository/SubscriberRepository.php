@@ -33,5 +33,56 @@
  */
 class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Persistence_Repository {
 
+	/**
+	 * Finds all valid comments for the given post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findForNotification(Tx_T3extblog_Domain_Model_Post $post) {
+		$query = $this->createQuery();
+
+		$query->matching(
+			$query->equals('postUid', $post->getUid())
+		);
+			
+		return $query->execute();
+	}
+	
+	/**
+	 * Finds all valid comments for the given post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findExistingSubscriptions(Tx_T3extblog_Domain_Model_Comment $comment) {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$query->logicalAnd(			
+				$query->equals('email', $comment->getEmail()),
+				$query->equals('postUid', $comment->getPostId())	
+			)
+		);
+			
+		return $query->execute();
+	}
+	
+	/**
+	 * Finds all valid comments for the given post
+	 *
+	 * @param integer $uid
+	 */
+	public function findForAuth($uid) {
+		$query = $this->createQuery();
+		
+		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			
+		$query->matching(
+			$query->equals('uid', $uid)
+		);
+			
+		return $query->execute()->getFirst();
+	}
 }
 ?>

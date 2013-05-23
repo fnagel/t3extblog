@@ -1,5 +1,7 @@
 TODO::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 TS = dateTime
+viewHelper für MORE marker
+datum hinzufügen
 
 rename subscriber to subscription
 

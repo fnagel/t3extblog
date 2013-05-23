@@ -110,6 +110,14 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	protected $postId;
 
 	/**
+	 * post
+	 *
+	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @lazy
+	 */
+	protected $post = NULL;
+	
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -317,11 +325,25 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
+	 * Returns the post
+	 *
+	 * @return integer
+	 */
+	public function getPost() {
+		if ($this->post == NULL) {
+			$this->postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");			
+			$this->post = $this->postRepository->findByUid($this->postId);
+		}
+		
+		return $this->post;
+	}
+
+	/**
 	 * If the comment is shown in frontend
 	 *
 	 * @return boolean
 	 */
-	public function isShown() {
+	public function isValid() {
 		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
 	}
 

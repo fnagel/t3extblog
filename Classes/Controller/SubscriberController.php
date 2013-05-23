@@ -56,7 +56,14 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @inject
 	 */
 	protected $feuserService;
-	
+		
+	/**
+	 * objectManager
+	 *
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager;
 	
 	/**
 	 * Init actions
@@ -67,18 +74,62 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	}
 	
 	/**
-	 * Displays a list of all posts a user subscibed to
+	 * Displays a list of all posts a user subscribed to
 	 *
 	 * @return void
 	 */
 	public function listAction() {
 		$this->checkAuth();
 		
-		$email = $this->feuserService->getEmail();		
+		$email = $this->feuserService->getDataByKey("subscriber_email");
 		$subscribers = $this->subscriberRepository->findByEmail($email);
 		
 		$this->view->assign('email', $email);
 		$this->view->assign('subscribers', $subscribers);
+	}
+
+	/**
+	 * action confirm
+	 *
+	 * @return void
+	 */
+	public function confirmAction() {
+		$this->checkAuth();
+		
+		$subscriber = $this->subscriberRepository->findForConfirmation($this->feuserService->getDataByKey("subscriber_uid"));		
+		$subscriber->_setProperty("hidden", FALSE);
+		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();	
+				
+		$this->addFlashMessage('removed');
+		$this->redirect('list');
+	}
+	
+	/**
+	 * action delete
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
+	 * @return void
+	 */
+	public function deleteAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber = NULL) {
+		$this->checkAuth();
+		
+		if ($subscriber === NULL) {			
+			$subscriber = $this->subscriberRepository->findForConfirmation($this->feuserService->getDataByKey("subscriber_uid"));
+		}
+		
+		$this->subscriberRepository->remove($subscriber);
+		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();		
+		
+		$this->addFlashMessage('removed');		
+		$this->redirect('list');
+	}
+
+	/**
+	 * Error action
+	 *
+	 * @return void
+	 */
+	public function errorAction() {
 	}
 
 	/**
@@ -91,14 +142,13 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 			return;		
 		}	
 	
-		if (!$this->request->hasArgument("email") || !$this->request->hasArgument("code")) {		
+		if (!$this->request->hasArgument("code")) {		
 			$this->addFlashMessage('authNeeded');
 			$this->redirect("error");
 		}
 		
-		$email = $this->request->getArgument("email");
 		$code = $this->request->getArgument("code");
-		$this->requestAuth($email, $code);
+		$this->requestAuth($code);
 	}
 	
 	/**
@@ -108,19 +158,20 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @param string $code The hash code to be verified 
 	 * @return void
 	 */
-	private function requestAuth($email, $code) {	
+	private function requestAuth($code) {	
 		// check parameter
-		if (strlen($email) < 7 && strlen($code) < 32) {			
+		if (strlen($code) < 32) {			
 			$this->addFlashMessage('wrongLink');
 			$this->redirect("error");
 		}
 	
 		// check code
 		$subscriber = $this->subscriberRepository->findOneByCode($code);
-		if ($subscriber === NULL || $subscriber->getEmail() !== $email) {
+		if ($subscriber === NULL) {
 			$this->addFlashMessage('authFailed');
 			$this->redirect("error");
 		}
+		
 		// todo add working timstamp check
 		// if ($subscriber->getLastSent() + intval($this->settings['subscriber']['emailHashTimeout']) > time()) {
 			// $this->addFlashMessage('linkOutdated');
@@ -128,29 +179,10 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		// }
 		
 		$this->feuserService->authValid();
-		$this->feuserService->setEmail($email);
-	}
-
-	/**
-	 * Error action
-	 *
-	 * @return void
-	 */
-	public function errorAction() {
-	}
-
-	/**
-	 * action delete
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
-	 * @return void
-	 */
-	public function deleteAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
-		$this->checkAuth();
-		
-		$this->subscriberRepository->remove($subscriber);
-		$this->addFlashMessage('removed');
-		$this->redirect('list');
+		$this->feuserService->setData(array(
+			"subscriber_email" => $subscriber->getEmail(),
+			"subscriber_uid" => $subscriber->getUid()			
+		));
 	}
 
 }

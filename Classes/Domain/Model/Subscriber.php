@@ -34,6 +34,16 @@
 class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
+	 * @var boolean
+	 */
+	protected $hidden = TRUE;
+
+	/**
+	 * @var boolean
+	 */
+	protected $deleted;
+
+	/**
 	 * email
 	 *
 	 * @var string
@@ -73,6 +83,17 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	protected $code;
 
+	
+	/**
+	 * __construct
+	 *
+	 * @return void
+	 */
+	public function __construct($postUid) {
+		$this->postUid = $postUid;
+	}
+
+	
 	/**
 	 * Returns the email
 	 *
@@ -166,7 +187,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	public function getCode() {
 		return $this->code;
 	}
-
+	
 	/**
 	 * Sets the code
 	 *
@@ -175,6 +196,34 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function setCode($code) {
 		$this->code = $code;
+	}
+	
+	/**
+	 * Creates a code
+	 *
+	 * @return void
+	 */
+	public function createCode($code) {
+		$this->code = substr(t3lib_div::hmac($this->email . $GLOBALS['EXEC_TIME']), 0, 32);
+	}
+
+	/**
+	 * Update subscriber
+	 *
+	 * @return void
+	 */
+	public function updateAuth() {
+		$this->setLastSent($GLOBALS['EXEC_TIME']);
+		$this->createCode();
+	}
+
+	/**
+	 * Returns prepared mailto array
+	 *
+	 * @return array
+	 */
+	public function getMailTo() {
+		return array($this->getEmail() => $this->getName());
 	}
 
 }
