@@ -49,7 +49,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		$this->findAndAssignTagOrCategory($tag, $category)
+		$this->findAndAssignTagOrCategory($tag, $category);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		$this->findAndAssignTagOrCategory($tag, $category)
+		$this->findAndAssignTagOrCategory($tag, $category);
 	}
 	
 	/**
