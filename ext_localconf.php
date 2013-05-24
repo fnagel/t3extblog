@@ -8,14 +8,24 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	'Blogsystem',
 	array(
 		'Post' => 'list, show',
-		'Category' => 'list, show',
 		'Comment' => 'list, show, new, create, edit, update, delete',		
 	),
 	// non-cacheable actions
 	array(
 		'Post' => '',
-		'Category' => '',
 		'Comment' => 'create, update, delete',		
+	)
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'Archive',
+	array(
+		'Post' => 'archive',	
+	),
+	// non-cacheable actions
+	array(
+		'Post' => '',
 	)
 );
 
@@ -30,5 +40,42 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Subscriber' => 'list, delete, error, confirm',		
 	)
 );
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'Categories',
+	array(
+		'Category' => 'list, show',
+	),
+	// non-cacheable actions
+	array(
+		'Category' => '',
+	)
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'LatestPosts',
+	array(
+		'Post' => 'latest',	
+	),
+	// non-cacheable actions
+	array(
+		'Post' => '',	
+	)
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'LatestComments',
+	array(
+		'Comment' => 'latest',		
+	),
+	// non-cacheable actions
+	array(
+		'Comment' => '',		
+	)
+);
+
 
 ?>

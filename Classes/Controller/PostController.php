@@ -49,6 +49,28 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+		$this->findAndAssignTagOrCategory($tag, $category)
+	}
+
+	/**
+	 * Displays a list of latest posts.
+	 *
+	 * @param string $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category 
+	 * @return void
+	 */
+	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+		$this->findAndAssignTagOrCategory($tag, $category)
+	}
+	
+	/**
+	 * Find all or filtered by tag or by category
+	 *
+	 * @param string $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category 
+	 * @return void
+	 */
+	private function findAndAssignTagOrCategory($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
 		if ($category !== NULL) {
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
@@ -64,6 +86,18 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		
 		$this->view->assign('posts', $posts);
 	}
+	
+
+	/**
+	 * Displays archive of all posts.
+	 *
+	 * @return void
+	 */
+	public function archiveAction() {
+		$posts = $this->postRepository->findAll();
+		
+		$this->view->assign('posts', $posts);
+	}
 
 	/**
 	 * Displays one single post
@@ -74,7 +108,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @dontvalidate $newComment
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
-		// ToDO: This will not work as this action is cached
+		// ToDo: This will not work as this action is cached
 		$post->riseNumberOfViews();
 		
 		$this->view->assign('post', $post);

@@ -62,6 +62,23 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->view->assign('post', $post);
 	}
 	
+	/**
+	 * action latest
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
+	 * @return void
+	 */
+	public function latestAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
+		if ($post === NULL) {
+			$comments = $this->commentRepository->findAll();
+		} else {
+			$comments = $this->commentRepository->findByFkPost($post->getUid());
+		}
+		
+		$this->view->assign('comments', $comments);
+		$this->view->assign('post', $post);
+	}
+	
 	
 	/**
 	 * action new
