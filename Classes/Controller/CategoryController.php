@@ -37,19 +37,11 @@ class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controll
 	 * categoryRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_CategoryRepository
+	 * @inject
 	 */
 	protected $categoryRepository;
 
-	/**
-	 * injectCategoryRepository
-	 *
-	 * @param Tx_T3extblog_Domain_Repository_CategoryRepository $categoryRepository
-	 * @return void
-	 */
-	public function injectCategoryRepository(Tx_T3extblog_Domain_Repository_CategoryRepository $categoryRepository) {
-		$this->categoryRepository = $categoryRepository;
-	}
-
+	
 	/**
 	 * action list
 	 *

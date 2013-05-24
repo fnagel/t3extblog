@@ -64,15 +64,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @inject
 	 */
 	protected $objectManager;
-	
-	/**
-	 * Init actions
-	 *
-	 * @return void
-	 */
-	public function initializeAction() {
-	}
-	
+		
 	/**
 	 * Displays a list of all posts a user subscribed to
 	 *
@@ -100,7 +92,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$subscriber->_setProperty("hidden", FALSE);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();	
 				
-		$this->addFlashMessage('removed');
+		$this->addFlashMessage('Confirmed', t3lib_FlashMessage::NOTICE);
 		$this->redirect('list');
 	}
 	
@@ -120,7 +112,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$this->subscriberRepository->remove($subscriber);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();		
 		
-		$this->addFlashMessage('removed');		
+		$this->addFlashMessage('Deleted', t3lib_FlashMessage::NOTICE);		
 		$this->redirect('list');
 	}
 
@@ -143,7 +135,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		}	
 	
 		if (!$this->request->hasArgument("code")) {		
-			$this->addFlashMessage('authNeeded');
+			$this->addFlashMessage('AuthNeeded', t3lib_FlashMessage::NOTICE);
 			$this->redirect("error");
 		}
 		
@@ -161,20 +153,20 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	private function requestAuth($code) {	
 		// check parameter
 		if (strlen($code) < 32) {			
-			$this->addFlashMessage('wrongLink');
+			$this->addFlashMessage('WrongLink', t3lib_FlashMessage::ERROR);
 			$this->redirect("error");
 		}
 	
 		// check code
 		$subscriber = $this->subscriberRepository->findOneByCode($code);
 		if ($subscriber === NULL) {
-			$this->addFlashMessage('authFailed');
+			$this->addFlashMessage('AuthFailed', t3lib_FlashMessage::ERROR);
 			$this->redirect("error");
 		}
 		
 		// todo add working timstamp check
 		// if ($subscriber->getLastSent() + intval($this->settings['subscriber']['emailHashTimeout']) > time()) {
-			// $this->addFlashMessage('linkOutdated');
+			// $this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
 			// $this->redirect("error");
 		// }
 		

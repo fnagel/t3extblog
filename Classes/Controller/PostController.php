@@ -49,7 +49,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		if (!empty($category)) {
+		if ($category !== NULL) {
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
 		} 
@@ -74,6 +74,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @dontvalidate $newComment
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+		// ToDO: This will not work as this action is cached
 		$post->riseNumberOfViews();
 		
 		$this->view->assign('post', $post);

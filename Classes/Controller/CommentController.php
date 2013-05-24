@@ -42,14 +42,6 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	protected $commentRepository;
 
 	/**
-	 * Logging Service
-	 *
-	 * @var Tx_T3extblog_Service_LoggingService
-	 * @inject
-	 */
-	protected $log;
-
-	/**
 	 * Notification Service
 	 *
 	 * @var Tx_T3extblog_Service_NotificationService
@@ -109,9 +101,9 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$post->addComment($newComment);
 			$this->notificationService->processAddedComment($newComment);
 			
-			$this->addFlashMessage('created');
+			$this->addFlashMessage('Created');
 		} else {
-			$this->addFlashMessage('notAllowed');
+			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
 		}	
 	
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
@@ -146,7 +138,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->commentRepository->update($comment);
 		$this->notificationService->notifyAdmin($comment);
 			
-		$this->addFlashMessage->add('Your Comment was updated.');
+		$this->addFlashMessage->add('Updated.');
 		
 		$this->redirect('list', NULL, NULL, array('post' => $post, 'comment' => $comment));
 	}
@@ -164,7 +156,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$post->removeComment($comment);
 		$this->notificationService->notifyAdmin($comment);
 		
-		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
+		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
 		
 		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
@@ -267,7 +259,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
 		} else {
 			$this->log->notice("New comment marked as SPAM because of '" . $key ."' check.");
-			$this->addFlashMessage('markedAsSpam', t3lib_FlashMessage::INFO);			
+			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);			
 		}
 	}	
 }

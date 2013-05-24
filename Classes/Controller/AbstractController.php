@@ -34,6 +34,15 @@
 abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
+	 * Logging Service
+	 *
+	 * @var Tx_T3extblog_Service_LoggingService
+	 * @inject
+	 */
+	protected $log;
+
+	
+	/**
 	 * Override getErrorFlashMessage to present
 	 * nice flash error messages.
 	 *
@@ -42,6 +51,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	protected function getErrorFlashMessage() {
 		$defaultFlashMessage = parent::getErrorFlashMessage();
 		$locallangKey = sprintf('error.%s.%s', $this->request->getControllerName(), $this->actionMethodName);
+		
 		return $this->translate($locallangKey, $defaultFlashMessage);
 	}
 
@@ -52,11 +62,13 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
 	 * @return void
 	 */
-	protected function addFlashMessage($action, $severity = t3lib_FlashMessage::OK) {
-		$messageLocallangKey = sprintf('flashmessage.%s.%s', $this->request->getControllerName(), $action);
+	protected function addFlashMessage($key, $severity = t3lib_FlashMessage::OK) {
+		$messageLocallangKey = sprintf('%s_%s_FlashMessage_%s', $this->request->getControllerName(), $this->request->getControllerActionName(), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
-		$titleLocallangKey = sprintf('%s.title', $messageLocallangKey);
+		
+		$titleLocallangKey = sprintf('%s_Title', $messageLocallangKey);
 		$localizedTitle = $this->translate($titleLocallangKey, '[' . $titleLocallangKey . ']');
+		
 		$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
 	}
 
@@ -69,9 +81,11 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected function translate($key, $defaultMessage = '') {
 		$message = Tx_Extbase_Utility_Localization::translate($key, 'T3ExtBlog');
+		
 		if ($message === NULL) {
 			$message = $defaultMessage;
 		}
+		
 		return $message;
 	}
 
