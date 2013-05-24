@@ -33,5 +33,10 @@
  */
 class Tx_T3extblog_Domain_Repository_CategoryRepository extends Tx_Extbase_Persistence_Repository {
 
+	protected $defaultOrderings = array(
+		'name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
+		'sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
+	);
+
 }
 ?>

@@ -47,6 +47,29 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 * @var string
 	 */
 	protected $description;
+	
+	/**
+	 * Id of parent category
+	 *
+	 * @var integer
+	 */
+	protected $parentId;
+
+	/**
+	 * Posts
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Post>
+	 * @lazy
+	 */
+	protected $posts = NULL;
+
+	/**
+	 * child categories
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category>
+	 * @lazy
+	 */
+	protected $childCategories = NULL;
 
 	/**
 	 * Returns the name
@@ -84,6 +107,51 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+	
+	
+	/**
+	 * If category is first level
+	 *
+	 * @return boolean
+	 */
+	public function isFirstLevel() {
+		if ($this->parentId) {
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+
+
+	/**
+	 * Returns all matching posts
+	 *
+	 * @return $posts
+	 */
+	public function getPosts() {
+		if ($this->posts == NULL) {
+			$this->posts = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);	
+		}
+		
+		return $this->posts;
+	}
+
+	/**
+	 * Returns all child categories
+	 *
+	 * @return $posts
+	 */
+	public function getChildCategories() {
+		if (!$this->isFirstLevel()) {
+			return FALSE;
+		}
+	
+		if ($this->childCategories == NULL) {
+			$this->childCategories = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());	
+		}
+		
+		return $this->childCategories;
 	}
 
 }

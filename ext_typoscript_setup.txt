@@ -40,6 +40,7 @@ config.tx_extbase{
 						hidden.mapOnProperty = hidden
 						catname.mapOnProperty = name
 						description.mapOnProperty = description
+						parent_id.mapOnProperty = parentId
 					}
                 }
             }            
@@ -178,23 +179,25 @@ plugin.tx_t3extblog {
 			}
 		}
 		
-		# check all news
-		
 		categories {
-		
+			postListPid = 334		
+			
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 1
+				insertBelow = 0
+				maximumNumberOfLinks = 100
+			}
 		}
+		
 		latestPosts {
 		
 		}
+		
 		latestComments {
 		
 		}
-		archive {
 		
-		}
-		archive {
-		
-		}
 		archive {
 		
 		}
