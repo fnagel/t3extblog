@@ -2,11 +2,8 @@
 
 <f:section name="main">
 
-<h1>New Comment</h1>
+	<f:flashMessages />
 
-<f:flashMessages />
-<f:render partial="FormErrors" arguments="{object:Comment}"/>
-
-<f:render partial="Comment/New" arguments="{post: post}"/>
+	<f:render partial="Comment/New" arguments="{post: post}"/>
 
 </f:section>

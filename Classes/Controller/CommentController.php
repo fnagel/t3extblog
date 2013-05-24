@@ -55,11 +55,15 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
 	 * @return void
 	 */
-	public function listAction(Tx_T3extblog_Domain_Model_Post $post) {
-		$comments = $this->commentRepository->findByFkPost($post->getUid());
+	public function listAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
+		if ($post === NULL) {
+			$comments = $this->commentRepository->findAll();
+		} else {
+			$comments = $this->commentRepository->findByFkPost($post->getUid());
+			$this->view->assign('post', $post);
+		}
 		
 		$this->view->assign('comments', $comments);
-		$this->view->assign('post', $post);
 	}
 	
 	/**
@@ -73,10 +77,10 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$comments = $this->commentRepository->findAll();
 		} else {
 			$comments = $this->commentRepository->findByFkPost($post->getUid());
+			$this->view->assign('post', $post);
 		}
 		
 		$this->view->assign('comments', $comments);
-		$this->view->assign('post', $post);
 	}
 	
 	
@@ -123,7 +127,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
 		}	
 	
-		$this->redirect('show', 'Post', NULL, array('post' => $post));
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'addedComment' => $newComment));
 	}
 	
 	/**
@@ -138,6 +142,8 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	public function editAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->view->assign('comment', $comment);
 		$this->view->assign('post', $post);
+				
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
 	}
 
 	/**
@@ -155,9 +161,9 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->commentRepository->update($comment);
 		$this->notificationService->notifyAdmin($comment);
 			
-		$this->addFlashMessage->add('Updated.');
+		$this->addFlashMessage->add('Updated');
 		
-		$this->redirect('list', NULL, NULL, array('post' => $post, 'comment' => $comment));
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
 	}
 
 	/**

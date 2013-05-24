@@ -184,9 +184,9 @@ plugin.tx_t3extblog {
 			
 			paginate {
 				itemsPerPage = 10
-				insertAbove = 1
+				insertAbove = 0
 				insertBelow = 0
-				maximumNumberOfLinks = 100
+				maximumNumberOfLinks = 0
 			}
 		}
 		

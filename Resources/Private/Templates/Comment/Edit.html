@@ -1,25 +1,17 @@
 <f:layout name="Default" />
 
-This template displays a EDIT form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Edit.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1>Edit Comment</h1>
 
-<f:flashMessages />
+	<h2>Edit Comment</h2>
 
-<f:render partial="FormErrors" arguments="{object:Comment}"/>
+	<f:flashMessages />
 
-<f:form action="update" name="comment" object="{comment}" >
-<f:render partial="Comment/FormFields" arguments="{comment:comment}" />
-	<f:form.submit value="Save" />
-</f:form>
+	<f:render partial="FormErrors" arguments="{object:Comment}"/>
+
+	<f:form controller="Comment" action="update" name="comment" object="{comment}" arguments="{post: post}">
+		<f:render partial="Comment/FormFields" />
+		<f:render partial="Comment/Spam" />
+		<f:form.submit value="Save comment" />
+	</f:form>
+	
 </f:section>
