@@ -105,11 +105,16 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
 	 * @return void
+	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
 		// ToDo: This will not work as this action is cached
 		$post->riseNumberOfViews();
+		
+		if ($newComment === NULL) {
+			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
+		}
 		
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);

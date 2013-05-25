@@ -19,7 +19,7 @@
 		<div class="comments">	
 			<f:flashMessages />
 
-			<f:render partial="Comment/New" arguments="{post: post}" />
+			<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
 			
 			<div class="list">
 				<h2><f:count subject="{post.comments}" /> Comments</h2>

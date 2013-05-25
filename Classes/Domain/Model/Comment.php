@@ -118,6 +118,14 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	protected $post = NULL;
 	
 	/**
+	 * subscribe
+	 *
+	 * @var boolean
+	 */
+	protected $subscribe = FALSE;
+
+	
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -321,7 +329,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return integer
 	 */
 	public function getPostId() {
-		return $this->postId();
+		return $this->postId;
 	}
 
 	/**
@@ -337,6 +345,25 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 		
 		return $this->post;
 	}
+	
+	/**
+	 * Returns the subscribe
+	 *
+	 * @return boolean $spam
+	 */
+	public function getSubscribe() {
+		return (boolean) $this->subscribe;
+	}
+
+	/**
+	 * Sets the subscribe
+	 *
+	 * @param boolean $subscribe
+	 * @return void
+	 */
+	public function setSubscribe($subscribe) {
+		$this->subscribe = (boolean) $subscribe;
+	}	
 
 	/**
 	 * If the comment is shown in frontend

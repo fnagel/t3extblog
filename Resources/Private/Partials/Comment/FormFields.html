@@ -23,9 +23,9 @@
 </label><br />
 <f:form.textarea property="text" cols="40" rows="15" /><br />
 	
-<f:if condition="{settings.subscribeForComments}">
+<f:if condition="{settings.comments.subscribeForComments}">
 	<label for="subscribe">
-		<f:translate key="tx_t3extblog_domain_model_comment.subscribe" /> <span class="required">(required)</span>
+		<f:translate key="tx_t3extblog_domain_model_comment.subscribe" />
 	</label><br />
-	<f:form.checkbox property="subscribe" /><br />
+	<f:form.checkbox property="subscribe" value="1"/><br />	
 </f:if>

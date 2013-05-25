@@ -89,11 +89,12 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
+	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
 	 * @return void
 	 */
 	public function newAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
-		if ($newComment == NULL) { // workaround for fluid bug ##5636
+		if ($newComment === NULL) {
 			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
 		}
 		
