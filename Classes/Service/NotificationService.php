@@ -275,7 +275,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			->setTo($mailTo)
 			->setFrom($mailFrom)
 			->setSubject($subject)
-			->setUrl(t3lib_div::getIndpEnv('TYPO3_SITE_URL'))
 			->setCharset($GLOBALS['TSFE']->metaCharset)
 			->setBody($emailBody, 'text/html')
 			->addPart(strip_tags($emailBody), 'text/plain');

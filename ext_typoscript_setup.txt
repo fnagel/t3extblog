@@ -169,7 +169,7 @@ plugin.tx_t3extblog {
 		}
 					
 		subscriptionManager {
-			pid = 334
+			pid = 335
 		
 			admin {
 				enable = 1
@@ -183,6 +183,7 @@ plugin.tx_t3extblog {
 			subscriber {
 				enableNewCommentNotifications = 1
 				
+				# email link invalid after
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				emailHashTimeout = +48 hours
 				mailFrom {

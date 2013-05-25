@@ -69,17 +69,18 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 	}
 	
 	/**
-	 * Finds all valid comments for the given post
+	 * Find by code
 	 *
-	 * @param integer $uid
+	 * @param string $code
+	 * @param boolean $enableFields
 	 */
-	public function findForAuth($uid) {
+	public function findByCode($code, $enableFields = TRUE) {
 		$query = $this->createQuery();
 		
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		$query->getQuerySettings()->setRespectEnableFields($enableFields);
 			
 		$query->matching(
-			$query->equals('uid', $uid)
+			$query->equals('code', $code)
 		);
 			
 		return $query->execute()->getFirst();

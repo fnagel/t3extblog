@@ -42,6 +42,13 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected $subscriberRepository;
 
 	/**
+	 * subscriberRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Model_Subscriber
+	 */
+	protected $subscriber = NULL;
+
+	/**
 	 * postRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_PostRepository
@@ -73,7 +80,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	public function listAction() {
 		$this->checkAuth();
 		
-		$email = $this->feuserService->getDataByKey("subscriber_email");
+		$email = $this->subscriber->getEmail();
 		$subscribers = $this->subscriberRepository->findByEmail($email);
 		
 		$this->view->assign('email', $email);
@@ -86,10 +93,9 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	public function confirmAction() {
-		$this->checkAuth();
-		
-		$subscriber = $this->subscriberRepository->findForConfirmation($this->feuserService->getDataByKey("subscriber_uid"));		
-		$subscriber->_setProperty("hidden", FALSE);
+		$this->checkAuth($doNotSearchHidden = FALSE);
+			
+		$this->subscriber->_setProperty("hidden", FALSE);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();	
 				
 		$this->addFlashMessage('Confirmed', t3lib_FlashMessage::NOTICE);
@@ -106,7 +112,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$this->checkAuth();
 		
 		if ($subscriber === NULL) {			
-			$subscriber = $this->subscriberRepository->findForConfirmation($this->feuserService->getDataByKey("subscriber_uid"));
+			$subscriber = $this->subscriber;
 		}
 		
 		$this->subscriberRepository->remove($subscriber);
@@ -129,53 +135,71 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 *
 	 * @return void
 	 */
-	private function checkAuth() {	
+	private function checkAuth($doNotSearchHidden = TRUE) {	
 		if ($this->feuserService->hasAuth()) {
+			$this->subscriber = $this->subscriberRepository->findByUid($this->feuserService->getDataByKey("subscriber_uid"));
 			return;		
 		}	
 	
+		$this->checkAuthArgument();		
+		$this->checkAuthCode($doNotSearchHidden);		
+		$this->authorize();
+	}
+	
+	/**
+	 * Checks if auth code is available
+	 *
+	 * @return void
+	 */
+	private function checkAuthArgument() {	
 		if (!$this->request->hasArgument("code")) {		
 			$this->addFlashMessage('AuthNeeded', t3lib_FlashMessage::NOTICE);
 			$this->redirect("error");
 		}
 		
 		$code = $this->request->getArgument("code");
-		$this->requestAuth($code);
-	}
-	
-	/**
-	 * Checks the given email and code, auth user if valid
-	 *
-	 * @param string $email The email address used for subscription
-	 * @param string $code The hash code to be verified 
-	 * @return void
-	 */
-	private function requestAuth($code) {	
-		// check parameter
-		if (strlen($code) < 32) {			
+		if (strlen($code) < 32 && ctype_alnum($code)) {			
 			$this->addFlashMessage('WrongLink', t3lib_FlashMessage::ERROR);
 			$this->redirect("error");
 		}
-	
-		// check code
-		$subscriber = $this->subscriberRepository->findOneByCode($code);
+	}
+
+	/**
+	 * Checks if auth code is available
+	 *
+	 * @return void
+	 */
+	private function authorize() {					
+		$this->feuserService->authValid();
+		$this->feuserService->setData(array(
+			"subscriber_email" => $this->subscriber->getEmail(),
+			"subscriber_uid" => $this->subscriber->getUid()			
+		));
+	}
+
+	/**
+	 * Checks the given email and code, auth user if valid
+	 *
+	 * @param string $code The hash code to be verified 
+	 * @param boolean $enableFields 
+	 * @return void
+	 */
+	private function checkAuthCode($enableFields) {
+		$subscriber = $this->subscriberRepository->findByCode($this->request->getArgument("code"), $enableFields);
 		if ($subscriber === NULL) {
 			$this->addFlashMessage('AuthFailed', t3lib_FlashMessage::ERROR);
 			$this->redirect("error");
 		}
 		
-		// todo add working timstamp check
-		// {settings.subscriptionManager.subscriber.emailHashTimeout}
-		// if ($subscriber->getLastSent() + intval($this->settings['subscriber']['emailHashTimeout']) > time()) {
-			// $this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
-			// $this->redirect("error");
-		// }
+		// check if code is outdated
+		$now = new DateTime();
+		$expire = $subscriber->getLastSent()->modify(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]));				
+		if ($now > $expire) {
+			$this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
+			$this->redirect("error");
+		}		
 		
-		$this->feuserService->authValid();
-		$this->feuserService->setData(array(
-			"subscriber_email" => $subscriber->getEmail(),
-			"subscriber_uid" => $subscriber->getUid()			
-		));
+		$this->subscriber = $subscriber;
 	}
 
 }
