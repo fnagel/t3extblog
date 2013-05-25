@@ -1,0 +1,23 @@
+Hello Admin, 
+
+someone added a new comment!
+
+Blogname: 			{settings.blogName}
+Blogpost: 			{post.title}
+
+Comment title: 		{comment.title}
+Comment author: 	{comment.author}
+Comment date: 		{comment.date}
+Comment website: 	{comment.website}
+Comment approved: 	{comment.approved}
+Comment is spam: 	{comment.spam}
+Comment text: 
+{comment.text}
+
+
+You could manage comments in the TYPO3 backend of your installation:
+{domain}/typo3
+
+Regards
+{settings.blogName} 
+ 

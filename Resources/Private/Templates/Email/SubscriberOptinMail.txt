@@ -1,0 +1,24 @@
+Hello {subscriber.name}, 
+
+it seems you subscribed for new comments:
+
+Blogname: 		{settings.blogName}
+Blogpost: 		{post.title}
+
+Your email: 	{subscriber.email}
+
+
+Please confirm your subscription by clicking this link:
+<f:uri.action 
+	pluginName="SubscriptionManager" 
+	controller="Subscriber" 
+	action="confirm"
+	pageUid="{settings.subscriptionManager.pid}"
+	absolute="true"
+	arguments="{code : subscriber.code}" />
+
+This link is valid until: <f:format.date format="d.m.Y - H:i:s">{settings.subscriptionManager.subscriber.emailHashTimeout}</f:format.date> 
+
+Regards
+{settings.blogName} 
+ 
