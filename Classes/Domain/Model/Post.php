@@ -186,6 +186,24 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
+	 * Returns the publish year
+	 *
+	 * @return DateTime $publishDate
+	 */
+	public function getPublishYear() {
+		return $this->publishDate->format('Y');
+	}
+	
+	/**
+	 * Returns the publish month
+	 *
+	 * @return DateTime $publishDate
+	 */
+	public function getPublishMonth() {
+		return $this->publishDate->format('m');
+	}
+
+	/**
 	 * Sets the publishDate
 	 *
 	 * @param DateTime $publishDate

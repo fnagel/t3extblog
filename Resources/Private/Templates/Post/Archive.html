@@ -1,0 +1,32 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+	<h2>Post archive</h2>
+	
+	<ul>
+	<f:groupedFor each="{posts}" as="postsByYear" groupBy="publishYear" groupKey="year">
+			<li>			
+				<h3>{year}</h3>
+				<small>Total posts: ({postsByYear -> f:count()})</small>	
+				<ul>
+				<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
+					<li>			
+						<strong><f:format.date format="F">1/1 -1 day +{month} months</f:format.date></strong>&nbsp;
+						<small>({postsByMonth -> f:count()})</small>
+						<ul>
+						<f:for each="{postsByMonth}" as="post">
+							<li>
+								<span class="date"><f:format.date>{post.publishDate}</f:format.date></span>&nbsp;
+								<f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action>								
+							</li>
+						</f:for>
+						</ul>
+					</li>
+				</f:groupedFor>
+				</ul>
+			</li>
+	</f:groupedFor>
+	</ul>
+	
+</f:section>
