@@ -14,7 +14,7 @@
 
 	<f:for each="{subscribers}" as="subscriber">
 		<tr>
-			<td>{subscriber.post.title}</td>
+			<td><f:link.action controller="Post" action="show" arguments="{post : subscriber.post}">{subscriber.post.title}</f:link.action></td>
 			<td>{subscriber.name}</td>
 			<td><f:link.action action="delete" arguments="{subscriber : subscriber}">Delete</f:link.action></td>
 		</tr>
