@@ -13,7 +13,7 @@
 		</f:if>
 	</div>
 		
-	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.posts.paginate}">
+	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 		<f:debug>{paginatedPosts}</f:debug>
 		<f:for each="{paginatedPosts}" as="post">
 			<div class="post">			

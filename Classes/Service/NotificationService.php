@@ -141,9 +141,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @return	void
 	 */
 	private function processSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$settings = $this->settings['comments'];	
-		
-		if ($settings['subscribeForComments'] && $comment->getSubscribe()) {	
+		Tx_Extbase_Utility_Debugger::var_dump($comment);
+		if ($this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {	
 			// check if user already registered
 			$subscriber = $this->subscriberRepository->findExistingSubscriptions($comment);
 			if (count($subscriber) > 0) {
@@ -163,12 +162,12 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				'comment' => $comment,
 				'subscriber' => $subscriber				
 			);		
-			$emailBody = $this->renderEmailTemplate($variables, "OptinMail.txt", "Email/Subscriber/");
+			$emailBody = $this->renderEmailTemplate($variables, "SubscriberOptinMail.txt");
 			$subject = "Subscribe to Blogpost: " . $post->getTitle();	
-								
+			
 			$this->sendEmail(
 				$subscriber->getMailTo(), 
-				$settings['notifications']['subscriber']['mailFrom'], 
+				$this->settings['subscriptionManager']['subscriber']['mailFrom'], 
 				$subject, 
 				$emailBody
 			);
@@ -202,9 +201,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @return	void
 	 */
 	private function notifySubscribers(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$settings = $this->settings['comments']['notifications']['subscriber'];
+		$settings = $this->settings['subscriptionManager']['subscriber'];
 		
-		if ($settings['enable'] && $comment->isValid()) {
+		if ($settings['enableNewCommentNotifications'] && $comment->isValid()) {
 			$post = $comment->getPost();
 			$this->log->dev("Send subscriber notification mails.");
 			
@@ -219,7 +218,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 					'comment' => $comment,
 					'subscriber' => $subscriber
 				);		
-				$emailBody = $this->renderEmailTemplate($variables, "NewCommentMail.txt", "Email/Subscriber/");
+				$emailBody = $this->renderEmailTemplate($variables, "SubscriberNewCommentMail.txt");
 								
 				$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);	
 			}			
@@ -233,7 +232,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @return	void
 	 */
 	private function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$settings = $this->settings['comments']['notifications']['admin'];
+		$settings = $this->settings['subscriptionManager']['admin'];
 
 		if ($settings['enable'] && is_array($settings['mailTo']) && count($settings['mailTo'])) {
 			$post = $comment->getPost();
@@ -243,7 +242,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				'post' => $post,
 				'comment' => $comment
 			);		
-			$emailBody = $this->renderEmailTemplate($variables, "NewCommentMail.txt", "Email/Admin/");
+			$emailBody = $this->renderEmailTemplate($variables, "AdminNewCommentMail.txt");
 			$subject = "New Comment on Blogpost: " . $post->getTitle();			
 			
 			$this->sendEmail($settings['mailTo'], $settings['mailFrom'], $subject, $emailBody);	

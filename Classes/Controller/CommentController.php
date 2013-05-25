@@ -113,10 +113,10 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {	
-		if ($this->settings['comments']['allowed'] && $post->getAllowComments() === 0) {
+		if ($this->settings['blogsystem']['comments']['allowed'] && $post->getAllowComments() === 0) {
 			$this->checkIfCommentIsSpam($newComment);
 			
-			if ($this->settings['comments']['approvedByDefault']) {
+			if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
 				$newComment->setApproved(TRUE);
 			}
 			
@@ -128,7 +128,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
 		}	
 	
-		$this->redirect('show', 'Post', NULL, array('post' => $post, 'addedComment' => $newComment));
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment->getUid()));
 	}
 	
 	/**
@@ -144,7 +144,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->view->assign('comment', $comment);
 		$this->view->assign('post', $post);
 				
-		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			
 		$this->addFlashMessage->add('Updated');
 		
-		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		
 		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
 		
-		$this->redirect('show', 'Post', NULL, array('post' => $post));
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid()));
 	}
 	
 	/**
@@ -192,7 +192,8 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	protected function checkIfCommentIsSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
-		if ($this->settings['comments']['spam']['honeypot']['enable']) {
+		$spamSettings = $this->settings['blogsystem']['comments']['spam'];
+		if ($spamSettings['honeypot']['enable']) {
 			if (!$this->checkHoneyPotFields()){
 				$comment->markAsSpam();
 				$this->processSpamRequest('honeypot');
@@ -200,7 +201,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			}		
 		}
 		
-		if ($this->settings['comments']['spam']['cookie']['enable']) {
+		if ($spamSettings['cookie']['enable']) {
 			if (!$_COOKIE['fe_typo_user']) {
 				$comment->markAsSpam();
 				$this->processSpamRequest('cookie');
@@ -208,7 +209,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			}		
 		}		
 		
-		if ($this->settings['comments']['spam']['userAgent']['enable']) {
+		if ($spamSettings['userAgent']['enable']) {
 			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == "") {
 				$comment->markAsSpam();
 				$this->processSpamRequest('userAgent');
@@ -216,7 +217,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			}		
 		}
 		
-		if ($this->settings['comments']['spam']['sfpantispam']['enable']) {
+		if ($spamSettings['sfpantispam']['enable']) {
 			if (t3lib_extMgm::isLoaded('sfpantispam')) {					
 				if ($this->checkCommentWithSfpAntiSpam($comment)) {
 					$comment->markAsSpam();
@@ -276,7 +277,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	protected function processSpamRequest($key) {
-		$settings = $this->settings['comments']['spam'];
+		$settings = $this->settings['blogsystem']['comments']['spam'];
 				
 		if ($settings[$key]['redirect']) {
 			$this->log->notice("New comment blocked because of '" . $key ."' check.");

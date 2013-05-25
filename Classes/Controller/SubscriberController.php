@@ -165,6 +165,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		}
 		
 		// todo add working timstamp check
+		// {settings.subscriptionManager.subscriber.emailHashTimeout}
 		// if ($subscriber->getLastSent() + intval($this->settings['subscriber']['emailHashTimeout']) > time()) {
 			// $this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
 			// $this->redirect("error");

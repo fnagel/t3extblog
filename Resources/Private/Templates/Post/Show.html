@@ -25,7 +25,7 @@
 				<h2><f:count subject="{post.comments}" /> Comments</h2>
 				
 				<f:if condition="{post.comments}">
-					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.comments.paginate}">
+					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
 						<f:for each="{paginatedComments}" as="comment">
 							<f:render partial="Comment/Show" arguments="{comment: comment}" />
 						</f:for>

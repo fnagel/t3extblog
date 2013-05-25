@@ -105,83 +105,93 @@ plugin.tx_t3extblog {
 		rewrittenPropertyMapper = 1
 	}
 	settings {
-		posts {	
-			viewCount {
-				#views: Amount of seconds which have to pass by until an returning visitor is recounted. If you want to have counted each view just put a negative number.
-				timePeriod = 10000
-				countBackendUsers = 1
-			}
-			
-			paginate {
-				itemsPerPage = 10
-				insertAbove = 0
-				insertBelow = 1
-				maximumNumberOfLinks = 100
-			}
-		}
-		comments {
-			allowed = 1
+		# used for mails, 
+		blogName = Testblog
+	
+		blogsystem {		
+			pid = 334
+		
+			posts {	
+				viewCount {
+					#views: Amount of seconds which have to pass by until an returning visitor is recounted. If you want to have counted each view just put a negative number.
+					timePeriod = 10000
+					countBackendUsers = 1
+				}
 				
-			approvedByDefault = 1
-			
-			subscribeForComments = 1
-			
-			# splitLongWords = 1
-						
-			spam {
-				redirect {
-					pid = 292
-					arguments {
-					}
-				}
-			
-				honeypot {
-					enable = 1
-					redirect = 0
-				}
-				userAgent {
-					enable = 1
-					redirect = 0
-				}
-				cookie {
-					enable = 1
-					redirect = 0
-				}
-				sfpantispam {
-					enable = 1
-					redirect = 0
+				paginate {
+					itemsPerPage = 10
+					insertAbove = 0
+					insertBelow = 1
+					maximumNumberOfLinks = 100
 				}
 			}
-			
-			notifications {
-				admin {
-					enable = 1
-					mailTo {
-						info@felixnagel.com = Blog Moderator
+			comments {
+				allowed = 1
+					
+				approvedByDefault = 1
+				
+				subscribeForComments = 1
+				
+				# splitLongWords = 1
+							
+				spam {
+					redirect {
+						pid = 292
+						arguments {
+						}
 					}
-					mailFrom {
-						no-reply@felixnagel.com = FelixNagel.com Blog
+				
+					honeypot {
+						enable = 1
+						redirect = 0
 					}
-				}				
-				subscriber {
-					enable = 1
-					mailFrom {
-						no-reply@felixnagel.com = FelixNagel.com Blog
+					userAgent {
+						enable = 1
+						redirect = 0
+					}
+					cookie {
+						enable = 1
+						redirect = 0
+					}
+					sfpantispam {
+						enable = 1
+						redirect = 0
 					}
 				}
-			}			
-			
-			paginate {
-				itemsPerPage = 10
-				insertAbove = 1
-				insertBelow = 0
-				maximumNumberOfLinks = 100
+				
+				paginate {
+					itemsPerPage = 10
+					insertAbove = 1
+					insertBelow = 0
+					maximumNumberOfLinks = 100
+				}
 			}
 		}
+					
+		subscriptionManager {
+			pid = 334
+		
+			admin {
+				enable = 1
+				mailTo {
+					info@felixnagel.com = Blog Moderator
+				}
+				mailFrom {
+					no-reply@felixnagel.com = FelixNagel.com Blog
+				}
+			}				
+			subscriber {
+				enableNewCommentNotifications = 1
+				
+				# use http://www.php.net/manual/en/datetime.formats.relative.php
+				emailHashTimeout = +48 hours
+				mailFrom {
+					no-reply@felixnagel.com = FelixNagel.com Blog
+				}
+			}
+		}			
 		
 		categories {
-			postListPid = 334		
-			
 			paginate {
 				itemsPerPage = 10
 				insertAbove = 0
@@ -199,9 +209,10 @@ plugin.tx_t3extblog {
 		}
 		
 		archive {
-		
+			
 		}
 		
+		# some debug configs
 		debug {
 			disableEmailTransmission = 1
 			logInDevlog = 1
