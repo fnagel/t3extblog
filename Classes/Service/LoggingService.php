@@ -45,13 +45,38 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @var boolean
 	 */
 	protected $enableDLOG;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $logInDevlog;
+	
+	/**
+	 * @var Tx_T3extblog_Service_SettingsService
+	 */
+	protected $settingsService;
+
 
 	/**
-	 * Constructer
+	 * Injects the Settings Service
+	 *
+	 * @param Tx_T3extblog_Service_SettingsService $settingsService 
+	 * @return void
 	 */
-	public function __construct() {
-		$this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
+	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+		$this->settingsService = $settingsService;
 	}
+	
+	/**
+	 * 
+	 */
+	public function initializeObject() {
+		$this->settings = $this->settingsService->getTypoScriptSettings();	
+		$this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
+		
+		$this->logInDevlog = $this->settings['debug']['logInDevlog'];
+	}
+	
 	
 	/**
 	 * Error logging
@@ -63,7 +88,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	public function error($msg, $data) {
 		$this->sysLog($msg, 3);
 				
-		if ($this->enableDLOG) {
+		if ($this->enableDLOG || $this->logInDevlog) {
 			$this->devLog($msg, 3, $data);
 		}
 	}
@@ -78,7 +103,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	public function notice($msg, $data) {
 		$this->sysLog($msg, 1);
 				
-		if ($this->enableDLOG) {
+		if ($this->enableDLOG || $this->logInDevlog) {
 			$this->devLog($msg, 1, $data);
 		}
 	}
@@ -91,7 +116,9 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @return	void
 	 */
 	public function dev($msg, $data) {
-		$this->devLog($msg, 1, $data);
+		if ($this->enableDLOG || $this->logInDevlog) {
+			$this->devLog($msg, 1, $data);
+		}
 	}
 	
 	/**

@@ -126,7 +126,7 @@ plugin.tx_t3extblog {
 			
 			subscribeForComments = 1
 			
-			splitLongWords = 1
+			# splitLongWords = 1
 						
 			spam {
 				redirect {
@@ -204,6 +204,7 @@ plugin.tx_t3extblog {
 		
 		debug {
 			disableEmailTransmission = 1
+			logInDevlog = 1
 		}
 	}
 }
