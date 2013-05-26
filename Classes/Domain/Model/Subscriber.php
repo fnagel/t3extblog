@@ -68,6 +68,30 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	protected $postUid;
 
 	/**
+	 * post
+	 *
+	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @lazy
+	 */
+	protected $post = NULL;
+
+	/**
+	 * comments
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @lazy
+	 */
+	protected $postComments = NULL;
+	
+	/**
+	 * comments
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @lazy
+	 */
+	protected $postPendingComments = NULL;
+	
+	/**
 	 * lastSent
 	 *
 	 * @var DateTime
@@ -147,7 +171,40 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return Tx_T3extblog_Domain_Model_Post $post
 	 */
 	public function getPost() {
-		return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByUid($this->postUid);
+		if ($this->post === NULL) {		
+			$postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");
+			$this->post = $postRepository->findByUid($this->postUid);
+		}
+		
+		return $this->post;
+	}
+
+	/**
+	 * Returns the post comments
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 */
+	public function getPostComments() {
+		if ($this->postComments === NULL) {			
+			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$this->postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
+		}
+		
+		return $this->postComments;
+	}
+
+	/**
+	 * Returns the post pending comments
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 */
+	public function getPostPendingComments() {
+		if ($this->postPendingComments === NULL) {			
+			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$this->postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
+		}
+		
+		return $this->postPendingComments;
 	}
 
 	/**
@@ -204,7 +261,8 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return void
 	 */
 	private function createCode($code) {
-		$this->code = substr(t3lib_div::hmac($this->email . $GLOBALS['EXEC_TIME']), 0, 32);
+		$input = $this->email . $this->postUid . $GLOBALS['EXEC_TIME'];
+		$this->code = substr(t3lib_div::hmac($input), 0, 32);
 	}
 
 	/**

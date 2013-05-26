@@ -62,7 +62,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$query = $this->createQuery();
 
 		$constraints = $this->getValidConstraints($query);
-		$constraints [] = $query->equals('postId', $post->getUid());
+		$constraints[] = $query->equals('postId', $post->getUid());
 		
 		$query->matching(
 			$query->logicalAnd($constraints)
@@ -72,10 +72,92 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	}
 		
 	/**
+	 * Finds comments by email and post uid
+	 *
+	 * @param string $email
+	 * @param integer $postUid 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findByEmailAndPostId($email, $postUid) {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('email', $email),
+				$query->equals('postId', $postUid)
+			)
+		);
+			
+		return $query->execute();
+	}
+	
+	/**
+	 * Finds valid comments by email and post uid
+	 *
+	 * @param string $email
+	 * @param integer $postUid 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findValidByEmailAndPostId($email, $postUid) {
+		$query = $this->createQuery();
+				
+		$query->matching(
+			$query->logicalAnd(
+				$query->logicalAnd(
+					$this->getValidConstraints($query)
+				),
+				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
+			)
+		);
+			
+		return $query->execute();
+	}
+	
+	/**
+	 * Finds pending comments by email and post uid
+	 *
+	 * @param string $email
+	 * @param integer $postUid 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findPendingByEmailAndPostId($email, $postUid) {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$query->logicalAnd(
+				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
+				$query->logicalOr(
+					$query->equals('spam', 1),
+					$query->equals('approved', 0)		
+				)
+			)
+		);
+			
+		return $query->execute();
+	}
+		
+	/**
+	 * Create constraints 
+	 *
+	 * @param Tx_Extbase_Persistence_QueryInterface $query
+	 * @param string $email
+	 * @param integer $postUid 
+	 * @return 
+	 */
+	protected function getFindByEmailAndPostIdConstraints(Tx_Extbase_Persistence_QueryInterface $query, $email, $postUid) {	
+		$constraints = $query->logicalAnd(
+			$query->equals('email', $email),
+			$query->equals('postId', $postUid)
+		);
+			
+		return $constraints;
+	}	
+	
+	/**
 	 * Create constraints for valid comments
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @return array
+	 * @return 
 	 */
 	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
 		$constraints = array(

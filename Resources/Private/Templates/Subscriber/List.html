@@ -1,7 +1,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h1>Listing for Subscriber: {email}</h1>
+<h2>Listing for Subscriber: {email}</h2>
 
 <f:flashMessages />
 
@@ -9,14 +9,21 @@
 	<tr>
 		<th>Blogpost</th>
 		<th>Name</th>
-		<th> </th>
+		<th>Comments</th>
+		<th></th>
 	</tr>
 
 	<f:for each="{subscribers}" as="subscriber">
 		<tr>
-			<td><f:link.action controller="Post" action="show" arguments="{post : subscriber.post}">{subscriber.post.title}</f:link.action></td>
+			<td>
+				<f:link.action controller="Post" action="show" arguments="{post : subscriber.post}">{subscriber.post.title}</f:link.action>
+			</td>
 			<td>{subscriber.name}</td>
-			<td><f:link.action action="delete" arguments="{subscriber : subscriber}">Delete</f:link.action></td>
+			<td>
+				<f:count>{subscriber.postComments}</f:count> approved<br />
+				<f:count>{subscriber.postPendingComments}</f:count> awaiting moderation
+			</td>
+			<td><f:link.action action="delete" arguments="{subscriber : subscriber}">Delete subscription</f:link.action></td>
 		</tr>
 	</f:for>
 </table>
