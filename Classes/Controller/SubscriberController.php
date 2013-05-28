@@ -192,6 +192,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		}
 		
 		// check if code is outdated
+		// todo: needs testing
 		$now = new DateTime();
 		$expire = $subscriber->getLastSent()->modify(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]));				
 		if ($now > $expire) {

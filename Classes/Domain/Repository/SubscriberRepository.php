@@ -42,6 +42,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 	public function findForNotification(Tx_T3extblog_Domain_Model_Post $post) {
 		$query = $this->createQuery();
 
+		// todo: only when last send is older than now?
 		$query->matching(
 			$query->equals('postUid', $post->getUid())
 		);
