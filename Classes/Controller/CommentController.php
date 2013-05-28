@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -62,10 +62,10 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$comments = $this->commentRepository->findByFkPost($post->getUid());
 			$this->view->assign('post', $post);
 		}
-		
+
 		$this->view->assign('comments', $comments);
 	}
-	
+
 	/**
 	 * action latest
 	 *
@@ -79,11 +79,11 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$comments = $this->commentRepository->findByFkPost($post->getUid());
 			$this->view->assign('post', $post);
 		}
-		
+
 		$this->view->assign('comments', $comments);
 	}
-	
-	
+
+
 	/**
 	 * action new
 	 *
@@ -97,11 +97,11 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($newComment === NULL) {
 			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
 		}
-		
+
 		$this->view->assign('newComment', $newComment);
 		$this->view->assign('post', $post);
 	}
-	
+
 	/**
 	 * Adds a comment to a blog post and redirects to single view
 	 *
@@ -112,25 +112,25 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 * @return void
 	 */
-	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {	
+	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
 		if ($this->settings['blogsystem']['comments']['allowed'] && $post->getAllowComments() === 0) {
 			$this->checkIfCommentIsSpam($newComment);
-			
+
 			if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
 				$newComment->setApproved(TRUE);
 			}
-			
+
 			$post->addComment($newComment);
 			$this->notificationService->processAddedComment($newComment);
-			
+
 			$this->addFlashMessage('Created');
 		} else {
 			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
-		}	
-	
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment->getUid()));
+		}
+
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment));
 	}
-	
+
 	/**
 	 * action edit
 	 *
@@ -143,7 +143,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	public function editAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->view->assign('comment', $comment);
 		$this->view->assign('post', $post);
-				
+
 		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
 	}
 
@@ -158,12 +158,12 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function updateAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->checkIfCommentIsSpam($comment);
-		
+
 		$this->commentRepository->update($comment);
 		$this->notificationService->notifyAdmin($comment);
-			
+
 		$this->addFlashMessage->add('Updated');
-		
+
 		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
 	}
 
@@ -179,12 +179,12 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	public function deleteAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$post->removeComment($comment);
 		$this->notificationService->notifyAdmin($comment);
-		
+
 		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
-		
+
 		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid()));
 	}
-	
+
 	/**
 	 * Checks comment for SPAM
 	 *
@@ -192,100 +192,123 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	protected function checkIfCommentIsSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$spamSettings = $this->settings['blogsystem']['comments']['spam'];
-		if ($spamSettings['honeypot']['enable']) {
+		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck'];
+		$spamPoints = 0;
+
+		if (!$spamSettings["enable"]) {
+			return;
+		}
+
+		if ($spamSettings['honeypot']) {
 			if (!$this->checkHoneyPotFields()){
-				$comment->markAsSpam();
-				$this->processSpamRequest('honeypot');
-				return;
-			}		
+				$spamPoints += intval($spamSettings['honeypot']);
+			}
 		}
-		
-		if ($spamSettings['cookie']['enable']) {
+
+		if ($spamSettings['isHumanCheckbox']) {
+			if (!$this->request->hasArgument("human") || !$this->request->hasArgument("human")){
+				$spamPoints += intval($spamSettings['isHumanCheckbox']);
+			}
+		}
+
+		if ($spamSettings['cookie']) {
 			if (!$_COOKIE['fe_typo_user']) {
-				$comment->markAsSpam();
-				$this->processSpamRequest('cookie');
-				return;
-			}		
-		}		
-		
-		if ($spamSettings['userAgent']['enable']) {
-			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == "") {
-				$comment->markAsSpam();
-				$this->processSpamRequest('userAgent');
-				return;
-			}		
+				$spamPoints += intval($spamSettings['cookie']);
+			}
 		}
-		
-		if ($spamSettings['sfpantispam']['enable']) {
-			if (t3lib_extMgm::isLoaded('sfpantispam')) {					
+
+		if ($spamSettings['userAgent']) {
+			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == "") {
+				$spamPoints += intval($spamSettings['userAgent']);
+			}
+		}
+
+		if ($spamSettings['sfpantispam']) {
+			if (t3lib_extMgm::isLoaded('sfpantispam')) {
 				if ($this->checkCommentWithSfpAntiSpam($comment)) {
-					$comment->markAsSpam();
-					$this->processSpamRequest('sfpantispam');
+					$spamPoints += intval($spamSettings['sfpantispam']);
 				}
 			} else {
 				$this->log->error("EXT:sfpantispam not installed but enabled in configuration.");
-			}	
+			}
+		}
+
+		if ($spamPoints > 0) {
+			$this->processSpamRequest($comment, $spamPoints);
 		}
 	}
-	
+
+	/**
+	 * Checks comment for SPAM
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
+	 * @return void
+	 */
+	protected function processSpamRequest(Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
+		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck']['threshold'];
+
+		// block comment and show message
+		if ($spamSettings['block'] > 0 && $spamPoints >= intval($spamSettings['block'])) {
+			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
+			$this->log->notice("New comment blocked because of SPAM.");
+			$this->forward('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+		}
+
+		// block comment and redirect user
+		if ($spamSettings['redirect'] > 0 && $spamPoints >= intval($spamSettings['redirect'])) {
+			$this->log->notice("New comment blocked and user redirected because of SPAM.");
+			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
+		}
+
+		// mark as spam
+		if ($spamPoints >= intval($spamSettings['markAsSpam'])) {
+			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);
+			$this->log->notice("New comment marked as SPAM.");
+			$comment->markAsSpam();
+		}
+	}
+
 	/**
 	 * Checks text fields with EXT:sfpantispam
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return boolean
 	 */
-	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {	
+	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
 		/* @var tx_sfpantispam_tslibfepreproc $sfpantispam */
-		$sfpantispam = t3lib_div::makeInstance('tx_sfpantispam_tslibfepreproc');			
+		$sfpantispam = t3lib_div::makeInstance('tx_sfpantispam_tslibfepreproc');
 		$fields = array(
 			$comment->getAuthor(),
 			$comment->getTitle(),
 			$comment->getWebsite(),
 			$comment->getEmail(),
 			$comment->getText()
-		);			
-			
+		);
+
 		return !$sfpantispam->sendFormmail_preProcessVariables($textFields, $this);
 	}
-	
+
 	/**
 	 * Checks honeypot fields
 	 *
 	 * @return boolean
 	 */
-	protected function checkHoneyPotFields() {		
-		if ($this->request->hasArgument("author") && strlen($this->request->hasArgument("author")) > 0){
+	protected function checkHoneyPotFields() {
+		if (!$this->request->hasArgument("author") || strlen($this->request->hasArgument("author")) > 0){
 			return FALSE;
 		}
-		if ($this->request->hasArgument("link") && strlen($this->request->hasArgument("link")) > 0){
-			return FALSE;
-		}	
-		if ($this->request->hasArgument("text") && strlen($this->request->hasArgument("text")) > 0){
+		if (!$this->request->hasArgument("link") || strlen($this->request->hasArgument("link")) > 0){
 			return FALSE;
 		}
-		if ($this->request->hasArgument("timestamp") && $this->request->getArgument("timestamp") !== "1368283172"){
+		if (!$this->request->hasArgument("text") || strlen($this->request->hasArgument("text")) > 0){
 			return FALSE;
 		}
-			
+		if (!$this->request->hasArgument("timestamp") || $this->request->getArgument("timestamp") !== "1368283172"){
+			return FALSE;
+		}
+
 		return TRUE;
 	}
-		
-	/**
-	 * Redirects SPAM requests
-	 *
-	 * @return void
-	 */
-	protected function processSpamRequest($key) {
-		$settings = $this->settings['blogsystem']['comments']['spam'];
-				
-		if ($settings[$key]['redirect']) {
-			$this->log->notice("New comment blocked because of '" . $key ."' check.");
-			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
-		} else {
-			$this->log->notice("New comment marked as SPAM because of '" . $key ."' check.");
-			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);			
-		}
-	}	
+
 }
 ?>

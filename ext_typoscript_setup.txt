@@ -134,29 +134,36 @@ plugin.tx_t3extblog {
 				
 				# splitLongWords = 1
 							
-				spam {
-					redirect {
+				spamCheck {
+					enable = 1
+				
+					redirectUrl {
 						pid = 292
 						arguments {
 						}
 					}
+					
+					# limit of spam points 
+					threshold {			
+						# saved but marked as spam
+						markAsSpam = 10
+						# to block comment (user could  try again), 0 = disable
+						block = 20
+						# to block comment and redirect user, 0 = disable
+						redirect = 30
+					}
 				
-					honeypot {
-						enable = 1
-						redirect = 0
-					}
-					userAgent {
-						enable = 1
-						redirect = 0
-					}
-					cookie {
-						enable = 1
-						redirect = 0
-					}
-					sfpantispam {
-						enable = 1
-						redirect = 0
-					}
+					### spam checks, 0 = disbable	
+					# simple checkbox which needs to be enabled
+					isHumanCheckbox = 10
+					# hidden honeypot fields
+					honeypot = 3	
+					# checks for useragent
+					userAgent = 5
+					# checks if client accepts cookies
+					cookie = 2
+					# cheks with EXT:sfpantispam against blacklist
+					sfpantispam = 10
 				}
 				
 				paginate {
