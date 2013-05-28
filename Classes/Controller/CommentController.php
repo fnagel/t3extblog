@@ -105,30 +105,53 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * Adds a comment to a blog post and redirects to single view
 	 *
-	 * @todo add spam check
-	 * @todo add allowedUnil check
-	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 * @return void
 	 */
 	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
-		if ($this->settings['blogsystem']['comments']['allowed'] && $post->getAllowComments() === 0) {
-			$this->checkIfCommentIsSpam($newComment);
+			$this->checkIfCommentAllowed($post, $newComment);
+			$this->checkIfCommentIsSpam($post, $newComment);
 
+			// comment is valid
 			if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
 				$newComment->setApproved(TRUE);
 			}
-
 			$post->addComment($newComment);
 			$this->notificationService->processAddedComment($newComment);
-
 			$this->addFlashMessage('Created');
 		} else {
 			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
 		}
 
 		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment));
+	}
+
+	/**
+	 * Checks if a new comment could be created
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
+	 * @return void
+	 */
+	private function checkIfCommentAllowed(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
+		$settings = $this->settings['blogsystem']['comments'];
+
+		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
+			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
+			$this->forward('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+		}
+
+		// todo: needs testing
+		if ($tsettings["allowedUntil"]) {
+			$now = new DateTime();
+			$expire = $post->getPublishDate()->modify(trim($tsettings["allowedUntil"]));
+
+			if ($now > $expire) {
+				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
+				$this->forward('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+			}
+		}
 	}
 
 	/**
@@ -157,7 +180,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	public function updateAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->checkIfCommentIsSpam($comment);
+		$this->checkIfCommentIsSpam($post, $comment);
 
 		$this->commentRepository->update($comment);
 		$this->notificationService->notifyAdmin($comment);
@@ -188,10 +211,11 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * Checks comment for SPAM
 	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
 	 * @return void
 	 */
-	protected function checkIfCommentIsSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function checkIfCommentIsSpam(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck'];
 		$spamPoints = 0;
 
@@ -234,17 +258,18 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		}
 
 		if ($spamPoints > 0) {
-			$this->processSpamRequest($comment, $spamPoints);
+			$this->processSpamRequest($post, $comment, $spamPoints);
 		}
 	}
 
 	/**
-	 * Checks comment for SPAM
+	 * Process SPAM request
 	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
 	 * @return void
 	 */
-	protected function processSpamRequest(Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
+	protected function processSpamRequest(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
 		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck']['threshold'];
 
 		// block comment and show message

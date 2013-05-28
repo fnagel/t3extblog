@@ -127,6 +127,9 @@ plugin.tx_t3extblog {
 			}
 			comments {
 				allowed = 1
+				# auto close comments, 0 = disabled
+				# use http://www.php.net/manual/en/datetime.formats.relative.php
+				allowedUntil = +6 months
 					
 				approvedByDefault = 1
 				
