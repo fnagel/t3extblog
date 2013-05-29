@@ -110,44 +110,22 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {	
-		$this->checkIfCommentIsAllowed($post, $newComment);
-		$this->checkIfCommentIsSpam($post, $newComment);
-
-		// comment is valid
-		if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
-			$newComment->setApproved(TRUE);
-		}
-		$post->addComment($newComment);
-		$this->notificationService->processAddedComment($newComment);
-
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment));
-	}
-
-	/**
-	 * Checks if a new comment could be created
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
-	 * @return void
-	 */
-	private function checkIfCommentIsAllowed(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
-		$settings = $this->settings['blogsystem']['comments'];
+		$isAllowed = $this->checkIfCommentIsAllowed($post, $newComment);
+		$isNotSpam = $this->checkIfCommentIsNotSpam($post, $newComment);
 		
-		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
-			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
-			$this->forward('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
-		}
-
-		// todo: needs testing
-		if ($tsettings["allowedUntil"]) {
-			$now = new DateTime();
-			$expire = $post->getPublishDate()->modify(trim($tsettings["allowedUntil"]));
-
-			if ($now > $expire) {
-				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
-				$this->forward('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
+		if ($isAllowed && $isNotSpam) {
+			if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
+				$newComment->setApproved(TRUE);
 			}
+			$post->addComment($newComment);
+			$this->notificationService->processAddedComment($newComment);
+			
+			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+			/* @var $persistenceManager Tx_Extbase_Persistence_Manager */
+			$persistenceManager->persistAll();
 		}
+		
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'addedComment' => $newComment));
 	}
 
 	/**
@@ -163,7 +141,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->view->assign('comment', $comment);
 		$this->view->assign('post', $post);
 
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
 	}
 
 	/**
@@ -176,14 +154,14 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	public function updateAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->checkIfCommentIsSpam($post, $comment);
+		if ($this->checkIfCommentIsNotSpam($post, $comment)) {
+			$this->commentRepository->update($comment);
+			$this->notificationService->notifyAdmin($comment);
+			$this->addFlashMessage->add('Updated');		
+		}
 
-		$this->commentRepository->update($comment);
-		$this->notificationService->notifyAdmin($comment);
 
-		$this->addFlashMessage->add('Updated');
-
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'comment' => $comment->getUid()));
+		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
 	}
 
 	/**
@@ -201,23 +179,51 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
 
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid()));
+		$this->redirect('show', 'Post', NULL, array('post' => $post));
 	}
 
+
+	/**
+	 * Checks if a new comment could be created
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
+	 * @return boolean If the comment should be saved
+	 */
+	private function checkIfCommentIsAllowed(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
+		$settings = $this->settings['blogsystem']['comments'];
+		$saveComment = TRUE;
+		
+		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
+			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
+			$saveComment = FALSE;
+		}
+
+		// todo: needs testing
+		if ($tsettings["allowedUntil"]) {
+			$now = new DateTime();
+			$expire = $post->getPublishDate()->modify(trim($tsettings["allowedUntil"]));
+
+			if ($now > $expire) {
+				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
+				$saveComment = FALSE;
+			}
+		}
+		
+		return $saveComment;
+	}
+	
 	/**
 	 * Checks comment for SPAM
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
-	 * @return void
+	 * @return boolean If the comment should be saved
 	 */
-	protected function checkIfCommentIsSpam(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function checkIfCommentIsNotSpam(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck'];
 		$spamPoints = 0;
 		
-		$this->addFlashMessage('TEST', t3lib_FlashMessage::ERROR);		
-		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
-
 		if (!$spamSettings["enable"]) {
 			return;
 		}
@@ -256,39 +262,41 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			}
 		}
 
-		$this->processSpamRequest($post, $comment, $spamPoints);
+		return $this->processSpamCount($comment, $spamPoints);
 	}
 
 	/**
 	 * Process SPAM request
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
 	 * @param integrer $spamPoints
-	 * @return void
+	 * @return boolean
 	 */
-	protected function processSpamRequest(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
+	protected function processSpamCount(Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
 		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck']['threshold'];
-
-		// block comment and show message
-		// if ($spamSettings['block'] > 0 && $spamPoints >= intval($spamSettings['block'])) {
-			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
-			$this->log->notice("New comment blocked because of SPAM.");
-			$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
-		// }
+		$saveComment = TRUE;
 
 		// block comment and redirect user
 		if ($spamSettings['redirect'] > 0 && $spamPoints >= intval($spamSettings['redirect'])) {
-			$this->log->notice("New comment blocked and user redirected because of SPAM.");
+			$this->log->notice("New comment blocked and user redirected because of SPAM.", array( "spamPoints" => $spamPoints));
 			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
+		}
+
+		// block comment and show message
+		if ($spamSettings['block'] > 0 && $spamPoints >= intval($spamSettings['block'])) {
+			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
+			$this->log->notice("New comment blocked because of SPAM.", array( "spamPoints" => $spamPoints));
+			$saveComment = FALSE;
 		}
 
 		// mark as spam
 		if ($spamPoints >= intval($spamSettings['markAsSpam'])) {
 			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);
-			$this->log->notice("New comment marked as SPAM.");
+			$this->log->notice("New comment marked as SPAM.", array( "spamPoints" => $spamPoints));
 			$comment->markAsSpam();
 		}
+		
+		return $saveComment;
 	}
 
 	/**
