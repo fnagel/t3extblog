@@ -85,6 +85,13 @@
 			<trans-unit id="tx_t3extblog_domain_model_comment.spam">
 				<source>spam</source>
 			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.isHumanCheckbox">
+				<source>Are you human?</source>
+			</trans-unit>
+			<trans-unit id="tx_t3extblog_domain_model_comment.subscribe">
+				<source>Subscribe to comments</source>
+			</trans-unit>
+			
 			
 			<trans-unit id="tx_t3extblog_domain_model_subscriber">
 				<source>Subscriber</source>
