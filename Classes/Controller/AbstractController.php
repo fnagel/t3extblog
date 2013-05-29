@@ -50,7 +50,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected function getErrorFlashMessage() {
 		$defaultFlashMessage = parent::getErrorFlashMessage();
-		$locallangKey = sprintf('error.%s.%s', $this->request->getControllerName(), $this->actionMethodName);
+		$locallangKey = sprintf('%s_%s_Error', $this->request->getControllerName(), ucfirst($this->actionMethodName));
 		
 		return $this->translate($locallangKey, $defaultFlashMessage);
 	}
@@ -63,7 +63,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @return void
 	 */
 	protected function addFlashMessage($key, $severity = t3lib_FlashMessage::OK) {
-		$messageLocallangKey = sprintf('%s_%s_FlashMessage_%s', $this->request->getControllerName(), $this->request->getControllerActionName(), $key);
+		$messageLocallangKey = sprintf('%s_%s_FlashMessage_%s', $this->request->getControllerName(), ucfirst($this->actionMethodName), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
 		
 		$titleLocallangKey = sprintf('%s_Title', $messageLocallangKey);
