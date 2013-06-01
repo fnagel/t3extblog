@@ -164,7 +164,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Sets the author
 	 *
-	 * @param mixed $author
+	 * @param Tx_T3extblog_Domain_Model_BackendUser|integer $author
 	 * @return void
 	 */
 	public function setAuthor($author) {

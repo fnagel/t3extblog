@@ -264,7 +264,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function setApproved($approved) {
-		$this->approved = $approved;
+		$this->approved = (boolean) $approved;
 	}
 
 	/**
@@ -301,7 +301,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return $this->getSpam();
+		return (boolean) $this->getSpam();
 	}
 
 	/**
@@ -372,6 +372,15 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function isValid() {
 		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
+	}
+
+	/**
+	 * If the is enabled
+	 *
+	 * @return boolean
+	 */
+	public function isUnavailable() {
+		return ($this->hidden || $this->deleted);
 	}
 
 }
