@@ -213,6 +213,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$subject = "New Comment on: " . $post->getTitle();						
 			
 			foreach($subscribers as $subscriber) {
+				// todo: needs testing
 				$now = new DateTime();
 				if ($now > $subscriber->getLastSent()) {
 					$subscriber->updateAuth();

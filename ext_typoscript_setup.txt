@@ -1,109 +1,13 @@
-config.tx_extbase{
-    persistence{
-        classes{
-            Tx_T3extblog_Domain_Model_Post {
-                mapping {
-                    tableName = tx_t3blog_post
-					columns {						
-						sorting.mapOnProperty = sorting
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden
-						title.mapOnProperty = title
-						author.mapOnProperty = author
-						date.mapOnProperty = publishDate
-						content.mapOnProperty = content
-						allow_comments.mapOnProperty = allowComments
-						cat.mapOnProperty = categories
-						tagClouds.mapOnProperty = tagCloud
-						number_views.mapOnProperty = numberOfViews
-					}
-                }
-            }            
-            Tx_T3extblog_Domain_Model_Content {
-				mapping {
-					tableName = tt_content
-					columns {
-						altText.mapOnProperty = altText
-						titleText.mapOnProperty = titleText
-						colPos.mapOnProperty = colPos
-					}
-				}
-            }            
-            Tx_T3extblog_Domain_Model_Category {
-                mapping {
-                    tableName = tx_t3blog_cat
-					columns {				
-						sorting.mapOnProperty = sorting		
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden
-						catname.mapOnProperty = name
-						description.mapOnProperty = description
-						parent_id.mapOnProperty = parentId
-					}
-                }
-            }            
-            Tx_T3extblog_Domain_Model_Comment {
-                mapping {
-                    tableName = tx_t3blog_com
-					columns {				
-						sorting.mapOnProperty = sorting		
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden						
-						title.mapOnProperty = title
-						fk_post.mapOnProperty = postId
-						author.mapOnProperty = author
-						email.mapOnProperty = email
-						website.mapOnProperty = website
-						date.mapOnProperty = date
-						text.mapOnProperty = text
-						approved.mapOnProperty = approved
-						spam.mapOnProperty = spam
-					}
-                }
-            }                      
-            Tx_T3extblog_Domain_Model_BackendUser {
-                mapping {
-                    tableName = be_users 
-					columns {				
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden						
-						username.mapOnProperty = username
-						realName.mapOnProperty = name
-						email.mapOnProperty = email
-					}
-                }
-            }          
-            Tx_T3extblog_Domain_Model_Subscriber {
-                mapping {
-                    tableName = tx_t3blog_com_nl
-					columns {				
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden						
-						name.mapOnProperty = name
-						email.mapOnProperty = email
-						post_uid.mapOnProperty = postUid
-						lastsent.mapOnProperty = lastSent
-						code.mapOnProperty = code
-					}
-                }
-            }          
-    	}
-    }
-}
-
 plugin.tx_t3extblog {
 	persistence {
 		# storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
 		storagePid = 172
 	}
+
 	features {
 		rewrittenPropertyMapper = 1
 	}
+
 	settings {
 		# used for mails, 
 		blogName = Testblog
@@ -113,9 +17,10 @@ plugin.tx_t3extblog {
 		
 			posts {	
 				viewCount {
-					#views: Amount of seconds which have to pass by until an returning visitor is recounted. If you want to have counted each view just put a negative number.
-					timePeriod = 10000
-					countBackendUsers = 1
+					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
+					# if you want to have counted each view just put a negative number.
+					# timePeriod = 10000
+					# countBackendUsers = 1
 				}
 				
 				paginate {
@@ -237,6 +142,105 @@ lib.tx_t3extblog.contentElementRendering {
 	tables = tt_content
 	source.current = 1
 	dontCheckPid = 1
+}
+
+# table & field mapping
+config.tx_extbase{
+    persistence{
+        classes{
+            Tx_T3extblog_Domain_Model_Post {
+                mapping {
+                    tableName = tx_t3blog_post
+					columns {
+						sorting.mapOnProperty = sorting
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						title.mapOnProperty = title
+						author.mapOnProperty = author
+						date.mapOnProperty = publishDate
+						content.mapOnProperty = content
+						allow_comments.mapOnProperty = allowComments
+						cat.mapOnProperty = categories
+						tagClouds.mapOnProperty = tagCloud
+						number_views.mapOnProperty = numberOfViews
+					}
+                }
+            }
+            Tx_T3extblog_Domain_Model_Content {
+				mapping {
+					tableName = tt_content
+					columns {
+						altText.mapOnProperty = altText
+						titleText.mapOnProperty = titleText
+						colPos.mapOnProperty = colPos
+					}
+				}
+            }
+            Tx_T3extblog_Domain_Model_Category {
+                mapping {
+                    tableName = tx_t3blog_cat
+					columns {
+						sorting.mapOnProperty = sorting
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						catname.mapOnProperty = name
+						description.mapOnProperty = description
+						parent_id.mapOnProperty = parentId
+					}
+                }
+            }
+            Tx_T3extblog_Domain_Model_Comment {
+                mapping {
+                    tableName = tx_t3blog_com
+					columns {
+						sorting.mapOnProperty = sorting
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						title.mapOnProperty = title
+						fk_post.mapOnProperty = postId
+						author.mapOnProperty = author
+						email.mapOnProperty = email
+						website.mapOnProperty = website
+						date.mapOnProperty = date
+						text.mapOnProperty = text
+						approved.mapOnProperty = approved
+						spam.mapOnProperty = spam
+					}
+                }
+            }
+            Tx_T3extblog_Domain_Model_BackendUser {
+                mapping {
+                    tableName = be_users
+					columns {
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						username.mapOnProperty = username
+						realName.mapOnProperty = name
+						email.mapOnProperty = email
+					}
+                }
+            }
+            Tx_T3extblog_Domain_Model_Subscriber {
+                mapping {
+                    tableName = tx_t3blog_com_nl
+					columns {
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						name.mapOnProperty = name
+						email.mapOnProperty = email
+						post_uid.mapOnProperty = postUid
+						lastsent.mapOnProperty = lastSent
+						code.mapOnProperty = code
+					}
+                }
+            }
+    	}
+    }
 }
 
 # debugging
