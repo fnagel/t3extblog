@@ -71,9 +71,7 @@ Cross linking can be achieved by the means of a plugin called Intersphinx_ which
 	intersphinx_mapping = {'tsref': ('http://doc.typo3.org/...', None)}
 
 	This is a cross link to :ref:`stdWrap <tsref:stdWrap>`
-
-@todo: enumerate the TYPO3 offical prefix here once there are known...
-
+    
 .. _Intersphinx: http://sphinx.pocoo.org/latest/ext/intersphinx.html
 
 List

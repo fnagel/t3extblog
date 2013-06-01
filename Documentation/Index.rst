@@ -36,11 +36,6 @@ The content of this document is related to TYPO3, a GNU/GPL CMS/Framework availa
 	DeveloperCorner
 	RestructuredtextHelp
 
-.. STILL TO ADD IN THIS DOCUMENT
-	@todo: add section about how screenshots can be automated. Pointer to PhantomJS could be added.
-	@todo: explain how documentation can be rendered locally and remotely.
-	@todo: explain what files should be versionned and what not (_build, Makefile, conf.py, ...)
-
 .. include:: ../Readme.rst
 
 What does it do?
