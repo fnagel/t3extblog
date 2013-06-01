@@ -113,6 +113,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$this->propertyMapper = $propertyMapper;
 	}
 	
+
 	/**
 	 * 
 	 */
@@ -141,7 +142,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @return	void
 	 */
 	private function processSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
-		Tx_Extbase_Utility_Debugger::var_dump($comment);
 		if ($this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {	
 			// check if user already registered
 			$subscriber = $this->subscriberRepository->findExistingSubscriptions($comment);
@@ -195,7 +195,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	}
 	
 	/**
-	 * Send 
+	 * Send comment notification mails
+	 * 
+	 * @todo: only when last send is older than now?
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return	void
@@ -211,16 +213,19 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$subject = "New Comment on: " . $post->getTitle();						
 			
 			foreach($subscribers as $subscriber) {
-				$subscriber->updateAuth();
-				
-				$variables = array(
-					'post' => $post,
-					'comment' => $comment,
-					'subscriber' => $subscriber
-				);		
-				$emailBody = $this->renderEmailTemplate($variables, "SubscriberNewCommentMail.txt");
-								
-				$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);	
+				$now = new DateTime();
+				if ($now > $subscriber->getLastSent()) {
+					$subscriber->updateAuth();
+
+					$variables = array(
+						'post' => $post,
+						'comment' => $comment,
+						'subscriber' => $subscriber
+					);
+					$emailBody = $this->renderEmailTemplate($variables, "SubscriberNewCommentMail.txt");
+
+					$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
+				}
 			}			
 		}
 	}
