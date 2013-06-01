@@ -57,9 +57,9 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function listAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
 		if ($post === NULL) {
-			$comments = $this->commentRepository->findAll();
+			$comments = $this->commentRepository->findAllValid();
 		} else {
-			$comments = $this->commentRepository->findByFkPost($post->getUid());
+			$comments = $this->commentRepository->findForPost($post);
 			$this->view->assign('post', $post);
 		}
 
@@ -74,9 +74,9 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function latestAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
 		if ($post === NULL) {
-			$comments = $this->commentRepository->findAll();
+			$comments = $this->commentRepository->findAllValid();
 		} else {
-			$comments = $this->commentRepository->findByFkPost($post->getUid());
+			$comments = $this->commentRepository->findForPost($post);
 			$this->view->assign('post', $post);
 		}
 
@@ -119,6 +119,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			}
 			$post->addComment($newComment);
 			$this->notificationService->processAddedComment($newComment);
+			$this->addFlashMessage->add('Created');
 			
 			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
 			/* @var $persistenceManager Tx_Extbase_Persistence_Manager */

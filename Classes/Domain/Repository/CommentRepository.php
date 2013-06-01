@@ -60,12 +60,12 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 */
 	public function findForPost(Tx_T3extblog_Domain_Model_Post $post) {
 		$query = $this->createQuery();
-
-		$constraints = $this->getValidConstraints($query);
-		$constraints[] = $query->equals('postId', $post->getUid());
 		
 		$query->matching(
-			$query->logicalAnd($constraints)
+			$query->logicalAnd(
+				$this->getValidConstraints($query),
+				$query->equals('postId', $post->getUid())
+			)
 		);
 			
 		return $query->execute();
@@ -80,12 +80,9 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 */
 	public function findByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
-			$query->logicalAnd(
-				$query->equals('email', $email),
-				$query->equals('postId', $postUid)
-			)
+			$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
 		);
 			
 		return $query->execute();
@@ -103,10 +100,8 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 				
 		$query->matching(
 			$query->logicalAnd(
-				$query->logicalAnd(
-					$this->getValidConstraints($query)
-				),
-				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
+				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
+				$this->getValidConstraints($query)
 			)
 		);
 			
@@ -160,7 +155,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 * @return 
 	 */
 	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
-		$constraints = array(
+		$constraints = $query->logicalAnd(
 			$query->equals('spam', 0),
 			$query->equals('approved', 1)		
 		);
