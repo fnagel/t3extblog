@@ -34,7 +34,7 @@
 class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
-	 * Finds all valid comments for the given post
+	 * 
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
@@ -50,7 +50,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 	}
 	
 	/**
-	 * Finds all valid comments for the given post
+	 *
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
@@ -64,8 +64,31 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 				$query->equals('postUid', $comment->getPostId())	
 			)
 		);
-			
+
 		return $query->execute();
+	}
+
+	/**
+	 * Finds subscriber without opt-in mail sended before
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findForSubscriptionMail(Tx_T3extblog_Domain_Model_Comment $comment) {
+		$query = $this->createQuery();
+
+		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('email', $comment->getEmail()),
+				$query->equals('postUid', $comment->getPostId()),
+				$query->equals('lastSent', NULL),
+				$query->equals('hidden', 1)
+			)
+		);
+			
+		return $query->execute()->getFirst();
 	}
 	
 	/**

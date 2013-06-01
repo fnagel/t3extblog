@@ -125,53 +125,99 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	/**
 	 * Process new comment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return	void
 	 */
 	public function processAddedComment(Tx_T3extblog_Domain_Model_Comment $newComment) {
 		$this->notifyAdmin($newComment);
-		$this->notifySubscribers($newComment);		
-		$this->processSubscription($newComment);		
+		$this->notifySubscribers($newComment);
+		$this->processNewSubscription($newComment);
 	}
-	
+
+
 	/**
-	 * Send 
+	 * Changed existing comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @return	void
 	 */
-	private function processSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
-		if ($this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {	
-			// check if user already registered
-			$subscriber = $this->subscriberRepository->findExistingSubscriptions($comment);
-			if (count($subscriber) > 0) {
-				$this->log->notice("Subscriber [" . $comment->getEmail() . "] already registered.");
-				return;
-			}		
-			
-			$post = $comment->getPost();			
-			$this->log->dev("Send subscriber optin mail.");
-			
-			// add subscriber
-			$subscriber	= $this->addSubscriber($comment);
-			
-			// send email
-			$variables = array(
-				'post' => $post,
-				'comment' => $comment,
-				'subscriber' => $subscriber				
-			);		
-			$emailBody = $this->renderEmailTemplate($variables, "SubscriberOptinMail.txt");
-			$subject = "Subscribe to Blogpost: " . $post->getTitle();	
-			
-			$this->sendEmail(
-				$subscriber->getMailTo(), 
-				$this->settings['subscriptionManager']['subscriber']['mailFrom'], 
-				$subject, 
-				$emailBody
-			);
+	public function processChangedComment(Tx_T3extblog_Domain_Model_Comment $newComment) {
+		$this->notifySubscribers($newComment);		
+		$this->notifyNewSubscriber($newComment);
+	}
+	
+	/**
+	 * Send optin mail for subscirber
+	 *
+	 * @todo check if isSpam, add persistent subscribe property to comment, send subsciber mail on apporving via this service
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @return	void
+	 */
+	private function processNewSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
+		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {
+			return;
 		}
+
+		// check if user already registered
+		$subscribers = $this->subscriberRepository->findExistingSubscriptions($comment);
+		if (count($subscribers) > 0) {
+			$this->log->notice("Subscriber [" . $comment->getEmail() . "] already registered.");
+			return;
+		}
+
+		$this->addSubscriber($comment);
+		$this->notifyNewSubscriber($comment);
+	}
+
+	/**
+	 * Send optin mail for subscriber if comment valid and subscription has not been sent before
+	 *
+	 * @todo check if isSpam, add persistent subscribe property to comment, send subsciber mail on apporving via this service
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @return	void
+	 */
+	private function notifyNewSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
+		if ($comment->isSpam() || $comment->isUnavailable()) {
+			return;
+		}
+		
+		$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
+		if ($subscriber === NULL) {
+			$this->log->dev("No subscriber found for new subscription mail.");
+			return;
+		}
+
+		$this->sendNewSubscriptionMail($subscriber);
+	}
+
+	/**
+	 * Send optin mail for subscirber
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
+	 * @return	void
+	 */
+	private function sendNewSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+		$this->log->dev("Send subscriber optin mail.");
+
+		$post = $subscriber->getPost();
+		$newSubscriber->updateAuth();
+
+		$subject = "Subscribe to Blogpost: " . $post->getTitle();
+		$variables = array(
+			'post' => $post,
+			'subscriber' => $subscriber,
+			'subject' => $subject
+		);
+		$emailBody = $this->renderEmailTemplate($variables, "SubscriberOptinMail.txt");
+
+		$this->sendEmail(
+			$subscriber->getMailTo(),
+			$this->settings['subscriptionManager']['subscriber']['mailFrom'],
+			$subject,
+			$emailBody
+		);
 	}
 	
 	/**
@@ -181,15 +227,15 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @return Tx_T3extblog_Domain_Model_Subscriber
 	 */
 	private function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$this->log->dev("Add subscriber.");
-		
-		$newSubscriber = new Tx_T3extblog_Domain_Model_Subscriber($comment->getPostId());
+		$newSubscriber = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
+		/* @var $newSubscriber Tx_T3extblog_Domain_Model_Subscriber */
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
-		$newSubscriber->updateAuth();
 		
 		$this->subscriberRepository->add($newSubscriber);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();	
+
+		$this->log->dev("Added subscriber uid=" . $newSubscriber->getUid());
 
 		return $newSubscriber;
 	}
@@ -216,12 +262,11 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				// todo: needs testing
 				$now = new DateTime();
 				if ($now > $subscriber->getLastSent()) {
-					$subscriber->updateAuth();
-
 					$variables = array(
 						'post' => $post,
 						'comment' => $comment,
-						'subscriber' => $subscriber
+						'subscriber' => $subscriber,
+						'subject' => $subject
 					);
 					$emailBody = $this->renderEmailTemplate($variables, "SubscriberNewCommentMail.txt");
 
@@ -244,31 +289,32 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$post = $comment->getPost();
 			$this->log->dev("Send admin notification mail.");
 			
+			$subject = "New Comment on Blogpost: " . $post->getTitle();
 			$variables = array(
 				'post' => $post,
-				'comment' => $comment
+				'comment' => $comment,
+				'subject' => $subject
 			);		
 			$emailBody = $this->renderEmailTemplate($variables, "AdminNewCommentMail.txt");
-			$subject = "New Comment on Blogpost: " . $post->getTitle();			
 			
 			$this->sendEmail($settings['mailTo'], $settings['mailFrom'], $subject, $emailBody);	
 		}
 	}
-	
 	
 	/**
 	 * This is the main-function for sending Mails
 	 *
 	 */
 	private function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
-		if (!($mailTo && is_array($mailTo) && t3lib_div::validEmail(key($mailTo)))) {			
-			$logData = array(
-				'mailTo' => $mailTo,
-				'mailFrom' => $mailFrom,
-				'subject' => $subject
-			);			
+		$logData = array(
+			'mailTo' => $mailTo,
+			'mailFrom' => $mailFrom,
+			'subject' => $subject,
+			'emailBody' => $emailBody
+		);
+
+		if (!($mailTo && is_array($mailTo) && t3lib_div::validEmail(key($mailTo)))) {
 			$this->log->error("Given mailto email address is invalid.", $logData);
-			
 			return FALSE;
 		}
 		
@@ -277,6 +323,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		}		
 		
 		$message = t3lib_div::makeInstance('t3lib_mail_Message');
+		/* @var $message t3lib_mail_Message */
 		$message
 			->setTo($mailTo)
 			->setFrom($mailFrom)
@@ -290,13 +337,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		} 
 		$isSent = $message->isSent();
 
-		$logData = array(
-			'mailTo' => $mailTo,
-			'mailFrom' => $mailFrom,
-			'subject' => $subject,
-			'emailBody' => $emailBody,
-			'isSent' => $isSent
-		);			
+		$logData['isSent'] = $isSent;
 		$this->log->dev("Email sent.", $logData);
 
 		return $isSent;

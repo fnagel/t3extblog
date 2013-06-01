@@ -97,7 +97,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @var DateTime
 	 * @validate NotEmpty
 	 */
-	protected $lastSent;
+	protected $lastSent = NULL;
 
 	/**
 	 * code
