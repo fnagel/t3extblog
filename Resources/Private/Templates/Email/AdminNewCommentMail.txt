@@ -5,6 +5,15 @@ someone added a new comment!
 Blogname: 			{settings.blogName}
 Blogpost: 			{post.title}
 
+<f:uri.action
+	pluginName="Blogsystem"
+	controller="Post"
+	action="show"
+	pageUid="{settings.blogsystem.pid}"
+	absolute="true"
+	arguments="{post : post}"
+	section="comment_{comment.uid}" />
+
 Comment title: 		{comment.title}
 Comment author: 	{comment.author}
 Comment date: 		{comment.date}

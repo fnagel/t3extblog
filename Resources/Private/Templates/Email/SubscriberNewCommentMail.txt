@@ -1,14 +1,17 @@
 Hello {subscriber.name}, 
 
-a new comment was posted:
+a new comment was posted on '{post.title}' at {settings.blogName}.
 
-Blogname: 			{settings.blogName}
-Blogpost: 			{post.title}
+See the comment:
+<f:uri.action
+	pluginName="Blogsystem"
+	controller="Post"
+	action="show"
+	pageUid="{settings.blogsystem.pid}"
+	absolute="true"
+	arguments="{post : post}"
+	section="comment_{comment.uid}" />
 
-Comment title: 		{comment.title}
-Comment author: 	{comment.author}
-Comment message: 
-{comment.text}
 
 You can manage your subscription by clicking this link:
 <f:uri.action 
