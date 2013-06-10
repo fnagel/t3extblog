@@ -41,6 +41,40 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 */
 	protected $log;
 
+	/**
+	 * Injects the Configuration Manager and is initializing the framework settings
+	 * Function is used to override the merge of settings via TS & flexforms
+	 * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration
+	 *
+	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface An instance of the Configuration Manager
+	 * @return void
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+
+		$fullTsSettings = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
+		$tsSettings = $fullTsSettings['plugin.']['tx_t3extblog.'];
+
+		$originalSettings = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+		);
+
+		// start override
+		if (isset($tsSettings['settings.']['overrideFlexformSettingsIfEmpty'])) {
+			$overrideSettings = t3lib_div::trimExplode(',', $tsSettings['settings.']['overrideFlexformSettingsIfEmpty'], TRUE);
+			foreach($overrideSettings as $key) {
+				// if flexform setting is empty and value is available in TS
+				if ((!isset($originalSettings[$key]) || empty($originalSettings[$key])) && isset($tsSettings['settings.'][$key])){
+					$originalSettings[$key] = $tsSettings['settings.'][$key];
+				}
+			}
+		}
+
+		$this->settings = $originalSettings;
+	}
+
 	
 	/**
 	 * Override getErrorFlashMessage to present
