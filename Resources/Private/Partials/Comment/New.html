@@ -5,7 +5,7 @@
 				<h2>New comment</h2>		
 				<f:render partial="FormErrors" arguments="{object:Comment}"/>
 
-				<f:form controller="Comment" action="create" name="newComment" object="{newComment}" arguments="{post: post}">
+				<f:form controller="Comment" action="create" section="comment-form" name="newComment" object="{newComment}" arguments="{post: post}">
 					<f:render partial="Comment/FormFields" />
 					<f:render partial="Comment/Spam" />
 					<f:form.submit value="Add comment" />
