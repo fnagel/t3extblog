@@ -4,17 +4,9 @@
 
 	<f:flashMessages />
 	
-	<div class="filter">
-		<f:if condition="{category}">	
-			Filtered by: {category.name}
-		</f:if>
-		<f:if condition="{tag}">	
-			Filtered by: {tag}
-		</f:if>
-	</div>
+	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />	
 		
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
-		<f:debug>{paginatedPosts}</f:debug>
 		<f:for each="{paginatedPosts}" as="post">
 			<div class="post">			
 				<h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
