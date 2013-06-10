@@ -34,6 +34,15 @@ Features
 * more to come...
 
 
+Installation
+------------
+
+* You need a working installation of t3blog.
+* Install t3extblog
+* Add static template
+* Set storagePid to blog post storage page
+
+
 Todo
 ------------
 
@@ -42,6 +51,7 @@ TESTING!
 * ViewHelper for more marker
 * Cleanup extension from extension builder files
 * Add documentation
+* Use translation instead of hardcoded messages
 
 IN WORK
 * BE Module for posts
