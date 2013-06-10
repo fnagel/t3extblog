@@ -6,11 +6,7 @@ This is a TYPO3 Extbase / Fluid extension which aims to replace t3blog.
 
 Current state
 ------------
-Not for production use - very alpha! Broken commits ahead!
-
-All basic features implemented. Basic FE without styling. 
-Notification mails and SPAM control for comments.
-Uses t3blog TCA and SQL.
+Not for production use - alpha! Broken commits ahead!
 
 
 
@@ -25,16 +21,41 @@ This extension should not be used for starting a new blog with TYPO3.
 More to come...
 
 
+Features
+------------
+
+* Show list and detail view of posts
+* Post new comments
+* Wordpress like subscription manager
+* Configurable spam check for comments and subscription requests
+* Spam check includes: simple checkbox, honeypot, cookie, useragent, and sfpantispam
+* Auto close comments functionality 
+* Posts RSS feed
+* more to come...
+
+
 Todo
 ------------
 
+TESTING!
+
 * ViewHelper for more marker
-* BE Module for posts
-* BE Module for comments
 * Cleanup extension from extension builder files
+* Add documentation
+
+IN WORK
+* BE Module for posts
+
+FEATURES
+* BE Module for comments
 * Trackback / Pingback
 * Blogroll?
 * Hooks for list module when changing comments?
+* Captcha implementation
+
+
+To discuss
+------------
 
 
 
