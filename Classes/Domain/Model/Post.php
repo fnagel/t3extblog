@@ -316,6 +316,22 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
+	 * Get id list of content elements
+	 *
+	 * @return string
+	 */
+	public function getPreview() {
+		$text = array();
+		foreach ($this->getContent() as $contentElement) {
+			if (strlen($contentElement->getBodytext()) > 0) {
+                $text[] = $contentElement->getBodytext();
+            }
+		}
+
+		return strip_tags(implode('', $text));
+	}
+
+	/**
 	 * Adds a Category
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $categories

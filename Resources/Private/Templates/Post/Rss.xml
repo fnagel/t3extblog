@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title></title>
+		<link></link>
+		<description></description>
+		<language></language>
+		<copyright></copyright>
+		<pubDate><f:format.date format="D, d M y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
+		<lastBuildDate><f:format.date format="D, d M y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
+		<category></category>
+		<generator>t3extblog extension for TYPO3</generator>
+		<image>
+			<url></url>
+			<title></title>
+			<link></link>
+		</image>
+
+		<f:if condition="{posts}">
+            <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
+				<f:for each="{paginatedPosts}" as="post">
+					<item>
+                        <title><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></title>
+                        <pubDate><f:format.date format="D, d M y H:i:s O">{post.publishDate}</f:format.date></pubDate>
+                        <guid>post-{post.uid}</guid>
+                        <link>
+                            <f:format.htmlspecialchars>
+                                <f:uri.action
+                                    action="show"
+                                    pageUid="{settings.blogsystem.pid}"
+                                    absolute="true"
+                                    arguments="{post : post}"
+                                />
+                            </f:format.htmlspecialchars>
+                        </link>
+                        <source>
+                            <f:format.htmlspecialchars>
+                                <f:uri.action
+                                    action="show"
+                                    pageUid="{settings.blogsystem.pid}"
+                                    absolute="true"
+                                    arguments="{post : post}"
+                                />
+                            </f:format.htmlspecialchars>
+                        </source>
+                        <author>{post.author.name}</author>
+                        <category></category>
+                        <description>
+                            <f:format.htmlspecialchars>
+                                <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
+                            </f:format.htmlspecialchars>
+                        </description>
+                        <content:encoded>
+                            <f:format.cdata>
+                                <h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
+                                <em class="author">by {post.author.name}</em>
+                                <span class="date">{post.publishDate -> f:format.date()}</span>
+                                <br /><br />
+								Categories:
+								<f:for each="{post.categories}" as="category">
+									<span class="category">
+										<f:link.action
+											controller="Post"
+											action="list"
+											pageUid="{settings.blogsystem.pid}"
+											absolute="true"
+											arguments="{category : category}"
+										>{category.name}</f:link.action>
+									</span>
+								</f:for>
+                                <br /><br />
+                                <f:if condition="{post.content}">
+                                    <div class="content">
+										<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{post.contentIdList}</f:cObject>
+								    </div>
+                                </f:if>
+                            </f:format.cdata>
+                        </content:encoded>
+                    </item>
+					
+				</f:for>
+			</f:widget.paginate>
+		</f:if>
+	</channel>
+</rss>

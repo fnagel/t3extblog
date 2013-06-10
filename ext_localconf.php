@@ -32,6 +32,18 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
+	'Rss',
+	array(
+		'Post' => 'rss',
+	),
+	// non-cacheable actions
+	array(
+		'Post' => '',
+	)
+);
+
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
 	'SubscriptionManager',
 	array(
 		'Subscriber' => 'list, delete, error, confirm',		

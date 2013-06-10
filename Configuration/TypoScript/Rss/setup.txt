@@ -1,0 +1,41 @@
+# create a page for xml output
+page >
+page = PAGE
+page {
+	# define typeNum for RealUrl
+    # typeNum = 9818
+    10 < tt_content.list.20.t3extblog_rss
+    10 {
+		switchableControllerActions {
+			Post {
+				1 = rss
+			}
+		}
+		settings < plugin.tx_t3extblog.settings
+    }
+}
+
+config {
+	disableAllHeaderCode = 1
+	xhtml_cleaning = 0
+	admPanel = 0
+	metaCharset = utf-8
+	additionalHeaders = Content-Type:text/xml;charset=utf-8
+	disablePrefixComment = 1
+	# define http://www.yourdomain.tld/ to produce absolute urls for links and images
+	absRefPrefix = http://fn.com/
+	# language related
+	locale_all = de_DE
+	language = de
+	# sys_language_uid = 1
+	# sys_language_mode = strict
+	# sys_language_overlay = hideNonTranslated
+	# linkVars = L
+}
+
+# clean up CSC to prevent unwanted HTML in the XML
+lib.stdheader >
+tt_content.stdWrap.innerWrap >
+tt_content.stdWrap.wrap >
+tt_content.stdWrap.prepend >
+styles.content.get.stdWrap >

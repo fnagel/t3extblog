@@ -100,6 +100,25 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	}
 
 	/**
+	 * Initializes the current action
+	 *
+	 * @return void
+	 */
+	public function initializeRssAction() {
+		// set format to xml
+		$this->request->setFormat("xml");
+	}
+	/**
+	 * Displays rss feed of all posts.
+	 *
+	 * @return void
+	 */
+	public function rssAction() {
+		$posts = $this->postRepository->findAll();
+		$this->view->assign('posts', $posts);
+	}
+
+	/**
 	 * Displays one single post
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display

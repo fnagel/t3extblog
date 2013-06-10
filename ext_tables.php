@@ -3,7 +3,9 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Extblog');
+// Add static TS
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Rss', 'T3Extblog: Rss setup');
 
 
 Tx_Extbase_Utility_Extension::registerPlugin(
@@ -22,6 +24,12 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'Archive',
 	'T3Blog Extbase: Archive'
+);
+
+Tx_Extbase_Utility_Extension::registerPlugin(
+	$_EXTKEY,
+	'Rss',
+	'T3Blog Extbase: RSS'
 );
 
 Tx_Extbase_Utility_Extension::registerPlugin(
