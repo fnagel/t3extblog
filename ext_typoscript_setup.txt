@@ -9,6 +9,8 @@ plugin.tx_t3extblog {
 	}
 
 	settings {
+		// overrideFlexformSettingsIfEmpty
+
 		# used for mails, 
 		blogName = Testblog
 	
@@ -36,8 +38,10 @@ plugin.tx_t3extblog {
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				allowedUntil = +6 months
 					
+				// comments are allowed by default
 				approvedByDefault = 1
 				
+				# subscibe to new comment allowed
 				subscribeForComments = 1
 				
 				# splitLongWords = 1
@@ -117,13 +121,32 @@ plugin.tx_t3extblog {
 		}
 		
 		latestPosts {
-		
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 0
+				insertBelow = 0
+				maximumNumberOfLinks = 0
+			}
 		}
 		
 		latestComments {
-		
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 0
+				insertBelow = 0
+				maximumNumberOfLinks = 0
+			}
 		}
 		
+		rss {
+			paginate {
+				itemsPerPage = 10
+				insertAbove = 0
+				insertBelow = 0
+				maximumNumberOfLinks = 0
+			}
+		}
+
 		archive {
 			
 		}
