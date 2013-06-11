@@ -370,8 +370,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	private function initComments() {	
 		if ($this->comments == NULL) {
-			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");			
-			$this->comments = $this->commentRepository->findForPost($this);
+			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");	
 		}
 	}
 
@@ -409,9 +408,19 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function getComments() {
 		$this->initComments();
 		
-		return $this->comments;
+		return $this->commentRepository->findValidForPost($this);
 	}
 
+	/**
+	 * Returns the post pending comments
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 */
+	public function getPendingComments() {
+		$this->initComments();	
+		
+		return $this->commentRepository->findPendingByPost($this);
+	}
 
 	/**
 	 * Adds a Subscriber

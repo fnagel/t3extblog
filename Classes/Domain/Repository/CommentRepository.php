@@ -58,7 +58,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 * @param Tx_T3extblog_Domain_Model_Post $post 
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findForPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function findValidForPost(Tx_T3extblog_Domain_Model_Post $post) {
 		$query = $this->createQuery();
 		
 		$query->matching(
@@ -121,6 +121,28 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$query->matching(
 			$query->logicalAnd(
 				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
+				$query->logicalOr(
+					$query->equals('spam', 1),
+					$query->equals('approved', 0)		
+				)
+			)
+		);
+			
+		return $query->execute();
+	}
+		
+	/**
+	 * Finds pending comments by post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post 
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findPendingByPost($post) {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('postId', $post->getUid()),
 				$query->logicalOr(
 					$query->equals('spam', 1),
 					$query->equals('approved', 0)		

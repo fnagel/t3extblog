@@ -59,7 +59,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($post === NULL) {
 			$comments = $this->commentRepository->findAllValid();
 		} else {
-			$comments = $this->commentRepository->findForPost($post);
+			$comments = $this->commentRepository->findValidForPost($post);
 			$this->view->assign('post', $post);
 		}
 
@@ -76,7 +76,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($post === NULL) {
 			$comments = $this->commentRepository->findAllValid();
 		} else {
-			$comments = $this->commentRepository->findForPost($post);
+			$comments = $this->commentRepository->findValidForPost($post);
 			$this->view->assign('post', $post);
 		}
 

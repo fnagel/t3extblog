@@ -15,7 +15,12 @@
 	</td>
 	<td>{post.publishDate -> f:format.date()}</td>
 	<td>{post.author.name}</td>
-	<td>{post.comments -> f:count()}</td>
+	<td>
+		{post.comments -> f:count()} 
+		<f:if condition="{post.pendingComments}">
+			({post.pendingComments -> f:count()} pending)
+		</f:if>
+	</td>
 	<td>
 		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
 			<bu:spriteManagerIcon iconName="actions-document-open" />
