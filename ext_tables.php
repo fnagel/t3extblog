@@ -50,4 +50,24 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'T3Blog Extbase: LatestComments'
 );
 
+
+if (TYPO3_MODE === 'BE') {
+	// add modules to t3blog one
+	Tx_Extbase_Utility_Extension::registerModule(
+		$_EXTKEY,
+		'txt3blogM1',
+		'Tx_T3extblog_Post',
+		'',
+		array(
+			'BackendPost' => 'index',
+		),
+		array(
+			'access' => 'user,group',
+			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			// 'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
+			'labels' => 'T3Extblog: Posts',
+		)
+	);
+}
+
 ?>

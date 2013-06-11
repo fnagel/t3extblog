@@ -1,0 +1,33 @@
+{namespace bu = Tx_NewBeuser_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="iconButtons">
+	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[be_users][0]=new'; return false;"><bu:SpriteManagerIcon iconName="actions-document-new" /></a>
+</f:section>
+
+<f:section name="content">
+	<h3><f:translate key="backendUserListing">Post Listing</f:translate></h3>
+
+	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
+		<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+			<tr class="t3-row-header">
+				<td>&nbsp;</td>
+				<td>Title</td>
+				<td>Date</td>
+				<td>Autor</td>
+				<td>Comments</td>
+				<td>&nbsp;</td>
+			</tr>
+			<f:for each="{paginatedPosts}" as="post">
+				<f:render partial="BackendPost/IndexListRow" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+			</f:for>
+			<tr>
+				<td colspan="6">
+					Show <f:count subject="{paginatedPosts}" /> of <f:count subject="{posts}" /> posts
+				</td>
+			</tr>
+		</table>
+	</f:widget.paginate>
+
+</f:section>

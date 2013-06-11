@@ -111,6 +111,33 @@ config.tx_extbase{
     }
 }
 
+module.tx_t3extblog {
+	view {
+		templateRootPath = EXT:t3extblog/Resources/Private/Backend/Templates/
+		partialRootPath = EXT:t3extblog/Resources/Private/Backend/Partials/
+		layoutRootPath = EXT:t3extblog/Resources/Private/Backend/Layouts/
+	}
+	
+	persistence {
+		storagePid = 172
+	}
+
+	features {
+		rewrittenPropertyMapper = 1
+	}
+
+	settings < plugin.tx_t3extblog.settings
+	
+	settings.backend {
+		posts.paginate {
+			itemsPerPage = 20
+			insertAbove = 0
+			insertBelow = 1
+			maximumNumberOfLinks = 100
+		}
+	}
+}
+
 # debugging
 # Tx_Extbase_Utility_Debugger::var_dump("test");
 config.no_cache=1

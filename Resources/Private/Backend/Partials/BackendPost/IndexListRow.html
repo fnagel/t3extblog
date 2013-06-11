@@ -1,0 +1,36 @@
+{namespace bu = Tx_NewBeuser_ViewHelpers}
+
+<tr class="db_list_normal">
+	<td class="col-icon">
+		<a href="#" onClick="showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" title="id={post.uid}">
+			<bu:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+		</a>
+	</td>
+	<td>
+		<b>
+			<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+				{post.title}
+			</a>
+		</b>
+	</td>
+	<td>{post.publishDate -> f:format.date()}</td>
+	<td>{post.author.name}</td>
+	<td>{post.comments -> f:count()}</td>
+	<td>
+		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+			<bu:spriteManagerIcon iconName="actions-document-open" />
+		</a>
+		<f:if condition="{post.disabled}">
+			<f:then>
+				<a href="<bu:issueCommand parameters="tce_db.php?&data[tx_t3blog_post][{post.uid}][disable]=0&redirect={redirectUrl}" />">
+					<bu:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'unhide'}" />
+				</a>
+			</f:then>
+			<f:else>
+				<a href="<bu:issueCommand parameters="tce_db.php?&data[tx_t3blog_post][{post.uid}][disable]=1&redirect={redirectUrl}" />">
+					<bu:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'hide'}" />
+				</a>
+			</f:else>
+		</f:if>
+	</td>
+</tr>
