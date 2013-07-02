@@ -53,12 +53,27 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	}
 	
 	/**
+	 * Finds all comments for the given post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findByPost(Tx_T3extblog_Domain_Model_Post $post) {
+		$query = $this->createQuery();
+
+		$query->matching(
+			$query->equals('postId', $post->getUid())
+		);
+
+		return $query->execute();
+	}
+	/**
 	 * Finds all valid comments for the given post
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post 
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findValidForPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function findValidByPost(Tx_T3extblog_Domain_Model_Post $post) {
 		$query = $this->createQuery();
 		
 		$query->matching(
@@ -121,10 +136,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$query->matching(
 			$query->logicalAnd(
 				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
-				$query->logicalOr(
-					$query->equals('spam', 1),
-					$query->equals('approved', 0)		
-				)
+				$this->getPendingConstraints($query)
 			)
 		);
 			
@@ -143,16 +155,46 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$query->matching(
 			$query->logicalAnd(
 				$query->equals('postId', $post->getUid()),
-				$query->logicalOr(
-					$query->equals('spam', 1),
-					$query->equals('approved', 0)		
-				)
+				$this->getPendingConstraints($query)
 			)
 		);
 			
 		return $query->execute();
 	}
 		
+	/**
+	 * Finds all pending comments
+	 *
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findAllPending() {
+		$query = $this->createQuery();
+		
+		$query->matching(
+			$this->getPendingConstraints($query)
+		);
+			
+		return $query->execute();
+	}
+		
+	/**
+	 * Finds all pending comments by page
+	 *
+	 * @param integer $pid
+	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 */
+	public function findAllPendingByPage($pid = 0) {
+		$query = $this->createQuery();
+		
+		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
+
+		$query->matching(
+			$this->getPendingConstraints($query)
+		);
+
+		return $query->execute();
+	}
+
 	/**
 	 * Create constraints 
 	 *
@@ -180,6 +222,20 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$constraints = $query->logicalAnd(
 			$query->equals('spam', 0),
 			$query->equals('approved', 1)		
+		);
+			
+		return $constraints;
+	}
+	/**
+	 * Create constraints for pending comments
+	 *
+	 * @param Tx_Extbase_Persistence_QueryInterface $query
+	 * @return 
+	 */
+	protected function getPendingConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
+		$constraints = $query->logicalOr(
+			$query->equals('spam', 1),
+			$query->equals('approved', 0)		
 		);
 			
 		return $constraints;

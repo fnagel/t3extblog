@@ -36,6 +36,21 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	protected $defaultOrderings = array(
 		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
+	
+	/**
+	 * Returns all objects of this repository
+	 *
+	 * @param integer $pid
+	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
+	 */
+	public function findAllByPage($pid = 0) {
+		$query = $this->createQuery();		
+		
+		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
+		
+		return $query->execute();
+	}
+
 
 	/**
 	 * Finds posts by the specified tag

@@ -408,7 +408,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function getComments() {
 		$this->initComments();
 		
-		return $this->commentRepository->findValidForPost($this);
+		return $this->commentRepository->findValidByPost($this);
 	}
 
 	/**

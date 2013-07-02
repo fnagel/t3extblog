@@ -59,7 +59,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($post === NULL) {
 			$comments = $this->commentRepository->findAllValid();
 		} else {
-			$comments = $this->commentRepository->findValidForPost($post);
+			$comments = $this->commentRepository->findValidByPost($post);
 			$this->view->assign('post', $post);
 		}
 
@@ -73,14 +73,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return void
 	 */
 	public function latestAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
-		if ($post === NULL) {
-			$comments = $this->commentRepository->findAllValid();
-		} else {
-			$comments = $this->commentRepository->findValidForPost($post);
-			$this->view->assign('post', $post);
-		}
-
-		$this->view->assign('comments', $comments);
+		$this->listAction($post);
 	}
 
 
