@@ -1,0 +1,68 @@
+{namespace t3extblog = Tx_T3extblog_ViewHelpers}
+
+<tr class="db_list_normal">
+	<td class="col-icon">
+		<a href="#" onClick="showClickmenu('tx_t3blog_com', '{comment.uid}', '1', '', '', ''); return false;" title="id={comment.uid}">
+			<t3extblog:spriteIconForRecord table="tx_t3blog_com" object="{comment}" />
+		</a>
+	</td>
+	<td>
+		<b>
+			<a href="alt_doc.php?edit[tx_t3blog_com][{comment.uid}]=edit&returnUrl={returnUrl}">
+				{comment.title}
+			</a>
+		</b>
+	</td>
+	<td>{comment.date -> f:format.date()}</td>
+	<td>{comment.author}</td>
+	<td>{comment.email}</td>
+	<td>{comment.website}</td>
+	<td>
+		<f:if condition="{comment.approved}">
+			<f:then>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][approved]=0&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="status-status-permission-granted" options="{title: 'Unapprove this comment'}" />
+				</a>
+			</f:then>
+			<f:else>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][approved]=1&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="status-status-permission-denied" options="{title: 'Approve this comment'}" />
+				</a>
+			</f:else>
+		</f:if>
+	</td>
+	<td>
+		<f:if condition="{comment.spam}">
+			<f:then>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][spam]=0&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-high" options="{title: 'Mark this comment as no spam'}" />
+				</a>
+			</f:then>
+			<f:else>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][spam]=1&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-low" options="{title: 'Mark this comment as spam'}" />
+				</a>
+			</f:else>
+		</f:if>
+	</td>
+	<td>
+		<a href="alt_doc.php?edit[tx_t3blog_com][{comment.uid}]=edit&returnUrl={returnUrl}">
+			<t3extblog:spriteManagerIcon iconName="actions-document-open" />
+		</a>
+		<f:if condition="{comment.disabled}">
+			<f:then>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][disable]=0&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
+				</a>
+			</f:then>
+			<f:else>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][disable]=1&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hside'}" />
+				</a>
+			</f:else>
+		</f:if>
+		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" />
+		</a>
+	</td>
+</tr>

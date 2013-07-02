@@ -1,15 +1,19 @@
-<f:be.container addCssFile="{f:uri.resource(path:'Css/BackendStyle.css')}">
+<f:be.container 
+	pageTitle="T3extblog Management"
+	addCssFile="{f:uri.resource(path:'Css/BackendStyle.css')}"
+>
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
 			<div id="typo3-docheader-row1">
 				<div class="buttonsleft">
 					<f:be.buttons.csh />
 					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'backendUsers')}" controller="BackendUser" action="index" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'onlineUsers')}" controller="BackendUser" action="online" />
+						<f:be.menus.actionMenuItem label="Posts" controller="BackendPost" action="index" />
+						<f:be.menus.actionMenuItem label="Comments" controller="BackendComment" action="index" />
 					</f:be.menus.actionMenu>
 				</div>
 				<div class="buttonsright">
+					<f:be.buttons.shortcut />
 				</div>
 			</div>
 			<div id="typo3-docheader-row2">
@@ -17,13 +21,13 @@
 					<f:render section="iconButtons" />
 				</div>
 				<div class="docheader-row2-right">
-					<f:be.buttons.shortcut />
+					<f:be.pagePath /><f:be.pageInfo />
 				</div>
 			</div>
 		</div>
 		<div id="typo3-docbody">
 			<div id="typo3-inner-docbody">
-				<h2><f:translate key="backendUserAdministration">Backend User Administration</f:translate></h2>
+				<h1><f:translate key="backendUserAdministration">T3extblog Administration</f:translate></h1>
 
 				<f:flashMessages renderMode="div" />
 

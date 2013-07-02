@@ -1,0 +1,32 @@
+{namespace t3extblog = Tx_T3extblog_ViewHelpers}
+
+<f:if condition="{comments}">
+	<f:then>
+		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.backend.comments.paginate}">
+			<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+				<tr class="t3-row-header">
+					<td>&nbsp;</td>
+					<td>Title</td>
+					<td>Date</td>
+					<td>Author</td>
+					<td>E-Mail</td>
+					<td>Website</td>
+					<td>Approved</td>
+					<td>SPAM</td>
+					<td>&nbsp;</td>
+				</tr>
+				<f:for each="{paginatedComments}" as="comment">
+					<f:render partial="Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+				</f:for>
+				<tr>
+					<td colspan="9">
+						Show <f:count subject="{paginatedComments}" /> of <f:count subject="{comments}" /> comments
+					</td>
+				</tr>
+			</table>
+		</f:widget.paginate>
+	</f:then>
+	<f:else>
+		<em>No comments found</em>
+	</f:else>
+</f:if>

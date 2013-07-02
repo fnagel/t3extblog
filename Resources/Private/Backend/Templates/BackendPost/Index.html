@@ -1,33 +1,56 @@
-{namespace bu = Tx_NewBeuser_ViewHelpers}
+{namespace t3extblog = Tx_T3extblog_ViewHelpers}
 
 <f:layout name="Default" />
 
-<f:section name="iconButtons">
-	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[be_users][0]=new'; return false;"><bu:SpriteManagerIcon iconName="actions-document-new" /></a>
-</f:section>
 
 <f:section name="content">
+	<f:if condition="{pendingComments}">
+		<div class="typo3-messages">
+			<div class="typo3-message message-information">
+				<div class="message-header">Pending comments</div>
+				<div class="message-body">
+					<f:link.action controller="BackendComment" action="index">
+						{pendingComments -> f:count()} comments await moderation.
+					</f:link.action>
+				</div>
+			</div>
+		</div>
+	</f:if>
+	
 	<h3><f:translate key="backendUserListing">Post Listing</f:translate></h3>
+	<f:if condition="{posts}">
+		<f:then>
+			<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
+				<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+					<tr class="t3-row-header">
+						<td>&nbsp;</td>
+						<td>Title</td>
+						<td>Date</td>
+						<td>Author</td>
+						<td>Comments</td>
+						<td>&nbsp;</td>
+					</tr>
+					<f:for each="{paginatedPosts}" as="post">
+						<f:render partial="Post/Row" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+					</f:for>
+					<tr>
+						<td colspan="6">
+							Show <f:count subject="{paginatedPosts}" /> of <f:count subject="{posts}" /> posts
+						</td>
+					</tr>
+				</table>
+			</f:widget.paginate>
+		</f:then>
+		<f:else>
+			<em>No blogposts found</em>
+		</f:else>
+	</f:if>
+</f:section>
 
-	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
-		<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
-			<tr class="t3-row-header">
-				<td>&nbsp;</td>
-				<td>Title</td>
-				<td>Date</td>
-				<td>Autor</td>
-				<td>Comments</td>
-				<td>&nbsp;</td>
-			</tr>
-			<f:for each="{paginatedPosts}" as="post">
-				<f:render partial="BackendPost/IndexListRow" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
-			</f:for>
-			<tr>
-				<td colspan="6">
-					Show <f:count subject="{paginatedPosts}" /> of <f:count subject="{posts}" /> posts
-				</td>
-			</tr>
-		</table>
-	</f:widget.paginate>
 
+
+<f:section name="iconButtons">
+	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_post][0]=new'; return false;">
+		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+	</a>
 </f:section>

@@ -135,6 +135,12 @@ module.tx_t3extblog {
 			insertBelow = 1
 			maximumNumberOfLinks = 100
 		}
+		comments.paginate {
+			itemsPerPage = 20
+			insertAbove = 0
+			insertBelow = 1
+			maximumNumberOfLinks = 100
+		}
 	}
 }
 

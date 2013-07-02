@@ -1,0 +1,46 @@
+{namespace t3extblog = Tx_T3extblog_ViewHelpers}
+
+<tr class="db_list_normal">
+	<td class="col-icon">
+		<a href="#" onClick="showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" title="id={post.uid}">
+			<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+		</a>
+	</td>
+	<td>
+		<b>
+			<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+				{post.title}
+			</a>
+		</b>
+	</td>
+	<td>{post.publishDate -> f:format.date()}</td>
+	<td>{post.author.name}</td>
+	<td>
+		<f:link.action controller="BackendComment" action="list" arguments="{post: post}">
+			{post.comments -> f:count()}
+			<f:if condition="{post.pendingComments}">
+				({post.pendingComments -> f:count()} pending)
+			</f:if>
+		</f:link.action>
+	</td>
+	<td>
+		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+			<t3extblog:spriteManagerIcon iconName="actions-document-open" />
+		</a>
+		<f:if condition="{post.disabled}">
+			<f:then>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_post][{post.uid}][disable]=0&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'unhide'}" />
+				</a>
+			</f:then>
+			<f:else>
+				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_post][{post.uid}][deleted]=1&redirect={redirectUrl}" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'hide'}" />
+				</a>
+			</f:else>
+		</f:if>
+		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" />
+		</a>
+	</td>
+</tr>
