@@ -31,17 +31,28 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_BackendPostController extends Tx_T3extblog_Controller_BackendBaseController {
+class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Controller_BackendBaseController {
 
 	/**
-	 * Main Backendmodule: displays posts and pending comments
+	 * Displays all pending comments
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
+		$this->view->assign('pendingComments', $this->commentRepository->findAllPendingByPage($this->pageId));
+	}
+
+	/**
+	 * Displays all pending comments for a post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post
+	 * @return void
+	 */
+	public function listAction(Tx_T3extblog_Domain_Model_Post $post) {
 		$this->view->assignMultiple(array(
-			'posts' => $this->postRepository->findAllByPage($this->pageId),
-			'pendingComments' => $this->commentRepository->findAllPendingByPage($this->pageId)
+			'post' => $this->postRepository->findOneByUid($post),
+			'comments' => $this->commentRepository->findByPost($post),
+			'pendingComments' => $this->commentRepository->findPendingByPost($post)
 		));
 	}
 

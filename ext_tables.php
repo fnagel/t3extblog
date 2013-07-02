@@ -52,20 +52,24 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 
 
 if (TYPO3_MODE === 'BE') {
-	// add modules to t3blog one
+	/**
+	* Registers a Backend Module
+	*/
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
-		'txt3blogM1',
-		'Tx_T3extblog_Post',
-		'',
+		'web',	// Make module a submodule of 'web'
+		'Tx_T3extblog',	// Submodule key
+		'', // Position
 		array(
-			'BackendPost' => 'index',
+			// An array holding the controller-action-combinations that are accessible
+			'BackendPost'		=> 'index',
+			'BackendComment'	=> 'index, list'
 		),
 		array(
 			'access' => 'user,group',
 			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
-			// 'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
-			'labels' => 'T3Extblog: Posts',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+			'navigationComponentId' => 'typo3-pagetree',
 		)
 	);
 }
