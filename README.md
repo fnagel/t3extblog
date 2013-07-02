@@ -46,18 +46,20 @@ Installation
 Todo
 ------------
 
-TESTING!
+A lot of testing is missing. Help wanted!
 
-* ViewHelper for more marker
+
+* ViewHelper for removing / using MORE marker
 * Cleanup extension from extension builder files
 * Add documentation
 * Use translation instead of hardcoded messages
 
+
 IN WORK
-* BE Module for posts
+* BE Module for posts and comments
+
 
 FEATURES
-* BE Module for comments
 * Trackback / Pingback
 * Blogroll?
 * Hooks for list module when changing comments?
