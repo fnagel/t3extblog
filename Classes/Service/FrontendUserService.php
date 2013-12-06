@@ -77,13 +77,15 @@ class Tx_T3extblog_Service_FrontendUserService {
 
 	/**
 	 *
+	 * @param array $data Data array to save
+	 *
 	 * @return void
 	 */
 	public function setData($data) {
 		$oldData = $this->restoreFromSession("data");
 
 		if (is_array($oldData)) {
-			$this->writeToSession("data", array_merge($oldData, $newData));
+			$this->writeToSession("data", array_merge($oldData, $data));
 		} else {
 			$this->writeToSession("data", $data);
 		}

@@ -49,13 +49,7 @@ plugin.tx_t3extblog {
 							
 				spamCheck {
 					enable = 1
-				
-					redirectUrl {
-						pid = 292
-						arguments {
-						}
-					}
-					
+
 					# limit of spam points 
 					threshold {			
 						# saved but marked as spam
@@ -64,6 +58,11 @@ plugin.tx_t3extblog {
 						block = 20
 						# to block comment and redirect user, 0 = disable
 						redirect = 30
+					}
+					redirect {
+						pid = 292
+						arguments {
+						}
 					}
 				
 					### spam checks, 0 = disabled	

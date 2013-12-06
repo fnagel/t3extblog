@@ -202,9 +202,9 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		}
 
 		// todo: needs testing
-		if ($tsettings["allowedUntil"]) {
+		if ($settings["allowedUntil"]) {
 			$now = new DateTime();
-			$expire = $post->getPublishDate()->modify(trim($tsettings["allowedUntil"]));
+			$expire = $post->getPublishDate()->modify(trim($settings["allowedUntil"]));
 
 			if ($now > $expire) {
 				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
@@ -228,7 +228,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$spamPoints = 0;
 
 		if (!$spamSettings["enable"]) {
-			return;
+			return true;
 		}
 
 		if ($spamSettings['honeypot']) {
@@ -272,29 +272,30 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * Process SPAM request
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
-	 * @param integrer                          $spamPoints
+	 * @param integer                           $spamPoints
 	 *
 	 * @return boolean
 	 */
 	protected function processSpamCount(Tx_T3extblog_Domain_Model_Comment $comment, $spamPoints) {
-		$spamSettings = $this->settings['blogsystem']['comments']['spamCheck']['threshold'];
+		$settings = $this->settings['blogsystem']['comments']['spamCheck'];
+		$threshold = $settings['threshold'];
 		$saveComment = TRUE;
 
 		// block comment and redirect user
-		if ($spamSettings['redirect'] > 0 && $spamPoints >= intval($spamSettings['redirect'])) {
+		if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
 			$this->log->notice("New comment blocked and user redirected because of SPAM.", array("spamPoints" => $spamPoints));
 			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
 		}
 
 		// block comment and show message
-		if ($spamSettings['block'] > 0 && $spamPoints >= intval($spamSettings['block'])) {
+		if ($threshold['block'] > 0 && $spamPoints >= intval($threshold['block'])) {
 			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
 			$this->log->notice("New comment blocked because of SPAM.", array("spamPoints" => $spamPoints));
 			$saveComment = FALSE;
 		}
 
 		// mark as spam
-		if ($spamPoints >= intval($spamSettings['markAsSpam'])) {
+		if ($spamPoints >= intval($threshold['markAsSpam'])) {
 			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);
 			$this->log->notice("New comment marked as SPAM.", array("spamPoints" => $spamPoints));
 			$comment->markAsSpam();
@@ -313,6 +314,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
 		/* @var tx_sfpantispam_tslibfepreproc $sfpantispam */
 		$sfpantispam = t3lib_div::makeInstance('tx_sfpantispam_tslibfepreproc');
+
 		$fields = array(
 			$comment->getAuthor(),
 			$comment->getTitle(),
@@ -321,7 +323,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$comment->getText()
 		);
 
-		return !$sfpantispam->sendFormmail_preProcessVariables($textFields, $this);
+		return !$sfpantispam->sendFormmail_preProcessVariables($fields, $this);
 	}
 
 	/**

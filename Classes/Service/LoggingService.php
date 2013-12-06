@@ -56,6 +56,11 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 */
 	protected $settingsService;
 
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
 
 	/**
 	 * Injects the Settings Service
@@ -82,12 +87,12 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Error logging
 	 *
-	 * @param    string    Message
-	 * @param    array    Data
+	 * @param string $msg   Message
+	 * @param array $data   Data
 	 *
-	 * @return    void
+	 * @return void
 	 */
-	public function error($msg, $data) {
+	public function error($msg, $data = array()) {
 		$this->sysLog($msg, 3);
 
 		if ($this->enableDLOG || $this->logInDevlog) {
@@ -98,12 +103,12 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Notice logging
 	 *
-	 * @param    string    Message
-	 * @param    array    Data
+	 * @param string $msg   Message
+	 * @param array $data   Data
 	 *
 	 * @return    void
 	 */
-	public function notice($msg, $data) {
+	public function notice($msg, $data = array()) {
 		$this->sysLog($msg, 1);
 
 		if ($this->enableDLOG || $this->logInDevlog) {
@@ -114,12 +119,12 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Development logging
 	 *
-	 * @param    string    Message
-	 * @param    array    Data
+	 * @param string $msg   Message
+	 * @param array $data   Data
 	 *
 	 * @return    void
 	 */
-	public function dev($msg, $data) {
+	public function dev($msg, $data = array()) {
 		if ($this->enableDLOG || $this->logInDevlog) {
 			$this->devLog($msg, 1, $data);
 		}

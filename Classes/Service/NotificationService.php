@@ -263,12 +263,14 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
 		if ($settings['enableNewCommentNotifications'] && $comment->isValid()) {
+			/* @var $post Tx_T3extblog_Domain_Model_Post */
 			$post = $comment->getPost();
 			$this->log->dev("Send subscriber notification mails.");
 
 			$subscribers = $this->subscriberRepository->findForNotification($post);
 			$subject = "New Comment on: " . $post->getTitle();
 
+			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 			foreach ($subscribers as $subscriber) {
 				// todo: needs testing
 				$now = new DateTime();
@@ -288,16 +290,17 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	}
 
 	/**
-	 * Send
+	 * Notify the blog admin
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
 	 * @return    void
 	 */
-	private function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment) {
+	public function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
 		if ($settings['enable'] && is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0) {
+			/* @var $post Tx_T3extblog_Domain_Model_Post */
 			$post = $comment->getPost();
 			$this->log->dev('Send admin notification mail.');
 
@@ -322,9 +325,11 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * This is the main-function for sending Mails
 	 *
 	 * @param array  $mailTo
-	 * @param array  $mailFro
+	 * @param array  $mailFrom
 	 * @param string $subject
 	 * @param string $emailBody
+	 *
+	 * @return integer the number of recipients who were accepted for delivery
 	 */
 	private function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
 		$logData = array(

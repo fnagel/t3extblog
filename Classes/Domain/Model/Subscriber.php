@@ -265,7 +265,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 *
 	 * @return void
 	 */
-	private function createCode($code) {
+	private function createCode() {
 		$input = $this->email . $this->postUid . $GLOBALS['EXEC_TIME'];
 		$this->code = substr(t3lib_div::hmac($input), 0, 32);
 	}
