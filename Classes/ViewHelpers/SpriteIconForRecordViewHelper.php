@@ -38,6 +38,7 @@ class Tx_T3extblog_ViewHelpers_SpriteIconForRecordViewHelper extends Tx_Fluid_Vi
 	 *
 	 * @param string $table
 	 * @param object $object
+	 *
 	 * @return string
 	 * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
 	 */

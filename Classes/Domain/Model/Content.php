@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -232,7 +232,7 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	public function getImagecaption() {
 		return $this->imagecaption;
 	}
-	
+
 	/**
 	 * @return int
 	 */
@@ -325,4 +325,5 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 }
+
 ?>

@@ -84,4 +84,5 @@ class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_Abst
 	}
 
 }
+
 ?>

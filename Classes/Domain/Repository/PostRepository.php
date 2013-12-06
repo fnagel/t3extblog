@@ -36,18 +36,19 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	protected $defaultOrderings = array(
 		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
-	
+
 	/**
 	 * Returns all objects of this repository
 	 *
 	 * @param integer $pid
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
 	 */
 	public function findAllByPage($pid = 0) {
-		$query = $this->createQuery();		
-		
+		$query = $this->createQuery();
+
 		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
-		
+
 		return $query->execute();
 	}
 
@@ -56,13 +57,14 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 * Finds posts by the specified tag
 	 *
 	 * @param string $tag
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The posts
 	 */
 	public function findByTag($tag) {
 		$query = $this->createQuery();
 
 		$query->matching(
-			$query->like('tagCloud', '%'. $tag . '%')
+			$query->like('tagCloud', '%' . $tag . '%')
 		);
 
 		return $query->execute();
@@ -72,17 +74,19 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 * Returns all objects of this repository with matching category
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResult
 	 */
 	public function findByCategory(Tx_T3extblog_Domain_Model_Category $category) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$query->contains('categories', $category)
 		);
-		
+
 		return $query->execute();
 	}
 
 }
+
 ?>

@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -36,7 +36,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	protected $defaultOrderings = array(
 		'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 	);
-	
+
 	/**
 	 * Finds all valid comments
 	 *
@@ -44,18 +44,19 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 */
 	public function findAllValid() {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$this->getValidConstraints($query)
 		);
-			
+
 		return $query->execute();
 	}
-	
+
 	/**
 	 * Finds all comments for the given post
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findByPost(Tx_T3extblog_Domain_Model_Post $post) {
@@ -67,30 +68,33 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 
 		return $query->execute();
 	}
+
 	/**
 	 * Finds all valid comments for the given post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post 
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findValidByPost(Tx_T3extblog_Domain_Model_Post $post) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$query->logicalAnd(
 				$this->getValidConstraints($query),
 				$query->equals('postId', $post->getUid())
 			)
 		);
-			
+
 		return $query->execute();
 	}
-		
+
 	/**
 	 * Finds comments by email and post uid
 	 *
-	 * @param string $email
-	 * @param integer $postUid 
+	 * @param string  $email
+	 * @param integer $postUid
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findByEmailAndPostId($email, $postUid) {
@@ -99,69 +103,72 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 		$query->matching(
 			$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
 		);
-			
+
 		return $query->execute();
 	}
-	
+
 	/**
 	 * Finds valid comments by email and post uid
 	 *
-	 * @param string $email
-	 * @param integer $postUid 
+	 * @param string  $email
+	 * @param integer $postUid
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findValidByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
-				
+
 		$query->matching(
 			$query->logicalAnd(
 				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
 				$this->getValidConstraints($query)
 			)
 		);
-			
+
 		return $query->execute();
 	}
-	
+
 	/**
 	 * Finds pending comments by email and post uid
 	 *
-	 * @param string $email
-	 * @param integer $postUid 
+	 * @param string  $email
+	 * @param integer $postUid
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findPendingByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$query->logicalAnd(
 				$this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
 				$this->getPendingConstraints($query)
 			)
 		);
-			
+
 		return $query->execute();
 	}
-		
+
 	/**
 	 * Finds pending comments by post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post 
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findPendingByPost($post) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$query->logicalAnd(
 				$query->equals('postId', $post->getUid()),
 				$this->getPendingConstraints($query)
 			)
 		);
-			
+
 		return $query->execute();
 	}
-		
+
 	/**
 	 * Finds all pending comments
 	 *
@@ -169,23 +176,24 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 */
 	public function findAllPending() {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
 			$this->getPendingConstraints($query)
 		);
-			
+
 		return $query->execute();
 	}
-		
+
 	/**
 	 * Finds all pending comments by page
 	 *
 	 * @param integer $pid
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findAllPendingByPage($pid = 0) {
 		$query = $this->createQuery();
-		
+
 		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
 
 		$query->matching(
@@ -196,49 +204,54 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	}
 
 	/**
-	 * Create constraints 
+	 * Create constraints
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @param string $email
-	 * @param integer $postUid 
-	 * @return 
+	 * @param string                                $email
+	 * @param integer                               $postUid
+	 *
+	 * @return
 	 */
-	protected function getFindByEmailAndPostIdConstraints(Tx_Extbase_Persistence_QueryInterface $query, $email, $postUid) {	
+	protected function getFindByEmailAndPostIdConstraints(Tx_Extbase_Persistence_QueryInterface $query, $email, $postUid) {
 		$constraints = $query->logicalAnd(
 			$query->equals('email', $email),
 			$query->equals('postId', $postUid)
 		);
-			
+
 		return $constraints;
-	}	
-	
+	}
+
 	/**
 	 * Create constraints for valid comments
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @return 
+	 *
+	 * @return
 	 */
-	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
+	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
 		$constraints = $query->logicalAnd(
 			$query->equals('spam', 0),
-			$query->equals('approved', 1)		
+			$query->equals('approved', 1)
 		);
-			
+
 		return $constraints;
 	}
+
 	/**
 	 * Create constraints for pending comments
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @return 
+	 *
+	 * @return
 	 */
-	protected function getPendingConstraints(Tx_Extbase_Persistence_QueryInterface $query) {	
+	protected function getPendingConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
 		$constraints = $query->logicalOr(
 			$query->equals('spam', 1),
-			$query->equals('approved', 0)		
+			$query->equals('approved', 0)
 		);
-			
+
 		return $constraints;
 	}
 }
+
 ?>

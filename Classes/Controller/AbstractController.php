@@ -47,6 +47,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration
 	 *
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface An instance of the Configuration Manager
+	 *
 	 * @return void
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
@@ -64,9 +65,9 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 		// start override
 		if (isset($tsSettings['settings.']['overrideFlexformSettingsIfEmpty'])) {
 			$overrideSettings = t3lib_div::trimExplode(',', $tsSettings['settings.']['overrideFlexformSettingsIfEmpty'], TRUE);
-			foreach($overrideSettings as $key) {
+			foreach ($overrideSettings as $key) {
 				// if flexform setting is empty and value is available in TS
-				if ((!isset($originalSettings[$key]) || empty($originalSettings[$key])) && isset($tsSettings['settings.'][$key])){
+				if ((!isset($originalSettings[$key]) || empty($originalSettings[$key])) && isset($tsSettings['settings.'][$key])) {
 					$originalSettings[$key] = $tsSettings['settings.'][$key];
 				}
 			}
@@ -75,7 +76,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 		$this->settings = $originalSettings;
 	}
 
-	
+
 	/**
 	 * Override getErrorFlashMessage to present
 	 * nice flash error messages.
@@ -85,24 +86,25 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	protected function getErrorFlashMessage() {
 		$defaultFlashMessage = parent::getErrorFlashMessage();
 		$locallangKey = sprintf('%s_%s_Error', $this->request->getControllerName(), ucfirst($this->actionMethodName));
-		
+
 		return $this->translate($locallangKey, $defaultFlashMessage);
 	}
 
 	/**
 	 * helper function to render localized flashmessages
 	 *
-	 * @param string $action
+	 * @param string  $action
 	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
+	 *
 	 * @return void
 	 */
 	protected function addFlashMessage($key, $severity = t3lib_FlashMessage::OK) {
 		$messageLocallangKey = sprintf('%s_%s_FlashMessage_%s', $this->request->getControllerName(), ucfirst($this->actionMethodName), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
-		
+
 		$titleLocallangKey = sprintf('%s_Title', $messageLocallangKey);
 		$localizedTitle = $this->translate($titleLocallangKey, '[' . $titleLocallangKey . ']');
-		
+
 		$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
 	}
 
@@ -111,15 +113,16 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 *
 	 * @param string $key locallang key
 	 * @param string $defaultMessage the default message to show if key was not found
+	 *
 	 * @return string
 	 */
 	protected function translate($key, $defaultMessage = '') {
 		$message = Tx_Extbase_Utility_Localization::translate($key, 'T3ExtBlog');
-		
+
 		if ($message === NULL) {
 			$message = $defaultMessage;
 		}
-		
+
 		return $message;
 	}
 

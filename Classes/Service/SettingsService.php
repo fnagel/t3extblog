@@ -6,7 +6,7 @@
  *  (c) 2010 Sebastian Schreiber <me@schreibersebastian.de >
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,7 +25,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
- 
+
 /**
  * Provide a way to get the configuration just everywhere
  *
@@ -62,12 +62,13 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * Injects the Configuration Manager and loads the settings
 	 *
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
+	 *
 	 * @return void
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
-		
+
 	/**
 	 * Returns all framework settings.
 	 *
@@ -76,7 +77,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	public function getFrameworkSettings() {
 		if ($this->frameworkSettings === NULL) {
 			$this->frameworkSettings = $this->configurationManager->getConfiguration(
-					Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 			);
 		}
 		return $this->frameworkSettings;
@@ -90,7 +91,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	public function getTypoScriptSettings() {
 		if ($this->typoScriptSettings === NULL) {
 			$this->typoScriptSettings = $this->configurationManager->getConfiguration(
-					Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
 			);
 		}
 		return $this->typoScriptSettings;
@@ -104,6 +105,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * If the path is invalid or no entry is found, false is returned.
 	 *
 	 * @param string $path
+	 *
 	 * @return mixed
 	 */
 	public function getTypoScriptByPath($path) {

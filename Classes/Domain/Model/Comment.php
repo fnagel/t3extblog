@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -116,7 +116,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @lazy
 	 */
 	protected $post = NULL;
-	
+
 	/**
 	 * subscribe
 	 *
@@ -124,7 +124,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	protected $subscribe = FALSE;
 
-	
+
 	/**
 	 * __construct
 	 *
@@ -147,6 +147,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the title
 	 *
 	 * @param string $title
+	 *
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -166,6 +167,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the author
 	 *
 	 * @param string $author
+	 *
 	 * @return void
 	 */
 	public function setAuthor($author) {
@@ -185,6 +187,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the email
 	 *
 	 * @param string $email
+	 *
 	 * @return void
 	 */
 	public function setEmail($email) {
@@ -204,6 +207,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the website
 	 *
 	 * @param string $website
+	 *
 	 * @return void
 	 */
 	public function setWebsite($website) {
@@ -223,6 +227,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the date
 	 *
 	 * @param DateTime $date
+	 *
 	 * @return void
 	 */
 	public function setDate($date) {
@@ -242,6 +247,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the text
 	 *
 	 * @param string $text
+	 *
 	 * @return void
 	 */
 	public function setText($text) {
@@ -261,10 +267,11 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the approved
 	 *
 	 * @param boolean $approved
+	 *
 	 * @return void
 	 */
 	public function setApproved($approved) {
-		$this->approved = (boolean) $approved;
+		$this->approved = (boolean)$approved;
 	}
 
 	/**
@@ -289,6 +296,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the spam
 	 *
 	 * @param boolean $spam
+	 *
 	 * @return void
 	 */
 	public function setSpam($spam) {
@@ -301,7 +309,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return (boolean) $this->getSpam();
+		return (boolean)$this->getSpam();
 	}
 
 	/**
@@ -317,6 +325,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the postId
 	 *
 	 * @param integer $postId
+	 *
 	 * @return void
 	 */
 	public function setPostId($postId) {
@@ -339,31 +348,32 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getPost() {
 		if ($this->post == NULL) {
-			$this->postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");			
+			$this->postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");
 			$this->post = $this->postRepository->findByUid($this->postId);
 		}
-		
+
 		return $this->post;
 	}
-	
+
 	/**
 	 * Returns the subscribe
 	 *
 	 * @return boolean $spam
 	 */
 	public function getSubscribe() {
-		return (boolean) $this->subscribe;
+		return (boolean)$this->subscribe;
 	}
 
 	/**
 	 * Sets the subscribe
 	 *
 	 * @param boolean $subscribe
+	 *
 	 * @return void
 	 */
 	public function setSubscribe($subscribe) {
-		$this->subscribe = (boolean) $subscribe;
-	}	
+		$this->subscribe = (boolean)$subscribe;
+	}
 
 	/**
 	 * If the comment is shown in frontend
@@ -384,4 +394,5 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	}
 
 }
+
 ?>

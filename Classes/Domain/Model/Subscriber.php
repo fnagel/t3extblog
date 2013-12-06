@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -82,7 +82,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @lazy
 	 */
 	protected $postComments = NULL;
-	
+
 	/**
 	 * comments
 	 *
@@ -90,7 +90,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @lazy
 	 */
 	protected $postPendingComments = NULL;
-	
+
 	/**
 	 * lastSent
 	 *
@@ -107,7 +107,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	protected $code;
 
-	
+
 	/**
 	 * __construct
 	 *
@@ -117,7 +117,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 		$this->postUid = $postUid;
 	}
 
-	
+
 	/**
 	 * Returns the email
 	 *
@@ -131,6 +131,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the email
 	 *
 	 * @param string $email
+	 *
 	 * @return void
 	 */
 	public function setEmail($email) {
@@ -150,6 +151,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the name
 	 *
 	 * @param string $name
+	 *
 	 * @return void
 	 */
 	public function setName($name) {
@@ -171,11 +173,11 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return Tx_T3extblog_Domain_Model_Post $post
 	 */
 	public function getPost() {
-		if ($this->post === NULL) {		
+		if ($this->post === NULL) {
 			$postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");
 			$this->post = $postRepository->findByUid($this->postUid);
 		}
-		
+
 		return $this->post;
 	}
 
@@ -185,11 +187,11 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
 	 */
 	public function getPostComments() {
-		if ($this->postComments === NULL) {			
+		if ($this->postComments === NULL) {
 			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
 			$this->postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
 		}
-		
+
 		return $this->postComments;
 	}
 
@@ -199,11 +201,11 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
 	 */
 	public function getPostPendingComments() {
-		if ($this->postPendingComments === NULL) {			
+		if ($this->postPendingComments === NULL) {
 			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
 			$this->postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
 		}
-		
+
 		return $this->postPendingComments;
 	}
 
@@ -211,6 +213,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the postUid
 	 *
 	 * @param integer $postUid
+	 *
 	 * @return void
 	 */
 	public function setPostUid($postUid) {
@@ -230,6 +233,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the lastSent
 	 *
 	 * @param DateTime $lastSent
+	 *
 	 * @return void
 	 */
 	public function setLastSent($lastSent) {
@@ -244,17 +248,18 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	public function getCode() {
 		return $this->code;
 	}
-	
+
 	/**
 	 * Sets the code
 	 *
 	 * @param string $code
+	 *
 	 * @return void
 	 */
 	public function setCode($code) {
 		$this->code = $code;
 	}
-	
+
 	/**
 	 * Creates a code
 	 *
@@ -285,4 +290,5 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	}
 
 }
+
 ?>

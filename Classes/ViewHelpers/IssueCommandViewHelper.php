@@ -38,6 +38,7 @@ class Tx_T3extblog_ViewHelpers_IssueCommandViewHelper extends Tx_Fluid_Core_View
 	 *
 	 * @param string $parameters Is a set of GET params to send to tce_db.php. Example: "&cmd[tt_content][123][move]=456" or "&data[tt_content][123][hidden]=1&data[tt_content][123][title]=Hello%20World"
 	 * @param string $redirectUrl Redirect URL if any other that t3lib_div::getIndpEnv('REQUEST_URI') is wished
+	 *
 	 * @return string URL to tce_db.php + parameters
 	 * @see t3lib_BEfunc::editOnClick()
 	 * @see template::issueCommand()

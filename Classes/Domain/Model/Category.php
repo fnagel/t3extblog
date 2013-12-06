@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -47,7 +47,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 * @var string
 	 */
 	protected $description;
-	
+
 	/**
 	 * Id of parent category
 	 *
@@ -84,6 +84,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 * Sets the name
 	 *
 	 * @param string $name
+	 *
 	 * @return void
 	 */
 	public function setName($name) {
@@ -103,13 +104,14 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 * Sets the description
 	 *
 	 * @param string $description
+	 *
 	 * @return void
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
 	}
-	
-	
+
+
 	/**
 	 * If category is first level
 	 *
@@ -119,7 +121,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 		if ($this->parentId) {
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
 
@@ -131,9 +133,9 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function getPosts() {
 		if ($this->posts == NULL) {
-			$this->posts = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);	
+			$this->posts = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);
 		}
-		
+
 		return $this->posts;
 	}
 
@@ -146,13 +148,14 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 		if (!$this->isFirstLevel()) {
 			return FALSE;
 		}
-	
+
 		if ($this->childCategories == NULL) {
-			$this->childCategories = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());	
+			$this->childCategories = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
 		}
-		
+
 		return $this->childCategories;
 	}
 
 }
+
 ?>

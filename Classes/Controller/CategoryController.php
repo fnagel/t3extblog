@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -41,7 +41,7 @@ class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controll
 	 */
 	protected $categoryRepository;
 
-	
+
 	/**
 	 * action list
 	 *
@@ -56,6 +56,7 @@ class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controll
 	 * action show
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 *
 	 * @return void
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Category $category) {
@@ -63,4 +64,5 @@ class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controll
 	}
 
 }
+
 ?>

@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -40,12 +40,13 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @inject
 	 */
 	protected $postRepository;
-	
+
 	/**
 	 * Displays a list of posts.
 	 *
-	 * @param string $tag The name of the tag to show the posts for
-	 * @param Tx_T3extblog_Domain_Model_Category $category 
+	 * @param string                             $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 *
 	 * @return void
 	 */
 	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
@@ -55,38 +56,38 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays a list of latest posts.
 	 *
-	 * @param string $tag The name of the tag to show the posts for
-	 * @param Tx_T3extblog_Domain_Model_Category $category 
+	 * @param string                             $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 *
 	 * @return void
 	 */
 	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
 		$this->findAndAssignTagOrCategory($tag, $category);
 	}
-	
+
 	/**
 	 * Find all or filtered by tag or by category
 	 *
-	 * @param string $tag The name of the tag to show the posts for
-	 * @param Tx_T3extblog_Domain_Model_Category $category 
+	 * @param string                             $tag The name of the tag to show the posts for
+	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 *
 	 * @return void
 	 */
 	private function findAndAssignTagOrCategory($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
 		if ($category !== NULL) {
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
-		} 
-		elseif (strlen($tag) > 2) {
+		} elseif (strlen($tag) > 2) {
 			$tag = urldecode($tag);
 			$posts = $this->postRepository->findByTag($tag);
 			$this->view->assign('tag', $tag);
-		} 
-		else {
+		} else {
 			$posts = $this->postRepository->findAll();
 		}
-		
+
 		$this->view->assign('posts', $posts);
 	}
-	
+
 
 	/**
 	 * Displays archive of all posts.
@@ -95,7 +96,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 */
 	public function archiveAction() {
 		$posts = $this->postRepository->findAll();
-		
+
 		$this->view->assign('posts', $posts);
 	}
 
@@ -108,6 +109,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		// set format to xml
 		$this->request->setFormat("xml");
 	}
+
 	/**
 	 * Displays rss feed of all posts.
 	 *
@@ -121,8 +123,9 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays one single post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display
+	 * @param Tx_T3extblog_Domain_Model_Post    $post The post to display
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
+	 *
 	 * @return void
 	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
@@ -130,14 +133,15 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
 		// ToDo: This will not work as this action is cached
 		$post->riseNumberOfViews();
-		
+
 		if ($newComment === NULL) {
 			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
 		}
-		
+
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);
 	}
-	
+
 }
+
 ?>

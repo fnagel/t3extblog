@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -108,7 +108,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @lazy
 	 */
 	protected $subscriptions;
-	
+
 	/**
 	 * __construct
 	 *
@@ -124,7 +124,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->content = new Tx_Extbase_Persistence_ObjectStorage();		
+		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
 	}
@@ -142,6 +142,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the title
 	 *
 	 * @param string $title
+	 *
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -153,11 +154,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 *
 	 * @return Tx_T3extblog_Domain_Model_BackendUser $author
 	 */
-	public function getAuthor() {	
+	public function getAuthor() {
 		if (intval($this->author)) {
 			return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_BackendUserRepository")->findByUid($this->author);
 		}
-		
+
 		return NULL;
 	}
 
@@ -165,13 +166,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the author
 	 *
 	 * @param Tx_T3extblog_Domain_Model_BackendUser|integer $author
+	 *
 	 * @return void
 	 */
 	public function setAuthor($author) {
 		if ($author instanceof Tx_T3extblog_Domain_Model_BackendUser) {
 			$this->author = $author->getUid();
-		}	
-		elseif (intval($author)) {
+		} elseif (intval($author)) {
 			$this->author = $author;
 		}
 	}
@@ -193,7 +194,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function getPublishYear() {
 		return $this->publishDate->format('Y');
 	}
-	
+
 	/**
 	 * Returns the publish month
 	 *
@@ -207,6 +208,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the publishDate
 	 *
 	 * @param DateTime $publishDate
+	 *
 	 * @return void
 	 */
 	public function setPublishDate($publishDate) {
@@ -226,6 +228,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the allowComments
 	 *
 	 * @param integer $allowComments
+	 *
 	 * @return void
 	 */
 	public function setAllowComments($allowComments) {
@@ -254,6 +257,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the tagCloud
 	 *
 	 * @param string $tagCloud
+	 *
 	 * @return void
 	 */
 	public function setTagCloud($tagCloud) {
@@ -261,7 +265,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 			$this->tagCloud = implode(", ", $tagCloud);
 		} else {
 			$this->tagCloud = $tagCloud;
-		}		
+		}
 	}
 
 	/**
@@ -277,6 +281,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Sets the numberOfViews
 	 *
 	 * @param integer $numberOfViews
+	 *
 	 * @return void
 	 */
 	public function setNumberOfViews($numberOfViews) {
@@ -300,7 +305,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function getContent() {
 		return $this->content;
 	}
-	
+
 	/**
 	 * Get id list of content elements
 	 *
@@ -311,7 +316,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		foreach ($this->getContent() as $contentElement) {
 			$idList[] = $contentElement->getUid();
 		}
-		
+
 		return implode(',', $idList);
 	}
 
@@ -324,8 +329,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		$text = array();
 		foreach ($this->getContent() as $contentElement) {
 			if (strlen($contentElement->getBodytext()) > 0) {
-                $text[] = $contentElement->getBodytext();
-            }
+				$text[] = $contentElement->getBodytext();
+			}
 		}
 
 		return strip_tags(implode('', $text));
@@ -335,6 +340,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Adds a Category
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $categories
+	 *
 	 * @return void
 	 */
 	public function addCategory(Tx_T3extblog_Domain_Model_Category $category) {
@@ -345,6 +351,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Removes a Category
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $categoryToRemove The Category to be removed
+	 *
 	 * @return void
 	 */
 	public function removeCategory(Tx_T3extblog_Domain_Model_Category $categoryToRemove) {
@@ -359,7 +366,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function getCategories() {
 		return $this->categories;
 	}
-		
+
 	/**
 	 * Inits comments
 	 *
@@ -368,9 +375,9 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 *
 	 * @return void
 	 */
-	private function initComments() {	
+	private function initComments() {
 		if ($this->comments == NULL) {
-			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");	
+			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
 		}
 	}
 
@@ -378,11 +385,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Adds a Comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 *
 	 * @return void
 	 */
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->initComments();
-		
+
 		$comment->setPostId($this->getUid());
 		$this->commentRepository->add($comment);
 	}
@@ -391,11 +399,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Removes a Comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $commentToRemove The Comment to be removed
+	 *
 	 * @return void
 	 */
 	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
 		$this->initComments();
-		
+
 		$commentToRemove->setDeleted(TRUE);
 		$this->commentRepository->update($commentToRemove);
 	}
@@ -407,7 +416,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getComments() {
 		$this->initComments();
-		
+
 		return $this->commentRepository->findValidByPost($this);
 	}
 
@@ -417,8 +426,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
 	 */
 	public function getPendingComments() {
-		$this->initComments();	
-		
+		$this->initComments();
+
 		return $this->commentRepository->findPendingByPost($this);
 	}
 
@@ -426,6 +435,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Adds a Subscriber
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscription
+	 *
 	 * @return void
 	 */
 	public function addSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscription) {
@@ -436,6 +446,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * Removes a Subscriber
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove The Subscriber to be removed
+	 *
 	 * @return void
 	 */
 	public function removeSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove) {
@@ -454,11 +465,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Sets the subscriptions
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 * @param Tx_Extbase_Persistence_ObjectStorage <Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 *
 	 * @return void
 	 */
 	public function setSubscriptions(Tx_Extbase_Persistence_ObjectStorage $subscriptions) {
 		$this->subscriptions = $subscriptions;
 	}
 }
+
 ?>

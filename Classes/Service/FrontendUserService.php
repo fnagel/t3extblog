@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,17 +39,18 @@ class Tx_T3extblog_Service_FrontendUserService {
 	 * @var Tx_T3extblog_Service_LoggingService
 	 */
 	protected $log;
-		
+
 	/**
 	 * Injects the Logging Service
 	 *
 	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 *
 	 * @return void
 	 */
 	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
 		$this->log = $loggingService;
 	}
-	
+
 	/**
 	 * __construct
 	 *
@@ -78,13 +79,13 @@ class Tx_T3extblog_Service_FrontendUserService {
 	 *
 	 * @return void
 	 */
-	public function setData($data) {	
+	public function setData($data) {
 		$oldData = $this->restoreFromSession("data");
-		
+
 		if (is_array($oldData)) {
-			$this->writeToSession("data", array_merge($oldData, $newData));		
+			$this->writeToSession("data", array_merge($oldData, $newData));
 		} else {
-			$this->writeToSession("data", $data);		
+			$this->writeToSession("data", $data);
 		}
 	}
 
@@ -95,36 +96,37 @@ class Tx_T3extblog_Service_FrontendUserService {
 	public function getData() {
 		return $this->restoreFromSession("data");
 	}
-		
+
 	/**
 	 *
 	 * @return array
 	 */
 	public function getDataByKey($key) {
 		$data = $this->restoreFromSession("data");
-		
+
 		if (is_array($data) && $data[$key]) {
 			return $data[$key];
 		}
-	
+
 		return NULL;
 	}
-		
-    /**
-     * Return stored session data
-     */
-    private function restoreFromSession($key) {
-        return $this->frontendUser->getKey('ses', 'tx_t3extblog_' . $key);
-    }
- 
-    /**
-     * Write session data
-     */
-    private function writeToSession($key, $data) {
+
+	/**
+	 * Return stored session data
+	 */
+	private function restoreFromSession($key) {
+		return $this->frontendUser->getKey('ses', 'tx_t3extblog_' . $key);
+	}
+
+	/**
+	 * Write session data
+	 */
+	private function writeToSession($key, $data) {
 		$this->log->dev("Write so FE session", $data);
-		
+
 		$this->frontendUser->setKey('ses', 'tx_t3extblog_' . $key, $data);
 		$this->frontendUser->storeSessionData();
-    }
+	}
 }
+
 ?>

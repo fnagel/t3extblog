@@ -4,7 +4,7 @@
  *
  *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -48,20 +48,21 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 * @inject
 	 */
 	protected $commentRepository;
-	
+
 	/**
 	 * The page id
 	 *
 	 * @var integer
 	 */
 	protected $pageId;
-	
-	
+
+
 	/**
 	 * Load and persist module data
 	 *
-	 * @param Tx_Extbase_MVC_RequestInterface $request
+	 * @param Tx_Extbase_MVC_RequestInterface  $request
 	 * @param Tx_Extbase_MVC_ResponseInterface $response
+	 *
 	 * @throws Tx_Extbase_MVC_Exception_StopAction
 	 * @return void
 	 */
@@ -95,7 +96,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 		// For now we throw an exception if no settings are detected.
 		if (empty($this->settings)) {
 			throw new RuntimeException(
-				'No settings detected. This module can not work then. '.
+				'No settings detected. This module can not work then. ' .
 				'This usually happens if there is no frontend TypoScript template with root flag set. ' .
 				'Please create a frontend page with a TypoScript root template.',
 				1344375003
@@ -107,6 +108,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 * Initializes the view before invoking an action method.
 	 *
 	 * @param Tx_Extbase_MVC_View_ViewInterface $view The view to be initialized
+	 *
 	 * @return void
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {

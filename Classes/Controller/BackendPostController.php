@@ -4,7 +4,7 @@
  *
  *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

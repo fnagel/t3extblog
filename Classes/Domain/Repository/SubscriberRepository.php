@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2013 Felix Nagel <info@felixnagel.com>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,9 +34,10 @@
 class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
-	 * 
+	 *
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findForNotification(Tx_T3extblog_Domain_Model_Post $post) {
@@ -45,23 +46,24 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 		$query->matching(
 			$query->equals('postUid', $post->getUid())
 		);
-			
+
 		return $query->execute();
 	}
-	
+
 	/**
 	 *
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findExistingSubscriptions(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$query = $this->createQuery();
-		
+
 		$query->matching(
-			$query->logicalAnd(			
+			$query->logicalAnd(
 				$query->equals('email', $comment->getEmail()),
-				$query->equals('postUid', $comment->getPostId())	
+				$query->equals('postUid', $comment->getPostId())
 			)
 		);
 
@@ -72,6 +74,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 	 * Finds subscriber without opt-in mail sended before
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findForSubscriptionMail(Tx_T3extblog_Domain_Model_Comment $comment) {
@@ -87,26 +90,27 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 				$query->equals('hidden', 1)
 			)
 		);
-			
+
 		return $query->execute()->getFirst();
 	}
-	
+
 	/**
 	 * Find by code
 	 *
-	 * @param string $code
+	 * @param string  $code
 	 * @param boolean $enableFields
 	 */
 	public function findByCode($code, $enableFields = TRUE) {
 		$query = $this->createQuery();
-		
+
 		$query->getQuerySettings()->setRespectEnableFields($enableFields);
-			
+
 		$query->matching(
 			$query->equals('code', $code)
 		);
-			
+
 		return $query->execute()->getFirst();
 	}
 }
+
 ?>
