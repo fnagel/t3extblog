@@ -202,7 +202,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$this->log->dev("Send subscriber optin mail.");
 
 		$post = $subscriber->getPost();
-		$newSubscriber->updateAuth();
+		$subscriber->updateAuth();
 
 		$subject = "Subscribe to Blogpost: " . $post->getTitle();
 		$variables = array(
@@ -285,11 +285,11 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	private function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
-		if ($settings['enable'] && is_array($settings['mailTo']) && count($settings['mailTo'])) {
+		if ($settings['enable'] && is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0) {
 			$post = $comment->getPost();
-			$this->log->dev("Send admin notification mail.");
+			$this->log->dev('Send admin notification mail.');
 			
-			$subject = "New Comment on Blogpost: " . $post->getTitle();
+			$subject = 'New Comment on Blogpost: ' . $post->getTitle();
 			$variables = array(
 				'post' => $post,
 				'comment' => $comment,
@@ -297,13 +297,22 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			);		
 			$emailBody = $this->renderEmailTemplate($variables, "AdminNewCommentMail.txt");
 			
-			$this->sendEmail($settings['mailTo'], $settings['mailFrom'], $subject, $emailBody);	
+			$this->sendEmail(
+				array( $settings['mailTo']['email'] => $settings['mailTo']['name'] ),
+				array( $settings['mailFrom']['email'] => $settings['mailFrom']['name'] ),
+				$subject,
+				$emailBody
+			);
 		}
 	}
 	
 	/**
 	 * This is the main-function for sending Mails
 	 *
+	 * @param array	$mailTo
+	 * @param array	$mailFro
+	 * @param string $subject
+	 * @param string $emailBody
 	 */
 	private function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
 		$logData = array(
@@ -348,8 +357,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	/**
 	 * This functions renders template to use in Mails and Other views
 	 *
-	 * @param	array		Arguments for template
-	 * @param	string		Choose a template (web or mail)
+	 * @param array	$variables			Arguments for template
+	 * @param string $templateFile 		Choose a template (web or mail)
+	 * @param string $templateDirectory	Template directory
 	 */
 	private function renderEmailTemplate($variables, $templateFile = "Default.txt", $templateDirectory = "Email/") {	
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();

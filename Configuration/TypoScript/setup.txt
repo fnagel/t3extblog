@@ -93,12 +93,14 @@ plugin.tx_t3extblog {
 		
 			admin {
 				enable = 1
-				mailTo {
-					info@felixnagel.com = Blog Moderator
-				}
-				mailFrom {
-					no-reply@felixnagel.com = FelixNagel.com Blog
-				}
+				 mailTo {
+					 email = info@felixnagel.com
+					 name = Blog Moderator
+				 }
+				 mailFrom {
+					 email = no-reply@felixnagel.com
+					 name = FelixNagel.com Blog
+				 }
 			}				
 			subscriber {
 				enableNewCommentNotifications = 1
@@ -106,9 +108,10 @@ plugin.tx_t3extblog {
 				# email link invalid after
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				emailHashTimeout = +48 hours
-				mailFrom {
-					no-reply@felixnagel.com = FelixNagel.com Blog
-				}
+			 	mailFrom {
+				 	email = no-reply@felixnagel.com
+				 	name = FelixNagel.com Blog
+			 	}
 			}
 		}			
 		
