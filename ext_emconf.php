@@ -30,13 +30,16 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '',
 	'constraints' => array(
 		'depends' => array(
+			't3blog' => '1.2.0-1.2.99',
 			'extbase' => '1.5',
 			'fluid' => '1.5',
-			'typo3' => '4.7.0-4.99.999',
+			'typo3' => '4.5.0-4.7.99',
 		),
 		'conflicts' => array(
 		),
 		'suggests' => array(
+			'sfpantispam' => '',
+			'pagebrowse' => '',
 		),
 	),
 );

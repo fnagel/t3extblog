@@ -312,7 +312,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 * @return boolean
 	 */
 	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
-		/* @var tx_sfpantispam_tslibfepreproc $sfpantispam */
+		/* @var $sfpantispam tx_sfpantispam_tslibfepreproc */
 		$sfpantispam = t3lib_div::makeInstance('tx_sfpantispam_tslibfepreproc');
 
 		$fields = array(

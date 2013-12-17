@@ -8,13 +8,12 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	'Blogsystem',
 	array(
 		'Post' => 'list, show',
-		// 'Comment' => 'list, show, new, create, edit, update, delete',		
 		'Comment' => 'create',		
 	),
 	// non-cacheable actions
 	array(
 		'Post' => '',
-		'Comment' => 'create, update, delete',		
+		'Comment' => 'create, update',
 	)
 );
 
