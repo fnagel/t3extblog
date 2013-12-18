@@ -12,6 +12,13 @@ lib.tx_t3extblog.contentElementRendering {
 	dontCheckPid = 1
 }
 
+# localize date format, used within the fluid templates
+lib.tx_t3extblog.date = TEXT
+lib.tx_t3extblog.date {
+	current = 1
+	strftime = %d. %B %Y
+}
+
 # table & field mapping
 config.tx_extbase{
     persistence{
@@ -42,6 +49,7 @@ config.tx_extbase{
 						altText.mapOnProperty = altText
 						titleText.mapOnProperty = titleText
 						colPos.mapOnProperty = colPos
+						CType.mapOnProperty = CType
 					}
 				}
             }

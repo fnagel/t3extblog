@@ -8,33 +8,82 @@
 		
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 		<f:for each="{paginatedPosts}" as="post">
-			<div class="post">			
-				<h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
-				<p class="author">{post.author.name}</p>
-				<span class="date">{post.publishDate -> f:format.date()}</span>
-				<f:render partial="Post/Categories" arguments="{post: post}" />
-				
+			<article class="well">
+				<h2>
+					<f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action>
+				</h2>
+				<p class="top">
+					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
+					<span  class="author">{post.author.name}</span> in
+					<f:render partial="Post/Categories" arguments="{post: post}" />
+				</p>
+
 				<f:if condition="{post.content}">	
-					<div class="teaser">		
-					<f:for each="{post.content}" as="content" iteration="iterator">						
-						<f:if condition="{iterator.index} < 1">
-							<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
-						</f:if>
-					</f:for>
+					<div class="teaser">
+						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
 					</div>
 				</f:if>
-				
-				<f:if condition="{post.comments}">
-					<p class="comments">
-						<f:link.action controller="Post" action="show" arguments="{post : post}">
-							Comments: <f:count subject="{post.comments}" />
-						</f:link.action>
-					</p>
-				</f:if>
 
-				<f:render partial="Post/TagCloud" arguments="{post: post}" />
-			</div>
+				<f:link.action action="show" arguments="{post : post}" class="btn btn-inverse">
+					<i class="icon-arrow-right"></i>
+					{post.title}
+				</f:link.action>
+
+				<div class="bottom row-fluid">
+					<div class="span3">
+						<span class="badge">
+							<f:link.action controller="Post" action="show" arguments="{post : post}">
+								<f:count subject="{post.comments}" /> comments
+							</f:link.action>
+						</span>
+					</div>
+					<div class="span9 text-right">
+						<f:render partial="Post/TagCloud" arguments="{post: post}" />
+					</div>
+				</div>
+			</article>
 		</f:for>
 	</f:widget.paginate>
 
+</f:section>
+
+
+<f:section name="teaserSimple">
+	<f:for each="{contentElements}" as="content" iteration="iterator">
+		<f:if condition="{iterator.index} < 2">
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+		</f:if>
+	</f:for>
+</f:section>
+
+<f:section name="teaserComplex">
+	<f:for each="{contentElements}" as="content" iteration="iterator">
+		<f:if condition="{iterator.index} == 0">
+			<f:if condition="{0:content.CType} == {0:'image'}">
+				<f:then>
+					<div class="text-pic clearfix">
+						<div class="pull-left">
+							<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+						</div>
+				</f:then>
+				<f:else>
+					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+				</f:else>
+			</f:if>
+		</f:if>
+	</f:for>
+
+	<f:for each="{contentElements}" as="content" iteration="iterator">
+		<f:if condition="{iterator.index} > 0">
+			<f:if condition="{iterator.index} < 2">
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+			</f:if>
+		</f:if>
+	</f:for>
+
+	<f:for each="{contentElements}" as="content" iteration="iterator">
+		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">
+			</div>
+		</f:if>
+	</f:for>
 </f:section>
