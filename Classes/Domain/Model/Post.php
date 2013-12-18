@@ -313,6 +313,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getContentIdList() {
 		$idList = array();
+
 		foreach ($this->getContent() as $contentElement) {
 			$idList[] = $contentElement->getUid();
 		}
@@ -327,6 +328,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getPreview() {
 		$text = array();
+
 		foreach ($this->getContent() as $contentElement) {
 			if (strlen($contentElement->getBodytext()) > 0) {
 				$text[] = $contentElement->getBodytext();
