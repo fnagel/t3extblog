@@ -1,15 +1,8 @@
 plugin.tx_t3extblog {
+	# needed for 4.x only
 	features {
 		rewrittenPropertyMapper = 1
 	}
-}
-
-# Rendering of content elements
-lib.tx_t3extblog.contentElementRendering = RECORDS
-lib.tx_t3extblog.contentElementRendering {
-	tables = tt_content
-	source.current = 1
-	dontCheckPid = 1
 }
 
 # localize date format, used within the fluid templates

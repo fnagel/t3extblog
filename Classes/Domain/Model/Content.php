@@ -176,6 +176,15 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
+	 * Checks if the CE has text
+	 *
+	 * @return boolean
+	 */
+	public function hasText() {
+		return (boolean) ($this->CType === 'text' || $this->CType === 'textpic');
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getHeader() {
@@ -202,7 +211,7 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 	 * @return integer
 	 */
 	public function getColPos() {
-		return (int)$this->colPos;
+		return (int) $this->colPos;
 	}
 
 	/**
@@ -324,6 +333,35 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 		return $this->listType;
 	}
 
+	/**
+	 * Makes an array out of all public getter methods
+	 *
+	 * @param boolean $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
+	 *
+	 * @return array
+	 */
+	public function convertToArray($camelCaseKeys = false) {
+		$data = array();
+
+		foreach(get_class_methods($this) as $method) {
+
+			if (substr($method, 0, 3) === 'get') {
+
+				$field = substr($method, 3);
+
+				if ($camelCaseKeys === false) {
+					// TYPO3 cObj edge case
+					if ($field !== 'CType') {
+						$field = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $field));
+					}
+				}
+
+				$data[$field] = call_user_func( array($this, $method));
+			}
+		}
+
+		return $data;
+	}
 }
 
 ?>
