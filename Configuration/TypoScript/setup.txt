@@ -1,8 +1,12 @@
+#config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+
 plugin.tx_t3extblog {
 	view {
 		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
 		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+
+		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
