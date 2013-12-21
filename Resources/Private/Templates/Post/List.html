@@ -1,3 +1,5 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
 <f:layout name="Default" />
 
 <f:section name="main">
@@ -21,13 +23,13 @@
 				<f:if condition="{post.content}">	
 					<div class="teaser">
 						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
+
+						<f:link.action action="show" arguments="{post : post}" class="btn">
+							<i class="icon-arrow-right"></i>
+							{post.title}
+						</f:link.action>
 					</div>
 				</f:if>
-
-				<f:link.action action="show" arguments="{post : post}" class="btn btn-inverse">
-					<i class="icon-arrow-right"></i>
-					{post.title}
-				</f:link.action>
 
 				<div class="bottom row-fluid">
 					<div class="span3">
@@ -48,12 +50,12 @@
 </f:section>
 
 
-<f:section name="teaserSimple">
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{iterator.index} < 2">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
-		</f:if>
-	</f:for>
+<f:section name="teaserTwoElements">
+		<f:for each="{contentElements}" as="content" iteration="iterator">
+			<f:if condition="{iterator.index} < 2">
+				<t3b:frontend.renderContent contentElements="{0: content}" />
+			</f:if>
+		</f:for>
 </f:section>
 
 <f:section name="teaserComplex">
@@ -63,23 +65,17 @@
 				<f:then>
 					<div class="text-pic clearfix">
 						<div class="pull-left">
-							<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+							<t3b:frontend.renderContent contentElements="{0: content}" removeMarker="0" />
 						</div>
 				</f:then>
 				<f:else>
-					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
+					<t3b:frontend.renderContent contentElements="{0: content}" />
 				</f:else>
 			</f:if>
 		</f:if>
 	</f:for>
 
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{iterator.index} > 0">
-			<f:if condition="{iterator.index} < 2">
-				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
-			</f:if>
-		</f:if>
-	</f:for>
+	<t3b:frontend.renderPreview contentElements="{contentElements}" index="1" />
 
 	<f:for each="{contentElements}" as="content" iteration="iterator">
 		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">

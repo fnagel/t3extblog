@@ -1,31 +1,59 @@
-<label for="title">
-	<f:translate key="tx_t3extblog_domain_model_comment.title" />
-</label><br />
-<f:form.textfield property="title" /><br />
-	
-<label for="author">
-	<f:translate key="tx_t3extblog_domain_model_comment.author" />
-</label><br />
-<f:form.textfield property="author" /><br />
-	
-<label for="email">
-	<f:translate key="tx_t3extblog_domain_model_comment.email" /> <span class="required">(required)</span>
-</label><br />
-<f:form.textfield property="email" /><br />
-	
-<label for="website">
-	<f:translate key="tx_t3extblog_domain_model_comment.website" />
-</label><br />
-<f:form.textfield property="website" /><br />
-	
-<label for="text">
-	<f:translate key="tx_t3extblog_domain_model_comment.text" /> <span class="required">(required)</span>
-</label><br />
-<f:form.textarea property="text" cols="40" rows="15" /><br />
-	
-<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
-	<label for="subscribe">
-		<f:translate key="tx_t3extblog_domain_model_comment.subscribe" />
-	</label><br />
-	<f:form.checkbox property="subscribe" value="1"/><br />	
-</f:if>
+<div class="row-fluid">
+	<div class="span6">
+		<div class="control-group">
+			<label class="control-label hidden" for="text">
+				<f:translate key="tx_t3extblog_domain_model_comment.text" />
+			</label>
+			<div class="controls">
+				<f:form.textarea class="input-block-level" id="text" property="text" rows="10" cols="10" />
+			</div>
+		</div>
+	</div>
+	<div class="span6 form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="title">
+				<f:translate key="tx_t3extblog_domain_model_comment.title" />
+			</label>
+			<div class="controls">
+				<f:form.textfield placeholder="optional" class="input-block-level" id="title" property="title" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="author">
+				<f:translate key="tx_t3extblog_domain_model_comment.author" />
+			</label>
+			<div class="controls">
+				<f:form.textfield class="input-block-level" id="author" property="author" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="email">
+				<f:translate key="tx_t3extblog_domain_model_comment.email" />
+			</label>
+			<div class="controls">
+				<f:form.textfield class="input-block-level" id="email" property="email" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="website">
+				<f:translate key="tx_t3extblog_domain_model_comment.website" />
+			</label>
+			<div class="controls">
+				<f:form.textfield placeholder="optional" class="input-block-level" id="website" property="website" />
+			</div>
+		</div>
+
+		<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
+			<div class="control-group">
+				<div class="controls">
+					<label class="checkbox" for="subscribe">
+						<f:form.checkbox property="subscribe" id="subscribe" value="1"/> <f:translate key="tx_t3extblog_domain_model_comment.subscribe" />
+					</label>
+				</div>
+			</div>
+		</f:if>
+	</div>
+</div>

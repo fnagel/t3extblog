@@ -1,11 +1,25 @@
-<div class="comment">
-	<strong>{comment.author}</strong>
-	<f:if condition="{comment.title}">
-		<p>{comment.title}</p>
-	</f:if>
-	<f:if condition="{comment.website}">
-		<p><a href="{comment.website}">{comment.website}</a></p>
-	</f:if>
-	<p><f:format.html>{comment.text}</f:format.html></p>
+<div class="row-fluid comment">
+	<div class="span2 text-right">
+		<strong>
+			<f:if condition="{comment.website}">
+				<f:then><a href="{comment.website}">{comment.author}</a></f:then>
+				<f:else>{comment.author}</f:else>
+			</f:if>
+		</strong>
+		<p>
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{comment.date}')}" />
+		</p>
+	</div>
+	<div class="span9">
+		<f:if condition="{comment.title}">
+			<strong>{comment.title}</strong>
+		</f:if>
+		<f:format.html>{comment.text}</f:format.html>
+	</div>
+
+	<div class="span1 text-right">
+		<f:link.action action="show" arguments="{post: post}" section="comment-{comment.uid}">
+			<i class="icon-link"></i>
+		</f:link.action>
+	</div>
 </div>
-<br />

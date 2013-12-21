@@ -1,19 +1,33 @@
 <f:if condition="{settings.blogsystem.comments.allowed}">
-	<div class="form" id="comment-form">	
-		<f:if condition="{post.allowComments} == 0">
-			<f:then>
-				<h2>New comment</h2>		
-				<f:render partial="FormErrors" arguments="{object:Comment}"/>
+	<f:if condition="{post.allowComments} == 0">
+		<f:then>
+			<f:form
+				controller="Comment"
+				action="create"
+				section="comment-section"
+				name="newComment"
+				object="{newComment}"
+				arguments="{post: post}">
 
-				<f:form controller="Comment" action="create" section="comment-form" name="newComment" object="{newComment}" arguments="{post: post}">
+				<fieldset>
+					<legend>New comment</legend>
+
+					<f:render partial="FormErrors" arguments="{object:Comment}" />
+
 					<f:render partial="Comment/FormFields" />
-					<f:render partial="Comment/Spam" />
-					<f:form.submit value="Add comment" />
-				</f:form>
-			</f:then>
-			<f:else>
-				<p>Comments are disabled for this post.</p>
-			</f:else>
-		</f:if>
-	</div>
+				</fieldset>
+				<fieldset class="row-fluid">
+					<div class="span3">
+						<f:form.submit class="btn btn-primary" value="Add comment" />
+					</div>
+					<div class="span3">
+						<f:render partial="Comment/Spam" />
+					</div>
+				</fieldset>
+			</f:form>
+		</f:then>
+		<f:else>
+			<p class="alert alert-info alert-block">Comments are disabled for this post.</p>
+		</f:else>
+	</f:if>
 </f:if>

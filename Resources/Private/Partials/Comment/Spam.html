@@ -1,8 +1,12 @@
 <f:if condition="{settings.blogsystem.comments.spamCheck.isHumanCheckbox} > 0">
-	<label for="tx_t3extblog_blogsystem_human">
-		<f:translate key="tx_t3extblog_domain_model_comment.isHumanCheckbox" />
-	</label><br />
-	<input type="checkbox" id="tx_t3extblog_blogsystem_human" name="tx_t3extblog_blogsystem[human]" value="1" autocomplete="off"><br />
+	<div class="control-group">
+		<div class="controls">
+			<label class="checkbox" for="isHumanCheckbox">
+				<input type="checkbox" id="isHumanCheckbox" name="tx_t3extblog_blogsystem[human]" value="1" autocomplete="off">
+				<f:translate key="tx_t3extblog_domain_model_comment.isHumanCheckbox" />
+			</label>
+		</div>
+	</div>
 </f:if>
 
 <f:if condition="{settings.blogsystem.comments.spamCheck.honeypot} > 0">
@@ -11,7 +15,6 @@
 			Honypot check
 			Do not alter these fields!
 		</f:comment>
-		<p>Do not alter these fields!</p>
 		<input type="text" name="tx_t3extblog_blogsystem[author]" value="" autocomplete="off">
 		<input type="text" name="tx_t3extblog_blogsystem[link]" value="" autocomplete="off">
 		<input type="text" name="tx_t3extblog_blogsystem[text]" value="" autocomplete="off">
