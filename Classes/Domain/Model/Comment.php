@@ -53,6 +53,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * author
 	 *
+	 * @validate NotEmpty
 	 * @var string
 	 */
 	protected $author;
