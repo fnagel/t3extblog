@@ -44,7 +44,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * author
 	 *
-	 * @var string
+	 * @var Tx_T3extblog_Domain_Model_BackendUser
 	 * @validate NotEmpty
 	 */
 	protected $author;
