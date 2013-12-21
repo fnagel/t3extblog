@@ -123,7 +123,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$persistenceManager->persistAll();
 		}
 
-		$this->redirect('show', 'Post', NULL, array('post' => $post, 'addedComment' => $newComment));
+		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment->getUid()));
 	}
 
 	/**
