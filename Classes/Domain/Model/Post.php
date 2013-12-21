@@ -322,7 +322,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
-	 * Get id list of content elements
+	 * Get all content elements bodytext field values concated without HTML tags
 	 *
 	 * @return string
 	 */
