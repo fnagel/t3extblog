@@ -1,11 +1,11 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h2>Listing for Subscriber: {email}</h2>
+<h2>Listing for subscriber: {email}</h2>
 
 <f:flashMessages />
 
-<table  class="tx_t3extblog" >
+<table class="table table-striped" >
 	<tr>
 		<th>Blogpost</th>
 		<th>Name</th>
@@ -23,7 +23,12 @@
 				<f:count>{subscriber.postComments}</f:count> approved<br />
 				<f:count>{subscriber.postPendingComments}</f:count> awaiting moderation
 			</td>
-			<td><f:link.action action="delete" arguments="{subscriber : subscriber}">Delete subscription</f:link.action></td>
+			<td>
+				<f:link.action class="btn" action="delete" arguments="{subscriber : subscriber}">
+					<i class="icon-trash"></i>
+					Delete subscription
+				</f:link.action>
+			</td>
 		</tr>
 	</f:for>
 </table>
