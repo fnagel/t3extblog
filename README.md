@@ -18,11 +18,13 @@ Migration not needed as old SQL and TCA is used.
 
 This extension should not be used for starting a new blog with TYPO3.
 
-More to come...
+This extension will support migration to TYPO3 6.x.
 
 
 Features
 ------------
+
+Implemented features.
 
 * Show list and detail view of posts
 * Post new comments
@@ -31,7 +33,7 @@ Features
 * Spam check includes: simple checkbox, honeypot, cookie, useragent, and sfpantispam
 * Auto close comments functionality 
 * Posts RSS feed
-* more to come...
+* BE Module for posts and comments
 
 
 Installation
@@ -48,26 +50,17 @@ Todo
 
 A lot of testing is missing. Help wanted!
 
-
-* ViewHelper for removing / using MORE marker
-* Cleanup extension from extension builder files
 * Add documentation
-* Use translation instead of hardcoded messages
 
 
 IN WORK
-* BE Module for posts and comments
-
+* Templating (Twitter Boostrap)
+* Use translation instead of hardcoded messages
+* Hook for comment records to be changed -> send mails
 
 FEATURES
 * Trackback / Pingback
-* Blogroll?
-* Hooks for list module when changing comments?
 * Captcha implementation
-
-
-To discuss
-------------
 
 
 
