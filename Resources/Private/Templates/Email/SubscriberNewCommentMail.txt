@@ -9,7 +9,7 @@ See the comment:
 	action="show"
 	pageUid="{settings.blogsystem.pid}"
 	absolute="true"
-	arguments="{post : post}"
+	arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
 	section="comment_{comment.uid}" />
 
 

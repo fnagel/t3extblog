@@ -18,7 +18,9 @@
 						<f:for each="{postsByMonth}" as="post">
 							<li>
 								<span class="date"><f:format.date>{post.publishDate}</f:format.date></span>&nbsp;
-								<f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action>								
+								<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}">
+									{post.title}
+								</f:link.action>
 							</li>
 						</f:for>
 						</ul>

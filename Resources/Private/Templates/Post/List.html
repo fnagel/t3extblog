@@ -12,7 +12,9 @@
 		<f:for each="{paginatedPosts}" as="post">
 			<article class="well">
 				<h2>
-					<f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action>
+					<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}">
+						{post.title}
+					</f:link.action>
 				</h2>
 				<p class="top">
 					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
@@ -24,7 +26,7 @@
 					<div class="teaser">
 						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
 
-						<f:link.action action="show" arguments="{post : post}" class="btn">
+						<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" class="btn">
 							<i class="icon-arrow-right"></i>
 							{post.title}
 						</f:link.action>
@@ -34,7 +36,7 @@
 				<div class="bottom row-fluid">
 					<div class="span3">
 						<span class="badge">
-							<f:link.action controller="Post" action="show" arguments="{post : post}">
+							<f:link.action controller="Post" action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-list">
 								<f:count subject="{post.comments}" /> comments
 							</f:link.action>
 						</span>

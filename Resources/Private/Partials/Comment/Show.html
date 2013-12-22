@@ -1,4 +1,4 @@
-<div class="row-fluid comment<f:if condition="{comment.email} == {post.author.email}"> well</f:if>">
+<div id="comment-{comment.uid}" class="row-fluid comment<f:if condition="{comment.email} == {post.author.email}"> well</f:if>">
 	<div class="span2 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="span1 text-right">
-		<f:link.action action="show" arguments="{post: post}" section="comment-{comment.uid}">
+		<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-{comment.uid}">
 			<i class="icon-link"></i>
 		</f:link.action>
 	</div>

@@ -5,7 +5,9 @@
 <f:section name="main">
 	<article class="well">
 		<h2>
-			<f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action>
+			<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}">
+				{post.title}
+			</f:link.action>
 		</h2>
 		<p class="top">
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,

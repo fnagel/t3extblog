@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
@@ -7,7 +8,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Blogsystem',
 	array(
-		'Post' => 'list, show',
+		'Post' => 'show, list',
 		'Comment' => 'create',		
 	),
 	// non-cacheable actions
@@ -88,6 +89,11 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Comment' => '',		
 	)
 );
+
+
+// add RealURL autoconfiguration
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
+	'EXT:t3extblog/Classes/Hooks/RealUrlAutoConfig.php:Tx_T3extblog_Hooks_RealUrlAutoConfig->addConfig';
 
 
 ?>

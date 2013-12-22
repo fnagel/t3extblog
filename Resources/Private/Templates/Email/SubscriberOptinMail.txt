@@ -4,6 +4,13 @@ it seems you subscribed for new comments:
 
 Blogname: 		{settings.blogName}
 Blogpost: 		{post.title}
+Link:			<f:uri.action
+					pluginName="Blogsystem"
+					controller="Post"
+					action="show"
+					pageUid="{settings.blogsystem.pid}"
+					absolute="true"
+					arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" />
 
 Your email: 	{subscriber.email}
 
