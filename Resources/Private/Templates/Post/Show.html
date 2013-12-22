@@ -34,9 +34,8 @@
 	</article>
 
 	<div id="comment-section">
-		<f:flashMessages />
-
 		<div class="well" id="comment-form">
+			<f:flashMessages />
 			<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
 		</div>
 
