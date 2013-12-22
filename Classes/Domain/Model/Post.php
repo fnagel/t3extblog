@@ -45,6 +45,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * author
 	 *
 	 * @var Tx_T3extblog_Domain_Model_BackendUser
+	 * @lazy
 	 * @validate NotEmpty
 	 */
 	protected $author;
@@ -82,6 +83,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * content
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content>
+	 * @lazy
 	 */
 	protected $content;
 

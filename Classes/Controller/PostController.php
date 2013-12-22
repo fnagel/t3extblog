@@ -68,6 +68,8 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Find all or filtered by tag or by category
 	 *
+	 * @todo Performance improvements: do not fetch all by default, consider paginator
+	 *
 	 * @param string                             $tag The name of the tag to show the posts for
 	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
