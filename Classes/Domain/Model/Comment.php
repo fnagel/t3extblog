@@ -36,7 +36,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * @var boolean
 	 */
-	protected $hidden;
+	protected $hidden = FALSE;
 
 	/**
 	 * @var boolean
@@ -310,7 +310,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return (boolean)$this->getSpam();
+		return (boolean) $this->getSpam();
 	}
 
 	/**
@@ -362,7 +362,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return boolean $spam
 	 */
 	public function getSubscribe() {
-		return (boolean)$this->subscribe;
+		return (boolean) $this->subscribe;
 	}
 
 	/**
@@ -373,7 +373,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function setSubscribe($subscribe) {
-		$this->subscribe = (boolean)$subscribe;
+		$this->subscribe = (boolean) $subscribe;
 	}
 
 	/**
@@ -384,16 +384,6 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	public function isValid() {
 		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
 	}
-
-	/**
-	 * If the is enabled
-	 *
-	 * @return boolean
-	 */
-	public function isUnavailable() {
-		return ($this->hidden || $this->deleted);
-	}
-
 }
 
 ?>

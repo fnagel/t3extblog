@@ -47,6 +47,13 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	protected $subscriberRepository;
 
 	/**
+	 * commentRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected $commentRepository;
+
+	/**
 	 * Logging Service
 	 *
 	 * @var Tx_T3extblog_Service_LoggingService
@@ -100,6 +107,17 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	}
 
 	/**
+	 * Injects the Comment Repository
+	 *
+	 * @param Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository
+	 *
+	 * @return void
+	 */
+	public function injectCommentRepository(Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository) {
+		$this->commentRepository = $commentRepository;
+	}
+
+	/**
 	 * Injects the Settings Service
 	 *
 	 * @param Tx_T3extblog_Service_SettingsService $settingsService
@@ -117,7 +135,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$this->propertyMapper = $propertyMapper;
 	}
 
-
 	/**
 	 *
 	 */
@@ -125,43 +142,55 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$this->settings = $this->settingsService->getTypoScriptSettings();
 	}
 
-
 	/**
-	 * Process new comment
+	 * Process added comment
+	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param integer $uid
+	 * @param boolean $notifyAdmin
 	 *
-	 * @return    void
+	 * @return void
 	 */
-	public function processAddedComment(Tx_T3extblog_Domain_Model_Comment $newComment) {
-		$this->notifyAdmin($newComment);
-		$this->notifySubscribers($newComment);
-		$this->processNewSubscription($newComment);
-	}
+	public function processCommentAdded($uid, $notifyAdmin = true) {
+		/* @var $newComment Tx_T3extblog_Domain_Model_Comment */
+		$newComment = $this->commentRepository->findByUid($uid);
 
+		if ($notifyAdmin === true) {
+			$this->notifyAdmin($newComment);
+		}
 
-	/**
-	 * Changed existing comment
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 *
-	 * @return    void
-	 */
-	public function processChangedComment(Tx_T3extblog_Domain_Model_Comment $newComment) {
-		$this->notifySubscribers($newComment);
-		$this->notifyNewSubscriber($newComment);
+		if ($newComment->isValid()) {
+			$this->checkNewSubscription($newComment);
+			$this->notifySubscribers($newComment);
+		}
 	}
 
 	/**
-	 * Send optin mail for subscirber
+	 * Process changed status of a comment
 	 *
-	 * @todo check if isSpam, add persistent subscribe property to comment, send subsciber mail on apporving via this service
+	 * @param integer $uid
+	 * @param boolean $notifyAdmin
+	 *
+	 * @return void
+	 */
+	public function processCommentStatusChanged($uid) {
+		/* @var $comment Tx_T3extblog_Domain_Model_Comment */
+		$comment = $this->commentRepository->findByUid($uid);
+
+		if ($comment->isValid()) {
+			$this->checkNewSubscription($comment);
+			$this->notifySubscribers($comment);
+		}
+	}
+
+	/**
+	 * Checks for new subscription. Inits mail sending and new DB entry.
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
-	 * @return    void
+	 * @return void
 	 */
-	private function processNewSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function checkNewSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
 		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {
 			return;
 		}
@@ -178,19 +207,13 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	}
 
 	/**
-	 * Send optin mail for subscriber if comment valid and subscription has not been sent before
-	 *
-	 * @todo check if isSpam, add persistent subscribe property to comment, send subsciber mail on apporving via this service
+	 * Send optin mail for new subscriber
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
-	 * @return    void
+	 * @return void
 	 */
-	private function notifyNewSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
-		if ($comment->isSpam() || $comment->isUnavailable()) {
-			return;
-		}
-
+	protected function notifyNewSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
 		if ($subscriber === NULL) {
 			$this->log->dev("No subscriber found for new subscription mail.");
@@ -205,9 +228,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
 	 *
-	 * @return    void
+	 * @return void
 	 */
-	private function sendNewSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+	protected function sendNewSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
 		$this->log->dev("Send subscriber optin mail.");
 
 		$post = $subscriber->getPost();
@@ -236,9 +259,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @return Tx_T3extblog_Domain_Model_Subscriber
 	 */
-	private function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$newSubscriber = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
+	protected function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
 		/* @var $newSubscriber Tx_T3extblog_Domain_Model_Subscriber */
+		$newSubscriber = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
 
@@ -253,16 +276,16 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	/**
 	 * Send comment notification mails
 	 *
-	 * @todo: only when last send is older than now?
+	 * @todo Make subject configurable
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
 	 * @return    void
 	 */
-	private function notifySubscribers(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function notifySubscribers(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
-		if ($settings['enableNewCommentNotifications'] && $comment->isValid()) {
+		if ($settings['enableNewCommentNotifications']) {
 			/* @var $post Tx_T3extblog_Domain_Model_Post */
 			$post = $comment->getPost();
 			$this->log->dev("Send subscriber notification mails.");
@@ -275,6 +298,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				// todo: needs testing
 				$now = new DateTime();
 				if ($now > $subscriber->getLastSent()) {
+					$subscriber->updateAuth();
+
 					$variables = array(
 						'post' => $post,
 						'comment' => $comment,
@@ -293,10 +318,13 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * Notify the blog admin
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param string $emailTemplate#
+	 *
+	 * @todo Make subject configurable
 	 *
 	 * @return    void
 	 */
-	public function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment, $emailTemplate = "AdminNewCommentMail.txt") {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
 		if ($settings['enable'] && is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0) {
@@ -310,7 +338,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				'comment' => $comment,
 				'subject' => $subject
 			);
-			$emailBody = $this->renderEmailTemplate($variables, "AdminNewCommentMail.txt");
+			$emailBody = $this->renderEmailTemplate($variables, $emailTemplate);
 
 			$this->sendEmail(
 				array($settings['mailTo']['email'] => $settings['mailTo']['name']),
@@ -331,7 +359,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @return integer the number of recipients who were accepted for delivery
 	 */
-	private function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
+	protected function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
 		$logData = array(
 			'mailTo' => $mailTo,
 			'mailFrom' => $mailFrom,
@@ -377,7 +405,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @param string $templateFile Choose a template (web or mail)
 	 * @param string $templateDirectory Template directory
 	 */
-	private function renderEmailTemplate($variables, $templateFile = "Default.txt", $templateDirectory = "Email/") {
+	protected function renderEmailTemplate($variables, $templateFile = "Default.txt", $templateDirectory = "Email/") {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
 		$templateRootPath = t3lib_div::getFileAbsFileName($frameworkConfig['view']['templateRootPath']);
 		$templatePathAndFilename = $templateRootPath . $templateDirectory . $templateFile;
