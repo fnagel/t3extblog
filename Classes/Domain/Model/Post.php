@@ -216,6 +216,26 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	}
 
 	/**
+	 * Checks if the post is experided
+	 *
+	 * @todo Needs testing
+	 *
+	 * @param DateTime $expireDate
+	 *
+	 * @return string
+	 */
+	public function isExpired($expireDate) {
+		$now = new DateTime();
+		$expire = $this->getPublishDate()->modify($expireDate);
+
+		if ($now > $expire) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
+	/**
 	 * Sets the publishDate
 	 *
 	 * @param DateTime $publishDate

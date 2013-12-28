@@ -204,12 +204,8 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$saveComment = FALSE;
 		}
 
-		// todo: needs testing
 		if ($settings["allowedUntil"]) {
-			$now = new DateTime();
-			$expire = $post->getPublishDate()->modify(trim($settings["allowedUntil"]));
-
-			if ($now > $expire) {
+			if ($post->isExpired(trim($settings["allowedUntil"]))) {
 				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
 				$saveComment = FALSE;
 			}

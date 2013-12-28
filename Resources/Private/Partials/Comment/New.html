@@ -1,33 +1,33 @@
-<f:if condition="{settings.blogsystem.comments.allowed}">
-	<f:if condition="{post.allowComments} == 0">
-		<f:then>
-			<f:form
-				controller="Comment"
-				action="create"
-				section="comment-section"
-				name="newComment"
-				object="{newComment}"
-				arguments="{post: post}">
+{namespace t3b=Tx_T3extblog_ViewHelpers}
 
-				<fieldset>
-					<legend>New comment</legend>
+<t3b:frontend.commentAllowed post="{post}">
+	<f:then>
+		<f:form
+			controller="Comment"
+			action="create"
+			section="comment-section"
+			name="newComment"
+			object="{newComment}"
+			arguments="{post: post}">
 
-					<f:render partial="FormErrors" arguments="{object:Comment}" />
+			<fieldset>
+				<legend>New comment</legend>
 
-					<f:render partial="Comment/FormFields" />
-				</fieldset>
-				<fieldset class="row-fluid">
-					<div class="span3">
-						<f:form.submit class="btn btn-primary" value="Add comment" />
-					</div>
-					<div class="span3">
-						<f:render partial="Comment/Spam" />
-					</div>
-				</fieldset>
-			</f:form>
-		</f:then>
-		<f:else>
-			<p class="alert alert-info alert-block">Comments are disabled for this post.</p>
-		</f:else>
-	</f:if>
-</f:if>
+				<f:render partial="FormErrors" arguments="{object:Comment}" />
+
+				<f:render partial="Comment/FormFields" />
+			</fieldset>
+			<fieldset class="row-fluid">
+				<div class="span3">
+					<f:form.submit class="btn btn-primary" value="Add comment" />
+				</div>
+				<div class="span3">
+					<f:render partial="Comment/Spam" />
+				</div>
+			</fieldset>
+		</f:form>
+	</f:then>
+	<f:else>
+		<p class="alert alert-info alert-block">Comments are disabled for this post.</p>
+	</f:else>
+</t3b:frontend.commentAllowed>
