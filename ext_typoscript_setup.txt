@@ -144,7 +144,3 @@ module.tx_t3extblog {
 		}
 	}
 }
-
-# debugging
-# Tx_Extbase_Utility_Debugger::var_dump("test");
-config.no_cache=1
