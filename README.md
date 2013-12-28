@@ -48,15 +48,15 @@ Installation
 Todo
 ------------
 
-A lot of testing is missing. Help wanted!
-
+* A lot of testing needs to be done. Help wanted!
 * Add documentation
 
 
 IN WORK
 * Templating (Twitter Boostrap)
 * Use translation instead of hardcoded messages
-* Hook for comment records to be changed -> send mails
+* Page title VH
+* Add BE records icons to repo
 
 FEATURES
 * Trackback / Pingback

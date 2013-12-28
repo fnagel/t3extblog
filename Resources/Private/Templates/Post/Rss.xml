@@ -31,7 +31,7 @@
                                     action="show"
                                     pageUid="{settings.blogsystem.pid}"
                                     absolute="true"
-                                    arguments="{post : post}"
+                                    arguments="{post.linkParameter}"
                                 />
                             </f:format.htmlspecialchars>
                         </link>
@@ -41,7 +41,7 @@
                                     action="show"
                                     pageUid="{settings.blogsystem.pid}"
                                     absolute="true"
-                                    arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
+                                    arguments="{post.linkParameter}"
                                 />
                             </f:format.htmlspecialchars>
                         </source>
@@ -54,7 +54,7 @@
                         </description>
                         <content:encoded>
                             <f:format.cdata>
-                                <h2><f:link.action action="show" arguments="{post : post}">{post.title}</f:link.action></h2>
+                                <h2><f:link.action action="show" arguments="{post.linkParameter}">{post.title}</f:link.action></h2>
                                 <em class="author">by {post.author.name}</em>
                                 <span class="date">{post.publishDate -> f:format.date()}</span>
                                 <br /><br />

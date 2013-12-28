@@ -123,7 +123,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->addFlashMessage->add('Created');
 		}
 
-		$this->redirect('show', 'Post', NULL, array('post' => $post->getUid(), 'addedComment' => $newComment->getUid()));
+		$this->redirect('show', 'Post', NULL, array_merge($post->getLinkParameter(), array('addedComment' => $newComment->getUid())));
 	}
 
 	/**
@@ -183,7 +183,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
 
-		$this->redirect('show', 'Post', NULL, array('post' => $post));
+		$this->redirect('list', 'Post');
 	}
 
 

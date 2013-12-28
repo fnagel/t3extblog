@@ -23,7 +23,7 @@ plugin.tx_t3extblog {
 		blogName = Testblog
 	
 		blogsystem {		
-			pid = 334
+			pid = 339
 		
 			posts {	
 				viewCount {

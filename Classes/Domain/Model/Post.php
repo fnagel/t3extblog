@@ -485,6 +485,20 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	public function setSubscriptions(Tx_Extbase_Persistence_ObjectStorage $subscriptions) {
 		$this->subscriptions = $subscriptions;
 	}
+
+	/**
+	 * Returns the permalink configuration
+	 *
+	 * @return array
+	 */
+	public function getLinkParameter() {
+		return array(
+			'post' => $this->getUid(),
+			'day' => $this->getPublishDay(),
+			'month' => $this->getPublishMonth(),
+			'year' => $this->getPublishYear()
+		);
+	}
 }
 
 ?>

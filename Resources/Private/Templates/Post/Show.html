@@ -5,7 +5,7 @@
 <f:section name="main">
 	<article class="well">
 		<h2>
-			<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}">
+			<f:link.action action="show" arguments="{post.linkParameter}">
 				{post.title}
 			</f:link.action>
 		</h2>
@@ -22,14 +22,18 @@
 		</f:if>
 
 		<div class="bottom row-fluid">
-			<div class="span3">
+			<div class="span4">
 				<span class="badge">
-					<f:link.action controller="Post" action="show" arguments="{post : post}">
+					<f:link.action action="show" arguments="{post.linkParameter}" section="comment-section">
 						<f:count subject="{post.comments}" /> comments
 					</f:link.action>
 				</span>
+				<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
+					<i class="icon-link"></i>
+					Permalink
+				</f:link.action>
 			</div>
-			<div class="span9 text-right">
+			<div class="span8 text-right">
 				<f:render partial="Post/TagCloud" arguments="{post: post}" />
 			</div>
 		</div>

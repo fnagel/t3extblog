@@ -7,17 +7,15 @@
 	<div class="description">
 		{category.description}
 	</div>
-	
-	<div class="posts">
+
 	<f:widget.paginate objects="{category.posts}" as="paginatedPosts" configuration="{settings.categories.paginate}">
 		<ul>
 		<f:for each="{paginatedPosts}" as="post">
 			<li>			
-				<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post : post}">{post.title}</f:link.action>
+				<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post.linkParameter}">{post.title}</f:link.action>
 			</li>
 		</f:for>
 		</ul>
 	</f:widget.paginate>
-	</div>	
 
 </f:section>

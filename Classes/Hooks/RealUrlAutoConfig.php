@@ -69,17 +69,55 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						),
 					),
 
-//					'permalink' => array (
-//						array(
-//							'GETvar' => 'tx_t3blog_pi1[blogList][showUidPerma]',
-//						),
-//					),
-//
-//					'seite' => array(
-//						array(
-//							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
-//						),
-//					),
+					'permalink' => array (
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[action]',
+							'valueMap' => array(
+								'article' => 'permalink',
+							),
+							'noMatch' => 'bypass',
+						),
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[permalinkPost]',
+						),
+					),
+
+					'tags' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[action]',
+							'noMatch' => 'bypass',
+						),
+						array (
+							'GETvar' => 'tx_t3extblog_blogsystem[tag]',
+						),
+					),
+
+					'kategorie' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[action]',
+							'noMatch' => 'bypass',
+						),
+						array (
+							'GETvar' => 'tx_t3extblog_blogsystem[category]',
+							'lookUpTable' => array (
+								'table' => 'tx_t3blog_cat',
+								'id_field' => 'uid',
+								'alias_field' => 'catname',
+								'addWhereClause' => ' AND deleted !=1 AND hidden !=1',
+								'useUniqueCache' => 1,
+								'useUniqueCache_conf' => array(
+									'strtolower' => 1,
+									'spaceCharacter' => '-',
+								)
+							)
+						)
+					),
+
+					'seite' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+						),
+					),
 				),
 			),
 		));

@@ -345,7 +345,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * Returns the post
 	 *
-	 * @return integer
+	 * @return Tx_T3extblog_Domain_Model_Post
 	 */
 	public function getPost() {
 		if ($this->post == NULL) {
