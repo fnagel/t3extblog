@@ -10,7 +10,6 @@ plugin.tx_t3extblog {
 	}
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
-		storagePid = 172
 	}
 	features {
 		skipDefaultArguments = 1
@@ -23,7 +22,7 @@ plugin.tx_t3extblog {
 		blogName = Testblog
 	
 		blogsystem {		
-			pid = 339
+			pid =
 		
 			posts {	
 				viewCount {
@@ -67,7 +66,7 @@ plugin.tx_t3extblog {
 						redirect = 30
 					}
 					redirect {
-						pid = 292
+						pid =
 						arguments {
 						}
 					}
