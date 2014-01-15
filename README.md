@@ -55,7 +55,6 @@ Todo
 IN WORK
 * Templating (Twitter Boostrap)
 * Use translation instead of hardcoded messages
-* Page title VH
 * Add BE records icons to repo
 
 FEATURES
