@@ -1,4 +1,4 @@
-<f:if condition="{post.tagCloud}"><br/>
+<f:if condition="{post.tagCloud}">
 	<ul class="inline">
 	<f:for each="{post.tagCloud}" as="tag">
 		<li class="label"><f:link.action controller="Post" action="list" arguments="{tag : '{tag}'}">{tag}</f:link.action></li>

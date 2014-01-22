@@ -1,7 +1,7 @@
 <f:if condition="{post.categories}">
 	<f:for each="{post.categories}" as="category" iteration="iterator">
 		<span class="category">
-			<f:link.action controller="Post" action="list" arguments="{category : category}">{category.name}</f:link.action><f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+			<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="list" arguments="{category : category}">{category.name}</f:link.action><f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
 		</span>
 	</f:for>
 </f:if>
