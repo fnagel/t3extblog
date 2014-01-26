@@ -8,7 +8,7 @@
 			<f:link.action action="show" arguments="{post.linkParameter}">
 				{post.title}
 			</f:link.action>
-			<t3b:frontend.titleTag>{post.title} - </t3b:frontend.titleTag>
+			<t3b:frontend.titleTag>{post.title} / </t3b:frontend.titleTag>
 		</h2>
 		<p class="top">
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
