@@ -1,5 +1,5 @@
 <div id="comment-{comment.uid}" class="row-fluid comment<f:if condition="{comment.email} == {post.author.email}"> well</f:if>">
-	<div class="span2 text-right">
+	<div class="span3 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
 				<f:then><a href="{comment.website}">{comment.author}</a></f:then>
@@ -10,7 +10,7 @@
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{comment.date}')}" />
 		</p>
 	</div>
-	<div class="span9">
+	<div class="span8">
 		<f:if condition="{comment.title}">
 			<strong>{comment.title}</strong>
 		</f:if>
