@@ -25,7 +25,7 @@ This extension will support migration to TYPO3 6.x. as soon as 6.2 LTS is releas
 Features
 ------------
 
-Implemented features.
+Currently implemented features:
 
 * Show list, latest and detail view of posts
 * Archive and category view
@@ -42,9 +42,10 @@ Implemented features.
 Installation
 ------------
 
-* Install t3extblog
+* (Deinstall EXT:t3blog)
+* Install EXT:t3extblog
 * Add static template
-* Set storagePid to blog post storage page
+* Set pid's in TypoScript
 
 
 Todo
@@ -59,9 +60,11 @@ IN WORK
 * Unit Tests
 
 FEATURES
+* Flexform configuration for plugins
 * Trackback / Pingback
 * Captcha implementation
 * Use EXT:vidi for BE modules (needs TYPO3 6.1)
+* Allow some HTML tags in comments
 
 
 
