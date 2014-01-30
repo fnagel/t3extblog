@@ -5,9 +5,9 @@
 <f:section name="main">
 
 	<f:flashMessages />
-	
-	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />	
-		
+
+	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
+
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 		<f:for each="{paginatedPosts}" as="post">
 			<article class="well">
@@ -22,11 +22,11 @@
 					<f:render partial="Post/Categories" arguments="{post: post}" />
 				</p>
 
-				<f:if condition="{post.content}">	
+				<f:if condition="{post.content}">
 					<div class="teaser">
 						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
 
-						<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" class="btn">
+						<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" class="btn btn-primary">
 							<i class="icon-arrow-right"></i>
 							{post.title}
 						</f:link.action>

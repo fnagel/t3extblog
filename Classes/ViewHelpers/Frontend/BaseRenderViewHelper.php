@@ -76,7 +76,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	}
 
 	/**
-	 * Parses data through typoscript.
+	 * Truncates text
 	 *
 	 * @param $renderedText
 	 * @param $dividerPosition

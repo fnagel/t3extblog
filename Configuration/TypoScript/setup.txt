@@ -14,24 +14,24 @@ plugin.tx_t3extblog {
 	features {
 		skipDefaultArguments = 1
 	}
-	
+
 	settings {
 		// overrideFlexformSettingsIfEmpty
 
 		# used for mails
 		blogName = Testblog
-	
-		blogsystem {		
+
+		blogsystem {
 			pid =
-		
-			posts {	
+
+			posts {
 				viewCount {
 					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
 					# if you want to have counted each view just put a negative number.
 					# timePeriod = 10000
 					# countBackendUsers = 1
 				}
-				
+
 				paginate {
 					itemsPerPage = 10
 					insertAbove = 0
@@ -44,20 +44,20 @@ plugin.tx_t3extblog {
 				# auto close comments, 0 = disabled
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				allowedUntil = +6 months
-					
+
 				# comments are allowed by default
 				approvedByDefault = 1
-				
+
 				# subscibe to new comment allowed
 				subscribeForComments = 1
-				
+
 				# splitLongWords = 1
-							
+
 				spamCheck {
 					enable = 1
 
-					# limit of spam points 
-					threshold {			
+					# limit of spam points
+					threshold {
 						# saved but marked as spam
 						markAsSpam = 10
 						# to block comment (user could  try again), 0 = disable
@@ -70,12 +70,12 @@ plugin.tx_t3extblog {
 						arguments {
 						}
 					}
-				
-					### spam checks, 0 = disabled	
+
+					### spam checks, 0 = disabled
 					# simple checkbox which needs to be enabled
 					isHumanCheckbox = 10
 					# hidden honeypot fields
-					honeypot = 3	
+					honeypot = 3
 					# checks for useragent
 					userAgent = 5
 					# checks if client accepts cookies
@@ -83,7 +83,7 @@ plugin.tx_t3extblog {
 					# cheks with EXT:sfpantispam against blacklist
 					sfpantispam = 10
 				}
-				
+
 				paginate {
 					itemsPerPage = 500
 					insertAbove = 0
@@ -92,10 +92,10 @@ plugin.tx_t3extblog {
 				}
 			}
 		}
-					
+
 		subscriptionManager {
 			pid = 335
-		
+
 			admin {
 				enable = 1
 				 mailTo {
@@ -106,10 +106,10 @@ plugin.tx_t3extblog {
 					 email = no-reply@felixnagel.com
 					 name = FelixNagel.com Blog
 				 }
-			}				
+			}
 			subscriber {
 				enableNewCommentNotifications = 1
-				
+
 				# email link invalid after
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				emailHashTimeout = +48 hours
@@ -118,8 +118,8 @@ plugin.tx_t3extblog {
 				 	name = FelixNagel.com Blog
 			 	}
 			}
-		}			
-		
+		}
+
 		categories {
 			paginate {
 				itemsPerPage = 10
@@ -128,7 +128,7 @@ plugin.tx_t3extblog {
 				maximumNumberOfLinks = 0
 			}
 		}
-		
+
 		latestPosts {
 			paginate {
 				itemsPerPage = 10
@@ -137,7 +137,7 @@ plugin.tx_t3extblog {
 				maximumNumberOfLinks = 0
 			}
 		}
-		
+
 		latestComments {
 			paginate {
 				itemsPerPage = 10
@@ -146,7 +146,7 @@ plugin.tx_t3extblog {
 				maximumNumberOfLinks = 0
 			}
 		}
-		
+
 		rss {
 			paginate {
 				itemsPerPage = 10
@@ -157,9 +157,9 @@ plugin.tx_t3extblog {
 		}
 
 		archive {
-			
+
 		}
-		
+
 		# some debug configs
 		debug {
 			disableEmailTransmission = 1

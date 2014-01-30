@@ -118,7 +118,7 @@ module.tx_t3extblog {
 		partialRootPath = EXT:t3extblog/Resources/Private/Backend/Partials/
 		layoutRootPath = EXT:t3extblog/Resources/Private/Backend/Layouts/
 	}
-	
+
 	persistence {
 		storagePid = 172
 	}
@@ -128,7 +128,7 @@ module.tx_t3extblog {
 	}
 
 	settings < plugin.tx_t3extblog.settings
-	
+
 	settings.backend {
 		posts.paginate {
 			itemsPerPage = 20
