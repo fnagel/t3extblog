@@ -26,12 +26,12 @@
 			<div class="span4">
 				<span class="badge">
 					<f:link.action action="show" arguments="{post.linkParameter}" section="comment-section">
-						<f:count subject="{post.comments}" /> comments
+						<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
 					</f:link.action>
 				</span>
 				<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
 					<i class="icon-link"></i>
-					Permalink
+					<f:translate key="post.permalink" />
 				</f:link.action>
 			</div>
 			<div class="span8 text-right">
@@ -46,7 +46,7 @@
 			<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
 		</div>
 
-		<h3><f:count subject="{post.comments}" /> Comments</h3>
+		<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
 
 		<f:if condition="{post.comments}">
 			<div id="comment-list">

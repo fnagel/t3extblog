@@ -37,7 +37,7 @@
 					<div class="span3">
 						<span class="badge">
 							<f:link.action controller="Post" action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-list">
-								<f:count subject="{post.comments}" /> comments
+								<f:count subject="{post.comments}" /> <f:translate key="post.show.comments" />
 							</f:link.action>
 						</span>
 					</div>

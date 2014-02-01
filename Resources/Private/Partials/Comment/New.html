@@ -11,7 +11,7 @@
 			arguments="{post: post}">
 
 			<fieldset>
-				<legend>New comment</legend>
+				<legend><f:translate key="comment.new" /></legend>
 
 				<f:render partial="FormErrors" arguments="{object:Comment}" />
 
@@ -19,7 +19,7 @@
 			</fieldset>
 			<fieldset class="row-fluid">
 				<div class="span3">
-					<f:form.submit class="btn btn-primary" value="Add comment" />
+					<f:form.submit class="btn btn-primary" value="<f:translate key="comment.submit" />" />
 				</div>
 				<div class="span3">
 					<f:render partial="Comment/Spam" />
@@ -28,6 +28,6 @@
 		</f:form>
 	</f:then>
 	<f:else>
-		<p class="alert alert-info alert-block">Comments are disabled for this post.</p>
+		<p class="alert alert-info alert-block"><f:translate key="comment.disabled" /></p>
 	</f:else>
 </t3b:frontend.commentAllowed>

@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-05-32T03:03:32Z" product-name="t3extblog">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-06-05T10:52:05Z" product-name="tx_myext">
 		<header/>
 		<body>
 			<trans-unit id="post.comments">
-				<source>comments</source>
+				<target>Kommentare</target>
 			</trans-unit>
 			<trans-unit id="post.permalink">
-				<source>permalink</source>
+				<target>Permalink</target>
 			</trans-unit>
 			<trans-unit id="post.filter.category">
-				<source>Filtered by category:</source>
+				<target>Gefiltert nach Kategorie:</target>
 			</trans-unit>
 			<trans-unit id="post.filter.tag">
-				<source>Filtered by tag:</source>
+				<target>Gefiltert nach Tag:</target>
 			</trans-unit>
 
 			<trans-unit id="comment.new">
-				<source>New comment</source>
+				<target>Neues Kommentar</target>
 			</trans-unit>
 			<trans-unit id="comment.submit">
-				<source>Add comment</source>
+				<target>Kommentar absenden</target>
 			</trans-unit>
 			<trans-unit id="comment.disabled">
-				<source>Comments are disabled for this post.</source>
+				<target>Die Kommentarfunktion ist für diesen Artikel deaktiviert.</target>
 			</trans-unit>
 			<trans-unit id="comment.text">
-				<source>Message</source>
+				<target>Nachricht</target>
 			</trans-unit>
 			<trans-unit id="comment.title">
-				<source>Title</source>
+				<target>Titel</target>
 			</trans-unit>
 			<trans-unit id="comment.author">
-				<source>Name</source>
+				<target>Name</target>
 			</trans-unit>
 			<trans-unit id="comment.email">
-				<source>Email</source>
+				<target>Email</target>
 			</trans-unit>
 			<trans-unit id="comment.website">
-				<source>Link</source>
+				<target>Link</target>
 			</trans-unit>
 			<trans-unit id="comment.subscribe">
-				<source>Receive notifications of new comments</source>
+				<target>Email bei neuen Kommentaren</target>
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
-				<source>Listing for subscriber:</source>
+				<target>Liste der Benachrichtigungen für:</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
-				<source>Blogpost</source>
+				<target>Blogpost</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.name">
-				<source>Name</source>
+				<target>Name</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.comments">
-				<source>Comments</source>
+				<target>Comments</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.approved">
-				<source>approved</source>
+				<target>akzeptiert</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.moderation">
-				<source>awaiting moderation</source>
+				<target>ungeprüft</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.delete">
-				<source>Delete subscription</source>
+				<target>Benachrichtigung löschen</target>
 			</trans-unit>
 
 			<trans-unit id="error.headline">
-				<source>Error:</source>
+				<target>Fehler:</target>
 			</trans-unit>
 		</body>
 	</file>

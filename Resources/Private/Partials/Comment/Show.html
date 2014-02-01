@@ -2,7 +2,7 @@
 	<div class="span3 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
-				<f:then><a href="{comment.website}">{comment.author}</a></f:then>
+				<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
 				<f:else>{comment.author}</f:else>
 			</f:if>
 		</strong>

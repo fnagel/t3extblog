@@ -1,15 +1,15 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h2>Listing for subscriber: {email}</h2>
+<h2><f:translate key="subscriber.headline" /> {email}</h2>
 
 <f:flashMessages />
 
 <table class="table table-striped" >
 	<tr>
-		<th>Blogpost</th>
-		<th>Name</th>
-		<th>Comments</th>
+		<th><f:translate key="subscriber.table.header.post" /></th>
+		<th><f:translate key="subscriber.table.header.name" /></th>
+		<th><f:translate key="subscriber.table.header.comments" /></th>
 		<th></th>
 	</tr>
 
@@ -20,13 +20,13 @@
 			</td>
 			<td>{subscriber.name}</td>
 			<td>
-				<f:count>{subscriber.postComments}</f:count> approved<br />
-				<f:count>{subscriber.postPendingComments}</f:count> awaiting moderation
+				<f:count>{subscriber.postComments}</f:count> <f:translate key="subscriber.table.approved" /><br />
+				<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
 			</td>
 			<td>
 				<f:link.action class="btn" action="delete" arguments="{subscriber : subscriber}">
 					<i class="icon-trash"></i>
-					Delete subscription
+					<f:translate key="subscriber.table.delete" />
 				</f:link.action>
 			</td>
 		</tr>
