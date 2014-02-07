@@ -26,6 +26,7 @@ plugin.tx_t3extblog {
 
 			posts {
 				viewCount {
+					# NOT IMPLENTED YET
 					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
 					# if you want to have counted each view just put a negative number.
 					# timePeriod = 10000
@@ -71,7 +72,7 @@ plugin.tx_t3extblog {
 						}
 					}
 
-					### spam checks, 0 = disabled
+					### spam points by check, 0 = disabled
 					# simple checkbox which needs to be enabled
 					isHumanCheckbox = 10
 					# hidden honeypot fields
@@ -80,7 +81,7 @@ plugin.tx_t3extblog {
 					userAgent = 5
 					# checks if client accepts cookies
 					cookie = 2
-					# cheks with EXT:sfpantispam against blacklist
+					# checks with EXT:sfpantispam against blacklist
 					sfpantispam = 10
 				}
 
@@ -131,7 +132,7 @@ plugin.tx_t3extblog {
 
 		latestPosts {
 			paginate {
-				itemsPerPage = 10
+				itemsPerPage = 5
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0
@@ -140,7 +141,7 @@ plugin.tx_t3extblog {
 
 		latestComments {
 			paginate {
-				itemsPerPage = 10
+				itemsPerPage = 5
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0
