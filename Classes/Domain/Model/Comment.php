@@ -25,7 +25,7 @@
  ***************************************************************/
 
 /**
- *
+ * Tx_T3extblog_Domain_Model_Comment
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
@@ -316,7 +316,6 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * Mark comment as spam
 	 *
-	 * @return boolean
 	 */
 	public function markAsSpam() {
 		$this->spam = TRUE;
@@ -349,7 +348,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getPost() {
 		if ($this->post == NULL) {
-			$this->postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");
+			$this->postRepository = t3lib_div::makeInstance('Tx_T3extblog_Domain_Repository_PostRepository');
 			$this->post = $this->postRepository->findByUid($this->postId);
 		}
 
