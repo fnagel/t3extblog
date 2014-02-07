@@ -76,7 +76,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	protected $propertyMapper;
 
 	/**
-	 * @param Tx_Extbase_Object_ManagerInterface $objectManager
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */

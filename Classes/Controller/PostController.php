@@ -50,7 +50,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		$this->findAndAssignTagOrCategory($tag, $category);
+		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @return void
 	 */
 	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		$this->findAndAssignTagOrCategory($tag, $category);
+		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
 	}
 
 	/**
@@ -73,9 +73,9 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @param string                             $tag The name of the tag to show the posts for
 	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
-	 * @return void
+	 * @return Tx_T3extblog_Domain_Model_Post
 	 */
-	private function findAndAssignTagOrCategory($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+	private function findByTagOrCategory($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
 		if ($category !== NULL) {
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
@@ -87,7 +87,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 			$posts = $this->postRepository->findAll();
 		}
 
-		$this->view->assign('posts', $posts);
+		return $posts;
 	}
 
 
