@@ -56,8 +56,7 @@ Todo
 
 
 IN WORK
-* Use translation instead of hardcoded messages
-* Unit Tests
+* Basic Unit Tests
 
 FEATURES
 * Flexform configuration for plugins
