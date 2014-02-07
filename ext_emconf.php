@@ -35,6 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '4.5.0-4.7.99',
 		),
 		'conflicts' => array(
+			't3blog' => '',
 		),
 		'suggests' => array(
 			'sfpantispam' => '',
