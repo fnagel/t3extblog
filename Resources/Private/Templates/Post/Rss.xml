@@ -22,7 +22,7 @@
             <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
 				<f:for each="{paginatedPosts}" as="post">
 					<item>
-                        <title><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></title>
+                        <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
                         <pubDate><f:format.date format="D, d M y H:i:s O">{post.publishDate}</f:format.date></pubDate>
                         <guid>post-{post.uid}</guid>
                         <link>
@@ -45,7 +45,7 @@
                                 />
                             </f:format.htmlspecialchars>
                         </source>
-                        <author>{post.author.name}</author>
+                        <author><f:format.htmlspecialchars>{post.author.name}</f:format.htmlspecialchars></author>
                         <category></category>
                         <description>
                             <f:format.htmlspecialchars>
@@ -79,7 +79,6 @@
                             </f:format.cdata>
                         </content:encoded>
                     </item>
-					
 				</f:for>
 			</f:widget.paginate>
 		</f:if>
