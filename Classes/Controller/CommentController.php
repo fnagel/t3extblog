@@ -120,7 +120,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$persistenceManager->persistAll();
 
 			$this->notificationService->processCommentAdded($newComment->getUid());
-			$this->addFlashMessage->add('Created');
+			$this->addFlashMessage('Created');
 		}
 
 		$this->redirect('show', 'Post', NULL, array_merge($post->getLinkParameter(), array('addedComment' => $newComment->getUid())));
@@ -163,7 +163,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		}
 
 		$this->commentRepository->update($comment);
-		$this->addFlashMessage->add('Updated');
+		$this->addFlashMessage('Updated');
 
 		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
 	}
