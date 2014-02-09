@@ -148,7 +148,11 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 			$this->forward('list');
 		}
 
-		// ToDo: This will not work as this action is cached
+		if ($newComment !== NULL) {
+			$this->forward('create', 'Comment');
+		}
+
+		// @todo: This will not work as this action is cached
 		$post->riseNumberOfViews();
 
 		if ($newComment === NULL) {

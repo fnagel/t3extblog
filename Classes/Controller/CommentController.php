@@ -123,7 +123,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->addFlashMessage('Created');
 		}
 
-		$this->redirect('show', 'Post', NULL, array_merge($post->getLinkParameter(), array('addedComment' => $newComment->getUid())));
+		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
 	}
 
 	/**

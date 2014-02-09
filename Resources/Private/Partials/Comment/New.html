@@ -3,16 +3,17 @@
 <t3b:frontend.commentAllowed post="{post}">
 	<f:then>
 		<f:form
-			controller="Comment"
-			action="create"
+			controller="Post"
+			action="show"
 			section="comment-section"
 			name="newComment"
 			object="{newComment}"
-			arguments="{post: post}">
+			arguments="{post.linkParameter}">
 
 			<fieldset>
 				<legend><f:translate key="comment.new" /></legend>
 
+				<f:flashMessages />
 				<f:render partial="FormErrors" arguments="{object:Comment}" />
 
 				<f:render partial="Comment/FormFields" />
