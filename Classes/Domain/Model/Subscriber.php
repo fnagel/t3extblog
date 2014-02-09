@@ -289,6 +289,24 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 		return array($this->getEmail() => $this->getName());
 	}
 
+	/**
+	 * Checks if the authCode is still valid
+	 *
+	 * @param DateTime $expireDate
+	 *
+	 * @return string
+	 */
+	public function isAuthCodeExpired($expireDate) {
+		$now = new DateTime();
+		$expire = clone $this->getLastSent();
+
+		if ($now > $expire->modify($expireDate)) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
 }
 
 ?>

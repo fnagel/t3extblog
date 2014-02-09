@@ -57,12 +57,12 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected $postRepository;
 
 	/**
-	 * feuserService
+	 * feUserService
 	 *
 	 * @var Tx_T3extblog_Service_FrontendUserService
 	 * @inject
 	 */
-	protected $feuserService;
+	protected $feUserService;
 
 	/**
 	 * objectManager
@@ -137,8 +137,8 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	private function checkAuth($doNotSearchHidden = TRUE) {
-		if ($this->feuserService->hasAuth()) {
-			$this->subscriber = $this->subscriberRepository->findByUid($this->feuserService->getDataByKey("subscriber_uid"));
+		if ($this->feUserService->hasAuth()) {
+			$this->subscriber = $this->subscriberRepository->findByUid($this->feUserService->getDataByKey("subscriber_uid"));
 			return;
 		}
 
@@ -171,8 +171,8 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	private function authorize() {
-		$this->feuserService->authValid();
-		$this->feuserService->setData(array(
+		$this->feUserService->authValid();
+		$this->feUserService->setData(array(
 			"subscriber_email" => $this->subscriber->getEmail(),
 			"subscriber_uid" => $this->subscriber->getUid()
 		));
@@ -193,11 +193,8 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 			$this->redirect("error");
 		}
 
-		// check if code is outdated
 		// todo: needs testing
-		$now = new DateTime();
-		$expire = $subscriber->getLastSent()->modify(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]));
-		if ($now > $expire) {
+		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
 			$this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
 			$this->redirect("error");
 		}
