@@ -25,18 +25,13 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3extblog_Domain_Model_Posts.
+ * Test case for class Tx_T3extblog_Domain_Model_Post
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
-	 */
-	protected $objectManager;
+class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 
 	/**
 	 * @var Tx_T3extblog_Domain_Model_Post
@@ -44,26 +39,10 @@ class Tx_T3extblog_Domain_Model_PostTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	protected $fixture;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
 	 * @return void
 	 */
 	public function setUp() {
 		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Post');
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->fixture);
 	}
 
 	/**

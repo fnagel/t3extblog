@@ -25,73 +25,34 @@
  ***************************************************************/
 
 /**
- *
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @package TYPO3
+ * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_AbstractEntity {
+abstract class BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 	/**
-	 * @var string
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
 	 */
-	protected $username;
+	protected $objectManager;
+
+	protected $fixture;
 
 	/**
-	 * @var string
-	 */
-	protected $name;
-
-	/**
-	 * @var string
-	 */
-	protected $email = '';
-
-	/**
-	 * Constructs a new Backend-End User
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 *
+	 * @return void
 	 */
-	public function __construct($username = '') {
-		$this->username = $username;
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
 	}
 
 	/**
-	 * Returns the username value
-	 *
-	 * @return string
+	 * @return void
 	 */
-	public function getUsername() {
-		return $this->username;
-	}
-
-	/**
-	 * Returns the name value
-	 *
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * Returns the email value
-	 *
-	 * @return string
-	 */
-	public function getEmail() {
-		return $this->email;
-	}
-
-	/**
-	 * Returns prepared mailto array
-	 *
-	 * @return array
-	 */
-	public function getMailTo() {
-		return array($this->getEmail() => $this->getName());
+	public function tearDown() {
+		unset($this->fixture);
 	}
 
 }
-
 ?>

@@ -25,32 +25,18 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3extblog_Domain_Model_Posts.
+ * Test case for class Tx_T3extblog_Domain_Model_Comment
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_CommentTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
-	 */
-	protected $objectManager;
+class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
 
 	/**
 	 * @var Tx_T3extblog_Domain_Model_Comment
 	 */
 	protected $fixture;
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 	/**
 	 * @return void
@@ -60,13 +46,6 @@ class Tx_T3extblog_Domain_Model_CommentTest extends Tx_Extbase_Tests_Unit_BaseTe
 
 		$this->fixture->_setProperty('hidden', FALSE);
 		$this->fixture->_setProperty('deleted', FALSE);
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->fixture);
 	}
 
 	/**
