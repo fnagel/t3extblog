@@ -12,7 +12,7 @@
 		<f:for each="{paginatedPosts}" as="post">
 			<article class="well">
 				<h2>
-					<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}">
+					<f:link.action action="show" arguments="{post.linkParameter}">
 						{post.title}
 					</f:link.action>
 				</h2>
