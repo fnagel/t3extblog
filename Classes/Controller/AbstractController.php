@@ -46,7 +46,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 * Function is used to override the merge of settings via TS & flexforms
 	 * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration
 	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface An instance of the Configuration Manager
+	 * @param $configurationManager Tx_Extbase_Configuration_ConfigurationManagerInterface An instance of the Configuration Manager
 	 *
 	 * @return void
 	 */
