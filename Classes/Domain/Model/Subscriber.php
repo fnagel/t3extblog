@@ -266,7 +266,9 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return void
 	 */
 	private function createCode() {
-		$input = $this->email . $this->postUid . $GLOBALS['EXEC_TIME'];
+		$now = new DateTime();
+		$input = $this->email . $this->postUid . $now->getTimestamp() . uniqid();
+
 		$this->code = substr(t3lib_div::hmac($input), 0, 32);
 	}
 
@@ -276,7 +278,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 * @return void
 	 */
 	public function updateAuth() {
-		$this->setLastSent($GLOBALS['EXEC_TIME']);
+		$this->setLastSent(new DateTime());
 		$this->createCode();
 	}
 
