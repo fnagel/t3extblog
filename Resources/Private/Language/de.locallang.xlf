@@ -20,7 +20,7 @@
 				<target>Neues Kommentar</target>
 			</trans-unit>
 			<trans-unit id="comment.submit">
-				<target>Kommentar absenden</target>
+				<target>Absenden</target>
 			</trans-unit>
 			<trans-unit id="comment.disabled">
 				<target>Die Kommentarfunktion ist für diesen Artikel deaktiviert.</target>
@@ -42,6 +42,9 @@
 			</trans-unit>
 			<trans-unit id="comment.subscribe">
 				<target>Email bei neuen Kommentaren</target>
+			</trans-unit>
+			<trans-unit id="comment.human">
+				<target>Ich bin ein Mensch</target>
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">

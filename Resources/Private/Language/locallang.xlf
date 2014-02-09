@@ -20,7 +20,7 @@
 				<source>New comment</source>
 			</trans-unit>
 			<trans-unit id="comment.submit">
-				<source>Add comment</source>
+				<source>Submit</source>
 			</trans-unit>
 			<trans-unit id="comment.disabled">
 				<source>Comments are disabled for this post.</source>
@@ -42,6 +42,9 @@
 			</trans-unit>
 			<trans-unit id="comment.subscribe">
 				<source>Receive notifications of new comments</source>
+			</trans-unit>
+			<trans-unit id="comment.human">
+				<source>I am not a SPAM bot</source>
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
