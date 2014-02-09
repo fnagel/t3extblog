@@ -46,6 +46,9 @@
 			<trans-unit id="comment.human">
 				<target>Ich bin ein Mensch</target>
 			</trans-unit>
+			<trans-unit id="comment.optional">
+				<target>Optional</target>
+			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
 				<target>Liste der Benachrichtigungen für:</target>

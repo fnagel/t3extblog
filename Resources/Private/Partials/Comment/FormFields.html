@@ -5,7 +5,7 @@
 				<f:translate key="comment.text" />
 			</label>
 			<div class="controls">
-				<f:form.textarea class="input-block-level" id="text" property="text" rows="10" cols="10" />
+				<f:form.textarea additionalAttributes="{required: 'required'}" class="input-block-level" id="text" property="text" rows="10" cols="10" />
 			</div>
 		</div>
 	</div>
@@ -15,7 +15,7 @@
 				<f:translate key="comment.title" />
 			</label>
 			<div class="controls">
-				<f:form.textfield placeholder="optional" class="input-block-level" id="title" property="title" />
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="title" property="title" />
 			</div>
 		</div>
 
@@ -24,7 +24,7 @@
 				<f:translate key="comment.author" />
 			</label>
 			<div class="controls">
-				<f:form.textfield class="input-block-level" id="author" property="author" />
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="author" property="author" />
 			</div>
 		</div>
 
@@ -33,7 +33,7 @@
 				<f:translate key="comment.email" />
 			</label>
 			<div class="controls">
-				<f:form.textfield class="input-block-level" id="email" property="email" />
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="email" property="email" />
 			</div>
 		</div>
 
@@ -42,7 +42,7 @@
 				<f:translate key="comment.website" />
 			</label>
 			<div class="controls">
-				<f:form.textfield placeholder="optional" class="input-block-level" id="website" property="website" />
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="website" property="website" />
 			</div>
 		</div>
 

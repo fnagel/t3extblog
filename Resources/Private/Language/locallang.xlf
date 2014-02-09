@@ -46,6 +46,9 @@
 			<trans-unit id="comment.human">
 				<source>I am not a SPAM bot</source>
 			</trans-unit>
+			<trans-unit id="comment.optional">
+				<source>optional</source>
+			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
 				<source>Listing for subscriber:</source>
