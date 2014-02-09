@@ -1,5 +1,3 @@
-#config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
-
 plugin.tx_t3extblog {
 	view {
 		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
@@ -100,12 +98,12 @@ plugin.tx_t3extblog {
 			admin {
 				enable = 1
 				 mailTo {
-					 email = info@felixnagel.com
-					 name = Blog Moderator
+					 email =
+					 name =
 				 }
 				 mailFrom {
-					 email = no-reply@felixnagel.com
-					 name = FelixNagel.com Blog
+					 email =
+					 name =
 				 }
 			}
 			subscriber {
@@ -115,8 +113,8 @@ plugin.tx_t3extblog {
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				emailHashTimeout = +48 hours
 			 	mailFrom {
-				 	email = no-reply@felixnagel.com
-				 	name = FelixNagel.com Blog
+				 	email =
+				 	name =
 			 	}
 			}
 		}
@@ -163,8 +161,8 @@ plugin.tx_t3extblog {
 
 		# some debug configs
 		debug {
-			disableEmailTransmission = 1
-			logInDevlog = 1
+			disableEmailTransmission = 0
+			logInDevlog = 0
 		}
 	}
 }
