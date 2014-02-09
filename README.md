@@ -51,12 +51,17 @@ Installation
 Todo
 ------------
 
-* A lot of testing needs to be done. Help wanted!
-* Add documentation
+A lot of testing needs to be done. Help wanted!
 
 
 IN WORK
 * Basic Unit Tests
+
+TO DO
+* Error when rendering AdminNewCommentMail mail
+* Translate email subjects
+* Translate flash messages
+* Documentation
 
 FEATURES
 * Flexform configuration for plugins
