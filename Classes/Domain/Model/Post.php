@@ -218,8 +218,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Checks if the post is too old for posting new comments
 	 *
-	 * @todo Needs testing
-	 *
 	 * @param DateTime $expireDate
 	 *
 	 * @return string

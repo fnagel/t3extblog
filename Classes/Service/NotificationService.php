@@ -414,7 +414,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 
 		$emailView->getRequest()->setPluginName('');
 		$emailView->getRequest()->setControllerName('');
-		$emailView->getRequest()->setControllerExtensionName('T3extblog'); // extension name for translate viewhelper
+		$emailView->getRequest()->setControllerExtensionName('T3extblog');
 
 		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['view']['layoutRootPath']));
 		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
