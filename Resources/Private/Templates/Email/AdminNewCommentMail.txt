@@ -16,16 +16,16 @@ Blogpost: 			{post.title}
 
 Comment title: 		{comment.title}
 Comment author: 	{comment.author}
-Comment date: 		{comment.date}
+Comment date: 		<f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date>
 Comment website: 	{comment.website}
-Comment approved: 	{comment.approved}
-Comment is spam: 	{comment.spam}
+Comment approved: 	<f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</f:else></f:if>
+Comment is spam: 	<f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
 Comment text: 
 {comment.text}
 
 
 You could manage comments in the TYPO3 backend of your installation:
-{domain}/typo3
+{domain}typo3
 
 Regards
 {settings.blogName} 
