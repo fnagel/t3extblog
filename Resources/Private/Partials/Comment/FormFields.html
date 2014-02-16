@@ -1,56 +1,56 @@
 <div class="row-fluid">
 	<div class="span6">
 		<div class="control-group">
-			<label class="control-label hidden" for="text">
+			<label class="control-label hidden" for="newComment.text">
 				<f:translate key="comment.text" />
 			</label>
 			<div class="controls">
-				<f:form.textarea additionalAttributes="{required: 'required'}" class="input-block-level" id="text" property="text" rows="10" cols="10" />
+				<f:form.textarea additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.text" property="text" rows="10" cols="10" />
 			</div>
 		</div>
 	</div>
 	<div class="span6 form-horizontal">
 		<div class="control-group">
-			<label class="control-label" for="title">
+			<label class="control-label" for="newComment.title">
 				<f:translate key="comment.title" />
 			</label>
 			<div class="controls">
-				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="title" property="title" />
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="newComment.title" property="title" />
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label" for="author">
+			<label class="control-label" for="newComment.author">
 				<f:translate key="comment.author" />
 			</label>
 			<div class="controls">
-				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="author" property="author" />
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.author" property="author" />
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label" for="email">
+			<label class="control-label" for="newComment.email">
 				<f:translate key="comment.email" />
 			</label>
 			<div class="controls">
-				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="email" property="email" />
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.email" property="email" />
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label" for="website">
+			<label class="control-label" for="newComment.website">
 				<f:translate key="comment.website" />
 			</label>
 			<div class="controls">
-				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="website" property="website" />
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="newComment.website" property="website" />
 			</div>
 		</div>
 
 		<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
 			<div class="control-group">
 				<div class="controls">
-					<label class="checkbox" for="subscribe">
-						<f:form.checkbox property="subscribe" id="subscribe" value="1"/> <f:translate key="comment.subscribe" />
+					<label class="checkbox" for="newComment.subscribe">
+						<f:form.checkbox property="subscribe" id="newComment.subscribe" value="1"/> <f:translate key="comment.subscribe" />
 					</label>
 				</div>
 			</div>
