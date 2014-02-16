@@ -75,6 +75,19 @@
 			<trans-unit id="error.headline">
 				<source>Error:</source>
 			</trans-unit>
+			<trans-unit id="error.comment.createAction">
+				<source>Error:</source>
+			</trans-unit>
+
+			<trans-unit id="subject.admin.newSubscription">
+				<source>%1$s: New comment</source>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.notify">
+				<source>%1$s: New comment on '%2$s'</source>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.new">
+				<source>%1$s: Subscribe to '%2$s'</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

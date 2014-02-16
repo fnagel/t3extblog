@@ -29,7 +29,7 @@
 				<target>Nachricht</target>
 			</trans-unit>
 			<trans-unit id="comment.title">
-				<target>Titel</target>
+				<target>Überschrift</target>
 			</trans-unit>
 			<trans-unit id="comment.author">
 				<target>Name</target>
@@ -74,6 +74,31 @@
 
 			<trans-unit id="error.headline">
 				<target>Fehler:</target>
+			</trans-unit>
+			<trans-unit id="error.comment.createAction">
+				<target>Fehler:</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.author.1221560718">
+				<target>Bitte geben Sie einen Namen ein.</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.email.1221560718">
+				<target>Bitte geben Sie eine Email-Adresse ein.</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.email.1221559976">
+				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.text.1221560718">
+				<target>Bitte geben Sie eine Nachricht ein.</target>
+			</trans-unit>
+
+			<trans-unit id="subject.admin.newSubscription">
+				<target>%1$s: Neuer Kommentar</target>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.notify">
+				<target>%1$s: Neuer Kommentar zu '%2$s'</target>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.new">
+				<target>%1$s: Abbonieren von '%2$s'</target>
 			</trans-unit>
 		</body>
 	</file>
