@@ -236,7 +236,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$post = $subscriber->getPost();
 		$subscriber->updateAuth();
 
-		$subject = "Subscribe to Blogpost: " . $post->getTitle();
+		$subject = $this->translate('subject.subscriber.new', $post->getTitle());
 		$variables = array(
 			'post' => $post,
 			'subscriber' => $subscriber,
@@ -276,8 +276,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	/**
 	 * Send comment notification mails
 	 *
-	 * @todo Make subject configurable
-	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
 	 * @return    void
@@ -291,7 +289,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$this->log->dev("Send subscriber notification mails.");
 
 			$subscribers = $this->subscriberRepository->findForNotification($post);
-			$subject = "New Comment on: " . $post->getTitle();
+
+			$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
 
 			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 			foreach ($subscribers as $subscriber) {
@@ -320,8 +319,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 * @param string $emailTemplate#
 	 *
-	 * @todo Make subject configurable
-	 *
 	 * @return    void
 	 */
 	protected function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment, $emailTemplate = "AdminNewCommentMail.txt") {
@@ -332,7 +329,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$post = $comment->getPost();
 			$this->log->dev('Send admin notification mail.');
 
-			$subject = 'New Comment on Blogpost: ' . $post->getTitle();
+			$subject = $this->translate('subject.admin.newSubscription', $post->getTitle());
+
 			$variables = array(
 				'post' => $post,
 				'comment' => $comment,
@@ -397,7 +395,6 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		return $isSent;
 	}
 
-
 	/**
 	 * This functions renders template to use in Mails and Other views
 	 *
@@ -429,6 +426,25 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		));
 
 		return $emailView->render();
+	}
+
+	/**
+	 * Translate helper
+	 *
+	 * @param string    $key Translation key
+	 * @param string     $variable Argument for translation
+	 *
+	 * @return string
+	 */
+	protected function translate($key, $variable = "") {
+		return Tx_Extbase_Utility_Localization::translate(
+			$key,
+			'T3extblog',
+			array(
+				$this->settings['blogName'],
+				$variable,
+			)
+		);
 	}
 
 }
