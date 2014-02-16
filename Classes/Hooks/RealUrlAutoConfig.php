@@ -118,6 +118,12 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 						),
 					),
+
+					'subscription-code' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_subscriptionmanager[code]',
+						),
+					),
 				),
 			),
 		));
