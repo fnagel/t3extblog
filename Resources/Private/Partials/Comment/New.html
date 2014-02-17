@@ -2,7 +2,16 @@
 
 <t3b:frontend.commentAllowed post="{post}">
 	<f:then>
-		<f:form
+		<f:render section="commentForm" arguments="{_all}" />
+	</f:then>
+	<f:else>
+		<p class="alert alert-info alert-block"><f:translate key="comment.disabled" /></p>
+	</f:else>
+</t3b:frontend.commentAllowed>
+
+
+<f:section name="commentForm">
+	<f:form
 			controller="Post"
 			action="show"
 			section="comment-section"
@@ -10,24 +19,22 @@
 			object="{newComment}"
 			arguments="{post.linkParameter}">
 
-			<fieldset>
-				<legend><f:translate key="comment.new" /></legend>
+		<t3b:frontend.flashMessages />
 
-				<f:flashMessages renderMode="div" />
+		<f:render partial="FormErrors" arguments="{object:Comment, post: post}" />
 
-				<f:render partial="Comment/FormFields" />
-			</fieldset>
-			<fieldset class="row-fluid">
-				<div class="span2">
-					<f:form.submit class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
-				</div>
-				<div class="span4">
-					<f:render partial="Comment/Spam" />
-				</div>
-			</fieldset>
-		</f:form>
-	</f:then>
-	<f:else>
-		<p class="alert alert-info alert-block"><f:translate key="comment.disabled" /></p>
-	</f:else>
-</t3b:frontend.commentAllowed>
+		<fieldset>
+			<legend><f:translate key="comment.new" /></legend>
+
+			<f:render partial="Comment/FormFields" />
+		</fieldset>
+		<fieldset class="row-fluid">
+			<div class="span2">
+				<f:form.submit class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
+			</div>
+			<div class="span4">
+				<f:render partial="Comment/Spam" />
+			</div>
+		</fieldset>
+	</f:form>
+</f:section>

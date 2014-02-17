@@ -1,8 +1,10 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
 <f:layout name="Default" />
 
 <f:section name="main">
 
-	<f:flashMessages renderMode="div" />
+	<t3b:flashMessages />
 
 	<f:render partial="FormErrors" arguments="{object:Comment}"/>
 

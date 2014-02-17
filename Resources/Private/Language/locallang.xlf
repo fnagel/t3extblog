@@ -88,6 +88,37 @@
 			<trans-unit id="subject.subscriber.new">
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
+
+			<trans-unit id="flashMessage.comment.createAction.Created.title">
+				<source>Comment saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.Created">
+				<source>Thanks, your comment has been saved.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam.title">
+				<source>Comment saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam">
+				<source>Sorry, your comment has been saved but was marked as SPAM.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam.title">
+				<source>Comment not saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam">
+				<source>Sorry, your comment has recognized as SPAM. Please try again!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.NotAllowed.title">
+				<source>Comments not allowed</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.NotAllowed">
+				<source>Sorry, no new comments allowed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.CommentsClosed.title">
+				<source>Comments closed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.CommentsClosed">
+				<source>Sorry, no new comments allowed.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

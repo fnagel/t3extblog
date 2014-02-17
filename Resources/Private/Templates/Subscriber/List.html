@@ -1,9 +1,11 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
 <f:layout name="Default" />
 
 <f:section name="main">
 <h2><f:translate key="subscriber.headline" /> {email}</h2>
 
-<f:flashMessages renderMode="div" />
+<t3b:flashMessages />
 
 <table class="table table-striped" >
 	<tr>

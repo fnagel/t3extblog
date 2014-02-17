@@ -1,6 +1,8 @@
 <f:form.validationResults for="{object}">
 	<f:if condition="{validationResults.flattenedErrors}">
 		<div class="alert alert-error alert-block">
+			<h5><f:translate key="error.headline" /></h5>
+
 			<ul>
 			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
 				<li>
@@ -11,6 +13,5 @@
 			</f:for>
 			</ul>
 		</div>
-		<br>
 	</f:if>
 </f:form.validationResults>

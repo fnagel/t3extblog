@@ -100,6 +100,37 @@
 			<trans-unit id="subject.subscriber.new">
 				<target>%1$s: Abbonieren von '%2$s'</target>
 			</trans-unit>
+
+			<trans-unit id="flashMessage.comment.createAction.Created.title">
+				<target>Kommentar gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.Created">
+				<target>Danke, Ihr Kommentar wurde gespeichert.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam.title">
+				<target>Kommentar gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam">
+				<target>Ihr Kommentar wurde gespeichert aber als SPAM erkannt. Es wird in Kürze freigeschaltet.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam.title">
+				<target>Kommentar nicht gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam">
+				<target>Ihr Kommentar wurde als SPAM erkannt und geblockt. Bitte versuchen Sie es noch einmal.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.NotAllowed.title">
+				<target>Keine Kommentare erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.NotAllowed">
+				<target>Es sind keine neuen Kommentare erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.CommentsClosed.title">
+				<target>Kommentare geschlossen.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createAction.CommentsClosed">
+				<target>Es sind keine neuen Kommentare mehr erlaubt.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
