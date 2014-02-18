@@ -78,8 +78,14 @@
 			<trans-unit id="error.comment.createAction">
 				<target>Fehler:</target>
 			</trans-unit>
+			<trans-unit id="error.newComment.title.1221565786">
+				<target>Die Überschrift darf nur Text enthalten.</target>
+			</trans-unit>
 			<trans-unit id="error.newComment.author.1221560718">
 				<target>Bitte geben Sie einen Namen ein.</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.author.1221565786">
+				<target>Der Name darf nur Text enthalten.</target>
 			</trans-unit>
 			<trans-unit id="error.newComment.email.1221560718">
 				<target>Bitte geben Sie eine Email-Adresse ein.</target>
@@ -89,6 +95,9 @@
 			</trans-unit>
 			<trans-unit id="error.newComment.text.1221560718">
 				<target>Bitte geben Sie eine Nachricht ein.</target>
+			</trans-unit>
+			<trans-unit id="error.newComment.website.1392679659">
+				<target>Bitte geben Sie valide URL ein.</target>
 			</trans-unit>
 
 			<trans-unit id="subject.admin.newSubscription">

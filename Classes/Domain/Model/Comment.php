@@ -46,6 +46,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * title
 	 *
+	 * @validate Text
 	 * @var string
 	 */
 	protected $title;
@@ -53,6 +54,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	/**
 	 * author
 	 *
+	 * @validate Text
 	 * @validate NotEmpty
 	 * @var string
 	 */
@@ -71,6 +73,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * website
 	 *
 	 * @var string
+	 * @validate Tx_T3extblog_Validation_Validator_UrlValidator
 	 */
 	protected $website;
 
@@ -272,7 +275,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function setApproved($approved) {
-		$this->approved = (boolean)$approved;
+		$this->approved = (boolean) $approved;
 	}
 
 	/**
@@ -281,7 +284,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return boolean
 	 */
 	public function isApproved() {
-		return $this->getApproved();
+		return (boolean) $this->getApproved();
 	}
 
 	/**
@@ -301,7 +304,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function setSpam($spam) {
-		$this->spam = $spam;
+		$this->spam = (boolean) $spam;
 	}
 
 	/**
