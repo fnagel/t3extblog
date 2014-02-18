@@ -44,13 +44,19 @@ plugin.tx_t3extblog {
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				allowedUntil = +6 months
 
-				# comments are allowed by default
+				# comments are approved by default
 				approvedByDefault = 1
 
 				# subscibe to new comment allowed
 				subscribeForComments = 1
 
+				# TODO: implement if needed
 				# splitLongWords = 1
+
+				# Allow tags in comment text
+				# example config: <em>, <strong>, <code>
+				# uses: http://www.php.net/manual/en/function.strip-tags.php
+				allowTags =
 
 				spamCheck {
 					enable = 1

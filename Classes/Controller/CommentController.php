@@ -254,6 +254,10 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->log->notice("New comment marked as SPAM.", array("spamPoints" => $spamPoints));
 			$comment->markAsSpam();
 		}
+
+		// Sanitize comment
+		$allowTags = $this->settings['blogsystem']['comments']['allowTags'];
+		$comment->setText(strip_tags($comment->getText(), trim($allowTags)));
 	}
 
 	/**
