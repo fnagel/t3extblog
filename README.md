@@ -55,15 +55,14 @@ A lot of testing needs to be done. Help wanted!
 
 
 IN WORK
-* Basic Unit Tests
+* Test comment and subscription process again
 
-TO DO
-* Error when rendering AdminNewCommentMail mail
-* Translate email subjects
-* Translate flash messages
+NEXT
+* Partial for flashMessage VH
 * Documentation
 
 FEATURES
+* More unit tests and functional tests
 * Flexform configuration for plugins
 * Trackback / Pingback
 * Captcha implementation
@@ -75,4 +74,4 @@ FEATURES
 Contribution
 ------------
 
-Any help is appreciated. Please feel free to drop me a line, open issues or send pull request.
+Any help is appreciated. Please feel free to drop me a line, open issues or send pull requests.
