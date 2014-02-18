@@ -22,7 +22,6 @@
 
 /**
  * View helper which renders the flash messages (if there are any) as an unsorted list.
- *
  */
 class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
 
@@ -76,9 +75,11 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 	 */
 	public function render() {
 		$flashMessages = $this->controllerContext->getFlashMessageContainer()->getAllMessagesAndFlush();
+
 		if ($flashMessages === NULL || count($flashMessages) === 0) {
 			return '';
 		}
+
 		if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === tslib_cObj::OBJECTTYPE_USER) {
 			$GLOBALS['TSFE']->no_cache = 1;
 		}
@@ -86,10 +87,11 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 		return $this->renderFlashMessages($flashMessages);
 	}
 
-	/*
+	/**
 	 * Renders the flash messages in bootstrap style
 	 *
 	 * @param array $flashMessages array<t3lib_FlashMessage>
+	 *
 	 * @return string
 	 */
 	protected function renderFlashMessages(array $flashMessages) {
@@ -110,7 +112,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 		return $this->tag->render();
 	}
 
-	/*
+	/**
 	 * @param t3lib_FlashMessage $flashMessage array<t3lib_FlashMessage>
 	 *
 	 * @return string
@@ -122,7 +124,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 		return $content;
 	}
 
-	/*
+	/**
 	 * @param integer $severity
 	 *
 	 * @return string
