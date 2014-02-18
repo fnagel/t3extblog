@@ -2,13 +2,19 @@
 
 <f:section name="main">
 
-	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />	
+	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
 				
-	<f:if condition="{comments}">
-		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.comments.paginate}">
-			<f:for each="{paginatedComments}" as="comment">
-				<f:render partial="Comment/Show" arguments="{comment: comment}" />
+	<f:if condition="{posts}">
+		<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.latestPosts.paginate}">
+			<ul>
+			<f:for each="{paginatedPosts}" as="post">
+				<li>
+					<f:link.action action="show" arguments="{post.linkParameter}">
+						{post.title}
+					</f:link.action>
+				</li>
 			</f:for>
+			</ul>
 		</f:widget.paginate>
 	</f:if>
 	
