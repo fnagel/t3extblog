@@ -25,8 +25,7 @@
  ***************************************************************/
 
 /**
- * Handles all notification mails
- * Configured by TYPO3 core log level
+ * Handles comment spam check
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
