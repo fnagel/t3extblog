@@ -4,8 +4,6 @@
 
 <f:section name="main">
 
-	<t3b:flashMessages />
-
 	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
 
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
