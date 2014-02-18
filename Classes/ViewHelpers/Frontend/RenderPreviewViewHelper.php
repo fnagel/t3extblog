@@ -47,26 +47,24 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 		$iterator = 0;
 		$hasDivider = false;
 
-		/* @var $content Tx_T3extblog_Domain_Model_Content */
 		foreach ($contentElements as $content) {
 			$iterator++;
 			if (($iterator - 1) < $index) {
 				continue;
 			}
 
-			$contentArray = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($content);
-			if ($content->getCType() === 'text' || $content->getCType() === 'textpic') {
+			if ($content['CType'] === 'text' || $content['CType'] === 'textpic') {
 				// use elements with text only
-				$dividerPosition = strpos(strip_tags($content->getBodytext()), '###MORE###');
+				$dividerPosition = strpos(strip_tags($content['bodytext']), '###MORE###');
 
 				if ($dividerPosition !== false) {
 					$hasDivider = true;
-					$contentArray['bodytext'] = $this->truncate($content->getBodytext(), $dividerPosition, $ellipsis = '...');
+					$content['bodytext'] = $this->truncate($content['bodytext'], $dividerPosition, $ellipsis = '...');
 				}
 
-				$output .= $this->renderContentElement($contentArray);
+				$output .= $this->renderContentElement($content);
 			} else {
-				$output .= $this->renderContentElement($contentArray);
+				$output .= $this->renderContentElement($content);
 			}
 
 			if ($hasDivider === true) {

@@ -139,6 +139,34 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	}
 
 	/**
+	 * @param boolean $deleted
+	 */
+	public function setDeleted($deleted) {
+		$this->deleted = $deleted;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * @param boolean $hidden
+	 */
+	public function setHidden($hidden) {
+		$this->hidden = $hidden;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getHidden() {
+		return $this->hidden;
+	}
+
+	/**
 	 * Returns the title
 	 *
 	 * @return string $title

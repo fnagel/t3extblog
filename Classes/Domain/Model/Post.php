@@ -82,10 +82,9 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * content
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content>
-	 * @lazy
+	 * @var array
 	 */
-	protected $content;
+	protected $content = NULL;
 
 	/**
 	 * categories
@@ -104,6 +103,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected $comments = NULL;
 
 	/**
+	 * commentRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected $commentRepository = NULL;
+
+	/**
 	 * subscriptions
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber>
@@ -113,8 +119,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 
 	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		$this->initStorageObjects();
@@ -126,7 +130,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
 	}
@@ -329,10 +332,40 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the content
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content> $content
+	 * @return array
 	 */
 	public function getContent() {
+		if ($this->content === NULL) {
+			$this->content = $this->getContentData();
+		}
+
 		return $this->content;
+	}
+
+	/**
+	 * Get tt_content data
+	 *
+	 * @return array
+	 */
+	protected function getContentData() {
+		/* @var $database t3lib_DB */
+		$database = $GLOBALS['TYPO3_DB'];
+		$data = array();
+
+		$table = 'tt_content';
+		$where = 'irre_parentid = '. $this->getUid() . ' AND irre_parenttable = "tx_t3blog_post"';
+		$where  .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+
+		$result = $database->exec_SELECTquery('*', $table, $where, '', 'sorting', '');
+		while ($row = $database->sql_fetch_assoc($result)) {
+			if (is_array($row)) {
+				$data[] = $row;
+			}
+		}
+
+		$database->sql_free_result($result);
+
+		return $data;
 	}
 
 	/**
@@ -344,7 +377,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		$idList = array();
 
 		foreach ($this->getContent() as $contentElement) {
-			$idList[] = $contentElement->getUid();
+			$idList[] = $contentElement['uid'];
 		}
 
 		return implode(',', $idList);
@@ -359,8 +392,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		$text = array();
 
 		foreach ($this->getContent() as $contentElement) {
-			if (strlen($contentElement->getBodytext()) > 0) {
-				$text[] = $contentElement->getBodytext();
+			if (strlen($contentElement['bodytext']) > 0) {
+				$text[] = $contentElement['bodytext'];
 			}
 		}
 
@@ -407,7 +440,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	private function initComments() {
-		if ($this->comments == NULL) {
+		if ($this->comments === NULL) {
 			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
 		}
 	}
