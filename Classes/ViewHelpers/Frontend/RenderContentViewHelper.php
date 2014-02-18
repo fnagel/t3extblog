@@ -39,22 +39,22 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 	 * @param Tx_Extbase_Persistence_ObjectStorage|array $contentElements
 	 * @param int                                        $index
 	 * @param bool                                       $removeMarker
+	 * @param string                                      $typoscript
 	 *
 	 * @return string
 	 */
-	public function render($contentElements, $index = 0, $removeMarker = true) {
+	public function render($contentElements, $index = 0, $removeMarker = true, $typoscript = 'tt_content') {
 		$output = "";
 		$iterator = 0;
 
 		/* @var $content Tx_T3extblog_Domain_Model_Content */
 		foreach ($contentElements as $content) {
-
 			$iterator++;
 			if (($iterator - 1) < $index) {
 				continue;
 			}
 
-			$output .= $this->renderContentElement($content->getUid());
+			$output .= $this->renderContentElement($content->convertToArray(), $typoscript);
 		}
 
 		if ($removeMarker === true) {

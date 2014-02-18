@@ -49,15 +49,14 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 
 		/* @var $content Tx_T3extblog_Domain_Model_Content */
 		foreach ($contentElements as $content) {
-
 			$iterator++;
 			if (($iterator - 1) < $index) {
 				continue;
 			}
 
+			$contentArray = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($content);
 			if ($content->getCType() === 'text' || $content->getCType() === 'textpic') {
 				// use elements with text only
-				$contentArray = $content->convertToArray();
 				$dividerPosition = strpos(strip_tags($content->getBodytext()), '###MORE###');
 
 				if ($dividerPosition !== false) {
@@ -67,7 +66,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 
 				$output .= $this->renderContentElement($contentArray);
 			} else {
-				$output .= $this->renderContentElement($content->getUid());
+				$output .= $this->renderContentElement($contentArray);
 			}
 
 			if ($hasDivider === true) {

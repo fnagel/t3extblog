@@ -56,7 +56,6 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 */
 	protected $pageId;
 
-
 	/**
 	 * Load and persist module data
 	 *
@@ -87,7 +86,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 * @return void
 	 */
 	public function initializeAction() {
-		$this->pageId = t3lib_div::_GP('id');
+		$this->pageId = intval(t3lib_div::_GP('id'));
 
 		// @TODO: Extbase backend modules relies on frontend TypoScript for view, persistence
 		// and settings. Thus, we need a TypoScript root template, that then loads the
@@ -113,7 +112,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
 		$this->view->assignMultiple(array(
-			'returnUrl' => 'mod.php?M=web_T3extblogTxT3extblog',
+			'returnUrl' => urlencode('mod.php?M=web_T3extblogTxT3extblog&id=' . $this->pageId),
 			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
 			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
 		));

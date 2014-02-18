@@ -34,10 +34,29 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	/**
 	 * @var $cObj tslib_cObj
 	 */
-	private $cObj;
+	private $contentObject;
+
+	/**
+	 * @var array
+	 */
+	protected $typoScriptSetup;
+
+	/**
+	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 */
+	protected $configurationManager;
+
+	/**
+	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 * @return void
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+		$this->typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+	}
 
 	function __construct() {
-		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
+		$this->contentObject = t3lib_div::makeInstance('tslib_cObj');
 	}
 
 	/**
@@ -53,26 +72,29 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	/**
 	 * Parses data through typoscript.
 	 *
-	 * @param array|int $data Row of a TYPO3 default CE or a uid of any content element
+	 * @param array $data Row of a TYPO3 default CE or a uid of any content element
+	 * @param string $typoscript Typoscript config to use
 	 * @param string $table The CE table name
 	 *
 	 * @return string
 	 */
-	protected function renderContentElement($data, $table = 'tt_content') {
-		if (is_int($data)) {
-			return $this->cObj->RECORDS(array(
-				'tables' => $table,
-				'source' => $data,
-				'dontCheckPid' => 1
-			));
+	protected function renderContentElement(array $data, $typoscript = 'tt_content') {
+		$this->contentObject->start($data);
+
+		$pathSegments = t3lib_div::trimExplode('.', $typoscript);
+		$lastSegment = array_pop($pathSegments);
+		$setup = $this->typoScriptSetup;
+
+		foreach ($pathSegments as $segment) {
+			if (!array_key_exists($segment . '.', $setup)) {
+				throw new Tx_Fluid_Core_ViewHelper_Exception('TypoScript object path "' . htmlspecialchars($typoscript) . '" does not exist' , 1253191024);
+			}
+			$setup = $setup[$segment . '.'];
 		}
 
-		if (is_array($data)) {
-			$this->cObj->data = $data;
-			return $this->cObj->cObjGetSingle($GLOBALS['TSFE']->tmpl->setup[$table], $GLOBALS['TSFE']->tmpl->setup[$table . '.']);
-		}
+		$content = $this->contentObject->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
 
-		return "";
+		return $content;
 	}
 
 	/**
@@ -84,7 +106,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 * @return string
 	 */
 	protected function truncate($text, $dividerPosition, $ellipsis = '...') {
-		$textBeforeDivider = $this->truncate_fast($text, $dividerPosition, $ellipsis, false, true);
+		$textBeforeDivider = $this->cakePhpTruncate($text, $dividerPosition, $ellipsis, false, true);
 
 		return $this->removeMarker($textBeforeDivider);
 	}
@@ -116,7 +138,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 *
 	 * @return string Trimmed string.
 	 */
-	protected function truncate_fast($text, $length = 100, $ellipsis = '...', $exact = false, $html = true) {
+	private function cakePhpTruncate($text, $length = 100, $ellipsis = '...', $exact = false, $html = true) {
 		$openTags = array();
 
 		if (!function_exists('mb_strlen')) {

@@ -344,9 +344,7 @@ class Tx_T3extblog_Domain_Model_Content extends Tx_Extbase_DomainObject_Abstract
 		$data = array();
 
 		foreach(get_class_methods($this) as $method) {
-
 			if (substr($method, 0, 3) === 'get') {
-
 				$field = substr($method, 3);
 
 				if ($camelCaseKeys === false) {
