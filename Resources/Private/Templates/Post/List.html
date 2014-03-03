@@ -23,7 +23,7 @@
 				<f:if condition="{post.content}">
 					<div class="teaser">
 						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
-
+						<br>
 						<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" class="btn btn-primary">
 							<i class="icon-arrow-right"></i>
 							{post.title}
@@ -58,6 +58,7 @@
 		</f:for>
 </f:section>
 
+
 <f:section name="teaserComplex">
 	<f:for each="{contentElements}" as="content" iteration="iterator">
 		<f:if condition="{iterator.index} == 0">
@@ -75,7 +76,7 @@
 		</f:if>
 	</f:for>
 
-	<t3b:frontend.renderPreview contentElements="{contentElements}" index="1" />
+	<t3b:frontend.renderContent contentElements="{contentElements}" index="1" />
 
 	<f:for each="{contentElements}" as="content" iteration="iterator">
 		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">
