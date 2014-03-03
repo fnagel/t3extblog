@@ -1,11 +1,12 @@
 <f:if condition="{category}">
 	<div class="alert alert-block alert-info">
-		<f:translate key="post.filter.category" /> {category.name}
+		<f:translate key="post.filter" /> <f:translate key="post.category" /> {category.name}
 	</div>
+	<br>
 </f:if>
 <f:if condition="{tag}">
 	<div class="alert alert-block alert-info">
-		<f:translate key="post.filter.tag" /> {tag}
+		<f:translate key="post.filter" /> <f:translate key="post.tag" /> {tag}
 	</div>
+	<br>
 </f:if>
-<br>

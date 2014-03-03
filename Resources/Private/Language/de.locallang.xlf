@@ -9,11 +9,14 @@
 			<trans-unit id="post.permalink">
 				<target>Permalink</target>
 			</trans-unit>
-			<trans-unit id="post.filter.category">
-				<target>Gefiltert nach Kategorie:</target>
+			<trans-unit id="post.filter">
+				<target>Gefiltert nach</target>
 			</trans-unit>
-			<trans-unit id="post.filter.tag">
-				<target>Gefiltert nach Tag:</target>
+			<trans-unit id="post.tag">
+				<target>Tag</target>
+			</trans-unit>
+			<trans-unit id="post.category">
+				<target>Kategorie</target>
 			</trans-unit>
 
 			<trans-unit id="comment.new">
