@@ -56,6 +56,9 @@ A lot of testing needs to be done. Help wanted!
 
 IN WORK
 * Test comment and subscription process again
+* * if subscription emails are sent
+* * if subscription process works
+* * if un-subscribe process works
 
 NEXT
 * Partial for flashMessage VH
