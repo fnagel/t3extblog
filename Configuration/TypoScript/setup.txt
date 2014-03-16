@@ -135,6 +135,8 @@ plugin.tx_t3extblog {
 		}
 
 		latestPosts {
+			categoryUid = 
+		
 			paginate {
 				itemsPerPage = 5
 				insertAbove = 0

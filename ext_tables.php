@@ -3,7 +3,9 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-include(t3lib_extMgm::extPath($_EXTKEY).'Classes/Tca/T3blog.php');
+include(t3lib_extMgm::extPath($_EXTKEY).'Configuration/Tca/T3blog.php');
+
+$extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
 
 // Add static TS
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)');
@@ -45,6 +47,10 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'LatestPosts',
 	'T3Blog Extbase: LatestPosts'
 );
+$pluginSignature = strtolower($extensionName) . '_latestposts';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestPosts.xml');
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,

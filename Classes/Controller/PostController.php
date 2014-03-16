@@ -61,7 +61,11 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 *
 	 * @return void
 	 */
-	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {	
+		if ($category === NULL && isset($this->settings['latestPosts']['categoryUid'])) {
+			$category = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByUid((int) $this->settings['latestPosts']['categoryUid']);
+		}
+			
 		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
 	}
 
@@ -71,11 +75,11 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @todo Performance improvements: do not fetch all by default, consider paginator
 	 *
 	 * @param string                             $tag The name of the tag to show the posts for
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param integer|Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return Tx_T3extblog_Domain_Model_Post
 	 */
-	private function findByTagOrCategory($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
+	private function findByTagOrCategory($tag = NULL, $category = NULL) {
 		if ($category !== NULL) {
 			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);

@@ -77,12 +77,19 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResult
 	 */
-	public function findByCategory(Tx_T3extblog_Domain_Model_Category $category) {
+	public function findByCategory($category) {
 		$query = $this->createQuery();
-
-		$query->matching(
-			$query->contains('categories', $category)
-		);
+		
+		$categories = $category->getChildCategories();
+		
+		$constraints = array();
+		$constraints[] = $query->contains('categories', $category);
+				
+		foreach($categories as $childCategory) {	
+			$constraints[] = $query->contains('categories', $childCategory);
+		}		
+		
+		$query->matching($query->logicalOr($constraints));
 
 		return $query->execute();
 	}
