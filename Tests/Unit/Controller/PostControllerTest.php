@@ -76,4 +76,5 @@ class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_
 	}
 
 }
+
 ?>

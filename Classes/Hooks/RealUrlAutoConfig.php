@@ -35,13 +35,14 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 	/**
 	 * Generates additional RealURL configuration and merges it with provided configuration
 	 *
-	 * @param	array						$params	Default configuration
-	 * @param	tx_realurl_autoconfgen		$pObj	Parent object
-	 * @return	array						Updated configuration
+	 * @param    array                  $params Default configuration
+	 * @param    tx_realurl_autoconfgen $pObj Parent object
+	 *
+	 * @return    array                        Updated configuration
 	 */
 	function addConfig($params, &$pObj) {
 		return array_merge_recursive($params['config'], array(
-		    'postVarSets' => array(
+			'postVarSets' => array(
 				'_DEFAULT' => array(
 					'artikel' => array(
 						'year' => array(
@@ -53,7 +54,7 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						'day' => array(
 							'GETvar' => 'tx_t3extblog_blogsystem[day]',
 						),
-						'post' => array (
+						'post' => array(
 							'GETvar' => 'tx_t3extblog_blogsystem[post]',
 							'lookUpTable' => array(
 								'table' => 'tx_t3blog_post',
@@ -69,7 +70,7 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						),
 					),
 
-					'permalink' => array (
+					'permalink' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
 							'valueMap' => array(
@@ -87,7 +88,7 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
 							'noMatch' => 'bypass',
 						),
-						array (
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[tag]',
 						),
 					),
@@ -97,9 +98,9 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
 							'noMatch' => 'bypass',
 						),
-						array (
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[category]',
-							'lookUpTable' => array (
+							'lookUpTable' => array(
 								'table' => 'tx_t3blog_cat',
 								'id_field' => 'uid',
 								'alias_field' => 'catname',

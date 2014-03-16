@@ -31,7 +31,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_CommentAllowedViewHelper extends Tx_Flui
 	/**
 	 * Check if a new comment is allowed
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post    $post
+	 * @param Tx_T3extblog_Domain_Model_Post $post
 	 *
 	 * @return boolean
 	 */

@@ -48,6 +48,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 
 	/**
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 *
 	 * @return void
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
@@ -63,6 +64,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 * Remove marker
 	 *
 	 * @param string $output
+	 *
 	 * @return string Rendered string
 	 */
 	protected function removeMarker($output) {
@@ -72,7 +74,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	/**
 	 * Parses data through typoscript.
 	 *
-	 * @param array $data Row of a TYPO3 default CE or a uid of any content element
+	 * @param array  $data Row of a TYPO3 default CE or a uid of any content element
 	 * @param string $typoscript Typoscript config to use
 	 * @param string $table The CE table name
 	 *
@@ -87,7 +89,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 
 		foreach ($pathSegments as $segment) {
 			if (!array_key_exists($segment . '.', $setup)) {
-				throw new Tx_Fluid_Core_ViewHelper_Exception('TypoScript object path "' . htmlspecialchars($typoscript) . '" does not exist' , 1253191024);
+				throw new Tx_Fluid_Core_ViewHelper_Exception('TypoScript object path "' . htmlspecialchars($typoscript) . '" does not exist', 1253191024);
 			}
 			$setup = $setup[$segment . '.'];
 		}
@@ -130,9 +132,9 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 * @since CakePHP(tm) v 1.2.0.5551
 	 * @license http://www.opensource.org/licenses/mit-license.php MIT License
 	 *
-	 * @param string $text String to truncate.
+	 * @param string  $text String to truncate.
 	 * @param integer $length Length of returned string, including ellipsis.
-	 * @param string $ellipsis Will be used as Ending and appended to the trimmed string
+	 * @param string  $ellipsis Will be used as Ending and appended to the trimmed string
 	 * @param boolean $exact If false, $text will not be cut mid-word
 	 * @param boolean $html If true, HTML tags would be handled correctly
 	 *

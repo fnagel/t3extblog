@@ -162,4 +162,5 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	}
 
 }
+
 ?>

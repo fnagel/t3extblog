@@ -353,8 +353,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 		$data = array();
 
 		$table = 'tt_content';
-		$where = 'irre_parentid = '. $this->getUid() . ' AND irre_parenttable = "tx_t3blog_post"';
-		$where  .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+		$where = 'irre_parentid = ' . $this->getUid() . ' AND irre_parenttable = "tx_t3blog_post"';
+		$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
 
 		$result = $database->exec_SELECTquery('*', $table, $where, '', 'sorting', '');
 		while ($row = $database->sql_fetch_assoc($result)) {

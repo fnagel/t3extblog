@@ -46,7 +46,7 @@ $TCA['tx_t3blog_com_nl'] = array(
 			)
 		)
 	),
-	'types' => array (
+	'types' => array(
 		'0' => array(
 			'showitem' => 'name,email,--div--,post_uid,lastsent,code')
 	),

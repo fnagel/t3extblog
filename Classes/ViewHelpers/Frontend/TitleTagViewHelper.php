@@ -32,7 +32,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_TitleTagViewHelper extends Tx_Fluid_Core
 	/**
 	 * Override the title tag
 	 *
-	 * @param boolean    $prepend
+	 * @param boolean $prepend
 	 *
 	 * @return void
 	 */

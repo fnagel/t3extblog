@@ -143,4 +143,5 @@ class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
 	}
 
 }
+
 ?>

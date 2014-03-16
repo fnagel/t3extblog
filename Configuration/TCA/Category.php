@@ -3,55 +3,55 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_cat'] = array (
+$TCA['tx_t3blog_cat'] = array(
 	'ctrl' => $TCA['tx_t3blog_cat']['ctrl'],
-	'interface' => array (
+	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,parent_id,catname,description'
 	),
 	'feInterface' => $TCA['tx_t3blog_cat']['feInterface'],
-	'columns' => array (
-		'hidden' => array (
+	'columns' => array(
+		'hidden' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config'  => array (
-				'type'    => 'check',
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'config' => array(
+				'type' => 'check',
 				'default' => '0'
 			)
 		),
-		'starttime' => array (
+		'starttime' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config'  => array (
-				'type'     => 'input',
-				'size'     => '8',
-				'max'      => '20',
-				'eval'     => 'date',
-				'default'  => '0',
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+			'config' => array(
+				'type' => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
+				'default' => '0',
 				'checkbox' => '0'
 			)
 		),
-		'endtime' => array (
+		'endtime' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config'  => array (
-				'type'     => 'input',
-				'size'     => '8',
-				'max'      => '20',
-				'eval'     => 'date',
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+			'config' => array(
+				'type' => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
 				'checkbox' => '0',
-				'default'  => '0',
-				'range'    => array (
+				'default' => '0',
+				'range' => array(
 					'upper' => mktime(0, 0, 0, 12, 31, 2020),
-					'lower' => mktime(0, 0, 0, date('m')-1, date('d'), date('Y'))
+					'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y'))
 				)
 			)
 		),
-		'fe_group' => array (
+		'fe_group' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
-			'config'  => array (
-				'type'  => 'select',
-				'items' => array (
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
 					array('', 0),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2),
@@ -60,7 +60,7 @@ $TCA['tx_t3blog_cat'] = array (
 				'foreign_table' => 'fe_groups'
 			)
 		),
-		'parent_id' => Array (
+		'parent_id' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.parent_id',
 			'config' => array(
@@ -83,31 +83,31 @@ $TCA['tx_t3blog_cat'] = array (
 				'maxitems' => 1
 			)
 		),
-		'catname' => Array (
+		'catname' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.catname',
-			'config' => Array (
+			'config' => array(
 				'type' => 'input',
 				'size' => '30',
 				'eval' => 'required',
 			)
 		),
 
-		'description' => Array (
+		'description' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.description',
-			'config' => Array (
+			'config' => array(
 				'type' => 'input',
 				'size' => '40',
 			)
 		),
 	),
-	'types' => array (
+	'types' => array(
 		'0' => array('showitem' => '--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.generalTab;;;;1-1-1,catname,description,parent_id, --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.access,--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.access;1')
 	),
-    'palettes' => array (
-        '1' => array('showitem' => 'starttime, endtime, fe_group, hidden','canNotCollapse'=>1)
-    )
+	'palettes' => array(
+		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
+	)
 );
 
 ?>

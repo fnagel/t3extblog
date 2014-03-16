@@ -30,10 +30,9 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-
 class Tx_T3extblog_Hooks_Tcemain {
 
-  // fields to check for changes
+	// fields to check for changes
 	var $watchedFields = array(
 		'hidden',
 		'approved',
@@ -51,15 +50,16 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * Hook: processDatamap_afterDatabaseOperations
 	 *
 	 * Note: When using the hook after INSERT operations, you will only get the temporary NEW... id passed to your hook as $id,
-	 *		 but you can easily translate it to the real uid of the inserted record using the $this->substNEWwithIDs array.
+	 *         but you can easily translate it to the real uid of the inserted record using the $this->substNEWwithIDs array.
 	 *
-	 * @param	string		$status: (reference) Status of the current operation, 'new' or 'update'
-	 * @param	string		$table: (refrence) The table currently processing data for
-	 * @param	string		$id: (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
-	 * @param	array		$fieldArray: (reference) The field array of a record
-	 * @return	void
+	 * @param    string $status : (reference) Status of the current operation, 'new' or 'update'
+	 * @param    string $table : (refrence) The table currently processing data for
+	 * @param    string $id : (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
+	 * @param    array  $fieldArray : (reference) The field array of a record
+	 *
+	 * @return    void
 	 */
-	function processDatamap_afterDatabaseOperations ($status, $table, $id, $fieldArray, &$pObj) {
+	function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, &$pObj) {
 		if ($table == 'tx_t3blog_com') {
 
 			if ($status == 'update') {
@@ -90,7 +90,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 *
 	 * @return Tx_T3extblog_Service_NotificationService
 	 */
-	protected  function getNotificationService() {
+	protected function getNotificationService() {
 		if ($this->notificationService == NULL) {
 			t3lib_div::requireOnce(t3lib_extMgm::extPath('t3extblog', 'Classes/Service/NotificationService.php'));
 			$this->notificationService = t3lib_div::makeInstance("Tx_T3extblog_Service_NotificationService");

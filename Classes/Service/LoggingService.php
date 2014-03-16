@@ -87,8 +87,8 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Error logging
 	 *
-	 * @param string $msg   Message
-	 * @param array $data   Data
+	 * @param string $msg Message
+	 * @param array  $data Data
 	 *
 	 * @return void
 	 */
@@ -103,8 +103,8 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Notice logging
 	 *
-	 * @param string $msg   Message
-	 * @param array $data   Data
+	 * @param string $msg Message
+	 * @param array  $data Data
 	 *
 	 * @return    void
 	 */
@@ -119,8 +119,8 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	/**
 	 * Development logging
 	 *
-	 * @param string $msg   Message
-	 * @param array $data   Data
+	 * @param string $msg Message
+	 * @param array  $data Data
 	 *
 	 * @return    void
 	 */

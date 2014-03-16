@@ -70,32 +70,32 @@ t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_post');
 $TCA['pages']['columns']['module']['config']['items'][] = Array('T3Blog', 't3blog');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_post');
 
-$TCA['tx_t3blog_post'] = array (
-	'ctrl' => array (
-		'title'     			=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
-		'label'     			=> 'title',
-		'tstamp'    			=> 'tstamp',
-		'crdate'    			=> 'crdate',
+$TCA['tx_t3blog_post'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
 		//'cruser_id' 			=> 'author',
-		'versioningWS' 			=> TRUE,
-		'origUid' 				=> 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
+		'versioningWS' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'default_sortby' 		=> 'ORDER BY crdate DESC',
-		'delete' 				=> 'deleted',
-		'enablecolumns' 		=> array (
-			'disabled' 	=> 'hidden',
+		'default_sortby' => 'ORDER BY crdate DESC',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
 			'starttime' => 'starttime',
-			'endtime' 	=> 'endtime',
-			'fe_group' 	=> 'fe_group',
+			'endtime' => 'endtime',
+			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Post.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'Resources/Public/Icons/page.png',
-		'dividers2tabs'			=>	TRUE,
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/page.png',
+		'dividers2tabs' => TRUE,
 		'searchFields' => 'title',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, title, author, date, content,allow_comments, cat, trackback,number_views',
 	)
 );
@@ -103,119 +103,119 @@ $TCA['tx_t3blog_post'] = array (
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_cat');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_cat');
 
-$TCA['tx_t3blog_cat'] = array (
-	'ctrl' => array (
-		'title'     				=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
-		'label'     				=> 'catname',
-		'tstamp'    				=> 'tstamp',
-		'crdate'    				=> 'crdate',
-		'cruser_id' 				=> 'cruser_id',
+$TCA['tx_t3blog_cat'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
+		'label' => 'catname',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
 		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
-		'treeParentField' 			=> 'parent_id',
-		'sortby' 					=> 'sorting',
-		'delete' 					=> 'deleted',
-		'enablecolumns' 			=> array (
-			'disabled' 	=> 'hidden',
+		'treeParentField' => 'parent_id',
+		'sortby' => 'sorting',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
 			'starttime' => 'starttime',
-			'endtime' 	=> 'endtime',
-			'fe_group' 	=> 'fe_group',
+			'endtime' => 'endtime',
+			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY). 'Resources/Public/Icons/chart_organisation.png',
-		'dividers2tabs'			=>	TRUE,
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/chart_organisation.png',
+		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, parent_id, catname, description',
 	)
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_com');
-$TCA['tx_t3blog_com'] = array (
-	'ctrl' 	=> array (
-		'title'     		=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
-		'tagClouds'     	=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
-		'label'     		=> 'title',
-		'tstamp'    		=> 'tstamp',
-		'crdate'    		=> 'crdate',
-		'cruser_id' 		=> 'cruser_id',
-		'default_sortby' 	=> 'ORDER BY crdate DESC',
-		'delete' 			=> 'deleted',
-		'enablecolumns' 	=> array (
-			'disabled' 		=> 'hidden',
-			'starttime' 	=> 'starttime',
-			'endtime' 		=> 'endtime',
-			'fe_group' 		=> 'fe_group',
+$TCA['tx_t3blog_com'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
+		'tagClouds' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'default_sortby' => 'ORDER BY crdate DESC',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY). 'Resources/Public/Icons/comment.png',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
 		'searchFields' => 'title,author,email,website,text',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post',
 	)
 );
 
-$TCA['tx_t3blog_com_nl'] = array (
-	'ctrl' 	=> array(
-		'title'     		=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
-		'label'     		=> 'name',
-		'delete' 			=> 'deleted',
-		'enablecolumns'     => array(
+$TCA['tx_t3blog_com_nl'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
+		'label' => 'name',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
 			'disable' => 'deleted',
 		),
-		'hideTable'			=> true,
+		'hideTable' => true,
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
 	)
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_pingback');
-$TCA['tx_t3blog_pingback'] = array (
-	'ctrl' => array (
-		'title'     		=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback',
-		'label'     		=> 'uid',
-		'tstamp'    		=> 'tstamp',
-		'crdate'    		=> 'crdate',
-		'cruser_id' 		=> 'cruser_id',
-		'sortby' 			=> 'sorting',
-		'delete' 			=> 'deleted',
-		'enablecolumns' 	=> array (
-			'disabled' 		=> 'hidden',
-			'starttime' 	=> 'starttime',
-			'endtime' 		=> 'endtime',
+$TCA['tx_t3blog_pingback'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback',
+		'label' => 'uid',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'sortby' => 'sorting',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Pingback.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY). 'Resources/Public/Icons/icon_tx_t3blog_pingback.gif',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_t3blog_pingback.gif',
 		'searchFields' => 'title,url,text,',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'hidden, starttime, endtime, title, url, date, text',
 	)
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_trackback');
-$TCA['tx_t3blog_trackback'] = array (
-	'ctrl' => array (
-		'title'     		=> 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
-		'label'     		=> 'uid',
-		'tstamp'    		=> 'tstamp',
-		'crdate'    		=> 'crdate',
-		'cruser_id' 		=> 'cruser_id',
-		'default_sortby' 	=> 'ORDER BY crdate',
-		'delete' 			=> 'deleted',
-		'enablecolumns' 	=> array (
-			'disabled' 	=> 'hidden',
+$TCA['tx_t3blog_trackback'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
+		'label' => 'uid',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'default_sortby' => 'ORDER BY crdate',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Trackback.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY). 'Resources/Public/Icons/icon_tx_t3blog_trackback.gif',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_t3blog_trackback.gif',
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'hidden, fromurl, text, title, postid, id',
 	)
 );
@@ -225,17 +225,17 @@ $TCA['tx_t3blog_trackback'] = array (
 if (TYPO3_MODE === 'BE') {
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
-		'web',	// Make module a submodule of 'web'
-		'Tx_T3extblog',	// Submodule key
+		'web', // Make module a submodule of 'web'
+		'Tx_T3extblog', // Submodule key
 		'', // Position
 		array(
 			// An array holding the controller-action-combinations that are accessible
-			'BackendPost'		=> 'index',
-			'BackendComment'	=> 'index, list'
+			'BackendPost' => 'index',
+			'BackendComment' => 'index, list'
 		),
 		array(
 			'access' => 'user,group',
-			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
 			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
 			'navigationComponentId' => 'typo3-pagetree',
 		)

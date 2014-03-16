@@ -43,7 +43,7 @@ class Tx_T3extblog_ViewHelpers_Widget_Controller_PaginateController extends Tx_F
 		$widgetViewHelperClassName = $this->request->getWidgetContext()->getWidgetViewHelperClassName();
 		$templateRootPath = $extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath'];
 
-		if (isset($templateRootPath)  && strlen($templateRootPath) > 0 && method_exists($view, 'setTemplateRootPath')) {
+		if (isset($templateRootPath) && strlen($templateRootPath) > 0 && method_exists($view, 'setTemplateRootPath')) {
 			$view->setTemplateRootPath(t3lib_div::getFileAbsFileName($templateRootPath));
 		}
 	}

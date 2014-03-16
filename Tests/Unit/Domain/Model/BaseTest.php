@@ -55,4 +55,5 @@ abstract class BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	}
 
 }
+
 ?>

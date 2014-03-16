@@ -317,7 +317,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * Notify the blog admin
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @param string $emailTemplate#
+	 * @param string                            $emailTemplate #
 	 *
 	 * @return    void
 	 */
@@ -431,8 +431,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	/**
 	 * Translate helper
 	 *
-	 * @param string    $key Translation key
-	 * @param string     $variable Argument for translation
+	 * @param string $key Translation key
+	 * @param string $variable Argument for translation
 	 *
 	 * @return string
 	 */

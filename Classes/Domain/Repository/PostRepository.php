@@ -79,16 +79,16 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 */
 	public function findByCategory($category) {
 		$query = $this->createQuery();
-		
+
 		$categories = $category->getChildCategories();
-		
+
 		$constraints = array();
 		$constraints[] = $query->contains('categories', $category);
-				
-		foreach($categories as $childCategory) {	
+
+		foreach ($categories as $childCategory) {
 			$constraints[] = $query->contains('categories', $childCategory);
-		}		
-		
+		}
+
 		$query->matching($query->logicalOr($constraints));
 
 		return $query->execute();
