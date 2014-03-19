@@ -70,7 +70,6 @@ FEATURES
 * Trackback / Pingback
 * Captcha implementation
 * Use EXT:vidi for BE modules (needs TYPO3 6.1)
-* Allow some HTML tags in comments
 
 
 
