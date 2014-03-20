@@ -294,21 +294,17 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 
 			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 			foreach ($subscribers as $subscriber) {
-				// todo: needs testing
-				$now = new DateTime();
-				if ($now > $subscriber->getLastSent()) {
-					$subscriber->updateAuth();
+				$subscriber->updateAuth();
 
-					$variables = array(
-						'post' => $post,
-						'comment' => $comment,
-						'subscriber' => $subscriber,
-						'subject' => $subject
-					);
-					$emailBody = $this->renderEmailTemplate($variables, "SubscriberNewCommentMail.txt");
+				$variables = array(
+					'post' => $post,
+					'comment' => $comment,
+					'subscriber' => $subscriber,
+					'subject' => $subject
+				);
+				$emailBody = $this->renderEmailTemplate($variables, 'SubscriberNewCommentMail.txt');
 
-					$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
-				}
+				$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
 			}
 		}
 	}
