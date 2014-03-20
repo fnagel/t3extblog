@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 $TCA['tx_t3blog_com'] = array(
 	'ctrl' => $TCA['tx_t3blog_com']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,be_user,email,website,date,text,approved,spam,fk_post'
+		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
 	'feInterface' => $TCA['tx_t3blog_com']['feInterface'],
 	'columns' => array(
@@ -66,7 +66,6 @@ $TCA['tx_t3blog_com'] = array(
 			'config' => array(
 				'type' => 'input',
 				'size' => '30',
-				'eval' => 'required',
 			)
 		),
 		'author' => array(
@@ -155,7 +154,7 @@ $TCA['tx_t3blog_com'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2;;;;3-3-3 , author;;;;3-3-3, be_user, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts], approved, spam, fk_post')
+		'0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2;;;;3-3-3 , author;;;;3-3-3, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts], approved, spam, fk_post')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group')

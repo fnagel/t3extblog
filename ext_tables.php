@@ -139,7 +139,6 @@ t3lib_extMgm::addToInsertRecords('tx_t3blog_com');
 $TCA['tx_t3blog_com'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
-		'tagClouds' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -154,10 +153,11 @@ $TCA['tx_t3blog_com'] = array(
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
+		'dividers2tabs' => TRUE,
 		'searchFields' => 'title,author,email,website,text',
 	),
 	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post',
+		'fe_admin_fieldList' => 'sys_language_uid, hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post',
 	)
 );
 
