@@ -87,7 +87,8 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 				$query->equals('email', $comment->getEmail()),
 				$query->equals('postUid', $comment->getPostId()),
 				$query->equals('lastSent', NULL),
-				$query->equals('hidden', 1)
+				$query->equals('hidden', 1),
+				$query->equals('deleted', 0)
 			)
 		);
 
@@ -106,7 +107,10 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 		$query->getQuerySettings()->setRespectEnableFields($enableFields);
 
 		$query->matching(
-			$query->equals('code', $code)
+			$query->logicalAnd(
+				$query->equals('code', $code),
+				$query->equals('deleted', 0)
+			)
 		);
 
 		return $query->execute()->getFirst();
