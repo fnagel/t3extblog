@@ -50,6 +50,11 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @var boolean
 	 */
 	protected $logInDevlog;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $renderInFe;
 
 	/**
 	 * @var Tx_T3extblog_Service_SettingsService
@@ -81,6 +86,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 		$this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
 
 		$this->logInDevlog = $this->settings['debug']['logInDevlog'];
+		$this->renderInFe = $this->settings['debug']['renderInFe'];
 	}
 
 
@@ -93,10 +99,14 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @return void
 	 */
 	public function error($msg, $data = array()) {
-		$this->sysLog($msg, 3);
+		$this->writeToSysLog($msg, 3);
+
+		if ($this->renderInFe) {
+			$this->outputDebug($msg, 3, $data);
+		}
 
 		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->devLog($msg, 3, $data);
+			$this->writeToDevLog($msg, 3, $data);
 		}
 	}
 
@@ -109,10 +119,14 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @return    void
 	 */
 	public function notice($msg, $data = array()) {
-		$this->sysLog($msg, 1);
+		$this->writeToSysLog($msg, 1);
+
+		if ($this->renderInFe) {
+			$this->outputDebug($msg, 1, $data);
+		}
 
 		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->devLog($msg, 1, $data);
+			$this->writeToDevLog($msg, 1, $data);
 		}
 	}
 
@@ -125,9 +139,26 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @return    void
 	 */
 	public function dev($msg, $data = array()) {
-		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->devLog($msg, 1, $data);
+		if ($this->renderInFe) {
+			$this->outputDebug($msg, 1, $data);
 		}
+
+		if ($this->enableDLOG || $this->logInDevlog) {
+			$this->writeToDevLog($msg, 1, $data);
+		}
+	}
+
+	/**
+	 * Writes message to the FE
+	 *
+	 * @param string  $msg Message (in English).
+	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
+	 * @param array  $data Data
+	 *
+	 * @return void
+	 */
+	protected function outputDebug($msg, $severity = 0, $data = array()) {
+		Tx_Extbase_Utility_Debugger::var_dump($data, $msg);
 	}
 
 	/**
@@ -138,7 +169,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	protected function sysLog($msg, $severity = 0) {
+	protected function writeToSysLog($msg, $severity = 0) {
 		t3lib_div::sysLog($msg, $this->extKey, $severity);
 	}
 
@@ -151,7 +182,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	protected function devLog($msg, $severity = 0, $dataVar = FALSE) {
+	protected function writeToDevLog($msg, $severity = 0, $dataVar = FALSE) {
 		t3lib_div::devLog($msg, $this->extKey, $severity, $dataVar);
 	}
 

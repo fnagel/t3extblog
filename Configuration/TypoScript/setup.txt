@@ -171,6 +171,7 @@ plugin.tx_t3extblog {
 		debug {
 			disableEmailTransmission = 0
 			logInDevlog = 0
+			renderInFe = 0
 		}
 	}
 }
