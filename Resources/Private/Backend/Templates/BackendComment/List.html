@@ -4,7 +4,7 @@
 
 
 <f:section name="content">
-	<h2><f:translate key="backendUserListing">Comments for post</f:translate> <em>{post.title}</em></h2>
+	<h2><f:translate key="backendUserListing">All comments for post</f:translate> <em>{post.title}</em></h2>
 
 	<f:if condition="{pendingComments}">
 		<div class="typo3-messages">
@@ -31,7 +31,7 @@
 
 
 <f:section name="iconButtons">
-	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_comment][0]=new'; return false;">
+	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][0]=new'; return false;">
 		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
 	</a>
 </f:section>

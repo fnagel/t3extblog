@@ -42,7 +42,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findAllValid() {
+	public function findValid() {
 		$query = $this->createQuery();
 
 		$query->matching(
@@ -56,14 +56,23 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 * Finds all comments for the given post
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param boolean $respectEnableFields
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findByPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function findByPost(Tx_T3extblog_Domain_Model_Post $post, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 
+		$constraints = array();
+		$constraints[] = $query->equals('postId', $post->getUid());
+
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			$constraints[] = $query->equals('deleted', '0');
+		}
+
 		$query->matching(
-			$query->equals('postId', $post->getUid())
+			$query->logicalAnd($constraints)
 		);
 
 		return $query->execute();
@@ -174,7 +183,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findAllPending() {
+	public function findPending() {
 		$query = $this->createQuery();
 
 		$query->matching(
@@ -191,7 +200,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findAllPendingByPage($pid = 0) {
+	public function findPendingByPage($pid = 0) {
 		$query = $this->createQuery();
 
 		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));

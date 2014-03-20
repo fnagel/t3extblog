@@ -20,12 +20,12 @@
 	<td>
 		<f:if condition="{comment.approved}">
 			<f:then>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][approved]=0&redirect={redirectUrl}" />">
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=0" />">
 					<t3extblog:spriteManagerIcon iconName="status-status-permission-granted" options="{title: 'Unapprove this comment'}" />
 				</a>
 			</f:then>
 			<f:else>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][approved]=1&redirect={redirectUrl}" />">
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=1" />">
 					<t3extblog:spriteManagerIcon iconName="status-status-permission-denied" options="{title: 'Approve this comment'}" />
 				</a>
 			</f:else>
@@ -34,12 +34,12 @@
 	<td>
 		<f:if condition="{comment.spam}">
 			<f:then>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][spam]=0&redirect={redirectUrl}" />">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-high" options="{title: 'Mark this comment as no spam'}" />
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=0" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-high" options="{title: 'Mark this comment as not spam'}" />
 				</a>
 			</f:then>
 			<f:else>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][spam]=1&redirect={redirectUrl}" />">
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=1" />">
 					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-low" options="{title: 'Mark this comment as spam'}" />
 				</a>
 			</f:else>
@@ -49,19 +49,19 @@
 		<a href="alt_doc.php?edit[tx_t3blog_com][{comment.uid}]=edit&returnUrl={returnUrl}">
 			<t3extblog:spriteManagerIcon iconName="actions-document-open" />
 		</a>
-		<f:if condition="{comment.disabled}">
+		<f:if condition="{comment.hidden}">
 			<f:then>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][disable]=0&redirect={redirectUrl}" />">
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=0" />">
 					<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
 				</a>
 			</f:then>
 			<f:else>
-				<a href="<t3extblog:issueCommand parameters="tce_db.php?&data[tx_t3blog_com][{comment.uid}][disable]=1&redirect={redirectUrl}" />">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hside'}" />
+				<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=1" />">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hide'}" />
 				</a>
 			</f:else>
 		</f:if>
-		<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+		<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1" />">
 			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" />
 		</a>
 	</td>

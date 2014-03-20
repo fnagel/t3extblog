@@ -34,6 +34,16 @@
 class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
+	 * @var boolean
+	 */
+	protected $hidden = TRUE;
+
+	/**
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
+	/**
 	 * title
 	 *
 	 * @var string
@@ -132,6 +142,34 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected function initStorageObjects() {
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
+	}
+
+	/**
+	 * @param boolean $deleted
+	 */
+	public function setDeleted($deleted) {
+		$this->deleted = $deleted;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * @param boolean $hidden
+	 */
+	public function setHidden($hidden) {
+		$this->hidden = $hidden;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getHidden() {
+		return $this->hidden;
 	}
 
 	/**

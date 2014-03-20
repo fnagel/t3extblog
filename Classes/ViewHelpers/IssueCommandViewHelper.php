@@ -46,13 +46,14 @@ class Tx_T3extblog_ViewHelpers_IssueCommandViewHelper extends Tx_Fluid_Core_View
 	public function render($parameters, $redirectUrl = '') {
 		$redirectUrl = $redirectUrl ? $redirectUrl : t3lib_div::getIndpEnv('REQUEST_URI');
 
-		return $GLOBALS['BACK_PATH'] .
+		return
+			$GLOBALS['BACK_PATH'] .
 			'tce_db.php?' . $parameters .
-			'&redirect=' . ($redirectUrl == '' ? "' + T3_THIS_LOCATION + '" : rawurlencode($redirectUrl)) .
 			'&vC=' . rawurlencode($GLOBALS['BE_USER']->veriCode()) .
 			t3lib_BEfunc::getUrlToken('tceAction') .
-			'&prErr=1&uPT=1';
-	}
+			'&prErr=1&uPT=1' .
+			'&redirect=' . ($redirectUrl == '' ? "' + T3_THIS_LOCATION + '" : rawurlencode($redirectUrl));
+		}
 }
 
 ?>

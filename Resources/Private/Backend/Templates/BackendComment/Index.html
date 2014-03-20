@@ -4,7 +4,17 @@
 
 
 <f:section name="content">
-	<h2><f:translate key="backendUserListing">All pending comments</f:translate></h2>
+	<h2>All pending comments</h2>
+
+	<f:if condition="{pendingComments}">
+		<div class="typo3-messages">
+			<div class="typo3-message message-information">
+				<div class="message-header">Pending comments</div>
+				<div class="message-body">{pendingComments -> f:count()} comments await moderation.</div>
+			</div>
+		</div>
+	</f:if>
+
 	<f:render
 		partial="Comment/Table"
 		arguments="{
@@ -16,10 +26,8 @@
 	/>
 </f:section>
 
-
-
 <f:section name="iconButtons">
-	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_comment][0]=new'; return false;">
+	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][0]=new'; return false;">
 		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
 	</a>
 </f:section>

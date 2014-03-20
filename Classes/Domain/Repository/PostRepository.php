@@ -41,13 +41,22 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 * Returns all objects of this repository
 	 *
 	 * @param integer $pid
+	 * @param boolean $respectEnableFields
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
 	 */
-	public function findAllByPage($pid = 0) {
+	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			$query->matching(
+				$query->equals('deleted', '0')
+			);
+		}
+
 		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
+
 
 		return $query->execute();
 	}

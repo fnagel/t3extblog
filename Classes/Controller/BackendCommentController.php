@@ -34,16 +34,16 @@
 class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Controller_BackendBaseController {
 
 	/**
-	 * Displays all pending comments
+	 * Displays all comments for a page
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('pendingComments', $this->commentRepository->findAllPendingByPage($this->pageId));
+		$this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
 	}
 
 	/**
-	 * Displays all pending comments for a post
+	 * Displays all comments for a post
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post
 	 *
@@ -52,7 +52,7 @@ class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Cont
 	public function listAction(Tx_T3extblog_Domain_Model_Post $post) {
 		$this->view->assignMultiple(array(
 			'post' => $this->postRepository->findOneByUid($post),
-			'comments' => $this->commentRepository->findByPost($post),
+			'comments' => $this->commentRepository->findByPost($post, FALSE),
 			'pendingComments' => $this->commentRepository->findPendingByPost($post)
 		));
 	}

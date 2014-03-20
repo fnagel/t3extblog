@@ -40,8 +40,8 @@ class Tx_T3extblog_Controller_BackendPostController extends Tx_T3extblog_Control
 	 */
 	public function indexAction() {
 		$this->view->assignMultiple(array(
-			'posts' => $this->postRepository->findAllByPage($this->pageId),
-			'pendingComments' => $this->commentRepository->findAllPendingByPage($this->pageId)
+			'posts' => $this->postRepository->findByPage($this->pageId, FALSE),
+			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId)
 		));
 	}
 

@@ -66,7 +66,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function listAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
 		if ($post === NULL) {
-			$comments = $this->commentRepository->findAllValid();
+			$comments = $this->commentRepository->findValid();
 		} else {
 			$comments = $this->commentRepository->findValidByPost($post);
 			$this->view->assign('post', $post);
