@@ -55,18 +55,23 @@ A lot of testing needs to be done. Help wanted!
 
 
 IN WORK
+* Make use of the Tce hook for comments
+* rework notifications to be scheduler based
 * Test comment and subscription process again
 * * if subscription emails are sent
 * * if subscription process works
 * * if un-subscribe process works
 
+BUGS
+* delete button deletes but without prompt in post view
+
 NEXT
 * Partial for flashMessage VH
+* More unit tests and functional tests
 * Documentation
+* better flexform configuration for plugins
 
 FEATURES
-* More unit tests and functional tests
-* Flexform configuration for plugins
 * Trackback / Pingback
 * Captcha implementation
 * Use EXT:vidi for BE modules (needs TYPO3 6.1)
