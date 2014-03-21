@@ -31,7 +31,7 @@
 
 
 <f:section name="iconButtons">
-	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][0]=new'; return false;">
+	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][{pageId}]=new&defVals[tx_t3blog_com][fk_post]={post.uid}'; return false;">
 		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
 	</a>
 </f:section>

@@ -112,6 +112,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
 		$this->view->assignMultiple(array(
+			'pageId' => $this->pageId,
 			'returnUrl' => urlencode('mod.php?M=web_T3extblogTxT3extblog&id=' . $this->pageId),
 			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
 			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
