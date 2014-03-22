@@ -86,11 +86,11 @@
 			<label index="tx_t3blog_blogroll.generalTab">Blogroll/link</label>
 			<label index="tx_t3blog_blogroll.additionalTab">Additional info</label>
 			<label index="tx_t3blog_blogroll.access">Access</label>
-			<label index="tx_t3blog_com_nl">Subscription information</label>
+			<label index="tx_t3blog_com_nl">Subscriber</label>
 			<label index="tx_t3blog_com_nl.name">User name:</label>
 			<label index="tx_t3blog_com_nl.email">E-mail:</label>
 			<label index="tx_t3blog_com_nl.post_uid">Subscribed to:</label>
-			<label index="tx_t3blog_com_nl.lastsent">Notification sent:</label>
+			<label index="tx_t3blog_com_nl.lastsent">Last sent:</label>
 			<label index="tx_t3blog_com_nl.code">Unsubscribe code:</label>
 		</languageKey>
 		<languageKey index="de" type="array">

@@ -140,6 +140,8 @@ $TCA['tx_t3blog_com'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
 		'label' => 'title',
+		'label_alt' => 'fk_post',
+		'label_alt_force' => TRUE,
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -161,16 +163,26 @@ $TCA['tx_t3blog_com'] = array(
 	)
 );
 
+t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com_nl');
 $TCA['tx_t3blog_com_nl'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
-		'label' => 'name',
+		'label' => 'email',
+		'label_alt' => 'post_uid',
+		'label_alt_force' => TRUE,
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'default_sortby' => 'ORDER BY email ASC',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
-			'disable' => 'deleted',
+			'disabled' => 'hidden',
 		),
-		'hideTable' => true,
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
+		'searchFields' => 'email,name',
+	),
+	'feInterface' => array(
+		'fe_admin_fieldList' => 'hidden, email, name, lastsent, post_uid, code',
 	)
 );
 

@@ -71,9 +71,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	protected $settings;
 
 	/**
-	 * @var Tx_Extbase_Property_PropertyMapper $propertyMapper
+	 * @var Tx_T3extblog_Service_EmailService $emailService
 	 */
-	protected $propertyMapper;
+	protected $emailService;
 
 	/**
 	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
@@ -129,10 +129,10 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	}
 
 	/**
-	 * @param Tx_Extbase_Property_PropertyMapper $propertyMapper
+	 * @param Tx_T3extblog_Service_EmailService $emailService
 	 */
-	public function injectPropertyMapper(Tx_Extbase_Property_PropertyMapper $propertyMapper) {
-		$this->propertyMapper = $propertyMapper;
+	public function injectEmailService(Tx_T3extblog_Service_EmailService $emailService) {
+		$this->emailService = $emailService;
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		}
 
 		if ($newComment->isValid()) {
-			$this->checkNewSubscription($newComment);
+			$this->processSubscription($newComment);
 			$this->notifySubscribers($newComment);
 		}
 	}
@@ -178,7 +178,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$comment = $this->commentRepository->findByUid($uid);
 
 		if ($comment->isValid()) {
-			$this->checkNewSubscription($comment);
+			$this->processSubscription($comment);
 			$this->notifySubscribers($comment);
 		}
 	}
@@ -190,8 +190,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	protected function checkNewSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
-		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] && $comment->getSubscribe()) {
+	protected function processSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
+		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] || !$comment->getSubscribe()) {
 			return;
 		}
 
@@ -202,25 +202,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			return;
 		}
 
-		$this->addSubscriber($comment);
-		$this->notifyNewSubscriber($comment);
-	}
-
-	/**
-	 * Send optin mail for new subscriber
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 *
-	 * @return void
-	 */
-	protected function notifyNewSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
-		$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
-		if ($subscriber === NULL) {
-			$this->log->dev("No subscriber found for new subscription mail.");
-			return;
-		}
-
-		$this->sendNewSubscriptionMail($subscriber);
+		$newSuscriber = $this->addSubscriber($comment);
+		$this->sendSubscriptionMail($newSuscriber);
 	}
 
 	/**
@@ -230,7 +213,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	protected function sendNewSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+	protected function sendSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
 		$this->log->dev("Send subscriber optin mail.");
 
 		$post = $subscriber->getPost();
@@ -242,15 +225,15 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			'subscriber' => $subscriber,
 			'subject' => $subject
 		);
-		$emailBody = $this->renderEmailTemplate($variables, "SubscriberOptinMail.txt");
+		$emailBody = $this->emailService->render($variables, "SubscriberOptinMail.txt");
 
-		$this->sendEmail(
+		$this->emailService->send(
 			$subscriber->getMailTo(),
 			$this->settings['subscriptionManager']['subscriber']['mailFrom'],
 			$subject,
 			$emailBody
 		);
-	}
+		}
 
 	/**
 	 * Send
@@ -284,16 +267,20 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
 		if ($settings['enableNewCommentNotifications']) {
-			/* @var $post Tx_T3extblog_Domain_Model_Post */
-			$post = $comment->getPost();
 			$this->log->dev("Send subscriber notification mails.");
 
+			/* @var $post Tx_T3extblog_Domain_Model_Post */
+			$post = $comment->getPost();
 			$subscribers = $this->subscriberRepository->findForNotification($post);
-
 			$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
 
 			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 			foreach ($subscribers as $subscriber) {
+				// make sure we do not notify the author of the triggering comment
+				if ($comment->getEmail() === $subscriber->getEmail()) {
+					continue;
+				}
+
 				$subscriber->updateAuth();
 
 				$variables = array(
@@ -302,9 +289,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 					'subscriber' => $subscriber,
 					'subject' => $subject
 				);
-				$emailBody = $this->renderEmailTemplate($variables, 'SubscriberNewCommentMail.txt');
+				$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
 
-				$this->sendEmail($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
+				$this->emailService->send($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
 			}
 		}
 	}
@@ -332,96 +319,15 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 				'comment' => $comment,
 				'subject' => $subject
 			);
-			$emailBody = $this->renderEmailTemplate($variables, $emailTemplate);
+			$emailBody = $this->emailService->render($variables, $emailTemplate);
 
-			$this->sendEmail(
+			$this->emailService->send(
 				array($settings['mailTo']['email'] => $settings['mailTo']['name']),
 				array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
 				$subject,
 				$emailBody
 			);
 		}
-	}
-
-	/**
-	 * This is the main-function for sending Mails
-	 *
-	 * @param array  $mailTo
-	 * @param array  $mailFrom
-	 * @param string $subject
-	 * @param string $emailBody
-	 *
-	 * @return integer the number of recipients who were accepted for delivery
-	 */
-	protected function sendEmail($mailTo, $mailFrom, $subject, $emailBody) {
-		$logData = array(
-			'mailTo' => $mailTo,
-			'mailFrom' => $mailFrom,
-			'subject' => $subject,
-			'emailBody' => $emailBody
-		);
-
-		if (!($mailTo && is_array($mailTo) && t3lib_div::validEmail(key($mailTo)))) {
-			$this->log->error("Given mailto email address is invalid.", $logData);
-			return FALSE;
-		}
-
-		if (!($mailFrom && is_array($mailFrom) && t3lib_div::validEmail(key($mailFrom)))) {
-			$mailFrom = t3lib_utility_Mail::getSystemFrom();
-		}
-
-		$message = t3lib_div::makeInstance('t3lib_mail_Message');
-		/* @var $message t3lib_mail_Message */
-		$message
-			->setTo($mailTo)
-			->setFrom($mailFrom)
-			->setSubject($subject)
-			->setCharset($GLOBALS['TSFE']->metaCharset)
-			->setBody($emailBody, 'text/html')
-			->addPart(strip_tags($emailBody), 'text/plain');
-
-		if (!$this->settings["debug"]["disableEmailTransmission"]) {
-			$message->send();
-		}
-		$isSent = $message->isSent();
-
-		$logData['isSent'] = $isSent;
-		$this->log->dev("Email sent.", $logData);
-
-		return $isSent;
-	}
-
-	/**
-	 * This functions renders template to use in Mails and Other views
-	 *
-	 * @param array  $variables Arguments for template
-	 * @param string $templateFile Choose a template (web or mail)
-	 * @param string $templateDirectory Template directory
-	 */
-	protected function renderEmailTemplate($variables, $templateFile = "Default.txt", $templateDirectory = "Email/") {
-		$frameworkConfig = $this->settingsService->getFrameworkSettings();
-		$templateRootPath = t3lib_div::getFileAbsFileName($frameworkConfig['view']['templateRootPath']);
-		$templatePathAndFilename = $templateRootPath . $templateDirectory . $templateFile;
-
-		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
-
-		$emailView->getRequest()->setPluginName('');
-		$emailView->getRequest()->setControllerName('');
-		$emailView->getRequest()->setControllerExtensionName('T3extblog');
-
-		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['view']['layoutRootPath']));
-		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
-		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['view']['partialRootPath']));
-		$emailView->setFormat('txt');
-
-		$emailView->assignMultiple($variables);
-		$emailView->assignMultiple(array(
-			'timestamp' => $GLOBALS['EXEC_TIME'],
-			'domain' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'),
-			'settings' => $this->settings
-		));
-
-		return $emailView->render();
 	}
 
 	/**
