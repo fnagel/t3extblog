@@ -2,18 +2,17 @@ Hello {subscriber.name},
 
 a new comment was posted on '{post.title}' at {settings.blogName}.
 
-See the comment:
-<f:uri.action
-	pluginName="Blogsystem"
-	controller="Post"
-	action="show"
-	pageUid="{settings.blogsystem.pid}"
-	absolute="true"
-	arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
-	section="comment_{comment.uid}" />
 
+See the comment: <f:uri.action
+					pluginName="Blogsystem"
+					controller="Post"
+					action="show"
+					pageUid="{settings.blogsystem.pid}"
+					absolute="true"
+					arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
+					section="comment_{comment.uid}" />
 
-You can manage your subscription by clicking this link:
+You can manage your subscription by using this link:
 <f:uri.action 
 	pluginName="SubscriptionManager" 
 	controller="Subscriber" 
