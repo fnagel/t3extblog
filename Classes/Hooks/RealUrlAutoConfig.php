@@ -120,7 +120,14 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						),
 					),
 
-					'subscription-code' => array(
+					'subscription' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_subscriptionmanager[action]',
+							'valueMap' => array(
+								'confirmation' => 'confirm',
+							),
+							'noMatch' => 'bypass',
+						),
 						array(
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[code]',
 						),
