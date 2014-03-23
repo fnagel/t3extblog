@@ -26,13 +26,12 @@
 
 /**
  * Handles all notification mails
- * Configured by TYPO3 core log level
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
+class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_NotificationServiceInterface, t3lib_Singleton {
 
 	/**
 	 * @var Tx_Extbase_Object_ObjectManagerInterface
@@ -146,7 +145,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid
+	 * @param integer $uid Comment uid
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
@@ -167,9 +166,9 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 
 	/**
 	 * Process changed status of a comment
+	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid
-	 * @param boolean $notifyAdmin
+	 * @param integer $uid Comment uid
 	 *
 	 * @return void
 	 */
@@ -203,7 +202,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 		}
 
 		$newSuscriber = $this->addSubscriber($comment);
-		$this->sendSubscriptionMail($newSuscriber);
+		$this->sendOptInMail($newSuscriber);
 	}
 
 	/**
@@ -213,8 +212,8 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	 *
 	 * @return void
 	 */
-	protected function sendSubscriptionMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
-		$this->log->dev("Send subscriber optin mail.");
+	protected function sendOptInMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+		$this->log->dev("Send subscriber opt-in mail.");
 
 		$post = $subscriber->getPost();
 		$subscriber->updateAuth();
@@ -233,7 +232,7 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 			$subject,
 			$emailBody
 		);
-		}
+	}
 
 	/**
 	 * Send
@@ -266,33 +265,35 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	protected function notifySubscribers(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
-		if ($settings['enableNewCommentNotifications']) {
-			$this->log->dev("Send subscriber notification mails.");
+		if (!$settings['enableNewCommentNotifications']) {
+			return;
+		}
 
-			/* @var $post Tx_T3extblog_Domain_Model_Post */
-			$post = $comment->getPost();
-			$subscribers = $this->subscriberRepository->findForNotification($post);
-			$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
+		$this->log->dev("Send subscriber notification mails.");
 
-			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
-			foreach ($subscribers as $subscriber) {
-				// make sure we do not notify the author of the triggering comment
-				if ($comment->getEmail() === $subscriber->getEmail()) {
-					continue;
-				}
+		/* @var $post Tx_T3extblog_Domain_Model_Post */
+		$post = $comment->getPost();
+		$subscribers = $this->subscriberRepository->findForNotification($post);
+		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
 
-				$subscriber->updateAuth();
-
-				$variables = array(
-					'post' => $post,
-					'comment' => $comment,
-					'subscriber' => $subscriber,
-					'subject' => $subject
-				);
-				$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
-
-				$this->emailService->send($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
+		/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
+		foreach ($subscribers as $subscriber) {
+			// make sure we do not notify the author of the triggering comment
+			if ($comment->getEmail() === $subscriber->getEmail()) {
+				continue;
 			}
+
+			$subscriber->updateAuth();
+
+			$variables = array(
+				'post' => $post,
+				'comment' => $comment,
+				'subscriber' => $subscriber,
+				'subject' => $subject
+			);
+			$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
+
+			$this->emailService->send($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
 		}
 	}
 
@@ -307,27 +308,33 @@ class Tx_T3extblog_Service_NotificationService implements t3lib_Singleton {
 	protected function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment, $emailTemplate = "AdminNewCommentMail.txt") {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
-		if ($settings['enable'] && is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0) {
-			/* @var $post Tx_T3extblog_Domain_Model_Post */
-			$post = $comment->getPost();
-			$this->log->dev('Send admin notification mail.');
-
-			$subject = $this->translate('subject.admin.newSubscription', $post->getTitle());
-
-			$variables = array(
-				'post' => $post,
-				'comment' => $comment,
-				'subject' => $subject
-			);
-			$emailBody = $this->emailService->render($variables, $emailTemplate);
-
-			$this->emailService->send(
-				array($settings['mailTo']['email'] => $settings['mailTo']['name']),
-				array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
-				$subject,
-				$emailBody
-			);
+		if (!$settings['enable']) {
+			return;
 		}
+
+		if (!(is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0)) {
+			$this->log->error('No admin email configured.', $settings['mailTo']);
+			return;
+		}
+
+		$this->log->dev('Send admin notification mail.');
+
+		/* @var $post Tx_T3extblog_Domain_Model_Post */
+		$post = $comment->getPost();
+		$subject = $this->translate('subject.admin.newSubscription', $post->getTitle());
+		$variables = array(
+			'post' => $post,
+			'comment' => $comment,
+			'subject' => $subject
+		);
+		$emailBody = $this->emailService->render($variables, $emailTemplate);
+
+		$this->emailService->send(
+			array($settings['mailTo']['email'] => $settings['mailTo']['name']),
+			array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
+			$subject,
+			$emailBody
+		);
 	}
 
 	/**
