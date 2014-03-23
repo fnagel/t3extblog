@@ -31,7 +31,9 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Service_FrontendUserService {
+class Tx_T3extblog_Service_SessionService implements Tx_T3extblog_Service_SessionServiceInterface {
+
+	CONST SESSION_DATA_KEY = 'subscription_session';
 
 	/**
 	 * Logging Service
@@ -54,25 +56,9 @@ class Tx_T3extblog_Service_FrontendUserService {
 	/**
 	 * __construct
 	 *
-	 * @return void
 	 */
 	public function __construct() {
 		$this->frontendUser = $GLOBALS['TSFE']->fe_user;
-	}
-
-	/**
-	 *
-	 * @return boolean
-	 */
-	public function hasAuth() {
-		return $this->restoreFromSession("auth");
-	}
-
-	/**
-	 *
-	 */
-	public function authValid() {
-		$this->writeToSession("auth", TRUE);
 	}
 
 	/**
@@ -82,12 +68,12 @@ class Tx_T3extblog_Service_FrontendUserService {
 	 * @return void
 	 */
 	public function setData($data) {
-		$oldData = $this->restoreFromSession("data");
+		$oldData = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
 		if (is_array($oldData)) {
-			$this->writeToSession("data", array_merge($oldData, $data));
+			$this->writeToSession(self::SESSION_DATA_KEY, array_merge($oldData, $data));
 		} else {
-			$this->writeToSession("data", $data);
+			$this->writeToSession(self::SESSION_DATA_KEY, $data);
 		}
 	}
 
@@ -96,15 +82,25 @@ class Tx_T3extblog_Service_FrontendUserService {
 	 * @return array
 	 */
 	public function getData() {
-		return $this->restoreFromSession("data");
+		return $this->restoreFromSession(self::SESSION_DATA_KEY);
 	}
 
 	/**
 	 *
 	 * @return array
 	 */
+	public function removeData() {
+		$this->writeToSession(self::SESSION_DATA_KEY, '');
+	}
+
+	/**
+	 *
+	 * @param string $key
+	 *
+	 * @return array
+	 */
 	public function getDataByKey($key) {
-		$data = $this->restoreFromSession("data");
+		$data = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
 		if (is_array($data) && $data[$key]) {
 			return $data[$key];

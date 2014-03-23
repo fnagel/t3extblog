@@ -175,3 +175,10 @@ plugin.tx_t3extblog {
 		}
 	}
 }
+
+# localize date format, used within the fluid templates
+lib.tx_t3extblog.date = TEXT
+lib.tx_t3extblog.date {
+	current = 1
+	strftime = %d. %B %Y
+}

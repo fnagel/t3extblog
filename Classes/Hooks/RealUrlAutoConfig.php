@@ -125,6 +125,9 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[action]',
 							'valueMap' => array(
 								'confirmation' => 'confirm',
+								'delete' => 'delete',
+								'error' => 'error',
+								'logout' => 'logout',
 							),
 							'noMatch' => 'bypass',
 						),

@@ -59,10 +59,10 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	/**
 	 * feUserService
 	 *
-	 * @var Tx_T3extblog_Service_FrontendUserService
+	 * @var Tx_T3extblog_Service_AuthenticationServiceInterface
 	 * @inject
 	 */
-	protected $feUserService;
+	protected $authentication;
 
 	/**
 	 * objectManager
@@ -80,7 +80,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	public function listAction() {
 		$this->checkAuth();
 
-		$email = $this->subscriber->getEmail();
+		$email = $this->authentication->getEmail();
 		$subscribers = $this->subscriberRepository->findByEmail($email);
 
 		$this->view->assign('email', $email);
@@ -124,6 +124,15 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	}
 
 	/**
+	 * Invalidates the auth and redirects user
+	 *
+	 * @return void
+	 */
+	protected function logoutAction() {
+		$this->invalidAuth('Logout', t3lib_FlashMessage::NOTICE);
+	}
+
+	/**
 	 * Error action
 	 *
 	 * @return void
@@ -134,72 +143,95 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	/**
 	 * Checks if auth needed
 	 *
+	 * @param boolean $doNotSearchHidden
+	 *
 	 * @return void
 	 */
-	private function checkAuth($doNotSearchHidden = TRUE) {
-		if ($this->feUserService->hasAuth()) {
-			$this->subscriber = $this->subscriberRepository->findByUid($this->feUserService->getDataByKey("subscriber_uid"));
+	protected function checkAuth($doNotSearchHidden = TRUE) {
+		if ($this->hasCodeArgument()) {
+			$code = $this->getAuthCode();
+
+			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
+			$this->subscriber = $this->getSubscriberByCode($code, $doNotSearchHidden);
+			$this->authentication->login($this->subscriber->getUid(), $this->subscriber->getEmail());
+
 			return;
 		}
 
-		$this->checkAuthArgument();
-		$this->checkAuthCode($doNotSearchHidden);
-		$this->authorize();
-	}
+		if ($this->authentication->isValid()) {
+			$this->subscriber = $this->subscriberRepository->findByUid($this->authentication->getUid());
 
-	/**
-	 * Checks if auth code is available
-	 *
-	 * @return void
-	 */
-	private function checkAuthArgument() {
-		if (!$this->request->hasArgument("code")) {
-			$this->addFlashMessage('AuthNeeded', t3lib_FlashMessage::NOTICE);
-			$this->redirect("error");
+			if ($this->subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
+				return;
+			}
 		}
 
-		$code = $this->request->getArgument("code");
-		if (strlen($code) < 32 && ctype_alnum($code)) {
-			$this->addFlashMessage('WrongLink', t3lib_FlashMessage::ERROR);
-			$this->redirect("error");
-		}
+		$this->invalidAuth();
 	}
 
 	/**
-	 * Checks if auth code is available
+	 * Redirects user when no auth was possible
+	 *
+	 * @param string $message Flash message key
+	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
 	 *
 	 * @return void
 	 */
-	private function authorize() {
-		$this->feUserService->authValid();
-		$this->feUserService->setData(array(
-			"subscriber_email" => $this->subscriber->getEmail(),
-			"subscriber_uid" => $this->subscriber->getUid()
-		));
+	protected function invalidAuth($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
+		$this->authentication->logout();
+
+		$this->addFlashMessage($message, $severity );
+		$this->redirect("error");
 	}
 
 	/**
-	 * Checks the given email and code, auth user if valid
+	 * Gets a subscriber by code
 	 *
-	 * @param string  $code The hash code to be verified
-	 * @param boolean $enableFields
+	 * @param string    $code
+	 * @param bool      $doNotSearchHidden
 	 *
-	 * @return void
+	 * @return object
 	 */
-	private function checkAuthCode($enableFields) {
-		$subscriber = $this->subscriberRepository->findByCode($this->request->getArgument("code"), $enableFields);
+	protected function getSubscriberByCode($code, $doNotSearchHidden = TRUE) {
+		$subscriber = $this->subscriberRepository->findByCode($code, $doNotSearchHidden);
+
 		if ($subscriber === NULL) {
-			$this->addFlashMessage('AuthFailed', t3lib_FlashMessage::ERROR);
-			$this->redirect("error");
+			$this->invalidAuth('AuthFailed');
 		}
 
 		// todo: needs testing
 		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
-			$this->addFlashMessage('LinkOutdated', t3lib_FlashMessage::ERROR);
-			$this->redirect("error");
+			$this->invalidAuth('LinkOutdated');
 		}
 
-		$this->subscriber = $subscriber;
+		return $subscriber;
+	}
+
+	/**
+	 * If the request has argument 'code'
+	 *
+	 * @return string
+	 */
+	protected function hasCodeArgument() {
+		if ($this->request->hasArgument("code") && strlen($this->request->getArgument("code")) > 0) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+	/**
+	 * Checks the code
+	 *
+	 * @return string
+	 */
+	protected function getAuthCode() {
+		$code = $this->request->getArgument("code");
+
+		if (strlen($code) !== 32 && !ctype_alnum($code)) {
+			$this->invalidAuth('WrongLink');
+		}
+
+		return $code;
 	}
 
 }

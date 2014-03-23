@@ -5,15 +5,13 @@ plugin.tx_t3extblog {
 	}
 }
 
-# localize date format, used within the fluid templates
-lib.tx_t3extblog.date = TEXT
-lib.tx_t3extblog.date {
-	current = 1
-	strftime = %d. %B %Y
-}
-
 # table & field mapping
-config.tx_extbase{
+config.tx_extbase {
+	objects {
+		Tx_T3extblog_Service_SessionServiceInterface.className = Tx_T3extblog_Service_SessionService
+		Tx_T3extblog_Service_AuthenticationServiceInterface.className = Tx_T3extblog_Service_AuthenticationService
+	}
+
     persistence{
         classes{
             Tx_T3extblog_Domain_Model_Post {
