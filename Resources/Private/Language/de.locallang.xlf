@@ -54,7 +54,10 @@
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
-				<target>Liste der Benachrichtigungen für:</target>
+				<target>Liste der Benachrichtigungen</target>
+			</trans-unit>
+			<trans-unit id="subscriber.logout">
+				<target>Abmelden</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
 				<target>Blogpost</target>
@@ -72,12 +75,9 @@
 				<target>ungeprüft</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.delete">
-				<target>Benachrichtigung löschen</target>
+				<target>Löschen</target>
 			</trans-unit>
 
-			<trans-unit id="error.headline">
-				<target>Fehler:</target>
-			</trans-unit>
 			<trans-unit id="error.comment.createAction">
 				<target>Fehler:</target>
 			</trans-unit>
@@ -111,6 +111,13 @@
 			</trans-unit>
 			<trans-unit id="subject.subscriber.new">
 				<target>%1$s: Abbonieren von '%2$s'</target>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed.title">
+				<target>Benachrichtigung bestätigt!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed">
+				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommenater geposted wurden.</target>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.comment.createAction.Created.title">

@@ -54,7 +54,10 @@
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
-				<source>Listing for subscriber:</source>
+				<source>Listing of subscriptions</source>
+			</trans-unit>
+			<trans-unit id="subscriber.logout">
+				<source>Logout</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
 				<source>Blogpost</source>
@@ -72,12 +75,9 @@
 				<source>awaiting moderation</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.delete">
-				<source>Delete subscription</source>
+				<source>Delete</source>
 			</trans-unit>
 
-			<trans-unit id="error.headline">
-				<source>Error:</source>
-			</trans-unit>
 			<trans-unit id="error.comment.createAction">
 				<source>Error:</source>
 			</trans-unit>
@@ -90,6 +90,19 @@
 			</trans-unit>
 			<trans-unit id="subject.subscriber.new">
 				<source>%1$s: Subscribe to '%2$s'</source>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed.title">
+				<source>Subscription confirmed!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed">
+				<source>Thank! Your subscription has been confirmed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.deleteAction.Deleted.title">
+				<source>Subscription deleted!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.deleteAction.Deleted">
+				<source>Your subscription has been deleted.</source>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.comment.createAction.Created.title">

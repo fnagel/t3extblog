@@ -3,36 +3,48 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h2><f:translate key="subscriber.headline" /> {email}</h2>
 
-<t3b:flashMessages />
+	<t3b:frontend.flashMessages />
 
-<table class="table table-striped" >
-	<tr>
-		<th><f:translate key="subscriber.table.header.post" /></th>
-		<th><f:translate key="subscriber.table.header.name" /></th>
-		<th><f:translate key="subscriber.table.header.comments" /></th>
-		<th></th>
-	</tr>
+	<h2><f:translate key="subscriber.headline" /></h2>
 
-	<f:for each="{subscribers}" as="subscriber">
+	<div class="clearfix">
+		<f:link.action class="btn btn-info pull-right" action="logout">
+			<i class="icon-unlock-alt"></i>
+			<f:translate key="subscriber.logout" />
+		</f:link.action>
+	</div>
+
+	<table class="table table-bordered table-striped" >
+		<caption><f:translate key="subscriber.headline" />: {email}</caption>
+
 		<tr>
-			<td>
-				<f:link.action controller="Post" action="show" arguments="{subscriber.post.linkParameter}">{subscriber.post.title}</f:link.action>
-			</td>
-			<td>{subscriber.name}</td>
-			<td>
-				<f:count>{subscriber.postComments}</f:count> <f:translate key="subscriber.table.approved" /><br />
-				<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
-			</td>
-			<td>
-				<f:link.action class="btn" action="delete" arguments="{subscriber : subscriber}">
-					<i class="icon-trash"></i>
-					<f:translate key="subscriber.table.delete" />
-				</f:link.action>
-			</td>
+			<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
+			<th style="width: 28%;"><f:translate key="subscriber.table.header.name" /></th>
+			<th style="width: 10%;"><f:translate key="subscriber.table.header.comments" /></th>
+			<th style="width: 12%;"></th>
 		</tr>
-	</f:for>
-</table>
+
+		<f:for each="{subscribers}" as="subscriber">
+			<tr>
+				<td>
+					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{subscriber.post.linkParameter}">
+						{subscriber.post.title}
+					</f:link.action>
+				</td>
+				<td>{subscriber.name}</td>
+				<td>
+					<f:count>{subscriber.postComments}</f:count> <f:translate key="subscriber.table.approved" /><br />
+					<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
+				</td>
+				<td>
+					<f:link.action class="btn btn-danger" action="delete" arguments="{subscriber : subscriber}">
+						<i class="icon-trash"></i>
+						<f:translate key="subscriber.table.delete" />
+					</f:link.action>
+				</td>
+			</tr>
+		</f:for>
+	</table>
 
 </f:section>
