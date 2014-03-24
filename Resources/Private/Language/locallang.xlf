@@ -60,7 +60,7 @@
 				<source>Logout</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
-				<source>Blogpost</source>
+				<source>Article</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.name">
 				<source>Name</source>

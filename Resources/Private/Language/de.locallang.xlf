@@ -60,13 +60,13 @@
 				<target>Abmelden</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
-				<target>Blogpost</target>
+				<target>Artikel</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.name">
 				<target>Name</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.comments">
-				<target>Comments</target>
+				<target>Kommentare</target>
 			</trans-unit>
 			<trans-unit id="subscriber.table.approved">
 				<target>akzeptiert</target>
