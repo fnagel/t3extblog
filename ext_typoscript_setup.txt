@@ -11,6 +11,8 @@ config.tx_extbase {
 		Tx_T3extblog_Service_SessionServiceInterface.className = Tx_T3extblog_Service_SessionService
 		Tx_T3extblog_Service_AuthenticationServiceInterface.className = Tx_T3extblog_Service_AuthenticationService
 		Tx_T3extblog_Service_NotificationServiceInterface.className = Tx_T3extblog_Service_NotificationService
+		Tx_T3extblog_Service_SpamCheckServiceInterface.className = Tx_T3extblog_Service_SpamCheckService
+		Tx_T3extblog_Service_LoggingServiceInterface.className = Tx_T3extblog_Service_LoggingService
 	}
 
     persistence{

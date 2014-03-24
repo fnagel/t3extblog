@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
+class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_LoggingServiceInterface, t3lib_Singleton {
 
 	/**
 	 * The extension key
@@ -89,7 +89,6 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 		$this->renderInFe = $this->settings['debug']['renderInFe'];
 	}
 
-
 	/**
 	 * Error logging
 	 *
@@ -116,7 +115,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @param string $msg Message
 	 * @param array  $data Data
 	 *
-	 * @return    void
+	 * @return void
 	 */
 	public function notice($msg, $data = array()) {
 		$this->writeToSysLog($msg, 1);
@@ -136,7 +135,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @param string $msg Message
 	 * @param array  $data Data
 	 *
-	 * @return    void
+	 * @return void
 	 */
 	public function dev($msg, $data = array()) {
 		if ($this->renderInFe) {
@@ -158,7 +157,7 @@ class Tx_T3extblog_Service_LoggingService implements t3lib_Singleton {
 	 * @return void
 	 */
 	protected function outputDebug($msg, $severity = 0, $data = array()) {
-		Tx_Extbase_Utility_Debugger::var_dump($data, $msg);
+		Tx_Extbase_Utility_Debugger::var_dump($data, '[' . $severity . '] ' . $msg);
 	}
 
 	/**

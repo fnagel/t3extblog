@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Service_SpamCheckService {
+class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_SpamCheckServiceInterface {
 
 	/**
 	 * Logging Service
