@@ -41,12 +41,11 @@ interface Tx_T3extblog_Service_AuthenticationServiceInterface {
 
 	/**
 	 *
-	 * @param string $identifier
 	 * @param string $email
 	 *
 	 * @return boolean
 	 */
-	public function login($identifier, $email);
+	public function login($email);
 
 	/**
 	 *
@@ -60,13 +59,6 @@ interface Tx_T3extblog_Service_AuthenticationServiceInterface {
 	 * @return string
 	 */
 	public function getEmail();
-
-	/**
-	 * Returns uid of the subscriber object
-	 *
-	 * @return integer
-	 */
-	public function getUid();
 
 }
 

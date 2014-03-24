@@ -63,7 +63,7 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 	 * @return boolean
 	 */
 	public function isValid() {
-		if ($this->getEmail() && $this->getUid()) {
+		if ($this->getEmail()) {
 			return TRUE;
 		}
 
@@ -72,15 +72,13 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 
 	/**
 	 *
-	 * @param int $uid Uid of the subscriber object
 	 * @param string $email
 	 *
 	 * @return boolean
 	 */
-	public function login($uid, $email) {
+	public function login($email) {
 		$this->session->setData(
 			array(
-				'uid' => $uid,
 				'email' => $email
 			)
 		);
@@ -113,25 +111,6 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 		}
 
 		return $data['email'];
-	}
-
-	/**
-	 * Returns uid of the subscriber object
-	 *
-	 * @return integer
-	 */
-	public function getUid() {
-		$data = $this->getData();
-
-		if (!array_key_exists('uid', $data)) {
-			return FALSE;
-		}
-
-		if (intval($data['uid']) <= 0) {
-			return FALSE;
-		}
-
-		return intval($data['uid']);
 	}
 
 	/**

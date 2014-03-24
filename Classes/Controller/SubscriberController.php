@@ -42,19 +42,11 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected $subscriberRepository;
 
 	/**
-	 * subscriberRepository
+	 * subscriber
 	 *
 	 * @var Tx_T3extblog_Domain_Model_Subscriber
 	 */
 	protected $subscriber = NULL;
-
-	/**
-	 * postRepository
-	 *
-	 * @var Tx_T3extblog_Domain_Repository_PostRepository
-	 * @inject
-	 */
-	protected $postRepository;
 
 	/**
 	 * feUserService
@@ -90,10 +82,15 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	/**
 	 * action confirm
 	 *
+	 * @throws Tx_Extbase_MVC_Exception
 	 * @return void
 	 */
 	public function confirmAction() {
 		$this->checkAuth($doNotSearchHidden = FALSE);
+
+		if ($this->subscriber === NULL) {
+			throw new Tx_Extbase_MVC_Exception('No authenticated subscriber given.');
+		}
 
 		$this->subscriber->_setProperty("hidden", FALSE);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
@@ -107,13 +104,14 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
 	 *
+	 * @throws Tx_Extbase_MVC_Exception_InvalidArgumentValue
 	 * @return void
 	 */
 	public function deleteAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber = NULL) {
 		$this->checkAuth();
 
 		if ($subscriber === NULL) {
-			$subscriber = $this->subscriber;
+			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue('No subscriber given.');
 		}
 
 		$this->subscriberRepository->remove($subscriber);
@@ -152,18 +150,14 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 			$code = $this->getAuthCode();
 
 			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
-			$this->subscriber = $this->getSubscriberByCode($code, $doNotSearchHidden);
-			$this->authentication->login($this->subscriber->getUid(), $this->subscriber->getEmail());
+			$subscriber = $this->getSubscriberByCode($code, $doNotSearchHidden);
+			$this->authentication->login($subscriber->getEmail());
 
 			return;
 		}
 
 		if ($this->authentication->isValid()) {
-			$this->subscriber = $this->subscriberRepository->findByUid($this->authentication->getUid());
-
-			if ($this->subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
-				return;
-			}
+			return;
 		}
 
 		$this->invalidAuth();
