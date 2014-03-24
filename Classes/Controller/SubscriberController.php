@@ -139,7 +139,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	}
 
 	/**
-	 * Checks if auth needed
+	 * Check and get authentication
 	 *
 	 * @param boolean $doNotSearchHidden
 	 *
@@ -148,12 +148,10 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected function checkAuth($doNotSearchHidden = TRUE) {
 		if ($this->hasCodeArgument()) {
 			$code = $this->getAuthCode();
-
 			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 			$subscriber = $this->getSubscriberByCode($code, $doNotSearchHidden);
-			$this->authentication->login($subscriber->getEmail());
 
-			return;
+			$this->authentication->login($subscriber->getEmail());
 		}
 
 		if ($this->authentication->isValid()) {
@@ -221,7 +219,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected function getAuthCode() {
 		$code = $this->request->getArgument("code");
 
-		if (strlen($code) !== 32 && !ctype_alnum($code)) {
+		if (strlen($code) !== 32 || !ctype_alnum($code)) {
 			$this->invalidAuth('WrongLink');
 		}
 
