@@ -185,13 +185,13 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return object
 	 */
 	protected function getSubscriberByCode($code, $doNotSearchHidden = TRUE) {
+		/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
 		$subscriber = $this->subscriberRepository->findByCode($code, $doNotSearchHidden);
 
 		if ($subscriber === NULL) {
 			$this->invalidAuth('AuthFailed');
 		}
 
-		// todo: needs testing
 		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
 			$this->invalidAuth('LinkOutdated');
 		}
