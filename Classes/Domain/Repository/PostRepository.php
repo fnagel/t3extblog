@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
 
 	protected $defaultOrderings = array(
 		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
@@ -46,7 +46,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
 	 */
 	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
-		$query = $this->createQuery();
+		$query = $this->createQuery(intval($pid));
 
 		if ($respectEnableFields === FALSE) {
 			$query->getQuerySettings()->setRespectEnableFields(FALSE);
@@ -54,9 +54,6 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_Extbase_Persisten
 				$query->equals('deleted', '0')
 			);
 		}
-
-		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
-
 
 		return $query->execute();
 	}

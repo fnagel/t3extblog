@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
 
 	protected $defaultOrderings = array(
 		'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
@@ -201,9 +201,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_Extbase_Persis
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findPendingByPage($pid = 0) {
-		$query = $this->createQuery();
-
-		$query->getQuerySettings()->setStoragePageIds(array(intval($pid)));
+		$query = $this->createQuery(intval($pid));
 
 		$query->matching(
 			$this->getPendingConstraints($query)

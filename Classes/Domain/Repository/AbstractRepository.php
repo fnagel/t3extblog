@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -31,13 +31,38 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_CategoryRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
 
-	protected $defaultOrderings = array(
-		'name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
-		'sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
-	);
+	/**
+	 * @var integer
+	 **/
+	protected $pageUid = NULL;
 
+	/**
+	 * @param null $pageUid
+	 *
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 */
+	public function createQuery($pageUid = NULL) {
+		$query = parent::createQuery();
+
+		if($pageUid !== NULL) {
+			$this->setPid($pageUid);
+		}
+
+		if($this->pageUid !== NULL) {
+			$query->getQuerySettings()->setStoragePageIds(array($this->pageUid));
+		}
+
+		return $query;
+	}
+
+	/**
+	 * @param $uid Page uid
+	 */
+	public function setPid($uid) {
+		$this->pageUid = $uid;
+	}
 }
 
 ?>
