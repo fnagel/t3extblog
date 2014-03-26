@@ -140,12 +140,13 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays one single post
 	 *
+	 * @ignorevalidation $newComment
+	 * @dontvalidate $newComment
+	 *
 	 * @param Tx_T3extblog_Domain_Model_Post    $post The post to display
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
 	 *
 	 * @return void
-	 * @ignorevalidation $newComment
-	 * @dontvalidate $newComment
 	 */
 	public function showAction(Tx_T3extblog_Domain_Model_Post $post = NULL, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
 		if ($post === NULL) {
@@ -159,7 +160,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		}
 
 		// @todo: This will not work as this action is cached
-		$post->riseNumberOfViews();
+        // $post->riseNumberOfViews();
 
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);
