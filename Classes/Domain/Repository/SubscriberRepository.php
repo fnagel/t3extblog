@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
 
 	/**
 	 *
@@ -51,27 +51,34 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 	}
 
 	/**
+	 * Searchs for already registered subscriptions
 	 *
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param integer $postUid
+	 * @param string $email
+	 * @param integer $excludeUid
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
-	public function findExistingSubscriptions(Tx_T3extblog_Domain_Model_Comment $comment) {
+	public function findExistingSubscriptions($postUid, $email, $excludeUid = NULL) {
 		$query = $this->createQuery();
+		$constraints =	array();
+
+		$constraints[] = $query->equals('postUid', $postUid);
+		$constraints[] = $query->equals('email', $email);
+
+		if ($excludeUid !== NULL) {
+			$constraints[] = $query->logicalNot($query->equals('uid', intval($excludeUid)));
+		}
 
 		$query->matching(
-			$query->logicalAnd(
-				$query->equals('email', $comment->getEmail()),
-				$query->equals('postUid', $comment->getPostId())
-			)
+			$query->logicalAnd($constraints)
 		);
 
 		return $query->execute();
 	}
 
 	/**
-	 * Finds subscriber without opt-in mail sended before
+	 * Finds subscriber without opt-in mail sent before
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
@@ -84,9 +91,9 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 
 		$query->matching(
 			$query->logicalAnd(
-				$query->equals('email', $comment->getEmail()),
 				$query->equals('postUid', $comment->getPostId()),
-				$query->equals('lastSent', NULL),
+				$query->equals('email', $comment->getEmail()),
+				$query->equals('lastSent', 0),
 				$query->equals('hidden', 1),
 				$query->equals('deleted', 0)
 			)
@@ -115,6 +122,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_Extbase_Per
 
 		return $query->execute()->getFirst();
 	}
+
 }
 
 ?>
