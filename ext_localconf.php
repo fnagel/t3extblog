@@ -46,11 +46,11 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'SubscriptionManager',
 	array(
-		'Subscriber' => 'list, delete, error, confirm',
+		'Subscriber' => 'list, delete, error, confirm, logout',
 	),
 	// non-cacheable actions
 	array(
-		'Subscriber' => 'list, delete, error, confirm',
+		'Subscriber' => 'list, delete, error, confirm, logout',
 	)
 );
 
