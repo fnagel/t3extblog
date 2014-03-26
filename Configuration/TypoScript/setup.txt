@@ -6,9 +6,17 @@ plugin.tx_t3extblog {
 
 		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
+
+	email {
+		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}Email/
+		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}Email/
+		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+	}
+
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
 	}
+
 	features {
 		skipDefaultArguments = 1
 	}

@@ -148,24 +148,19 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	 * This functions renders template to use in Mails and Other views
 	 *
 	 * @param array  $variables Arguments for template
-	 * @param string $templateFile Choose a template (web or mail)
-	 * @param string $templateDirectory Template directory
+	 * @param string $templatePath Choose a template
+	 * @param string $format Choose a format (txt or html)
 	 */
-	public function render($variables, $templateFile = "Default.txt", $templateDirectory = "Email/") {
+	public function render($variables, $templatePath = "Default.txt", $format = 'txt') {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
-		$templateRootPath = t3lib_div::getFileAbsFileName($frameworkConfig['view']['templateRootPath']);
-		$templatePathAndFilename = $templateRootPath . $templateDirectory . $templateFile;
-
 		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
 
-		$emailView->getRequest()->setPluginName('');
-		$emailView->getRequest()->setControllerName('');
-		$emailView->getRequest()->setControllerExtensionName('T3extblog');
-
-		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['view']['layoutRootPath']));
-		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
-		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['view']['partialRootPath']));
-		$emailView->setFormat('txt');
+		$emailView->setFormat($format);
+		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
+		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
+		$emailView->setTemplatePathAndFilename(
+			t3lib_div::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
+		);
 
 		$emailView->assignMultiple($variables);
 		$emailView->assignMultiple(array(
