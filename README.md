@@ -30,13 +30,15 @@ Currently implemented features:
 * Show list, latest and detail view of posts
 * Archive and category view
 * Add new comments
+* Allow some HTML tags in comment message
 * Wordpress like subscription manager
-* Configurable spam check for comments and subscription requests
-* Spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support
+* Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support
+* Opt-In mails for comment subscription
 * Auto close comments functionality
-* Posts RSS feed
+* RSS feed for posts
 * BE Module for posts and comments
 * Default HTML markup matches Twitter Boostrap 2.3
+* Reasonable email sending
 
 
 Installation
@@ -45,6 +47,7 @@ Installation
 * (Deinstall EXT:t3blog)
 * Install EXT:t3extblog
 * Add static template
+* Create pages and add plugins
 * Set pid's in TypoScript
 
 
@@ -54,27 +57,19 @@ Todo
 A lot of testing needs to be done. Help wanted!
 
 
-IN WORK
 * Make use of the Tce hook for comments
-* rework notifications to be scheduler based
-* Test comment and subscription process again
-* * if subscription emails are sent
-* * if subscription process works
-* * if un-subscribe process works
-
-BUGS
-* delete button deletes but without prompt in post view
-
-NEXT
 * Partial for flashMessage VH
 * More unit tests and functional tests
+* Better flexform configuration for plugins
+* Trackback / Pingback support
 * Documentation
-* better flexform configuration for plugins
-
-FEATURES
-* Trackback / Pingback
+* Rework notifications to be based upon scheduler (cronjob)
 * Captcha implementation
 * Use EXT:vidi for BE modules (needs TYPO3 6.1)
+
+
+Known bugs
+* delete button deletes but without prompt in post view (BE module)
 
 
 
