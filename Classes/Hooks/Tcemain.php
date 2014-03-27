@@ -32,9 +32,12 @@
  */
 class Tx_T3extblog_Hooks_Tcemain {
 
-	// fields to check for changes
+	/**
+	 * Fields to check for changes
+	 *
+	 * @var array
+	 */
 	var $watchedFields = array(
-		'hidden',
 		'approved',
 		'spam'
 	);
@@ -47,6 +50,13 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected $notificationService = NULL;
 
 	/**
+	 * objectContainer
+	 *
+	 * @var Tx_Extbase_Object_Container_Container
+	 */
+	protected $objectContainer = NULL;
+
+	/**
 	 * Hook: processDatamap_afterDatabaseOperations
 	 *
 	 * Note: When using the hook after INSERT operations, you will only get the temporary NEW... id passed to your hook as $id,
@@ -55,34 +65,70 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * @param    string $status : (reference) Status of the current operation, 'new' or 'update'
 	 * @param    string $table : (refrence) The table currently processing data for
 	 * @param    string $id : (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
-	 * @param    array  $fieldArray : (reference) The field array of a record
+	 * @param    array  $fieldArray : (reference) The field array of a record	 *
+	 * @param    t3lib_TCEmain $tce
 	 *
 	 * @return    void
 	 */
-	function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, &$pObj) {
+	function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $tceMain) {
 		if ($table == 'tx_t3blog_com') {
-
 			if ($status == 'update') {
 				// get history Record
-				$hr = $pObj->historyRecords[$table . ':' . $id]['newRecord'];
+				$hr = $tceMain->historyRecords[$table . ':' . $id]['newRecord'];
 
-				if (is_array($hr)) {
+				if (is_array($hr) === TRUE) {
 					$changedfields = array_keys($hr);
 
 					if (is_array($changedfields) === TRUE) {
 						$updatefields = array_intersect($changedfields, $this->watchedFields);
 
 						if (is_array($updatefields) === TRUE && count($updatefields) > 0) {
-							$this->getNotificationService()->processCommentStatusChanged($id);
+							// extbase fix
+							$this->getObjectContainer()
+								->getInstance("Tx_T3extblog_Service_SettingsService")
+								->setPageUid($tceMain->checkValue_currentRecord['pid']);
+
+							$this->getNotificationService()->processCommentStatusChanged($this->getComment($id));
 						}
 					}
 				}
 			}
 
 			if ($status == 'new') {
-				$this->getNotificationService()->processCommentAdded($id, false);
+				// extbase fix
+				$this->getObjectContainer()
+					->getInstance("Tx_T3extblog_Service_SettingsService")
+					->setPageUid($fieldArray['pid']);
+
+				$comment = $this->getComment($tceMain->substNEWwithIDs[$id]);
+				$this->getNotificationService()->processCommentAdded($comment, FALSE);
 			}
 		}
+	}
+
+	/**
+	 * Get comment
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Comment
+	 */
+	protected function getComment($uid) {
+		$commentRepository = $this->getObjectContainer()->getInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+		$comment = $commentRepository->findByUid($uid);
+
+		return $comment;
+	}
+
+	/**
+	 * Get object container
+	 *
+	 * @return Tx_Extbase_Object_Container_Container
+	 */
+	protected function getObjectContainer() {
+		if ($this->objectContainer == NULL) {
+			$this->objectContainer = t3lib_div::makeInstance("Tx_Extbase_Object_Container_Container");
+		}
+
+		return $this->objectContainer;
 	}
 
 	/**
@@ -92,8 +138,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 */
 	protected function getNotificationService() {
 		if ($this->notificationService == NULL) {
-			t3lib_div::requireOnce(t3lib_extMgm::extPath('t3extblog', 'Classes/Service/NotificationService.php'));
-			$this->notificationService = t3lib_div::makeInstance("Tx_T3extblog_Service_NotificationService");
+			$this->notificationService = $this->getObjectContainer()->getInstance("Tx_T3extblog_Service_NotificationService");
 		}
 
 		return $this->notificationService;
