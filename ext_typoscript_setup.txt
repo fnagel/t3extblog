@@ -70,6 +70,7 @@ config.tx_extbase {
 						text.mapOnProperty = text
 						approved.mapOnProperty = approved
 						spam.mapOnProperty = spam
+						mails_sent.mapOnProperty = mailsSent
 					}
                 }
             }

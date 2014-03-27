@@ -159,7 +159,7 @@ $TCA['tx_t3blog_com'] = array(
 		'searchFields' => 'title,author,email,website,text',
 	),
 	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post',
+		'fe_admin_fieldList' => 'sys_language_uid, hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post, mails_sent',
 	)
 );
 

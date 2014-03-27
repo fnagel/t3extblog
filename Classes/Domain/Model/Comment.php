@@ -122,11 +122,18 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	protected $post = NULL;
 
 	/**
-	 * subscribe
+	 * subscribe (not persisted)
 	 *
 	 * @var boolean
 	 */
 	protected $subscribe = FALSE;
+
+	/**
+	 * If the notification mails are already sent
+	 *
+	 * @var boolean
+	 */
+	protected $mailsSent = FALSE;
 
 
 	/**
@@ -404,6 +411,20 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function setSubscribe($subscribe) {
 		$this->subscribe = (boolean) $subscribe;
+	}
+
+	/**
+	 * @param boolean $mailsSent
+	 */
+	public function setMailsSent($mailsSent) {
+		$this->mailsSent = (boolean) $mailsSent;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getMailsSent() {
+		return (boolean) $this->mailsSent;
 	}
 
 	/**

@@ -42,6 +42,7 @@
 			<label index="tx_t3blog_com.text">Text</label>
 			<label index="tx_t3blog_com.approved">Approved</label>
 			<label index="tx_t3blog_com.spam">Spam</label>
+			<label index="tx_t3blog_com.mails_sent">Notification mails already sent</label>
 			<label index="tx_t3blog_com.fk_post">Foreign key (blog post)</label>
 			<label index="tx_t3blog_blogroll">Blogroll</label>
 			<label index="tx_t3blog_blogroll.title">Title of your blogroll/link</label>
@@ -124,6 +125,7 @@
 			<label index="tx_t3blog_com.text">Text</label>
 			<label index="tx_t3blog_com.approved">Angenommen</label>
 			<label index="tx_t3blog_com.fk_post">Fremdschlüssel (post)</label>
+            <label index="tx_t3blog_com.mails_sent">Benachrichtigungs-Emails bereits versendet</label>
 			<label index="tx_t3blog_blogroll">Blogroll</label>
 			<label index="tx_t3blog_blogroll.title">Titel</label>
 			<label index="tx_t3blog_blogroll.url">URL</label>

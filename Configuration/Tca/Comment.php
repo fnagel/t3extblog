@@ -152,6 +152,13 @@ $TCA['tx_t3blog_com'] = array(
 				'maxitems' => 1,
 			)
 		),
+		'mails_sent' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.mails_sent',
+			'config' => array(
+				'type' => 'check',
+			)
+		),
 	),
 	'types' => array(
 		'0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2;;;;3-3-3 , author;;;;3-3-3, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts], approved, spam, fk_post')
