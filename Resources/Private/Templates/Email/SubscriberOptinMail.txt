@@ -1,4 +1,5 @@
-Hello {subscriber.name}, 
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+Hello {subscriber.name},
 
 it seems you subscribed for new comments:
 
