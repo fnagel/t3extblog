@@ -34,6 +34,13 @@
 class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 
 	/**
+	 * Extension name
+	 *
+	 * @var string
+	 */
+	protected $extensionName = 't3extblog';
+
+	/**
 	 * @var Tx_Extbase_Object_ObjectManagerInterface
 	 */
 	protected $objectManager;
@@ -156,11 +163,16 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
 
 		$emailView->setFormat($format);
+
 		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
 		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
 		$emailView->setTemplatePathAndFilename(
 			t3lib_div::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
 		);
+
+		$emailView->getRequest()->setPluginName('');
+		$emailView->getRequest()->setControllerName('');
+		$emailView->getRequest()->setControllerExtensionName($this->extensionName);
 
 		$emailView->assignMultiple($variables);
 		$emailView->assignMultiple(array(
