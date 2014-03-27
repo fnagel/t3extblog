@@ -127,7 +127,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
@@ -143,18 +143,21 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 
 		if ($comment->isValid()) {
 			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
-				$this->sendOptInMail($subscriber);
+				$this->sendOptInMail($subscriber, $comment);
 			}
 
 			$this->notifySubscribers($comment);
+
+			$this->persistToDatabase();
 		}
+
 	}
 
 	/**
 	 * Process changed status of a comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
 	 *
 	 * @return void
 	 */
@@ -162,10 +165,12 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		if ($comment->isValid()) {
 			$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
 			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
-				$this->sendOptInMail($subscriber);
+				$this->sendOptInMail($subscriber, $comment);
 			}
 
 			$this->notifySubscribers($comment);
+
+			$this->persistToDatabase();
 		}
 	}
 
@@ -195,10 +200,11 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Send optin mail for subscirber
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
+	 * @param Tx_T3extblog_Domain_Model_Comment    $comment Comment
 	 *
 	 * @return void
 	 */
-	protected function sendOptInMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber) {
+	protected function sendOptInMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->log->dev("Send subscriber opt-in mail.");
 
 		$post = $subscriber->getPost();
@@ -207,6 +213,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		$subject = $this->translate('subject.subscriber.new', $post->getTitle());
 		$variables = array(
 			'post' => $post,
+			'comment' => $comment,
 			'subscriber' => $subscriber,
 			'subject' => $subject
 		);
@@ -234,7 +241,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		$newSubscriber->setName($comment->getAuthor());
 
 		$this->subscriberRepository->add($newSubscriber);
-		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+		$this->persistToDatabase(TRUE);
 
 		$this->log->dev("Added subscriber uid=" . $newSubscriber->getUid());
 
@@ -252,6 +259,10 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
 		if (!$settings['enableNewCommentNotifications']) {
+			return;
+		}
+
+		if ($comment->getMailsSent()) {
 			return;
 		}
 
@@ -281,6 +292,8 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 
 			$this->emailService->send($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
 		}
+
+		$comment->setMailsSent(TRUE);
 	}
 
 	/**
@@ -342,6 +355,19 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		);
 	}
 
+	/**
+	 * Helper function for persisting all changed data to the DB
+	 *
+	 * Needed as in non FE controller context (aka our hook) there is no
+	 * auto persisting.
+	 *
+	 * @param bool $force
+	 */
+	protected function persistToDatabase($force = FALSE) {
+		if ($force === TRUE || TYPO3_MODE === 'BE') {
+			$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+		}
+	}
 }
 
 ?>
