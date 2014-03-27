@@ -29,19 +29,30 @@
 /**
  * Provide a way to get the configuration just everywhere
  *
- * Example
- * $pluginSettingsService =
- * $this->objectManager->get('Tx_News_Service_SettingsService');
- * t3lib_div::print_array($pluginSettingsService->getSettings());
- *
- * If objectManager is not available:
- * http://forge.typo3.org/projects/typo3v4-mvc/wiki/
- * Dependency_Injection_%28DI%29#Creating-Prototype-Objects-through-the-Object-Manager
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
+
+	/**
+	 * Extension name
+	 *
+	 * Needed as parameter for configurationManager->getConfiguration when used in BE context
+	 * Otherwise generated TS will be incorrect or missing
+	 *
+	 * @var string
+	 */
+	protected $extensionName = 't3extblog';
+
+	/**
+	 * Plugin name
+	 *
+	 * Needed as parameter for configurationManager->getConfiguration when used in BE context
+	 * Otherwise generated TS will be incorrect or missing when used in BE
+	 *
+	 * @var string
+	 */
+	protected $pluginName = '';
 
 	/**
 	 * @var mixed
@@ -77,9 +88,16 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	public function getFrameworkSettings() {
 		if ($this->frameworkSettings === NULL) {
 			$this->frameworkSettings = $this->configurationManager->getConfiguration(
-				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+				$this->extensionName,
+				$this->pluginName
 			);
 		}
+
+		if ($this->frameworkSettings === NULL) {
+			throw new Tx_Extbase_Configuration_Exception('No framework typoscript settings available.');
+		}
+
 		return $this->frameworkSettings;
 	}
 
@@ -91,9 +109,16 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	public function getTypoScriptSettings() {
 		if ($this->typoScriptSettings === NULL) {
 			$this->typoScriptSettings = $this->configurationManager->getConfiguration(
-				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+				$this->extensionName,
+				$this->pluginName
 			);
 		}
+
+		if ($this->typoScriptSettings === NULL) {
+			throw new Tx_Extbase_Configuration_Exception('No typoscript settings available.');
+		}
+
 		return $this->typoScriptSettings;
 	}
 
@@ -112,6 +137,47 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 		return Tx_Extbase_Reflection_ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
 	}
 
+	/**
+	 * Helper method which forces the generation of the TypoScript for a specific page
+	 *
+	 * @param int $pageId
+	 * @return array The TypoScript setup
+	 */
+	public function forceLoadTypoScript($pageId = 0) {
+		$template = t3lib_div::makeInstance('t3lib_TStemplate');
+		// do not log time-performance information
+		$template->tt_track = 0;
+		$template->init();
+		// Get the root line
+		$sysPage = t3lib_div::makeInstance('t3lib_pageSelect');
+		// get the rootline for the current page
+		$rootline = $sysPage->getRootLine($pageId);
+		// This generates the constants/config + hierarchy info for the template.
+		$template->runThroughTemplates($rootline, 0);
+		$template->generateConfig();
+
+		/* @var $typoScriptService Tx_Extbase_Service_TypoScriptService */
+		$typoScriptService = t3lib_div::makeInstance('Tx_Extbase_Service_TypoScriptService');
+		$typoScript = $typoScriptService->convertTypoScriptArrayToPlainArray($template->setup);
+
+		return $typoScript;
+	}
+
+	/**
+	 * Set page uid in GP vars
+	 *
+	 * Only needed when the class is called or injected in a BE context, e.g. a hook
+	 * Needed for generation of the correct persistence.storagePid in Extbase TS.
+	 * Without the generation of the TS is based upon the next root page (default
+	 * extbase behaviour) and repositories won't work as expected.
+	 *
+	 * @param $pageUid
+	 */
+	public function setPageUid($pageUid) {
+		if (TYPO3_MODE === 'BE') {
+			t3lib_div::_GETset(intval($pageUid), 'id');
+		}
+	}
 }
 
 ?>
