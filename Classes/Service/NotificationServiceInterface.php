@@ -40,22 +40,22 @@ interface Tx_T3extblog_Service_NotificationServiceInterface {
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded($uid, $notifyAdmin = true);
+	public function processCommentAdded(Tx_T3extblog_Domain_Model_Comment $comment, $notifyAdmin = true);
 
 	/**
 	 * Process changed status of a comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged($uid);
+	public function processCommentStatusChanged(Tx_T3extblog_Domain_Model_Comment $comment);
 
 }
 

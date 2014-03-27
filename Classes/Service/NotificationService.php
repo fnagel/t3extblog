@@ -46,13 +46,6 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	protected $subscriberRepository;
 
 	/**
-	 * commentRepository
-	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
-	 */
-	protected $commentRepository;
-
-	/**
 	 * Logging Service
 	 *
 	 * @var Tx_T3extblog_Service_LoggingService
@@ -106,17 +99,6 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	}
 
 	/**
-	 * Injects the Comment Repository
-	 *
-	 * @param Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository
-	 *
-	 * @return void
-	 */
-	public function injectCommentRepository(Tx_T3extblog_Domain_Repository_CommentRepository $commentRepository) {
-		$this->commentRepository = $commentRepository;
-	}
-
-	/**
 	 * Injects the Settings Service
 	 *
 	 * @param Tx_T3extblog_Service_SettingsService $settingsService
@@ -145,22 +127,26 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded($uid, $notifyAdmin = true) {
-		/* @var $newComment Tx_T3extblog_Domain_Model_Comment */
-		$newComment = $this->commentRepository->findByUid($uid);
-
-		if ($notifyAdmin === true) {
-			$this->notifyAdmin($newComment);
+	public function processCommentAdded(Tx_T3extblog_Domain_Model_Comment $comment, $notifyAdmin = TRUE) {
+		if ($notifyAdmin === TRUE) {
+			$this->notifyAdmin($comment);
 		}
 
-		if ($newComment->isValid()) {
-			$this->processSubscription($newComment);
-			$this->notifySubscribers($newComment);
+		if ($this->isNewSubscriptionValid($comment)) {
+			$subscriber = $this->addSubscriber($comment);
+		}
+
+		if ($comment->isValid()) {
+			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
+				$this->sendOptInMail($subscriber);
+			}
+
+			$this->notifySubscribers($comment);
 		}
 	}
 
@@ -168,41 +154,41 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Process changed status of a comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param integer $uid Comment uid
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged($uid) {
-		/* @var $comment Tx_T3extblog_Domain_Model_Comment */
-		$comment = $this->commentRepository->findByUid($uid);
-
+	public function processCommentStatusChanged(Tx_T3extblog_Domain_Model_Comment $comment) {
 		if ($comment->isValid()) {
-			$this->processSubscription($comment);
+			$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
+			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
+				$this->sendOptInMail($subscriber);
+			}
+
 			$this->notifySubscribers($comment);
 		}
 	}
 
 	/**
-	 * Checks for new subscription. Inits mail sending and new DB entry.
+	 * Checks if a new subscription should be added
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
 	 *
-	 * @return void
+	 * @return boolean
 	 */
-	protected function processSubscription(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function isNewSubscriptionValid(Tx_T3extblog_Domain_Model_Comment $comment) {
 		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] || !$comment->getSubscribe()) {
-			return;
+			return FALSE;
 		}
 
 		// check if user already registered
-		$subscribers = $this->subscriberRepository->findExistingSubscriptions($comment);
+		$subscribers = $this->subscriberRepository->findExistingSubscriptions($comment->getPostId(), $comment->getEmail());
 		if (count($subscribers) > 0) {
 			$this->log->notice("Subscriber [" . $comment->getEmail() . "] already registered.");
-			return;
+			return FALSE;
 		}
 
-		$newSuscriber = $this->addSubscriber($comment);
-		$this->sendOptInMail($newSuscriber);
+		return TRUE;
 	}
 
 	/**
@@ -301,7 +287,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Notify the blog admin
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @param string                            $emailTemplate #
+	 * @param string                            $emailTemplate
 	 *
 	 * @return    void
 	 */

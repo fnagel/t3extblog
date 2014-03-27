@@ -127,7 +127,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
 			$persistenceManager->persistAll();
 
-			$this->notificationService->processCommentAdded($newComment->getUid());
+			$this->notificationService->processCommentAdded($newComment);
 
 			if (!$this->hasFlashMessages()) {
 				$this->addFlashMessage('Created', t3lib_FlashMessage::OK);
