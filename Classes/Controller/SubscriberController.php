@@ -86,16 +86,17 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	public function confirmAction() {
-		$this->checkAuth($doNotSearchHidden = FALSE);
+		$this->checkAuth(TRUE);
 
 		if ($this->subscriber === NULL) {
 			throw new Tx_Extbase_MVC_Exception('No authenticated subscriber given.');
 		}
 
-		$this->subscriber->_setProperty("hidden", FALSE);
-		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+		if ($this->subscriber->_getProperty('hidden') === TRUE) {
+			$this->subscriber->_setProperty('hidden', FALSE);
+			$this->addFlashMessage('Confirmed', t3lib_FlashMessage::NOTICE);
+		}
 
-		$this->addFlashMessage('Confirmed', t3lib_FlashMessage::NOTICE);
 		$this->redirect('list');
 	}
 
@@ -127,7 +128,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	protected function logoutAction() {
-		$this->invalidAuth('Logout', t3lib_FlashMessage::NOTICE);
+		$this->processError('Logout', t3lib_FlashMessage::NOTICE);
 	}
 
 	/**
@@ -139,29 +140,6 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	}
 
 	/**
-	 * Check and get authentication
-	 *
-	 * @param boolean $doNotSearchHidden
-	 *
-	 * @return void
-	 */
-	protected function checkAuth($doNotSearchHidden = TRUE) {
-		if ($this->hasCodeArgument()) {
-			$code = $this->getAuthCode();
-			/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
-			$subscriber = $this->getSubscriberByCode($code, $doNotSearchHidden);
-
-			$this->authentication->login($subscriber->getEmail());
-		}
-
-		if ($this->authentication->isValid()) {
-			return;
-		}
-
-		$this->invalidAuth();
-	}
-
-	/**
 	 * Redirects user when no auth was possible
 	 *
 	 * @param string $message Flash message key
@@ -169,7 +147,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 *
 	 * @return void
 	 */
-	protected function invalidAuth($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
+	protected function processError($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
 		$this->authentication->logout();
 
 		$this->addFlashMessage($message, $severity );
@@ -177,26 +155,60 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	}
 
 	/**
-	 * Gets a subscriber by code
+	 * Check and get authentication
 	 *
-	 * @param string    $code
-	 * @param bool      $doNotSearchHidden
+	 * @param boolean $isConfirmRequest
 	 *
-	 * @return object
+	 * @return void
 	 */
-	protected function getSubscriberByCode($code, $doNotSearchHidden = TRUE) {
+	protected function checkAuth($isConfirmRequest = FALSE) {
+		if ($this->hasCodeArgument()) {
+			$this->authenticate($isConfirmRequest);
+		}
+
+		if ($this->authentication->isValid()) {
+			return;
+		}
+
+		$this->processError();
+	}
+
+	/**
+	 * Get authentication
+	 *
+	 * @param boolean $isConfirmRequest
+	 *
+	 * @return void
+	 */
+	protected function authenticate($isConfirmRequest = FALSE) {
+		$code = $this->getAuthCode();
+
 		/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
-		$subscriber = $this->subscriberRepository->findByCode($code, $doNotSearchHidden);
+		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
 		if ($subscriber === NULL) {
-			$this->invalidAuth('AuthFailed');
+			$this->processError('AuthFailed');
 		}
 
 		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
-			$this->invalidAuth('LinkOutdated');
+			$this->processError('LinkOutdated');
 		}
 
-		return $subscriber;
+		if ($isConfirmRequest === TRUE) {
+			$confirmedSubscriptions = $this->subscriberRepository->findExistingSubscriptions(
+				$subscriber->getPostUid(),
+				$subscriber->getEmail(),
+				$subscriber->getUid()
+			);
+
+			if (count($confirmedSubscriptions) > 0) {
+				$subscriber->_setProperty('deleted', TRUE);
+				$this->processError('AlreadyRegistered', t3lib_FlashMessage::NOTICE);
+			}
+		}
+
+		$this->authentication->login($subscriber->getEmail());
+		$this->subscriber = $subscriber;
 	}
 
 	/**
@@ -220,7 +232,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$code = $this->request->getArgument("code");
 
 		if (strlen($code) !== 32 || !ctype_alnum($code)) {
-			$this->invalidAuth('WrongLink');
+			$this->processError('WrongLink');
 		}
 
 		return $code;
