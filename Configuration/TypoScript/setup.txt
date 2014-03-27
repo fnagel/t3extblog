@@ -17,10 +17,6 @@ plugin.tx_t3extblog {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
 	}
 
-	features {
-		skipDefaultArguments = 1
-	}
-
 	settings {
 		// overrideFlexformSettingsIfEmpty
 

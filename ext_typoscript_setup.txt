@@ -1,6 +1,8 @@
 plugin.tx_t3extblog {
-	# needed for 4.x only
 	features {
+		skipDefaultArguments = 1
+
+		# needed for 4.x only
 		rewrittenPropertyMapper = 1
 	}
 }
@@ -112,10 +114,7 @@ module.tx_t3extblog {
 
 	email < plugin.tx_t3extblog.email
 
-	features {
-		# needed for 4.x only
-		rewrittenPropertyMapper = 1
-	}
+	features < plugin.tx_t3extblog.features
 
 	settings < plugin.tx_t3extblog.settings
 

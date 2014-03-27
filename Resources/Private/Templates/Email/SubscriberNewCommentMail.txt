@@ -1,19 +1,22 @@
-Hello {subscriber.name}, 
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+Hello {subscriber.name},
 
 a new comment was posted on '{post.title}' at {settings.blogName}.
 
 
-See the comment: <f:uri.action
+See the comment: <t3b:frontend.uri.action
+					extensionName="T3extblog"
 					pluginName="Blogsystem"
 					controller="Post"
 					action="show"
 					pageUid="{settings.blogsystem.pid}"
 					absolute="true"
-					arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
+					arguments="{post.linkParameter}"
 					section="comment_{comment.uid}" />
 
 You can manage your subscription by using this link:
-<f:uri.action 
+<t3b:frontend.uri.action
+	extensionName="T3extblog"
 	pluginName="SubscriptionManager" 
 	controller="Subscriber" 
 	action="list"

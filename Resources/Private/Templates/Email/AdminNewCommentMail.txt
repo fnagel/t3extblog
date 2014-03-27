@@ -5,14 +5,15 @@ someone added a new comment!
 
 Blogname: 	{settings.blogName}
 Blogpost: 	{post.title}
-Link:		<f:uri.action
-            	pluginName="Blogsystem"
-            	controller="Post"
-            	action="show"
-            	pageUid="{settings.blogsystem.pid}"
-            	absolute="true"
-            	arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}"
-            	section="comment_{comment.uid}" />
+Link:		<t3b:frontend.uri.action
+				extensionName="T3extblog"
+				pluginName="Blogsystem"
+				controller="Post"
+				action="show"
+				pageUid="{settings.blogsystem.pid}"
+				absolute="true"
+				arguments="{post.linkParameter}"
+				section="comment_{comment.uid}" />
 
 
 Comment title: 		{comment.title}
