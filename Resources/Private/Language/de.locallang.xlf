@@ -117,7 +117,7 @@
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed">
-				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommenater geposted wurden.</target>
+				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommentare geposted wurden.</target>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.comment.createAction.Created.title">
