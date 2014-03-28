@@ -105,14 +105,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	protected $categories;
 
 	/**
-	 * comments
-	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
-	 * @lazy
-	 */
-	protected $comments = NULL;
-
-	/**
 	 * commentRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
@@ -132,6 +124,22 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function __construct() {
 		$this->initStorageObjects();
+	}
+
+	/**
+	 * Serialization (sleep) helper.
+	 *
+	 * @return array Names of the properties to be serialized
+	 */
+	public function __sleep() {
+		$properties = get_object_vars($this);
+
+		// fix to make sure we are able to use forward in controller
+		unset($properties['commentRepository']);
+		unset($properties['categories']);
+		unset($properties['subscriptions']);
+
+		return array_keys($properties);
 	}
 
 	/**
@@ -374,7 +382,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getContent() {
 		if ($this->content === NULL) {
-			$this->content = $this->getContentData();
+			$this->content = $this->fetchContentData();
 		}
 
 		return $this->content;
@@ -383,9 +391,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Get tt_content data
 	 *
+	 * We need to use old school SQL here so we have all (!) fields available for
+	 * tt_content rendering. When using extbase persistence we need to map all fields
+	 * in TS which is annoying as tt_content is heavily extended in most installations
+	 *
 	 * @return array
 	 */
-	protected function getContentData() {
+	protected function fetchContentData() {
 		/* @var $database t3lib_DB */
 		$database = $GLOBALS['TYPO3_DB'];
 		$data = array();
@@ -441,7 +453,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Adds a Category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $categories
+	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return void
 	 */
@@ -478,7 +490,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return void
 	 */
 	private function initComments() {
-		if ($this->comments === NULL) {
+		if ($this->commentRepository === NULL) {
 			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
 		}
 	}
@@ -514,7 +526,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the comments
 	 *
-	 * @return $comments
+	 * @return Tx_Extbase_Persistence_QueryResultInterface
 	 */
 	public function getComments() {
 		$this->initComments();
@@ -525,7 +537,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	/**
 	 * Returns the post pending comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 * @return Tx_Extbase_Persistence_QueryResultInterface
 	 */
 	public function getPendingComments() {
 		$this->initComments();
