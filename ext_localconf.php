@@ -93,6 +93,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 // add BE hooks
 if (TYPO3_MODE == 'BE') {
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:t3extblog/Classes/Hooks/Tcemain.php:Tx_T3extblog_Hooks_Tcemain';
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = 'EXT:t3extblog/Classes/Hooks/Tcemain.php:Tx_T3extblog_Hooks_Tcemain';
 }
 
 // add RealURL autoconfiguration
