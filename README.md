@@ -15,11 +15,11 @@ Idea & goals
 ------------
 I'm tired of hardly maintained extensions and hard to maintain code with unclean logic.
 Tried to built a clean Extbase / Fluid alternative around the old codebase.
-Data migration not needed as old SQL and TCA is used.
+Data migration not needed as (slightly modified) t3blog SQL and TCA is used.
 
 This extension could (but should probably not) be used for starting a new blog with TYPO3.
 
-This extension will support migration to TYPO3 6.x. as soon as 6.2 LTS is released.
+This extension will support migration to TYPO3 6.x.
 
 
 Features
@@ -38,15 +38,17 @@ Currently implemented features:
 * RSS feed for posts
 * BE Module for posts and comments
 * Default HTML markup matches Twitter Boostrap 2.3
-* Reasonable email sending
-
+* Reasonable email sending, even when you accept comments in BE (extension module AND default list module)
+* Preview of hidden posts (add tx_t3extblog.singlePid to your page TSconfig)
 
 Installation
 ------------
 
 * (Deinstall EXT:t3blog)
 * Install EXT:t3extblog
-* Add static template
+* Update DB in EM
+* Use update script in EM
+* Add static TS template
 * Create pages and add plugins
 * Set pid's in TypoScript
 
@@ -56,12 +58,12 @@ Todo
 
 A lot of testing needs to be done. Help wanted!
 
-
-* Make use of the Tce hook for comments
+* When post is deleted we must delete all corresponding records (tcemain)
 * Partial for flashMessage VH
 * More unit tests and functional tests
 * Better flexform configuration for plugins
 * Trackback / Pingback support
+* Blogroll?
 * Documentation
 * Rework notifications to be based upon scheduler (cronjob)
 * Captcha implementation
