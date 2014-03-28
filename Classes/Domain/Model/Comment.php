@@ -107,6 +107,13 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	protected $spam = FALSE;
 
 	/**
+	 * spamPoints
+	 *
+	 * @var integer
+	 */
+	protected $spamPoints = NULL;
+
+	/**
 	 * postId
 	 *
 	 * @var integer
@@ -340,6 +347,20 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function setSpam($spam) {
 		$this->spam = (boolean) $spam;
+	}
+
+	/**
+	 * @param int $spamPoints
+	 */
+	public function setSpamPoints($spamPoints) {
+		$this->spamPoints = $spamPoints;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSpamPoints() {
+		return $this->spamPoints;
 	}
 
 	/**
