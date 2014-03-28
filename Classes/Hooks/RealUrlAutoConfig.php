@@ -70,6 +70,19 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						),
 					),
 
+					'preview' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[action]',
+							'valueMap' => array(
+								'article' => 'preview',
+							),
+							'noMatch' => 'bypass',
+						),
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[previewPost]',
+						),
+					),
+
 					'permalink' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',

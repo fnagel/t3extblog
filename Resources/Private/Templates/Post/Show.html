@@ -40,24 +40,26 @@
 		</div>
 	</article>
 
-	<div id="comment-section">
-		<div class="well" id="comment-form">
-			<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
-		</div>
-
-		<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
-
-		<f:if condition="{post.comments}">
-			<div id="comment-list">
-				<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
-					<f:for each="{paginatedComments}" as="comment">
-						<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
-						<hr>
-					</f:for>
-				</f:widget.paginate>
+	<f:if condition="{newComment}">
+		<div id="comment-section">
+			<div class="well" id="comment-form">
+				<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
 			</div>
-		</f:if>
-	</div>
+
+			<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
+
+			<f:if condition="{post.comments}">
+				<div id="comment-list">
+					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
+						<f:for each="{paginatedComments}" as="comment">
+							<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
+							<hr>
+						</f:for>
+					</f:widget.paginate>
+				</div>
+			</f:if>
+		</div>
+	</f:if>
 </f:section>
 
 

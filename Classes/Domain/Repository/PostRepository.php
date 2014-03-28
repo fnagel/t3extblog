@@ -38,6 +38,36 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	);
 
 	/**
+	 * Override default findByUid function to enable also the option to turn of
+	 * the enableField setting
+	 *
+	 * @param integer $uid id of record
+	 * @param boolean $respectEnableFields if set to false, hidden records are shown
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post
+	 */
+	public function findByUid($uid, $respectEnableFields = TRUE) {
+		if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
+			return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
+		}
+
+		$query = $this->createQuery();
+
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->getQuerySettings()->setRespectEnableFields($respectEnableFields);
+
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('uid', $uid),
+				$query->equals('deleted', 0)
+			)
+		);
+
+		return $query->execute()->getFirst();
+	}
+
+	/**
 	 * Returns all objects of this repository
 	 *
 	 * @param integer $pid

@@ -23,6 +23,8 @@ plugin.tx_t3extblog {
 		# used for mails
 		blogName = Testblog
 
+		previewHiddenRecords = 0
+
 		blogsystem {
 			pid =
 
@@ -179,6 +181,12 @@ plugin.tx_t3extblog {
 		}
 	}
 }
+
+
+# preview hidden records if logged in BE user
+[globalVar = TSFE : beUserLogin > 0]
+	plugin.tx_t3extblog.settings.previewHiddenRecords = 1
+[global]
 
 # localize date format, used within the fluid templates
 lib.tx_t3extblog.date = TEXT

@@ -166,6 +166,35 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		$this->view->assign('newComment', $newComment);
 	}
 
+	/**
+	 * Preview a post
+	 *
+	 * @param integer $previewPost The post to display
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function previewAction($previewPost) {
+		if (empty($this->settings['previewHiddenRecords'])) {
+			throw new Exception('Preview not allowed.');
+		}
+
+		if (is_int($previewPost)) {
+			$post = $this->postRepository->findByUid($previewPost, FALSE);
+		}
+
+		$frameworkConfig = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+		);
+
+		$this->view->setTemplatePathAndFilename(
+			t3lib_div::getFileAbsFileName($frameworkConfig['view']['templateRootPath']) . 'Post/Show.html'
+		);
+
+		$this->view->assign('post', $post);
+	}
+
 }
 
 ?>

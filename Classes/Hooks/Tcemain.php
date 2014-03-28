@@ -65,12 +65,41 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * @param    string $status : (reference) Status of the current operation, 'new' or 'update'
 	 * @param    string $table : (refrence) The table currently processing data for
 	 * @param    string $id : (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
-	 * @param    array  $fieldArray : (reference) The field array of a record	 *
+	 * @param    array  $fields : (reference) The field array of a record	 *
 	 * @param    t3lib_TCEmain $tce
 	 *
 	 * @return    void
 	 */
-	function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $tceMain) {
+	function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain) {
+		if (!is_numeric($id)) {
+			$id = $tceMain->substNEWwithIDs[$id];
+		}
+
+		if ($table == 'tx_t3blog_post') {
+			if (isset($GLOBALS['_POST']['_savedokview_x'])) {
+				$pagesTsConfig = t3lib_BEfunc::getPagesTSconfig($GLOBALS['_POST']['popViewId']);
+
+				if ($pagesTsConfig['tx_t3extblog.']['singlePid']) {
+					$record = t3lib_BEfunc::getRecord('tx_t3blog_post', $id);
+
+					$parameters = array(
+//						'tx_t3extblog_blogsystem[controller]' => 'Post',
+						'tx_t3extblog_blogsystem[action]' => 'preview',
+						'tx_t3extblog_blogsystem[previewPost]' => $record['uid'],
+					);
+					if ($record['sys_language_uid'] > 0) {
+						if ($record['l10n_parent'] > 0) {
+							$parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l10n_parent'];
+						}
+						$parameters['L'] = $record['sys_language_uid'];
+					}
+
+					$GLOBALS['_POST']['popViewId_addParams'] = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
+					$GLOBALS['_POST']['popViewId'] = $pagesTsConfig['tx_t3extblog.']['singlePid'];
+				}
+			}
+		}
+
 		if ($table == 'tx_t3blog_com') {
 			if ($status == 'update') {
 				// get history Record
@@ -98,16 +127,17 @@ class Tx_T3extblog_Hooks_Tcemain {
 				// extbase fix
 				$this->getObjectContainer()
 					->getInstance("Tx_T3extblog_Service_SettingsService")
-					->setPageUid($fieldArray['pid']);
+					->setPageUid($fields['pid']);
 
-				$comment = $this->getComment($tceMain->substNEWwithIDs[$id]);
-				$this->getNotificationService()->processCommentAdded($comment, FALSE);
+				$this->getNotificationService()->processCommentAdded($this->getComment($id), FALSE);
 			}
 		}
 	}
 
 	/**
 	 * Get comment
+	 *
+	 * @param integer $uid Page uid
 	 *
 	 * @return Tx_T3extblog_Domain_Model_Comment
 	 */
