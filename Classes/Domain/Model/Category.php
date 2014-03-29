@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_AbstractEntity {
 
 	/**
 	 * name
@@ -133,7 +133,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function getPosts() {
 		if ($this->posts == NULL) {
-			$this->posts = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);
+			$this->posts = $this->objectManager->get("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);
 		}
 
 		return $this->posts;
@@ -150,7 +150,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_Extbase_DomainObject_Abstrac
 		}
 
 		if ($this->childCategories == NULL) {
-			$this->childCategories = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
+			$this->childCategories = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
 		}
 
 		return $this->childCategories;

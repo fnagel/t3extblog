@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_AbstractEntity {
 
 	/**
 	 * @var boolean
@@ -145,8 +145,6 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 
 	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		$this->date = new DateTime();
@@ -407,8 +405,9 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getPost() {
 		if ($this->post == NULL) {
-			$this->postRepository = t3lib_div::makeInstance('Tx_T3extblog_Domain_Repository_PostRepository');
-			$this->post = $this->postRepository->findByUid($this->postId);
+			$this->post = $this->objectManager
+				->get('Tx_T3extblog_Domain_Repository_PostRepository')
+				->findByUid($this->postId);
 		}
 
 		return $this->post;

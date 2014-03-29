@@ -236,7 +236,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 */
 	protected function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
 		/* @var $newSubscriber Tx_T3extblog_Domain_Model_Subscriber */
-		$newSubscriber = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
+		$newSubscriber =    $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
 

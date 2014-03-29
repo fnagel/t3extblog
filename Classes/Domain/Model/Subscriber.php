@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_AbstractEntity {
 
 	/**
 	 * @var boolean
@@ -174,7 +174,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
-			$postRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_PostRepository");
+			$postRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_PostRepository");
 			$this->post = $postRepository->findByUid($this->postUid);
 		}
 
@@ -188,7 +188,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function getPostComments() {
 		if ($this->postComments === NULL) {
-			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
 			$this->postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
 		}
 
@@ -202,7 +202,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function getPostPendingComments() {
 		if ($this->postPendingComments === NULL) {
-			$commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
 			$this->postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
 		}
 

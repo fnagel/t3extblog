@@ -34,6 +34,14 @@
 class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
+	 * objectManager
+	 *
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager;
+
+	/**
 	 * postRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_PostRepository
@@ -67,7 +75,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
 		/* @var $persistenceManager Tx_Extbase_Persistence_Manager */
-		$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 
 		// We "finally" persist the module data.
 		try {

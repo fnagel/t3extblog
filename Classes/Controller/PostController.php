@@ -63,7 +63,9 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 */
 	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
 		if ($category === NULL && isset($this->settings['latestPosts']['categoryUid'])) {
-			$category = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByUid((int)$this->settings['latestPosts']['categoryUid']);
+			$category = $this->objectManager
+				->get("Tx_T3extblog_Domain_Repository_CategoryRepository")
+				->findByUid((int)$this->settings['latestPosts']['categoryUid']);
 		}
 
 		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
@@ -154,7 +156,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		}
 
 		if ($newComment === NULL) {
-			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
+			$newComment = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
 		}
 		elseif ($newComment->getSpamPoints() === NULL) {
 			$this->forward('create', 'Comment');

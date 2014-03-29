@@ -121,7 +121,7 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 		}
 
 		/* @var $message t3lib_mail_Message */
-		$message = t3lib_div::makeInstance('t3lib_mail_Message');
+		$message = $this->objectManager->create('t3lib_mail_Message');
 		$message
 			->setTo($mailTo)
 			->setFrom($mailFrom)

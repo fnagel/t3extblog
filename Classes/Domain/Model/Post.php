@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractEntity {
 
 	/**
 	 * @var boolean
@@ -207,7 +207,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function getAuthor() {
 		if (intval($this->author)) {
-			return t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_BackendUserRepository")->findByUid($this->author);
+			return $this->objectManager->get("Tx_T3extblog_Domain_Repository_BackendUserRepository")->findByUid($this->author);
 		}
 
 		return NULL;
@@ -491,7 +491,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	private function initComments() {
 		if ($this->commentRepository === NULL) {
-			$this->commentRepository = t3lib_div::makeInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$this->commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
 		}
 	}
 

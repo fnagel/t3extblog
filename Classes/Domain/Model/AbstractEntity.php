@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -25,43 +25,28 @@
  ***************************************************************/
 
 /**
- * ViewHelper for rendering content
+ *
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper {
+abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
-	 * Render content
-	 *
-	 * @param array  $contentElements
-	 * @param int    $index
-	 * @param bool   $removeMarker
-	 * @param string $typoscript
-	 *
-	 * @return string
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
 	 */
-	public function render($contentElements, $index = 0, $removeMarker = TRUE, $typoscript = 'tt_content') {
-		$output = "";
-		$iterator = 0;
+	protected $objectManager;
 
-		foreach ($contentElements as $content) {
-			$iterator++;
-			if (($iterator - 1) < $index) {
-				continue;
-			}
-
-			$output .= $this->renderContentElement($content, $typoscript);
-		}
-
-		if ($removeMarker === TRUE) {
-			$output = $this->removeMarker($output);
-		}
-
-		return $output;
+	/**
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 *
+	 * @return void
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
 	}
+
 }
 
 ?>

@@ -45,6 +45,20 @@
 class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_ViewHelpers_Uri_ActionViewHelper {
 
 	/**
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 *
+	 * @return void
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	/**
 	 * @param string  $action Target action
 	 * @param array   $arguments Arguments
 	 * @param string  $controller Target controller. If NULL current controllerName is used
@@ -62,20 +76,22 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 	 * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
 	 * @param array   $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
 	 *
+	 * @throws Exception
+	 *
 	 * @return string Rendered link
 	 */
 	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		if (TYPO3_MODE === 'FE') {
 			return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
-		} else {
-			if ($pageUid === NULL && is_int($pageUid)) {
-				throw new Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
-			}
-
-			$this->buildTSFE($pageUid);
-			return $this->renderFrontendLink($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
-
 		}
+
+		if ($pageUid === NULL && is_int($pageUid)) {
+			throw new Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
+		}
+
+		$this->buildTSFE($pageUid);
+
+		return $this->renderFrontendLink($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
 	}
 
 	/**
@@ -106,9 +122,8 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 		}
 
 		/* @var $uriBuilder Tx_T3extblog_MVC_Web_Routing_UriBuilder */
-		$objectContainer = t3lib_div::makeInstance("Tx_Extbase_Object_Container_Container");
+		$uriBuilder = $this->objectManager->get("Tx_T3extblog_MVC_Web_Routing_UriBuilder");
 
-		$uriBuilder = $objectContainer->getInstance("Tx_T3extblog_MVC_Web_Routing_UriBuilder");
 		$uri = $uriBuilder
 			->reset()
 			->setTargetPageUid($pageUid)
@@ -136,7 +151,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 			$GLOBALS['TT']->start();
 		}
 
-		$GLOBALS['TSFE'] = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, '');
+		$GLOBALS['TSFE'] = $this->objectManager->get('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, '');
 
 		$GLOBALS['TSFE']->connectToDB();
 		$GLOBALS['TSFE']->initFEuser();

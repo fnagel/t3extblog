@@ -98,7 +98,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function newAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = t3lib_div::makeInstance('Tx_T3extblog_Domain_Model_Comment');
+			$newComment = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
 		}
 
 		$this->view->assign('newComment', $newComment);
@@ -125,7 +125,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$post->addComment($newComment);
 
 			/* @var $persistenceManager Tx_Extbase_Persistence_Manager */
-			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+			$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 			$persistenceManager->persistAll();
 
 			$this->notificationService->processCommentAdded($newComment);

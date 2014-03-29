@@ -42,9 +42,23 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	protected $typoScriptSetup;
 
 	/**
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
+
+	/**
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 *
+	 * @return void
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
 
 	/**
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
@@ -56,8 +70,13 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 		$this->typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 	}
 
-	function __construct() {
-		$this->contentObject = t3lib_div::makeInstance('tslib_cObj');
+	/**
+	 * Initializes the view helper before invoking the render method.
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+		$this->contentObject = $this->objectManager->get('tslib_cObj');
 	}
 
 	/**
