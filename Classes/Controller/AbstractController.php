@@ -98,7 +98,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 * @return void
 	 */
 	protected function addFlashMessage($key, $severity = t3lib_FlashMessage::OK) {
-		$messageLocallangKey = sprintf('flashMessage.%s.%s.%s', lcfirst($this->request->getControllerName()), $this->actionMethodName, $key);
+		$messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
 
 		$titleLocallangKey = sprintf('%s.title', $messageLocallangKey);

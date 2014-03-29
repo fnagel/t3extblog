@@ -131,7 +131,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 			$this->notificationService->processCommentAdded($newComment);
 
 			if (!$this->hasFlashMessages()) {
-				$this->addFlashMessage('Created', t3lib_FlashMessage::OK);
+				$this->addFlashMessage('created', t3lib_FlashMessage::OK);
 			}
 		}
 
@@ -177,7 +177,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		$this->commentRepository->update($comment);
 		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessage('Updated');
+			$this->addFlashMessage('updated');
 		}
 
 		$this->redirect('show', 'Post', NULL, array('post' => $post, 'comment' => $comment));
@@ -196,7 +196,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	public function deleteAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $comment) {
 		$post->removeComment($comment);
 
-		$this->addFlashMessage('Deleted', t3lib_FlashMessage::INFO);
+		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
 
 		$this->redirect('list', 'Post');
 	}
@@ -214,13 +214,13 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$settings = $this->settings['blogsystem']['comments'];
 
 		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
-			$this->addFlashMessage('NotAllowed', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessage('notAllowed', t3lib_FlashMessage::ERROR);
 			return FALSE;
 		}
 
 		if ($settings["allowedUntil"]) {
 			if ($post->isExpired(trim($settings["allowedUntil"]))) {
-				$this->addFlashMessage('CommentsClosed', t3lib_FlashMessage::ERROR);
+				$this->addFlashMessage('commentsClosed', t3lib_FlashMessage::ERROR);
 				return FALSE;
 			}
 		}
@@ -261,7 +261,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		// mark as spam
 		if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
-			$this->addFlashMessage('MarkedAsSpam', t3lib_FlashMessage::INFO);
+			$this->addFlashMessage('markedAsSpam', t3lib_FlashMessage::INFO);
 			$this->log->notice("New comment marked as SPAM.", $logData);
 			$comment->markAsSpam();
 		}

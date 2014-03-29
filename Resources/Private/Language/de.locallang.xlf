@@ -4,151 +4,193 @@
 		<header/>
 		<body>
 			<trans-unit id="post.comments">
-				<target>Kommentare</target>
+				<source>Kommentare</source>
 			</trans-unit>
 			<trans-unit id="post.permalink">
-				<target>Permalink</target>
+				<source>Permalink</source>
 			</trans-unit>
 			<trans-unit id="post.filter">
-				<target>Gefiltert nach</target>
+				<source>Gefiltert nach</source>
 			</trans-unit>
 			<trans-unit id="post.tag">
-				<target>Tag</target>
+				<source>Tag</source>
 			</trans-unit>
 			<trans-unit id="post.category">
-				<target>Kategorie</target>
+				<source>Kategorie</source>
 			</trans-unit>
 
 			<trans-unit id="comment.new">
-				<target>Neues Kommentar</target>
+				<source>Neues Kommentar</source>
 			</trans-unit>
 			<trans-unit id="comment.submit">
-				<target>Absenden</target>
+				<source>Absenden</source>
 			</trans-unit>
 			<trans-unit id="comment.disabled">
-				<target>Die Kommentarfunktion ist für diesen Artikel deaktiviert.</target>
+				<source>Die Kommentarfunktion ist für diesen Artikel deaktiviert.</source>
 			</trans-unit>
 			<trans-unit id="comment.text">
-				<target>Nachricht</target>
+				<source>Nachricht</source>
 			</trans-unit>
 			<trans-unit id="comment.title">
-				<target>Überschrift</target>
+				<source>Überschrift</source>
 			</trans-unit>
 			<trans-unit id="comment.author">
-				<target>Name</target>
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="comment.email">
-				<target>Email</target>
+				<source>Email</source>
 			</trans-unit>
 			<trans-unit id="comment.website">
-				<target>Link</target>
+				<source>Link</source>
 			</trans-unit>
 			<trans-unit id="comment.subscribe">
-				<target>Email bei neuen Kommentaren</target>
+				<source>Email bei neuen Kommentaren</source>
 			</trans-unit>
 			<trans-unit id="comment.human">
-				<target>Ich bin ein Mensch</target>
+				<source>Ich bin ein Mensch</source>
 			</trans-unit>
 			<trans-unit id="comment.optional">
-				<target>Optional</target>
+				<source>Optional</source>
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
-				<target>Liste der Benachrichtigungen</target>
+				<source>Liste der Benachrichtigungen</source>
 			</trans-unit>
 			<trans-unit id="subscriber.logout">
-				<target>Abmelden</target>
+				<source>Abmelden</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.post">
-				<target>Artikel</target>
+				<source>Artikel</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.name">
-				<target>Name</target>
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.header.comments">
-				<target>Kommentare</target>
+				<source>Kommentare</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.approved">
-				<target>akzeptiert</target>
+				<source>akzeptiert</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.moderation">
-				<target>ungeprüft</target>
+				<source>ungeprüft</source>
 			</trans-unit>
 			<trans-unit id="subscriber.table.delete">
-				<target>Löschen</target>
+				<source>Löschen</source>
 			</trans-unit>
 
 			<trans-unit id="error.comment.createAction">
-				<target>Fehler:</target>
+				<source>Fehler:</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.title.1221565786">
-				<target>Die Überschrift darf nur Text enthalten.</target>
+				<source>Die Überschrift darf nur Text enthalten.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.author.1221560718">
-				<target>Bitte geben Sie einen Namen ein.</target>
+				<source>Bitte geben Sie einen Namen ein.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.author.1221565786">
-				<target>Der Name darf nur Text enthalten.</target>
+				<source>Der Name darf nur Text enthalten.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.email.1221560718">
-				<target>Bitte geben Sie eine Email-Adresse ein.</target>
+				<source>Bitte geben Sie eine Email-Adresse ein.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.email.1221559976">
-				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
+				<source>Bitte geben Sie eine korrekte Email-Adresse an.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.text.1221560718">
-				<target>Bitte geben Sie eine Nachricht ein.</target>
+				<source>Bitte geben Sie eine Nachricht ein.</source>
 			</trans-unit>
 			<trans-unit id="error.newComment.website.1392679659">
-				<target>Bitte geben Sie valide URL ein.</target>
+				<source>Bitte geben Sie valide URL ein.</source>
 			</trans-unit>
 
 			<trans-unit id="subject.admin.newSubscription">
-				<target>%1$s: Neuer Kommentar</target>
+				<source>%1$s: Neuer Kommentar</source>
 			</trans-unit>
 			<trans-unit id="subject.subscriber.notify">
-				<target>%1$s: Neuer Kommentar zu '%2$s'</target>
+				<source>%1$s: Neuer Kommentar zu '%2$s'</source>
 			</trans-unit>
 			<trans-unit id="subject.subscriber.new">
-				<target>%1$s: Abbonieren von '%2$s'</target>
+				<source>%1$s: Abbonieren von '%2$s'</source>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed.title">
-				<target>Benachrichtigung bestätigt!</target>
+			<trans-unit id="flashMessage.subscriber.confirmed.title">
+				<source>Benachrichtigung bestätigt!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed">
-				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommentare geposted wurden.</target>
+			<trans-unit id="flashMessage.subscriber.confirmed">
+				<source>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommentare geposted wurden.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.deleted.title">
+				<source>Abbonement gelöscht!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.deleted">
+				<source>Das Abbonement wurde gekündigt.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.logout.title">
+				<source>Abgemeldet!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.logout">
+				<source>Sie wurden erfolgreich abgemeldet.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
+				<source>Fehlerhafte Authentifizierung!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidAuth">
+				<source>Die Authentifizierung war fehlerhaft. Bitte versuchen Sie es noch mal.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.authFailed.title">
+				<source>Authentifizierung fehlgeschlagen!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.authFailed">
+				<source>Die Authentifizierung ist fehlgeschlagen. Es scheint kein solches Abbonement zu geben.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.linkOutdated.title">
+				<source>Link abgelaufen!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.linkOutdated">
+				<source>Der Authenifizierungs-Link ist abgelaufen.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.alreadyRegistered.title">
+				<source>Bereits registriert!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
+				<source>Ihre Email-Adresse ist bereits für diesen Artikel registriert.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidLink.title">
+				<source>Fehlerhafter Link!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidLink">
+				<source>Der Authenifizierungs-Link ist fehlerhaft.</source>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.comment.createAction.Created.title">
-				<target>Kommentar gespeichert!</target>
+			<trans-unit id="flashMessage.comment.created.title">
+				<source>Kommentar gespeichert!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.Created">
-				<target>Danke, Ihr Kommentar wurde gespeichert.</target>
+			<trans-unit id="flashMessage.comment.created">
+				<source>Danke, Ihr Kommentar wurde gespeichert.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam.title">
-				<target>Kommentar gespeichert!</target>
+			<trans-unit id="flashMessage.comment.markedAsSpam.title">
+				<source>Kommentar gespeichert!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam">
-				<target>Ihr Kommentar wurde gespeichert aber als SPAM erkannt. Es wird in Kürze freigeschaltet.</target>
+			<trans-unit id="flashMessage.comment.markedAsSpam">
+				<source>Ihr Kommentar wurde gespeichert aber als SPAM erkannt. Es wird in Kürze freigeschaltet.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam.title">
-				<target>Kommentar nicht gespeichert!</target>
+			<trans-unit id="flashMessage.comment.blockedAsSpam.title">
+				<source>Kommentar nicht gespeichert!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam">
-				<target>Ihr Kommentar wurde als SPAM erkannt und geblockt. Bitte versuchen Sie es noch einmal.</target>
+			<trans-unit id="flashMessage.comment.blockedAsSpam">
+				<source>Ihr Kommentar wurde als SPAM erkannt und geblockt. Bitte versuchen Sie es noch einmal.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.NotAllowed.title">
-				<target>Keine Kommentare erlaubt.</target>
+			<trans-unit id="flashMessage.comment.nNotAllowed.title">
+				<source>Keine Kommentare erlaubt.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.NotAllowed">
-				<target>Es sind keine neuen Kommentare erlaubt.</target>
+			<trans-unit id="flashMessage.comment.nNotAllowed">
+				<source>Es sind keine neuen Kommentare erlaubt.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.CommentsClosed.title">
-				<target>Kommentare geschlossen.</target>
+			<trans-unit id="flashMessage.comment.commentsClosed.title">
+				<source>Kommentare geschlossen.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.CommentsClosed">
-				<target>Es sind keine neuen Kommentare mehr erlaubt.</target>
+			<trans-unit id="flashMessage.comment.commentsClosed">
+				<source>Es sind keine neuen Kommentare mehr erlaubt.</source>
 			</trans-unit>
 		</body>
 	</file>

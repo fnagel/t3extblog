@@ -94,7 +94,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 
 		if ($this->subscriber->_getProperty('hidden') === TRUE) {
 			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessage('Confirmed', t3lib_FlashMessage::NOTICE);
+			$this->addFlashMessage('confirmed', t3lib_FlashMessage::NOTICE);
 		}
 
 		$this->redirect('list');
@@ -118,7 +118,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$this->subscriberRepository->remove($subscriber);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
 
-		$this->addFlashMessage('Deleted', t3lib_FlashMessage::NOTICE);
+		$this->addFlashMessage('deleted', t3lib_FlashMessage::NOTICE);
 		$this->redirect('list');
 	}
 
@@ -128,7 +128,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	protected function logoutAction() {
-		$this->processError('Logout', t3lib_FlashMessage::NOTICE);
+		$this->processError('logout', t3lib_FlashMessage::NOTICE);
 	}
 
 	/**
@@ -187,11 +187,11 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
 		if ($subscriber === NULL) {
-			$this->processError('AuthFailed');
+			$this->processError('authFailed');
 		}
 
 		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
-			$this->processError('LinkOutdated');
+			$this->processError('linkOutdated');
 		}
 
 		if ($isConfirmRequest === TRUE) {
@@ -203,7 +203,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 
 			if (count($confirmedSubscriptions) > 0) {
 				$subscriber->_setProperty('deleted', TRUE);
-				$this->processError('AlreadyRegistered', t3lib_FlashMessage::NOTICE);
+				$this->processError('alreadyRegistered', t3lib_FlashMessage::NOTICE);
 			}
 		}
 
@@ -232,7 +232,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$code = $this->request->getArgument("code");
 
 		if (strlen($code) !== 32 || !ctype_alnum($code)) {
-			$this->processError('WrongLink');
+			$this->processError('invalidLink');
 		}
 
 		return $code;

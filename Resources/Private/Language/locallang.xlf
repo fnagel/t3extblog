@@ -92,47 +92,83 @@
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed.title">
+			<trans-unit id="flashMessage.subscriber.confirmed.title">
 				<source>Subscription confirmed!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmAction.Confirmed">
+			<trans-unit id="flashMessage.subscriber.confirmed">
 				<source>Thank! Your subscription has been confirmed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleteAction.Deleted.title">
+			<trans-unit id="flashMessage.subscriber.deleted.title">
 				<source>Subscription deleted!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleteAction.Deleted">
+			<trans-unit id="flashMessage.subscriber.deleted">
 				<source>Your subscription has been deleted.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.logout.title">
+				<source>Logged out!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.logout">
+				<source>You have been successfully logged out.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
+				<source>Invalid authentication!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidAuth">
+				<source>Authentication missing or invalid. Please try again.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.authFailed.title">
+				<source>Authentication failed!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.authFailed">
+				<source>Authentication has failed. It seems no such subscription exists.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.linkOutdated.title">
+				<source>Link outdated!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.linkOutdated">
+				<source>The used authentication link is expired.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.alreadyRegistered.title">
+				<source>Already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
+				<source>Your email address is already registered for this post.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidLink.title">
+				<source>Invalid link!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.invalidLink">
+				<source>The authentication link seems to be invalid.</source>
+			</trans-unit>
 
-			<trans-unit id="flashMessage.comment.createAction.Created.title">
+			<trans-unit id="flashMessage.comment.created.title">
 				<source>Comment saved!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.Created">
+			<trans-unit id="flashMessage.comment.created">
 				<source>Thanks, your comment has been saved.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam.title">
+			<trans-unit id="flashMessage.comment.markedAsSpam.title">
 				<source>Comment saved!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.MarkedAsSpam">
+			<trans-unit id="flashMessage.comment.markedAsSpam">
 				<source>Sorry, your comment has been saved but was marked as SPAM.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam.title">
+			<trans-unit id="flashMessage.comment.blockedAsSpam.title">
 				<source>Comment not saved!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.blockedAsSpam">
+			<trans-unit id="flashMessage.comment.blockedAsSpam">
 				<source>Sorry, your comment has recognized as SPAM. Please try again!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.NotAllowed.title">
+			<trans-unit id="flashMessage.comment.notAllowed.title">
 				<source>Comments not allowed</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.NotAllowed">
+			<trans-unit id="flashMessage.comment.notAllowed">
 				<source>Sorry, no new comments allowed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.CommentsClosed.title">
+			<trans-unit id="flashMessage.comment.commentsClosed.title">
 				<source>Comments closed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createAction.CommentsClosed">
+			<trans-unit id="flashMessage.comment.commentsClosed">
 				<source>Sorry, no new comments allowed.</source>
 			</trans-unit>
 		</body>
