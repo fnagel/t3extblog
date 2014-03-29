@@ -33,13 +33,14 @@ Currently implemented features:
 * Allow some HTML tags in comment message
 * Wordpress like subscription manager
 * Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support
-* Opt-In mails for comment subscription
+* Opt-In mails for comment subscription with expiration date
 * Auto close comments functionality
 * RSS feed for posts
 * BE Module for posts and comments
 * Default HTML markup matches Twitter Boostrap 2.3
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module)
 * Preview of hidden posts (add tx_t3extblog.singlePid to your page TSconfig)
+
 
 Installation
 ------------
@@ -58,7 +59,6 @@ Todo
 
 A lot of testing needs to be done. Help wanted!
 
-* When post is deleted we must delete all corresponding records (tcemain)
 * Partial for flashMessage VH
 * More unit tests and functional tests
 * Better flexform configuration for plugins
@@ -79,3 +79,9 @@ Contribution
 ------------
 
 Any help is appreciated. Please feel free to drop me a line, open issues or send pull requests.
+
+
+Donation
+------------
+
+Please consider a donation: http://www.felixnagel.com/donate/
