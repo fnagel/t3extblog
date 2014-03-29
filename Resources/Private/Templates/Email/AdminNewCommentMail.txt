@@ -16,14 +16,15 @@ Link:		<t3b:frontend.uri.action
 				section="comment_{comment.uid}" />
 
 
-Comment title: 		{comment.title}
-Comment author: 	{comment.author}
-Comment date: 		<f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date>
-Comment website: 	{comment.website}
-Comment approved: 	<f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</f:else></f:if>
-Comment is spam: 	<f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
+Comment
+Title: 		{comment.title}
+Author: 	{comment.author}
+Date: 		<f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date>
+Website: 	{comment.website}
+Approved: 	<f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</f:else></f:if>
+Is spam: 	<f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
 
-Comment text: 
+Text:
 <t3b:frontend.wordwrap><f:format.stripTags>{comment.text}</f:format.stripTags></t3b:frontend.wordwrap>
 
 
