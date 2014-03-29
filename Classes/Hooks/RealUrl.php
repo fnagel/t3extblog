@@ -30,31 +30,82 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Hooks_RealUrlAutoConfig {
+class Tx_T3extblog_Hooks_RealUrl {
+
+	public function encodeSpURL_postProc(&$params, &$ref) {
+		$params['URL'] = str_replace('t3extblog-action/permalink/', 'permalink/', $params['URL']);
+		$params['URL'] = str_replace('t3extblog-action/preview//', 'preview/', $params['URL']);
+	}
+	public function decodeSpURL_preProc(&$params, &$ref) {
+		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink/', $params['URL']);
+		$params['URL'] = str_replace('preview/', 't3extblog-action/preview//', $params['URL']);
+	}
+
+	/**
+	 *
+	 *
+	 * @param    array $params Default configuration
+	 * @param          $ref
+	 *
+	 * @internal param \tx_realurl_autoconfgen $pObj Parent object
+	 *
+	 * @return    array                        Updated configuration
+	 */
+	public function postProcessConfiguration(&$params, &$ref) {
+		$params['config'] = array_merge_recursive($params['config'], array(
+			'encodeSpURL_postProc' => array(
+				't3extblog' => 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->encodeSpURL_postProc',
+			),
+			'decodeSpURL_preProc' => array(
+				't3extblog' => 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->decodeSpURL_preProc',
+			),
+		));
+	}
 
 	/**
 	 * Generates additional RealURL configuration and merges it with provided configuration
 	 *
-	 * @param    array                  $params Default configuration
-	 * @param    tx_realurl_autoconfgen $pObj Parent object
+	 * @param    array $params Default configuration
+	 * @param          $ref
+	 *
+	 * @internal param \tx_realurl_autoconfgen $pObj Parent object
 	 *
 	 * @return    array                        Updated configuration
 	 */
-	function addConfig($params, &$pObj) {
+	public function extensionConfiguration($params, &$ref) {
 		return array_merge_recursive($params['config'], array(
 			'postVarSets' => array(
 				'_DEFAULT' => array(
+					't3extblog-action' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[action]',
+							'valueMap' => array(
+								'permalink' => 'permalink',
+								'preview' => 'preview',
+							),
+							'noMatch' => 'bypass',
+						),
+
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[permalinkPost]',
+						),
+
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[previewPost]',
+						),
+					),
+
 					'artikel' => array(
-						'year' => array(
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[year]',
 						),
-						'month' => array(
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[month]',
 						),
-						'day' => array(
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[day]',
 						),
-						'post' => array(
+						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[post]',
 							'lookUpTable' => array(
 								'table' => 'tx_t3blog_post',
@@ -70,47 +121,13 @@ class Tx_T3extblog_Hooks_RealUrlAutoConfig {
 						),
 					),
 
-					'preview' => array(
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[action]',
-							'valueMap' => array(
-								'article' => 'preview',
-							),
-							'noMatch' => 'bypass',
-						),
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[previewPost]',
-						),
-					),
-
-					'permalink' => array(
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[action]',
-							'valueMap' => array(
-								'article' => 'permalink',
-							),
-							'noMatch' => 'bypass',
-						),
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[permalinkPost]',
-						),
-					),
-
 					'tags' => array(
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[action]',
-							'noMatch' => 'bypass',
-						),
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[tag]',
 						),
 					),
 
 					'kategorie' => array(
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[action]',
-							'noMatch' => 'bypass',
-						),
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[category]',
 							'lookUpTable' => array(
