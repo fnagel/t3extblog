@@ -187,15 +187,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 			$post = $this->postRepository->findByUid($previewPost, FALSE);
 		}
 
-		$frameworkConfig = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-		);
-
-		$this->view->setTemplatePathAndFilename(
-			t3lib_div::getFileAbsFileName($frameworkConfig['view']['templateRootPath']) . 'Post/Show.html'
-		);
-
-		$this->view->assign('post', $post);
+		$this->forward('show', NULL, NULL, array('post' => $post));
 	}
 
 }
