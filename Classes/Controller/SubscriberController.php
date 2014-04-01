@@ -137,6 +137,9 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 * @return void
 	 */
 	public function errorAction() {
+		if (!$this->hasFlashMessages()) {
+			$this->addFlashMessage('invalidAuth', t3lib_FlashMessage::ERROR);
+		}
 	}
 
 	/**
