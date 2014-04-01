@@ -14,7 +14,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	// non-cacheable actions
 	array(
 		'Post' => 'preview',
-		'Comment' => 'create, update',
+		'Comment' => 'create',
 	)
 );
 

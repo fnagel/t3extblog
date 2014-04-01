@@ -121,6 +121,15 @@ class Tx_T3extblog_Hooks_RealUrl {
 						),
 					),
 
+					'comment' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
+							'valueMap' => array(
+								'new' => 'Comment',
+							),
+						),
+					),
+
 					'tags' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[tag]',
