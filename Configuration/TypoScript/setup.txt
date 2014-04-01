@@ -23,6 +23,7 @@ plugin.tx_t3extblog {
 		# used for mails
 		blogName = Testblog
 
+		# show hidden posts, should be used with a condition only
 		previewHiddenRecords = 0
 
 		blogsystem {
