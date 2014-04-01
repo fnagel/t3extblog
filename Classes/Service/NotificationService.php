@@ -68,6 +68,11 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	protected $emailService;
 
 	/**
+	 * @var Tx_Extbase_Service_CacheService
+	 */
+	protected $cacheService;
+
+	/**
 	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 *
 	 * @return void
@@ -117,6 +122,14 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	}
 
 	/**
+	 * @param Tx_Extbase_Service_CacheService $cacheService
+	 */
+	public function injectCacheService(Tx_Extbase_Service_CacheService $cacheService) {
+		$this->cacheService = $cacheService;
+	}
+
+
+	/**
 	 *
 	 */
 	public function initializeObject() {
@@ -149,6 +162,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 			$this->notifySubscribers($comment);
 
 			$this->persistToDatabase();
+			$this->flushFrontendCache();
 		}
 
 	}
@@ -171,6 +185,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 			$this->notifySubscribers($comment);
 
 			$this->persistToDatabase();
+			$this->flushFrontendCache();
 		}
 	}
 
@@ -353,6 +368,19 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 				$variable,
 			)
 		);
+	}
+
+	/**
+	 * Helper function for flush frontend page cache
+	 *
+	 * Needed as we want to make sure new comments are visible after enabling in BE.
+	 *
+	 * @return void
+	 */
+	protected function flushFrontendCache() {
+		if (TYPO3_MODE === 'BE' && !empty($this->settings['blogsystem']['pid'])) {
+			$this->cacheService->clearPageCache((integer) $this->settings['blogsystem']['pid']);
+		}
 	}
 
 	/**
