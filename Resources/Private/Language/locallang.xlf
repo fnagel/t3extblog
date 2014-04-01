@@ -3,6 +3,10 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2013-05-32T03:03:32Z" product-name="t3extblog">
 		<header/>
 		<body>
+			<trans-unit id="error.headline">
+				<source>Error:</source>
+			</trans-unit>
+
 			<trans-unit id="post.comments">
 				<source>comments</source>
 			</trans-unit>
