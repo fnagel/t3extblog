@@ -8,15 +8,15 @@
 	</td>
 	<td>
 		<b>
-			<a href="alt_doc.php?edit[tx_t3blog_com][{comment.uid}]=edit&returnUrl={returnUrl}">
+			<a href="alt_doc.php?edit[tx_t3blog_com][{comment.uid}]=edit&returnUrl={returnUrl}" title="{comment.plainText -> f:format.crop(maxCharacters: 300)}">
 				{comment.title}
 			</a>
 		</b>
 	</td>
-	<td>{comment.date -> f:format.date()}</td>
+	<td>{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
 	<td>{comment.author}</td>
-	<td>{comment.email}</td>
-	<td>{comment.website}</td>
+	<td><a href="mailto:{comment.email}">{comment.email}</a></td>
+	<td><a href="{comment.website}">{comment.website -> f:format.crop(maxCharacters: 50)}</a></td>
 	<td>
 		<f:if condition="{comment.approved}">
 			<f:then>

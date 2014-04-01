@@ -288,6 +288,15 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	}
 
 	/**
+	 * Returns the plain text without tags
+	 *
+	 * @return string $text
+	 */
+	public function getPlainText() {
+		return strip_tags($this->text);
+	}
+
+	/**
 	 * Sets the text
 	 *
 	 * @param string $text

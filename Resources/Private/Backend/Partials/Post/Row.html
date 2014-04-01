@@ -13,7 +13,7 @@
 			</a>
 		</b>
 	</td>
-	<td>{post.publishDate -> f:format.date()}</td>
+	<td>{post.publishDate -> f:format.date(format: 'd.m.Y - H:i')}</td>
 	<td>{post.author.name}</td>
 	<td>
 		<f:link.action controller="BackendComment" action="list" arguments="{post: post}">
