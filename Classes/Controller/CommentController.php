@@ -132,6 +132,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 			if (!$this->hasFlashMessages()) {
 				$this->addFlashMessage('created', t3lib_FlashMessage::OK);
+				$this->flushCache();
 			}
 		}
 
@@ -215,12 +216,14 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
 			$this->addFlashMessage('notAllowed', t3lib_FlashMessage::ERROR);
+			$this->flushCache();
 			return FALSE;
 		}
 
 		if ($settings["allowedUntil"]) {
 			if ($post->isExpired(trim($settings["allowedUntil"]))) {
 				$this->addFlashMessage('commentsClosed', t3lib_FlashMessage::ERROR);
+				$this->flushCache();
 				return FALSE;
 			}
 		}
@@ -255,6 +258,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		// block comment and show message
 		if ($threshold['block'] > 0 && $comment->getSpamPoints() >= intval($threshold['block'])) {
 			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
+			$this->flushCache();
 			$this->log->notice("New comment blocked because of SPAM.", $logData);
 			$this->forward('show', 'Post', NULL, array('post' => $post, 'newComment' => $comment));
 		}
@@ -262,6 +266,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		// mark as spam
 		if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
 			$this->addFlashMessage('markedAsSpam', t3lib_FlashMessage::INFO);
+			$this->flushCache();
 			$this->log->notice("New comment marked as SPAM.", $logData);
 			$comment->markAsSpam();
 		}
