@@ -136,10 +136,10 @@
 				<target>Sie wurden erfolgreich abgemeldet.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
-				<target>Fehlerhafte Authentifizierung!</target>
+				<target>Keine Authentifizierung!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidAuth">
-				<target>Die Authentifizierung war fehlerhaft. Bitte versuchen Sie es noch mal.</target>
+				<target>Keine Authentifizierung möglich.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.authFailed.title">
 				<target>Authentifizierung fehlgeschlagen!</target>

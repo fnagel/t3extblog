@@ -115,10 +115,10 @@
 				<source>You have been successfully logged out.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
-				<source>Invalid authentication!</source>
+				<source>Missing authentication!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidAuth">
-				<source>Authentication missing or invalid. Please try again.</source>
+				<source>Authentication missing. Please try again.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.authFailed.title">
 				<source>Authentication failed!</source>
