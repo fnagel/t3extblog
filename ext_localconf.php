@@ -13,7 +13,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	),
 	// non-cacheable actions
 	array(
-		'Post' => 'preview',
+		'Post' => 'permalink, preview',
 		'Comment' => 'create',
 	)
 );
