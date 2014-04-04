@@ -32,14 +32,18 @@
 				</f:if>
 
 				<div class="bottom row-fluid">
-					<div class="span3">
+					<div class="span4">
 						<span class="badge">
 							<f:link.action controller="Post" action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-list">
 								<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
 							</f:link.action>
 						</span>
+						<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
+							<i class="icon-link"></i>
+							<f:translate key="post.permalink" />
+						</f:link.action>
 					</div>
-					<div class="span9 text-right">
+					<div class="span8 text-right">
 						<f:render partial="Post/TagCloud" arguments="{post: post}" />
 					</div>
 				</div>
