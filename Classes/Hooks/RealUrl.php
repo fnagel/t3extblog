@@ -33,12 +33,12 @@
 class Tx_T3extblog_Hooks_RealUrl {
 
 	public function encodeSpURL_postProc(&$params, &$ref) {
-		$params['URL'] = str_replace('t3extblog-action/permalink/', 'permalink/', $params['URL']);
-		$params['URL'] = str_replace('t3extblog-action/preview//', 'preview/', $params['URL']);
+		$params['URL'] = str_replace('t3extblog-action/permalink-action/permalink/', 'permalink/', $params['URL']);
+		$params['URL'] = str_replace('t3extblog-action/preview-action/preview/', 'preview/', $params['URL']);
 	}
 	public function decodeSpURL_preProc(&$params, &$ref) {
-		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink/', $params['URL']);
-		$params['URL'] = str_replace('preview/', 't3extblog-action/preview//', $params['URL']);
+		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink-action/permalink/', $params['URL']);
+		$params['URL'] = str_replace('preview/', 't3extblog-action/preview-action/preview/', $params['URL']);
 	}
 
 	/**
@@ -80,22 +80,14 @@ class Tx_T3extblog_Hooks_RealUrl {
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
 							'valueMap' => array(
-								'permalink' => 'permalink',
-								'preview' => 'preview',
+								'permalink-action' => 'permalink',
+								'preview-action' => 'preview',
 							),
 							'noMatch' => 'bypass',
 						),
-
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[permalinkPost]',
-						),
-
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[previewPost]',
-						),
 					),
 
-					'artikel' => array(
+					'article' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[year]',
 						),
@@ -117,16 +109,20 @@ class Tx_T3extblog_Hooks_RealUrl {
 									'strtolower' => 1,
 									'spaceCharacter' => '-',
 								),
+								'enable404forInvalidAlias' => 1,
 							),
 						),
 					),
 
-					'comment' => array(
+					'permalink' => array(
 						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
-							'valueMap' => array(
-								'new' => 'Comment',
-							),
+							'GETvar' => 'tx_t3extblog_blogsystem[permalinkPost]',
+						),
+					),
+
+					'preview' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[previewPost]',
 						),
 					),
 
@@ -136,7 +132,7 @@ class Tx_T3extblog_Hooks_RealUrl {
 						),
 					),
 
-					'kategorie' => array(
+					'category' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[category]',
 							'lookUpTable' => array(
@@ -153,9 +149,18 @@ class Tx_T3extblog_Hooks_RealUrl {
 						)
 					),
 
-					'seite' => array(
+					'page' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+						),
+					),
+
+					'comment' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
+							'valueMap' => array(
+								'new' => 'Comment',
+							),
 						),
 					),
 

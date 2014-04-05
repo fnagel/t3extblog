@@ -8,7 +8,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Blogsystem',
 	array(
-		'Post' => 'show, permalink, list, preview',
+		'Post' => 'show, permalink, preview, list',
 		'Comment' => 'create',
 	),
 	// non-cacheable actions
