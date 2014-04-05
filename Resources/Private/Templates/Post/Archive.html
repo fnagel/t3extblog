@@ -19,6 +19,10 @@
 						<f:link.action action="show" arguments="{post.linkParameter}">
 							{post.title}
 						</f:link.action>
+
+						<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
+							<i class="icon-link"></i>
+						</f:link.action>
 					</li>
 				</f:for>
 				</ul>
