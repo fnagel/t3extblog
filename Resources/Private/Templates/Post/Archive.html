@@ -2,33 +2,33 @@
 
 <f:section name="main">
 	<f:groupedFor each="{posts}" as="postsByYear" groupBy="publishYear" groupKey="year">
-	<div class="well">
-		<h3>
-			{year}
-			<small>({postsByYear -> f:count()})</small>		
-		</h3>
-		<ul class="unstyled">
-		<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
-			<li>
-				<strong><f:format.date format="F">1/1 -1 day +{month} months</f:format.date></strong>&nbsp;
-				<small>({postsByMonth -> f:count()})</small>
-				<ul>
-				<f:for each="{postsByMonth}" as="post">
+		<div class="well">
+			<h3>
+				{year}
+				<small>({postsByYear -> f:count()})</small>
+			</h3>
+			<ul class="unstyled">
+				<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
 					<li>
-						<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
-						<f:link.action action="show" arguments="{post.linkParameter}">
-							{post.title}
-						</f:link.action>
+						<strong><f:format.date format="F">1/1 -1 day +{month} months</f:format.date></strong>&nbsp;
+						<small>({postsByMonth -> f:count()})</small>
+						<ul>
+							<f:for each="{postsByMonth}" as="post">
+								<li>
+									<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
+									<f:link.action action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
+										{post.title}
+									</f:link.action>
 
-						<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
-							<i class="icon-link"></i>
-						</f:link.action>
+									<f:link.action controller="Post" action="permalink" pageUid="{settings.blogsystem.pid}" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
+										<i class="icon-link"></i>
+									</f:link.action>
+								</li>
+							</f:for>
+						</ul>
 					</li>
-				</f:for>
-				</ul>
-			</li>
-		</f:groupedFor>
-		</ul>
-	</div>
+				</f:groupedFor>
+			</ul>
+		</div>
 	</f:groupedFor>
 </f:section>
