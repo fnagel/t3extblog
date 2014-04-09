@@ -78,7 +78,7 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	}
 
 	/**
-	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = $this->settingsService->getTypoScriptSettings();
@@ -96,8 +96,8 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	public function process(Tx_T3extblog_Domain_Model_Comment $comment, Tx_Extbase_MVC_Request $request) {
 		$spamPoints = 0;
 
-		if (!$this->spamSettings["enable"]) {
-			return true;
+		if (!$this->spamSettings['enable']) {
+			return $spamPoints;
 		}
 
 		if ($this->spamSettings['honeypot']) {
@@ -107,7 +107,7 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 		}
 
 		if ($this->spamSettings['isHumanCheckbox']) {
-			if (!$request->hasArgument("human") || !$request->hasArgument("human")) {
+			if (!$request->hasArgument('human') || !$request->hasArgument('human')) {
 				$spamPoints += intval($this->spamSettings['isHumanCheckbox']);
 			}
 		}
@@ -119,7 +119,7 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 		}
 
 		if ($this->spamSettings['userAgent']) {
-			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == "") {
+			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == '') {
 				$spamPoints += intval($this->spamSettings['userAgent']);
 			}
 		}
@@ -129,6 +129,8 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 				$spamPoints += intval($this->spamSettings['sfpantispam']);
 			}
 		}
+
+		$comment->setSpamPoints($spamPoints);
 
 		return $spamPoints;
 	}
@@ -142,7 +144,7 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	 */
 	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
 		if (!t3lib_extMgm::isLoaded('sfpantispam')) {
-			$this->log->error("EXT:sfpantispam not installed but enabled in configuration.");
+			$this->log->error('EXT:sfpantispam not installed but enabled in configuration.');
 			return FALSE;
 		}
 
@@ -167,16 +169,16 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	 * @return boolean
 	 */
 	protected function checkHoneyPotFields(Tx_Extbase_MVC_Request $request) {
-		if (!$request->hasArgument("author") || strlen($request->getArgument("author")) > 0) {
+		if (!$request->hasArgument('author') || strlen($request->getArgument('author')) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument("link") || strlen($request->getArgument("link")) > 0) {
+		if (!$request->hasArgument('link') || strlen($request->getArgument('link')) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument("text") || strlen($request->getArgument("text")) > 0) {
+		if (!$request->hasArgument('text') || strlen($request->getArgument('text')) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument("timestamp") || $request->getArgument("timestamp") !== "1368283172") {
+		if (!$request->hasArgument('timestamp') || $request->getArgument('timestamp') !== '1368283172') {
 			return FALSE;
 		}
 

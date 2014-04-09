@@ -115,7 +115,11 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 */
 	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
 		$this->checkIfCommentIsAllowed($post, $newComment);
-		$this->processComment($newComment, $post);
+
+		$this->spamCheckService->process($newComment, $this->request);
+		$this->checkSpamPoints($newComment, $post);
+
+		$this->sanitizeComment($newComment);
 
 		if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
 			$newComment->setApproved(TRUE);
@@ -168,40 +172,48 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
 	 * @param Tx_T3extblog_Domain_Model_Post $post The comment to be deleted
+	 *
+	 * @return void
 	 */
-	protected function processComment(Tx_T3extblog_Domain_Model_Comment $comment, Tx_T3extblog_Domain_Model_Post $post) {
+	protected function checkSpamPoints(Tx_T3extblog_Domain_Model_Comment $comment, Tx_T3extblog_Domain_Model_Post $post) {
 		$settings = $this->settings['blogsystem']['comments']['spamCheck'];
-		$allowTags = $this->settings['blogsystem']['comments']['allowTags'];
 		$threshold = $settings['threshold'];
-		$spamPoints = $this->spamCheckService->process($comment, $this->request);
 		$logData = array(
 			'postUid' => $post->getUid(),
-			'spamPoints' => $spamPoints,
+			'spamPoints' => $comment->getSpamPoints(),
 		);
 
-		// Set spam points and sanitize comment
-		$comment->setSpamPoints($spamPoints);
-		$comment->setText(t3lib_div::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
-
 		// block comment and redirect user
-		if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
-			$this->log->notice("New comment blocked and user redirected because of SPAM.", $logData);
+		if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= intval($threshold['redirect'])) {
+			$this->log->notice('New comment blocked and user redirected because of SPAM.', $logData);
 			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
 		}
 
 		// block comment and show message
-		if ($threshold['block'] > 0 && $spamPoints >= intval($threshold['block'])) {
-			$this->log->notice("New comment blocked because of SPAM.", $logData);
+		if ($threshold['block'] > 0 && $comment->getSpamPoints() >= intval($threshold['block'])) {
+			$this->log->notice('New comment blocked because of SPAM.', $logData);
 			$this->addFlashMessage('blockedAsSpam', t3lib_FlashMessage::ERROR);
 			$this->errorAction();
 		}
 
 		// mark as spam
-		if ($spamPoints >= intval($threshold['markAsSpam'])) {
-			$this->log->notice("New comment marked as SPAM.", $logData);
+		if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
+			$this->log->notice('New comment marked as SPAM.', $logData);
 			$comment->markAsSpam();
 			$this->addFlashMessage('markedAsSpam', t3lib_FlashMessage::INFO);
 		}
+	}
+
+	/**
+	 * Sanitize comment content
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 *
+	 * @return void
+	 */
+	protected function sanitizeComment(Tx_T3extblog_Domain_Model_Comment $comment) {
+		$allowTags = $this->settings['blogsystem']['comments']['allowTags'];
+		$comment->setText(t3lib_div::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
 	}
 
 	/**
