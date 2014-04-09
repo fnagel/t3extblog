@@ -61,7 +61,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	 */
 	public function findExistingSubscriptions($postUid, $email, $excludeUid = NULL) {
 		$query = $this->createQuery();
-		$constraints =	array();
+		$constraints = array();
 
 		$constraints[] = $query->equals('postUid', $postUid);
 		$constraints[] = $query->equals('email', $email);
@@ -105,7 +105,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	/**
 	 * Find by code
 	 *
-	 * @param string  $code
+	 * @param string $code
 	 * @param boolean $enableFields
 	 */
 	public function findByCode($code, $enableFields = TRUE) {

@@ -46,11 +46,11 @@ class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persi
 	public function createQuery($pageUid = NULL) {
 		$query = parent::createQuery();
 
-		if($pageUid !== NULL) {
+		if ($pageUid !== NULL) {
 			$this->setPid($pageUid);
 		}
 
-		if($this->pageUid !== NULL) {
+		if ($this->pageUid !== NULL) {
 			$query->getQuerySettings()->setStoragePageIds(array($this->pageUid));
 		}
 

@@ -82,7 +82,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * @param    string $status : (reference) Status of the current operation, 'new' or 'update'
 	 * @param    string $table : (refrence) The table currently processing data for
 	 * @param    string $id : (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
-	 * @param    array  $fields : (reference) The field array of a record     *
+	 * @param    array $fields : (reference) The field array of a record     *
 	 * @param           $tceMain
 	 *
 	 * @internal param \t3lib_TCEmain $tce
@@ -137,10 +137,10 @@ class Tx_T3extblog_Hooks_Tcemain {
 	}
 
 	/**
-	 * @param integer   $postId
-	 * @param string    $tableName
-	 * @param string    $fieldName
-	 * @param string    $extraWhere
+	 * @param integer $postId
+	 * @param string $tableName
+	 * @param string $fieldName
+	 * @param string $extraWhere
 	 *
 	 * @return array
 	 */
@@ -255,10 +255,10 @@ class Tx_T3extblog_Hooks_Tcemain {
 	}
 
 	/**
-	 * @param string        $table
-	 * @param integer       $id
+	 * @param string $table
+	 * @param integer $id
 	 * @param t3lib_TCEmain $tceMain
-	 * @param array         $watchedFields
+	 * @param array $watchedFields
 	 *
 	 * @return bool
 	 */

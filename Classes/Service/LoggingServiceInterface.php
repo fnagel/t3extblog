@@ -37,7 +37,7 @@ interface Tx_T3extblog_Service_LoggingServiceInterface {
 	 * Error logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ interface Tx_T3extblog_Service_LoggingServiceInterface {
 	 * Notice logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ interface Tx_T3extblog_Service_LoggingServiceInterface {
 	 * Development logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */

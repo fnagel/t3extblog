@@ -96,4 +96,5 @@ class Tx_T3extblog_MVC_Web_Routing_UriBuilder extends Tx_Extbase_MVC_Web_Routing
 	}
 
 }
+
 ?>

@@ -103,8 +103,8 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	/**
 	 * This is the main-function for sending Mails
 	 *
-	 * @param array  $mailTo
-	 * @param array  $mailFrom
+	 * @param array $mailTo
+	 * @param array $mailFrom
 	 * @param string $subject
 	 * @param string $emailBody
 	 *
@@ -154,7 +154,7 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	/**
 	 * This functions renders template to use in Mails and Other views
 	 *
-	 * @param array  $variables Arguments for template
+	 * @param array $variables Arguments for template
 	 * @param string $templatePath Choose a template
 	 * @param string $format Choose a format (txt or html)
 	 */

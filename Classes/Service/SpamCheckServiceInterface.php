@@ -37,7 +37,7 @@ interface Tx_T3extblog_Service_SpamCheckServiceInterface {
 	 * Checks comment for SPAM
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be checked
-	 * @param Tx_Extbase_MVC_Request            $request The request to be checked
+	 * @param Tx_Extbase_MVC_Request $request The request to be checked
 	 *
 	 * @return integer Spam points
 	 */

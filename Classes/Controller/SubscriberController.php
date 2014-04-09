@@ -153,7 +153,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected function processError($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
 		$this->authentication->logout();
 
-		$this->addFlashMessage($message, $severity );
+		$this->addFlashMessage($message, $severity);
 		$this->redirect("error");
 	}
 
@@ -226,6 +226,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 
 		return FALSE;
 	}
+
 	/**
 	 * Checks the code
 	 *

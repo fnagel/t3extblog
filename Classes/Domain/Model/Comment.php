@@ -324,7 +324,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return void
 	 */
 	public function setApproved($approved) {
-		$this->approved = (boolean) $approved;
+		$this->approved = (boolean)$approved;
 	}
 
 	/**
@@ -333,7 +333,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return boolean
 	 */
 	public function isApproved() {
-		return (boolean) $this->getApproved();
+		return (boolean)$this->getApproved();
 	}
 
 	/**
@@ -353,7 +353,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return void
 	 */
 	public function setSpam($spam) {
-		$this->spam = (boolean) $spam;
+		$this->spam = (boolean)$spam;
 	}
 
 	/**
@@ -376,7 +376,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return (boolean) $this->getSpam();
+		return (boolean)$this->getSpam();
 	}
 
 	/**
@@ -428,7 +428,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return boolean $spam
 	 */
 	public function getSubscribe() {
-		return (boolean) $this->subscribe;
+		return (boolean)$this->subscribe;
 	}
 
 	/**
@@ -439,21 +439,21 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return void
 	 */
 	public function setSubscribe($subscribe) {
-		$this->subscribe = (boolean) $subscribe;
+		$this->subscribe = (boolean)$subscribe;
 	}
 
 	/**
 	 * @param boolean $mailsSent
 	 */
 	public function setMailsSent($mailsSent) {
-		$this->mailsSent = (boolean) $mailsSent;
+		$this->mailsSent = (boolean)$mailsSent;
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function getMailsSent() {
-		return (boolean) $this->mailsSent;
+		return (boolean)$this->mailsSent;
 	}
 
 	/**

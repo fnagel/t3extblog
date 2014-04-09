@@ -29,11 +29,11 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 	 * @var array
 	 */
 	protected $severityMapping = array(
-		t3lib_FlashMessage::NOTICE =>   'alert-info',
-		t3lib_FlashMessage::INFO =>     'alert-info',
-		t3lib_FlashMessage::OK =>       'alert-success',
-		t3lib_FlashMessage::WARNING =>  'alert-warning',
-		t3lib_FlashMessage::ERROR =>    'alert-error'
+		t3lib_FlashMessage::NOTICE => 'alert-info',
+		t3lib_FlashMessage::INFO => 'alert-info',
+		t3lib_FlashMessage::OK => 'alert-success',
+		t3lib_FlashMessage::WARNING => 'alert-warning',
+		t3lib_FlashMessage::ERROR => 'alert-error'
 	);
 
 	/**

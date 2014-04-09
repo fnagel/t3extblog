@@ -215,7 +215,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Send optin mail for subscirber
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
-	 * @param Tx_T3extblog_Domain_Model_Comment    $comment Comment
+	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
 	 *
 	 * @return void
 	 */
@@ -251,7 +251,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 */
 	protected function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
 		/* @var $newSubscriber Tx_T3extblog_Domain_Model_Subscriber */
-		$newSubscriber =    $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
+		$newSubscriber = $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
 
@@ -315,7 +315,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Notify the blog admin
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 * @param string                            $emailTemplate
+	 * @param string $emailTemplate
 	 *
 	 * @return    void
 	 */
@@ -379,7 +379,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 */
 	protected function flushFrontendCache() {
 		if (TYPO3_MODE === 'BE' && !empty($this->settings['blogsystem']['pid'])) {
-			$this->cacheService->clearPageCache((integer) $this->settings['blogsystem']['pid']);
+			$this->cacheService->clearPageCache((integer)$this->settings['blogsystem']['pid']);
 		}
 	}
 

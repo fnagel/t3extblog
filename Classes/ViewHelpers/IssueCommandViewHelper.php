@@ -53,7 +53,7 @@ class Tx_T3extblog_ViewHelpers_IssueCommandViewHelper extends Tx_Fluid_Core_View
 			t3lib_BEfunc::getUrlToken('tceAction') .
 			'&prErr=1&uPT=1' .
 			'&redirect=' . ($redirectUrl == '' ? "' + T3_THIS_LOCATION + '" : rawurlencode($redirectUrl));
-		}
+	}
 }
 
 ?>

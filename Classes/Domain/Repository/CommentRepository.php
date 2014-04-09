@@ -101,7 +101,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds comments by email and post uid
 	 *
-	 * @param string  $email
+	 * @param string $email
 	 * @param integer $postUid
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
@@ -119,7 +119,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds valid comments by email and post uid
 	 *
-	 * @param string  $email
+	 * @param string $email
 	 * @param integer $postUid
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
@@ -140,7 +140,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds pending comments by email and post uid
 	 *
-	 * @param string  $email
+	 * @param string $email
 	 * @param integer $postUid
 	 *
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
@@ -214,8 +214,8 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * Create constraints
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @param string                                $email
-	 * @param integer                               $postUid
+	 * @param string $email
+	 * @param integer $postUid
 	 *
 	 * @return
 	 */

@@ -50,7 +50,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * @var boolean
 	 */
 	protected $logInDevlog;
-	
+
 	/**
 	 * @var boolean
 	 */
@@ -93,7 +93,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * Error logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * Notice logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -133,7 +133,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * Development logging
 	 *
 	 * @param string $msg Message
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -150,9 +150,9 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	/**
 	 * Writes message to the FE
 	 *
-	 * @param string  $msg Message (in English).
+	 * @param string $msg Message (in English).
 	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
-	 * @param array  $data Data
+	 * @param array $data Data
 	 *
 	 * @return void
 	 */
@@ -163,7 +163,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	/**
 	 * Logs message to the system log.
 	 *
-	 * @param string  $msg Message (in English).
+	 * @param string $msg Message (in English).
 	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
 	 *
 	 * @return void
@@ -175,9 +175,9 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	/**
 	 * Logs message to the development log.
 	 *
-	 * @param string  $msg Message (in english).
+	 * @param string $msg Message (in english).
 	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is fatal error, -1 is "OK" message
-	 * @param mixed   $dataVar Additional data you want to pass to the logger.
+	 * @param mixed $dataVar Additional data you want to pass to the logger.
 	 *
 	 * @return void
 	 */

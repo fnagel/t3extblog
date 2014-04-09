@@ -67,7 +67,7 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	/**
 	 * Load and persist module data
 	 *
-	 * @param Tx_Extbase_MVC_RequestInterface  $request
+	 * @param Tx_Extbase_MVC_RequestInterface $request
 	 * @param Tx_Extbase_MVC_ResponseInterface $response
 	 *
 	 * @throws Tx_Extbase_MVC_Exception_StopAction

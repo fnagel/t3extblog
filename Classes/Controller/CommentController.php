@@ -89,7 +89,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * action new
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post    $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
 	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
@@ -108,7 +108,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * Adds a comment to a blog post and redirects to single view
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post    $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 *
 	 * @return void
@@ -142,7 +142,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * Checks if a new comment could be created
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post    $post The post the comment is related to
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
 	 *
 	 * @return void

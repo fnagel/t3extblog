@@ -36,9 +36,9 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 	/**
 	 * Render content
 	 *
-	 * @param array  $contentElements
-	 * @param int    $index
-	 * @param bool   $removeMarker
+	 * @param array $contentElements
+	 * @param int $index
+	 * @param bool $removeMarker
 	 * @param string $typoscript
 	 *
 	 * @return string

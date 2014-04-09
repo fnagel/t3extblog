@@ -44,7 +44,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays a list of posts.
 	 *
-	 * @param string                             $tag The name of the tag to show the posts for
+	 * @param string $tag The name of the tag to show the posts for
 	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return void
@@ -56,7 +56,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays a list of latest posts.
 	 *
-	 * @param string                             $tag The name of the tag to show the posts for
+	 * @param string $tag The name of the tag to show the posts for
 	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return void
@@ -76,7 +76,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 *
 	 * @todo Performance improvements: do not fetch all by default, consider paginator
 	 *
-	 * @param string                                     $tag The name of the tag to show the posts for
+	 * @param string $tag The name of the tag to show the posts for
 	 * @param integer|Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return Tx_T3extblog_Domain_Model_Post
@@ -145,7 +145,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post    $post The post to display
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display
 	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
 	 *
 	 * @return void
@@ -160,7 +160,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 		}
 
 		// @todo: This will not work as this action is cached
-        // $post->riseNumberOfViews();
+		// $post->riseNumberOfViews();
 
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);

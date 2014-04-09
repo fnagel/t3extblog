@@ -37,7 +37,7 @@ class Tx_T3extblog_ViewHelpers_SpriteManagerIconViewHelper extends Tx_Fluid_View
 	 * Prints sprite icon html for $iconName key
 	 *
 	 * @param string $iconName
-	 * @param array  $options
+	 * @param array $options
 	 *
 	 * @return string
 	 */

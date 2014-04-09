@@ -37,8 +37,8 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 	 * Render preview
 	 *
 	 * @param Tx_Extbase_Persistence_ObjectStorage|array $contentElements
-	 * @param integer                                    $index
-	 * @param string                                     $ellipsis
+	 * @param integer $index
+	 * @param string $ellipsis
 	 *
 	 * @return string
 	 */

@@ -92,7 +92,7 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	/**
 	 * Helper function to render localized flashmessages
 	 *
-	 * @param string  $action
+	 * @param string $action
 	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
 	 *
 	 * @return void
