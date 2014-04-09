@@ -121,21 +121,6 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	}
 
 	/**
-	 * Flush page(s) cache
-	 *
-	 * When no parameter is given the current page id is used.
-	 *
-	 * @param array $pids
-	 */
-	protected function flushCache(array $pids = NULL) {
-		if ($pids === NULL){
-			$pids = array( $GLOBALS["TSFE"]->id );
-		}
-
-		$this->cacheService->clearPageCache($pids);
-	}
-
-	/**
 	 * helper function to use localized strings in BlogExample controllers
 	 *
 	 * @param string $key locallang key
