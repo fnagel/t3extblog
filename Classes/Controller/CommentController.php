@@ -181,7 +181,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 
 		// Set spam points and sanitize comment
 		$comment->setSpamPoints($spamPoints);
-		$comment->setText(strip_tags($comment->getText(), trim($allowTags)));
+		$comment->setText(t3lib_div::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
 
 		// block comment and redirect user
 		if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
