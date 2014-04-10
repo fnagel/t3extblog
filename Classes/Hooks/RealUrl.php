@@ -145,7 +145,8 @@ class Tx_T3extblog_Hooks_RealUrl {
 								'useUniqueCache_conf' => array(
 									'strtolower' => 1,
 									'spaceCharacter' => '-',
-								)
+								),
+								'enable404forInvalidAlias' => 1,
 							)
 						)
 					),

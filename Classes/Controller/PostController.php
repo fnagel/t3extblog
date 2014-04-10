@@ -83,17 +83,25 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 */
 	private function findByTagOrCategory($tag = NULL, $category = NULL) {
 		if ($category !== NULL) {
-			$posts = $this->postRepository->findByCategory($category);
 			$this->view->assign('category', $category);
-		} elseif (strlen($tag) > 2) {
-			$tag = urldecode($tag);
-			$posts = $this->postRepository->findByTag($tag);
-			$this->view->assign('tag', $tag);
-		} else {
-			$posts = $this->postRepository->findAll();
+
+			return $this->postRepository->findByCategory($category);
 		}
 
-		return $posts;
+		if ($tag !== NULL && strlen($tag) > 2) {
+			$tag = urldecode($tag);
+
+			$posts = $this->postRepository->findByTag($tag);
+			if (count($posts) === 0) {
+				$GLOBALS['TSFE']->pageNotFoundAndExit('Tag not found!');
+			}
+
+			$this->view->assign('tag', $tag);
+
+			return $posts;
+		}
+
+		return $this->postRepository->findAll();
 	}
 
 
@@ -115,7 +123,7 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 */
 	public function initializeRssAction() {
 		// set format to xml
-		$this->request->setFormat("xml");
+		$this->request->setFormat('xml');
 	}
 
 	/**
