@@ -6,7 +6,7 @@
 				<f:else>{comment.author}</f:else>
 			</f:if>
 		</strong>
-		<p>
+		<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{comment.date}')}" />
 		</p>
 	</div>

@@ -38,10 +38,6 @@
 								<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
 							</f:link.action>
 						</span>
-						<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
-							<i class="icon-link"></i>
-							<f:translate key="post.permalink" />
-						</f:link.action>
 					</div>
 					<div class="span8 text-right">
 						<f:render partial="Post/TagCloud" arguments="{post: post}" />
