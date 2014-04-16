@@ -1,6 +1,6 @@
 <f:if condition="{post.tagCloud}">
 	<ul class="inline">
-		<li class="icon-tag"><span class="ui-helper-hidden-accessible">Tags: </span></li>
+		<li class="icon-tags"><span class="ui-helper-hidden-accessible">Tags: </span></li>
 		<f:for each="{post.tagCloud}" as="tag">
 			<li class="label"><f:link.action controller="Post" action="list" arguments="{tag : '{tag}'}">{tag}</f:link.action></li>
 		</f:for>

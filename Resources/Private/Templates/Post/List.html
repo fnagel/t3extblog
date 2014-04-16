@@ -10,7 +10,7 @@
 		<f:for each="{paginatedPosts}" as="post">
 			<article class="well">
 				<h2>
-					<f:link.action action="show" arguments="{post.linkParameter}">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
 						{post.title}
 					</f:link.action>
 				</h2>
@@ -24,7 +24,7 @@
 					<div class="teaser">
 						<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
 						<br>
-						<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" class="btn btn-primary">
+						<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" class="btn btn-primary">
 							<i class="icon-arrow-right"></i>
 							{post.title}
 						</f:link.action>
@@ -34,7 +34,7 @@
 				<div class="bottom row-fluid">
 					<div class="span4">
 						<span class="badge">
-							<f:link.action controller="Post" action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-list">
+							<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
 								<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
 							</f:link.action>
 						</span>

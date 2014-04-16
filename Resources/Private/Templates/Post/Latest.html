@@ -9,7 +9,7 @@
 			<ul>
 			<f:for each="{paginatedPosts}" as="post">
 				<li>
-					<f:link.action action="show" arguments="{post.linkParameter}">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
 						{post.title}
 					</f:link.action>
 				</li>

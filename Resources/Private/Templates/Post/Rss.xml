@@ -28,6 +28,7 @@
                         <link>
                             <f:format.htmlspecialchars>
                                 <f:uri.action
+                                    controller="Post"
                                     action="show"
                                     pageUid="{settings.blogsystem.pid}"
                                     absolute="true"
@@ -38,6 +39,7 @@
                         <source>
                             <f:format.htmlspecialchars>
                                 <f:uri.action
+                                    controller="Post"
                                     action="show"
                                     pageUid="{settings.blogsystem.pid}"
                                     absolute="true"
@@ -54,7 +56,7 @@
                         </description>
                         <content:encoded>
                             <f:format.cdata>
-                                <h2><f:link.action action="show" arguments="{post.linkParameter}">{post.title}</f:link.action></h2>
+                                <h2><f:link.action controller="Post" action="show" arguments="{post.linkParameter}">{post.title}</f:link.action></h2>
                                 <em class="author">by {post.author.name}</em>
                                 <span class="date">{post.publishDate -> f:format.date()}</span>
                                 <br /><br />

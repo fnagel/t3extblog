@@ -16,7 +16,7 @@
 							<f:for each="{postsByMonth}" as="post">
 								<li>
 									<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
-									<f:link.action action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
+									<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
 										{post.title}
 									</f:link.action>
 

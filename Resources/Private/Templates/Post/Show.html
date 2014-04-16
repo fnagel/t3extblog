@@ -5,7 +5,7 @@
 <f:section name="main">
 	<article class="well">
 		<h2>
-			<f:link.action action="show" arguments="{post.linkParameter}">
+			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" >
 				{post.title}
 			</f:link.action>
 			<t3b:frontend.titleTag>{post.title} / </t3b:frontend.titleTag>
@@ -25,7 +25,7 @@
 		<div class="bottom row-fluid">
 			<div class="span4">
 				<span class="badge">
-					<f:link.action action="show" arguments="{post.linkParameter}" section="comment-section">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
 						<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
 					</f:link.action>
 				</span>
