@@ -33,13 +33,11 @@
 class Tx_T3extblog_Hooks_RealUrl {
 
 	public function encodeSpURL_postProc(&$params, &$ref) {
-		$params['URL'] = str_replace('t3extblog-action/show-action/article/', 'article/', $params['URL']);
 		$params['URL'] = str_replace('t3extblog-action/permalink-action/permalink/', 'permalink/', $params['URL']);
 		$params['URL'] = str_replace('t3extblog-action/preview-action/preview/', 'preview/', $params['URL']);
 	}
 
 	public function decodeSpURL_preProc(&$params, &$ref) {
-		$params['URL'] = str_replace('article/', 't3extblog-action/show-action/article/', $params['URL']);
 		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink-action/permalink/', $params['URL']);
 		$params['URL'] = str_replace('preview/', 't3extblog-action/preview-action/preview/', $params['URL']);
 	}
@@ -84,11 +82,9 @@ class Tx_T3extblog_Hooks_RealUrl {
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
 							'valueMap' => array(
-								'show-action' => 'show',
 								'permalink-action' => 'permalink',
 								'preview-action' => 'preview',
 							),
-							'noMatch' => 'bypass',
 						),
 					),
 
@@ -161,6 +157,8 @@ class Tx_T3extblog_Hooks_RealUrl {
 						),
 					),
 
+					// this is sufficient because we only need to change the controller keyword
+					// as create is the default action for comment controller
 					'comment' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[controller]',

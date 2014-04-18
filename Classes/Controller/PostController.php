@@ -158,11 +158,13 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+	public function showAction(Tx_T3extblog_Domain_Model_Post $post = NULL, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+		if ($post === NULL) {
+			$this->forward('list');
+		}
+
 		if ($newComment === NULL) {
 			$newComment = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
-		} elseif ($newComment->getSpamPoints() === NULL) {
-			$this->forward('create', 'Comment');
 		}
 
 		// @todo: This will not work as this action is cached
