@@ -52,7 +52,7 @@ class Tx_T3extblog_Hooks_RealUrl {
 	 *
 	 * @internal param \tx_realurl_autoconfgen $pObj Parent object
 	 *
-	 * @return    array                        Updated configuration
+	 * @return void
 	 */
 	public function postProcessConfiguration(&$params, &$ref) {
 		$params['config'] = array_merge_recursive($params['config'], array(
@@ -66,7 +66,8 @@ class Tx_T3extblog_Hooks_RealUrl {
 	}
 
 	/**
-	 * Generates additional RealURL configuration and merges it with provided configuration
+	 * Generates additional RealURL configuration
+	 * and merges it with provided configuration
 	 *
 	 * @param    array $params Default configuration
 	 * @param          $ref
