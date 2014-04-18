@@ -35,11 +35,15 @@ class Tx_T3extblog_Hooks_RealUrl {
 	public function encodeSpURL_postProc(&$params, &$ref) {
 		$params['URL'] = str_replace('t3extblog-action/permalink-action/permalink/', 'permalink/', $params['URL']);
 		$params['URL'] = str_replace('t3extblog-action/preview-action/preview/', 'preview/', $params['URL']);
+		$params['URL'] = str_replace('t3extblog-action/category-action/category/', 'category/', $params['URL']);
+		$params['URL'] = str_replace('t3extblog-action/tag-action/tags/', 'tags/', $params['URL']);
 	}
 
 	public function decodeSpURL_preProc(&$params, &$ref) {
 		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink-action/permalink/', $params['URL']);
 		$params['URL'] = str_replace('preview/', 't3extblog-action/preview-action/preview/', $params['URL']);
+		$params['URL'] = str_replace('category/', 't3extblog-action/category-action/category/', $params['URL']);
+		$params['URL'] = str_replace('tags/', 't3extblog-action/tag-action/tags/', $params['URL']);
 	}
 
 	/**
@@ -84,6 +88,8 @@ class Tx_T3extblog_Hooks_RealUrl {
 							'valueMap' => array(
 								'permalink-action' => 'permalink',
 								'preview-action' => 'preview',
+								'category-action' => 'category',
+								'tag-action' => 'tag',
 							),
 						),
 					),

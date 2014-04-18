@@ -44,44 +44,62 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Displays a list of posts.
 	 *
-	 * @param string $tag The name of the tag to show the posts for
+	 * @return void
+	 */
+	public function listAction() {
+		$this->view->assign('posts', $this->findPosts());
+	}
+
+	/**
+	 * Displays a list of posts related to a category
+	 *
 	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 *
 	 * @return void
 	 */
-	public function listAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
+	public function categoryAction(Tx_T3extblog_Domain_Model_Category $category) {
+		$this->view->assign('posts', $this->findPosts($category));
+	}
+
+	/**
+	 * Displays a list of posts related to a tag
+	 *
+	 * @param string $tag The name of the tag to show the posts for
+	 *
+	 * @return void
+	 */
+	public function tagAction($tag) {
+		$this->view->assign('posts', $this->findPosts(NULL, $tag));
 	}
 
 	/**
 	 * Displays a list of latest posts.
 	 *
-	 * @param string $tag The name of the tag to show the posts for
-	 * @param Tx_T3extblog_Domain_Model_Category $category
-	 *
 	 * @return void
 	 */
-	public function latestAction($tag = NULL, Tx_T3extblog_Domain_Model_Category $category = NULL) {
-		if ($category === NULL && isset($this->settings['latestPosts']['categoryUid'])) {
+	public function latestAction() {
+		$category = NULL;
+
+		if (isset($this->settings['latestPosts']['categoryUid'])) {
 			$category = $this->objectManager
-				->get("Tx_T3extblog_Domain_Repository_CategoryRepository")
-				->findByUid((int)$this->settings['latestPosts']['categoryUid']);
+				->get('Tx_T3extblog_Domain_Repository_CategoryRepository')
+				->findByUid((int) $this->settings['latestPosts']['categoryUid']);
 		}
 
-		$this->view->assign('posts', $this->findByTagOrCategory($tag, $category));
+		$this->view->assign('posts', $this->findPosts($category));
 	}
 
 	/**
 	 * Find all or filtered by tag or by category
 	 *
-	 * @todo Performance improvements: do not fetch all by default, consider paginator
+	 * @todo Performance: do not fetch all by default, consider paginator
 	 *
+	 * @param Tx_T3extblog_Domain_Model_Category $category
 	 * @param string $tag The name of the tag to show the posts for
-	 * @param integer|Tx_T3extblog_Domain_Model_Category $category
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return Tx_Extbase_Persistence_QueryResultInterface
 	 */
-	private function findByTagOrCategory($tag = NULL, $category = NULL) {
+	private function findPosts($category = NULL, $tag = NULL) {
 		if ($category !== NULL) {
 			$this->view->assign('category', $category);
 
