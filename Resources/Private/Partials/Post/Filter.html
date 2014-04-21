@@ -1,10 +1,14 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
 <f:if condition="{category}">
+	<t3b:frontend.titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:frontend.titleTag>
 	<div class="alert alert-block alert-info">
 		<f:translate key="post.filter" /> <f:translate key="post.category" /> <em>{category.name}</em>
 	</div>
 	<br>
 </f:if>
 <f:if condition="{tag}">
+	<t3b:frontend.titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:frontend.titleTag>
 	<div class="alert alert-block alert-info">
 		<f:translate key="post.filter" /> <f:translate key="post.tag" /> <em>{tag}<em>
 	</div>
