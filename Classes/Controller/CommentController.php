@@ -60,7 +60,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * action list
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
+	 * @param Tx_T3extblog_Domain_Model_Post $post Show only comments related to this post
 	 *
 	 * @return void
 	 */
@@ -78,7 +78,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	/**
 	 * action latest
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post comments related to should be sowed
+	 * @param Tx_T3extblog_Domain_Model_Post $post Show only comments related to this post
 	 *
 	 * @return void
 	 */
