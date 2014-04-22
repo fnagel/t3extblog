@@ -59,10 +59,10 @@ Todo
 
 A lot of testing needs to be done. Help wanted!
 
-* Change title tag when on list pages (paginator)
 * Add own caching to prevent blogsystem page (aka all post pages) from being generated all over again
+* Or split list and show action into different plugins
 * Add this is an old post functionality
-* Partial for flashMessage VH
+* Partial for flashMessage VH to be more flexible
 * More unit tests and functional tests
 * Better flexform configuration for plugins
 * Trackback / Pingback support

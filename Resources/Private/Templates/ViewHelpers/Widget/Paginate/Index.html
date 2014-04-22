@@ -1,3 +1,8 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
+
+<f:render section="title" arguments="{pagination: pagination}" />
+
 <f:if condition="{configuration.insertAbove}">
 	<f:render section="paginator" arguments="{pagination: pagination}" />
 </f:if>
@@ -7,6 +12,7 @@
 <f:if condition="{configuration.insertBelow}">
 	<f:render section="paginator" arguments="{pagination: pagination}" />
 </f:if>
+
 
 <f:section name="paginator">
 	<div class="pagination">
@@ -76,4 +82,14 @@
 			</f:if>
 		</ul>
 	</div>
+</f:section>
+
+<f:section name="title">
+	<f:for each="{pagination.pages}" as="page">
+		<f:if condition="{page.isCurrent}">
+			<f:if condition="{page.number} > 1">
+				<t3b:frontend.titleTag><f:translate key="widget.pagination.page" /> {page.number} / </t3b:frontend.titleTag>
+			</f:if>
+		</f:if>
+	</f:for>
 </f:section>
