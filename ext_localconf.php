@@ -8,7 +8,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Blogsystem',
 	array(
-		'Post' => 'show, list, permalink, preview, tag, category',
+		'Post' => 'list, tag, category, show, permalink, preview',
 		'Comment' => 'create',
 	),
 	// non-cacheable actions
@@ -98,8 +98,6 @@ if (TYPO3_MODE == 'BE') {
 
 // add RealURL configuration
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] = 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->extensionConfiguration';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['postProcessConfiguration']['t3extblog'] = 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->postProcessConfiguration';
-
 
 // support for dd_googlesitemap
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] = 'Tx_T3extblog_Hooks_Sitemap_Generator->main';

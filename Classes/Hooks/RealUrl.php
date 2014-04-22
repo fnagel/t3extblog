@@ -31,42 +31,6 @@
  *
  */
 class Tx_T3extblog_Hooks_RealUrl {
-
-	public function encodeSpURL_postProc(&$params, &$ref) {
-		$params['URL'] = str_replace('t3extblog-action/permalink-action/permalink/', 'permalink/', $params['URL']);
-		$params['URL'] = str_replace('t3extblog-action/preview-action/preview/', 'preview/', $params['URL']);
-		$params['URL'] = str_replace('t3extblog-action/category-action/category/', 'category/', $params['URL']);
-		$params['URL'] = str_replace('t3extblog-action/tag-action/tags/', 'tags/', $params['URL']);
-	}
-
-	public function decodeSpURL_preProc(&$params, &$ref) {
-		$params['URL'] = str_replace('permalink/', 't3extblog-action/permalink-action/permalink/', $params['URL']);
-		$params['URL'] = str_replace('preview/', 't3extblog-action/preview-action/preview/', $params['URL']);
-		$params['URL'] = str_replace('category/', 't3extblog-action/category-action/category/', $params['URL']);
-		$params['URL'] = str_replace('tags/', 't3extblog-action/tag-action/tags/', $params['URL']);
-	}
-
-	/**
-	 *
-	 *
-	 * @param    array $params Default configuration
-	 * @param          $ref
-	 *
-	 * @internal param \tx_realurl_autoconfgen $pObj Parent object
-	 *
-	 * @return void
-	 */
-	public function postProcessConfiguration(&$params, &$ref) {
-		$params['config'] = array_merge_recursive($params['config'], array(
-			'encodeSpURL_postProc' => array(
-				't3extblog' => 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->encodeSpURL_postProc',
-			),
-			'decodeSpURL_preProc' => array(
-				't3extblog' => 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->decodeSpURL_preProc',
-			),
-		));
-	}
-
 	/**
 	 * Generates additional RealURL configuration
 	 * and merges it with provided configuration
@@ -85,12 +49,7 @@ class Tx_T3extblog_Hooks_RealUrl {
 					't3extblog-action' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[action]',
-							'valueMap' => array(
-								'permalink-action' => 'permalink',
-								'preview-action' => 'preview',
-								'category-action' => 'category',
-								'tag-action' => 'tag',
-							),
+							'noMatch' => 'bypass',
 						),
 					),
 
@@ -117,6 +76,15 @@ class Tx_T3extblog_Hooks_RealUrl {
 									'spaceCharacter' => '-',
 								),
 								'enable404forInvalidAlias' => 1,
+							),
+						),
+
+						// this is sufficient because we only need to change the controller keyword
+						// as create is the default action for comment controller
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
+							'valueMap' => array(
+								'new-comment' => 'Comment',
 							),
 						),
 					),
@@ -160,17 +128,6 @@ class Tx_T3extblog_Hooks_RealUrl {
 					'page' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
-						),
-					),
-
-					// this is sufficient because we only need to change the controller keyword
-					// as create is the default action for comment controller
-					'comment' => array(
-						array(
-							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
-							'valueMap' => array(
-								'new' => 'Comment',
-							),
 						),
 					),
 
