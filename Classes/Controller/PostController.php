@@ -190,6 +190,8 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 
 	/**
 	 * Preview a post
+	 * Testing does not work on local environment
+	 * Issues when baseUrl AND absRefPrefix are set
 	 *
 	 * @param integer $previewPost The post to display
 	 *
