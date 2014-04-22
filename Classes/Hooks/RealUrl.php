@@ -76,15 +76,19 @@ class Tx_T3extblog_Hooks_RealUrl {
 									'spaceCharacter' => '-',
 								),
 								'enable404forInvalidAlias' => 1,
+								'autoUpdate' => 1,
+								'expireDays' => 180,
 							),
 						),
+					),
 
-						// this is sufficient because we only need to change the controller keyword
-						// as create is the default action for comment controller
+					// this is sufficient because we only need to change the controller keyword
+					// as create is the default action for comment controller
+					'comment' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
 							'valueMap' => array(
-								'new-comment' => 'Comment',
+								'new' => 'Comment',
 							),
 						),
 					),
@@ -121,6 +125,8 @@ class Tx_T3extblog_Hooks_RealUrl {
 									'spaceCharacter' => '-',
 								),
 								'enable404forInvalidAlias' => 1,
+								'autoUpdate' => 1,
+								'expireDays' => 180,
 							)
 						)
 					),
