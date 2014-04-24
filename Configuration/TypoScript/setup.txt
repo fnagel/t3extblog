@@ -211,6 +211,11 @@ plugin.tx_t3extblog {
 	  tx_t3extblog_blogsystem.action = tag
 	}
 [global]
+[globalVar = GP:tx_t3extblog_blogsystem|controller = "Comment"]
+	config.defaultGetVars {
+	  tx_t3extblog_blogsystem.action = create
+	}
+[global]
 
 
 # preview hidden records if logged in BE user
