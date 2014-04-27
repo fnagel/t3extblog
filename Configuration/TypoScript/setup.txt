@@ -183,41 +183,6 @@ plugin.tx_t3extblog {
 	}
 }
 
-# Set action GP for EXT:reaurl
-# With reaurl: move this snippet to the blogsystem plugin page to preserve cache!
-# Without reaurl: deactivate this to preserve cache!
-[globalVar = GP:tx_t3extblog_blogsystem|post > 0]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = show
-	}
-[global]
-[globalVar = GP:tx_t3extblog_blogsystem|permalinkPost > 0]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = permalink
-	}
-[global]
-[globalVar = GP:tx_t3extblog_blogsystem|previewPost > 0]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = preview
-	}
-[global]
-[globalVar = GP:tx_t3extblog_blogsystem|category > 0]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = category
-	}
-[global]
-[globalVar = GP:tx_t3extblog_blogsystem|tag > 0]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = tag
-	}
-[global]
-[globalVar = GP:tx_t3extblog_blogsystem|controller = "Comment"]
-	config.defaultGetVars {
-	  tx_t3extblog_blogsystem.action = create
-	}
-[global]
-
-
 # preview hidden records if logged in BE user
 [globalVar = TSFE : beUserLogin > 0]
 	plugin.tx_t3extblog.settings.previewHiddenRecords = 1

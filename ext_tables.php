@@ -9,6 +9,7 @@ $extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
 // Add static TS
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Rss', 'T3Extblog: Rss setup');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/RealUrl', 'T3Extblog: additional RealUrl config');
 
 
 // Add Plugins and Flexforms
