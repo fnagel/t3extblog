@@ -157,12 +157,18 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 	/**
 	 * Redirects permalinks to default show action
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $permalinkPost The post to display
+	 * @param int $permalinkPost The post to display
 	 *
 	 * @return void
 	 */
 	public function permalinkAction($permalinkPost) {
-		$this->redirect('show', 'Post', NULL, $permalinkPost->getLinkParameter(), NULL, 0, 303);
+		$post = $this->postRepository->findByUid((int) $permalinkPost);
+
+		if ($post === NULL) {
+			$GLOBALS['TSFE']->pageNotFoundAndExit('Post not found!');
+		}
+
+		$this->redirect('show', 'Post', NULL, $post->getLinkParameter(), NULL, 0, 303);
 	}
 
 	/**
