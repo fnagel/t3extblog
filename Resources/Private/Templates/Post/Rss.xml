@@ -3,8 +3,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title></title>
-		<link></link>
+		<title>{settings.blogName}</title>
+		<link><f:uri.action pageUid="{settings.blogsystem.pid}" absolute="true" /></link>
 		<description></description>
 		<language></language>
 		<copyright></copyright>
@@ -24,7 +24,6 @@
 					<item>
                         <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
                         <pubDate><f:format.date format="D, d M y H:i:s O">{post.publishDate}</f:format.date></pubDate>
-                        <guid>post-{post.uid}</guid>
                         <link>
                             <f:format.htmlspecialchars>
                                 <f:uri.action
@@ -36,6 +35,7 @@
                                 />
                             </f:format.htmlspecialchars>
                         </link>
+                        <guid isPermaLink="false">post-{post.uid}</guid>
                         <source>
                             <f:format.htmlspecialchars>
                                 <f:uri.action
@@ -56,7 +56,7 @@
                         </description>
                         <content:encoded>
                             <f:format.cdata>
-                                <h2><f:link.action controller="Post" action="show" arguments="{post.linkParameter}">{post.title}</f:link.action></h2>
+                                <h2><f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post.linkParameter}" absolute="true">{post.title}</f:link.action></h2>
                                 <em class="author">by {post.author.name}</em>
                                 <span class="date">{post.publishDate -> f:format.date()}</span>
                                 <br /><br />

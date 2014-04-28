@@ -23,7 +23,7 @@ config {
 	additionalHeaders = Content-Type:text/xml;charset=utf-8
 	disablePrefixComment = 1
 	# define http://www.yourdomain.tld/ to produce absolute urls for links and images
-	absRefPrefix = http://fn.com/
+    # absRefPrefix =
 	# language related
 	locale_all = de_DE
 	language = de
