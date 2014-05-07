@@ -102,4 +102,18 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconf
 // support for dd_googlesitemap
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] = 'Tx_T3extblog_Hooks_Sitemap_Generator->main';
 
+// add cHash configuration
+// See: http://forum.typo3.org/index.php?t=msg&th=203350
+$requiredParameters = array(
+	'tx_t3extblog_blogsystem[action]',
+	'tx_t3extblog_blogsystem[controller]',
+	'tx_t3extblog_blogsystem[post]',
+	'tx_t3extblog_blogsystem[permalinkPost]',
+	'tx_t3extblog_blogsystem[previewPost]',
+	'tx_t3extblog_blogsystem[tag]',
+	'tx_t3extblog_blogsystem[category]',
+	'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+);
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
+
 ?>
