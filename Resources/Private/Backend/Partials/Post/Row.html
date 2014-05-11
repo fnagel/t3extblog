@@ -39,7 +39,7 @@
 				</a>
 			</f:else>
 		</f:if>
-		<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />">
+		<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />" onclick="return confirm('Are you sure you want to delete this record?');">
 			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
 		</a>
 	</td>
