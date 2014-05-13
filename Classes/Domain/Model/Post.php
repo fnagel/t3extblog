@@ -206,11 +206,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 * @return Tx_T3extblog_Domain_Model_BackendUser $author
 	 */
 	public function getAuthor() {
-		if (intval($this->author)) {
-			return $this->objectManager->get("Tx_T3extblog_Domain_Repository_BackendUserRepository")->findByUid($this->author);
-		}
-
-		return NULL;
+		return $this->author;
 	}
 
 	/**
