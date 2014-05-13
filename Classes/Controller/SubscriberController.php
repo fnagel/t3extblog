@@ -94,7 +94,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 
 		if ($this->subscriber->_getProperty('hidden') === TRUE) {
 			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessage('confirmed', t3lib_FlashMessage::NOTICE);
+			$this->addFlashMessageByKey('confirmed', t3lib_FlashMessage::NOTICE);
 		}
 
 		$this->redirect('list');
@@ -118,7 +118,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		$this->subscriberRepository->remove($subscriber);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
 
-		$this->addFlashMessage('deleted', t3lib_FlashMessage::NOTICE);
+		$this->addFlashMessageByKey('deleted', t3lib_FlashMessage::NOTICE);
 		$this->redirect('list');
 	}
 
@@ -138,7 +138,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	 */
 	public function errorAction() {
 		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessage('invalidAuth', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessageByKey('invalidAuth', t3lib_FlashMessage::ERROR);
 		}
 	}
 
@@ -153,7 +153,7 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 	protected function processError($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
 		$this->authentication->logout();
 
-		$this->addFlashMessage($message, $severity);
+		$this->addFlashMessageByKey($message, $severity);
 		$this->redirect("error");
 	}
 

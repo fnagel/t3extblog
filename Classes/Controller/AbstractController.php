@@ -97,14 +97,18 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	 *
 	 * @return void
 	 */
-	protected function addFlashMessage($key, $severity = t3lib_FlashMessage::OK) {
+	protected function addFlashMessageByKey($key, $severity = t3lib_FlashMessage::OK) {
 		$messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
 
 		$titleLocallangKey = sprintf('%s.title', $messageLocallangKey);
 		$localizedTitle = $this->translate($titleLocallangKey, '[' . $titleLocallangKey . ']');
 
-		$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
+		if (version_compare(TYPO3_branch, '6.0', '<')) {
+			$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
+		} else {
+			$this->addFlashMessage($localizedMessage, $localizedTitle, $severity);
+		}
 	}
 
 	/**
@@ -137,7 +141,6 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 
 		return $message;
 	}
-
 }
 
 ?>
