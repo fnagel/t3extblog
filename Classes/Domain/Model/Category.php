@@ -129,7 +129,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	/**
 	 * Returns all matching posts
 	 *
-	 * @return $posts
+	 * @return \Tx_Extbase_Persistence_ObjectStorage $posts
 	 */
 	public function getPosts() {
 		if ($this->posts == NULL) {
@@ -142,11 +142,11 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	/**
 	 * Returns all child categories
 	 *
-	 * @return $posts
+	 * @return null|\Tx_Extbase_Persistence_ObjectStorage $posts
 	 */
 	public function getChildCategories() {
 		if (!$this->isFirstLevel()) {
-			return FALSE;
+			return NULL;
 		}
 
 		if ($this->childCategories == NULL) {

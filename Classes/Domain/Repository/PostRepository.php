@@ -116,13 +116,15 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	public function findByCategory($category) {
 		$query = $this->createQuery();
 
-		$categories = $category->getChildCategories();
-
 		$constraints = array();
 		$constraints[] = $query->contains('categories', $category);
 
-		foreach ($categories as $childCategory) {
-			$constraints[] = $query->contains('categories', $childCategory);
+		$categories = $category->getChildCategories();
+
+		if (count($categories) > 0 ) {
+			foreach ($categories as $childCategory) {
+				$constraints[] = $query->contains('categories', $childCategory);
+			}
 		}
 
 		$query->matching($query->logicalOr($constraints));
