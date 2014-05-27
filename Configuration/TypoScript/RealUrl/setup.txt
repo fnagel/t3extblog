@@ -28,7 +28,8 @@
 	}
 [global]
 
-[globalVar = GP:tx_t3extblog_blogsystem|tag > 0]
+# Test for empty getVar seems not possible so we use a regex
+[globalString = GP:tx_t3extblog_blogsystem|tag = /^(?!\s*$).+/]
 	config.defaultGetVars {
 	  tx_t3extblog_blogsystem.action = tag
 	}
