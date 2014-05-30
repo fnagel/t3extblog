@@ -84,7 +84,7 @@ $TCA['tx_t3blog_post'] = array(
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'be_users',
-				'foreign_table_where' => 'ORDER BY be_users.username',
+				'foreign_table_where' => ' and be_users.disable = 0 ORDER BY be_users.username',
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
