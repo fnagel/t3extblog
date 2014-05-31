@@ -48,7 +48,7 @@
 <f:section name="teaserTwoElements">
 	<f:for each="{contentElements}" as="content" iteration="iterator">
 		<f:if condition="{iterator.index} < 2">
-			<t3b:frontend.renderContent contentElements="{0: content}" />
+			<t3b:frontend.renderPreview contentElements="{0: content}" />
 		</f:if>
 	</f:for>
 </f:section>
@@ -65,13 +65,13 @@
 						</div>
 				</f:then>
 				<f:else>
-					<t3b:frontend.renderContent contentElements="{0: content}" />
+					<t3b:frontend.renderPreview contentElements="{0: content}" />
 				</f:else>
 			</f:if>
 		</f:if>
 	</f:for>
 
-	<t3b:frontend.renderContent contentElements="{contentElements}" index="1" />
+	<t3b:frontend.renderPreview contentElements="{contentElements}" index="1" />
 
 	<f:for each="{contentElements}" as="content" iteration="iterator">
 		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">

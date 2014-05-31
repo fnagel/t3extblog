@@ -43,31 +43,34 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 	 * @return string
 	 */
 	public function render($contentElements, $index = 0, $ellipsis = '...') {
-		$output = "";
+		$output = '';
 		$iterator = 0;
-		$hasDivider = false;
+		$hasDivider = FALSE;
 
 		foreach ($contentElements as $content) {
 			$iterator++;
-			if (($iterator - 1) < $index) {
-				continue;
-			}
 
 			if ($content['CType'] === 'text' || $content['CType'] === 'textpic') {
 				// use elements with text only
 				$dividerPosition = strpos(strip_tags($content['bodytext']), '###MORE###');
 
-				if ($dividerPosition !== false) {
-					$hasDivider = true;
+				if ($dividerPosition !== FALSE) {
+					$hasDivider = TRUE;
 					$content['bodytext'] = $this->truncate($content['bodytext'], $dividerPosition, $ellipsis = '...');
 				}
-
-				$output .= $this->renderContentElement($content);
-			} else {
-				$output .= $this->renderContentElement($content);
 			}
 
-			if ($hasDivider === true) {
+			if (($iterator - 1) < $index) {
+				if ($hasDivider === TRUE) {
+					break;
+				}
+
+				continue;
+			}
+
+			$output .= $this->renderContentElement($content);
+
+			if ($hasDivider === TRUE) {
 				break;
 			}
 		}
