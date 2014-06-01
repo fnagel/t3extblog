@@ -37,7 +37,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 *
 	 * @var array
 	 */
-	var $watchedFields = array(
+	protected $watchedFields = array(
 		'approved',
 		'spam'
 	);

@@ -152,6 +152,8 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 
 	/**
 	 * @param boolean $deleted
+	 *
+	 * @return void
 	 */
 	public function setDeleted($deleted) {
 		$this->deleted = $deleted;
@@ -166,6 +168,8 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 
 	/**
 	 * @param boolean $hidden
+	 *
+	 * @return void
 	 */
 	public function setHidden($hidden) {
 		$this->hidden = $hidden;
@@ -358,6 +362,8 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 
 	/**
 	 * @param int $spamPoints
+	 *
+	 * @return void
 	 */
 	public function setSpamPoints($spamPoints) {
 		$this->spamPoints = $spamPoints;
@@ -382,6 +388,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	/**
 	 * Mark comment as spam
 	 *
+	 * @return void
 	 */
 	public function markAsSpam() {
 		$this->spam = TRUE;
@@ -444,6 +451,8 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 
 	/**
 	 * @param boolean $mailsSent
+	 *
+	 * @return void
 	 */
 	public function setMailsSent($mailsSent) {
 		$this->mailsSent = (boolean)$mailsSent;

@@ -45,7 +45,6 @@ class Tx_T3extblog_Validation_Validator_UrlValidator extends Tx_Extbase_Validati
 			return TRUE;
 		}
 
-
 		if (t3lib_div::isValidUrl($value) === FALSE) {
 			$this->addError('The given subject was not a valid URL.', 1392679659);
 
