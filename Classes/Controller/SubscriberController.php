@@ -95,6 +95,11 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 		if ($this->subscriber->_getProperty('hidden') === TRUE) {
 			$this->subscriber->_setProperty('hidden', FALSE);
 			$this->addFlashMessageByKey('confirmed', t3lib_FlashMessage::NOTICE);
+
+			if (version_compare(TYPO3_branch, '6.1', '>=')) {
+				$this->subscriberRepository->update($this->subscriber);
+				$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+			}
 		}
 
 		$this->redirect('list');
@@ -206,6 +211,12 @@ class Tx_T3extblog_Controller_SubscriberController extends Tx_T3extblog_Controll
 
 			if (count($confirmedSubscriptions) > 0) {
 				$subscriber->_setProperty('deleted', TRUE);
+
+				if (version_compare(TYPO3_branch, '6.1', '>=')) {
+					$this->subscriberRepository->update($subscriber);
+					$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+				}
+
 				$this->processError('alreadyRegistered', t3lib_FlashMessage::NOTICE);
 			}
 		}
