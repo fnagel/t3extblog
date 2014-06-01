@@ -67,7 +67,11 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 		$constraints[] = $query->equals('postId', $post->getUid());
 
 		if ($respectEnableFields === FALSE) {
-			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			if (version_compare(TYPO3_branch, '6.0', '<')) {
+				$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			} else {
+				$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+			}
 			$constraints[] = $query->equals('deleted', '0');
 		}
 

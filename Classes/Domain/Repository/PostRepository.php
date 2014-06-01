@@ -55,7 +55,12 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-		$query->getQuerySettings()->setRespectEnableFields($respectEnableFields);
+
+		if (version_compare(TYPO3_branch, '6.0', '<')) {
+			$query->getQuerySettings()->setRespectEnableFields($respectEnableFields);
+		} else {
+			$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
+		}
 
 		$query->matching(
 			$query->logicalAnd(
@@ -79,7 +84,12 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 		$query = $this->createQuery(intval($pid));
 
 		if ($respectEnableFields === FALSE) {
-			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			if (version_compare(TYPO3_branch, '6.0', '<')) {
+				$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			} else {
+				$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+			}
+
 			$query->matching(
 				$query->equals('deleted', '0')
 			);

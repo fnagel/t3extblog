@@ -87,7 +87,11 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	public function findForSubscriptionMail(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$query = $this->createQuery();
 
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		if (version_compare(TYPO3_branch, '6.0', '<')) {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		} else {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		}
 
 		$query->matching(
 			$query->logicalAnd(
@@ -111,7 +115,11 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	public function findByCode($code, $enableFields = TRUE) {
 		$query = $this->createQuery();
 
-		$query->getQuerySettings()->setRespectEnableFields($enableFields);
+		if (version_compare(TYPO3_branch, '6.0', '<')) {
+			$query->getQuerySettings()->setRespectEnableFields($enableFields);
+		} else {
+			$query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
+		}
 
 		$query->matching(
 			$query->logicalAnd(
