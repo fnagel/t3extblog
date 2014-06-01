@@ -132,8 +132,13 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	 * @return \Tx_Extbase_Persistence_ObjectStorage $posts
 	 */
 	public function getPosts() {
-		if ($this->posts == NULL) {
-			$this->posts = $this->objectManager->get("Tx_T3extblog_Domain_Repository_PostRepository")->findByCategory($this);
+		if ($this->posts === NULL) {
+			$posts = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository')->findByCategory($this);
+
+			$this->posts = new Tx_Extbase_Persistence_ObjectStorage();
+			foreach ($posts as $post) {
+				$this->posts->attach($post);
+			}
 		}
 
 		return $this->posts;
@@ -149,8 +154,13 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 			return NULL;
 		}
 
-		if ($this->childCategories == NULL) {
-			$this->childCategories = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
+		if ($this->childCategories === NULL) {
+			$categories = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
+
+			$this->childCategories = new Tx_Extbase_Persistence_ObjectStorage();
+			foreach ($categories as $category) {
+				$this->childCategories->attach($category);
+			}
 		}
 
 		return $this->childCategories;
