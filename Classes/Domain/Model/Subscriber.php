@@ -174,7 +174,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
-			$postRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_PostRepository");
+			$postRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository');
 			$this->post = $postRepository->findByUid($this->postUid);
 		}
 
@@ -184,12 +184,17 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the post comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
 	 */
 	public function getPostComments() {
 		if ($this->postComments === NULL) {
-			$commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
-			$this->postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
+			$commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
+			$postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
+
+			$this->postComments = new Tx_Extbase_Persistence_ObjectStorage();
+			foreach ($postComments as $comment) {
+				$this->postComments->attach($comment);
+			}
 		}
 
 		return $this->postComments;
@@ -198,12 +203,17 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the post pending comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comments> $comments
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
 	 */
 	public function getPostPendingComments() {
 		if ($this->postPendingComments === NULL) {
-			$commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
-			$this->postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
+			$commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
+			$postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
+
+			$this->postPendingComments = new Tx_Extbase_Persistence_ObjectStorage();
+			foreach ($postPendingComments as $comment) {
+				$this->postPendingComments->attach($comment);
+			}
 		}
 
 		return $this->postPendingComments;
