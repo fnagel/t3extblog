@@ -209,7 +209,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected function processChangedComment($id, $pid) {
 		// extbase fix
 		$this->getObjectContainer()
-			->getInstance("Tx_T3extblog_Service_SettingsService")
+			->getInstance('Tx_T3extblog_Service_SettingsService')
 			->setPageUid($pid);
 
 		$this->getNotificationService()->processCommentStatusChanged($this->getComment($id));

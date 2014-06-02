@@ -164,7 +164,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	}
 
 	/**
-	 * Set page uid in GP vars
+	 * Set storage pid in BE
 	 *
 	 * Only needed when the class is called or injected in a BE context, e.g. a hook
 	 * Needed for generation of the correct persistence.storagePid in Extbase TS.
@@ -172,10 +172,18 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * extbase behaviour) and repositories won't work as expected.
 	 *
 	 * @param $pageUid
+	 *
+	 * @return void
 	 */
 	public function setPageUid($pageUid) {
 		if (TYPO3_MODE === 'BE') {
-			t3lib_div::_GETset(intval($pageUid), 'id');
+			if (version_compare(TYPO3_version, '6.0.0', '>=')) {
+				// @todo test if this works for TYPO3 4.x too
+				$currentPid['persistence']['storagePid'] = intval($pageUid);
+				$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
+			} else {
+				t3lib_div::_GETset(intval($pageUid), 'id');
+			}
 		}
 	}
 }
