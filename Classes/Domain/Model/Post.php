@@ -400,7 +400,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 
 		$table = 'tt_content';
 		$where = 'irre_parentid = ' . $this->getUid() . ' AND irre_parenttable = "tx_t3blog_post"';
-		$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+
+		if (TYPO3_MODE === 'FE') {
+			$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+		} else {
+			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
+		}
 
 		$result = $database->exec_SELECTquery('*', $table, $where, '', 'sorting', '');
 		while ($row = $database->sql_fetch_assoc($result)) {
