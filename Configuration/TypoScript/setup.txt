@@ -4,7 +4,7 @@ plugin.tx_t3extblog {
 		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
 
-		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
 
 	email {
@@ -142,8 +142,8 @@ plugin.tx_t3extblog {
 		}
 
 		latestPosts {
-			categoryUid = 
-		
+			categoryUid =
+
 			paginate {
 				itemsPerPage = 5
 				insertAbove = 0
