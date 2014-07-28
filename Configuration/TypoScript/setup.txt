@@ -4,6 +4,9 @@ plugin.tx_t3extblog {
 		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
 
+		# TYPO3 4.x
+		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+		# TYPO3 6.x
 		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
 
