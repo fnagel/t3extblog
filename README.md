@@ -74,7 +74,7 @@ A lot of testing needs to be done. Help wanted!
 
 
 Known bugs
-* delete button deletes but without prompt in post view (BE module)
+* Broken unit tests (6.x issue?)
 
 
 
