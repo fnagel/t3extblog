@@ -102,7 +102,7 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 	public function getEmail() {
 		$data = $this->getData();
 
-		if (!array_key_exists('email', $data)) {
+		if (!(is_array($data) && array_key_exists('email', $data))) {
 			return FALSE;
 		}
 
