@@ -25,7 +25,7 @@ $TCA['tx_t3blog_pingback'] = array(
 				'type' => 'input',
 				'size' => '8',
 				'max' => '20',
-				'eval' => 'date',
+				'eval' => 'datetime',
 				'default' => '0',
 				'checkbox' => '0'
 			)
@@ -37,7 +37,7 @@ $TCA['tx_t3blog_pingback'] = array(
 				'type' => 'input',
 				'size' => '8',
 				'max' => '20',
-				'eval' => 'date',
+				'eval' => 'datetime',
 				'checkbox' => '0',
 				'default' => '0',
 				'range' => array(
