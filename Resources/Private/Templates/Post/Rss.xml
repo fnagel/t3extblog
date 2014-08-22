@@ -34,7 +34,7 @@
                             </f:format.htmlspecialchars>
                         </link>
                         <guid isPermaLink="false">post-{post.uid}</guid>
-                        <source>
+                        <source url="<f:uri.action controller="Post" action="show" pageUid="{settings.blogsystem.pid}" absolute="true" arguments="{post.linkParameter}" />">
                             <f:format.htmlspecialchars>
                                 <f:uri.action
                                     controller="Post"
