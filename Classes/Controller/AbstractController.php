@@ -141,6 +141,20 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 
 		return $message;
 	}
+
+	/**
+	 * Clear cache of current page on error and sends correct header.
+	 *
+	 * @return void
+	 */
+	protected function clearCacheOnError() {
+		parent::clearCacheOnError();
+
+		$this->response->setHeader('Cache-Control', 'private', TRUE);
+		$this->response->setHeader('Expires', '0', TRUE);
+		$this->response->setHeader('Pragma', 'no-cache', TRUE);
+		$this->response->sendHeaders();
+	}
 }
 
 ?>

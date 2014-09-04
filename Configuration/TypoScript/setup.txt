@@ -18,6 +18,7 @@ plugin.tx_t3extblog {
 
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
+		enableAutomaticCacheClearing = 1
 	}
 
 	settings {
