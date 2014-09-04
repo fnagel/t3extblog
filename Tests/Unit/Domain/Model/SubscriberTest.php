@@ -42,6 +42,8 @@ class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
 	 * @return void
 	 */
 	public function setUp() {
+		parent::setUp();
+
 		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', 123);
 
 		$this->fixture->setName('John Doe');

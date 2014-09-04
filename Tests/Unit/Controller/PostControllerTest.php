@@ -34,7 +34,7 @@
 class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -44,19 +44,11 @@ class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_
 	protected $fixture;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
 	 * @return void
 	 */
 	public function setUp() {
-		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Post');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->fixture = $this->objectManager->get('Tx_T3extblog_Domain_Model_Post');
 	}
 
 	/**

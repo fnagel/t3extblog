@@ -42,6 +42,8 @@ class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
 	 * @return void
 	 */
 	public function setUp() {
+		parent::setUp();
+
 		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
 
 		$this->fixture->_setProperty('hidden', FALSE);

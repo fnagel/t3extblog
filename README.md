@@ -74,7 +74,8 @@ A lot of testing needs to be done. Help wanted!
 
 
 Known bugs
-* Broken unit tests (6.x issue?)
+
+*
 
 
 
