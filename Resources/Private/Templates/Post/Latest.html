@@ -3,13 +3,13 @@
 <f:section name="main">
 
 	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
-				
+
 	<f:if condition="{posts}">
 		<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.latestPosts.paginate}">
 			<ul>
 			<f:for each="{paginatedPosts}" as="post">
 				<li>
-					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+					<f:link.action controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
 						{post.title}
 					</f:link.action>
 				</li>
@@ -17,5 +17,5 @@
 			</ul>
 		</f:widget.paginate>
 	</f:if>
-	
+
 </f:section>
