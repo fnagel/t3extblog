@@ -3,7 +3,7 @@
 <f:section name="main">
 
 	<f:if condition="{comments}">
-		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.comments.paginate}">
+		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.latestComments.paginate}">
 			<f:for each="{paginatedComments}" as="comment">
 				<f:render partial="Comment/Show" arguments="{comment: comment}" />
 			</f:for>
