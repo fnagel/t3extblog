@@ -110,7 +110,7 @@ plugin.tx_t3extblog {
 		}
 
 		subscriptionManager {
-			pid = 335
+			pid =
 
 			admin {
 				enable = 1
