@@ -32,7 +32,7 @@ Currently implemented features:
 * Add new comments
 * Allow some HTML tags in comment message
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
-* Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support (does available in TYPO3 6.2)
+* Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support (not available in TYPO3 6.2)
 * Opt-In mails for comment subscription with expiration date
 * Auto close comments functionality
 * RSS feed for posts
@@ -41,6 +41,12 @@ Currently implemented features:
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
 * Preview of hidden posts (add tx_t3extblog.singlePid to your page TSconfig)
 * A few unit tests
+
+
+Documentation
+-------------
+
+In work. Available in version 1.0.
 
 
 Installation
