@@ -53,24 +53,21 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 
-		$fullTsSettings = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		$tsSettings = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+			't3extblog',
+			't3extblog_blogsystem'
 		);
-		$tsSettings = $fullTsSettings['plugin.']['tx_t3extblog.'];
 
 		$originalSettings = $this->configurationManager->getConfiguration(
 			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
 		);
 
 		// start override
-		if (isset($tsSettings['settings.']['overrideFlexformSettingsIfEmpty'])) {
-			$overrideSettings = t3lib_div::trimExplode(',', $tsSettings['settings.']['overrideFlexformSettingsIfEmpty'], TRUE);
-			foreach ($overrideSettings as $key) {
-				// if flexform setting is empty and value is available in TS
-				if ((!isset($originalSettings[$key]) || empty($originalSettings[$key])) && isset($tsSettings['settings.'][$key])) {
-					$originalSettings[$key] = $tsSettings['settings.'][$key];
-				}
-			}
+		if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
+			/** @var Tx_T3extblog_Utility_TypoScript $typoScriptUtility */
+			$typoScriptUtility = t3lib_div::makeInstance('Tx_T3extblog_Utility_TypoScript');
+			$originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
 		}
 
 		$this->settings = $originalSettings;
