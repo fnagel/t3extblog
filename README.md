@@ -57,28 +57,10 @@ NOTE: This guide may be outdated. Please give feedback!
 * Set pid's in TypoScript
 
 
-Todo
-------------
+Todo & Known bugs
+-----------------
 
-A lot of testing needs to be done. Help wanted!
-
-* Add own caching to prevent blogsystem page (aka all post pages) from being generated all over again
-* Or split list and show action into different plugins
-* Add this is an old post functionality
-* Partial for flashMessage VH to be more flexible
-* More unit tests and functional tests
-* Better flexform configuration for plugins
-* Trackback / Pingback support
-* Blogroll?
-* Documentation
-* Rework notifications to be based upon scheduler (cronjob)
-* Captcha implementation
-* Use EXT:vidi for BE modules (needs TYPO3 6.1)
-
-
-Known bugs
-
-* none
+Please see Github Issues: https://github.com/fnagel/t3extblog/issues
 
 
 
@@ -86,6 +68,8 @@ Contribution
 ------------
 
 Any help is appreciated. Please feel free to drop me a line, open issues or send pull requests.
+
+A lot of testing needs to be done. Help wanted!
 
 
 Donation
