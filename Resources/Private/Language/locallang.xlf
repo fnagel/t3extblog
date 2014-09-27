@@ -13,8 +13,11 @@
 			<trans-unit id="post.permalink">
 				<source>permalink</source>
 			</trans-unit>
-			<trans-unit id="post.filter">
+			<trans-unit id="post.filter.legend">
 				<source>Filtered by </source>
+			</trans-unit>
+			<trans-unit id="post.filter.reset">
+				<source>Reset filter</source>
 			</trans-unit>
 			<trans-unit id="post.category">
 				<source>category</source>

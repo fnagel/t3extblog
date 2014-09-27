@@ -13,8 +13,11 @@
 			<trans-unit id="post.permalink">
 				<target>Permalink</target>
 			</trans-unit>
-			<trans-unit id="post.filter">
+			<trans-unit id="post.filter.legend">
 				<target>Gefiltert nach</target>
+			</trans-unit>
+			<trans-unit id="post.filter.reset">
+				<target>Filter zurücksetzen</target>
 			</trans-unit>
 			<trans-unit id="post.tag">
 				<target>Tag</target>
