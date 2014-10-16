@@ -18,4 +18,14 @@ conf.py:
     papersize: a4paper
     pointsize: 10pt
     preamble: \usepackage{typo3}
+  intersphinx_mapping:
+    t3tsref:
+    - http://docs.typo3.org/typo3cms/TyposcriptReference/
+    - null
+    t3start:
+    - http://docs.typo3.org/typo3cms/GettingStartedTutorial/
+    - null
+    t3editors:
+    - http://docs.typo3.org/typo3cms/EditorsTutorial/
+    - null
 ...

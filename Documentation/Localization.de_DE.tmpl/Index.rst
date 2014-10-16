@@ -59,3 +59,7 @@ T3Blog Extbase (Deutsch)
 ..	Introduction/Index
 ..	UsersManual/Index
 ..	AdministratorManual/Index
+..	Installation/Index
+..	Configuration/Index
+..	FAQ/Index
+

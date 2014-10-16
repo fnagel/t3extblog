@@ -15,7 +15,7 @@ T3Blog Extbase
 .. only:: html
 
 	:Classification:
-		extension_key
+		t3extblog
 
 	:Version:
 		|release|
@@ -24,10 +24,10 @@ T3Blog Extbase
 		en
 
 	:Description:
-		enter description.
+		extensive blogsystem, including amongst others tagging, comments, latest comments, categories... could be easy used to replace t3blog. Simple installation and easy integration. Its based on Extbase and Fluid.
 
 	:Keywords:
-		comma,separated,list,keywords
+		blog, blogsystem, t3blog
 
 	:Copyright:
 		2014
@@ -59,3 +59,6 @@ T3Blog Extbase
 	Introduction/Index
 	UsersManual/Index
 	AdministratorManual/Index
+	Installation/Index
+	Configuration/Index
+	FAQ/Index

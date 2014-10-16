@@ -11,31 +11,86 @@
 Administrator Manual
 ====================
 
-Describes how to manage the extension from an administrator’s point of
-view. That relates to Page/User TSconfig, permissions, configuration
-etc., which administrator level users have access to.
+Output
+^^^^
 
-Language should be non/semi-technical, explaining, using small
-examples.
+The output is managed via conentet modules. This means easy and flexible usage.
 
-Target group: **Administrators**
+1. Insert a content element, choose "plugins" -> "generell plugins"
 
+.. figure:: ../Images/AdministratorManual/plugin.png
+	:width: 652px
+	:alt: insert plugin
 
-Installation
-------------
+	Insert plugin
 
-How should the extension be set up? E.g. is there a static template to include?
-
-.. figure:: ../Images/AdministratorManual/ExtensionManager.png
-	:width: 500px
-	:alt: Extension Manager
-
-	Extension Manager (caption of the image)
-
-	List of extensions within the Extension Manager also shortend as "EM" (legend of the image)
+Choose one or more of the modules listed to build your blog. These can be distributed to different columns.
 
 
-FAQ
-^^^
+.. figure:: ../Images/AdministratorManual/modules.png
+	:width: 539px
+	:alt: modules
 
-Possible subsection: FAQ
+	Modules
+
+- Archive: Simple list of your blogposts, categorised by month, sorted by date.
+
+.. figure:: ../Images/AdministratorManual/archive.png
+	:width: 260px
+	:alt: archive
+
+	Archive
+
+- Blogsystem: Main part of the extension. Lists all your blogposts and shows some additional information like date of publishing, name of autor, categories, number of comments.
+
+.. figure:: ../Images/AdministratorManual/blogsystem.png
+	:width: 502px
+	:alt: blogsystem
+
+	Blogsystem
+
+- Categories: lists the blogcategories
+
+.. figure:: ../Images/AdministratorManual/blogcats.png
+	:width: 145px
+	:alt: categories
+
+	Categories
+
+- LatestComments: List of the latest comments
+- LastestPosts: List of the latest blogpost
+
+.. figure:: ../Images/AdministratorManual/latestposts.png
+	:width: 201px
+	:alt: latestposts
+
+	Lastest posts
+
+- RSS: RSS output, see chapter RSS (its a bit special)
+- Subscription Manager (TODO!!)
+
+RSS
+^^^^
+
+The RSS-Module need some special treatment, but no need to worry.
+
+Just create a single page for the RSS-output, then
+
+1. Choose the rss-modul and insert it to that page (see above how to do this)
+2. Create an extension template and include „T3Extblog: Rss setup (t3extblog)
+
+.. figure:: ../Images/AdministratorManual/rssincludestatic.png
+	:width: 689px
+	:alt: RSS include static
+
+	RSS
+
+
+When you open the page, the output should look like this:
+
+.. figure:: ../Images/AdministratorManual/rssoutput.png
+	:width: 609px
+	:alt: RSS output
+
+	RSS Output
+
