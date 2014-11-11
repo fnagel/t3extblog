@@ -119,9 +119,12 @@ class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Contr
 	 * @return void
 	 */
 	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
+		$moduleName = t3lib_div::_GET('M');
+		$moduleToken = t3lib_formprotection_Factory::get()->generateToken('moduleCall', $moduleName);
+
 		$this->view->assignMultiple(array(
 			'pageId' => $this->pageId,
-			'returnUrl' => urlencode('mod.php?M=web_T3extblogTxT3extblog&id=' . $this->pageId),
+			'returnUrl' => urlencode('mod.php?M=' . $moduleName . '&id=' . $this->pageId . '&moduleToken=' . $moduleToken),
 			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
 			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
 		));
