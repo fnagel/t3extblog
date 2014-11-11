@@ -163,14 +163,15 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected function processPreview($id) {
 		$pagesTsConfig = t3lib_BEfunc::getPagesTSconfig($GLOBALS['_POST']['popViewId']);
 
-		if ($pagesTsConfig['tx_t3extblog.']['singlePid']) {
+		if (intval($pagesTsConfig['tx_t3extblog.']['singlePid'])) {
 			$record = t3lib_BEfunc::getRecord('tx_t3blog_post', $id);
+			$previewPageId = (int) $pagesTsConfig['tx_t3extblog.']['singlePid'];
 
 			$parameters = array(
-//				'tx_t3extblog_blogsystem[controller]' => 'Post',
+				'tx_t3extblog_blogsystem[controller]' => 'Post',
 				'tx_t3extblog_blogsystem[action]' => 'preview',
 				'tx_t3extblog_blogsystem[previewPost]' => $record['uid'],
-//				'no_cache' => 1,
+				'no_cache' => 1,
 			);
 			if ($record['sys_language_uid'] > 0) {
 				if ($record['l10n_parent'] > 0) {
@@ -179,8 +180,13 @@ class Tx_T3extblog_Hooks_Tcemain {
 				$parameters['L'] = $record['sys_language_uid'];
 			}
 
-			$GLOBALS['_POST']['popViewId_addParams'] = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
-			$GLOBALS['_POST']['popViewId'] = $pagesTsConfig['tx_t3extblog.']['singlePid'];
+			$previewDomainRootline = t3lib_BEfunc::BEgetRootLine($previewPageId);
+			$previewDomain = t3lib_BEfunc::getViewDomain($previewPageId, $previewDomainRootline);
+			$queryString = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
+
+			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString . '&y=';
+			$GLOBALS['_POST']['popViewId_addParams'] = $queryString;
+			$GLOBALS['_POST']['popViewId'] = $previewPageId;
 		}
 	}
 
