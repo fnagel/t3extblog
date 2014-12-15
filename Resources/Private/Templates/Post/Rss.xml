@@ -6,8 +6,8 @@
 		<description></description>
 		<language></language>
 		<copyright></copyright>
-		<pubDate><f:format.date format="D, d M y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
-		<lastBuildDate><f:format.date format="D, d M y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
+		<pubDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
+		<lastBuildDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
 		<category></category>
 		<generator>t3extblog extension for TYPO3</generator>
 		<image>
@@ -21,7 +21,7 @@
 				<f:for each="{paginatedPosts}" as="post">
 					<item>
                         <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
-                        <pubDate><f:format.date format="D, d M y H:i:s O">{post.publishDate}</f:format.date></pubDate>
+                        <pubDate><f:format.date format="D, d M Y H:i:s O">{post.publishDate}</f:format.date></pubDate>
                         <link>
                             <f:format.htmlspecialchars>
                                 <f:uri.action
