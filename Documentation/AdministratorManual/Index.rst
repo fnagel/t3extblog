@@ -67,7 +67,17 @@ Choose one or more of the modules listed to build your blog. These can be distri
 	Lastest posts
 
 - RSS: RSS output, see chapter RSS (its a bit special)
-- Subscription Manager (TODO!!)
+- Subscription Manager (see chapter Subscription Manager!
+
+Subscription Manager
+^^^^
+
+This module must put on a seperate page! Don´t forget to include the static template "subsciption manager" an that page.
+
+Is used to check if a subscription is valid. Subscribers get an email with a validation link, the link leads to this page.
+
+Configure the Subscription manager via TS (see t3extblog\Configuration\TypoScript\setup.txt, look for "subscriptionManager"! Is commented well.
+
 
 RSS
 ^^^^
@@ -94,3 +104,5 @@ When you open the page, the output should look like this:
 
 	RSS Output
 
+When you want to use RealURL add the static template "T3Extblog: additional RealUrl config (t3extblog)" too. When overriding the TS-values, add a
+"config.tx_realurl_enable = 1" to your TS to get RealUrl running in the RSS-Feed.

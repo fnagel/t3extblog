@@ -39,3 +39,11 @@ plugin.tx_t3extblog {
 
 RSS-Settings: have a look at /Configuration/TypoScript/RSS/setup.txt
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
+
+
+RealURL
+^^^^
+
+When using RealURL include the static template "T3Extblog: additional RealURL config (t3extblog)".
+
+Now let the work do by the auto-configuration-function of RealURL. Take the output (configure RealURL to php-output (slow), so you can read it) and maybe put it to your own RealURL configuration and adapt it to your needs.
