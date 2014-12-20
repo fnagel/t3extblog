@@ -72,7 +72,7 @@ Choose one or more of the modules listed to build your blog. These can be distri
 Subscription Manager
 ^^^^
 
-This module must put on a seperate page! Don´t forget to include the static template "subsciption manager" an that page.
+This module must be put on a seperate page!
 
 Is used to check if a subscription is valid. Subscribers get an email with a validation link, the link leads to this page.
 
