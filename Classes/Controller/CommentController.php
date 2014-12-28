@@ -134,7 +134,11 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		$this->notificationService->processCommentAdded($newComment);
 
 		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessageByKey('created', t3lib_FlashMessage::OK);
+			if ($newComment->isApproved()) {
+				$this->addFlashMessageByKey('created', t3lib_FlashMessage::OK);
+			} else {
+				$this->addFlashMessageByKey('createdUnapproved', t3lib_FlashMessage::NOTICE);
+			}
 		}
 
 		// clear cache so new comment is displayed
@@ -200,7 +204,7 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 		if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
 			$this->log->notice('New comment marked as SPAM.', $logData);
 			$comment->markAsSpam();
-			$this->addFlashMessageByKey('markedAsSpam', t3lib_FlashMessage::INFO);
+			$this->addFlashMessageByKey('markedAsSpam', t3lib_FlashMessage::NOTICE);
 		}
 	}
 

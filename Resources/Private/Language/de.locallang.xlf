@@ -175,6 +175,12 @@
 			<trans-unit id="flashMessage.comment.created">
 				<target>Danke, Ihr Kommentar wurde gespeichert.</target>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.createdUnapproved.title">
+				<target>Kommentar gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createdUnapproved">
+				<target>Danke, Ihr Kommentar wurde gespeichert und wird in Kürze freigeschaltet.</target>
+			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam.title">
 				<target>Kommentar gespeichert!</target>
 			</trans-unit>

@@ -154,11 +154,17 @@
 			<trans-unit id="flashMessage.comment.created">
 				<source>Thanks, your comment has been saved.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.createdUnapproved.title">
+				<source>Comment saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.createdUnapproved">
+				<source>Thanks, your comment has been saved and is awaiting moderation.</source>
+			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam.title">
 				<source>Comment saved!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam">
-				<source>Sorry, your comment has been saved but was marked as SPAM.</source>
+				<source>Sorry, your comment has been saved but was marked as SPAM. Your comment is awaiting moderation.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.blockedAsSpam.title">
 				<source>Comment not saved!</source>
