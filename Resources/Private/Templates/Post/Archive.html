@@ -7,26 +7,26 @@
 				{year}
 				<small>({postsByYear -> f:count()})</small>
 			</h3>
-			<ul class="unstyled">
 				<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
-					<li>
-						<strong><f:format.date format="F">1/1 -1 day +{month} months</f:format.date></strong>&nbsp;
-						<small>({postsByMonth -> f:count()})</small>
-						<ul>
-							<f:for each="{postsByMonth}" as="post">
-								<li>
-									<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
-									<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
-										{post.title}
-									</f:link.action>
+					<strong>
+						<f:cObject typoscriptObjectPath="lib.tx_t3extblog.month" data="{f:format.date(format:'U' date:'1/1 -1 day +{month} months')}" />
+					</strong>
+					<small>({postsByMonth -> f:count()})</small>
 
-									<f:link.action controller="Post" action="permalink" pageUid="{settings.blogsystem.pid}" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
-										<i class="icon-link"></i>
-									</f:link.action>
-								</li>
-							</f:for>
-						</ul>
-					</li>
+					<ul class="unstyled">
+						<f:for each="{postsByMonth}" as="post">
+							<li>
+								<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
+								<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
+									{post.title}
+								</f:link.action>
+
+								<f:link.action controller="Post" action="permalink" pageUid="{settings.blogsystem.pid}" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
+									<i class="icon-link"></i>
+								</f:link.action>
+							</li>
+						</f:for>
+					</ul>
 				</f:groupedFor>
 			</ul>
 		</div>
