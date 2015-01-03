@@ -21,6 +21,13 @@ plugin.tx_t3extblog {
 		enableAutomaticCacheClearing = 1
 	}
 
+	features {
+		skipDefaultArguments = 1
+
+		# needed for 4.x only
+		rewrittenPropertyMapper = 1
+	}
+
 	settings {
 		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid
 
@@ -176,6 +183,22 @@ plugin.tx_t3extblog {
 
 		archive {
 
+		}
+
+		# Backend
+		backend {
+			posts.paginate {
+				itemsPerPage = 20
+				insertAbove = 0
+				insertBelow = 1
+				maximumNumberOfLinks = 100
+			}
+			comments.paginate {
+				itemsPerPage = 20
+				insertAbove = 0
+				insertBelow = 1
+				maximumNumberOfLinks = 100
+			}
 		}
 
 		# some debug configs

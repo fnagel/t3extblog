@@ -1,12 +1,3 @@
-plugin.tx_t3extblog {
-	features {
-		skipDefaultArguments = 1
-
-		# needed for 4.x only
-		rewrittenPropertyMapper = 1
-	}
-}
-
 # table & field mapping
 config.tx_extbase {
 	objects {
@@ -106,31 +97,17 @@ config.tx_extbase {
     }
 }
 
+# Configure BE module
+# When this default TS is added to static TS templates instead, we run into issues regarding link generation (RealUrl)
 module.tx_t3extblog {
 	view {
 		templateRootPath = EXT:t3extblog/Resources/Private/Backend/Templates/
 		partialRootPath = EXT:t3extblog/Resources/Private/Backend/Partials/
 		layoutRootPath = EXT:t3extblog/Resources/Private/Backend/Layouts/
 	}
-
 	email < plugin.tx_t3extblog.email
 
 	features < plugin.tx_t3extblog.features
 
 	settings < plugin.tx_t3extblog.settings
-
-	settings.backend {
-		posts.paginate {
-			itemsPerPage = 20
-			insertAbove = 0
-			insertBelow = 1
-			maximumNumberOfLinks = 100
-		}
-		comments.paginate {
-			itemsPerPage = 20
-			insertAbove = 0
-			insertBelow = 1
-			maximumNumberOfLinks = 100
-		}
-	}
 }

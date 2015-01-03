@@ -26,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\Utility\ArrayUtility;
+
 /**
  * Provide a way to get the configuration just everywhere
  *
@@ -70,6 +72,11 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	protected $configurationManager;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService;
+
+	/**
 	 * Injects the Configuration Manager and loads the settings
 	 *
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
@@ -78,6 +85,17 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
+	}
+
+	/**
+	 * Injects the TypoScriptService
+	 *
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 *
+	 * @return void
+	 */
+	public function injectTypoScriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
 	}
 
 	/**
@@ -92,6 +110,15 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 				$this->extensionName,
 				$this->pluginName
 			);
+
+			// Update BE TS config with changed FE values
+			if (TYPO3_MODE === 'BE') {
+				$overruleSetup = $this->getFullTypoScriptConfig();
+				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['view'], $overruleSetup['view']);
+				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['email'], $overruleSetup['email']);
+				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['settings'], $overruleSetup['settings']);
+				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['features'], $overruleSetup['features']);
+			}
 		}
 
 		if ($this->frameworkSettings === NULL) {
@@ -113,6 +140,12 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 				$this->extensionName,
 				$this->pluginName
 			);
+
+			// Update BE TS settings with changed FE values
+			if (TYPO3_MODE === 'BE') {
+				$overruleSetup = $this->getFullTypoScriptConfig();
+				ArrayUtility::mergeRecursiveWithOverrule($this->typoScriptSettings, $overruleSetup['settings']);
+			}
 		}
 
 		if ($this->typoScriptSettings === NULL) {
@@ -120,6 +153,19 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 		}
 
 		return $this->typoScriptSettings;
+	}
+
+	/**
+	 * Get full typoscript configuration
+	 *
+	 * @return array
+	 */
+	protected function getFullTypoScriptConfig() {
+		$setup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
+
+		return $this->typoScriptService->convertTypoScriptArrayToPlainArray($setup['plugin.']['tx_t3extblog.']);
 	}
 
 	/**
