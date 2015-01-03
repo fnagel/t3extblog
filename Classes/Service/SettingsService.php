@@ -138,32 +138,6 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	}
 
 	/**
-	 * Helper method which forces the generation of the TypoScript for a specific page
-	 *
-	 * @param int $pageId
-	 * @return array The TypoScript setup
-	 */
-	public function forceLoadTypoScript($pageId = 0) {
-		$template = t3lib_div::makeInstance('t3lib_TStemplate');
-		// do not log time-performance information
-		$template->tt_track = 0;
-		$template->init();
-		// Get the root line
-		$sysPage = t3lib_div::makeInstance('t3lib_pageSelect');
-		// get the rootline for the current page
-		$rootline = $sysPage->getRootLine($pageId);
-		// This generates the constants/config + hierarchy info for the template.
-		$template->runThroughTemplates($rootline, 0);
-		$template->generateConfig();
-
-		/* @var $typoScriptService Tx_Extbase_Service_TypoScriptService */
-		$typoScriptService = t3lib_div::makeInstance('Tx_Extbase_Service_TypoScriptService');
-		$typoScript = $typoScriptService->convertTypoScriptArrayToPlainArray($template->setup);
-
-		return $typoScript;
-	}
-
-	/**
 	 * Set storage pid in BE
 	 *
 	 * Only needed when the class is called or injected in a BE context, e.g. a hook
