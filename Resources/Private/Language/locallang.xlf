@@ -54,7 +54,7 @@
 				<source>Receive notifications of new comments</source>
 			</trans-unit>
 			<trans-unit id="comment.human">
-				<source>I am not a SPAM bot</source>
+				<source>I am a human</source>
 			</trans-unit>
 			<trans-unit id="comment.optional">
 				<source>optional</source>
