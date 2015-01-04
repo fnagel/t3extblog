@@ -192,6 +192,9 @@ class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_Abs
 
 		$this->view->assign('post', $post);
 		$this->view->assign('newComment', $newComment);
+
+		$this->view->assign('nextPost', $this->postRepository->nextPost($post));
+		$this->view->assign('previousPost', $this->postRepository->previousPost($post));
 	}
 
 	/**

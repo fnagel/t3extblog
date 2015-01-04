@@ -73,6 +73,40 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	}
 
 	/**
+	 * Get next post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post
+	 */
+	public function nextPost(Tx_T3extblog_Domain_Model_Post $post) {
+		$query = $this->createQuery();
+
+		$query->setOrderings(
+			array('publishDate'=> Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
+		);
+
+		$query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
+
+		return $query->execute()->getFirst();
+	}
+
+	/**
+	 * Get previous post
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post
+	 */
+	public function previousPost(Tx_T3extblog_Domain_Model_Post $post) {
+		$query = $this->createQuery();
+
+		$query->matching($query->lessThan('publishDate', $post->getPublishDate()));
+
+		return $query->execute()->getFirst();
+	}
+
+	/**
 	 * Returns all objects of this repository
 	 *
 	 * @param integer $pid
