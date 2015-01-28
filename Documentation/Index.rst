@@ -24,7 +24,7 @@ T3Blog Extbase
 		en
 
 	:Description:
-		extensive blogsystem, including amongst others tagging, comments, latest comments, categories... could be easy used to replace t3blog (see documentation). Simple installation and easy integration. Its based on Extbase and Fluid.
+		Extensive blogsystem, including amongst others tagging, comments, latest comments, categories... could be easy used to replace t3blog (see documentation). Simple installation and easy integration. Its based on Extbase and Fluid.
 
 	:Keywords:
 		blog, blogsystem, t3blog
