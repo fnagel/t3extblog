@@ -18,4 +18,4 @@
 
 .. role::   php(code)
 
-.. highlight:: php
+.. highlight:: guess

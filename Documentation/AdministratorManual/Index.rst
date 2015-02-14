@@ -11,15 +11,22 @@
 Administrator Manual
 ====================
 
-Output
-----------
+Target group: **Administrators**
+
+
+.. only:: html
+
+	.. contents:: Within this page
+		:local:
+		:depth: 3
+
 
 Insert Plugin
-^^^^^^^^^^
+-------------
 
-The output is managed via conentet modules. This means easy and flexible usage.
+The output is managed via content modules. This means easy and flexible usage.
 
-1. Insert a content element, choose "plugins" -> "generell plugins"
+1. Insert a content element, choose "Plugins" -> "General Plugin"
 
 .. figure:: ../Images/AdministratorManual/plugin.png
 	:width: 652px
@@ -38,10 +45,10 @@ Choose one or more of the plugins listed to build your blog. These can be distri
 
 
 Plugins
-^^^^^^^^^^
+-------
 
 Archive
-""""""""""
+^^^^^^^
 
 Simple list of your blogposts, categorised by month, sorted by date.
 
@@ -53,9 +60,10 @@ Simple list of your blogposts, categorised by month, sorted by date.
 
 
 Blogsystem
-""""""""""
+^^^^^^^^^^
 
-Main part of the extension. Lists all your blogposts and shows some additional information like date of publishing, name of autor, categories, number of comments.
+Main part of the extension. Lists all your blogposts and shows some additional information like date of publishing,
+name of author, categories, number of comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
 	:width: 502px
@@ -64,7 +72,7 @@ Main part of the extension. Lists all your blogposts and shows some additional i
 	Blogsystem
 
 Categories
-""""""""""
+^^^^^^^^^^
 
 lists the blogcategories
 
@@ -74,14 +82,14 @@ lists the blogcategories
 
 	Categories
 
-LatestComments
-""""""""""
+Latest Comments
+^^^^^^^^^^^^^^^
 
 List of the latest comments
 
 
-LastestPosts
-""""""""""
+Lastest Posts
+^^^^^^^^^^^^^
 
 List of the latest blogpost
 
@@ -91,33 +99,34 @@ List of the latest blogpost
 
 	Lastest posts
 
-RSS
-""""""""""
+RSS Feed
+^^^^^^^^
 
-RSS output, see chapter RSS (its a bit special)
-
-Subscription Manager
-""""""""""
-
-see chapter Subscription Manager!
+RSS output, see chapter RSS.
 
 
 Subscription Manager
-^^^^
+^^^^^^^^^^^^^^^^^^^^
+
+See chapter Subscription Manager.
+
+
+Subscription Manager
+--------------------
 
 .. important::
 
 	Use a separate page for this plugin!
 
-Don´t forget to include the static template "T3Blog Extbase: Subscription Manager" an that page
+Don´t forget to include the static template "T3Blog Extbase: Subscription Manager" on that page
 
 This plugin manages blog post subscriptions. All email links will point to this page.
 
-Configure the Subscription manager via TS (see t3extblog\Configuration\TypoScript\setup.txt, look for "subscriptionManager"!
+Configure the Subscription manager via TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
 
 
-RSS
-^^^^
+RSS Feed
+--------
 
 The RSS-Module need some special treatment, but no need to worry.
 
@@ -141,8 +150,8 @@ When you open the page, the output should look like this:
 
 	RSS Output
 
-Have a look at /Configuration/TypoScript/RSS/setup.txt
+Have a look at :code:`/Configuration/TypoScript/RSS/setup.txt`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
 
-When you want to use RealURL add the static template "T3Extblog: additional RealUrl config (t3extblog)" too. When overriding the TS-values, add a
-"config.tx_realurl_enable = 1" to your TS to get RealUrl running in the RSS-Feed.
+When you want to use RealURL add the static template "T3Extblog: additional RealUrl config (t3extblog)" too.
+When overriding the TS-values, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.

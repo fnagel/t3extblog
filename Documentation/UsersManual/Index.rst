@@ -11,12 +11,23 @@
 Users manual
 ============
 
-Write a blogpost
-^^^^^
+Target group: **Editors**
 
-You can write Blogposts using the classic way: Open the folder or page you set for storagePid using the list module, add a new record. If not done already, add at least a title and one category.
 
-But t3extblog comes with an nice backendmodule. You will find it in the "WEB"-section. It will look like this:
+.. only:: html
+
+	.. contents:: Within this page
+		:local:
+		:depth: 3
+
+
+General information
+-------------------
+
+You can write Blogposts using the classic way: Open the folder or page you set for storagePid using the list module,
+add a new record. If not done already, add at least a title and one category.
+
+But t3extblog comes with a simple backend module. You will find it in the "WEB"-section. It looks like this:
 
 .. figure:: ../Images/UserManual/writeblogpost.png
 	:width: 600px
@@ -24,7 +35,7 @@ But t3extblog comes with an nice backendmodule. You will find it in the "WEB"-se
 
 	Backend module
 
-To write an blogpost, just click the plus-icon on the top.
+To write a blogpost, just click the plus-icon on the top.
 
 Now you can start adding contents to your blogpost!
 
@@ -34,9 +45,9 @@ Now you can start adding contents to your blogpost!
 
 	Create blogost
 
-Create blogost
-^^^^
 
+Create a blogpost
+-----------------
 
 - Author: is determined by the existing BE-users
 - Title: Title of your blogpost, you need to fill this field
@@ -56,7 +67,7 @@ Create blogost
 
 
 Adding some categories
-^^^^^
+----------------------
 
 Use the list view and click the button "create new record", then choose T3Blog Extbase -> categories
 
@@ -68,6 +79,9 @@ Use the list view and click the button "create new record", then choose T3Blog E
 
 
 Blog administration
-^^^^^
+-------------------
 
-The extension comes with an own backend-module. You can find it in the "web"-section in the left menue. You can choose between two sections "posts" and "comments". In the comments-section all pending comments are listed. In the posts-section all posts are listed, you can add new posts by clicking the "add-icon" above. You see the number of comments too. When clicking on one of these numbers, all comments corresponding to this blog are shown.
+The extension comes with an own backend-module. You can find it in the "web"-section in the left menue. You can choose
+between two sections "posts" and "comments". In the comments-section all pending comments are listed. In the posts-section
+all posts are listed, you can add new posts by clicking the "add-icon" above. You see the number of comments too.
+When clicking on one of these numbers, all comments corresponding to this blog are shown.

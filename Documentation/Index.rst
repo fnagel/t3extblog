@@ -24,19 +24,19 @@ T3Blog Extbase
 		en
 
 	:Description:
-		Extensive blogsystem, including amongst others tagging, comments, latest comments, categories... could be easy used to replace t3blog (see documentation). Simple installation and easy integration. Its based on Extbase and Fluid.
+		This is a TYPO3 Extbase / Fluid blog extension which aims to replace t3blog.
 
 	:Keywords:
 		blog, blogsystem, t3blog
 
 	:Copyright:
-		2014
+		2015
 
 	:Author:
-		Felix Nagel
+		Christoph Werner, Felix Nagel
 
 	:Email:
-		author@example.com
+		info@felixnagel.com
 
 	:License:
 		This document is published under the Open Content License

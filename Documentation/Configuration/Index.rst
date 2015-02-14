@@ -11,53 +11,31 @@
 Configuration
 ====================
 
-Settings
-----------
+Like most other extensions, settings can be overwritten via TypoScript.
 
-Like most other extensions, settings can be overwritten via TypoScript. Have a look at /Configuration/TypoScript/setup.txt.
+Have a look at :code:`/Configuration/TypoScript/setup.txt`.
 
-Needed configs
-^^^^
+
+Minimal configuration
+---------------------
 
 Two configs are needed in any case:
 
-::
+.. code-block:: typoscript
 
 	# PID where your blogsystem is included
-	plugin.tx_t3extblog.settings.blogsystem.pid = 111
+	plugin.tx_t3extblog.settings.blogsystem.pid = 123
+
 	# PID where you will store your blogposts
-	plugin.tx_t3extblog.persistence.storagePid = 222
+	plugin.tx_t3extblog.persistence.storagePid = 456
 
 
 RealURL
-^^^^
+-------
 
-When using EXT:realurl or similar extension you will need to add additional staticTS template "T3Extblog: additional RealUrl config (t3extblog)" (/Configuration/TypoScript/RealUrl/setup.txt). Add this static TS to the blogsystem plugin page only to preserve cache!
+When using EXT:realurl or similar extension you will need to add additional staticTS template
+"T3Extblog: additional RealUrl config (t3extblog)" (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
 
+.. important::
+	Add this static TS to the blogsystem plugin page only to preserve cache!
 
-Example
-^^^^
-
-Example code for changing the pagination values:
-
-
-::
-
-	plugin.tx_t3extblog {
-		settings {
-			blogsystem {
-				posts {
-					paginate {
-					# items (=blogposts) per page
-					itemsPerPage = 2
-				# pagination above the blogposts, 1 = yes, 0 = no
-					insertAbove = 1
-				# pagination below the blogposts, 1 = yes, 0 = no
-					insertBelow = 1
-					# maximum number of pagination links
-					maximumNumberOfLinks = 50
-					}
-				}
-			}
-		}
-	}
