@@ -85,13 +85,13 @@ lists the blogcategories
 Latest Comments
 ^^^^^^^^^^^^^^^
 
-List of the latest comments
+List of the latest comments. Configurable via :code:`paginate` settings.
 
 
 Lastest Posts
 ^^^^^^^^^^^^^
 
-List of the latest blogpost
+List of the latest blog posts. Configurable via :code:`paginate` settings.
 
 .. figure:: ../Images/AdministratorManual/latestposts.png
 	:width: 201px

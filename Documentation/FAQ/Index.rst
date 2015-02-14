@@ -72,7 +72,8 @@ Category-Module
 Add number of articles per category
 """""""""""""""""""""""""""""""""""
 
-Just add <f:count>{category.posts}</f:count> to Templates/Category/List.html. This function is expensive, so we don´t add it to the standard template files.
+Just add :code:`<f:count>{category.posts}</f:count>` to :code:`Templates/Category/List.html`.
+This function is expensive, so we don't add it to the standard template files.
 
 
 Detail-View (Show post)

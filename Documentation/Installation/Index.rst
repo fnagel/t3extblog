@@ -29,11 +29,15 @@ The installation is quite simple. Just follow the instructions below.
 
 		Include static
 
-#. Now set the storage PID via TS
-	:code:`plugin.tx_t3extblog.persistence.storagePid = 123` (123 is the pageid where you will store your blogposts)
+#. Create pages and add plugins
+	Add a page (for example 'blog') and add plugin 'blogsystem' (see :ref:`Administration manual <admin-manual>`).
 
-#. Now add this line to your template-setup
-	:code:`plugin.tx_t3extblog.settings.blogsystem.pid = 456` (456 is the pageid where the modul „blogsystem“ will be.
+#. Set the storage PID via TypoScript setup
+	:code:`plugin.tx_t3extblog.persistence.storagePid = 123` (123 is the page id where you will store your blogposts, we
+	recommend to use a storage folder).
+
+#. Add this line to your TypoScript setup
+	:code:`plugin.tx_t3extblog.settings.blogsystem.pid = 456` (456 is the page id where the plugin 'blogsystem' has been added).
 
 #. Check settings
 	i.e. blogName or handling of comments. See :code:`/Configuration/TypoScript/setup.txt` for details.
