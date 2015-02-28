@@ -85,3 +85,11 @@ The extension comes with an own backend-module. You can find it in the "web"-sec
 between two sections "posts" and "comments". In the comments-section all pending comments are listed. In the posts-section
 all posts are listed, you can add new posts by clicking the "add-icon" above. You see the number of comments too.
 When clicking on one of these numbers, all comments corresponding to this blog are shown.
+
+
+Preview blog posts
+------------------
+
+The extension has a preview functionality. It's possible to preview your posts before it's open to the public.
+Just keep the blog post hidden and use the "Save document and view page" button
+(at the top, next to the "Save and close record" button) within your post records.

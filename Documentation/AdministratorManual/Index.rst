@@ -155,3 +155,13 @@ You can override the values by using an extension template on the page where you
 
 When you want to use RealURL add the static template "T3Extblog: additional RealUrl config (t3extblog)" too.
 When overriding the TS-values, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
+
+
+Preview blog posts
+------------------
+
+The extension has a preview functionality. To activate it, just add :code:`tx_t3extblog.singlePid = 123`
+to your page tsconfig (123 is the PID of the page where the blogsystem is included).
+
+By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript 
+(:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
