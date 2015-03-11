@@ -43,7 +43,7 @@ Currently implemented features:
 Documentation
 -------------
 
-In work (see `documentation` branch). Available in version 1.0.
+See `/Documentation` directory or online: http://docs.typo3.org/typo3cms/extensions/t3extblog/
 
 
 Installation
