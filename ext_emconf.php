@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'T3Blog Extbase',
-	'description' => 'Extbase / Fluid extension which aims to replace EXT:t3blog.',
+	'description' => 'A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.',
 	'category' => 'plugin',
 	'author' => 'Felix Nagel',
 	'author_email' => 'info@felixnagel.com',
@@ -20,14 +20,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'shy' => '',
 	'priority' => '',
 	'module' => '',
-	'state' => 'alpha',
+	'state' => 'beta',
 	'internal' => '',
 	'uploadfolder' => 0,
 	'createDirs' => '',
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '0.9.0',
+	'version' => '0.9.1',
 	'constraints' => array(
 		'depends' => array(
 			'extbase' => '1.5',
