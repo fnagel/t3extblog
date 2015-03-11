@@ -1,7 +1,7 @@
 TYPO3 t3extblog
 ===============
 
-This is a TYPO3 Extbase / Fluid blog extension which aims to replace t3blog.
+A flexible blog extension for TYPO3 CMS powered by Extbase / Fluid which aims to replace t3blog.
 
 
 Current state

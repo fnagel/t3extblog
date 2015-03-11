@@ -9,7 +9,7 @@
 What does it do?
 ================
 
-This is a TYPO3 Extbase / Fluid extension which aims to replace t3blog. It is easy to implement and use.
+A flexible blog extension for TYPO3 CMS powered by Extbase / Fluid which aims to replace t3blog.
 
 
 Currently implemented features:
