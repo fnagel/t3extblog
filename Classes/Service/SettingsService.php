@@ -197,13 +197,8 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 */
 	public function setPageUid($pageUid) {
 		if (TYPO3_MODE === 'BE') {
-			if (version_compare(TYPO3_version, '6.0.0', '>=')) {
-				// @todo test if this works for TYPO3 4.x too
-				$currentPid['persistence']['storagePid'] = intval($pageUid);
-				$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
-			} else {
-				t3lib_div::_GETset(intval($pageUid), 'id');
-			}
+			$currentPid['persistence']['storagePid'] = intval($pageUid);
+			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
 		}
 	}
 }
