@@ -5,7 +5,7 @@
  *
  *  (c) 2010 Sebastian Schreiber <me@schreibersebastian.de >
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

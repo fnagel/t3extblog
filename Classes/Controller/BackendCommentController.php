@@ -3,7 +3,7 @@
  *  Copyright notice
  *
  *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
- *  (c) 2013-2014 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
