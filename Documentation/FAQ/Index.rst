@@ -97,3 +97,14 @@ Link the previous / next article in the detais-view of a post. The following lin
 			<f:link.action controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{previousPost.linkParameter}"> {previousPost.title} &gt; </f:link.action>
 		</f:then>
 	</f:if>
+
+
+
+TYPO3 CMS version 4.5 - 4.7 support
+-----------------------------------
+
+There is a legacy branch for TYPO3 4.5-4.7. It's functional (tested in TYPO3 4.7) but needs some fixes backported.
+Please open an issue on GitHub if you are interested in a bugfixed 4.5 branch.
+
+Version 0.9.1 of this extension is NOT compatible with TYPO3 4.5 or 4.7 even if TER says otherwise.
+You will need to use this branch: https://github.com/fnagel/t3extblog/tree/legacy
