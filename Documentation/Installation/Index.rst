@@ -17,11 +17,8 @@ The installation is quite simple. Just follow the instructions below.
 #. Import and install the extension
 	via the extension manager
 
-#. Include static template:
-	At least you have to include "T3Extblog: Default Setup (needed) (t3extblog)". When using RealURL you
-	should include "T3Extblog: additional RealUrl config (t3extblog)". It works fine with RealURL-autoconfiguration,
-	see :code:`typo3conf/ext/t3extblog/Classes/Hooks/RealUrl.php` for details.
-
+#. Include static template on your root page:
+	Just include "T3Extblog: Default Setup (needed) (t3extblog)".
 
 	.. figure:: ../Images/Installation/includestatic.png
 		:width: 669px

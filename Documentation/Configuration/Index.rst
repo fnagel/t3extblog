@@ -75,6 +75,8 @@ See :code:`/Configuration/TypoScript/RealUrl/setup.txt` for details!
 RealURL
 -------
 
+This extension include a predefined setup for RealURL auto configuration, see :code:`typo3conf/ext/t3extblog/Classes/Hooks/RealUrl.php` for details.
+
 When using EXT:realurl or similar extension you will need to add additional staticTS template
 "T3Extblog: additional RealUrl config (t3extblog)" (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
 
