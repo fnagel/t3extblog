@@ -11,6 +11,8 @@
 Installation
 ============
 
+Target group: **Administrators**
+
 The installation is quite simple. Just follow the instructions below.
 
 
