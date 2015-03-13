@@ -19,7 +19,7 @@ Currently implemented features:
 * Views: list, detail, latest, categories, archive, latest comments (each is a FE plugin)
 * Allow some HTML tags in comment message
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
-* Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support
+* Configurable spam check: "I am human" checkbox, honeypot, cookie and useragent
 * Opt-In mails for comment subscription with expiration date
 * Auto close comments functionality
 * RSS feed for posts

@@ -124,41 +124,9 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 			}
 		}
 
-		if ($this->spamSettings['sfpantispam']) {
-			if ($this->checkCommentWithSfpAntiSpam($comment)) {
-				$spamPoints += intval($this->spamSettings['sfpantispam']);
-			}
-		}
-
 		$comment->setSpamPoints($spamPoints);
 
 		return $spamPoints;
-	}
-
-	/**
-	 * Checks text fields with EXT:sfpantispam
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 *
-	 * @return boolean
-	 */
-	protected function checkCommentWithSfpAntiSpam(Tx_T3extblog_Domain_Model_Comment $comment) {
-		if (!t3lib_extMgm::isLoaded('sfpantispam')) {
-			$this->log->error('EXT:sfpantispam not installed but enabled in configuration.');
-			return FALSE;
-		}
-
-		/* @var $sfpAntiSpam tx_sfpantispam_tslibfepreproc */
-		$sfpAntiSpam = t3lib_div::makeInstance('tx_sfpantispam_tslibfepreproc');
-		$fields = array(
-			$comment->getAuthor(),
-			$comment->getTitle(),
-			$comment->getWebsite(),
-			$comment->getEmail(),
-			$comment->getText()
-		);
-
-		return !$sfpAntiSpam->sendFormmail_preProcessVariables($fields, $this);
 	}
 
 	/**

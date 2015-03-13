@@ -97,8 +97,6 @@ plugin.tx_t3extblog {
 					userAgent = 5
 					# checks if client accepts cookies
 					cookie = 2
-					# checks with EXT:sfpantispam against blacklist
-					sfpantispam = 10
 				}
 
 				paginate {

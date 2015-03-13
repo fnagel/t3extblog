@@ -38,7 +38,6 @@ $EM_CONF[$_EXTKEY] = array(
 			't3blog' => '',
 		),
 		'suggests' => array(
-			'sfpantispam' => '',
 			'dd_googlesitemap' => '1.3.1-1.3.99',
 		),
 	),

@@ -29,7 +29,7 @@ Currently implemented features:
 * Add new comments
 * Allow some HTML tags in comment message
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
-* Configurable spam check: "I am human" checkbox, honeypot, cookie, useragent, and EXT:sfpantispam support (not available in TYPO3 6.2)
+* Configurable spam check: "I am human" checkbox, honeypot, cookie and useragent
 * Opt-In mails for comment subscription with expiration date
 * Auto close comments functionality
 * RSS feed for posts
