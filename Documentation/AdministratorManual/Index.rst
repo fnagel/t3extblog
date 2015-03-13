@@ -108,21 +108,15 @@ RSS output, see chapter RSS.
 Subscription Manager
 ^^^^^^^^^^^^^^^^^^^^
 
-See chapter Subscription Manager.
-
-
-Subscription Manager
---------------------
-
 .. important::
 
 	Use a separate page for this plugin!
 
-Don´t forget to include the static template "T3Blog Extbase: Subscription Manager" on that page
 
 This plugin manages blog post subscriptions. All email links will point to this page.
 
 Configure the Subscription manager via TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
+
 
 
 RSS Feed
@@ -163,5 +157,5 @@ Preview blog posts
 The extension has a preview functionality. To activate it, just add :code:`tx_t3extblog.singlePid = 123`
 to your page tsconfig (123 is the PID of the page where the blogsystem is included).
 
-By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript 
+By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript
 (:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
