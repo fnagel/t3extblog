@@ -63,3 +63,4 @@ T3Blog Extbase
 	Configuration/Index
 	FAQ/Index
 	ReplaceT3Blog/Index
+	DeveloperGuide/Index
