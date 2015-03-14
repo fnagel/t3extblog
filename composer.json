@@ -1,0 +1,26 @@
+{
+  "name": "typo3/t3extblog",
+  "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
+  "require-dev": {
+    "fluidtypo3/development": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "TYPO3\\T3extblog\\": "Classes/"
+    }
+  },
+  "type": "typo3-cms-extension",
+  "keywords": ["TYPO3 CMS", "blog"],
+  "homepage": "https://github.com/fnagel/t3extblog",
+  "license": "GPL-2.0+",
+  "version": "1.0.1",
+  "support": {
+    "issues": "https://github.com/fnagel/t3extblog/issues"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/TYPO3/TYPO3.CMS"
+    }
+  ]
+}
