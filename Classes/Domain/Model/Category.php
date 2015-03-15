@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,14 +26,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_AbstractLocalizedEntity {
+class Category extends AbstractLocalizedEntity {
 
 	/**
 	 * name
@@ -58,7 +59,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	/**
 	 * Posts
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
 	 * @lazy
 	 */
 	protected $posts = NULL;
@@ -66,7 +67,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	/**
 	 * child categories
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
 	 * @lazy
 	 */
 	protected $childCategories = NULL;
@@ -135,7 +136,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 		if ($this->posts === NULL) {
 			$posts = $this->getPostRepository()->findByCategory($this);
 
-			$this->posts = new Tx_Extbase_Persistence_ObjectStorage();
+			$this->posts = new ObjectStorage();
 			foreach ($posts as $post) {
 				$this->posts->attach($post);
 			}
@@ -147,7 +148,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	/**
 	 * Returns all child categories
 	 *
-	 * @return null|\Tx_Extbase_Persistence_ObjectStorage $posts
+	 * @return null|ObjectStorage $posts
 	 */
 	public function getChildCategories() {
 		if (!$this->isFirstLevel()) {
@@ -155,9 +156,9 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 		}
 
 		if ($this->childCategories === NULL) {
-			$categories = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CategoryRepository")->findByParentId($this->getUid());
+			$categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')->findByParentId($this->getUid());
 
-			$this->childCategories = new Tx_Extbase_Persistence_ObjectStorage();
+			$this->childCategories = new ObjectStorage();
 			foreach ($categories as $category) {
 				$this->childCategories->attach($category);
 			}
@@ -165,7 +166,4 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 
 		return $this->childCategories;
 	}
-
 }
-
-?>

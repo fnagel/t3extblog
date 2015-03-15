@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,17 +26,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Post;
+use TYPO3\T3extblog\Domain\Model\Subscriber;
+
 /**
- * Test case for class Tx_T3extblog_Domain_Model_Subscriber
+ * Test case for class Subscriber
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
+class SubscriberTest extends BaseTest {
 
 	/**
-	 * @var Tx_T3extblog_Domain_Model_Subscriber
+	 * @var Subscriber
 	 */
 	protected $fixture;
 
@@ -43,11 +48,7 @@ class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
 	 */
 	public function setUp() {
 		parent::setUp();
-
-		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', 123);
-
-		$this->fixture->setName('John Doe');
-		$this->fixture->setEmail('test@domain.com');
+		$this->fixture = new Post();
 	}
 
 	/**
@@ -58,14 +59,12 @@ class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
 	public function testCanGetPostUid() {
 		$this->assertEquals(
 			123,
-			$this->fixture->getPostUid()
+			$this->fixture->getUid()
 		);
 	}
 
 	/**
 	 * @test
-	 *
-	 * @return void
 	 */
 	public function testCreateCode() {
 		$this->assertNull($this->fixture->getCode());
@@ -96,7 +95,7 @@ class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
 	 * @return void
 	 */
 	public function testIsAuthCodeExpired() {
-		$this->fixture->setLastSent(new DateTime('now'));
+		$this->fixture->setLastSent(new \DateTime('now'));
 		$this->fixture->getLastSent()->modify('-2 weeks');
 
 		$this->assertTrue(
@@ -122,5 +121,3 @@ class Tx_T3extblog_Domain_Model_SubscriberTest extends BaseTest {
 		);
 	}
 }
-
-?>

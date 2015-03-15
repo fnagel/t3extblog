@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Tests\Unit\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,22 +26,26 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- * Test case for class Tx_T3extblog_Controller_PostsController.
+ * Test case for class PostController.
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class PostControllerTest extends UnitTestCase {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager;
 
 	/**
-	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @var Post
 	 */
 	protected $fixture;
 
@@ -47,8 +53,7 @@ class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_
 	 * @return void
 	 */
 	public function setUp() {
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->fixture = $this->objectManager->get('Tx_T3extblog_Domain_Model_Post');
+		$this->fixture = new Post();
 	}
 
 	/**
@@ -66,7 +71,4 @@ class Tx_T3extblog_Controller_PostsControllerTest extends Tx_Extbase_Tests_Unit_
 	public function testFindByTagOrCategory() {
 		$this->markTestSkipped("to be written");
 	}
-
 }
-
-?>

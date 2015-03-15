@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,15 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
  * @package TYPO3
  * @subpackage T3Blog Extbase
- *
  */
-abstract class BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+abstract class BaseTest extends UnitTestCase {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -42,7 +47,7 @@ abstract class BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	 * @return void
 	 */
 	public function setUp() {
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
 
 	/**
@@ -51,7 +56,4 @@ abstract class BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	public function tearDown() {
 		unset($this->fixture);
 	}
-
 }
-
-?>

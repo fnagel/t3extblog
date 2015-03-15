@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_PostController extends Tx_T3extblog_Controller_AbstractController {
+class PostController extends AbstractController {
 
 	/**
 	 * postRepository

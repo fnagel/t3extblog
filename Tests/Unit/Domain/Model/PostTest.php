@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,17 +26,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- * Test case for class Tx_T3extblog_Domain_Model_Post
+ * Test case for class Post
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
+class PostTest extends BaseTest {
 
 	/**
-	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @var Post
 	 */
 	protected $fixture;
 
@@ -44,7 +48,7 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	public function setUp() {
 		parent::setUp();
 
-		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Post');
+		$this->fixture = new Post();
 	}
 
 	/**
@@ -53,7 +57,8 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	 * @return void
 	 */
 	public function testPublishDateMethods() {
-		$this->fixture->setPublishDate(new DateTime('2014-01-14'));
+
+		$this->fixture->setPublishDate(new \DateTime('2014-01-14'));
 
 		$this->assertSame(
 			'2014',
@@ -77,7 +82,7 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	 * @return void
 	 */
 	public function testIsExpired() {
-		$this->fixture->setPublishDate(new DateTime('now'));
+		$this->fixture->setPublishDate(new \DateTime('now'));
 		$this->fixture->getPublishDate()->modify('-6 months');
 
 		$this->assertTrue(
@@ -149,7 +154,7 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	 * @return void
 	 */
 	public function testCanGetLinkParameter() {
-		$this->fixture->setPublishDate(new DateTime('2014-01-14'));
+		$this->fixture->setPublishDate(new \DateTime('2014-01-14'));
 		$this->fixture->_setProperty('uid', 123);
 
 		$this->assertEquals(
@@ -164,5 +169,3 @@ class Tx_T3extblog_Domain_Model_PostTest extends BaseTest {
 	}
 
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,14 +26,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_AbstractEntity {
+class Subscriber extends AbstractEntity {
 
 	/**
 	 * @var boolean
@@ -70,7 +72,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * post
 	 *
-	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @var \TYPO3\T3extblog\Domain\Model\Post
 	 * @lazy
 	 */
 	protected $post = NULL;
@@ -78,7 +80,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * comments
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
 	 * @lazy
 	 */
 	protected $postComments = NULL;
@@ -86,7 +88,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * comments
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
 	 * @lazy
 	 */
 	protected $postPendingComments = NULL;
@@ -94,7 +96,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * lastSent
 	 *
-	 * @var DateTime
+	 * @var \DateTime
 	 * @validate NotEmpty
 	 */
 	protected $lastSent = NULL;
@@ -110,6 +112,9 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 
 	/**
 	 * __construct
+	 *
+	 * @param int $postUid
+	 * @return void
 	 */
 	public function __construct($postUid) {
 		$this->postUid = $postUid;
@@ -168,7 +173,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the post
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post $post
+	 * @return Post $post
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
@@ -181,13 +186,13 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the post comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
 	 */
 	public function getPostComments() {
 		if ($this->postComments === NULL) {
 			$postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
 
-			$this->postComments = new Tx_Extbase_Persistence_ObjectStorage();
+			$this->postComments = new ObjectStorage();
 			foreach ($postComments as $comment) {
 				$this->postComments->attach($comment);
 			}
@@ -199,13 +204,13 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the post pending comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
 	 */
 	public function getPostPendingComments() {
 		if ($this->postPendingComments === NULL) {
 			$postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);
 
-			$this->postPendingComments = new Tx_Extbase_Persistence_ObjectStorage();
+			$this->postPendingComments = new ObjectStorage();
 			foreach ($postPendingComments as $comment) {
 				$this->postPendingComments->attach($comment);
 			}
@@ -228,7 +233,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Returns the lastSent
 	 *
-	 * @return DateTime $lastSent
+	 * @return \DateTime $lastSent
 	 */
 	public function getLastSent() {
 		return $this->lastSent;
@@ -237,7 +242,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Sets the lastSent
 	 *
-	 * @param DateTime $lastSent
+	 * @param \DateTime $lastSent
 	 *
 	 * @return void
 	 */
@@ -271,10 +276,10 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 * @return void
 	 */
 	private function createCode() {
-		$now = new DateTime();
+		$now = new \DateTime();
 		$input = $this->email . $this->postUid . $now->getTimestamp() . uniqid();
 
-		$this->code = substr(t3lib_div::hmac($input), 0, 32);
+		$this->code = substr(GeneralUtility::hmac($input), 0, 32);
 	}
 
 	/**
@@ -283,7 +288,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 * @return void
 	 */
 	public function updateAuth() {
-		$this->setLastSent(new DateTime());
+		$this->setLastSent(new \DateTime());
 		$this->createCode();
 	}
 
@@ -299,12 +304,12 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	/**
 	 * Checks if the authCode is still valid
 	 *
-	 * @param DateTime $expireDate
+	 * @param \DateTime $expireDate
 	 *
 	 * @return string
 	 */
 	public function isAuthCodeExpired($expireDate) {
-		$now = new DateTime();
+		$now = new \DateTime();
 		$expire = clone $this->getLastSent();
 
 		if ($now > $expire->modify($expireDate)) {
@@ -313,7 +318,4 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 
 		return FALSE;
 	}
-
 }
-
-?>

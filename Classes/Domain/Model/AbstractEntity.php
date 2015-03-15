@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,19 +26,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_DomainObject_AbstractEntity {
+abstract class AbstractEntity extends CoreAbstractEntity {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 	 */
-	protected $objectManager;
+	protected $objectManager = NULL;
 
 	/**
 	 * commentRepository
@@ -53,7 +56,7 @@ abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_Domai
 	protected $postRepository = NULL;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */
@@ -131,5 +134,3 @@ abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_Domai
 		return array_keys($properties);
 	}
 }
-
-?>

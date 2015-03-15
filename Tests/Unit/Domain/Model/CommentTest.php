@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,17 +26,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Comment;
+
 /**
- * Test case for class Tx_T3extblog_Domain_Model_Comment
+ * Test case for class Comment
  *
  * @package TYPO3
  * @subpackage T3Blog Extbase
  *
  */
-class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
+class CommentTest extends BaseTest {
 
 	/**
-	 * @var Tx_T3extblog_Domain_Model_Comment
+	 * @var Comment
 	 */
 	protected $fixture;
 
@@ -44,7 +48,8 @@ class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
 	public function setUp() {
 		parent::setUp();
 
-		$this->fixture = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
+		$this->fixture = new Comment();
+		$this->fixture->_setProperty('uid', 123);
 
 		$this->fixture->_setProperty('hidden', FALSE);
 		$this->fixture->_setProperty('deleted', FALSE);
@@ -145,5 +150,3 @@ class Tx_T3extblog_Domain_Model_CommentTest extends BaseTest {
 	}
 
 }
-
-?>

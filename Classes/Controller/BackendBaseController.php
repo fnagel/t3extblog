@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -31,7 +34,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Controller_BackendBaseController extends Tx_Extbase_MVC_Controller_ActionController {
+class BackendBaseController extends ActionController {
 
 	/**
 	 * objectManager

@@ -1,37 +1,39 @@
 <?php
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+namespace TYPO3\T3extblog\Domain\Model;
+
+	/***************************************************************
+	 *  Copyright notice
+	 *
+	 *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+	 *
+	 *  All rights reserved
+	 *
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
+	 *
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
+	 *
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 /**
- * Tx_T3extblog_Domain_Model_Comment
+ * Comment
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_AbstractEntity {
+class Comment extends AbstractEntity {
 
 	/**
 	 * @var boolean
@@ -73,14 +75,14 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * website
 	 *
 	 * @var string
-	 * @validate Tx_T3extblog_Validation_Validator_UrlValidator
+	 * @validate \TYPO3\T3extblog\Validation\Validation\UrlValidator
 	 */
 	protected $website;
 
 	/**
 	 * date
 	 *
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $date;
 
@@ -123,7 +125,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	/**
 	 * post
 	 *
-	 * @var Tx_T3extblog_Domain_Model_Post
+	 * @var \TYPO3\T3extblog\Domain\Model\Post
 	 * @lazy
 	 */
 	protected $post = NULL;
@@ -147,7 +149,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * __construct
 	 */
 	public function __construct() {
-		$this->date = new DateTime();
+		$this->date = new \DateTime();
 	}
 
 	/**
@@ -265,7 +267,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	/**
 	 * Returns the date
 	 *
-	 * @return DateTime $date
+	 * @return \DateTime $date
 	 */
 	public function getDate() {
 		return $this->date;
@@ -274,7 +276,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	/**
 	 * Sets the date
 	 *
-	 * @param DateTime $date
+	 * @param \DateTime $date
 	 *
 	 * @return void
 	 */
@@ -417,7 +419,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	/**
 	 * Returns the post
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return \TYPO3\T3extblog\Domain\Model\Post
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
@@ -472,5 +474,3 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
 	}
 }
-
-?>

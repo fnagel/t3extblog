@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,13 +27,11 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_AbstractEntity {
+class BackendUser extends AbstractEntity {
 
 	/**
 	 * @var string
@@ -93,5 +93,3 @@ class Tx_T3extblog_Domain_Model_BackendUser extends Tx_Extbase_DomainObject_Abst
 	}
 
 }
-
-?>

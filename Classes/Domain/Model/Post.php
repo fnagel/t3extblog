@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,14 +26,17 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractLocalizedEntity {
+class Post extends AbstractLocalizedEntity {
 
 	/**
 	 * @var boolean
@@ -54,7 +59,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * author
 	 *
-	 * @var Tx_T3extblog_Domain_Model_BackendUser
+	 * @var \TYPO3\T3extblog\Domain\Model\BackendUser
 	 * @lazy
 	 * @validate NotEmpty
 	 */
@@ -63,7 +68,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * publishDate
 	 *
-	 * @var DateTime
+	 * @var \DateTime
 	 * @validate NotEmpty
 	 */
 	protected $publishDate;
@@ -136,7 +141,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * categories
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Category>
 	 * @lazy
 	 */
 	protected $categories;
@@ -145,7 +150,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 * comments
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
-	 * @lazy
 	 */
 	protected $comments = NULL;
 
@@ -160,7 +164,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * subscriptions
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber>
 	 * @lazy
 	 */
 	protected $subscriptions;
@@ -195,8 +199,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->categories = new ObjectStorage();
+		$this->subscriptions = new ObjectStorage();
 		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
@@ -251,7 +255,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Returns the author
 	 *
-	 * @return Tx_T3extblog_Domain_Model_BackendUser $author
+	 * @return BackendUser $author
 	 */
 	public function getAuthor() {
 		return $this->author;
@@ -260,12 +264,12 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Sets the author
 	 *
-	 * @param Tx_T3extblog_Domain_Model_BackendUser|integer $author
+	 * @param BackendUser|integer $author
 	 *
 	 * @return void
 	 */
 	public function setAuthor($author) {
-		if ($author instanceof Tx_T3extblog_Domain_Model_BackendUser) {
+		if ($author instanceof BackendUser) {
 			$this->author = $author->getUid();
 		} elseif (intval($author)) {
 			$this->author = $author;
@@ -275,7 +279,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Returns the publishDate
 	 *
-	 * @return DateTime $publishDate
+	 * @return \DateTime $publishDate
 	 */
 	public function getPublishDate() {
 		return $this->publishDate;
@@ -316,7 +320,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 * @return string
 	 */
 	public function isExpired($expireDate = '+1 month') {
-		$now = new DateTime();
+		$now = new \DateTime();
 		$expire = clone $this->getPublishDate();
 
 		if ($now > $expire->modify($expireDate)) {
@@ -329,7 +333,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Sets the publishDate
 	 *
-	 * @param DateTime $publishDate
+	 * @param \DateTime $publishDate
 	 *
 	 * @return void
 	 */
@@ -372,7 +376,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 * @return array $tagCloud
 	 */
 	public function getTagCloud() {
-		return t3lib_div::trimExplode(",", $this->tagCloud, true);
+		return GeneralUtility::trimExplode(",", $this->tagCloud, true);
 	}
 
 	/**
@@ -599,29 +603,29 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Adds a Category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param \TYPO3\T3extblog\Domain\Model\Category $category
 	 *
 	 * @return void
 	 */
-	public function addCategory(Tx_T3extblog_Domain_Model_Category $category) {
+	public function addCategory(Category $category) {
 		$this->categories->attach($category);
 	}
 
 	/**
 	 * Removes a Category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $categoryToRemove The Category to be removed
+	 * @param \TYPO3\T3extblog\Domain\Model\Category $categoryToRemove The Category to be removed
 	 *
 	 * @return void
 	 */
-	public function removeCategory(Tx_T3extblog_Domain_Model_Category $categoryToRemove) {
+	public function removeCategory(Category $categoryToRemove) {
 		$this->categories->detach($categoryToRemove);
 	}
 
 	/**
 	 * Returns the categories
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Category> $categories
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category> $categories
 	 */
 	public function getCategories() {
 		return $this->categories;
@@ -649,10 +653,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Adds a Comment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param \TYPO3\T3extblog\Domain\Model\Comment $comment
 	 * @return void
 	 */
-	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
+	public function addComment(Comment $comment) {
 		$this->initComments();
 
 		$comment->setPostId($this->getLocalizedUid());
@@ -664,10 +668,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Removes a Comment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $commentToRemove The Comment to be removed
+	 * @param \TYPO3\T3extblog\Domain\Model\Comment $commentToRemove The Comment to be removed
 	 * @return void
 	 */
-	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
+	public function removeComment(Comment $commentToRemove) {
 		$this->initComments();
 
 		$commentToRemove->setDeleted(TRUE);
@@ -679,7 +683,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Returns the comments
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return QueryResultInterface
 	 */
 	public function getComments() {
 		$this->initComments();
@@ -690,7 +694,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Returns the comments
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return QueryResultInterface
 	 */
 	public function getCommentsForPaginate() {
 		$this->initComments();
@@ -711,29 +715,29 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Adds a Subscriber
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscription
+	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscription
 	 *
 	 * @return void
 	 */
-	public function addSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscription) {
+	public function addSubscription(Subscriber $subscription) {
 		$this->subscriptions->attach($subscription);
 	}
 
 	/**
 	 * Removes a Subscriber
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove The Subscriber to be removed
+	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscriptionToRemove The Subscriber to be removed
 	 *
 	 * @return void
 	 */
-	public function removeSubscription(Tx_T3extblog_Domain_Model_Subscriber $subscriptionToRemove) {
+	public function removeSubscription(Subscriber $subscriptionToRemove) {
 		$this->subscriptions->detach($subscriptionToRemove);
 	}
 
 	/**
 	 * Returns the subscriptions
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber> $subscriptions
 	 */
 	public function getSubscriptions() {
 		return $this->subscriptions;
@@ -742,11 +746,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	/**
 	 * Sets the subscriptions
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage <Tx_T3extblog_Domain_Model_Subscriber> $subscriptions
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber> $subscriptions
 	 *
 	 * @return void
 	 */
-	public function setSubscriptions(Tx_Extbase_Persistence_ObjectStorage $subscriptions) {
+	public function setSubscriptions(ObjectStorage $subscriptions) {
 		$this->subscriptions = $subscriptions;
 	}
 
@@ -764,5 +768,3 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 		);
 	}
 }
-
-?>
