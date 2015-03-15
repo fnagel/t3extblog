@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,21 +26,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
+class AbstractRepository extends Repository {
 
 	/**
 	 * @param null $pageUid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
 	public function createQuery($pageUid = NULL) {
+
 		$query = parent::createQuery();
 
 		if ($pageUid !== NULL) {
@@ -69,4 +72,3 @@ class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persi
 	}
 }
 
-?>

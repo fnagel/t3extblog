@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,14 +27,9 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Repository_BackendUserRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class BackendUserRepository extends AbstractRepository {
 
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,17 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\T3extblog\Domain\Model\Category;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class PostRepository extends AbstractRepository {
 
 	protected $defaultOrderings = array(
-		'publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+		'publishDate' => QueryInterface::ORDER_DESCENDING
 	);
 
 	/**
@@ -44,7 +47,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 * @param integer $uid id of record
 	 * @param boolean $respectEnableFields if set to false, hidden records are shown
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return Post
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
 		if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
@@ -94,15 +97,15 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	/**
 	 * Get next post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return Post
 	 */
-	public function nextPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function nextPost(Post $post) {
 		$query = $this->createQuery();
 
 		$query->setOrderings(
-			array('publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
+			array('publishDate' => QueryInterface::ORDER_ASCENDING)
 		);
 
 		$query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
@@ -113,11 +116,11 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	/**
 	 * Get previous post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return Post
 	 */
-	public function previousPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function previousPost(Post $post) {
 		$query = $this->createQuery();
 
 		$query->matching($query->lessThan('publishDate', $post->getPublishDate()));
@@ -131,7 +134,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 * @param integer $pid
 	 * @param boolean $respectEnableFields
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
 		$query = $this->createQuery((int) $pid);
@@ -153,7 +156,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 *
 	 * @param string $tag
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The posts
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByTag($tag) {
 		$query = $this->createQuery();
@@ -168,9 +171,9 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	/**
 	 * Returns all objects of this repository with matching category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param Category $category
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResult
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByCategory($category) {
 		$query = $this->createQuery();
@@ -180,7 +183,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 
 		$categories = $category->getChildCategories();
 
-		if (count($categories) > 0 ) {
+		if (count($categories) > 0) {
 			foreach ($categories as $childCategory) {
 				$constraints[] = $query->contains('categories', $childCategory);
 			}
@@ -192,5 +195,3 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	}
 
 }
-
-?>

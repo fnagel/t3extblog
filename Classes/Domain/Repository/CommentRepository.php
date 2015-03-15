@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,23 +26,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class CommentRepository extends AbstractRepository {
 
 	protected $defaultOrderings = array(
-		'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+		'date' => QueryInterface::ORDER_DESCENDING
 	);
 
 	/**
 	 * Finds all valid comments
-	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findValid() {
 		$query = $this->createQuery();
@@ -55,12 +55,12 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds all comments for the given post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 * @param boolean $respectEnableFields
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findByPost(Tx_T3extblog_Domain_Model_Post $post, $respectEnableFields = TRUE) {
+	public function findByPost(Post $post, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 
 		$constraints = array();
@@ -81,11 +81,11 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds all valid comments for the given post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findValidByPost(Tx_T3extblog_Domain_Model_Post $post) {
+	public function findValidByPost(Post $post) {
 		$query = $this->createQuery();
 
 		$query->matching(
@@ -104,7 +104,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * @param string $email
 	 * @param integer $postUid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
@@ -122,7 +122,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * @param string $email
 	 * @param integer $postUid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findValidByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
@@ -143,7 +143,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * @param string $email
 	 * @param integer $postUid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findPendingByEmailAndPostId($email, $postUid) {
 		$query = $this->createQuery();
@@ -161,11 +161,11 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Finds pending comments by post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findPendingByPost($post) {
+	public function findPendingByPost(Post $post) {
 		$query = $this->createQuery();
 
 		$query->matching(
@@ -180,8 +180,6 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 
 	/**
 	 * Finds all pending comments
-	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findPending() {
 		$query = $this->createQuery();
@@ -198,7 +196,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 *
 	 * @param integer $pid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findPendingByPage($pid = 0) {
 		$query = $this->createQuery((int) $pid);
@@ -213,13 +211,13 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Create constraints
 	 *
-	 * @param Tx_Extbase_Persistence_QueryInterface $query
+	 * @param QueryInterface $query
 	 * @param string $email
 	 * @param integer $postUid
 	 *
 	 * @return object
 	 */
-	protected function getFindByEmailAndPostIdConstraints(Tx_Extbase_Persistence_QueryInterface $query, $email, $postUid) {
+	protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, $email, $postUid) {
 		$constraints = $query->logicalAnd(
 			$query->equals('email', $email),
 			$query->equals('postId', $postUid)
@@ -235,7 +233,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 *
 	 * @return object
 	 */
-	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
+	protected function getValidConstraints(QueryInterface $query) {
 		$constraints = $query->logicalAnd(
 			$query->equals('spam', 0),
 			$query->equals('approved', 1)
@@ -247,11 +245,11 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	/**
 	 * Create constraints for pending comments
 	 *
-	 * @param Tx_Extbase_Persistence_QueryInterface $query
+	 * @return
 	 *
 	 * @return object
 	 */
-	protected function getPendingConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
+	protected function getPendingConstraints(QueryInterface $query) {
 		$constraints = $query->logicalOr(
 			$query->equals('spam', 1),
 			$query->equals('approved', 0)
@@ -260,5 +258,3 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 		return $constraints;
 	}
 }
-
-?>

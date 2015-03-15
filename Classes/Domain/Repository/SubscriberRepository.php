@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,23 +26,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class SubscriberRepository extends AbstractRepository {
 
 	/**
+	 * @param Post $post The post the comment is related to
 	 *
-	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
-	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findForNotification(Tx_T3extblog_Domain_Model_Post $post) {
+	public function findForNotification(Post $post) {
 		$query = $this->createQuery();
 
 		$query->matching(
@@ -57,7 +57,7 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	 * @param string $email
 	 * @param integer $excludeUid
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findExistingSubscriptions($postUid, $email, $excludeUid = NULL) {
 		$query = $this->createQuery();
@@ -80,11 +80,11 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 	/**
 	 * Finds subscriber without opt-in mail sent before
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
+	 * @return object
 	 */
-	public function findForSubscriptionMail(Tx_T3extblog_Domain_Model_Comment $comment) {
+	public function findForSubscriptionMail(Comment $comment) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 
@@ -122,7 +122,4 @@ class Tx_T3extblog_Domain_Repository_SubscriberRepository extends Tx_T3extblog_D
 
 		return $query->execute()->getFirst();
 	}
-
 }
-
-?>

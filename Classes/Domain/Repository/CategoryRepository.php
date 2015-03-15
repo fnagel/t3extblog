@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 /**
  *
  *
@@ -31,13 +35,11 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Repository_CategoryRepository extends Tx_T3extblog_Domain_Repository_AbstractRepository {
+class CategoryRepository extends AbstractRepository {
 
 	protected $defaultOrderings = array(
-		'name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
-		'sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING,
+		'name' => QueryInterface::ORDER_ASCENDING,
+		'sorting' => QueryInterface::ORDER_ASCENDING,
 	);
 
 }
-
-?>
