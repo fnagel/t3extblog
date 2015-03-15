@@ -62,6 +62,20 @@ Filtering tags doesn´t work?
 To avoid filling the cache with not existing pages, the filter only works with tags => 3 letters.
 
 
+Translation / Localization
+--------------------------
+
+Localization works like for any other TYPO3 extension:
+
+.. code-block:: ts
+
+	plugin.tx_t3extblog._LOCAL_LANG {
+		en {
+			comment.human = Please confirm!
+		}
+	}
+
+
 Some output tweaks
 ------------------
 
