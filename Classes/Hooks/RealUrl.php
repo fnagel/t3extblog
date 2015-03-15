@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Hooks;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,7 +33,8 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Hooks_RealUrl {
+class RealUrl {
+
 	/**
 	 * Generates additional RealURL configuration
 	 * and merges it with provided configuration
@@ -43,6 +47,7 @@ class Tx_T3extblog_Hooks_RealUrl {
 	 * @return    array                        Updated configuration
 	 */
 	public function extensionConfiguration($params, &$ref) {
+
 		return array_merge_recursive($params['config'], array(
 			'postVarSets' => array(
 				'_DEFAULT' => array(
@@ -166,7 +171,4 @@ class Tx_T3extblog_Hooks_RealUrl {
 			),
 		));
 	}
-
 }
-
-?>

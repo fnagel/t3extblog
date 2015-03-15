@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Hooks;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,6 +26,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Container\Container;
+
 /**
  * Class being included by TCEmain using a hook
  *
@@ -30,7 +38,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Hooks_Tcemain {
+class Tcemain {
 
 	/**
 	 * Fields to check for changes
@@ -45,14 +53,14 @@ class Tx_T3extblog_Hooks_Tcemain {
 	/**
 	 * notificationService
 	 *
-	 * @var Tx_T3extblog_Service_NotificationService
+	 * @var NotificationService
 	 */
 	protected $notificationService = NULL;
 
 	/**
 	 * objectContainer
 	 *
-	 * @var Tx_Extbase_Object_Container_Container
+	 * @var Container
 	 */
 	protected $objectContainer = NULL;
 
@@ -136,7 +144,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 			'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid', ' AND irre_parenttable=\'tx_t3blog_post\'')
 		);
 
-		/* @var $tce t3lib_TCEmain */
+		/* @var $tce DataHandler */
 		$tceMain = $this->getObjectContainer()->getInstance('t3lib_TCEmain');
 
 		$tceMain->start(array(), $command);
@@ -154,7 +162,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected function getDeleteArrayForTable($postId, $tableName, $fieldName, $extraWhere = '') {
 		$command = array();
 
-		$where = $fieldName . '=' . $postId . t3lib_BEfunc::deleteClause($tableName) . $extraWhere;
+		$where = $fieldName . '=' . $postId . BackendUtility::deleteClause($tableName) . $extraWhere;
 
 		$data = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid', $tableName, $where);
 		foreach ($data as $record) {
@@ -168,11 +176,11 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * @param integer $id
 	 */
 	protected function processPreview($id) {
-		$pagesTsConfig = t3lib_BEfunc::getPagesTSconfig($GLOBALS['_POST']['popViewId']);
+		$pagesTsConfig = BackendUtility::getPagesTSconfig($GLOBALS['_POST']['popViewId']);
 
 		if (intval($pagesTsConfig['tx_t3extblog.']['singlePid'])) {
-			$record = t3lib_BEfunc::getRecord('tx_t3blog_post', $id);
-			$previewPageId = (int) $pagesTsConfig['tx_t3extblog.']['singlePid'];
+			$record = BackendUtility::getRecord('tx_t3blog_post', $id);
+			$previewPageId = (int)$pagesTsConfig['tx_t3extblog.']['singlePid'];
 
 			$parameters = array(
 				'tx_t3extblog_blogsystem[controller]' => 'Post',
@@ -187,9 +195,9 @@ class Tx_T3extblog_Hooks_Tcemain {
 				$parameters['L'] = $record['sys_language_uid'];
 			}
 
-			$previewDomainRootline = t3lib_BEfunc::BEgetRootLine($previewPageId);
-			$previewDomain = t3lib_BEfunc::getViewDomain($previewPageId, $previewDomainRootline);
-			$queryString = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
+			$previewDomainRootline = BackendUtility::BEgetRootLine($previewPageId);
+			$previewDomain = BackendUtility::getViewDomain($previewPageId, $previewDomainRootline);
+			$queryString = GeneralUtility::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
 
 			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString;
 			$GLOBALS['_POST']['popViewId_addParams'] = $queryString;
@@ -257,11 +265,11 @@ class Tx_T3extblog_Hooks_Tcemain {
 	/**
 	 * Get object container
 	 *
-	 * @return Tx_Extbase_Object_Container_Container
+	 * @return Container
 	 */
 	protected function getObjectContainer() {
 		if ($this->objectContainer == NULL) {
-			$this->objectContainer = t3lib_div::makeInstance('Tx_Extbase_Object_Container_Container');
+			$this->objectContainer = GeneralUtility::makeInstance('Tx_Extbase_Object_Container_Container');
 		}
 
 		return $this->objectContainer;
@@ -270,7 +278,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	/**
 	 * Get notification service
 	 *
-	 * @return Tx_T3extblog_Service_NotificationService
+	 * @return NotificationService
 	 */
 	protected function getNotificationService() {
 		if ($this->notificationService == NULL) {
@@ -283,7 +291,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	/**
 	 * @param string $table
 	 * @param integer $id
-	 * @param t3lib_TCEmain $tceMain
+	 * @param DataHandler $tceMain
 	 * @param array $watchedFields
 	 *
 	 * @return bool
@@ -308,5 +316,3 @@ class Tx_T3extblog_Hooks_Tcemain {
 	}
 
 }
-
-?>
