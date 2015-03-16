@@ -9,7 +9,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	'Blogsystem',
 	array(
 		'Post' => 'list, tag, category, show, permalink, preview',
-		'Comment' => 'create',
+		'Comment' => 'create, show',
 	),
 	// non-cacheable actions
 	array(

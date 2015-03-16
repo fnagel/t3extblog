@@ -87,6 +87,20 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	}
 
 	/**
+	 * Show action
+	 *
+	 * Redirect to post show if empty cmment create is called
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 *
+	 * @return void
+	 */
+	public function showAction(Tx_T3extblog_Domain_Model_Post $post) {
+		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
+	}
+
+
+	/**
 	 * action new
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
