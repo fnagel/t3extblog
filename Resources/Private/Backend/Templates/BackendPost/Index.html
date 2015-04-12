@@ -1,7 +1,9 @@
 {namespace t3extblog = Tx_T3extblog_ViewHelpers}
 
-<f:layout name="Default" />
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
+<f:layout name="Default" />
 
 <f:section name="content">
 	<f:if condition="{pendingComments}">
@@ -16,7 +18,7 @@
 			</div>
 		</div>
 	</f:if>
-	
+
 	<h3><f:translate key="backendUserListing">Post Listing</f:translate></h3>
 	<f:if condition="{posts}">
 		<f:then>
@@ -54,3 +56,5 @@
 		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
 	</a>
 </f:section>
+
+</div>

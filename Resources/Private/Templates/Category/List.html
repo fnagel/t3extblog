@@ -1,17 +1,20 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
 <f:section name="main">
 	<a class="btn btn-block hidden-desktop" data-target=".blog-category-collapse" data-toggle="collapse">
 		<span class="icon-chevron-down"></span> <f:translate key="post.category" />
 	</a>
-	
+
 	<div class="nav-collapse blog-category-collapse collapse">
 		<ul class="nav nav-list">
 			<f:for each="{categories}" as="category">
-				<f:if condition="{category.firstLevel}">		
-				<li>	
+				<f:if condition="{category.firstLevel}">
+				<li>
 					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category : category}">{category.name}</f:link.action>
-					<f:if condition="{category.childCategories}">	
+					<f:if condition="{category.childCategories}">
 						<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
 					</f:if>
 				</li>
@@ -26,10 +29,12 @@
 	<f:for each="{categories}" as="category">
 		<li>
 			<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category : category}">{category.name}</f:link.action>
-			<f:if condition="{category.childCategories}">	
+			<f:if condition="{category.childCategories}">
 				<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
 			</f:if>
 		</li>
 	</f:for>
 	</ul>
 </f:section>
+
+</div>

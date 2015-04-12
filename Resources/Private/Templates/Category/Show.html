@@ -1,9 +1,12 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
 <f:section name="main">
 
 	<h2>{category.name}</h2>
-	
+
 	<div class="description">
 		{category.description}
 	</div>
@@ -11,7 +14,7 @@
 	<f:widget.paginate objects="{category.posts}" as="paginatedPosts" configuration="{settings.categories.paginate}">
 		<ul>
 		<f:for each="{paginatedPosts}" as="post">
-			<li>			
+			<li>
 				<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{post.linkParameter}">{post.title}</f:link.action>
 			</li>
 		</f:for>
@@ -19,3 +22,5 @@
 	</f:widget.paginate>
 
 </f:section>
+
+</div>
