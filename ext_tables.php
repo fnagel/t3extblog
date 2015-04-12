@@ -203,7 +203,7 @@ $TCA['tx_t3blog_pingback'] = array(
 			'endtime' => 'endtime',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Pingback.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_t3blog_pingback.gif',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,url,text,',
 	),
 	'feInterface' => array(
