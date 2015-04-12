@@ -62,7 +62,7 @@ Add categories
 You need to add at least one blog category to your post.
 
 .. figure:: ../Images/UserManual/add-categories.png
-	:width: 508px
+	:width: 181px
 	:alt: categorize post
 
 	categorize your post
