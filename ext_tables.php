@@ -126,7 +126,7 @@ $TCA['tx_t3blog_cat'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/chart_organisation.png',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/category.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
@@ -179,7 +179,7 @@ $TCA['tx_t3blog_com_nl'] = array(
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/subscriber.png',
 		'searchFields' => 'email,name',
 	),
 	'feInterface' => array(
@@ -225,7 +225,7 @@ $TCA['tx_t3blog_trackback'] = array(
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Trackback.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/icon_tx_t3blog_trackback.gif',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
 	'feInterface' => array(
