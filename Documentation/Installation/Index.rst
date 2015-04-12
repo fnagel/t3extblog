@@ -8,10 +8,15 @@
 
 .. _installation:
 
+
 Installation
 ============
 
 Target group: **Administrators**
+
+
+Installation process
+--------------------
 
 The installation is quite simple. Just follow the instructions below.
 
@@ -40,3 +45,10 @@ The installation is quite simple. Just follow the instructions below.
 
 #. Check settings
 	i.e. blogName or handling of comments. See :code:`/Configuration/TypoScript/setup.txt` for details.
+
+
+
+Usage
+-----
+
+You need to create at least one blog category (see :ref:`Users manual <users-manual>`).

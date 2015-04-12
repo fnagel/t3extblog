@@ -39,35 +39,45 @@ To write a blogpost, just click the plus-icon on the top.
 
 Now you can start adding contents to your blogpost!
 
-.. figure:: ../Images/UserManual/createblogpost.png
-	:width: 609px
-	:alt: Create blogpost
-
-	Create blogost
-
 
 Create a blogpost
 -----------------
 
-- Author: is determined by the existing BE-users
-- Title: Title of your blogpost, you need to fill this field
-- Your contents: click the 'create new' button to add new content elements
-	- A text element is added, you can change it to any other content type
-	- You can add more than one content element to a single blogpost
 
-.. figure:: ../Images/UserManual/categorize.png
+.. figure:: ../Images/UserManual/createblogpost.png
+	:width: 609px
+	:alt: Create blogpost
+
+		Create blogost
+
+
+- Author: is determined by the current BE user
+- Title: title of your blogpost, you need to fill this field
+- Content: click the 'create new' button to add new content elements
+
+
+Add categories
+^^^^^^^^^^^^^^
+
+You need to add at least one blog category to your post.
+
+.. figure:: ../Images/UserManual/add-categories.png
 	:width: 508px
 	:alt: categorize post
 
 	categorize your post
 
-- You need to categorize your post (if you don´t have added some categories, take a look below)
-- Maybe you want to add some tags
-- Important: news posts are hidden by default, you need to activate them (uncheck "hide" at the access tab)
+
+.. tip::
+	New posts are hidden by default, you need to activate them (uncheck "hide" within access tab)
 
 
-Adding some categories
-----------------------
+.. tip::
+	Use a :code:`###MORE###` in your text field of one of your text or textpic content elements.
+
+
+Add blog categories
+-------------------
 
 Use the list view and click the button "create new record", then choose T3Blog Extbase -> categories
 
