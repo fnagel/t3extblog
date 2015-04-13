@@ -1,4 +1,4 @@
-<div id="comment-{comment.uid}" class="row-fluid comment<f:if condition="{comment.email} == {post.author.email}"> well</f:if>">
+<div id="comment-{comment.uid}" class="row-fluid comment{f:if(condition='comment.email == post.author.email' then: ' well')}">
 	<div class="span3 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
