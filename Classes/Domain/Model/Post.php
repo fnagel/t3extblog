@@ -105,6 +105,22 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	protected $categories;
 
 	/**
+	 * comments
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @lazy
+	 */
+	protected $comments = NULL;
+
+	/**
+	 * raw comments
+	 *
+	 * @var Tx_Extbase_Persistence_QueryResultInterface
+	 * @lazy
+	 */
+	protected $rawComments = NULL;
+
+	/**
 	 * commentRepository
 	 *
 	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
@@ -485,14 +501,20 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	/**
 	 * Inits comments
 	 *
-	 * mapping does not work as relation is not bidirectional, using a repository instead
-	 * and: its currently not possible to iterate via pagiante widget through storage objects
+	 * Mapping does not work as relation is not bidirectional, using a repository instead
+	 * And: its currently not possible to iterate via paginate widget through storage objects
 	 *
 	 * @return void
 	 */
-	private function initComments() {
-		if ($this->commentRepository === NULL) {
+	protected function initComments() {
+		if ($this->comments === NULL) {
 			$this->commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
+			$this->rawComments = $this->commentRepository->findValidByPost($this);
+
+			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
+			foreach($this->rawComments as $comment) {
+				$this->comments->attach($comment);
+			}
 		}
 	}
 
@@ -500,13 +522,13 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 * Adds a Comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $comment
-	 *
 	 * @return void
 	 */
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->initComments();
 
 		$comment->setPostId($this->getUid());
+		$this->comments->attach($comment);
 		$this->commentRepository->add($comment);
 	}
 
@@ -514,36 +536,46 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 * Removes a Comment
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Comment $commentToRemove The Comment to be removed
-	 *
 	 * @return void
 	 */
 	public function removeComment(Tx_T3extblog_Domain_Model_Comment $commentToRemove) {
 		$this->initComments();
 
 		$commentToRemove->setDeleted(TRUE);
+
+		$this->comments->detach($commentToRemove);
 		$this->commentRepository->update($commentToRemove);
+	}
+	/**
+	 * Returns the comments
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 */
+	public function getComments() {
+		$this->initComments();
+
+		return $this->comments;
 	}
 
 	/**
 	 * Returns the comments
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @return Tx_Extbase_Persistence_QueryResultInterface<Tx_T3extblog_Domain_Model_Comment> $comments
 	 */
-	public function getComments() {
+	public function getCommentsForPaginate() {
 		$this->initComments();
 
-		return $this->commentRepository->findValidByPost($this);
+		return $this->rawComments;
 	}
 
 	/**
-	 * Returns the post pending comments
+	 * Sets the comments
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @return void
 	 */
-	public function getPendingComments() {
-		$this->initComments();
-
-		return $this->commentRepository->findPendingByPost($this);
+	public function setComments(Tx_Extbase_Persistence_ObjectStorage $comments) {
+		$this->comments = $comments;
 	}
 
 	/**

@@ -50,7 +50,7 @@
 
 			<f:if condition="{post.comments}">
 				<div id="comment-list">
-					<f:widget.paginate objects="{post.comments}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
+					<f:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
 						<f:for each="{paginatedComments}" as="comment">
 							<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
 							<hr>
