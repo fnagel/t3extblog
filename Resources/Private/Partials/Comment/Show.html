@@ -1,4 +1,4 @@
-<div id="comment-{comment.uid}" class="row-fluid comment{f:if(condition='comment.email == post.author.email' then: ' well')}">
+<div id="comment-{comment.uid}" class="row-fluid comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
 	<div class="span3 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
@@ -7,7 +7,7 @@
 			</f:if>
 		</strong>
 		<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{comment.date}')}" />
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
 		</p>
 	</div>
 	<div class="span8">
