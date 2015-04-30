@@ -29,7 +29,7 @@
  * @package	TYPO3
  * @subpackage	t3extblog
  */
-class Tx_T3extblog_Hooks_Sitemap_Renderer extends tx_ddgooglesitemap_news_renderer {
+class Tx_T3extblog_Hooks_Sitemap_Renderer extends \DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer {
 
 	/**
 	 * Creates an instance of this class

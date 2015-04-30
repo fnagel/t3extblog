@@ -43,7 +43,7 @@
  * @package	TYPO3
  * @subpackage	t3extblog
  */
-class Tx_T3extblog_Hooks_Sitemap_Generator extends tx_ddgooglesitemap_ttnews {
+class Tx_T3extblog_Hooks_Sitemap_Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGenerator {
 
 	/**
 	 * Creates an instance of this
@@ -146,6 +146,26 @@ class Tx_T3extblog_Hooks_Sitemap_Generator extends tx_ddgooglesitemap_ttnews {
 		$link = htmlspecialchars($this->cObj->typoLink('', $conf));
 
 		return $link;
+	}
+
+	/**
+	 * Provides a portable testInt implementation acorss TYPO3 branches.
+	 *
+	 * @todo Remove this with namespace introduction
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
+	static protected function testInt($value) {
+		if (class_exists('\TYPO3\CMS\Core\Utility\MathUtility')) {
+			return \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($value);
+		}
+		if (class_exists('t3lib_utility_Math')) {
+			/** @noinspection PhpDeprecationInspection */
+			return t3lib_utility_Math::canBeInterpretedAsInteger($value);
+		}
+		/** @noinspection PhpDeprecationInspection PhpUndefinedMethodInspection */
+		return t3lib_div::testInt($value);
 	}
 
 }
