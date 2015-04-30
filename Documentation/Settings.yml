@@ -6,8 +6,8 @@
 conf.py:
   copyright: 2015
   project: T3Blog Extbase
-  version: 1.0.0
-  release: 1.0.0
+  version: 1.0.1
+  release: 1.0.1
   latex_documents:
   - - Index
     - t3extblog.tex
