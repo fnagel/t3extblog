@@ -27,7 +27,7 @@
 			</trans-unit>
 
 			<trans-unit id="comment.new">
-				<target>Neues Kommentar</target>
+				<target>Neuer Kommentar</target>
 			</trans-unit>
 			<trans-unit id="comment.submit">
 				<target>Absenden</target>
