@@ -1,14 +1,4 @@
 <div id="comment-{comment.uid}" class="row-fluid comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
-	<f:if condition="{comment.title}">
-		<div class="span12">
-			<h3>
-				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}" section="comment-{comment.uid}">
-					{comment.title}
-				</f:link.action>
-			</h3>
-		</div>
-	</f:if>
-
 	<div class="span3 text-right">
 		<strong>
 			<f:if condition="{comment.website}">
@@ -20,7 +10,16 @@
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
 		</p>
 	</div>
-	<div class="span9">
+	<div class="span8">
+		<f:if condition="{comment.title}">
+			<strong>{comment.title}</strong>
+		</f:if>
 		<f:format.html>{comment.text}</f:format.html>
+	</div>
+
+	<div class="span1 text-right">
+		<f:link.action arguments="{post.linkParameter}" section="comment-{comment.uid}">
+			<i class="icon-comment"></i>
+		</f:link.action>
 	</div>
 </div>
