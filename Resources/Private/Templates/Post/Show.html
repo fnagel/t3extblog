@@ -25,9 +25,10 @@
 		<div class="bottom row-fluid">
 			<div class="span4">
 				<span class="badge">
-					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
+					<f:comment>@todo Remove workaround for #51</f:comment>
+					<a href="#comment-section">
 						<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
-					</f:link.action>
+					</a>
 				</span>
 				<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
 					<i class="icon-link"></i>
