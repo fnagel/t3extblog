@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="span1 text-right">
-		<f:link.action action="show" arguments="{post: post, day: post.publishDay, month: post.publishMonth, year: post.publishYear}" section="comment-{comment.uid}">
+		<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post.linkParameter}" section="comment-{comment.uid}">
 			<i class="icon-comment"></i>
 		</f:link.action>
 	</div>

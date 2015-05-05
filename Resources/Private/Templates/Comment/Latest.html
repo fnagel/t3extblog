@@ -8,7 +8,7 @@
 	<f:if condition="{comments}">
 		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.latestComments.paginate}">
 			<f:for each="{paginatedComments}" as="comment">
-				<f:render partial="Comment/Show" arguments="{comment: comment}" />
+				<f:render partial="Comment/Show" arguments="{post: comment.post, comment: comment}" />
 			</f:for>
 		</f:widget.paginate>
 	</f:if>
