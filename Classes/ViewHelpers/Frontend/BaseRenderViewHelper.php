@@ -29,55 +29,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-
-	/**
-	 * @var $cObj tslib_cObj
-	 */
-	private $contentObject;
-
-	/**
-	 * @var array
-	 */
-	protected $typoScriptSetup;
-
-	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
-	 */
-	protected $objectManager;
-
-	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
-	 */
-	protected $configurationManager;
-
-	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
-	 *
-	 * @return void
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-		$this->typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-	}
-
-	/**
-	 * Initializes the view helper before invoking the render method.
-	 *
-	 * @return void
-	 */
-	public function initialize() {
-		$this->contentObject = $this->objectManager->get('tslib_cObj');
-	}
+class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 	/**
 	 * Remove marker
@@ -100,22 +52,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 * @return string
 	 */
 	protected function renderContentElement(array $data, $typoscript = 'tt_content') {
-		$this->contentObject->start($data);
-
-		$pathSegments = t3lib_div::trimExplode('.', $typoscript);
-		$lastSegment = array_pop($pathSegments);
-		$setup = $this->typoScriptSetup;
-
-		foreach ($pathSegments as $segment) {
-			if (!array_key_exists($segment . '.', $setup)) {
-				throw new Tx_Fluid_Core_ViewHelper_Exception('TypoScript object path "' . htmlspecialchars($typoscript) . '" does not exist', 1253191024);
-			}
-			$setup = $setup[$segment . '.'];
-		}
-
-		$content = $this->contentObject->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
-
-		return $content;
+		return parent::render($typoscript, $data);
 	}
 
 	/**
@@ -127,7 +64,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 	 * @return string
 	 */
 	protected function truncate($text, $dividerPosition, $ellipsis = '...') {
-		$textBeforeDivider = $this->cakePhpTruncate($text, $dividerPosition, $ellipsis, false, true);
+		$textBeforeDivider = $this->cakePhpTruncate($text, $dividerPosition, $ellipsis, FALSE, TRUE);
 
 		return $this->removeMarker($textBeforeDivider);
 	}
@@ -180,7 +117,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper extends Tx_Fluid_Co
 						array_unshift($openTags, $tag[2]);
 					} elseif (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
 						$pos = array_search($closeTag[1], $openTags);
-						if ($pos !== false) {
+						if ($pos !== FALSE) {
 							array_splice($openTags, $pos, 1);
 						}
 					}

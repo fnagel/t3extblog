@@ -44,7 +44,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 	 * @return string
 	 */
 	public function render($contentElements, $index = 0, $removeMarker = TRUE, $typoscript = 'tt_content') {
-		$output = "";
+		$output = '';
 		$iterator = 0;
 
 		foreach ($contentElements as $content) {
