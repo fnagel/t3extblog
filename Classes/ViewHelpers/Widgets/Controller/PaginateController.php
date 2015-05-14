@@ -25,9 +25,10 @@
  ***************************************************************/
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Paginate widget
  *
+ * @todo It seems this overwrite is no longer needed in TYPO3 6.x, see here:
+ * http://blog.teamgeist-medien.de/2014/11/typo3-fluid-viewhelper-templates-ueberschreiben-z-b-vom-paginate-widget.html
  */
 class Tx_T3extblog_ViewHelpers_Widget_Controller_PaginateController extends Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
 
