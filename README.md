@@ -21,23 +21,10 @@ Keep in mind: TYPO3 is not a dedicated blogging platform.
 Features
 --------
 
-Currently implemented features:
+Please see `/Documentation/Introduction/Index.rst` for currently implemented features.
+Make sure to check out GitHub issues for bugs and missing features.
 
-* Supports migration to and is tested in TYPO3 6.2.
-* Show list, latest and detail view of posts
-* Archive and category view
-* Add new comments
-* Allow some HTML tags in comment message
-* Wordpress like subscription manager (manage all subscriptions from a dashboard)
-* Configurable spam check: "I am human" checkbox, honeypot, cookie and useragent
-* Opt-In mails for comment subscription with expiration date
-* Auto close comments functionality
-* RSS feed for posts
-* BE Module for posts and comments
-* Default HTML markup matches Twitter Bootstrap 2.3
-* Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
-* Preview of hidden posts (add `tx_t3extblog.singlePid` to your page TSconfig)
-* A few unit tests
+https://github.com/fnagel/t3extblog/issues
 
 
 Documentation
@@ -49,16 +36,8 @@ See `/Documentation` directory or online: http://docs.typo3.org/typo3cms/extensi
 Installation
 ------------
 
-NOTE: This guide may be outdated. Please give feedback!
-
-* (Deinstall EXT:t3blog)
-* Install EXT:t3extblog
-* Update DB in EM
-* Use update script in EM
-* Add static TS template
-* Create pages and add plugins
-* Set pid's in TypoScript
-* Configure templates
+Please see `/Documentation/Installation/Index.rst` for installation and `/Documentation/ReplaceT3Blog/Index.rst` for
+migration from EXT:t3blog.
 
 
 Todo & Known bugs
@@ -71,8 +50,6 @@ Contribution
 ------------
 
 Any help is appreciated. Please feel free to drop me a line, open issues or send pull requests.
-
-A lot of testing needs to be done. Help wanted!
 
 It is possible to sponsor features and bugfixes!
 

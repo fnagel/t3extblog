@@ -27,7 +27,7 @@ Currently implemented features:
 * Default HTML markup matches Twitter Bootstrap 2.3
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
 * Preview of hidden posts
-* Supports migration to and is tested in TYPO3 6.2.
+* Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2.
 * A few unit tests
 
 
