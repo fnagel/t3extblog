@@ -8,9 +8,9 @@
 				<div class="buttonsleft">
 					<f:be.buttons.csh />
 					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="Posts" controller="BackendPost" action="index" />
-						<f:be.menus.actionMenuItem label="All comments" controller="BackendComment" action="index" />
-						<f:be.menus.actionMenuItem label="Pending comments" controller="BackendComment" action="listPending" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.post.title')}" controller="BackendPost" action="index" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.all')}" controller="BackendComment" action="index" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
 					</f:be.menus.actionMenu>
 				</div>
 				<div class="buttonsright">

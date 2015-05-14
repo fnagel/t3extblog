@@ -191,7 +191,7 @@
 			</trans-unit>
 
 			<trans-unit id="module.post.title">
-				<source>Post Listing</source>
+				<source>All posts</source>
 			</trans-unit>
 			<trans-unit id="module.post.table.title">
 				<source>Title</source>

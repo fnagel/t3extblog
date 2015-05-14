@@ -212,7 +212,7 @@
             </trans-unit>
 
             <trans-unit id="module.post.title">
-                <target>Liste der Posts</target>
+                <target>Alle Posts</target>
             </trans-unit>
             <trans-unit id="module.post.table.title">
                 <target>Titel</target>
