@@ -1,7 +1,4 @@
-/**
- * Structure
- */
-
+/* Structure */
 #compareUsers {
 	margin-bottom: 10px;
 }
@@ -18,10 +15,7 @@ div.collapsibleSection {
 	min-width: 170px;
 }
 
-/**
- * Form
- */
-
+/* Form */
 form label {
 	float: left;
 	height: 20px;
@@ -45,14 +39,12 @@ form .indent {
 	margin-left: 100px;
 }
 
-/**
- * Paginate
- */
-
+/* Paginate */
 .f3-widget-paginator {
 	display: block;
 	float: left;
 	margin: 0 0 10px;
+	padding-left: 0;
 }
 
 .f3-widget-paginator li {
