@@ -1,0 +1,19 @@
+<f:if condition="{pendingComments}">
+	<div class="typo3-messages">
+		<div class="typo3-message message-information">
+			<div class="message-header"><f:translate key="module.message.pendingComments.title" /></div>
+			<div class="message-body">
+				<f:if condition="{addLink}">
+					<f:then>
+						<f:link.action controller="BackendComment" action="index">
+							<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
+						</f:link.action>
+					</f:then>
+					<f:else>
+						<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</div>
+</f:if>

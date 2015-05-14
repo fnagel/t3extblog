@@ -6,18 +6,11 @@
 <f:layout name="Default" />
 
 <f:section name="content">
-	<h2><f:translate key="backendUserListing">All comments for post</f:translate> <em>{post.title}</em></h2>
+	<h2>
+		<f:translate key="module.comment.title" arguments="{0: '{post.title}'}" />
+	</h2>
 
-	<f:if condition="{pendingComments}">
-		<div class="typo3-messages">
-			<div class="typo3-message message-information">
-				<div class="message-header">Pending comments</div>
-				<div class="message-body">
-					{pendingComments -> f:count()} comments await moderation.
-				</div>
-			</div>
-		</div>
-	</f:if>
+	<f:render partial="PendingComments" arguments="{pendingComments: pendingComments, addLink: 0}" />
 
 	<f:render
 		partial="Comment/Table"
@@ -29,7 +22,6 @@
 		}"
 	/>
 </f:section>
-
 
 
 <f:section name="iconButtons">

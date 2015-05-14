@@ -205,6 +205,101 @@
 			<trans-unit id="flashMessage.comment.commentsClosed">
 				<target>Es sind keine neuen Kommentare mehr erlaubt.</target>
 			</trans-unit>
+
+
+            <trans-unit id="module.title">
+                <target>T3extblog Administration</target>
+            </trans-unit>
+
+            <trans-unit id="module.post.title">
+                <target>Liste der Posts</target>
+            </trans-unit>
+            <trans-unit id="module.post.table.title">
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="module.post.table.date">
+                <target>Datum</target>
+            </trans-unit>
+            <trans-unit id="module.post.table.author">
+                <target>Autot</target>
+            </trans-unit>
+            <trans-unit id="module.post.table.comments">
+                <target>Kommentare</target>
+            </trans-unit>
+            <trans-unit id="module.post.table.count">
+                <target>Zeige %1$s von %2$s Posts</target>
+            </trans-unit>
+            <trans-unit id="module.post.noRecords">
+                <target>Keine Blog-Posts gefunden.</target>
+            </trans-unit>
+
+            <trans-unit id="module.comment.title">
+                <target><![CDATA[Alle Kommentare für <em>%1$s</em>]]></target>
+            </trans-unit>
+            <trans-unit id="module.comment.title.all">
+                <target>Alle ausstehenden Kommentare</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.title">
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.date">
+                <target>Datum</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.author">
+                <target>Autor</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.email">
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.website">
+                <target>Website</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.approved">
+                <target>Freigeschaltet</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.spam">
+                <target>SPAM</target>
+            </trans-unit>
+            <trans-unit id="module.comment.table.count">
+                <target>Zeige %1$s von %2$s Kommentaren</target>
+            </trans-unit>
+            <trans-unit id="module.comment.noRecords">
+                <target>Keine Kommentare gefunden.</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.approved.0">
+                <target>Kommentar sperren</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.approved.1">
+                <target>Kommentar freischalten</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.spam.0">
+                <target>Markiere diesen Kommentar als nicht SPAM</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.spam.1">
+                <target>Markiere diesen Kommentar als SPAM</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.hide.0">
+                <target>Kommentar sichtbar machen</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.hide.1">
+                <target>Kommentar verbergen</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.edit">
+                <target>Kommentar bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="module.comment.help.delete">
+                <target>Kommentar löschen</target>
+            </trans-unit>
+
+            <trans-unit id="module.message.pendingComments.title">
+                <target>Ausstehende Kommentare</target>
+            </trans-unit>
+            <trans-unit id="module.message.pendingComments">
+                <target>%1$s Kommentare warten auf Moderation.</target>
+            </trans-unit>
+            <trans-unit id="module.message.deleteRecord">
+                <target>Sind Sie sicher das Sie diesen Datensatz löschen wollen?</target>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

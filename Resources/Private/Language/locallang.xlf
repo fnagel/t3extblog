@@ -184,6 +184,101 @@
 			<trans-unit id="flashMessage.comment.commentsClosed">
 				<source>Sorry, no new comments allowed.</source>
 			</trans-unit>
+
+
+			<trans-unit id="module.title">
+				<source>T3extblog Administration</source>
+			</trans-unit>
+
+			<trans-unit id="module.post.title">
+				<source>Post Listing</source>
+			</trans-unit>
+			<trans-unit id="module.post.table.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="module.post.table.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="module.post.table.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="module.post.table.comments">
+				<source>Comments</source>
+			</trans-unit>
+            <trans-unit id="module.post.table.count">
+                <source>Show %1$s of %2$s posts</source>
+            </trans-unit>
+			<trans-unit id="module.post.noRecords">
+				<source>No blog posts found.</source>
+			</trans-unit>
+
+			<trans-unit id="module.comment.title">
+				<source><![CDATA[All comments for post <em>%1$s</em>]]></source>
+			</trans-unit>
+			<trans-unit id="module.comment.title.all">
+				<source>All pending comments</source>
+			</trans-unit>
+            <trans-unit id="module.comment.table.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.date">
+                <source>Date</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.website">
+                <source>Website</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.approved">
+                <source>Approved</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.spam">
+                <source>SPAM</source>
+            </trans-unit>
+            <trans-unit id="module.comment.table.count">
+                <source>Show %1$s of %2$s comments</source>
+            </trans-unit>
+            <trans-unit id="module.comment.noRecords">
+                <source>No comments found.</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.approved.0">
+                <source>Disapprove this comment</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.approved.1">
+                <source>Approve this comment</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.spam.0">
+                <source>Mark this comment as not SPAM</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.spam.1">
+                <source>Mark this comment as SPAM</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.hide.0">
+                <source>Unhide comment</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.hide.1">
+                <source>Hide comment</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.edit">
+                <source>Edit comment</source>
+            </trans-unit>
+            <trans-unit id="module.comment.help.delete">
+                <source>Delete comment</source>
+            </trans-unit>
+
+			<trans-unit id="module.message.pendingComments.title">
+				<source>Pending comments</source>
+			</trans-unit>
+			<trans-unit id="module.message.pendingComments">
+				<source>%1$s comments await moderation.</source>
+			</trans-unit>
+			<trans-unit id="module.message.deleteRecord">
+				<source>Are you sure you want to delete this record?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

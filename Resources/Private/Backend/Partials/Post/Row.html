@@ -18,9 +18,6 @@
 	<td>
 		<f:link.action controller="BackendComment" action="list" arguments="{post: post}">
 			{post.comments -> f:count()}
-			<f:if condition="{post.pendingComments}">
-				({post.pendingComments -> f:count()} pending)
-			</f:if>
 		</f:link.action>
 	</td>
 	<td>
@@ -39,7 +36,7 @@
 				</a>
 			</f:else>
 		</f:if>
-		<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />" onclick="return confirm('Are you sure you want to delete this record?');">
+		<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />" onclick="return confirm('{f:translate(key: "module.message.deleteRecord")}');">
 			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
 		</a>
 	</td>
