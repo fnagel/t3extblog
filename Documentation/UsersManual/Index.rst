@@ -48,7 +48,7 @@ Create a blogpost
 	:width: 609px
 	:alt: Create blogpost
 
-		Create blogost
+	Create blogost
 
 
 - Author: is determined by the current BE user
@@ -61,11 +61,11 @@ Add categories
 
 You need to add at least one blog category to your post.
 
-.. figure:: ../Images/UserManual/add-categories.png
-	:width: 181px
-	:alt: categorize post
+.. figure:: ../Images/UserManual/addcategories.png
+	:width: 508px
+	:alt: Categorize post
 
-	categorize your post
+	Categorize your post
 
 
 .. tip::
@@ -83,9 +83,9 @@ Use the list view and click the button "create new record", then choose T3Blog E
 
 .. figure:: ../Images/UserManual/categories.png
 	:width: 159px
-	:alt: add categories
+	:alt: Add categories
 
-	add categories
+	Add categories
 
 
 Blog administration
