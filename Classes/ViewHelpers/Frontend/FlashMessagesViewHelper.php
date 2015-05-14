@@ -1,29 +1,34 @@
 <?php
 
-/*                                                                        *
- * This script is backported from the FLOW3 package "TYPO3.Fluid".        *
- *                                                                        *
- * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU Lesser General Public License, either version 3   *
- *  of the License, or (at your option) any later version.                *
- *                                                                        *
- *                                                                        *
- * This script is distributed in the hope that it will be useful, but     *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
- * General Public License for more details.                               *
- *                                                                        *
- * You should have received a copy of the GNU Lesser General Public       *
- * License along with the script.                                         *
- * If not, see http://www.gnu.org/licenses/lgpl.html                      *
- *                                                                        *
- * The TYPO3 project - inspiring people to share!                         *
- *                                                                        */
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
- * View helper which renders the flash messages (if there are any) as an unsorted list.
+ * View helper which renders the flash messages
+ *
+ * Extended to use Twitter Bootstrap CSS classes
  */
-class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid_ViewHelpers_FlashMessagesViewHelper {
 
 	/**
 	 * @var array
@@ -37,91 +42,46 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 	);
 
 	/**
-	 * @var tslib_cObj
-	 */
-	protected $contentObject;
-
-	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
-	 */
-	protected $configurationManager;
-
-	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
-	 *
-	 * @return void
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-		$this->contentObject = $this->configurationManager->getContentObject();
-	}
-
-	/**
 	 * Initialize arguments
 	 *
 	 * @return void
 	 */
 	public function initializeArguments() {
-		$this->registerUniversalTagAttributes();
+		parent::initializeArguments();
+
+		// Add default Bootstrap alert classes
+		$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
+
+		// Register role attribute for better a11y
+		$this->registerArgument('role', 'string', 'ARIA role for this element', FALSE, 'alert');
 	}
 
 	/**
 	 * Renders FlashMessages and flushes the FlashMessage queue
 	 * Note: This disables the current page cache in order to prevent FlashMessage output
 	 * from being cached.
-	 * @see tslib_fe::no_cache
 	 *
+	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
+	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+	 *
+	 * @param string $renderMode one of the RENDER_MODE_* constants
 	 * @return string rendered Flash Messages, if there are any.
 	 */
-	public function render() {
-		$flashMessages = $this->controllerContext->getFlashMessageContainer()->getAllMessagesAndFlush();
-
+	public function render($renderMode = self::RENDER_MODE_DIV) {
+		$flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
 		if ($flashMessages === NULL || count($flashMessages) === 0) {
 			return '';
 		}
 
-		if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === tslib_cObj::OBJECTTYPE_USER) {
-			$GLOBALS['TSFE']->no_cache = 1;
-		}
+		// Add role attribute
+		$this->tag->addAttribute('role', $this->arguments['role']);
 
-		return $this->renderFlashMessages($flashMessages);
-	}
-
-	/**
-	 * Renders the flash messages in bootstrap style
-	 *
-	 * @param array $flashMessages array<t3lib_FlashMessage>
-	 *
-	 * @return string
-	 */
-	protected function renderFlashMessages(array $flashMessages) {
-		$this->tag->setTagName('div');
-
-		$tagContent = '';
-		$tagClass = 'alert alert-block';
-
-		/* @var $singleFlashMessage t3lib_FlashMessage */
+		/* @var $singleFlashMessage \TYPO3\CMS\Core\Messaging\FlashMessage */
 		foreach ($flashMessages as $singleFlashMessage) {
-			$tagContent .= $this->renderFlashMessage($singleFlashMessage);
-			$tagClass .= ' ' . $this->getSeverityClass($singleFlashMessage->getSeverity());
+			$this->arguments['class'] .= ' ' . $this->getSeverityClass($singleFlashMessage->getSeverity());
 		}
 
-		$this->tag->setContent($tagContent);
-		$this->tag->addAttribute('class', $tagClass);
-
-		return $this->tag->render();
-	}
-
-	/**
-	 * @param t3lib_FlashMessage $flashMessage array<t3lib_FlashMessage>
-	 *
-	 * @return string
-	 */
-	protected function renderFlashMessage(t3lib_FlashMessage $flashMessage) {
-		$content = '<h5>' . $flashMessage->getTitle() . '</h5>';
-		$content .= '<p>' . $flashMessage->getMessage() . '</p>';
-
-		return $content;
+		return parent::render($renderMode);
 	}
 
 	/**
