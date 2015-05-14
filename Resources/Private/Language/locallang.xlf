@@ -212,10 +212,13 @@
 				<source>No blog posts found.</source>
 			</trans-unit>
 
-			<trans-unit id="module.comment.title">
+			<trans-unit id="module.comment.title.byPost">
 				<source><![CDATA[All comments for post <em>%1$s</em>]]></source>
 			</trans-unit>
 			<trans-unit id="module.comment.title.all">
+				<source>All comments</source>
+			</trans-unit>
+			<trans-unit id="module.comment.title.pending">
 				<source>All pending comments</source>
 			</trans-unit>
             <trans-unit id="module.comment.table.title">

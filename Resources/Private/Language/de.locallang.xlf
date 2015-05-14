@@ -233,10 +233,13 @@
                 <target>Keine Blog-Posts gefunden.</target>
             </trans-unit>
 
-            <trans-unit id="module.comment.title">
+            <trans-unit id="module.comment.title.byPost">
                 <target><![CDATA[Alle Kommentare für <em>%1$s</em>]]></target>
             </trans-unit>
             <trans-unit id="module.comment.title.all">
+                <target>Alle Kommentare</target>
+            </trans-unit>
+            <trans-unit id="module.comment.title.pending">
                 <target>Alle ausstehenden Kommentare</target>
             </trans-unit>
             <trans-unit id="module.comment.table.title">

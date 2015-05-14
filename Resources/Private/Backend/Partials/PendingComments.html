@@ -5,7 +5,7 @@
 			<div class="message-body">
 				<f:if condition="{addLink}">
 					<f:then>
-						<f:link.action controller="BackendComment" action="index">
+						<f:link.action controller="BackendComment" action="listPending">
 							<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
 						</f:link.action>
 					</f:then>

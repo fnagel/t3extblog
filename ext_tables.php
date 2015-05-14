@@ -244,7 +244,7 @@ if (TYPO3_MODE === 'BE') {
 		array(
 			// An array holding the controller-action-combinations that are accessible
 			'BackendPost' => 'index',
-			'BackendComment' => 'index, list'
+			'BackendComment' => 'index, listPending, listByPost'
 		),
 		array(
 			'access' => 'user,group',

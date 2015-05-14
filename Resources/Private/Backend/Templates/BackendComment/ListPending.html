@@ -6,14 +6,12 @@
 <f:layout name="Default" />
 
 <f:section name="content">
-	<h2><f:translate key="module.comment.title.all" /></h2>
-
-	<f:render partial="PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
+	<h2><f:translate key="module.comment.title.pending" /></h2>
 
 	<f:render
 		partial="Comment/Table"
 		arguments="{
-			comments: comments,
+			comments: pendingComments,
 			dateFormat:	dateFormat,
 			timeFormat: timeFormat,
 			returnUrl: returnUrl

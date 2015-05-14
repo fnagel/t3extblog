@@ -16,7 +16,7 @@
 	<td>{post.publishDate -> f:format.date(format: 'd.m.Y - H:i')}</td>
 	<td>{post.author.name}</td>
 	<td>
-		<f:link.action controller="BackendComment" action="list" arguments="{post: post}">
+		<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post}">
 			{post.comments -> f:count()}
 		</f:link.action>
 	</td>
