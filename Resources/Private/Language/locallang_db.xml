@@ -61,6 +61,9 @@
 			<label index="tx_t3blog_post.tabs.access">Access</label>
             <label index="tx_t3blog_cat.tabs.general">General</label>
             <label index="tx_t3blog_cat.tabs.access">Access</label>
+            <label index="tx_t3blog_com.tabs.general">General</label>
+            <label index="tx_t3blog_com.tabs.access">Access</label>
+            <label index="tx_t3blog_com.tabs.approval">Approval</label>
 
 			<label index="tx_t3blog_com_nl">Subscriber</label>
 			<label index="tx_t3blog_com_nl.name">User name:</label>
@@ -129,6 +132,9 @@
             <label index="tx_t3blog_post.tabs.access">Zugriff</label>
             <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
             <label index="tx_t3blog_cat.tabs.access">Zugriff</label>
+            <label index="tx_t3blog_com.tabs.general">Allgemein</label>
+            <label index="tx_t3blog_com.tabs.access">Zugriff</label>
+            <label index="tx_t3blog_com.tabs.approval">Sichtbarkeit</label>
 
             <label index="tx_t3blog_com_nl">Abonnent</label>
             <label index="tx_t3blog_com_nl.name">Name:</label>
