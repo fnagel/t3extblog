@@ -39,6 +39,13 @@ https://github.com/fnagel/t3extblog/compare/1.0.1...1.1.0
 How to upgrade
 """"""""""""""
 
+**Templating**
+
+Some comment related partials and code parts have been changed.
+Please make sure to adapt these changes in your templates.
+
+Some backend module templates have been changed too.
+
 **FlashMessage**
 
 FlashMessage VH now extends the the Fluid default one. No more :code:`h5` and :code:`p` tags,
