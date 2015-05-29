@@ -68,9 +68,7 @@ if (version_compare(TYPO3_branch, '6.1', '<')) {
 }
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_post');
-$TCA['pages']['columns']['module']['config']['items'][] = Array('T3Blog', 't3blog');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_post');
-
 $TCA['tx_t3blog_post'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
@@ -103,7 +101,6 @@ $TCA['tx_t3blog_post'] = array(
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_cat');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_cat');
-
 $TCA['tx_t3blog_cat'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
@@ -233,16 +230,35 @@ $TCA['tx_t3blog_trackback'] = array(
 	)
 );
 
+unset($GLOBALS['ICON_TYPES']['t3blog']);
+t3lib_SpriteManager::addTcaTypeIcon(
+	'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
+);
 
-// Register  Backend Module
 if (TYPO3_MODE === 'BE') {
+	// Add BE page icon
+	$addNewsToModuleSelection = TRUE;
+	foreach ($GLOBALS['TCA']['pages']['columns']['module']['config']['items'] as $item) {
+		if ($item[1] === 't3blog') {
+			$addNewsToModuleSelection = FALSE;
+			continue;
+		}
+	}
+	if ($addNewsToModuleSelection) {
+		$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = array(
+			0 => 'T3extblog',
+			1 => 't3blog',
+			2 => '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
+		);
+	}
+
+	// Register  Backend Module
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
 		'web',
 		'Tx_T3extblog',
 		'',
 		array(
-			// An array holding the controller-action-combinations that are accessible
 			'BackendPost' => 'index',
 			'BackendComment' => 'index, listPending, listByPost'
 		),
