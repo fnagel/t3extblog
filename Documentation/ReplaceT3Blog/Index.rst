@@ -6,7 +6,7 @@
 .. include:: ../Includes.txt
 
 
-.. _Replace T3Blog:
+.. _replace-t3blog:
 
 
 .. important::

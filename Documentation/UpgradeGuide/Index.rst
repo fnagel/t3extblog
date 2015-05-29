@@ -44,3 +44,8 @@ No more :code:`h5` and :code:`p` tags, just some additional CSS classes for Boot
 Make sure styling still matches your needs as the HTML is slightly different now.
 
 
+
+Upgrade from EXT:t3blog
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Please see :ref:`Replace T3blog <replace-t3blog>`.
