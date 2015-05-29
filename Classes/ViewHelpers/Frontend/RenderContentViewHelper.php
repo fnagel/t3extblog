@@ -36,10 +36,10 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 	/**
 	 * Render content
 	 *
-	 * @param array $contentElements
-	 * @param int $index
-	 * @param bool $removeMarker
-	 * @param string $typoscript
+	 * @param Tx_Extbase_Persistence_ObjectStorage|array 	$contentElements
+	 * @param int                                 	        $index
+	 * @param bool                                 	        $removeMarker
+	 * @param string                              	        $typoscript
 	 *
 	 * @return string
 	 */
@@ -47,13 +47,14 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 		$output = '';
 		$iterator = 0;
 
+		/* @var $content Tx_T3extblog_Domain_Model_Content */
 		foreach ($contentElements as $content) {
 			$iterator++;
 			if (($iterator - 1) < $index) {
 				continue;
 			}
 
-			$output .= $this->renderContentElement($content, $typoscript);
+			$output .= $this->renderContentElement($content->toArray(), $typoscript);
 		}
 
 		if ($removeMarker === TRUE) {

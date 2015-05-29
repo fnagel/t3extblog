@@ -3,12 +3,12 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_com'] = array(
-	'ctrl' => $TCA['tx_t3blog_com']['ctrl'],
+$GLOBALS['TCA']['tx_t3blog_com'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_t3blog_com']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
-	'feInterface' => $TCA['tx_t3blog_com']['feInterface'],
+	'feInterface' => $GLOBALS['TCA']['tx_t3blog_com']['feInterface'],
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,

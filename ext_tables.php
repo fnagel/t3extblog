@@ -68,21 +68,21 @@ if (version_compare(TYPO3_branch, '6.1', '<')) {
 }
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_post');
-$TCA['pages']['columns']['module']['config']['items'][] = Array('T3Blog', 't3blog');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_post');
-
-$TCA['tx_t3blog_post'] = array(
+$GLOBALS['TCA']['tx_t3blog_post'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		//'cruser_id' 			=> 'author',
+		'cruser_id' => 'author',
 		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
+		'prependAtCopy' => 'LLL:EXT:lang/locallang_general.xlf:LGL.prependAtCopy',
+		'hideAtCopy' => TRUE,
 		'default_sortby' => 'ORDER BY date DESC',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
@@ -103,8 +103,7 @@ $TCA['tx_t3blog_post'] = array(
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_cat');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_cat');
-
-$TCA['tx_t3blog_cat'] = array(
+$GLOBALS['TCA']['tx_t3blog_cat'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
 		'label' => 'catname',
@@ -116,6 +115,8 @@ $TCA['tx_t3blog_cat'] = array(
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
+		'prependAtCopy' => 'LLL:EXT:lang/locallang_general.xlf:LGL.prependAtCopy',
+		'hideAtCopy' => TRUE,
 		'treeParentField' => 'parent_id',
 		'sortby' => 'sorting',
 		'delete' => 'deleted',
@@ -137,7 +138,7 @@ $TCA['tx_t3blog_cat'] = array(
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com');
 t3lib_extMgm::addToInsertRecords('tx_t3blog_com');
-$TCA['tx_t3blog_com'] = array(
+$GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
 		'label' => 'title',
@@ -165,7 +166,7 @@ $TCA['tx_t3blog_com'] = array(
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com_nl');
-$TCA['tx_t3blog_com_nl'] = array(
+$GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
 		'label' => 'email',
@@ -188,7 +189,7 @@ $TCA['tx_t3blog_com_nl'] = array(
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_pingback');
-$TCA['tx_t3blog_pingback'] = array(
+$GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback',
 		'label' => 'uid',
@@ -212,7 +213,7 @@ $TCA['tx_t3blog_pingback'] = array(
 );
 
 t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_trackback');
-$TCA['tx_t3blog_trackback'] = array(
+$GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
 		'label' => 'uid',
@@ -233,6 +234,8 @@ $TCA['tx_t3blog_trackback'] = array(
 	)
 );
 
+// @todo What is this?
+$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = Array('T3Blog', 't3blog');
 
 // Register  Backend Module
 if (TYPO3_MODE === 'BE') {

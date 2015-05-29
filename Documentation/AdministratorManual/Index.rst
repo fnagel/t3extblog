@@ -159,3 +159,23 @@ to your page tsconfig (123 is the PID of the page where the blogsystem is includ
 
 By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript
 (:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
+
+
+
+Multilanguage / Localization
+----------------------------
+
+**Requirements:**
+
+Working multilanguage TYPO3 CMS installation.
+
+
+**Needed steps:**
+
+* Translate blogsystem plugin page
+
+* Translate plugin elements
+
+* Translate record sysfolder
+
+* Start translating your posts and categories!

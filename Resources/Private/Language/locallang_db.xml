@@ -22,7 +22,7 @@
 			<label index="tx_t3blog_post.number_views">Number of views</label>
 
 			<label index="tx_t3blog_cat">Categories</label>
-			<label index="tx_t3blog_cat.parent_id">Parent category</label>
+			<label index="tx_t3blog_cat.parent_id">Category tree</label>
 			<label index="tx_t3blog_cat.page_shortcut">Single PID</label>
 			<label index="tx_t3blog_cat.catname">Category name</label>
 			<label index="tx_t3blog_cat.nav_title">Navigation title</label>
@@ -93,7 +93,7 @@
             <label index="tx_t3blog_post.number_views">Anzahl der Aufrufe</label>
 
 			<label index="tx_t3blog_cat">Kategorien</label>
-			<label index="tx_t3blog_cat.parent_id">Parent Kategorie</label>
+			<label index="tx_t3blog_cat.parent_id">Kategorie-Baum</label>
 			<label index="tx_t3blog_cat.page_shortcut">Detailansicht für Kategorie</label>
 			<label index="tx_t3blog_cat.catname">Kategorie Name</label>
 			<label index="tx_t3blog_cat.nav_title">Navigationsüberschrift</label>

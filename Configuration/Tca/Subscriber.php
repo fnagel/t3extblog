@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_com_nl'] = array(
-	'ctrl' => $TCA['tx_t3blog_com_nl']['ctrl'],
+$GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_t3blog_com_nl']['ctrl'],
 	'columns' => array(
 		'email' => array(
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.email',
@@ -25,7 +25,7 @@ $TCA['tx_t3blog_com_nl'] = array(
 			'config' => array(
 				'type' => 'group',
 				'internal_type' => 'db',
-				'prepend_tname' => false,
+				'prepend_tname' => FALSE,
 				'allowed' => 'tx_t3blog_post',
 				'minitems' => 1,
 				'maxitems' => 1,
