@@ -22,10 +22,24 @@ Upgrade Guide
 Upgrade from 1.0.x to 1.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**FlashMessage ViewHelper**
+**Changelog**
 
-FlashMessage VH now works like the Fluid default one (ul or div mode, no more h5 and p tags).
-Note that the error partial has changed accordingly.
+- Improved FlashMessage ViewHelper
+
+- Better localization in backend
+
+- Improved backend module
+
+- Bugfixes
+
+
+
+**How to upgrade**
+
+FlashMessage VH now extends the the Fluid default one.
+
+No more :code:`h5` and :code:`p` tags, just some additional CSS classes for Bootstrap and the Fluid default
+:code:`ul` or :code:`div` mode. Note that the error partial has changed accordingly.
 
 Make sure styling still matches your needs as the HTML is slightly different now.
 
