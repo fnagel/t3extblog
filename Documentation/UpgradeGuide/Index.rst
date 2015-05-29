@@ -25,6 +25,8 @@ Upgrade from 1.0.x to 1.1.0
 Changelog
 """""""""
 
+https://github.com/fnagel/t3extblog/compare/1.0.1...1.1.0
+
 - Improved FlashMessage ViewHelper
 
 - Better localization in backend
@@ -48,6 +50,32 @@ Make sure styling still matches your needs as the HTML is slightly different now
 **Backend localization**
 
 Some backend localization keys might have changed. Please check your overriding configuration.
+
+
+
+Upgrade from 1.0.0 to 1.0.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/1.0.0...1.0.1
+
+- Removed EXT:sfantispam
+
+- Improved documentation
+
+- Fix integration for EXT:dd_googlesitemap
+
+- Better extension and record icons
+
+- Bugfixes
+
+
+How to upgrade
+""""""""""""""
+
+*no changes required*
 
 
 Upgrade from EXT:t3blog
