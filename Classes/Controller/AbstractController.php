@@ -101,7 +101,8 @@ abstract class Tx_T3extblog_Controller_AbstractController extends Tx_Extbase_MVC
 		$titleLocallangKey = sprintf('%s.title', $messageLocallangKey);
 		$localizedTitle = $this->translate($titleLocallangKey, '[' . $titleLocallangKey . ']');
 
-		if (version_compare(TYPO3_branch, '6.0', '<')) {
+		// @todo Remove this soon: as we do not support 4.x and 6.0 and 6.2 are no longer supported
+		if (version_compare(TYPO3_branch, '6.2', '<')) {
 			$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
 		} else {
 			$this->addFlashMessage($localizedMessage, $localizedTitle, $severity);
