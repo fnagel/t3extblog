@@ -46,6 +46,12 @@ Todo & Known bugs
 Please see Github Issues: https://github.com/fnagel/t3extblog/issues
 
 
+Changelog
+---------
+
+Please see Github: https://github.com/fnagel/t3extblog/commits
+
+
 Contribution
 ------------
 
