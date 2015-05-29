@@ -21,6 +21,7 @@ Target group: **Administrators**
 		:depth: 3
 
 
+
 Code insights
 -------------
 
@@ -31,6 +32,13 @@ Code insights
 
 This extension uses TYPO3 Extbase table mapping to make use of existing EXT:t3blog tables.
 Take a look at :code:`ext_typoscript_setup.txt` to see how this is done.
+
+
+Translations
+------------
+
+Translations could be added here:
+http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
 
 
 TER deployment
