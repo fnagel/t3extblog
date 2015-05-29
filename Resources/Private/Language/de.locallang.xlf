@@ -221,7 +221,7 @@
                 <target>Datum</target>
             </trans-unit>
             <trans-unit id="module.post.table.author">
-                <target>Autot</target>
+                <target>Autor</target>
             </trans-unit>
             <trans-unit id="module.post.table.comments">
                 <target>Kommentare</target>

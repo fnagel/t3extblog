@@ -14,7 +14,7 @@ $TCA['tx_t3blog_com_nl'] = array(
 			)
 		),
 		'name' => array(
-			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.namel',
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.name',
 			'config' => array(
 				'type' => 'input',
 				'eval' => 'required'

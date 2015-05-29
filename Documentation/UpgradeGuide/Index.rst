@@ -22,7 +22,8 @@ Upgrade Guide
 Upgrade from 1.0.x to 1.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Changelog**
+Changelog
+"""""""""
 
 - Improved FlashMessage ViewHelper
 
@@ -33,16 +34,20 @@ Upgrade from 1.0.x to 1.1.0
 - Bugfixes
 
 
+How to upgrade
+""""""""""""""
 
-**How to upgrade**
+**FlashMessage**
 
-FlashMessage VH now extends the the Fluid default one.
-
-No more :code:`h5` and :code:`p` tags, just some additional CSS classes for Bootstrap and the Fluid default
-:code:`ul` or :code:`div` mode. Note that the error partial has changed accordingly.
+FlashMessage VH now extends the the Fluid default one. No more :code:`h5` and :code:`p` tags,
+just some additional CSS classes for Bootstrap and the Fluid default :code:`ul` or :code:`div` mode.
+Note that the error partial has changed accordingly.
 
 Make sure styling still matches your needs as the HTML is slightly different now.
 
+**Backend localization**
+
+Some backend localization keys might have changed. Please check your overriding configuration.
 
 
 Upgrade from EXT:t3blog

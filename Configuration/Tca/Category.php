@@ -103,7 +103,11 @@ $TCA['tx_t3blog_cat'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => '--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.generalTab;;;;1-1-1,catname,description,parent_id, --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.access,--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.access;1')
+		'0' => array('showitem' => '
+			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general;;;;1-1-1,
+				catname,description,parent_id,
+			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access,
+				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access;1')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)

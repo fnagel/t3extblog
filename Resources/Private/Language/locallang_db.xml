@@ -2,7 +2,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 't3blog'</description>
+		<description>Language labels for database tables/fields belonging to extension 't3extblog'</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -10,128 +10,133 @@
 			<label index="tx_t3blog_post.title">Title</label>
 			<label index="tx_t3blog_post.tagClouds">Tag clouds (comma separated list)</label>
 			<label index="tx_t3blog_post.author">Author</label>
-			<label index="tx_t3blog_post.gravatar">Avatar (Overwrites gravatar):</label>
-			<label index="tx_t3blog_post.date">Date&amp;Time</label>
+			<label index="tx_t3blog_post.date">Date &amp; Time</label>
 			<label index="tx_t3blog_post.content">Your contents</label>
 			<label index="tx_t3blog_post.allow_comments.I.0">Everybody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.1">Nobody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.2">Only registered users can comment</label>
 			<label index="tx_t3blog_post.allow_comments">Allow comments</label>
-			<label index="tx_t3blog_post.allow_pings">Allow pings</label>
 			<label index="tx_t3blog_post.cat">Categories</label>
 			<label index="tx_t3blog_post.trackback">Trackback URLs (each URL on one line)</label>
 			<label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
 			<label index="tx_t3blog_post.number_views">Number of views</label>
+
 			<label index="tx_t3blog_cat">Categories</label>
 			<label index="tx_t3blog_cat.parent_id">Parent category</label>
 			<label index="tx_t3blog_cat.page_shortcut">Single PID</label>
 			<label index="tx_t3blog_cat.catname">Category name</label>
-			<label index="tx_t3blog_cat.generalTab">Category</label>
-			<label index="tx_t3blog_cat.access">Access</label>
 			<label index="tx_t3blog_cat.nav_title">Navigation title</label>
 			<label index="tx_t3blog_cat.subtitle">Subtitle</label>
-			<label index="tx_t3blog_cat.keywords">Keywords (,)</label>
+			<label index="tx_t3blog_cat.keywords">Keywords (comma separated list)</label>
 			<label index="tx_t3blog_cat.description">Description</label>
-			<label index="tx_t3blog_cat.display">Displaying options</label>
+
 			<label index="tx_t3blog_com">Comment</label>
 			<label index="tx_t3blog_com.title">Title</label>
 			<label index="tx_t3blog_com.author">Author</label>
 			<label index="tx_t3blog_com.email">E-Mail</label>
 			<label index="tx_t3blog_com.website">Website</label>
-			<label index="tx_t3blog_com.date">Date&amp;Time</label>
+			<label index="tx_t3blog_com.date">Date &amp; Time</label>
 			<label index="tx_t3blog_com.text">Text</label>
 			<label index="tx_t3blog_com.approved">Approved</label>
 			<label index="tx_t3blog_com.spam">Spam</label>
 			<label index="tx_t3blog_com.mails_sent">Notification mails already sent</label>
-			<label index="tx_t3blog_com.fk_post">Foreign key (blog post)</label>
-			<label index="tx_t3blog_blogroll">Blogroll</label>
-			<label index="tx_t3blog_blogroll.title">Title of your blogroll/link</label>
-			<label index="tx_t3blog_blogroll.url">URL</label>
-			<label index="tx_t3blog_blogroll.image">Image</label>
-			<label index="tx_t3blog_blogroll.description">Description</label>
-			<label index="tx_t3blog_blogroll.xfn.I.0">acquaintance</label>
-			<label index="tx_t3blog_blogroll.xfn.I.1">child</label>
-			<label index="tx_t3blog_blogroll.xfn.I.2">colleague</label>
-			<label index="tx_t3blog_blogroll.xfn.I.3">contact</label>
-			<label index="tx_t3blog_blogroll.xfn.I.4">co-resident</label>
-			<label index="tx_t3blog_blogroll.xfn.I.5">co-worker</label>
-			<label index="tx_t3blog_blogroll.xfn.I.6">crush</label>
-			<label index="tx_t3blog_blogroll.xfn.I.7">date</label>
-			<label index="tx_t3blog_blogroll.xfn.I.8">friend</label>
-			<label index="tx_t3blog_blogroll.xfn.I.9">kin</label>
-			<label index="tx_t3blog_blogroll.xfn.I.10">me</label>
-			<label index="tx_t3blog_blogroll.xfn.I.11">met</label>
-			<label index="tx_t3blog_blogroll.xfn.I.12">muse</label>
-			<label index="tx_t3blog_blogroll.xfn.I.13">neighbor</label>
-			<label index="tx_t3blog_blogroll.xfn.I.14">parent</label>
-			<label index="tx_t3blog_blogroll.xfn.I.15">sibling</label>
-			<label index="tx_t3blog_blogroll.xfn.I.16">spouse</label>
-			<label index="tx_t3blog_blogroll.xfn.I.17">sweetheart</label>
-			<label index="tx_t3blog_blogroll.xfn">XFN</label>
-			<label index="tx_t3blog_trackback">Trackback</label>
+			<label index="tx_t3blog_com.fk_post">Related post</label>
+
 			<label index="tx_t3blog_pingback">Pingback</label>
 			<label index="tx_t3blog_pingback.title">Title</label>
-			<label index="tx_t3blog_pingback.url">Url</label>
+			<label index="tx_t3blog_pingback.url">URL</label>
 			<label index="tx_t3blog_pingback.date">Date</label>
 			<label index="tx_t3blog_pingback.text">Text</label>
-			<label index="tx_t3blog_trackback.fromurl">From</label>
+
+            <label index="tx_t3blog_trackback">Trackback</label>
+			<label index="tx_t3blog_trackback.fromurl">Related website</label>
 			<label index="tx_t3blog_trackback.text">Text</label>
 			<label index="tx_t3blog_trackback.title">Title</label>
 			<label index="tx_t3blog_trackback.blogname">Blogname</label>
-			<label index="tx_t3blog_trackback.postid">Post Id</label>
-			<label index="tt_content.list_type_pi2">Blog Widget Selector</label>
-			<label index="tx_t3blog_post.yourposttab">Your post</label>
-			<label index="tx_t3blog_post.categorize">Categorize your post</label>
-			<label index="tx_t3blog_post.interactive">Interactivity</label>
-			<label index="tx_t3blog_post.access">Access</label>
-			<label index="tx_t3blog_blogroll.generalTab">Blogroll/link</label>
-			<label index="tx_t3blog_blogroll.additionalTab">Additional info</label>
-			<label index="tx_t3blog_blogroll.access">Access</label>
+			<label index="tx_t3blog_trackback.postid">Related post</label>
+
+			<label index="tx_t3blog_post.tabs.post">Post</label>
+			<label index="tx_t3blog_post.tabs.category">Category</label>
+			<label index="tx_t3blog_post.tabs.interactive">Interactivity</label>
+			<label index="tx_t3blog_post.tabs.access">Access</label>
+            <label index="tx_t3blog_cat.tabs.general">General</label>
+            <label index="tx_t3blog_cat.tabs.access">Access</label>
+
 			<label index="tx_t3blog_com_nl">Subscriber</label>
 			<label index="tx_t3blog_com_nl.name">User name:</label>
 			<label index="tx_t3blog_com_nl.email">E-mail:</label>
 			<label index="tx_t3blog_com_nl.post_uid">Subscribed to:</label>
 			<label index="tx_t3blog_com_nl.lastsent">Last sent:</label>
 			<label index="tx_t3blog_com_nl.code">Unsubscribe code:</label>
+
+            <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
 		</languageKey>
+
+
 		<languageKey index="de" type="array">
 			<label index="tx_t3blog_post">Nachricht</label>
 			<label index="tx_t3blog_post.title">Titel</label>
 			<label index="tx_t3blog_post.tagClouds">Tag clouds (Komma separierte Liste)</label>
-			<label index="tx_t3blog_post.author">Author</label>
-			<label index="tx_t3blog_post.gravatar">Avatar (Ueberschreibt den Gravatar):</label>
-			<label index="tx_t3blog_post.date">Datum&amp;Zeit</label>
+			<label index="tx_t3blog_post.author">Autor</label>
+			<label index="tx_t3blog_post.date">Datum &amp; Zeit</label>
 			<label index="tx_t3blog_post.content">Inhalt</label>
 			<label index="tx_t3blog_post.allow_comments.I.0">Jedermann</label>
 			<label index="tx_t3blog_post.allow_comments.I.1">Niemand</label>
 			<label index="tx_t3blog_post.allow_comments.I.2">Nur registrierte Benutzer</label>
 			<label index="tx_t3blog_post.allow_comments">Erlaube Kommentare</label>
 			<label index="tx_t3blog_post.cat">Kategorien</label>
+            <label index="tx_t3blog_post.trackback">Trackback URLs (eine URL pro Zeile)</label>
+            <label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
+            <label index="tx_t3blog_post.number_views">Anzahl der Aufrufe</label>
+
 			<label index="tx_t3blog_cat">Kategorien</label>
 			<label index="tx_t3blog_cat.parent_id">Parent Kategorie</label>
 			<label index="tx_t3blog_cat.page_shortcut">Detailansicht für Kategorie</label>
 			<label index="tx_t3blog_cat.catname">Kategorie Name</label>
 			<label index="tx_t3blog_cat.nav_title">Navigationsüberschrift</label>
 			<label index="tx_t3blog_cat.subtitle">Untertitel</label>
-			<label index="tx_t3blog_cat.keywords">Keywords (,)</label>
+			<label index="tx_t3blog_cat.keywords">Keywords (Komma separierte Liste)</label>
 			<label index="tx_t3blog_cat.description">Beschreibung</label>
-			<label index="tx_t3blog_cat.display">Anzeige Optionen</label>
+
 			<label index="tx_t3blog_com">Kommentar</label>
 			<label index="tx_t3blog_com.title">Titel</label>
-			<label index="tx_t3blog_com.author">Author</label>
+			<label index="tx_t3blog_com.author">Autor</label>
 			<label index="tx_t3blog_com.email">E-Mail</label>
 			<label index="tx_t3blog_com.website">Webseite</label>
-			<label index="tx_t3blog_com.date">Datum&amp;Zeit</label>
+			<label index="tx_t3blog_com.date">Datum &amp; Zeit</label>
 			<label index="tx_t3blog_com.text">Text</label>
 			<label index="tx_t3blog_com.approved">Angenommen</label>
-			<label index="tx_t3blog_com.fk_post">Fremdschlüssel (post)</label>
+            <label index="tx_t3blog_com.spam">Spam</label>
             <label index="tx_t3blog_com.mails_sent">Benachrichtigungs-Emails bereits versendet</label>
-			<label index="tx_t3blog_blogroll">Blogroll</label>
-			<label index="tx_t3blog_blogroll.title">Titel</label>
-			<label index="tx_t3blog_blogroll.url">URL</label>
-			<label index="tx_t3blog_blogroll.image">Bild</label>
-			<label index="tx_t3blog_blogroll.description">Beschreibung</label>
-			<label index="tx_t3blog_blogroll.xfn">XFN</label>
+			<label index="tx_t3blog_com.fk_post">Verbundener Artikel</label>
+
+            <label index="tx_t3blog_pingback">Pingback</label>
+            <label index="tx_t3blog_pingback.title">Titel</label>
+            <label index="tx_t3blog_pingback.url">URL</label>
+            <label index="tx_t3blog_pingback.date">Datum</label>
+            <label index="tx_t3blog_pingback.text">Text</label>
+
+            <label index="tx_t3blog_trackback">Trackback</label>
+            <label index="tx_t3blog_trackback.fromurl">Verbundene Website</label>
+            <label index="tx_t3blog_trackback.text">Text</label>
+            <label index="tx_t3blog_trackback.title">Titel</label>
+            <label index="tx_t3blog_trackback.blogname">Blog-Name</label>
+            <label index="tx_t3blog_trackback.postid">Verbundener Artikel</label>
+
+            <label index="tx_t3blog_post.tabs.post">Artikel</label>
+            <label index="tx_t3blog_post.tabs.category">Kategorie</label>
+            <label index="tx_t3blog_post.tabs.interactive">Interaktivität</label>
+            <label index="tx_t3blog_post.tabs.access">Zugriff</label>
+            <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
+            <label index="tx_t3blog_cat.tabs.access">Zugriff</label>
+
+            <label index="tx_t3blog_com_nl">Abonnent</label>
+            <label index="tx_t3blog_com_nl.name">Name:</label>
+            <label index="tx_t3blog_com_nl.email">E-Mail:</label>
+            <label index="tx_t3blog_com_nl.post_uid">Abbonierter Artikel:</label>
+            <label index="tx_t3blog_com_nl.lastsent">Zuletzt gesendet:</label>
+            <label index="tx_t3blog_com_nl.code">Kündigungs-Code:</label>
+
 			<label index="tt_content.list_type_pi2">Blog Widget Auswahl</label>
 		</languageKey>
 	</data>
