@@ -238,9 +238,9 @@ $TCA['tx_t3blog_trackback'] = array(
 if (TYPO3_MODE === 'BE') {
 	Tx_Extbase_Utility_Extension::registerModule(
 		$_EXTKEY,
-		'web', // Make module a submodule of 'web'
-		'Tx_T3extblog', // Submodule key
-		'', // Position
+		'web',
+		'Tx_T3extblog',
+		'',
 		array(
 			// An array holding the controller-action-combinations that are accessible
 			'BackendPost' => 'index',
