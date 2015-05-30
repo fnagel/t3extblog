@@ -21,6 +21,7 @@
 						<td><f:translate key="module.post.table.author" /></td>
 						<td><f:translate key="module.post.table.comments" /></td>
 						<td>&nbsp;</td>
+						<td>&nbsp;</td>
 					</tr>
 
 					<f:for each="{paginatedPosts}" as="post">
@@ -28,7 +29,7 @@
 					</f:for>
 
 					<tr>
-						<td colspan="6">
+						<td colspan="7">
 							<f:translate
 								key="module.post.table.count"
 								arguments="{0: '{paginatedPosts -> f:count()}', 1: '{posts -> f:count()}'}" />

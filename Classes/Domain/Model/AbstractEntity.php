@@ -47,6 +47,34 @@ abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_Domai
 		$this->objectManager = $objectManager;
 	}
 
+	/**
+	 * Makes an array out of all public getter methods
+	 *
+	 * @param boolean $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
+	 *
+	 * @return array
+	 */
+	public function toArray($camelCaseKeys = FALSE) {
+		$camelCaseProperties = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($this);
+
+		if ($camelCaseKeys === TRUE) {
+			return $camelCaseProperties;
+		}
+
+		$data = array();
+		foreach ($camelCaseProperties as $camelCaseFieldKey => $value) {
+			$fieldKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseFieldKey));
+
+			// TYPO3 cObj edge case
+			if ($camelCaseFieldKey === 'cType') {
+				$fieldKey = ucfirst($camelCaseFieldKey);
+			}
+
+			$data[$fieldKey] = $value;
+		}
+
+		return $data;
+	}
 }
 
 ?>

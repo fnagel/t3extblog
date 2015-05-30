@@ -171,6 +171,24 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	}
 
 	/**
+	 * @return integer
+	 */
+	public function getSysLanguageUid() {
+		return $this->_languageUid;
+	}
+
+	/**
+	 * @return integer|null
+	 */
+	public function getL18nParent() {
+		if ($this->getSysLanguageUid() === 0) {
+			return 0;
+		}
+
+		return $this->_localizedUid;
+	}
+
+	/**
 	 * @param boolean $deleted
 	 */
 	public function setDeleted($deleted) {
@@ -281,11 +299,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	/**
 	 * Checks if the post is too old for posting new comments
 	 *
-	 * @param DateTime $expireDate
+	 * @param string $expireDate
 	 *
 	 * @return string
 	 */
-	public function isExpired($expireDate) {
+	public function isExpired($expireDate = '+1 month') {
 		$now = new DateTime();
 		$expire = clone $this->getPublishDate();
 
