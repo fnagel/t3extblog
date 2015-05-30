@@ -8,8 +8,8 @@ config.tx_extbase {
 		Tx_T3extblog_Service_LoggingServiceInterface.className = Tx_T3extblog_Service_LoggingService
 	}
 
-    persistence{
-        classes{
+    persistence {
+        classes {
             Tx_T3extblog_Domain_Model_Post {
                 mapping {
                     tableName = tx_t3blog_post
