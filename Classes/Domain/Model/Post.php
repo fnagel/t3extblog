@@ -90,6 +90,20 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	protected $numberOfViews;
 
 	/**
+	 * metaDescription
+	 *
+	 * @var string
+	 */
+	protected $metaDescription;
+
+	/**
+	 * metaKeywords
+	 *
+	 * @var string
+	 */
+	protected $metaKeywords;
+
+	/**
 	 * content
 	 *
 	 * @var array
@@ -394,6 +408,42 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 */
 	public function riseNumberOfViews() {
 		$this->numberOfViews = $$this->numberOfViews + 1;
+	}
+
+	/**
+	 * Returns the metaDescription
+	 *
+	 * @return string
+	 */
+	public function getMetaDescription() {
+		return $this->metaDescription;
+	}
+
+	/**
+	 * Sets the metaDescription
+	 *
+	 * @param string $metaDescription
+	 */
+	public function setMetaDescription($metaDescription) {
+		$this->metaDescription = $metaDescription;
+	}
+
+	/**
+	 * Returns the metaKeywords
+	 *
+	 * @return string
+	 */
+	public function getMetaKeywords() {
+		return $this->metaKeywords;
+	}
+
+	/**
+	 * Sets the metaKeywords
+	 *
+	 * @param string $metaKeywords
+	 */
+	public function setMetaKeywords($metaKeywords) {
+		$this->metaKeywords = $metaKeywords;
 	}
 
 	/**

@@ -1,0 +1,22 @@
+{namespace t3b=Tx_T3extblog_ViewHelpers}
+
+<t3b:frontend.titleTag>{post.title} / </t3b:frontend.titleTag>
+
+<f:if condition="{post.metaDescription}">
+	<f:then>
+		<t3b:frontend.metaTag property="description" content="{post.metaDescription}" />
+	</f:then>
+	<f:else>
+		<t3b:frontend.metaTag property="description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
+	</f:else>
+</f:if>
+
+
+<f:if condition="{post.metaKeywords}">
+	<f:then>
+		<t3b:frontend.metaTag property="keywords" content="{post.metaKeywords}" />
+	</f:then>
+	<f:else>
+		<t3b:frontend.metaTag property="keywords" content="{post.rawTagCloud}" />
+	</f:else>
+</f:if>

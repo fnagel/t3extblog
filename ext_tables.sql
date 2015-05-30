@@ -60,6 +60,8 @@ CREATE TABLE tx_t3blog_post (
 	trackback text NOT NULL,
 	trackback_hash varchar(130) DEFAULT '' NOT NULL,
 	number_views int(11) DEFAULT '0' NOT NULL,
+	meta_description text NOT NULL,
+	meta_keywords varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (uid),
 	KEY be_date (pid,`date`)
 );

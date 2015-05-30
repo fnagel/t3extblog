@@ -189,6 +189,24 @@ $TCA['tx_t3blog_post'] = array(
 				'eval' => 'int',
 			)
 		),
+		'meta_description' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_description',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '45',
+				'rows' => '3',
+			)
+		),
+		'meta_keywords' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_keywords',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '45',
+				'rows' => '2',
+			)
+		),
 	),
 	'types' => array(
 		'0' => array(
@@ -199,6 +217,8 @@ $TCA['tx_t3blog_post'] = array(
 					tagClouds,cat,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.interactive,
 					allow_comments,trackback,number_views,
+				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.meta,
+					meta_description,meta_keywords,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.access,
 					--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.access;1;2-2-2,
 			')
