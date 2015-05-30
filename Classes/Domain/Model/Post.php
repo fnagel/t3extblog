@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractLocalizedEntity {
 
 	/**
 	 * @var boolean
@@ -168,24 +168,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
-	}
-
-	/**
-	 * @return integer
-	 */
-	public function getSysLanguageUid() {
-		return $this->_languageUid;
-	}
-
-	/**
-	 * @return integer|null
-	 */
-	public function getL18nParent() {
-		if ($this->getSysLanguageUid() === 0) {
-			return 0;
-		}
-
-		return $this->_localizedUid;
 	}
 
 	/**
@@ -532,6 +514,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$this->initComments();
 
 		$comment->setPostId($this->getUid());
+		$comment->_setProperty('_languageUid', $this->getSysLanguageUid());
 		$this->comments->attach($comment);
 		$this->commentRepository->add($comment);
 	}
@@ -550,6 +533,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$this->comments->detach($commentToRemove);
 		$this->commentRepository->update($commentToRemove);
 	}
+
 	/**
 	 * Returns the comments
 	 *

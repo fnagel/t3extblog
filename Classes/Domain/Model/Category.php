@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_AbstractLocalizedEntity {
 
 	/**
 	 * name

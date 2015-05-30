@@ -6,10 +6,23 @@ if (!defined('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_t3blog_com']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
+		'showRecordFieldList' => 'sys_language_uid,hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
 	'feInterface' => $GLOBALS['TCA']['tx_t3blog_com']['feInterface'],
 	'columns' => array(
+		'sys_language_uid' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'sys_language',
+				'foreign_table_where' => 'ORDER BY sys_language.title',
+				'items' => array(
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
+				)
+			)
+		),
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -163,7 +176,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'types' => array(
 		'0' => array('showitem' => '
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.general,
-				fk_post, title, author, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
+				sys_language_uid, fk_post, title, author, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.access,
 				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.approval;1,
 				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.access;2')

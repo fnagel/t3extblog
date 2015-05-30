@@ -149,6 +149,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'cruser_id' => 'cruser_id',
 		'default_sortby' => 'ORDER BY crdate DESC',
 		'delete' => 'deleted',
+		'languageField' => 'sys_language_uid',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
