@@ -104,6 +104,28 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	protected $metaKeywords;
 
 	/**
+	 * previewMode
+	 *
+	 * @var integer
+	 */
+	protected $previewMode;
+
+	/**
+	 * previewText
+	 *
+	 * @var string
+	 */
+	protected $previewText;
+
+	/**
+	 * previewImage
+	 *
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 * @lazy
+	 */
+	protected $previewImage;
+
+	/**
 	 * content
 	 *
 	 * @var array
@@ -444,6 +466,68 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 */
 	public function setMetaKeywords($metaKeywords) {
 		$this->metaKeywords = $metaKeywords;
+	}
+
+	/**
+	 * Returns the previewMode
+	 *
+	 * @return int
+	 */
+	public function getPreviewMode() {
+		return $this->previewMode;
+	}
+
+	/**
+	 * Sets the previewMode
+	 *
+	 * @param int $previewMode
+	 */
+	public function setPreviewMode($previewMode) {
+		$this->previewMode = $previewMode;
+	}
+
+	/**
+	 * Returns the previewText
+	 *
+	 * @return string
+	 */
+	public function getPreviewText() {
+		return $this->previewText;
+	}
+
+	/**
+	 * Sets the previewText
+	 *
+	 * @param string $previewText
+	 */
+	public function setPreviewText($previewText) {
+		$this->previewText = $previewText;
+	}
+
+	/**
+	 * Returns the previewImage
+	 *
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 */
+	public function getPreviewImage() {
+		if (!is_object($this->previewImage)) {
+			return NULL;
+		}
+
+		if ($this->previewImage instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->previewImage->_loadRealInstance();
+		}
+
+		return $this->previewImage->getOriginalResource();
+	}
+
+	/**
+	 * Sets the previewImage
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $previewImage
+	 */
+	public function setPreviewImage($previewImage) {
+		$this->previewImage = $previewImage;
 	}
 
 	/**

@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3extblog_ViewHelpers_Frontend_BaseRenderViewHelper {
+class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 	/**
 	 * Render content
@@ -53,7 +53,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 				continue;
 			}
 
-			$output .= $this->renderContentElement($content, $typoscript);
+			$output .= parent::render($typoscript, $content);
 		}
 
 		if ($removeMarker === TRUE) {
@@ -61,6 +61,17 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_T3ext
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Remove marker
+	 *
+	 * @param string $output
+	 *
+	 * @return string Rendered string
+	 */
+	protected function removeMarker($output) {
+		return str_replace('###MORE###', '', $output);
 	}
 }
 

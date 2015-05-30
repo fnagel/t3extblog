@@ -43,11 +43,17 @@ plugin.tx_t3extblog {
 					# countBackendUsers = 1
 				}
 
+				# Post list pagination
 				paginate {
 					itemsPerPage = 10
 					insertAbove = 0
 					insertBelow = 1
 					maximumNumberOfLinks = 100
+				}
+
+				# Post list preview
+				preview {
+					image.width = 960c
 				}
 			}
 			comments {

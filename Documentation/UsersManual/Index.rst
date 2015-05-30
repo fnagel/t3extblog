@@ -72,9 +72,6 @@ You need to add at least one blog category to your post.
 	New posts are hidden by default, you need to activate them (uncheck "hide" within access tab)
 
 
-.. tip::
-	Use a :code:`###MORE###` in your text field of one of your text or textpic content elements.
-
 
 Add blog categories
 -------------------
