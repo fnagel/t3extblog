@@ -344,6 +344,15 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	}
 
 	/**
+	 * Returns the tagCloud as in DB (concated string)
+	 *
+	 * @return string
+	 */
+	public function getRawTagCloud() {
+		return $this->tagCloud;
+	}
+
+	/**
 	 * Sets the tagCloud
 	 *
 	 * @param string $tagCloud
