@@ -8,10 +8,10 @@
 		<languageKey index="default" type="array">
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
-			<label index="tx_t3blog_post.tagClouds">Tag clouds (comma separated list)</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
 			<label index="tx_t3blog_post.author">Author</label>
 			<label index="tx_t3blog_post.date">Date &amp; Time</label>
-			<label index="tx_t3blog_post.content">Your contents</label>
+			<label index="tx_t3blog_post.content">Contents</label>
 			<label index="tx_t3blog_post.allow_comments.I.0">Everybody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.1">Nobody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.2">Only registered users can comment</label>
@@ -82,7 +82,7 @@
 		<languageKey index="de" type="array">
 			<label index="tx_t3blog_post">Nachricht</label>
 			<label index="tx_t3blog_post.title">Titel</label>
-			<label index="tx_t3blog_post.tagClouds">Tag clouds (Komma separierte Liste)</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (Komma separierte Liste)</label>
 			<label index="tx_t3blog_post.author">Autor</label>
 			<label index="tx_t3blog_post.date">Datum &amp; Zeit</label>
 			<label index="tx_t3blog_post.content">Inhalt</label>
