@@ -51,6 +51,18 @@ plugin.tx_t3extblog {
 					maximumNumberOfLinks = 100
 				}
 
+				metadata {
+					# Add description and keyword meta tags
+					enable = 1
+
+					twitterCards {
+						enable = 1
+
+						# Your Twitter username
+						site =
+					}
+				}
+
 				# Post list preview
 				preview {
 					image.width = 960c
