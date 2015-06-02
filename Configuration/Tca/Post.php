@@ -239,14 +239,9 @@ $TCA['tx_t3blog_post'] = array(
 				array(
 					'maxitems' => 1,
 					'foreign_types' => array(
-						'0' => array(
-							'showitem' => '
-		                    --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-		                    --palette--;;filePalette'
-						),
 						\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => array(
 							'showitem' => '
-		                    --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+		                    --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;t3extblogPostPreviewImagePalette,
 		                    --palette--;;filePalette'
 						),
 					)
@@ -275,6 +270,12 @@ $TCA['tx_t3blog_post'] = array(
 	'palettes' => array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
 	)
+);
+
+// Add new palette type to hide link field for preview image
+$GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette'] = array(
+	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
+	'canNotCollapse' => TRUE
 );
 
 ?>
