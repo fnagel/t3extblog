@@ -184,6 +184,12 @@
 			<trans-unit id="flashMessage.comment.commentsClosed">
 				<source>Sorry, no new comments allowed.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.notLoggedIn.title">
+				<source>Login needed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.notLoggedIn">
+				<source>Please login to comment.</source>
+			</trans-unit>
 
 
 			<trans-unit id="module.title">

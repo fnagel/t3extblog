@@ -172,8 +172,13 @@ class Tx_T3extblog_Controller_CommentController extends Tx_T3extblog_Controller_
 	private function checkIfCommentIsAllowed(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
 		$settings = $this->settings['blogsystem']['comments'];
 
-		if (!($settings['allowed'] && $post->getAllowComments() === 0)) {
+		if (!$settings['allowed'] || $post->getAllowComments() === 1) {
 			$this->addFlashMessageByKey('notAllowed', t3lib_FlashMessage::ERROR);
+			$this->errorAction();
+		}
+
+		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
+			$this->addFlashMessageByKey('notLoggedIn', t3lib_FlashMessage::ERROR);
 			$this->errorAction();
 		}
 

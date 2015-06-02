@@ -1,5 +1,8 @@
 {namespace t3b=Tx_T3extblog_ViewHelpers}
 
+
+<t3b:frontend.flashMessages />
+
 <t3b:frontend.commentAllowed post="{post}">
 	<f:then>
 		<f:render section="commentForm" arguments="{_all}" />
@@ -18,8 +21,6 @@
 		name="newComment"
 		object="{newComment}"
 		arguments="{post.linkParameter}">
-
-		<t3b:frontend.flashMessages />
 
 		<f:render partial="FormErrors" arguments="{object:Comment, post: post}" />
 

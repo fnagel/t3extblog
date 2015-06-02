@@ -44,7 +44,7 @@
 	<f:if condition="{newComment}">
 		<div id="comment-section">
 			<div class="well" id="comment-form">
-				<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
+				<f:render partial="Comment/New" arguments="{post: post, newComment: newComment, settings: settings}" />
 			</div>
 
 			<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>

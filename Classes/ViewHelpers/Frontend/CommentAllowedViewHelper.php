@@ -33,27 +33,26 @@ class Tx_T3extblog_ViewHelpers_Frontend_CommentAllowedViewHelper extends Tx_Flui
 	 *
 	 * @param Tx_T3extblog_Domain_Model_Post $post
 	 *
-	 * @return boolean
+	 * @return string
 	 */
 	public function render($post) {
 		$settings = $this->templateVariableContainer->get('settings');
-		$condition = TRUE;
 
-		if (!($settings['blogsystem']['comments']['allowed'] && $post->getAllowComments() === 0)) {
-			$condition = FALSE;
+		if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
+			return $this->renderElseChild();
 		}
 
-		if ($settings['blogsystem']['comments']["allowedUntil"]) {
-			if ($post->isExpired(trim($settings['blogsystem']['comments']["allowedUntil"]))) {
-				$condition = FALSE;
+		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
+			return $this->renderElseChild();
+		}
+
+		if ($settings['blogsystem']['comments']['allowedUntil']) {
+			if ($post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))) {
+				return $this->renderElseChild();
 			}
 		}
 
-		if ($condition) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
+		return $this->renderThenChild();
 	}
 }
 

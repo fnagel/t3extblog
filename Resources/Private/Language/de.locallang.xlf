@@ -205,6 +205,12 @@
 			<trans-unit id="flashMessage.comment.commentsClosed">
 				<target>Es sind keine neuen Kommentare mehr erlaubt.</target>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.notLoggedIn.title">
+				<target>Anmeldung erforderlich.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.notLoggedIn">
+				<target>Bitte melden Sie sich an um zu kommentieren.</target>
+			</trans-unit>
 
 
             <trans-unit id="module.title">
