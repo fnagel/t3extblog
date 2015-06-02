@@ -242,14 +242,6 @@ CREATE TABLE tx_t3blog_trackback (
 );
 
 
-#
-# Add attributes for table 'be_users'
-#
-CREATE TABLE be_users (
-	tx_t3blog_avatar varchar(60) DEFAULT '' NOT NULL
-);
-
-
 # Table structure for table 'tt_content'
 #
 CREATE TABLE tt_content (
