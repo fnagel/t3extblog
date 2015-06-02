@@ -594,13 +594,19 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	}
 
 	/**
-	 * Get all content elements bodytext field values concated without HTML tags
+	 * Get a plain text only preview of the post
+	 *
+	 * Either using the preview text or
+	 * all content elements bodytext field values concated without HTML tags
 	 *
 	 * @return string
 	 */
 	public function getPreview() {
-		$text = array();
+		if ($this->getPreviewText()) {
+			return strip_tags($this->getPreviewText());
+		}
 
+		$text = array();
 		foreach ($this->getContent() as $contentElement) {
 			if (strlen($contentElement['bodytext']) > 0) {
 				$text[] = $contentElement['bodytext'];
