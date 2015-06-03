@@ -47,6 +47,26 @@ class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persi
 
 		return $query;
 	}
+
+	/**
+	 * Enable fields for BE and FE
+	 *
+	 * @param string $table
+	 *
+	 * @return string
+	 */
+	public function enableFields($table) {
+		$where = '';
+
+		if (TYPO3_MODE === 'FE') {
+			$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+		} else {
+			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
+			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($table);
+		}
+
+		return $where;
+	}
 }
 
 ?>

@@ -149,7 +149,6 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'cruser_id' => 'cruser_id',
 		'default_sortby' => 'ORDER BY crdate DESC',
 		'delete' => 'deleted',
-		'languageField' => 'sys_language_uid',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
@@ -162,7 +161,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'searchFields' => 'title,author,email,website,text',
 	),
 	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post, mails_sent',
+		'fe_admin_fieldList' => 'hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post, mails_sent',
 	)
 );
 

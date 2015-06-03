@@ -91,7 +91,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 		$query->matching(
 			$query->logicalAnd(
 				$this->getValidConstraints($query),
-				$query->equals('postId', $post->getUid())
+				$query->equals('postId', $post->getLocalizedUid())
 			)
 		);
 

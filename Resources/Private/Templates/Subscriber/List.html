@@ -31,7 +31,12 @@
 		<f:for each="{subscribers}" as="subscriber">
 			<tr>
 				<td>
-					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{subscriber.post.linkParameter}">
+					<f:link.action
+						pageUid="{settings.blogsystem.pid}"
+						controller="Post"
+						action="show"
+						additionalParams="{L: subscriber.post.sysLanguageUid}"
+						arguments="{subscriber.post.linkParameter}">
 						{subscriber.post.title}
 					</f:link.action>
 				</td>

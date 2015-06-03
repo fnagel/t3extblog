@@ -172,7 +172,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
-			$this->post = $this->getPostRepository()->findByUid($this->postUid);
+			$this->post = $this->getPostRepository()->findByLocalizedUidForSubscriptionList($this->postUid);
 		}
 
 		return $this->post;

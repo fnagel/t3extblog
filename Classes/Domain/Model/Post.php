@@ -506,8 +506,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->initComments();
 
-		$comment->setPostId($this->getUid());
-		$comment->_setProperty('_languageUid', $this->getSysLanguageUid());
+		$comment->setPostId($this->getLocalizedUid());
+
 		$this->comments->attach($comment);
 		$this->getCommentRepository()->add($comment);
 	}

@@ -66,6 +66,42 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 
 		return $query->execute()->getFirst();
 	}
+	/**
+	 * Gets a minimal model of a localized blog post
+	 *
+	 * Workaround as long as setRespectStoragePage does not work
+	 * See related bug: https://forge.typo3.org/issues/47192
+	 *
+	 * @todo This should be changed to a default findByUid when above bug is fixed
+	 *
+	 * @param integer $uid id of record
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post
+	 */
+	public function findByLocalizedUidForSubscriptionList($uid) {
+		/* @var $database t3lib_DB */
+		$database = $GLOBALS['TYPO3_DB'];
+		$table = 'tx_t3blog_post';
+		$select = 'uid, pid, sys_language_uid as _languageUid, l18n_parent as _localizedUid, deleted, hidden, title, author, date as publishDate';
+		$where = 'uid = ' . $uid . $this->enableFields($table);
+		$result = $database->exec_SELECTgetSingleRow($select, $table, $where);
+
+		/* @var $post Tx_T3extblog_Domain_Model_Post */
+		$post = $this->objectManager->create('Tx_T3extblog_Domain_Model_Post');
+
+		foreach ($result as $key => $value) {
+			// Prepare DateTime model properties
+			if ($key === 'publishDate' && !empty($value)) {
+				$tempDate = new \DateTime();
+				$tempDate->setTimestamp((int) $value);
+				$value = $tempDate;
+			}
+
+			$post->_setProperty($key, $value);
+		}
+
+		return $post;
+	}
 
 	/**
 	 * Get next post
