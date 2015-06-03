@@ -78,6 +78,11 @@ class Tx_T3extblog_Hooks_RealUrl {
 								'enable404forInvalidAlias' => 1,
 								'autoUpdate' => 1,
 								'expireDays' => 180,
+								// language support (translated urls)
+								'languageGetVar' => 'L',
+								'languageExceptionUids' => '',
+								'languageField' => 'sys_language_uid',
+								'transOrigPointerField' => 'l18n_parent',
 							),
 						),
 					),
@@ -127,6 +132,11 @@ class Tx_T3extblog_Hooks_RealUrl {
 								'enable404forInvalidAlias' => 1,
 								'autoUpdate' => 1,
 								'expireDays' => 180,
+								// language support (translated urls)
+								'languageGetVar' => 'L',
+								'languageExceptionUids' => '',
+								'languageField' => 'sys_language_uid',
+								'transOrigPointerField' => 'l18n_parent',
 							)
 						)
 					),
