@@ -165,7 +165,6 @@ CREATE TABLE tx_t3blog_com (
 	spam tinyint(3) DEFAULT '0' NOT NULL,
 	fk_post int(11) DEFAULT '0' NOT NULL,
 	mails_sent tinyint(3) DEFAULT NULL,
-	parent_id int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
