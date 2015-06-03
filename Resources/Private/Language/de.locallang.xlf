@@ -124,7 +124,7 @@
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.confirmed">
-				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommentare geposted wurden.</target>
+				<target>Vielen Dank! Sie erhalten ab sofort eine Email wenn neue Kommentare erstellt wurden.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.deleted.title">
 				<target>Abbonement gelöscht!</target>
