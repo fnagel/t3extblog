@@ -39,12 +39,52 @@ abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_Domai
 	protected $objectManager;
 
 	/**
+	 * commentRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected $commentRepository = NULL;
+
+	/**
+	 * postRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 */
+	protected $postRepository = NULL;
+
+	/**
 	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
+	}
+
+	/**
+	 * Get commentRepository
+	 *
+	 * @vreturn Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected function getCommentRepository() {
+		if ($this->commentRepository === NULL) {
+			$this->commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
+		}
+
+		return $this->commentRepository;
+	}
+
+	/**
+	 * Get postRepository
+	 *
+	 * @vreturn Tx_T3extblog_Domain_Repository_PostRepository
+	 */
+	protected function getPostRepository() {
+		if ($this->postRepository === NULL) {
+			$this->postRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository');
+		}
+
+		return $this->postRepository;
 	}
 
 	/**
@@ -74,6 +114,21 @@ abstract class Tx_T3extblog_Domain_Model_AbstractEntity extends Tx_Extbase_Domai
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Serialization (sleep) helper.
+	 *
+	 * @return array Names of the properties to be serialized
+	 */
+	public function __sleep() {
+		$properties = get_object_vars($this);
+
+		// fix to make sure we are able to use forward in controller
+		unset($properties['commentRepository']);
+		unset($properties['commentRepository']);
+
+		return array_keys($properties);
 	}
 }
 

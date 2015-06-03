@@ -133,7 +133,7 @@ class Tx_T3extblog_Domain_Model_Category extends Tx_T3extblog_Domain_Model_Abstr
 	 */
 	public function getPosts() {
 		if ($this->posts === NULL) {
-			$posts = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository')->findByCategory($this);
+			$posts = $this->getPostRepository()->findByCategory($this);
 
 			$this->posts = new Tx_Extbase_Persistence_ObjectStorage();
 			foreach ($posts as $post) {

@@ -110,8 +110,6 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 
 	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct($postUid) {
 		$this->postUid = $postUid;
@@ -174,8 +172,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
-			$postRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository');
-			$this->post = $postRepository->findByUid($this->postUid);
+			$this->post = $this->getPostRepository()->findByUid($this->postUid);
 		}
 
 		return $this->post;
@@ -188,8 +185,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 */
 	public function getPostComments() {
 		if ($this->postComments === NULL) {
-			$commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
-			$postComments = $commentRepository->findValidByEmailAndPostId($this->email, $this->postUid);
+			$postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
 
 			$this->postComments = new Tx_Extbase_Persistence_ObjectStorage();
 			foreach ($postComments as $comment) {
@@ -207,8 +203,7 @@ class Tx_T3extblog_Domain_Model_Subscriber extends Tx_T3extblog_Domain_Model_Abs
 	 */
 	public function getPostPendingComments() {
 		if ($this->postPendingComments === NULL) {
-			$commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
-			$postPendingComments = $commentRepository->findPendingByEmailAndPostId($this->email, $this->postUid);
+			$postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);
 
 			$this->postPendingComments = new Tx_Extbase_Persistence_ObjectStorage();
 			foreach ($postPendingComments as $comment) {

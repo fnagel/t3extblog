@@ -122,13 +122,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	protected $rawComments = NULL;
 
 	/**
-	 * commentRepository
-	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
-	 */
-	protected $commentRepository = NULL;
-
-	/**
 	 * subscriptions
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber>
@@ -149,10 +142,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 * @return array Names of the properties to be serialized
 	 */
 	public function __sleep() {
+		parent::__sleep();
+
 		$properties = get_object_vars($this);
 
 		// fix to make sure we are able to use forward in controller
-		unset($properties['commentRepository']);
 		unset($properties['categories']);
 		unset($properties['subscriptions']);
 
@@ -494,8 +488,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 */
 	protected function initComments() {
 		if ($this->comments === NULL) {
-			$this->commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
-			$this->rawComments = $this->commentRepository->findValidByPost($this);
+			$this->rawComments = $this->getCommentRepository()->findValidByPost($this);
 
 			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
 			foreach($this->rawComments as $comment) {
@@ -516,7 +509,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 		$comment->setPostId($this->getUid());
 		$comment->_setProperty('_languageUid', $this->getSysLanguageUid());
 		$this->comments->attach($comment);
-		$this->commentRepository->add($comment);
+		$this->getCommentRepository()->add($comment);
 	}
 
 	/**
@@ -531,7 +524,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 		$commentToRemove->setDeleted(TRUE);
 
 		$this->comments->detach($commentToRemove);
-		$this->commentRepository->update($commentToRemove);
+		$this->getCommentRepository()->update($commentToRemove);
 	}
 
 	/**
