@@ -34,11 +34,6 @@
 class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
-	 * @var integer
-	 **/
-	protected $pageUid = NULL;
-
-	/**
 	 * @param null $pageUid
 	 *
 	 * @return Tx_Extbase_Persistence_QueryInterface
@@ -47,21 +42,10 @@ class Tx_T3extblog_Domain_Repository_AbstractRepository extends Tx_Extbase_Persi
 		$query = parent::createQuery();
 
 		if ($pageUid !== NULL) {
-			$this->setPid($pageUid);
-		}
-
-		if ($this->pageUid !== NULL) {
-			$query->getQuerySettings()->setStoragePageIds(array($this->pageUid));
+			$query->getQuerySettings()->setStoragePageIds(array($pageUid));
 		}
 
 		return $query;
-	}
-
-	/**
-	 * @param $uid Page uid
-	 */
-	public function setPid($uid) {
-		$this->pageUid = $uid;
 	}
 }
 

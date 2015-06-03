@@ -55,12 +55,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-
-		if (version_compare(TYPO3_branch, '6.0', '<')) {
-			$query->getQuerySettings()->setRespectEnableFields($respectEnableFields);
-		} else {
-			$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
-		}
+		$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
 
 		$query->matching(
 			$query->logicalAnd(
@@ -83,7 +78,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 		$query = $this->createQuery();
 
 		$query->setOrderings(
-			array('publishDate'=> Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
+			array('publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
 		);
 
 		$query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
@@ -115,14 +110,10 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
 	 */
 	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
-		$query = $this->createQuery(intval($pid));
+		$query = $this->createQuery((int) $pid);
 
 		if ($respectEnableFields === FALSE) {
-			if (version_compare(TYPO3_branch, '6.0', '<')) {
-				$query->getQuerySettings()->setRespectEnableFields(FALSE);
-			} else {
-				$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-			}
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 
 			$query->matching(
 				$query->equals('deleted', '0')
