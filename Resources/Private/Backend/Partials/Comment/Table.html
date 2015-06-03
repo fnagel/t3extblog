@@ -15,9 +15,17 @@
 					<td><f:translate key="module.comment.table.spam" /></td>
 					<td style="width: 65px;">&nbsp;</td>
 				</tr>
-				<f:for each="{paginatedComments}" as="comment">
-					<f:render partial="Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
-				</f:for>
+
+				<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
+					<tr class="c-headLine">
+						<td colspan="9" class="col-title">
+							<t3extblog:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+						</td>
+					</tr>
+					<f:for each="{paginatedCommentsByPost}" as="comment">
+						<f:render partial="Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+					</f:for>
+				</f:groupedFor>
 				<tr>
 					<td colspan="9">
 						<f:translate
