@@ -421,7 +421,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 */
 	public function getPost() {
 		if ($this->post === NULL) {
-			$this->post = $this->getPostRepository()->findByUid($this->postId);
+			$this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
 		}
 
 		return $this->post;
