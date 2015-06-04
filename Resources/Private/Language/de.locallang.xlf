@@ -110,16 +110,6 @@
 				<target>Bitte geben Sie valide URL ein.</target>
 			</trans-unit>
 
-			<trans-unit id="subject.admin.newSubscription">
-				<target>%1$s: Neuer Kommentar</target>
-			</trans-unit>
-			<trans-unit id="subject.subscriber.notify">
-				<target>%1$s: Neuer Kommentar zu '%2$s'</target>
-			</trans-unit>
-			<trans-unit id="subject.subscriber.new">
-				<target>%1$s: Abbonieren von '%2$s'</target>
-			</trans-unit>
-
 			<trans-unit id="flashMessage.subscriber.confirmed.title">
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>

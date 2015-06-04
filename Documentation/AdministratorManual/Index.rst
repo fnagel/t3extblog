@@ -167,7 +167,7 @@ Multilanguage / Localization
 
 **Requirements:**
 
-Working multilanguage TYPO3 CMS installation.
+Working multi language TYPO3 CMS installation.
 
 
 **Needed steps:**
@@ -179,3 +179,15 @@ Working multilanguage TYPO3 CMS installation.
 * Translate record sysfolder
 
 * Start translating your posts and categories!
+
+
+**Email localization**
+
+All emails (subscription opt-in, new comment notify for admin and user) are single language only at the moment.
+
+.. important::
+	Please note: Added localization strings will work in frontend but not in backend. It's recommended to only use and
+	change the default localization to keep all emails consistent.
+
+
+Please see here for more information: https://github.com/fnagel/t3extblog/issues/68
