@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-06-05T10:52:05Z" product-name="tx_myext">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-06-05T10:52:05Z" product-name="t3extblog">
 		<header/>
 		<body>
 			<trans-unit id="error.headline">
