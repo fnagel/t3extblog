@@ -12,7 +12,7 @@ See the comment: <t3b:frontend.uri.action
 					pageUid="{settings.blogsystem.pid}"
 					absolute="true"
 					arguments="{post.linkParameter}"
-					section="comment_{comment.uid}" />
+					section="comment-{comment.uid}" />
 
 You can manage your subscription by using this link:
 <t3b:frontend.uri.action
