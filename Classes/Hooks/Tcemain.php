@@ -181,8 +181,8 @@ class Tx_T3extblog_Hooks_Tcemain {
 				'no_cache' => 1,
 			);
 			if ($record['sys_language_uid'] > 0) {
-				if ($record['l10n_parent'] > 0) {
-					$parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l10n_parent'];
+				if ($record['l18n_parent'] > 0) {
+					$parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l18n_parent'];
 				}
 				$parameters['L'] = $record['sys_language_uid'];
 			}
@@ -191,7 +191,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 			$previewDomain = t3lib_BEfunc::getViewDomain($previewPageId, $previewDomainRootline);
 			$queryString = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
 
-			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString . '&y=';
+			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString;
 			$GLOBALS['_POST']['popViewId_addParams'] = $queryString;
 			$GLOBALS['_POST']['popViewId'] = $previewPageId;
 		}
