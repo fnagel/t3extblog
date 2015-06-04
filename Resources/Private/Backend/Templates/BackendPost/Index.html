@@ -21,15 +21,31 @@
 						<td><f:translate key="module.post.table.author" /></td>
 						<td><f:translate key="module.post.table.comments" /></td>
 						<td>&nbsp;</td>
-						<td>&nbsp;</td>
 					</tr>
 
 					<f:for each="{paginatedPosts}" as="post">
-						<f:render partial="Post/Row" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+						<tr class="db_list_normal">
+							<td class="col-icon">
+								<a href="#" onClick="showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" title="id={post.uid}">
+									<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+								</a>
+							</td>
+							<f:render partial="Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+						</tr>
+						<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}" returnUrl="{returnUrl}">
+							<f:for each="{localizedRecords}" as="localizedPost">
+								<tr class="db_list_normal localized">
+									<td class="col-icon">
+										<f:format.raw>{localizedPost.editIcon}</f:format.raw>
+									</td>
+									<f:render partial="Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+								</tr>
+							</f:for>
+						</t3extblog:localization>
 					</f:for>
 
 					<tr>
-						<td colspan="7">
+						<td colspan="6">
 							<f:translate
 								key="module.post.table.count"
 								arguments="{0: '{paginatedPosts -> f:count()}', 1: '{posts -> f:count()}'}" />

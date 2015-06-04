@@ -76,14 +76,15 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 * @todo This should be changed to a default findByUid when above bug is fixed
 	 *
 	 * @param integer $uid id of record
+	 * @param boolean $respectEnableFields if set to false, hidden records are shown
 	 *
 	 * @return Tx_T3extblog_Domain_Model_Post
 	 */
-	public function findByLocalizedUid($uid) {
+	public function findByLocalizedUid($uid, $respectEnableFields = TRUE) {
 		$temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];
 		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = NULL;
 
-		$post = $this->findByUid($uid);
+		$post = $this->findByUid($uid, $respectEnableFields);
 
 		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = $temp;
 

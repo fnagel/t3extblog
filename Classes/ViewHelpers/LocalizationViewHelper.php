@@ -46,18 +46,25 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 	public $systemLanguages = array();
 
 	/**
-	 * @param string $table
-	 * @param object $object
-	 * @param string $returnUrl
+	 * @param string $translations Name of the added variable
+	 * @param string $table Table to process
+	 * @param object $object Object to process
+	 * @param string $returnUrl BE return url
 	 *
 	 * @return string
 	 */
-	public function render($table, $object, $returnUrl) {
+	public function render($translations, $table, $object, $returnUrl) {
 		$content = '';
-		$this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
+		$records = array();
+		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
 
+		$this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
 		if (count($this->systemLanguages) > 2) {
-			$content = $this->makeLocalizationPanel($table, $object->toArray(), $returnUrl);
+			$records = $this->getLocalizedRecords($table, $object->toArray(), $returnUrl);
+
+			$templateVariableContainer->add($this->arguments['translations'], $records);
+			$content = $this->renderChildren();
+			$templateVariableContainer->remove($this->arguments['translations']);
 		}
 
 		return $content;
@@ -68,35 +75,38 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 	 *
 	 * @param string $table The table
 	 * @param array $row The record for which to make the localization panel.
-	 * @return array Array with key 0/1 with content for column 1 and 2
-	 * @todo Define visibility
+	 * @param string $returnUrl
+	 *
+	 * @return array
 	 */
-	public function makeLocalizationPanel($table, $row, $returnUrl) {
-		$out = '';
+	public function getLocalizedRecords($table, $row, $returnUrl) {
+		$records = array();
 		$translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
 
 		if (is_array($translations) && is_array($translations['translations'])) {
-			$languageButtons = array();
 
 			foreach ($translations['translations'] as $sysLanguageUid => $translationData) {
 				if (!$GLOBALS['BE_USER']->checkLanguageAccess($sysLanguageUid)) {
 					continue;
 				}
+
 				if (isset($translations['translations'][$sysLanguageUid])) {
-					$languageButtons[] = $this->getLanguageIconLink(
-						$sysLanguageUid,
-						'alt_doc.php?edit[' . $table . '][' . $translationData['uid'] . ']=edit&returnUrl=' . $returnUrl
+					$records[$sysLanguageUid] = array(
+						'editIcon' => $this->getLanguageIconLink(
+							$sysLanguageUid,
+							'alt_doc.php?edit[' . $table . '][' . $translationData['uid'] . ']=edit&returnUrl=' . $returnUrl,
+							$translationData['uid']
+						),
+						'uid' => $translations['translations'][$sysLanguageUid]['uid']
 					);
 				}
 			}
-
-			$out .= implode(' ', $languageButtons);
 		}
 
-		return $out;
+		return $records;
 	}
 
-	protected function getLanguageIconLink($sysLanguageUid, $href) {
+	protected function getLanguageIconLink($sysLanguageUid, $href, $uid) {
 		$language = t3lib_BEfunc::getRecord('sys_language', $sysLanguageUid, 'title');
 
 		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
@@ -105,7 +115,7 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
 		}
 
-		return '<a href="' . htmlspecialchars($href) . '" title="' . htmlspecialchars($language['title']) . '">' . $icon . '</a>';
+		return '<a href="' . htmlspecialchars($href) . '" title="' . $uid . ', ' . htmlspecialchars($language['title']) . '">' . $icon . '</a>';
 	}
 
 	/**

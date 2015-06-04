@@ -1,3 +1,26 @@
+/* Table */
+table tr.db_list_normal td.title {
+	font-weight: bold;
+}
+
+table tr.localized td.col-icon {
+	padding-left: 20px;
+}
+table tr.db_list_normal.localized td.title {
+	font-weight: normal;
+}
+
+table td.comment {
+	width: 75px;
+}
+
+table td.action {
+	width: 65px;
+}
+table td.action a {
+	text-decoration: none;
+}
+
 /* Paginate */
 .f3-widget-paginator {
 	display: block;
