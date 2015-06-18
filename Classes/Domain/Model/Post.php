@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractEntity {
+class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractLocalizedEntity {
 
 	/**
 	 * @var boolean
@@ -92,9 +92,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	/**
 	 * content
 	 *
-	 * @var array
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content>
+	 * @lazy
 	 */
-	protected $content = NULL;
+	protected $content;
 
 	/**
 	 * categories
@@ -121,13 +122,6 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	protected $rawComments = NULL;
 
 	/**
-	 * commentRepository
-	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
-	 */
-	protected $commentRepository = NULL;
-
-	/**
 	 * subscriptions
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Subscriber>
@@ -148,10 +142,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 * @return array Names of the properties to be serialized
 	 */
 	public function __sleep() {
+		parent::__sleep();
+
 		$properties = get_object_vars($this);
 
 		// fix to make sure we are able to use forward in controller
-		unset($properties['commentRepository']);
 		unset($properties['categories']);
 		unset($properties['subscriptions']);
 
@@ -166,6 +161,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	protected function initStorageObjects() {
 		$this->categories = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscriptions = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
 	/**
@@ -279,11 +275,11 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	/**
 	 * Checks if the post is too old for posting new comments
 	 *
-	 * @param DateTime $expireDate
+	 * @param string $expireDate
 	 *
 	 * @return string
 	 */
-	public function isExpired($expireDate) {
+	public function isExpired($expireDate = '+1 month') {
 		$now = new DateTime();
 		$expire = clone $this->getPublishDate();
 
@@ -390,49 +386,33 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	/**
 	 * Returns the content
 	 *
-	 * @return array
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content> $content
 	 */
 	public function getContent() {
-		if ($this->content === NULL) {
-			$this->content = $this->fetchContentData();
-		}
-
 		return $this->content;
 	}
 
 	/**
-	 * Get tt_content data
+	 * Set content element list
 	 *
-	 * We need to use old school SQL here so we have all (!) fields available for
-	 * tt_content rendering. When using extbase persistence we need to map all fields
-	 * in TS which is annoying as tt_content is heavily extended in most installations
-	 *
-	 * @return array
+	 * @param Tx_Extbase_Persistence_ObjectStorage $content content elements
+	 * @return void
 	 */
-	protected function fetchContentData() {
-		/* @var $database t3lib_DB */
-		$database = $GLOBALS['TYPO3_DB'];
-		$data = array();
+	public function setContent($content) {
+		$this->content = $content;
+	}
 
-		$table = 'tt_content';
-		$where = 'irre_parentid = ' . $this->getUid() . ' AND irre_parenttable = "tx_t3blog_post"';
-
-		if (TYPO3_MODE === 'FE') {
-			$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
-		} else {
-			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
+	/**
+	 * Adds a content element to the record
+	 *
+	 * @param Tx_T3extblog_Domain_Model_Content $content
+	 * @return void
+	 */
+	public function addContent(Tx_T3extblog_Domain_Model_Content $content) {
+		if ($this->getContent() === NULL) {
+			$this->content = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		}
-
-		$result = $database->exec_SELECTquery('*', $table, $where, '', 'sorting', '');
-		while ($row = $database->sql_fetch_assoc($result)) {
-			if (is_array($row)) {
-				$data[] = $row;
-			}
-		}
-
-		$database->sql_free_result($result);
-
-		return $data;
+		$this->content->attach($content);
 	}
 
 	/**
@@ -444,7 +424,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$idList = array();
 
 		foreach ($this->getContent() as $contentElement) {
-			$idList[] = $contentElement['uid'];
+			$idList[] = $contentElement->getUid();
 		}
 
 		return implode(',', $idList);
@@ -459,8 +439,8 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$text = array();
 
 		foreach ($this->getContent() as $contentElement) {
-			if (strlen($contentElement['bodytext']) > 0) {
-				$text[] = $contentElement['bodytext'];
+			if (strlen($contentElement->getBodytext()) > 0) {
+				$text[] = $contentElement->getBodytext();
 			}
 		}
 
@@ -508,8 +488,7 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	 */
 	protected function initComments() {
 		if ($this->comments === NULL) {
-			$this->commentRepository = $this->objectManager->get("Tx_T3extblog_Domain_Repository_CommentRepository");
-			$this->rawComments = $this->commentRepository->findValidByPost($this);
+			$this->rawComments = $this->getCommentRepository()->findValidByPost($this);
 
 			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
 			foreach($this->rawComments as $comment) {
@@ -527,9 +506,10 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 	public function addComment(Tx_T3extblog_Domain_Model_Comment $comment) {
 		$this->initComments();
 
-		$comment->setPostId($this->getUid());
+		$comment->setPostId($this->getLocalizedUid());
+
 		$this->comments->attach($comment);
-		$this->commentRepository->add($comment);
+		$this->getCommentRepository()->add($comment);
 	}
 
 	/**
@@ -544,8 +524,9 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractE
 		$commentToRemove->setDeleted(TRUE);
 
 		$this->comments->detach($commentToRemove);
-		$this->commentRepository->update($commentToRemove);
+		$this->getCommentRepository()->update($commentToRemove);
 	}
+
 	/**
 	 * Returns the comments
 	 *

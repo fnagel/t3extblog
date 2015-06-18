@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-06-05T10:52:05Z" product-name="tx_myext">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-06-05T10:52:05Z" product-name="t3extblog">
 		<header/>
 		<body>
 			<trans-unit id="error.headline">
@@ -110,21 +110,11 @@
 				<target>Bitte geben Sie valide URL ein.</target>
 			</trans-unit>
 
-			<trans-unit id="subject.admin.newSubscription">
-				<target>%1$s: Neuer Kommentar</target>
-			</trans-unit>
-			<trans-unit id="subject.subscriber.notify">
-				<target>%1$s: Neuer Kommentar zu '%2$s'</target>
-			</trans-unit>
-			<trans-unit id="subject.subscriber.new">
-				<target>%1$s: Abbonieren von '%2$s'</target>
-			</trans-unit>
-
 			<trans-unit id="flashMessage.subscriber.confirmed.title">
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.confirmed">
-				<target>Vielen Dank! Du erhälst ab sofort eine Email wenn neue Kommentare geposted wurden.</target>
+				<target>Vielen Dank! Sie erhalten ab sofort eine Email wenn neue Kommentare erstellt wurden.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.deleted.title">
 				<target>Abbonement gelöscht!</target>

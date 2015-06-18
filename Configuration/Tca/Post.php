@@ -3,13 +3,44 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_post'] = array(
-	'ctrl' => $TCA['tx_t3blog_post']['ctrl'],
+$GLOBALS['TCA']['tx_t3blog_post'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_t3blog_post']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views'
+		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views'
 	),
-	'feInterface' => $TCA['tx_t3blog_post']['feInterface'],
+	'feInterface' => $GLOBALS['TCA']['tx_t3blog_post']['feInterface'],
 	'columns' => array(
+		'sys_language_uid' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'sys_language',
+				'foreign_table_where' => 'ORDER BY sys_language.title',
+				'items' => array(
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
+				)
+			)
+		),
+		'l18n_parent' => array(
+			'displayCond' => 'FIELD:sys_language_uid:>:0',
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'tx_t3blog_post',
+				'foreign_table_where' => 'AND tx_t3blog_post.pid=###CURRENT_PID### AND tx_t3blog_post.sys_language_uid IN (-1,0)',
+			)
+		),
+		'l18n_diffsource' => array(
+			'config' => array(
+				'type' => 'passthrough'
+			)
+		),
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -62,6 +93,7 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'title' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'prefixLangTitle',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.title',
 			'config' => array(
 				'type' => 'input',
@@ -70,6 +102,7 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'tagClouds' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tagClouds',
 			'config' => array(
 				'type' => 'input',
@@ -105,23 +138,36 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'content' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.content',
 			'config' => array(
 				'type' => 'inline',
+				'allowed' => 'tt_content',
 				'foreign_table' => 'tt_content',
-				'foreign_field' => 'irre_parentid',
 				'foreign_table_field' => 'irre_parenttable',
-				'maxitems' => 100,
+				'foreign_field' => 'irre_parentid',
+				'minitems' => 0,
+				'maxitems' => 99,
 				'appearance' => array(
-					'showSynchronizationLink' => 0,
-					'showAllLocalizationLink' => 0,
-					'showPossibleLocalizationRecords' => 0,
-					'showRemovedLocalizationRecords' => 0,
-					'expandSingle' => 1
+					'collapseAll' => 1,
+					'expandSingle' => 1,
+					'levelLinksPosition' => 'bottom',
+					'useSortable' => 1,
+					'showPossibleLocalizationRecords' => 1,
+					'showRemovedLocalizationRecords' => 1,
+					'showAllLocalizationLink' => 1,
+					'showSynchronizationLink' => 1,
+					'enabledControls' => array(
+						'info' => FALSE,
+					)
 				),
-				'behaviour' => array(),
+				'behaviour' => array(
+					'enableCascadingDelete' => TRUE
+				),
+				'foreign_selector_fieldTcaOverride' => array(
+					'l10n_mode' => 'prefixLangTitle'
+				)
 			)
-
 		),
 		'allow_comments' => array(
 			'exclude' => 1,
@@ -138,7 +184,7 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'cat' => array(
 			'exclude' => 1,
-			'l10n_mode' => 'mergeIfNotBlank',
+			'l10n_mode' => 'exclude',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.cat',
 			'config' => array(
 				'type' => 'select',
@@ -161,6 +207,7 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'trackback' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'noCopy',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.trackback',
 			'config' => array(
 				'type' => 'text',
@@ -171,6 +218,7 @@ $TCA['tx_t3blog_post'] = array(
 		),
 		'trackback_hash' => array(
 			'exclude' => 0,
+			'l10n_mode' => 'noCopy',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.trackback_hash',
 			'config' => array(
 				'type' => 'input',
@@ -194,7 +242,7 @@ $TCA['tx_t3blog_post'] = array(
 		'0' => array(
 			'showitem' => '
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.post;;;1-1-1,
-					date,author;;;;2-2-2,be_user, title;;;;3-3-3,content,
+					sys_language_uid,l18n_parent,l18n_diffsource,date,author;;;;2-2-2,be_user, title;;;;3-3-3,content,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.category,
 					tagClouds,cat,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.interactive,

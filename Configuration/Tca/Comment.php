@@ -3,12 +3,12 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_com'] = array(
-	'ctrl' => $TCA['tx_t3blog_com']['ctrl'],
+$GLOBALS['TCA']['tx_t3blog_com'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_t3blog_com']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
-	'feInterface' => $TCA['tx_t3blog_com']['feInterface'],
+	'feInterface' => $GLOBALS['TCA']['tx_t3blog_com']['feInterface'],
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,
@@ -144,12 +144,17 @@ $TCA['tx_t3blog_com'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.fk_post',
 			'config' => array(
-				'type' => 'group',
-				'internal_type' => 'db',
-				'allowed' => 'tx_t3blog_post',
-				'size' => 1,
+				'type' => 'select',
+				'foreign_table' => 'tx_t3blog_post',
+				'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
 				'minitems' => 1,
 				'maxitems' => 1,
+				'size' => 1,
+				'wizards' => array(
+					'add' => Array(
+						'type' => 'suggest',
+					),
+				),
 			)
 		),
 		'mails_sent' => array(

@@ -420,10 +420,8 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return Tx_T3extblog_Domain_Model_Post
 	 */
 	public function getPost() {
-		if ($this->post == NULL) {
-			$this->post = $this->objectManager
-				->get('Tx_T3extblog_Domain_Repository_PostRepository')
-				->findByUid($this->postId);
+		if ($this->post === NULL) {
+			$this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
 		}
 
 		return $this->post;
@@ -435,7 +433,7 @@ class Tx_T3extblog_Domain_Model_Comment extends Tx_T3extblog_Domain_Model_Abstra
 	 * @return boolean $spam
 	 */
 	public function getSubscribe() {
-		return (boolean)$this->subscribe;
+		return (boolean) $this->subscribe;
 	}
 
 	/**

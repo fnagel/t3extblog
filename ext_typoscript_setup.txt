@@ -8,8 +8,8 @@ config.tx_extbase {
 		Tx_T3extblog_Service_LoggingServiceInterface.className = Tx_T3extblog_Service_LoggingService
 	}
 
-    persistence{
-        classes{
+    persistence {
+        classes {
             Tx_T3extblog_Domain_Model_Post {
                 mapping {
                     tableName = tx_t3blog_post
@@ -21,15 +21,25 @@ config.tx_extbase {
 						title.mapOnProperty = title
 						author.mapOnProperty = author
 						date.mapOnProperty = publishDate
+						content.mapOnProperty = content
 						allow_comments.mapOnProperty = allowComments
 						cat.mapOnProperty = categories
 						tagClouds.mapOnProperty = tagCloud
 						number_views.mapOnProperty = numberOfViews
-						# prevent persisting
-						content.mapOnProperty =
 					}
                 }
             }
+	        Tx_T3extblog_Domain_Model_Content {
+		        mapping {
+			        tableName = tt_content
+			        columns {
+				        altText.mapOnProperty = altText
+				        titleText.mapOnProperty = titleText
+				        colPos.mapOnProperty = colPos
+				        CType.mapOnProperty = CType
+			        }
+		        }
+	        }
             Tx_T3extblog_Domain_Model_Category {
                 mapping {
                     tableName = tx_t3blog_cat

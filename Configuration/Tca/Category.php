@@ -3,13 +3,44 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3blog_cat'] = array(
-	'ctrl' => $TCA['tx_t3blog_cat']['ctrl'],
+$GLOBALS['TCA']['tx_t3blog_cat'] = array(
+	'ctrl' => $GLOBALS['TCA']['tx_t3blog_cat']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,parent_id,catname,description'
+		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,parent_id,catname,description'
 	),
-	'feInterface' => $TCA['tx_t3blog_cat']['feInterface'],
+	'feInterface' => $GLOBALS['TCA']['tx_t3blog_cat']['feInterface'],
 	'columns' => array(
+		'sys_language_uid' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'sys_language',
+				'foreign_table_where' => 'ORDER BY sys_language.title',
+				'items' => array(
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
+				)
+			)
+		),
+		'l18n_parent' => array(
+			'displayCond' => 'FIELD:sys_language_uid:>:0',
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'tx_t3blog_cat',
+				'foreign_table_where' => 'AND tx_t3blog_cat.pid=###CURRENT_PID### AND tx_t3blog_cat.sys_language_uid IN (-1,0)',
+			)
+		),
+		'l18n_diffsource' => array(
+			'config' => array(
+				'type' => 'passthrough'
+			)
+		),
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -20,6 +51,7 @@ $TCA['tx_t3blog_cat'] = array(
 		),
 		'starttime' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
 			'config' => array(
 				'type' => 'input',
@@ -32,6 +64,7 @@ $TCA['tx_t3blog_cat'] = array(
 		),
 		'endtime' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
 			'config' => array(
 				'type' => 'input',
@@ -62,6 +95,7 @@ $TCA['tx_t3blog_cat'] = array(
 		),
 		'parent_id' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'exclude',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.parent_id',
 			'config' => array(
 				'type' => 'select',
@@ -85,6 +119,7 @@ $TCA['tx_t3blog_cat'] = array(
 		),
 		'catname' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'prefixLangTitle',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.catname',
 			'config' => array(
 				'type' => 'input',
@@ -95,6 +130,7 @@ $TCA['tx_t3blog_cat'] = array(
 
 		'description' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.description',
 			'config' => array(
 				'type' => 'input',
@@ -105,7 +141,7 @@ $TCA['tx_t3blog_cat'] = array(
 	'types' => array(
 		'0' => array('showitem' => '
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general;;;;1-1-1,
-				catname,description,parent_id,
+				l18n_parent,l18n_diffsource,catname,description,parent_id,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access,
 				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access;1')
 	),

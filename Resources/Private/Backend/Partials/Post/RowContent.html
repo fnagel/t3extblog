@@ -1,0 +1,34 @@
+{namespace t3extblog = Tx_T3extblog_ViewHelpers}
+
+<td class="title">
+	<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+		{post.title}
+	</a>
+</td>
+<td>{post.publishDate -> f:format.date(format: 'd.m.Y - H:i')}</td>
+<td>{post.author.name}</td>
+<td class="comment">
+	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post}">
+		{post.comments -> f:count()}
+	</f:link.action>
+</td>
+<td class="action">
+	<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+		<t3extblog:spriteManagerIcon iconName="actions-document-open" />
+	</a>
+	<f:if condition="{post.hidden}">
+		<f:then>
+			<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0" />">
+				<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
+			</a>
+		</f:then>
+		<f:else>
+			<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1" />">
+				<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hide'}" />
+			</a>
+		</f:else>
+	</f:if>
+	<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />" onclick="return confirm('{f:translate(key: "module.message.deleteRecord")}');">
+		<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
+	</a>
+</td>

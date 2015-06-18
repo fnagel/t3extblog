@@ -1,42 +1,24 @@
-/* Structure */
-#compareUsers {
-	margin-bottom: 10px;
+/* Table */
+table tr.db_list_normal td.title {
+	font-weight: bold;
 }
 
-div.collapsibleSection {
-	background-color: #ededed;
-	border-top: 1px solid #cdcdcd;
-	border-bottom: 1px solid #cdcdcd;
-	padding: 12px;
-	margin-bottom: 24px;
+table tr.localized td.col-icon {
+	padding-left: 20px;
+}
+table tr.db_list_normal.localized td.title {
+	font-weight: normal;
 }
 
-#tx_beuser_compare td {
-	min-width: 170px;
+table td.comment {
+	width: 75px;
 }
 
-/* Form */
-form label {
-	float: left;
-	height: 20px;
-	line-height: 20px;
-	margin-right: 10px;
-	width: 90px;
+table td.action {
+	width: 65px;
 }
-
-form div {
-	clear: both;
-	margin-bottom: 5px;
-}
-
-form .field-row,
-form .button-row {
-	clear: both;
-	margin-bottom: 10px;
-}
-
-form .indent {
-	margin-left: 100px;
+table td.action a {
+	text-decoration: none;
 }
 
 /* Paginate */

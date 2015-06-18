@@ -13,7 +13,8 @@ Link:		<t3b:frontend.uri.action
 				pageUid="{settings.blogsystem.pid}"
 				absolute="true"
 				arguments="{post.linkParameter}"
-				section="comment_{comment.uid}" />
+				additionalParams="{L: post.sysLanguageUid}"
+				section="comment-{comment.uid}" />
 
 Your email: {subscriber.email}
 

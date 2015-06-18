@@ -100,13 +100,13 @@
 			</trans-unit>
 
 			<trans-unit id="flashMessage.subscriber.confirmed.title">
-				<source>Subscription confirmed!</source>
+				<source>Successfully confirmed!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.confirmed">
-				<source>Thank! Your subscription has been confirmed.</source>
+				<source>Thank you! Your subscription has been confirmed.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.deleted.title">
-				<source>Subscription deleted!</source>
+				<source>Successfully deleted!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.deleted">
 				<source>Your subscription has been deleted.</source>

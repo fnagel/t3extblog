@@ -36,9 +36,10 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 	/**
 	 * Render preview
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage|array $contentElements
-	 * @param integer $index
-	 * @param string $ellipsis
+	 * @param Tx_Extbase_Persistence_ObjectStorage|array 	$contentElements
+	 * @param int                                 	        $index
+	 * @param bool                                 	        $removeMarker
+	 * @param string                              	        $typoscript
 	 *
 	 * @return string
 	 */
@@ -47,16 +48,18 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 		$iterator = 0;
 		$hasDivider = FALSE;
 
+		/* @var $content Tx_T3extblog_Domain_Model_Content */
 		foreach ($contentElements as $content) {
 			$iterator++;
 
-			if ($content['CType'] === 'text' || $content['CType'] === 'textpic') {
+			$contentArray = $content->toArray();
+			if ($content->getCType() === 'text' || $content->getCType() === 'textpic') {
 				// use elements with text only
-				$dividerPosition = strpos(strip_tags($content['bodytext']), '###MORE###');
+				$dividerPosition = strpos(strip_tags($content->getBodytext()), '###MORE###');
 
 				if ($dividerPosition !== FALSE) {
 					$hasDivider = TRUE;
-					$content['bodytext'] = $this->truncate($content['bodytext'], $dividerPosition, $ellipsis = '...');
+					$contentArray['bodytext'] = $this->truncate($content->getBodytext(), $dividerPosition, $ellipsis = '...');
 				}
 			}
 
@@ -68,7 +71,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderPreviewViewHelper extends Tx_T3ext
 				continue;
 			}
 
-			$output .= $this->renderContentElement($content);
+			$output .= $this->renderContentElement($contentArray);
 
 			if ($hasDivider === TRUE) {
 				break;

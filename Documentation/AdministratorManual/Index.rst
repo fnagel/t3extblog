@@ -159,3 +159,35 @@ to your page tsconfig (123 is the PID of the page where the blogsystem is includ
 
 By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript
 (:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
+
+
+
+Multilanguage / Localization
+----------------------------
+
+**Requirements:**
+
+Working multi language TYPO3 CMS installation.
+
+
+**Needed steps:**
+
+* Translate blogsystem plugin page
+
+* Translate plugin elements
+
+* Translate record sysfolder
+
+* Start translating your posts and categories!
+
+
+**Email localization**
+
+All emails (subscription opt-in, new comment notify for admin and user) are single language only at the moment.
+
+.. important::
+	Please note: Added localization strings will work in frontend but not in backend. It's recommended to only use and
+	change the default localization to keep all emails consistent.
+
+
+Please see here for more information: https://github.com/fnagel/t3extblog/issues/68

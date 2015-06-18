@@ -55,12 +55,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-
-		if (version_compare(TYPO3_branch, '6.0', '<')) {
-			$query->getQuerySettings()->setRespectEnableFields($respectEnableFields);
-		} else {
-			$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
-		}
+		$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
 
 		$query->matching(
 			$query->logicalAnd(
@@ -70,6 +65,30 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 		);
 
 		return $query->execute()->getFirst();
+	}
+
+	/**
+	 * Gets post by uid
+	 *
+	 * Workaround as long as setRespectStoragePage does not work
+	 * See related bug: https://forge.typo3.org/issues/47192
+	 *
+	 * @todo This should be changed to a default findByUid when above bug is fixed
+	 *
+	 * @param integer $uid id of record
+	 * @param boolean $respectEnableFields if set to false, hidden records are shown
+	 *
+	 * @return Tx_T3extblog_Domain_Model_Post
+	 */
+	public function findByLocalizedUid($uid, $respectEnableFields = TRUE) {
+		$temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];
+		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = NULL;
+
+		$post = $this->findByUid($uid, $respectEnableFields);
+
+		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = $temp;
+
+		return $post;
 	}
 
 	/**
@@ -83,7 +102,7 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 		$query = $this->createQuery();
 
 		$query->setOrderings(
-			array('publishDate'=> Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
+			array('publishDate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING)
 		);
 
 		$query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
@@ -115,14 +134,10 @@ class Tx_T3extblog_Domain_Repository_PostRepository extends Tx_T3extblog_Domain_
 	 * @return Tx_Extbase_Persistence_QueryResultInterface  The posts
 	 */
 	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
-		$query = $this->createQuery(intval($pid));
+		$query = $this->createQuery((int) $pid);
 
 		if ($respectEnableFields === FALSE) {
-			if (version_compare(TYPO3_branch, '6.0', '<')) {
-				$query->getQuerySettings()->setRespectEnableFields(FALSE);
-			} else {
-				$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-			}
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 
 			$query->matching(
 				$query->equals('deleted', '0')

@@ -67,11 +67,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 		$constraints[] = $query->equals('postId', $post->getUid());
 
 		if ($respectEnableFields === FALSE) {
-			if (version_compare(TYPO3_branch, '6.0', '<')) {
-				$query->getQuerySettings()->setRespectEnableFields(FALSE);
-			} else {
-				$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-			}
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 			$constraints[] = $query->equals('deleted', '0');
 		}
 
@@ -95,7 +91,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 		$query->matching(
 			$query->logicalAnd(
 				$this->getValidConstraints($query),
-				$query->equals('postId', $post->getUid())
+				$query->equals('postId', $post->getLocalizedUid())
 			)
 		);
 
@@ -205,7 +201,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The comments
 	 */
 	public function findPendingByPage($pid = 0) {
-		$query = $this->createQuery(intval($pid));
+		$query = $this->createQuery((int) $pid);
 
 		$query->matching(
 			$this->getPendingConstraints($query)
@@ -221,7 +217,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 * @param string $email
 	 * @param integer $postUid
 	 *
-	 * @return
+	 * @return object
 	 */
 	protected function getFindByEmailAndPostIdConstraints(Tx_Extbase_Persistence_QueryInterface $query, $email, $postUid) {
 		$constraints = $query->logicalAnd(
@@ -237,7 +233,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
 	 *
-	 * @return
+	 * @return object
 	 */
 	protected function getValidConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
 		$constraints = $query->logicalAnd(
@@ -253,7 +249,7 @@ class Tx_T3extblog_Domain_Repository_CommentRepository extends Tx_T3extblog_Doma
 	 *
 	 * @param Tx_Extbase_Persistence_QueryInterface $query
 	 *
-	 * @return
+	 * @return object
 	 */
 	protected function getPendingConstraints(Tx_Extbase_Persistence_QueryInterface $query) {
 		$constraints = $query->logicalOr(

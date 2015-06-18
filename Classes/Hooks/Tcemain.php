@@ -57,6 +57,13 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected $objectContainer = NULL;
 
 	/**
+	 * commentRepository
+	 *
+	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected $commentRepository = NULL;
+
+	/**
 	 * Processes item deletion
 	 *
 	 * @param string $command
@@ -174,8 +181,8 @@ class Tx_T3extblog_Hooks_Tcemain {
 				'no_cache' => 1,
 			);
 			if ($record['sys_language_uid'] > 0) {
-				if ($record['l10n_parent'] > 0) {
-					$parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l10n_parent'];
+				if ($record['l18n_parent'] > 0) {
+					$parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l18n_parent'];
 				}
 				$parameters['L'] = $record['sys_language_uid'];
 			}
@@ -184,7 +191,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 			$previewDomain = t3lib_BEfunc::getViewDomain($previewPageId, $previewDomainRootline);
 			$queryString = t3lib_div::implodeArrayForUrl('', $parameters, '', FALSE, TRUE);
 
-			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString . '&y=';
+			$GLOBALS['_POST']['viewUrl'] = $previewDomain . '/index.php?id=' . $previewPageId . $queryString;
 			$GLOBALS['_POST']['popViewId_addParams'] = $queryString;
 			$GLOBALS['_POST']['popViewId'] = $previewPageId;
 		}
@@ -200,7 +207,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	protected function processNewComment($id, $pid) {
 		// extbase fix
 		$this->getObjectContainer()
-			->getInstance("Tx_T3extblog_Service_SettingsService")
+			->getInstance('Tx_T3extblog_Service_SettingsService')
 			->setPageUid($pid);
 
 		$this->getNotificationService()->processCommentAdded($this->getComment($id), FALSE);
@@ -229,10 +236,22 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 * @return Tx_T3extblog_Domain_Model_Comment
 	 */
 	protected function getComment($uid) {
-		$commentRepository = $this->getObjectContainer()->getInstance("Tx_T3extblog_Domain_Repository_CommentRepository");
-		$comment = $commentRepository->findByUid($uid);
+		$comment = $this->getCommentRepository()->findByUid($uid);
 
 		return $comment;
+	}
+
+	/**
+	 * Get comment repository
+	 *
+	 * @return Tx_T3extblog_Domain_Repository_CommentRepository
+	 */
+	protected function getCommentRepository() {
+		if ($this->commentRepository == NULL) {
+			$this->commentRepository = $this->getObjectContainer()->getInstance('Tx_T3extblog_Domain_Repository_CommentRepository');
+		}
+
+		return $this->commentRepository;
 	}
 
 	/**
@@ -242,7 +261,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 */
 	protected function getObjectContainer() {
 		if ($this->objectContainer == NULL) {
-			$this->objectContainer = t3lib_div::makeInstance("Tx_Extbase_Object_Container_Container");
+			$this->objectContainer = t3lib_div::makeInstance('Tx_Extbase_Object_Container_Container');
 		}
 
 		return $this->objectContainer;
@@ -255,7 +274,7 @@ class Tx_T3extblog_Hooks_Tcemain {
 	 */
 	protected function getNotificationService() {
 		if ($this->notificationService == NULL) {
-			$this->notificationService = $this->getObjectContainer()->getInstance("Tx_T3extblog_Service_NotificationService");
+			$this->notificationService = $this->getObjectContainer()->getInstance('Tx_T3extblog_Service_NotificationService');
 		}
 
 		return $this->notificationService;
