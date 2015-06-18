@@ -1,4 +1,4 @@
-﻿.. ==================================================
+﻿﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -16,6 +16,55 @@ Upgrade Guide
 	.. contents:: Within this page
 		:local:
 		:depth: 3
+
+
+
+Upgrade from 1.1.x to 1.2.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.0
+
+- Image and text preview fields
+
+- Removed ###MORE### marker support (migration update wizard is available)
+
+- Bugfixes
+
+
+.. important::
+	Use "Compare current database with specification" after updating!
+
+
+**###MORE### marker**
+
+This legacy functionality from t3blog was always an issue as it never worked as expected.
+With introducing fields for preview image and text we finally can get rid of it!
+
+The Install Tool Wizard provided will remove the marker where needed.
+It will copy all text before the marker and paste it into our new *previewText* field.
+When a *textpic* or *image* content element has been found before the marker,
+the first of its images will be used as *previewImage* property.
+
+
+**Templating**
+
+Some post related templates and partials have been changed.
+Please make sure to adapt these changes in your templates.
+
+The RenderPreview ViewHelper has been removed as no longer needed.
+
+
+How to upgrade
+""""""""""""""
+
+#. Create new properties using "Compare current database with specification" in Install Tool
+
+#. Use the Install Tool Wizard if you are currently using the ###MORE### marker functionality
+
+#. Adjust your templates
 
 
 

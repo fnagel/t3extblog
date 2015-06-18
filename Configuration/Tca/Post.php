@@ -237,16 +237,80 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'eval' => 'int',
 			)
 		),
+		'meta_description' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_description',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '45',
+				'rows' => '3',
+			)
+		),
+		'meta_keywords' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_keywords',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '45',
+				'rows' => '2',
+			)
+		),
+		'preview_mode' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode',
+			'config' => array(
+				'type' => 'select',
+				'default' => 0,
+				'items' => array(
+					array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.0', '0'),
+					array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.1', '1'),
+					array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.2', '2'),
+					array('LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.3', '3'),
+				),
+			)
+		),
+		'preview_text' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_text',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '45',
+				'rows' => '2',
+			),
+			'defaultExtras' => 'richtext[*]:rte_transform[flag=rte_enabled|mode=ts]',
+		),
+		'preview_image' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_image',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+				'preview_image',
+				array(
+					'maxitems' => 1,
+					'foreign_types' => array(
+						\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => array(
+							'showitem' => '
+		                    --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;t3extblogPostPreviewImagePalette,
+		                    --palette--;;filePalette'
+						),
+					)
+				),
+				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+			)
+		),
 	),
 	'types' => array(
 		'0' => array(
 			'showitem' => '
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.post;;;1-1-1,
 					sys_language_uid,l18n_parent,l18n_diffsource,date,author;;;;2-2-2,be_user, title;;;;3-3-3,content,
+				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.preview,
+					preview_mode, preview_image,preview_text,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.category,
 					tagClouds,cat,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.interactive,
 					allow_comments,trackback,number_views,
+				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.meta,
+					meta_description,meta_keywords,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.access,
 					--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.access;1;2-2-2,
 			')
@@ -254,6 +318,12 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 	'palettes' => array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
 	)
+);
+
+// Add new palette type to hide link field for preview image
+$GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette'] = array(
+	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
+	'canNotCollapse' => TRUE
 );
 
 ?>

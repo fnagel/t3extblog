@@ -3,22 +3,22 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+	<f:render partial="Post/Meta" arguments="{post: post, settings: settings}" />
 	<article class="well">
 		<h2>
 			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" >
 				{post.title}
 			</f:link.action>
-			<t3b:frontend.titleTag>{post.title} / </t3b:frontend.titleTag>
 		</h2>
 		<p class="top">
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
-			<span  class="author">{post.author.name}</span> in
+			<span class="author">{post.author.name}</span> -
 			<f:render partial="Post/Categories" arguments="{post: post}" />
 		</p>
 
 		<f:if condition="{post.content}">
 			<div class="content">
-				<f:render section="content" arguments="{contentElements: post.content}" />
+				<t3b:frontend.renderContent contentElements="{post.content}" />
 			</div>
 		</f:if>
 
@@ -63,29 +63,3 @@
 	</f:if>
 </f:section>
 
-
-<f:section name="content">
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{iterator.index} == 0">
-			<f:if condition="{0:content.CType} == {0:'image'}">
-				<f:then>
-					<div class="text-pic clearfix">
-						<div class="pull-left">
-							<t3b:frontend.renderContent contentElements="{0: content}" removeMarker="0" />
-						</div>
-				</f:then>
-				<f:else>
-					<t3b:frontend.renderContent contentElements="{0: content}" />
-				</f:else>
-			</f:if>
-		</f:if>
-	</f:for>
-
-	<t3b:frontend.renderContent contentElements="{contentElements}" index="1" />
-
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">
-			</div>
-		</f:if>
-	</f:for>
-</f:section>

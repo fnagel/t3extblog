@@ -13,18 +13,13 @@
 			</h2>
 			<p class="top">
 				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
-				<span  class="author">{post.author.name}</span> in
+				<span class="author">{post.author.name}</span> -
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 			</p>
 
 			<f:if condition="{post.content}">
-				<div class="teaser">
-					<f:render section="teaserComplex" arguments="{contentElements: post.content}" />
-					<br>
-					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" class="btn btn-primary">
-						<i class="icon-arrow-right"></i>
-						{post.title}
-					</f:link.action>
+				<div class="teaser clearfix">
+					<f:render section="teaser" arguments="{post: post, settings: settings}" />
 				</div>
 			</f:if>
 
@@ -45,37 +40,37 @@
 </f:widget.paginate>
 
 
-<f:section name="teaserTwoElements">
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{iterator.index} < 2">
-			<t3b:frontend.renderPreview contentElements="{0: content}" />
-		</f:if>
-	</f:for>
-</f:section>
-
-
-<f:section name="teaserComplex">
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{iterator.index} == 0">
-			<f:if condition="{0:content.CType} == {0:'image'}">
+<f:section name="teaser">
+	<f:if condition="{post.previewMode} == 0">
+		<f:then>
+			<f:if condition="{post.previewText}">
 				<f:then>
-					<div class="text-pic clearfix">
-						<div class="pull-left">
-							<t3b:frontend.renderContent contentElements="{0: content}" removeMarker="0" />
-						</div>
+					<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
+
+					<f:format.html>{post.previewText}</f:format.html>
+
+					<f:render section="moreButton" arguments="{post: post, settings: settings}" />
 				</f:then>
 				<f:else>
-					<t3b:frontend.renderPreview contentElements="{0: content}" />
+					<t3b:frontend.renderContent contentElements="{post.content}" />
 				</f:else>
 			</f:if>
-		</f:if>
-	</f:for>
+		</f:then>
+		<f:else>
+			<f:for each="{post.content}" as="content" iteration="iterator">
+				<f:if condition="{iterator.index} < {post.previewMode}">
+					<t3b:frontend.renderContent contentElements="{0: content}" />
+				</f:if>
+			</f:for>
+			<f:render section="moreButton" arguments="{post: post, settings: settings}" />
+		</f:else>
+	</f:if>
+</f:section>
 
-	<t3b:frontend.renderPreview contentElements="{contentElements}" index="1" />
-
-	<f:for each="{contentElements}" as="content" iteration="iterator">
-		<f:if condition="{0:iterator.index, 1:content.CType} == {0:0, 1:'image'}">
-			</div>
-		</f:if>
-	</f:for>
+<f:section name="moreButton">
+	<br>
+	<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" class="btn btn-primary">
+		<i class="icon-arrow-right"></i>
+		{post.title}
+	</f:link.action>
 </f:section>

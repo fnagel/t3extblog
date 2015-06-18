@@ -26,6 +26,11 @@ config.tx_extbase {
 						cat.mapOnProperty = categories
 						tagClouds.mapOnProperty = tagCloud
 						number_views.mapOnProperty = numberOfViews
+						meta_description.mapOnProperty = metaDescription
+						meta_keywords.mapOnProperty = metaKeywords
+						preview_mode.mapOnProperty = previewMode
+						preview_text.mapOnProperty = previewText
+						preview_image.mapOnProperty = previewImage
 					}
                 }
             }

@@ -73,7 +73,7 @@
                                 <br /><br />
                                 <f:if condition="{post.content}">
                                     <div class="content">
-                                        <t3b:frontend.renderContent contentElements="{post.content}" removeMarker="0" />
+                                        <t3b:frontend.renderContent contentElements="{post.content}" />
 								    </div>
                                     <div style="clear: both;"></div>
                                 </f:if>

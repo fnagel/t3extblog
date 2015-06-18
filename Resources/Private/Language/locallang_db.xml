@@ -8,10 +8,10 @@
 		<languageKey index="default" type="array">
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
-			<label index="tx_t3blog_post.tagClouds">Tag clouds (comma separated list)</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
 			<label index="tx_t3blog_post.author">Author</label>
 			<label index="tx_t3blog_post.date">Date &amp; Time</label>
-			<label index="tx_t3blog_post.content">Your contents</label>
+			<label index="tx_t3blog_post.content">Contents</label>
 			<label index="tx_t3blog_post.allow_comments.I.0">Everybody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.1">Nobody can comment this post</label>
 			<label index="tx_t3blog_post.allow_comments.I.2">Only registered users can comment</label>
@@ -20,6 +20,15 @@
 			<label index="tx_t3blog_post.trackback">Trackback URLs (each URL on one line)</label>
 			<label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
 			<label index="tx_t3blog_post.number_views">Number of views</label>
+            <label index="tx_t3blog_post.meta_description">Description</label>
+            <label index="tx_t3blog_post.meta_keywords">Keywords (comma separated list)</label>
+            <label index="tx_t3blog_post.preview_mode">Preview mode</label>
+            <label index="tx_t3blog_post.preview_mode.0">Auto - Use preview text and image (otherwise complete post)</label>
+            <label index="tx_t3blog_post.preview_mode.1">Show the first content element as preview</label>
+            <label index="tx_t3blog_post.preview_mode.2">Show two content elements as preview</label>
+            <label index="tx_t3blog_post.preview_mode.3">Show three content elements as preview</label>
+            <label index="tx_t3blog_post.preview_text">Text</label>
+            <label index="tx_t3blog_post.preview_image">Image</label>
 
 			<label index="tx_t3blog_cat">Categories</label>
 			<label index="tx_t3blog_cat.parent_id">Category tree</label>
@@ -59,6 +68,8 @@
 			<label index="tx_t3blog_post.tabs.category">Category</label>
 			<label index="tx_t3blog_post.tabs.interactive">Interactivity</label>
 			<label index="tx_t3blog_post.tabs.access">Access</label>
+			<label index="tx_t3blog_post.tabs.meta">Metadata</label>
+            <label index="tx_t3blog_post.tabs.preview">Preview</label>
             <label index="tx_t3blog_cat.tabs.general">General</label>
             <label index="tx_t3blog_cat.tabs.access">Access</label>
             <label index="tx_t3blog_com.tabs.general">General</label>
@@ -79,7 +90,7 @@
 		<languageKey index="de" type="array">
 			<label index="tx_t3blog_post">Nachricht</label>
 			<label index="tx_t3blog_post.title">Titel</label>
-			<label index="tx_t3blog_post.tagClouds">Tag clouds (Komma separierte Liste)</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (Komma separierte Liste)</label>
 			<label index="tx_t3blog_post.author">Autor</label>
 			<label index="tx_t3blog_post.date">Datum &amp; Zeit</label>
 			<label index="tx_t3blog_post.content">Inhalt</label>
@@ -91,6 +102,15 @@
             <label index="tx_t3blog_post.trackback">Trackback URLs (eine URL pro Zeile)</label>
             <label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
             <label index="tx_t3blog_post.number_views">Anzahl der Aufrufe</label>
+            <label index="tx_t3blog_post.meta_description">Beschreibung</label>
+            <label index="tx_t3blog_post.meta_keywords">Keywords (Komma separierte Liste)</label>
+            <label index="tx_t3blog_post.preview_mode">Vorschau-Modus</label>
+            <label index="tx_t3blog_post.preview_mode.0">Auto - Nutze Vorschau Text und Bild (oder den ganzen Artikel)</label>
+            <label index="tx_t3blog_post.preview_mode.1">Zeige das erste Inhalts-Element als Vorschau</label>
+            <label index="tx_t3blog_post.preview_mode.2">Zeige zwei Inhalts-Elemente als Vorschau</label>
+            <label index="tx_t3blog_post.preview_mode.3">Zeige drei Inhalts-Elemente als Vorschau</label>
+            <label index="tx_t3blog_post.preview_text">Text</label>
+            <label index="tx_t3blog_post.preview_image">Bild</label>
 
 			<label index="tx_t3blog_cat">Kategorien</label>
 			<label index="tx_t3blog_cat.parent_id">Kategorie-Baum</label>
@@ -130,6 +150,8 @@
             <label index="tx_t3blog_post.tabs.category">Kategorie</label>
             <label index="tx_t3blog_post.tabs.interactive">Interaktivität</label>
             <label index="tx_t3blog_post.tabs.access">Zugriff</label>
+            <label index="tx_t3blog_post.tabs.meta">Meta-Daten</label>
+            <label index="tx_t3blog_post.tabs.preview">Vorschau</label>
             <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
             <label index="tx_t3blog_cat.tabs.access">Zugriff</label>
             <label index="tx_t3blog_com.tabs.general">Allgemein</label>

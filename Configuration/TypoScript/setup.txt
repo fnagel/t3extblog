@@ -43,11 +43,29 @@ plugin.tx_t3extblog {
 					# countBackendUsers = 1
 				}
 
+				# Post list pagination
 				paginate {
 					itemsPerPage = 10
 					insertAbove = 0
 					insertBelow = 1
 					maximumNumberOfLinks = 100
+				}
+
+				metadata {
+					# Add description and keyword meta tags
+					enable = 1
+
+					twitterCards {
+						enable = 1
+
+						# Your Twitter username
+						site =
+					}
+				}
+
+				# Post list preview
+				preview {
+					image.width = 960c
 				}
 			}
 			comments {

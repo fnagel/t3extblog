@@ -90,6 +90,42 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	protected $numberOfViews;
 
 	/**
+	 * metaDescription
+	 *
+	 * @var string
+	 */
+	protected $metaDescription;
+
+	/**
+	 * metaKeywords
+	 *
+	 * @var string
+	 */
+	protected $metaKeywords;
+
+	/**
+	 * previewMode
+	 *
+	 * @var integer
+	 */
+	protected $previewMode;
+
+	/**
+	 * previewText
+	 *
+	 * @var string
+	 */
+	protected $previewText;
+
+	/**
+	 * previewImage
+	 *
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 * @lazy
+	 */
+	protected $previewImage;
+
+	/**
 	 * content
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content>
@@ -340,6 +376,15 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	}
 
 	/**
+	 * Returns the tagCloud as in DB (concated string)
+	 *
+	 * @return string
+	 */
+	public function getRawTagCloud() {
+		return $this->tagCloud;
+	}
+
+	/**
 	 * Sets the tagCloud
 	 *
 	 * @param string $tagCloud
@@ -381,6 +426,104 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	 */
 	public function riseNumberOfViews() {
 		$this->numberOfViews = $$this->numberOfViews + 1;
+	}
+
+	/**
+	 * Returns the metaDescription
+	 *
+	 * @return string
+	 */
+	public function getMetaDescription() {
+		return $this->metaDescription;
+	}
+
+	/**
+	 * Sets the metaDescription
+	 *
+	 * @param string $metaDescription
+	 */
+	public function setMetaDescription($metaDescription) {
+		$this->metaDescription = $metaDescription;
+	}
+
+	/**
+	 * Returns the metaKeywords
+	 *
+	 * @return string
+	 */
+	public function getMetaKeywords() {
+		return $this->metaKeywords;
+	}
+
+	/**
+	 * Sets the metaKeywords
+	 *
+	 * @param string $metaKeywords
+	 */
+	public function setMetaKeywords($metaKeywords) {
+		$this->metaKeywords = $metaKeywords;
+	}
+
+	/**
+	 * Returns the previewMode
+	 *
+	 * @return int
+	 */
+	public function getPreviewMode() {
+		return $this->previewMode;
+	}
+
+	/**
+	 * Sets the previewMode
+	 *
+	 * @param int $previewMode
+	 */
+	public function setPreviewMode($previewMode) {
+		$this->previewMode = $previewMode;
+	}
+
+	/**
+	 * Returns the previewText
+	 *
+	 * @return string
+	 */
+	public function getPreviewText() {
+		return $this->previewText;
+	}
+
+	/**
+	 * Sets the previewText
+	 *
+	 * @param string $previewText
+	 */
+	public function setPreviewText($previewText) {
+		$this->previewText = $previewText;
+	}
+
+	/**
+	 * Returns the previewImage
+	 *
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 */
+	public function getPreviewImage() {
+		if (!is_object($this->previewImage)) {
+			return NULL;
+		}
+
+		if ($this->previewImage instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->previewImage->_loadRealInstance();
+		}
+
+		return $this->previewImage->getOriginalResource();
+	}
+
+	/**
+	 * Sets the previewImage
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $previewImage
+	 */
+	public function setPreviewImage($previewImage) {
+		$this->previewImage = $previewImage;
 	}
 
 	/**
@@ -431,13 +574,19 @@ class Tx_T3extblog_Domain_Model_Post extends Tx_T3extblog_Domain_Model_AbstractL
 	}
 
 	/**
-	 * Get all content elements bodytext field values concated without HTML tags
+	 * Get a plain text only preview of the post
+	 *
+	 * Either using the preview text or
+	 * all content elements bodytext field values concated without HTML tags
 	 *
 	 * @return string
 	 */
 	public function getPreview() {
-		$text = array();
+		if ($this->getPreviewText()) {
+			return strip_tags($this->getPreviewText());
+		}
 
+		$text = array();
 		foreach ($this->getContent() as $contentElement) {
 			if (strlen($contentElement->getBodytext()) > 0) {
 				$text[] = $contentElement->getBodytext();
