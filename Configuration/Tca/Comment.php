@@ -119,7 +119,7 @@ $TCA['tx_t3blog_com'] = array(
 						'notNewRecords' => 1,
 						'RTEonly' => 1,
 						'type' => 'script',
-						'title' => 'Full screen Rich Text Editing|Formatteret redigering i hele vinduet',
+						'title' => 'LLL:EXT:cms/locallang_ttc.xml:bodytext.W.RTE',
 						'icon' => 'wizard_rte2.gif',
 						'script' => 'wizard_rte.php',
 					),
