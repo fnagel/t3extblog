@@ -27,11 +27,13 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.0
 
+- Multi language support
+
 - Image and text preview fields
 
 - Removed ###MORE### marker support (migration update wizard is available)
 
-- Bugfixes
+- Tons of bugfixes
 
 
 .. important::

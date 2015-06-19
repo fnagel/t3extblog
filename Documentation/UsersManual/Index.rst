@@ -54,6 +54,7 @@ Create a blogpost
 - Author: is determined by the current BE user
 - Title: title of your blogpost, you need to fill this field
 - Content: click the 'create new' button to add new content elements
+- Preview: configure a list preview for the blog post
 
 
 Add categories

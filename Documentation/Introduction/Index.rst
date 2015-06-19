@@ -18,6 +18,7 @@ Currently implemented features:
 * Use all TYPO3 content elements within your blog posts
 * Views: list, detail, latest, categories, archive, latest comments (each is a FE plugin)
 * Allow some HTML tags in comment message
+* Fields for preview text and image
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
 * Configurable spam check: "I am human" checkbox, honeypot, cookie and useragent
 * Opt-In mails for comment subscription with expiration date
@@ -28,6 +29,7 @@ Currently implemented features:
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
 * Preview of hidden posts
 * Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2.
+* Mulit language support
 * A few unit tests
 
 
