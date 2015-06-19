@@ -171,6 +171,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'allow_comments' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments',
 			'config' => array(
 				'type' => 'radio',
@@ -229,6 +230,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'number_views' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'prefixLangTitle',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.number_views',
 			'config' => array(
 				'type' => 'input',
@@ -239,6 +241,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'meta_description' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'noCopy',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_description',
 			'config' => array(
 				'type' => 'text',
@@ -247,7 +250,8 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			)
 		),
 		'meta_keywords' => array(
-			'exclude' => 0,
+			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_keywords',
 			'config' => array(
 				'type' => 'text',
@@ -257,6 +261,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'preview_mode' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode',
 			'config' => array(
 				'type' => 'select',
@@ -270,7 +275,8 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			)
 		),
 		'preview_text' => array(
-			'exclude' => 0,
+			'exclude' => 1,
+			'l10n_mode' => 'noCopy',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_text',
 			'config' => array(
 				'type' => 'text',
@@ -281,6 +287,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'preview_image' => array(
 			'exclude' => 1,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_image',
 			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 				'preview_image',
@@ -292,7 +299,14 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		                    --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;t3extblogPostPreviewImagePalette,
 		                    --palette--;;filePalette'
 						),
-					)
+					),
+					'appearance' => array(
+						'collapseAll' => 1,
+						'showPossibleLocalizationRecords' => 1,
+						'showRemovedLocalizationRecords' => 1,
+						'showAllLocalizationLink' => 1,
+						'showSynchronizationLink' => 1,
+					),
 				),
 				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 			)
