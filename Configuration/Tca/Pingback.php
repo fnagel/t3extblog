@@ -91,5 +91,3 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 		'1' => array('showitem' => 'starttime, endtime')
 	)
 );
-
-?>

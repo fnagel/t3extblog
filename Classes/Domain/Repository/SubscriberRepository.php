@@ -107,7 +107,7 @@ class SubscriberRepository extends AbstractRepository {
 	 * @param string $code
 	 * @param boolean $enableFields
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Comment
+	 * @return Comment
 	 */
 	public function findByCode($code, $enableFields = TRUE) {
 		$query = $this->createQuery();

@@ -79,5 +79,3 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 		'1' => array('showitem' => '')
 	)
 );
-
-?>

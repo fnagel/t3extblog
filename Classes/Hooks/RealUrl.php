@@ -47,7 +47,6 @@ class RealUrl {
 	 * @return    array                        Updated configuration
 	 */
 	public function extensionConfiguration($params, &$ref) {
-
 		return array_merge_recursive($params['config'], array(
 			'postVarSets' => array(
 				'_DEFAULT' => array(

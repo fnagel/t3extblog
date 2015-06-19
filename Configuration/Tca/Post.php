@@ -339,5 +339,3 @@ $GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePale
 	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
 	'canNotCollapse' => TRUE
 );
-
-?>

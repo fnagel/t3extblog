@@ -27,11 +27,11 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class AbstractRepository extends Repository {
 
@@ -64,8 +64,8 @@ class AbstractRepository extends Repository {
 		if (TYPO3_MODE === 'FE') {
 			$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
 		} else {
-			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
-			$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($table);
+			$where .= BackendUtility::BEenableFields($table);
+			$where .= BackendUtility::deleteClause($table);
 		}
 
 		return $where;

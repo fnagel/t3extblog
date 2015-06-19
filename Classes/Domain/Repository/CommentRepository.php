@@ -245,8 +245,6 @@ class CommentRepository extends AbstractRepository {
 	/**
 	 * Create constraints for pending comments
 	 *
-	 * @return
-	 *
 	 * @return object
 	 */
 	protected function getPendingConstraints(QueryInterface $query) {

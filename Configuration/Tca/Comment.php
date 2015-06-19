@@ -178,5 +178,3 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'2' => array('showitem' => 'starttime, endtime, fe_group')
 	)
 );
-
-?>

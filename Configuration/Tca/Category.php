@@ -149,5 +149,3 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
 	)
 );
-
-?>

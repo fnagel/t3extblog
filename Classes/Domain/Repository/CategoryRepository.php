@@ -29,11 +29,8 @@ namespace TYPO3\T3extblog\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class CategoryRepository extends AbstractRepository {
 
