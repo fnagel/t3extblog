@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,13 +27,10 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-abstract class Tx_T3extblog_Domain_Model_AbstractLocalizedEntity extends Tx_T3extblog_Domain_Model_AbstractEntity {
+abstract class AbstractLocalizedEntity extends AbstractEntity {
 
 	/**
 	 * @return integer
@@ -62,5 +61,3 @@ abstract class Tx_T3extblog_Domain_Model_AbstractLocalizedEntity extends Tx_T3ex
 		return $this->_localizedUid;
 	}
 }
-
-?>

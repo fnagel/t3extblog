@@ -28,6 +28,7 @@ namespace TYPO3\T3extblog\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * @package t3extblog
@@ -44,14 +45,14 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	/**
 	 * commentRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 */
 	protected $commentRepository = NULL;
 
 	/**
 	 * postRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected $postRepository = NULL;
 
@@ -60,18 +61,18 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
 	/**
 	 * Get commentRepository
 	 *
-	 * @vreturn Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 */
 	protected function getCommentRepository() {
 		if ($this->commentRepository === NULL) {
-			$this->commentRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository');
+			$this->commentRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository');
 		}
 
 		return $this->commentRepository;
@@ -80,11 +81,11 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	/**
 	 * Get postRepository
 	 *
-	 * @vreturn Tx_T3extblog_Domain_Repository_PostRepository
+	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected function getPostRepository() {
 		if ($this->postRepository === NULL) {
-			$this->postRepository = $this->objectManager->get('Tx_T3extblog_Domain_Repository_PostRepository');
+			$this->postRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
 		}
 
 		return $this->postRepository;
@@ -98,7 +99,7 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	 * @return array
 	 */
 	public function toArray($camelCaseKeys = FALSE) {
-		$camelCaseProperties = Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($this);
+		$camelCaseProperties = ObjectAccess::getGettableProperties($this);
 
 		if ($camelCaseKeys === TRUE) {
 			return $camelCaseProperties;

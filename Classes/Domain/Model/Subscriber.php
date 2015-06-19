@@ -114,7 +114,6 @@ class Subscriber extends AbstractEntity {
 	 * __construct
 	 *
 	 * @param int $postUid
-	 * @return void
 	 */
 	public function __construct($postUid) {
 		$this->postUid = $postUid;

@@ -156,7 +156,8 @@ class Category extends AbstractLocalizedEntity {
 		}
 
 		if ($this->childCategories === NULL) {
-			$categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')->findByParentId($this->getUid());
+			$categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
+				->findByParentId($this->getUid());
 
 			$this->childCategories = new ObjectStorage();
 			foreach ($categories as $category) {
