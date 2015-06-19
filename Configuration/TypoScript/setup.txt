@@ -80,9 +80,6 @@ plugin.tx_t3extblog {
 				# subscibe to new comment allowed
 				subscribeForComments = 1
 
-				# TODO: implement if needed
-				# splitLongWords = 1
-
 				# Allow tags in comment text
 				# example config: <em>, <strong>, <code>
 				# uses: http://www.php.net/manual/en/function.strip-tags.php
