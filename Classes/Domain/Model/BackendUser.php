@@ -41,7 +41,13 @@ class BackendUser extends BaseBackendUser {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->getRealName();
+		$name = $this->getRealName();
+
+		if ($name === '') {
+			$name = $this->getUserName();
+		}
+
+		return $name;
 	}
 
 	/**
