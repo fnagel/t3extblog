@@ -132,7 +132,7 @@ class CommentController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(Post $post, Comment $newComment) {
-		$this->checkIfCommentIsAllowed($post, $newComment);
+		$this->checkIfCommentIsAllowed($post);
 
 		$this->spamCheckService->process($newComment, $this->request);
 		$this->checkSpamPoints($newComment, $post);
@@ -171,11 +171,10 @@ class CommentController extends AbstractController {
 	 * Checks if a new comment could be created
 	 *
 	 * @param Post $post The post the comment is related to
-	 * @param Comment $newComment The comment to create
 	 *
 	 * @return void
 	 */
-	private function checkIfCommentIsAllowed(Post $post, Comment $newComment) {
+	protected function checkIfCommentIsAllowed(Post $post) {
 		$settings = $this->settings['blogsystem']['comments'];
 
 		if (!$settings['allowed'] || $post->getAllowComments() === 1) {
