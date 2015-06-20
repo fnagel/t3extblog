@@ -28,6 +28,8 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\T3extblog\Domain\Model\AbstractLocalizedEntity;
 
 /**
  * ViewHelper for rendering content
@@ -51,14 +53,22 @@ class RenderContentViewHelper extends CObjectViewHelper {
 		$output = '';
 		$iterator = 0;
 
-		/* @var $content \TYPO3\T3extblog\Domain\Model\Content */
 		foreach ($contentElements as $content) {
 			$iterator++;
 			if (($iterator - 1) < $index) {
 				continue;
 			}
 
-			$output .= parent::render($typoscript, $content->toArray());
+			// We need to make sure to get all (!) DB fields if its an object
+			// Otherwise tt_content rendering will fail for plugins
+			if (is_object($content) && $content instanceof AbstractLocalizedEntity) {
+				$where = 'uid = ' . $content->getLocalizedUid();
+				$where  .= $this->getEnableFields($typoscript);
+
+				$content = $this->getDatabase()->exec_SELECTgetSingleRow('*', $typoscript, $where);
+			}
+
+			$output .= parent::render($typoscript, $content);
 		}
 
 		if ($removeMarker === TRUE) {
@@ -66,6 +76,33 @@ class RenderContentViewHelper extends CObjectViewHelper {
 		}
 
 		return $output;
+	}
+
+
+	/**
+	 * Get database connection
+	 *
+	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected function getDatabase() {
+		return $GLOBALS['TYPO3_DB'];
+	}
+
+	/**
+	 * Get enable fields for DB where clause
+	 *
+	 * @param string $table
+	 *
+	 * @return string
+	 */
+	protected function getEnableFields($table) {
+		if (TYPO3_MODE === 'FE') {
+			$where = $GLOBALS['TSFE']->sys_page->enableFields($table);
+		} else {
+			$where = BackendUtility::BEenableFields($table);
+		}
+
+		return $where;
 	}
 
 	/**
