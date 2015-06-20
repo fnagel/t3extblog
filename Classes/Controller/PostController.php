@@ -202,6 +202,7 @@ class PostController extends AbstractController {
 
 	/**
 	 * Preview a post
+	 * 
 	 * Testing does not work on local environment
 	 * Issues when baseUrl AND absRefPrefix are set
 	 *
@@ -218,9 +219,10 @@ class PostController extends AbstractController {
 
 		if (is_int($previewPost)) {
 			$post = $this->postRepository->findByUid($previewPost, FALSE);
+			$this->forward('show', NULL, NULL, array('post' => $post));
 		}
 
-		$this->forward('show', NULL, NULL, array('post' => $post));
+		$this->errorAction();
 	}
 
 }
