@@ -33,11 +33,13 @@ https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.0
 
 - Removed ###MORE### marker support (migration update wizard is available)
 
+- PHP Namespaces (TYPO3 CMS 7.x preparation)
+
 - Tons of bugfixes
 
 
 .. important::
-	Use "Compare current database with specification" after updating!
+	Make sure to follow "How to upgrade" steps after updating!
 
 
 **###MORE### marker**
@@ -56,13 +58,21 @@ the first of its images will be used as *previewImage* property.
 Some post related templates and partials have been changed.
 Please make sure to adapt these changes in your templates.
 
-The RenderPreview ViewHelper has been removed as no longer needed.
+Some major changes:
+
+* Now using namespaces for ViewHelpers, make sure to adjust your template references
+
+* RenderPreview ViewHelper has been removed as no longer needed.
+
+
 
 
 How to upgrade
 """"""""""""""
 
-#. Create new properties using "Compare current database with specification" in Install Tool
+#. "Clear all cache" in Install Tool (Important actions)
+
+#. Create new properties using "Compare current database with specification" in Install Tool (Important actions)
 
 #. Use the Install Tool Wizard if you are currently using the ###MORE### marker functionality
 
