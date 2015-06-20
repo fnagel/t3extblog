@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,13 +28,10 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Controller_BackendPostController extends Tx_T3extblog_Controller_BackendBaseController {
+class BackendPostController extends BackendBaseController {
 
 	/**
 	 * Main Backendmodule: displays posts and pending comments
@@ -46,5 +46,3 @@ class Tx_T3extblog_Controller_BackendPostController extends Tx_T3extblog_Control
 	}
 
 }
-
-?>

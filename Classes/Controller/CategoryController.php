@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,19 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Domain\Model\Category;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controller_ActionController {
+class CategoryController extends AbstractController {
 
 	/**
 	 * categoryRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_CategoryRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\CategoryRepository
 	 * @inject
 	 */
 	protected $categoryRepository;
@@ -55,14 +56,12 @@ class Tx_T3extblog_Controller_CategoryController extends Tx_Extbase_MVC_Controll
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param Category $category
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Category $category) {
+	public function showAction(Category $category) {
 		$this->view->assign('category', $category);
 	}
 
 }
-
-?>

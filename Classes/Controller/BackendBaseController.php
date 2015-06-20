@@ -27,19 +27,24 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class BackendBaseController extends ActionController {
 
 	/**
 	 * objectManager
 	 *
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 * @inject
 	 */
 	protected $objectManager;
@@ -47,7 +52,7 @@ class BackendBaseController extends ActionController {
 	/**
 	 * postRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
@@ -55,7 +60,7 @@ class BackendBaseController extends ActionController {
 	/**
 	 * postRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 * @inject
 	 */
 	protected $commentRepository;
@@ -70,21 +75,23 @@ class BackendBaseController extends ActionController {
 	/**
 	 * Load and persist module data
 	 *
-	 * @param Tx_Extbase_MVC_RequestInterface $request
-	 * @param Tx_Extbase_MVC_ResponseInterface $response
+	 * @param RequestInterface $request
+	 * @param ResponseInterface $response
 	 *
-	 * @throws Tx_Extbase_MVC_Exception_StopAction
+	 * @throws StopActionException
 	 * @return void
 	 */
-	public function processRequest(Tx_Extbase_MVC_RequestInterface $request, Tx_Extbase_MVC_ResponseInterface $response) {
-		/* @var $persistenceManager Tx_Extbase_Persistence_Manager */
-		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
+	public function processRequest(RequestInterface $request, ResponseInterface $response) {
+		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $this->objectManager->get(
+			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+		);
 
 		// We "finally" persist the module data.
 		try {
 			parent::processRequest($request, $response);
 			$persistenceManager->persistAll();
-		} catch (Tx_Extbase_MVC_Exception_StopAction $e) {
+		} catch (StopActionException $e) {
 			$persistenceManager->persistAll();
 			throw $e;
 		}
@@ -93,11 +100,11 @@ class BackendBaseController extends ActionController {
 	/**
 	 * Initialize actions
 	 *
-	 * @throws RuntimeException
+	 * @throws \RuntimeException
 	 * @return void
 	 */
 	public function initializeAction() {
-		$this->pageId = intval(t3lib_div::_GP('id'));
+		$this->pageId = intval(GeneralUtility::_GP('id'));
 
 		// @TODO: Extbase backend modules relies on frontend TypoScript for view, persistence
 		// and settings. Thus, we need a TypoScript root template, that then loads the
@@ -105,7 +112,7 @@ class BackendBaseController extends ActionController {
 		// circumvented until there is a better solution in extbase.
 		// For now we throw an exception if no settings are detected.
 		if (empty($this->settings)) {
-			throw new RuntimeException(
+			throw new \RuntimeException(
 				'No settings detected. This module can not work then. ' .
 				'This usually happens if there is no frontend TypoScript template with root flag set. ' .
 				'Please create a frontend page with a TypoScript root template.',
@@ -117,13 +124,13 @@ class BackendBaseController extends ActionController {
 	/**
 	 * Initializes the view before invoking an action method.
 	 *
-	 * @param Tx_Extbase_MVC_View_ViewInterface $view The view to be initialized
+	 * @param ViewInterface $view The view to be initialized
 	 *
 	 * @return void
 	 */
-	protected function initializeView(Tx_Extbase_MVC_View_ViewInterface $view) {
-		$moduleName = t3lib_div::_GET('M');
-		$moduleToken = t3lib_formprotection_Factory::get()->generateToken('moduleCall', $moduleName);
+	protected function initializeView(ViewInterface $view) {
+		$moduleName = GeneralUtility::_GET('M');
+		$moduleToken = FormProtectionFactory::get()->generateToken('moduleCall', $moduleName);
 
 		$this->view->assignMultiple(array(
 			'pageId' => $this->pageId,
@@ -134,5 +141,3 @@ class BackendBaseController extends ActionController {
 	}
 
 }
-
-?>

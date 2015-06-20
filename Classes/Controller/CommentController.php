@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,19 +26,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class CommentController extends AbstractController {
 
 	/**
 	 * commentRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 * @inject
 	 */
 	protected $commentRepository;
@@ -44,7 +48,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Notification Service
 	 *
-	 * @var Tx_T3extblog_Service_NotificationService
+	 * @var \TYPO3\T3extblog\Service\NotificationService
 	 * @inject
 	 */
 	protected $notificationService;
@@ -52,7 +56,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Spam Check Service
 	 *
-	 * @var Tx_T3extblog_Service_SpamCheckService
+	 * @var \TYPO3\T3extblog\Service\SpamCheckService
 	 * @inject
 	 */
 	protected $spamCheckService;
@@ -60,11 +64,11 @@ class CommentController extends AbstractController {
 	/**
 	 * action list
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post Show only comments related to this post
+	 * @param Post $post Show only comments related to this post
 	 *
 	 * @return void
 	 */
-	public function listAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
+	public function listAction(Post $post = NULL) {
 		if ($post === NULL) {
 			$comments = $this->commentRepository->findValid();
 		} else {
@@ -78,11 +82,11 @@ class CommentController extends AbstractController {
 	/**
 	 * action latest
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post Show only comments related to this post
+	 * @param Post $post Show only comments related to this post
 	 *
 	 * @return void
 	 */
-	public function latestAction(Tx_T3extblog_Domain_Model_Post $post = NULL) {
+	public function latestAction(Post $post = NULL) {
 		$this->listAction($post);
 	}
 
@@ -91,11 +95,11 @@ class CommentController extends AbstractController {
 	 *
 	 * Redirect to post show if empty cmment create is called
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
+	 * @param Post $post The post the comment is related to
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Post $post) {
+	public function showAction(Post $post) {
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
 	}
 
@@ -103,16 +107,16 @@ class CommentController extends AbstractController {
 	/**
 	 * action new
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment
+	 * @param Post $post The post the comment is related to
+	 * @param Comment $newComment
 	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
 	 *
 	 * @return void
 	 */
-	public function newAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+	public function newAction(Post $post, Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
+			$newComment = $this->objectManager->create('TYPO3\\T3extblog\\Domain\\Repository\Model\\Comment');
 		}
 
 		$this->view->assign('newComment', $newComment);
@@ -122,12 +126,12 @@ class CommentController extends AbstractController {
 	/**
 	 * Adds a comment to a blog post and redirects to single view
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
+	 * @param Post $post The post the comment is related to
+	 * @param Comment $newComment The comment to create
 	 *
 	 * @return void
 	 */
-	public function createAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
+	public function createAction(Post $post, Comment $newComment) {
 		$this->checkIfCommentIsAllowed($post, $newComment);
 
 		$this->spamCheckService->process($newComment, $this->request);
@@ -141,17 +145,19 @@ class CommentController extends AbstractController {
 
 		$post->addComment($newComment);
 
-		/* @var $persistenceManager Tx_Extbase_Persistence_Manager */
-		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
+		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $this->objectManager->get(
+			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+		);
 		$persistenceManager->persistAll();
 
 		$this->notificationService->processCommentAdded($newComment);
 
 		if (!$this->hasFlashMessages()) {
 			if ($newComment->isApproved()) {
-				$this->addFlashMessageByKey('created', t3lib_FlashMessage::OK);
+				$this->addFlashMessageByKey('created', FlashMessage::OK);
 			} else {
-				$this->addFlashMessageByKey('createdUnapproved', t3lib_FlashMessage::NOTICE);
+				$this->addFlashMessageByKey('createdUnapproved', FlashMessage::NOTICE);
 			}
 		}
 
@@ -164,27 +170,27 @@ class CommentController extends AbstractController {
 	/**
 	 * Checks if a new comment could be created
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post the comment is related to
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment The comment to create
+	 * @param Post $post The post the comment is related to
+	 * @param Comment $newComment The comment to create
 	 *
 	 * @return void
 	 */
-	private function checkIfCommentIsAllowed(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment) {
+	private function checkIfCommentIsAllowed(Post $post, Comment $newComment) {
 		$settings = $this->settings['blogsystem']['comments'];
 
 		if (!$settings['allowed'] || $post->getAllowComments() === 1) {
-			$this->addFlashMessageByKey('notAllowed', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
 			$this->errorAction();
 		}
 
 		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
-			$this->addFlashMessageByKey('notLoggedIn', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
 			$this->errorAction();
 		}
 
 		if ($settings['allowedUntil']) {
 			if ($post->isExpired(trim($settings['allowedUntil']))) {
-				$this->addFlashMessageByKey('commentsClosed', t3lib_FlashMessage::ERROR);
+				$this->addFlashMessageByKey('commentsClosed', FlashMessage::ERROR);
 				$this->errorAction();
 			}
 		}
@@ -193,12 +199,12 @@ class CommentController extends AbstractController {
 	/**
 	 * Process comment request
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be deleted
-	 * @param Tx_T3extblog_Domain_Model_Post $post The comment to be deleted
+	 * @param Comment $comment The comment to be deleted
+	 * @param Post $post The comment to be deleted
 	 *
 	 * @return void
 	 */
-	protected function checkSpamPoints(Tx_T3extblog_Domain_Model_Comment $comment, Tx_T3extblog_Domain_Model_Post $post) {
+	protected function checkSpamPoints(Comment $comment, Post $post) {
 		$settings = $this->settings['blogsystem']['comments']['spamCheck'];
 		$threshold = $settings['threshold'];
 		$logData = array(
@@ -215,7 +221,7 @@ class CommentController extends AbstractController {
 		// block comment and show message
 		if ($threshold['block'] > 0 && $comment->getSpamPoints() >= intval($threshold['block'])) {
 			$this->log->notice('New comment blocked because of SPAM.', $logData);
-			$this->addFlashMessageByKey('blockedAsSpam', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
 			$this->errorAction();
 		}
 
@@ -223,20 +229,20 @@ class CommentController extends AbstractController {
 		if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
 			$this->log->notice('New comment marked as SPAM.', $logData);
 			$comment->markAsSpam();
-			$this->addFlashMessageByKey('markedAsSpam', t3lib_FlashMessage::NOTICE);
+			$this->addFlashMessageByKey('markedAsSpam', FlashMessage::NOTICE);
 		}
 	}
 
 	/**
 	 * Sanitize comment content
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 *
 	 * @return void
 	 */
-	protected function sanitizeComment(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function sanitizeComment(Comment $comment) {
 		$allowTags = $this->settings['blogsystem']['comments']['allowTags'];
-		$comment->setText(t3lib_div::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
+		$comment->setText(GeneralUtility::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
 	}
 
 	/**
@@ -248,5 +254,3 @@ class CommentController extends AbstractController {
 		return FALSE;
 	}
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,19 +26,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
+use TYPO3\T3extblog\Domain\Model\Subscriber;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class _SubscriberController extends AbstractController {
+class SubscriberController extends AbstractController {
 
 	/**
 	 * subscriberRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_SubscriberRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\SubscriberRepository
 	 * @inject
 	 */
 	protected $subscriberRepository;
@@ -44,14 +48,14 @@ class _SubscriberController extends AbstractController {
 	/**
 	 * subscriber
 	 *
-	 * @var Tx_T3extblog_Domain_Model_Subscriber
+	 * @var \TYPO3\T3extblog\Domain\Model\Subscriber
 	 */
 	protected $subscriber = NULL;
 
 	/**
 	 * feUserService
 	 *
-	 * @var Tx_T3extblog_Service_AuthenticationServiceInterface
+	 * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
 	 * @inject
 	 */
 	protected $authentication;
@@ -59,7 +63,7 @@ class _SubscriberController extends AbstractController {
 	/**
 	 * objectManager
 	 *
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 * @inject
 	 */
 	protected $objectManager;
@@ -82,19 +86,19 @@ class _SubscriberController extends AbstractController {
 	/**
 	 * action confirm
 	 *
-	 * @throws Tx_Extbase_MVC_Exception
+	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception
 	 * @return void
 	 */
 	public function confirmAction() {
 		$this->checkAuth(TRUE);
 
 		if ($this->subscriber === NULL) {
-			throw new Tx_Extbase_MVC_Exception('No authenticated subscriber given.');
+			throw new MvcException('No authenticated subscriber given.');
 		}
 
 		if ($this->subscriber->_getProperty('hidden') === TRUE) {
 			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessageByKey('confirmed', t3lib_FlashMessage::NOTICE);
+			$this->addFlashMessageByKey('confirmed', FlashMessage::NOTICE);
 
 			if (version_compare(TYPO3_branch, '6.1', '>=')) {
 				$this->subscriberRepository->update($this->subscriber);
@@ -108,22 +112,22 @@ class _SubscriberController extends AbstractController {
 	/**
 	 * action delete
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
+	 * @param Subscriber $subscriber
 	 *
-	 * @throws Tx_Extbase_MVC_Exception_InvalidArgumentValue
+	 * @throws InvalidArgumentValueException
 	 * @return void
 	 */
-	public function deleteAction(Tx_T3extblog_Domain_Model_Subscriber $subscriber = NULL) {
+	public function deleteAction(Subscriber $subscriber = NULL) {
 		$this->checkAuth();
 
 		if ($subscriber === NULL) {
-			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue('No subscriber given.');
+			throw new InvalidArgumentValueException('No subscriber given.');
 		}
 
 		$this->subscriberRepository->remove($subscriber);
 		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
 
-		$this->addFlashMessageByKey('deleted', t3lib_FlashMessage::NOTICE);
+		$this->addFlashMessageByKey('deleted', FlashMessage::NOTICE);
 		$this->redirect('list');
 	}
 
@@ -133,7 +137,7 @@ class _SubscriberController extends AbstractController {
 	 * @return void
 	 */
 	protected function logoutAction() {
-		$this->processError('logout', t3lib_FlashMessage::NOTICE);
+		$this->processError('logout', FlashMessage::NOTICE);
 	}
 
 	/**
@@ -143,7 +147,7 @@ class _SubscriberController extends AbstractController {
 	 */
 	public function errorAction() {
 		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessageByKey('invalidAuth', t3lib_FlashMessage::ERROR);
+			$this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
 		}
 	}
 
@@ -155,11 +159,11 @@ class _SubscriberController extends AbstractController {
 	 *
 	 * @return void
 	 */
-	protected function processError($message = 'invalidAuth', $severity = t3lib_FlashMessage::ERROR) {
+	protected function processError($message = 'invalidAuth', $severity = FlashMessage::ERROR) {
 		$this->authentication->logout();
 
 		$this->addFlashMessageByKey($message, $severity);
-		$this->redirect("error");
+		$this->redirect('error');
 	}
 
 	/**
@@ -191,14 +195,16 @@ class _SubscriberController extends AbstractController {
 	protected function authenticate($isConfirmRequest = FALSE) {
 		$code = $this->getAuthCode();
 
-		/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
+		/* @var $subscriber Subscriber */
 		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
 		if ($subscriber === NULL) {
 			$this->processError('authFailed');
 		}
 
-		if ($subscriber->isAuthCodeExpired(trim($this->settings["subscriptionManager"]["subscriber"]["emailHashTimeout"]))) {
+		if ($subscriber->isAuthCodeExpired(
+			trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']))
+		) {
 			$this->processError('linkOutdated');
 		}
 
@@ -214,10 +220,13 @@ class _SubscriberController extends AbstractController {
 
 				if (version_compare(TYPO3_branch, '6.1', '>=')) {
 					$this->subscriberRepository->update($subscriber);
-					$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+					$persistenceManager = $this->objectManager->get(
+						'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+					);
+					$persistenceManager->persistAll();
 				}
 
-				$this->processError('alreadyRegistered', t3lib_FlashMessage::NOTICE);
+				$this->processError('alreadyRegistered', FlashMessage::NOTICE);
 			}
 		}
 
@@ -231,7 +240,7 @@ class _SubscriberController extends AbstractController {
 	 * @return string
 	 */
 	protected function hasCodeArgument() {
-		if ($this->request->hasArgument("code") && strlen($this->request->getArgument("code")) > 0) {
+		if ($this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0) {
 			return TRUE;
 		}
 
@@ -244,7 +253,7 @@ class _SubscriberController extends AbstractController {
 	 * @return string
 	 */
 	protected function getAuthCode() {
-		$code = $this->request->getArgument("code");
+		$code = $this->request->getArgument('code');
 
 		if (strlen($code) !== 32 || !ctype_alnum($code)) {
 			$this->processError('invalidLink');
@@ -254,5 +263,3 @@ class _SubscriberController extends AbstractController {
 	}
 
 }
-
-?>

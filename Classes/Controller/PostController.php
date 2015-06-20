@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,19 +26,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Category;
+use TYPO3\T3extblog\Domain\Model\Post;
+use TYPO3\T3extblog\Domain\Model\Comment;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class PostController extends AbstractController {
 
 	/**
 	 * postRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
@@ -53,11 +56,11 @@ class PostController extends AbstractController {
 	/**
 	 * Displays a list of posts related to a category
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param Category $category
 	 *
 	 * @return void
 	 */
-	public function categoryAction(Tx_T3extblog_Domain_Model_Category $category) {
+	public function categoryAction(Category $category) {
 		$this->view->assign('posts', $this->findPosts($category));
 	}
 
@@ -82,7 +85,7 @@ class PostController extends AbstractController {
 
 		if (isset($this->settings['latestPosts']['categoryUid'])) {
 			$category = $this->objectManager
-				->get('Tx_T3extblog_Domain_Repository_CategoryRepository')
+				->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
 				->findByUid((int) $this->settings['latestPosts']['categoryUid']);
 		}
 
@@ -94,10 +97,10 @@ class PostController extends AbstractController {
 	 *
 	 * @todo Performance: do not fetch all by default, consider paginator
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Category $category
+	 * @param Category $category
 	 * @param string $tag The name of the tag to show the posts for
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	private function findPosts($category = NULL, $tag = NULL) {
 		if ($category !== NULL) {
@@ -177,14 +180,14 @@ class PostController extends AbstractController {
 	 * @ignorevalidation $newComment
 	 * @dontvalidate $newComment
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post to display
-	 * @param Tx_T3extblog_Domain_Model_Comment $newComment A new comment
+	 * @param Post $post The post to display
+	 * @param Comment $newComment A new comment
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_T3extblog_Domain_Model_Post $post, Tx_T3extblog_Domain_Model_Comment $newComment = NULL) {
+	public function showAction(Post $post, Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = $this->objectManager->create('Tx_T3extblog_Domain_Model_Comment');
+			$newComment = $this->objectManager->create('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
 
 		// @todo: This will not work as this action is cached
@@ -204,13 +207,13 @@ class PostController extends AbstractController {
 	 *
 	 * @param integer $previewPost The post to display
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @return void
 	 */
 	public function previewAction($previewPost) {
 		if (empty($this->settings['previewHiddenRecords'])) {
-			throw new Exception('Preview not allowed.');
+			throw new \Exception('Preview not allowed.');
 		}
 
 		if (is_int($previewPost)) {
@@ -221,5 +224,3 @@ class PostController extends AbstractController {
 	}
 
 }
-
-?>

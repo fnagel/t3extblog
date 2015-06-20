@@ -27,19 +27,23 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * Abstract base controller
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-abstract class AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * Logging Service
 	 *
-	 * @var Tx_T3extblog_Service_LoggingService
+	 * @var \TYPO3\T3extblog\Service\LoggingService
 	 * @inject
 	 */
 	protected $log;
@@ -53,23 +57,23 @@ abstract class AbstractController extends Tx_Extbase_MVC_Controller_ActionContro
 	 *
 	 * @return void
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 
 		$tsSettings = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
 			't3extblog',
 			't3extblog_blogsystem'
 		);
 
 		$originalSettings = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
 		);
 
 		// start override
 		if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-			/** @var Tx_T3extblog_Utility_TypoScript $typoScriptUtility */
-			$typoScriptUtility = t3lib_div::makeInstance('Tx_T3extblog_Utility_TypoScript');
+			/** @var \TYPO3\T3extblog\Utility\TypoScript $typoScriptUtility */
+			$typoScriptUtility = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Utility\\TypoScript');
 			$originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
 		}
 
@@ -93,11 +97,11 @@ abstract class AbstractController extends Tx_Extbase_MVC_Controller_ActionContro
 	 * Helper function to render localized flashmessages
 	 *
 	 * @param string $action
-	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
+	 * @param integer $severity optional severity code. One of the FlashMessage constants
 	 *
 	 * @return void
 	 */
-	protected function addFlashMessageByKey($key, $severity = t3lib_FlashMessage::OK) {
+	protected function addFlashMessageByKey($key, $severity = FlashMessage::OK) {
 		$messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
 		$localizedMessage = $this->translate($messageLocallangKey, '[' . $messageLocallangKey . ']');
 
@@ -134,7 +138,7 @@ abstract class AbstractController extends Tx_Extbase_MVC_Controller_ActionContro
 	 * @return string
 	 */
 	protected function translate($key, $defaultMessage = '') {
-		$message = Tx_Extbase_Utility_Localization::translate($key, 'T3extblog');
+		$message = LocalizationUtility::translate($key, 'T3extblog');
 
 		if ($message === NULL) {
 			$message = $defaultMessage;
@@ -157,5 +161,3 @@ abstract class AbstractController extends Tx_Extbase_MVC_Controller_ActionContro
 		$this->response->sendHeaders();
 	}
 }
-
-?>

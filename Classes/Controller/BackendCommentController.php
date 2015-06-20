@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,14 +27,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Controller_BackendBaseController {
+class BackendCommentController extends BackendBaseController {
 
 	/**
 	 * Displays all comments
@@ -55,11 +57,11 @@ class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Cont
 	/**
 	 * Displays all comments for a post
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post The post
+	 * @param Post $post The post
 	 *
 	 * @return void
 	 */
-	public function listByPostAction(Tx_T3extblog_Domain_Model_Post $post) {
+	public function listByPostAction(Post $post) {
 		$this->view->assignMultiple(array(
 			'post' => $this->postRepository->findOneByUid($post),
 			'comments' => $this->commentRepository->findByPost($post, FALSE),
@@ -68,5 +70,3 @@ class Tx_T3extblog_Controller_BackendCommentController extends Tx_T3extblog_Cont
 	}
 
 }
-
-?>
