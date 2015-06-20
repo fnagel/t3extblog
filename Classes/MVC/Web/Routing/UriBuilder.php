@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Mvc\Web\Routing;
+
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
  *                                                                        *
@@ -12,28 +15,30 @@
  * Public License for more details.                                       *
  *                                                                        */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\T3extblog\Service\SettingsService;
+
 /**
  * An URI Builder
  *
  * This a modfied version of the default extbase class which enables us to
  * use a FE link within a BE context
- *
  */
-class Tx_T3extblog_MVC_Web_Routing_UriBuilder extends Tx_Extbase_MVC_Web_Routing_UriBuilder {
+class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 
 	/**
-	 * @var Tx_T3extblog_Service_SettingsService
+	 * @var \TYPO3\T3extblog\Service\SettingsService
 	 */
 	protected $settingsService;
 
 	/**
 	 * Injects the Settings Service
 	 *
-	 * @param Tx_T3extblog_Service_SettingsService $settingsService
+	 * @param \TYPO3\T3extblog\Service\SettingsService $settingsService
 	 *
 	 * @return void
 	 */
-	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+	public function injectSettingsService(SettingsService $settingsService) {
 		$this->settingsService = $settingsService;
 	}
 
@@ -75,7 +80,7 @@ class Tx_T3extblog_MVC_Web_Routing_UriBuilder extends Tx_Extbase_MVC_Web_Routing
 			$pluginNamespace = $this->extensionService->getPluginNamespace($extensionName, $pluginName);
 			$prefixedControllerArguments = array($pluginNamespace => $controllerArguments);
 		}
-		$this->arguments = t3lib_div::array_merge_recursive_overrule($this->arguments, $prefixedControllerArguments);
+		$this->arguments = GeneralUtility::array_merge_recursive_overrule($this->arguments, $prefixedControllerArguments);
 
 		return $this->buildFrontendUri();
 	}

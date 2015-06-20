@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Validation\Validator;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,12 +26,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+
 /**
  * Validator for URLs
  *
  * @package t3extblog
  */
-class Tx_T3extblog_Validation_Validator_UrlValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
+class UrlValidator extends AbstractValidator {
 
 	/**
 	 * Returns TRUE, if the given property ($propertyValue) is a valid URL / URI.
@@ -45,7 +50,7 @@ class Tx_T3extblog_Validation_Validator_UrlValidator extends Tx_Extbase_Validati
 			return TRUE;
 		}
 
-		if (t3lib_div::isValidUrl($value) === FALSE) {
+		if (GeneralUtility::isValidUrl($value) === FALSE) {
 			$this->addError('The given subject was not a valid URL.', 1392679659);
 
 			return FALSE;
