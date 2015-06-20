@@ -398,7 +398,7 @@ class Post extends AbstractLocalizedEntity {
 	 */
 	public function setTagCloud($tagCloud) {
 		if (is_array($tagCloud)) {
-			$this->tagCloud = implode(", ", $tagCloud);
+			$this->tagCloud = implode(', ', $tagCloud);
 		} else {
 			$this->tagCloud = $tagCloud;
 		}

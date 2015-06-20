@@ -69,9 +69,9 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 		if (count($this->systemLanguages) > 2) {
 			$records = $this->getLocalizedRecords($table, $object->toArray(), $returnUrl);
 
-			$templateVariableContainer->add($this->arguments['translations'], $records);
+			$templateVariableContainer->add($translations, $records);
 			$content = $this->renderChildren();
-			$templateVariableContainer->remove($this->arguments['translations']);
+			$templateVariableContainer->remove($translations);
 		}
 
 		return $content;

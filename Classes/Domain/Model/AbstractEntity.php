@@ -129,7 +129,7 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 		$properties = get_object_vars($this);
 
 		// fix to make sure we are able to use forward in controller
-		unset($properties['commentRepository']);
+		unset($properties['postRepository']);
 		unset($properties['commentRepository']);
 
 		return array_keys($properties);
