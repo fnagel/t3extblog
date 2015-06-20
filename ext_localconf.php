@@ -105,7 +105,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconf
 
 // support for dd_googlesitemap
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
-	'TYPO3\\T3extblog\\Hooks\\RealUrl\\Sitemap\\Generator->main';
+	'TYPO3\\T3extblog\\Hooks\\Sitemap\\Generator->main';
 
 // add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350

@@ -26,6 +26,8 @@ namespace TYPO3\T3extblog\Hooks\Sitemap;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGenerator;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * This class implements news sitemap
@@ -47,7 +49,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package    TYPO3
  * @subpackage    t3extblog
  */
-class Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGenerator {
+class Generator extends TtNewsSitemapGenerator {
 
 	/**
 	 * Creates an instance of this
@@ -57,19 +59,17 @@ class Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGe
 	public function __construct() {
 		$this->rendererClass = 'TYPO3\\T3extblog\\Hooks\\Sitemap\\Renderer';
 
-		// taken from general renderer
-		$this->cObj = GeneralUtility::makeInstance('tslib_cObj');
+		$this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$this->cObj->start(array());
 
-		$this->offset = max(0, intval(GeneralUtility::_GET('offset')));
-		$this->limit = max(0, intval(GeneralUtility::_GET('limit')));
+		$this->offset = max(0, (int)GeneralUtility::_GET('offset'));
+		$this->limit = max(0, (int)GeneralUtility::_GET('limit'));
 		if ($this->limit <= 0) {
 			$this->limit = 100;
 		}
 
 		$this->createRenderer();
 
-		// taken from ttnews renderer
 		$singlePid = intval(GeneralUtility::_GP('singlePid'));
 		$this->singlePid = $singlePid && $this->isInRootline($singlePid) ? $singlePid : $GLOBALS['TSFE']->id;
 
@@ -83,11 +83,12 @@ class Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGe
 	 */
 	protected function generateSitemapContent() {
 		if (count($this->pidList) > 0) {
+			// @todo Remove this
 			GeneralUtility::loadTCA('tx_t3blog_post');
 
 			$languageCondition = '';
 			$language = GeneralUtility::_GP('L');
-			if (self::testInt($language)) {
+			if (MathUtility::canBeInterpretedAsInteger($language)) {
 				$languageCondition = ' AND sys_language_uid=' . $language;
 			}
 
@@ -149,26 +150,6 @@ class Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGe
 		$link = htmlspecialchars($this->cObj->typoLink('', $conf));
 
 		return $link;
-	}
-
-	/**
-	 * Provides a portable testInt implementation acorss TYPO3 branches.
-	 *
-	 * @todo Remove this with namespace introduction
-	 *
-	 * @param mixed $value
-	 * @return bool
-	 */
-	static protected function testInt($value) {
-		if (class_exists('\TYPO3\CMS\Core\Utility\MathUtility')) {
-			return \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($value);
-		}
-		if (class_exists('t3lib_utility_Math')) {
-			/** @noinspection PhpDeprecationInspection */
-			return t3lib_utility_Math::canBeInterpretedAsInteger($value);
-		}
-		/** @noinspection PhpDeprecationInspection PhpUndefinedMethodInspection */
-		return t3lib_div::testInt($value);
 	}
 
 }

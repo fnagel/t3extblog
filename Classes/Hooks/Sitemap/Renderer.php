@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks\Renderer;
+namespace TYPO3\T3extblog\Hooks\Sitemap;
 
 /***************************************************************
  *  Copyright notice
@@ -25,6 +25,8 @@ namespace TYPO3\T3extblog\Hooks\Renderer;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer;
+
 /**
  * This class contains a renderer for the 'news' sitemap.
  *
@@ -32,7 +34,7 @@ namespace TYPO3\T3extblog\Hooks\Renderer;
  * @package    TYPO3
  * @subpackage    t3extblog
  */
-class Renderer extends \DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer {
+class Renderer extends NewsSitemapRenderer {
 
 	/**
 	 * Creates an instance of this class
