@@ -51,6 +51,7 @@ See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the 
 
 * Change version information in :code:`/ext_emconf.php`
 * Change version information in :code:`/Documentation/Settings.yml`
+* Change version information in :code:`/composer.json`
 * Commit changes: No [XYZ] prefix, this commit message will be the TYPO3 TER release notice
 * Add tag to release commit (format: "1.2.3")
 * Change version information in :code:`/ext_emconf.php` to next bugfix version + "dev" (example: "1.2.4dev")
