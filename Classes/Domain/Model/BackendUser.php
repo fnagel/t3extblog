@@ -26,44 +26,14 @@ namespace TYPO3\T3extblog\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Domain\Model\BackendUser as BaseBackendUser;
+
 /**
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class BackendUser extends AbstractEntity {
-
-	/**
-	 * @var string
-	 */
-	protected $username;
-
-	/**
-	 * @var string
-	 */
-	protected $name;
-
-	/**
-	 * @var string
-	 */
-	protected $email = '';
-
-	/**
-	 * Constructs a new Backend-End User
-	 *
-	 */
-	public function __construct($username = '') {
-		$this->username = $username;
-	}
-
-	/**
-	 * Returns the username value
-	 *
-	 * @return string
-	 */
-	public function getUsername() {
-		return $this->username;
-	}
+class BackendUser extends BaseBackendUser {
 
 	/**
 	 * Returns the name value
@@ -71,16 +41,7 @@ class BackendUser extends AbstractEntity {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * Returns the email value
-	 *
-	 * @return string
-	 */
-	public function getEmail() {
-		return $this->email;
+		return $this->getRealName();
 	}
 
 	/**

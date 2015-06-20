@@ -1,16 +1,16 @@
 # table & field mapping
 config.tx_extbase {
 	objects {
-		Tx_T3extblog_Service_SessionServiceInterface.className = Tx_T3extblog_Service_SessionService
-		Tx_T3extblog_Service_AuthenticationServiceInterface.className = Tx_T3extblog_Service_AuthenticationService
-		Tx_T3extblog_Service_NotificationServiceInterface.className = Tx_T3extblog_Service_NotificationService
-		Tx_T3extblog_Service_SpamCheckServiceInterface.className = Tx_T3extblog_Service_SpamCheckService
-		Tx_T3extblog_Service_LoggingServiceInterface.className = Tx_T3extblog_Service_LoggingService
+		TYPO3\T3extblog\Service\SessionServiceInterface.className = TYPO3\T3extblog\Service\SessionService
+		TYPO3\T3extblog\Service\AuthenticationServiceInterface.className = TYPO3\T3extblog\Service\AuthenticationService
+		TYPO3\T3extblog\Service\NotificationServiceInterface.className = TYPO3\T3extblog\Service\NotificationService
+		TYPO3\T3extblog\Service\SpamCheckServiceInterface.className = TYPO3\T3extblog\Service\SpamCheckService
+		TYPO3\T3extblog\Service\LoggingServiceInterface.className = TYPO3\T3extblog\Service\LoggingService
 	}
 
     persistence {
         classes {
-            Tx_T3extblog_Domain_Model_Post {
+	        TYPO3\T3extblog\Domain\Model\Post {
                 mapping {
                     tableName = tx_t3blog_post
 					columns {
@@ -34,7 +34,7 @@ config.tx_extbase {
 					}
                 }
             }
-	        Tx_T3extblog_Domain_Model_Content {
+	        TYPO3\T3extblog\Domain\Model\Content {
 		        mapping {
 			        tableName = tt_content
 			        columns {
@@ -45,7 +45,7 @@ config.tx_extbase {
 			        }
 		        }
 	        }
-            Tx_T3extblog_Domain_Model_Category {
+	        TYPO3\T3extblog\Domain\Model\Category {
                 mapping {
                     tableName = tx_t3blog_cat
 					columns {
@@ -59,7 +59,7 @@ config.tx_extbase {
 					}
                 }
             }
-            Tx_T3extblog_Domain_Model_Comment {
+	        TYPO3\T3extblog\Domain\Model\Comment {
                 mapping {
                     tableName = tx_t3blog_com
 					columns {
@@ -80,20 +80,17 @@ config.tx_extbase {
 					}
                 }
             }
-            Tx_T3extblog_Domain_Model_BackendUser {
-                mapping {
-                    tableName = be_users
-					columns {
-						tstamp.mapOnProperty = tstamp
-						deleted.mapOnProperty = deleted
-						hidden.mapOnProperty = hidden
-						username.mapOnProperty = username
-						realName.mapOnProperty = name
-						email.mapOnProperty = email
-					}
-                }
-            }
-            Tx_T3extblog_Domain_Model_Subscriber {
+	        TYPO3\CMS\Extbase\Domain\Model\BackendUser {
+		        subclasses {
+			        BackendUser = TYPO3\T3extblog\Domain\Model\BackendUser
+		        }
+	        }
+	        TYPO3\T3extblog\Domain\Model\BackendUser {
+		        mapping {
+			        tableName = be_users
+		        }
+	        }
+	        TYPO3\T3extblog\Domain\Model\Subscriber {
                 mapping {
                     tableName = tx_t3blog_com_nl
 					columns {
