@@ -55,7 +55,7 @@ class Generator extends \DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGe
 	 * We cant use parent constructor as the wrong class will be initiated
 	 */
 	public function __construct() {
-		$this->rendererClass = 'Tx_T3extblog_Hooks_Sitemap_Renderer';
+		$this->rendererClass = 'TYPO3\\T3extblog\\Hooks\\Sitemap\\Renderer';
 
 		// taken from general renderer
 		$this->cObj = GeneralUtility::makeInstance('tslib_cObj');

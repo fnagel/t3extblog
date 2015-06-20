@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -22,12 +25,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * TypoScript Utility class
  *
  * Taken from Georg Ringer's news extension
  */
-class Tx_T3extblog_Utility_TypoScript {
+class TypoScript {
 
 	/**
 	 * @param array $base
@@ -35,7 +40,7 @@ class Tx_T3extblog_Utility_TypoScript {
 	 * @return array
 	 */
 	public function override(array $base, array $overload) {
-		$validFields = t3lib_div::trimExplode(',', $overload['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
+		$validFields = GeneralUtility::trimExplode(',', $overload['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
 		foreach ($validFields as $fieldName) {
 
 			// Multilevel field

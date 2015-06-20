@@ -36,7 +36,6 @@ use TYPO3\CMS\Extbase\Object\Container\Container;
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class Tcemain {
 
@@ -53,7 +52,7 @@ class Tcemain {
 	/**
 	 * notificationService
 	 *
-	 * @var NotificationService
+	 * @var \TYPO3\T3extblog\Service\NotificationService
 	 */
 	protected $notificationService = NULL;
 
@@ -67,7 +66,7 @@ class Tcemain {
 	/**
 	 * commentRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 */
 	protected $commentRepository = NULL;
 
@@ -215,7 +214,7 @@ class Tcemain {
 	protected function processNewComment($id, $pid) {
 		// extbase fix
 		$this->getObjectContainer()
-			->getInstance('Tx_T3extblog_Service_SettingsService')
+			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
 			->setPageUid($pid);
 
 		$this->getNotificationService()->processCommentAdded($this->getComment($id), FALSE);
@@ -230,7 +229,7 @@ class Tcemain {
 	protected function processChangedComment($id, $pid) {
 		// extbase fix
 		$this->getObjectContainer()
-			->getInstance('Tx_T3extblog_Service_SettingsService')
+			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
 			->setPageUid($pid);
 
 		$this->getNotificationService()->processCommentStatusChanged($this->getComment($id));
@@ -241,7 +240,7 @@ class Tcemain {
 	 *
 	 * @param integer $uid Page uid
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Comment
+	 * @return \TYPO3\T3extblog\Domain\Model\Comment
 	 */
 	protected function getComment($uid) {
 		$comment = $this->getCommentRepository()->findByUid($uid);
@@ -252,11 +251,13 @@ class Tcemain {
 	/**
 	 * Get comment repository
 	 *
-	 * @return Tx_T3extblog_Domain_Repository_CommentRepository
+	 * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 */
 	protected function getCommentRepository() {
 		if ($this->commentRepository == NULL) {
-			$this->commentRepository = $this->getObjectContainer()->getInstance('Tx_T3extblog_Domain_Repository_CommentRepository');
+			$this->commentRepository = $this->getObjectContainer()->getInstance(
+				'TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository'
+			);
 		}
 
 		return $this->commentRepository;
@@ -278,11 +279,13 @@ class Tcemain {
 	/**
 	 * Get notification service
 	 *
-	 * @return NotificationService
+	 * @return \TYPO3\T3extblog\Service\NotificationService
 	 */
 	protected function getNotificationService() {
 		if ($this->notificationService == NULL) {
-			$this->notificationService = $this->getObjectContainer()->getInstance('Tx_T3extblog_Service_NotificationService');
+			$this->notificationService = $this->getObjectContainer()->getInstance(
+				'TYPO3\\T3extblog\\Service\\NotificationService'
+			);
 		}
 
 		return $this->notificationService;
