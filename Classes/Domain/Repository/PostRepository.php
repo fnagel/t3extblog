@@ -81,7 +81,7 @@ class PostRepository extends AbstractRepository {
 	 * @param integer $uid id of record
 	 * @param boolean $respectEnableFields if set to false, hidden records are shown
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Post
+	 * @return Post
 	 */
 	public function findByLocalizedUid($uid, $respectEnableFields = TRUE) {
 		$temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];

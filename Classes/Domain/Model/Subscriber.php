@@ -303,9 +303,9 @@ class Subscriber extends AbstractEntity {
 	/**
 	 * Checks if the authCode is still valid
 	 *
-	 * @param \DateTime $expireDate
+	 * @param string $expireDate
 	 *
-	 * @return string
+	 * @return boolean
 	 */
 	public function isAuthCodeExpired($expireDate) {
 		$now = new \DateTime();

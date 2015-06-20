@@ -31,6 +31,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use \TYPO3\T3extblog\Domain\Model\BackendUser;
 
 /**
  * @package t3extblog
@@ -133,7 +134,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * content
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Content>
 	 * @lazy
 	 */
 	protected $content;
@@ -141,7 +142,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * categories
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Category>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
 	 * @lazy
 	 */
 	protected $categories;
@@ -149,14 +150,14 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * comments
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
 	 */
 	protected $comments = NULL;
 
 	/**
 	 * raw comments
 	 *
-	 * @var Tx_Extbase_Persistence_QueryResultInterface
+	 * @var QueryResultInterface
 	 * @lazy
 	 */
 	protected $rawComments = NULL;
@@ -201,7 +202,7 @@ class Post extends AbstractLocalizedEntity {
 	protected function initStorageObjects() {
 		$this->categories = new ObjectStorage();
 		$this->subscriptions = new ObjectStorage();
-		$this->content = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->content = new ObjectStorage();
 	}
 
 	/**
@@ -264,7 +265,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Sets the author
 	 *
-	 * @param BackendUser|integer $author
+	 * @param BackendUser|int $author
 	 *
 	 * @return void
 	 */
@@ -272,7 +273,7 @@ class Post extends AbstractLocalizedEntity {
 		if ($author instanceof BackendUser) {
 			$this->author = $author->getUid();
 		} elseif (intval($author)) {
-			$this->author = $author;
+			$this->author = (int) $author;
 		}
 	}
 
@@ -376,7 +377,7 @@ class Post extends AbstractLocalizedEntity {
 	 * @return array $tagCloud
 	 */
 	public function getTagCloud() {
-		return GeneralUtility::trimExplode(",", $this->tagCloud, true);
+		return GeneralUtility::trimExplode(',', $this->tagCloud, true);
 	}
 
 	/**
@@ -533,7 +534,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Returns the content
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Content> $content
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Content> $content
 	 */
 	public function getContent() {
 		return $this->content;
@@ -542,7 +543,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Set content element list
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage $content content elements
+	 * @param ObjectStorage $content content elements
 	 * @return void
 	 */
 	public function setContent($content) {
@@ -552,12 +553,12 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Adds a content element to the record
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Content $content
+	 * @param Content $content
 	 * @return void
 	 */
-	public function addContent(Tx_T3extblog_Domain_Model_Content $content) {
+	public function addContent(Content $content) {
 		if ($this->getContent() === NULL) {
-			$this->content = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->content = new ObjectStorage();
 		}
 		$this->content->attach($content);
 	}
@@ -643,7 +644,7 @@ class Post extends AbstractLocalizedEntity {
 		if ($this->comments === NULL) {
 			$this->rawComments = $this->getCommentRepository()->findValidByPost($this);
 
-			$this->comments = new Tx_Extbase_Persistence_ObjectStorage();
+			$this->comments = new ObjectStorage();
 			foreach($this->rawComments as $comment) {
 				$this->comments->attach($comment);
 			}
@@ -705,10 +706,10 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Sets the comments
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3extblog_Domain_Model_Comment> $comments
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
 	 * @return void
 	 */
-	public function setComments(Tx_Extbase_Persistence_ObjectStorage $comments) {
+	public function setComments(ObjectStorage $comments) {
 		$this->comments = $comments;
 	}
 

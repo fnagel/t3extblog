@@ -75,7 +75,7 @@ class Comment extends AbstractEntity {
 	 * website
 	 *
 	 * @var string
-	 * @validate \TYPO3\T3extblog\Validation\Validation\UrlValidator
+	 * @validate \TYPO3\T3extblog\Validation\Validator\UrlValidator
 	 */
 	protected $website;
 
