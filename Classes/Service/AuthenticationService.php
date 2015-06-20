@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,13 +27,10 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service_AuthenticationServiceInterface {
+class AuthenticationService implements AuthenticationServiceInterface {
 
 	/**
 	 * Session data
@@ -43,18 +42,18 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 	/**
 	 * Session Service
 	 *
-	 * @var Tx_T3extblog_Service_SessionServiceInterface
+	 * @var SessionServiceInterface
 	 */
 	protected $session;
 
 	/**
 	 * Injects the Session Service
 	 *
-	 * @param Tx_T3extblog_Service_SessionServiceInterface $sessionService
+	 * @param SessionServiceInterface $sessionService
 	 *
 	 * @return void
 	 */
-	public function injectSessionService(Tx_T3extblog_Service_SessionServiceInterface $sessionService) {
+	public function injectSessionService(SessionServiceInterface $sessionService) {
 		$this->session = $sessionService;
 	}
 
@@ -124,5 +123,3 @@ class Tx_T3extblog_Service_AuthenticationService implements Tx_T3extblog_Service
 		return $this->sessionData;
 	}
 }
-
-?>

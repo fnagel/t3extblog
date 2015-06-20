@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,15 +26,17 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Handles logging
  * Configured by TYPO3 core log level
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_LoggingServiceInterface, t3lib_Singleton {
+class LoggingService implements LoggingServiceInterface, SingletonInterface {
 
 	/**
 	 * The extension key
@@ -57,7 +61,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	protected $renderInFe;
 
 	/**
-	 * @var Tx_T3extblog_Service_SettingsService
+	 * @var SettingsService
 	 */
 	protected $settingsService;
 
@@ -70,16 +74,18 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	/**
 	 * Injects the Settings Service
 	 *
-	 * @param Tx_T3extblog_Service_SettingsService $settingsService
+	 * @param SettingsService $settingsService
 	 *
 	 * @return void
 	 */
-	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+	public function injectSettingsService(SettingsService $settingsService) {
 		$this->settingsService = $settingsService;
 	}
 
 	/**
+	 * Init object
 	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = $this->settingsService->getTypoScriptSettings();
@@ -157,7 +163,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * @return void
 	 */
 	protected function outputDebug($msg, $severity = 0, $data = array()) {
-		Tx_Extbase_Utility_Debugger::var_dump($data, '[' . $severity . '] ' . $msg);
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '[' . $severity . '] ' . $msg);
 	}
 
 	/**
@@ -169,7 +175,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * @return void
 	 */
 	protected function writeToSysLog($msg, $severity = 0) {
-		t3lib_div::sysLog($msg, $this->extKey, $severity);
+		GeneralUtility::sysLog($msg, $this->extKey, $severity);
 	}
 
 	/**
@@ -182,9 +188,7 @@ class Tx_T3extblog_Service_LoggingService implements Tx_T3extblog_Service_Loggin
 	 * @return void
 	 */
 	protected function writeToDevLog($msg, $severity = 0, $dataVar = FALSE) {
-		t3lib_div::devLog($msg, $this->extKey, $severity, $dataVar);
+		GeneralUtility::devLog($msg, $this->extKey, $severity, $dataVar);
 	}
 
 }
-
-?>

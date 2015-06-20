@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +28,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\SingletonInterface;
 use \TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Provide a way to get the configuration just everywhere
@@ -34,7 +40,7 @@ use \TYPO3\CMS\Core\Utility\ArrayUtility;
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
+class SettingsService implements SingletonInterface {
 
 	/**
 	 * Extension name
@@ -67,7 +73,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	protected $frameworkSettings = NULL;
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
 
@@ -79,11 +85,11 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	/**
 	 * Injects the Configuration Manager and loads the settings
 	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
+	 * @param ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
 	 *
 	 * @return void
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -102,11 +108,12 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * Returns all framework settings.
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	public function getFrameworkSettings() {
 		if ($this->frameworkSettings === NULL) {
 			$this->frameworkSettings = $this->configurationManager->getConfiguration(
-				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+				ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
 				$this->extensionName,
 				$this->pluginName
 			);
@@ -122,7 +129,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 		}
 
 		if ($this->frameworkSettings === NULL) {
-			throw new Tx_Extbase_Configuration_Exception('No framework typoscript settings available.');
+			throw new Exception('No framework typoscript settings available.');
 		}
 
 		return $this->frameworkSettings;
@@ -132,11 +139,12 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * Returns all TS settings.
 	 *
 	 * @return array
+	 * @throws Exception
 	 */
 	public function getTypoScriptSettings() {
 		if ($this->typoScriptSettings === NULL) {
 			$this->typoScriptSettings = $this->configurationManager->getConfiguration(
-				Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+				ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
 				$this->extensionName,
 				$this->pluginName
 			);
@@ -149,7 +157,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 		}
 
 		if ($this->typoScriptSettings === NULL) {
-			throw new Tx_Extbase_Configuration_Exception('No typoscript settings available.');
+			throw new Exception('No typoscript settings available.');
 		}
 
 		return $this->typoScriptSettings;
@@ -162,7 +170,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 */
 	protected function getFullTypoScriptConfig() {
 		$setup = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 
 		return $this->typoScriptService->convertTypoScriptArrayToPlainArray($setup['plugin.']['tx_t3extblog.']);
@@ -180,7 +188,7 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 	 * @return mixed
 	 */
 	public function getTypoScriptByPath($path) {
-		return Tx_Extbase_Reflection_ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
+		return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
 	}
 
 	/**
@@ -202,5 +210,3 @@ class Tx_T3extblog_Service_SettingsService implements t3lib_Singleton {
 		}
 	}
 }
-
-?>

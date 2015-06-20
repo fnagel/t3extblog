@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,14 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Core\Utility\MailUtility;
+
 /**
  * Handles email sending and templating
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
+class EmailService implements SingletonInterface {
 
 	/**
 	 * Extension name
@@ -41,19 +47,19 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	protected $extensionName = 't3extblog';
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager;
 
 	/**
 	 * Logging Service
 	 *
-	 * @var Tx_T3extblog_Service_LoggingService
+	 * @var LoggingService
 	 */
 	protected $log;
 
 	/**
-	 * @var Tx_T3extblog_Service_SettingsService
+	 * @var SettingsService
 	 */
 	protected $settingsService;
 
@@ -63,38 +69,38 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	protected $settings;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
 	/**
 	 * Injects the Logging Service
 	 *
-	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 * @param LoggingService $loggingService
 	 *
 	 * @return void
 	 */
-	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
+	public function injectLoggingService(LoggingService $loggingService) {
 		$this->log = $loggingService;
 	}
 
 	/**
 	 * Injects the Settings Service
 	 *
-	 * @param Tx_T3extblog_Service_SettingsService $settingsService
+	 * @param SettingsService $settingsService
 	 *
 	 * @return void
 	 */
-	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+	public function injectSettingsService(SettingsService $settingsService) {
 		$this->settingsService = $settingsService;
 	}
 
 	/**
-	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = $this->settingsService->getTypoScriptSettings();
@@ -111,17 +117,18 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	 * @return integer the number of recipients who were accepted for delivery
 	 */
 	public function send($mailTo, $mailFrom, $subject, $emailBody) {
-		if (!($mailTo && is_array($mailTo) && t3lib_div::validEmail(key($mailTo)))) {
-			$this->log->error("Given mailto email address is invalid.", $mailTo);
+		if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
+			$this->log->error('Given mailto email address is invalid.', $mailTo);
+
 			return FALSE;
 		}
 
-		if (!($mailFrom && is_array($mailFrom) && t3lib_div::validEmail(key($mailFrom)))) {
-			$mailFrom = t3lib_utility_Mail::getSystemFrom();
+		if (!($mailFrom && is_array($mailFrom) && GeneralUtility::validEmail(key($mailFrom)))) {
+			$mailFrom = MailUtility::getSystemFrom();
 		}
 
-		/* @var $message t3lib_mail_Message */
-		$message = $this->objectManager->create('t3lib_mail_Message');
+		/* @var $message \TYPO3\CMS\Core\Mail\MailMessage */
+		$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$message
 			->setTo($mailTo)
 			->setFrom($mailFrom)
@@ -135,7 +142,7 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 			$message->setBody($emailBody, 'text/html');
 		}
 
-		if (!$this->settings["debug"]["disableEmailTransmission"]) {
+		if (!$this->settings['debug']['disableEmailTransmission']) {
 			$message->send();
 		}
 
@@ -146,7 +153,7 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 			'emailBody' => $emailBody,
 			'isSent' => $message->isSent()
 		);
-		$this->log->dev("Email sent.", $logData);
+		$this->log->dev('Email sent.', $logData);
 
 		return $logData['isSent'];
 	}
@@ -158,16 +165,16 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 	 * @param string $templatePath Choose a template
 	 * @param string $format Choose a format (txt or html)
 	 */
-	public function render($variables, $templatePath = "Default.txt", $format = 'txt') {
+	public function render($variables, $templatePath = 'Default.txt', $format = 'txt') {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
-		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
+		$emailView = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
 		$emailView->setFormat($format);
 
-		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
-		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
+		$emailView->setLayoutRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
+		$emailView->setPartialRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
 		$emailView->setTemplatePathAndFilename(
-			t3lib_div::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
+			GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
 		);
 
 		$emailView->getRequest()->setPluginName('');
@@ -177,12 +184,10 @@ class Tx_T3extblog_Service_EmailService implements t3lib_Singleton {
 		$emailView->assignMultiple($variables);
 		$emailView->assignMultiple(array(
 			'timestamp' => $GLOBALS['EXEC_TIME'],
-			'domain' => t3lib_div::getIndpEnv('TYPO3_SITE_URL'),
+			'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
 			'settings' => $this->settings
 		));
 
 		return $emailView->render();
 	}
 }
-
-?>

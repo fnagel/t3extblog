@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,31 +27,35 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_SessionService implements Tx_T3extblog_Service_SessionServiceInterface {
+class SessionService implements SessionServiceInterface {
 
 	CONST SESSION_DATA_KEY = 'subscription_session';
 
 	/**
 	 * Logging Service
 	 *
-	 * @var Tx_T3extblog_Service_LoggingService
+	 * @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication
+	 */
+	protected $frontendUser;
+
+	/**
+	 * Logging Service
+	 *
+	 * @var LoggingService
 	 */
 	protected $log;
 
 	/**
 	 * Injects the Logging Service
 	 *
-	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 * @param LoggingService $loggingService
 	 *
 	 * @return void
 	 */
-	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
+	public function injectLoggingService(LoggingService $loggingService) {
 		$this->log = $loggingService;
 	}
 
@@ -120,11 +126,9 @@ class Tx_T3extblog_Service_SessionService implements Tx_T3extblog_Service_Sessio
 	 * Write session data
 	 */
 	private function writeToSession($key, $data) {
-		$this->log->dev("Write so FE session", $data);
+		$this->log->dev('Write so FE session', $data);
 
 		$this->frontendUser->setKey('ses', 'tx_t3extblog_' . $key, $data);
 		$this->frontendUser->storeSessionData();
 	}
 }
-
-?>

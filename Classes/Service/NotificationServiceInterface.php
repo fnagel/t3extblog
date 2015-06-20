@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +26,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Comment;
+
 /**
  * Interface for Notification Service
  *
@@ -32,31 +36,28 @@
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-interface Tx_T3extblog_Service_NotificationServiceInterface {
+interface NotificationServiceInterface {
 
 	/**
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
+	 * @param Comment $comment Comment uid
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded(Tx_T3extblog_Domain_Model_Comment $comment, $notifyAdmin = true);
+	public function processCommentAdded(Comment $comment, $notifyAdmin = TRUE);
 
 	/**
 	 * Process changed status of a comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment uid
+	 * @param Comment $comment Comment uid
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged(Tx_T3extblog_Domain_Model_Comment $comment);
+	public function processCommentStatusChanged(Comment $comment);
 
 }
-
-?>

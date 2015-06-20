@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,24 +26,27 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\CMS\Extbase\Mvc\Request;
+
 /**
  * Handles comment spam check
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_SpamCheckServiceInterface {
+class SpamCheckService implements SpamCheckServiceInterface {
 
 	/**
 	 * Logging Service
 	 *
-	 * @var Tx_T3extblog_Service_LoggingService
+	 * @var LoggingService
 	 */
 	protected $log;
 
 	/**
-	 * @var Tx_T3extblog_Service_SettingsService
+	 * @var SettingsService
 	 */
 	protected $settingsService;
 
@@ -58,22 +63,22 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	/**
 	 * Injects the Logging Service
 	 *
-	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 * @param LoggingService $loggingService
 	 *
 	 * @return void
 	 */
-	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
+	public function injectLoggingService(LoggingService $loggingService) {
 		$this->log = $loggingService;
 	}
 
 	/**
 	 * Injects the Settings Service
 	 *
-	 * @param Tx_T3extblog_Service_SettingsService $settingsService
+	 * @param SettingsService $settingsService
 	 *
 	 * @return void
 	 */
-	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+	public function injectSettingsService(SettingsService $settingsService) {
 		$this->settingsService = $settingsService;
 	}
 
@@ -88,12 +93,12 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	/**
 	 * Checks comment for SPAM
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be checked
-	 * @param Tx_Extbase_MVC_Request $request The request to be checked
+	 * @param Comment $comment The comment to be checked
+	 * @param Request $request The request to be checked
 	 *
 	 * @return integer
 	 */
-	public function process(Tx_T3extblog_Domain_Model_Comment $comment, Tx_Extbase_MVC_Request $request) {
+	public function process(Comment $comment, Request $request) {
 		$spamPoints = 0;
 
 		if (!$this->spamSettings['enable']) {
@@ -119,7 +124,7 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 		}
 
 		if ($this->spamSettings['userAgent']) {
-			if (t3lib_div::getIndpEnv('HTTP_USER_AGENT') == '') {
+			if (GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
 				$spamPoints += intval($this->spamSettings['userAgent']);
 			}
 		}
@@ -132,11 +137,11 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 	/**
 	 * Checks honeypot fields
 	 *
-	 * @param Tx_Extbase_MVC_Request $request The request to be checked
+	 * @param Request $request The request to be checked
 	 *
 	 * @return boolean
 	 */
-	protected function checkHoneyPotFields(Tx_Extbase_MVC_Request $request) {
+	protected function checkHoneyPotFields(Request $request) {
 		if (!$request->hasArgument('author') || strlen($request->getArgument('author')) > 0) {
 			return FALSE;
 		}
@@ -153,5 +158,3 @@ class Tx_T3extblog_Service_SpamCheckService implements Tx_T3extblog_Service_Spam
 		return TRUE;
 	}
 }
-
-?>

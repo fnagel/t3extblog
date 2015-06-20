@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,9 +31,8 @@
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-interface Tx_T3extblog_Service_LoggingServiceInterface {
+interface LoggingServiceInterface {
 
 	/**
 	 * Error logging
@@ -63,5 +64,3 @@ interface Tx_T3extblog_Service_LoggingServiceInterface {
 	 */
 	public function dev($msg, $data = array());
 }
-
-?>

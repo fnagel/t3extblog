@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,25 +26,25 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Comment;
+use \TYPO3\CMS\Extbase\Mvc\Request;
+
 /**
  * Handles comment spam check
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-interface Tx_T3extblog_Service_SpamCheckServiceInterface {
+interface SpamCheckServiceInterface {
 
 	/**
 	 * Checks comment for SPAM
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment The comment to be checked
-	 * @param Tx_Extbase_MVC_Request $request The request to be checked
+	 * @param Comment $comment The comment to be checked
+	 * @param Request $request The request to be checked
 	 *
 	 * @return integer Spam points
 	 */
-	public function process(Tx_T3extblog_Domain_Model_Comment $comment, Tx_Extbase_MVC_Request $request);
+	public function process(Comment $comment, Request $request);
 
 }
-
-?>

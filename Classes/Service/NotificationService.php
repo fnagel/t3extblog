@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,36 +26,44 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Service\CacheService;
+use TYPO3\T3extblog\Domain\Model\Post;
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Domain\Model\Subscriber;
+use TYPO3\T3extblog\Domain\Repository\SubscriberRepository;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * Handles all notification mails
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_NotificationServiceInterface, t3lib_Singleton {
+class NotificationService implements NotificationServiceInterface, SingletonInterface {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager;
 
 	/**
 	 * subscriberRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_SubscriberRepository
+	 * @var SubscriberRepository
 	 */
 	protected $subscriberRepository;
 
 	/**
 	 * Logging Service
 	 *
-	 * @var Tx_T3extblog_Service_LoggingService
+	 * @var LoggingService
 	 */
 	protected $log;
 
 	/**
-	 * @var Tx_T3extblog_Service_SettingsService
+	 * @var SettingsService
 	 */
 	protected $settingsService;
 
@@ -63,74 +73,78 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	protected $settings;
 
 	/**
-	 * @var Tx_T3extblog_Service_EmailService $emailService
+	 * @var EmailService $emailService
 	 */
 	protected $emailService;
 
 	/**
-	 * @var Tx_Extbase_Service_CacheService
+	 * @var CacheService
 	 */
 	protected $cacheService;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
 	/**
 	 * Injects the Logging Service
 	 *
-	 * @param Tx_T3extblog_Service_LoggingService $loggingService
+	 * @param LoggingService $loggingService
 	 *
 	 * @return void
 	 */
-	public function injectLoggingService(Tx_T3extblog_Service_LoggingService $loggingService) {
+	public function injectLoggingService(LoggingService $loggingService) {
 		$this->log = $loggingService;
 	}
 
 	/**
 	 * Injects the Subscriber Repository
 	 *
-	 * @param Tx_T3extblog_Domain_Repository_SubscriberRepository $subscriberRepository
+	 * @param SubscriberRepository $subscriberRepository
 	 *
 	 * @return void
 	 */
-	public function injectSubscriberRepository(Tx_T3extblog_Domain_Repository_SubscriberRepository $subscriberRepository) {
+	public function injectSubscriberRepository(SubscriberRepository $subscriberRepository) {
 		$this->subscriberRepository = $subscriberRepository;
 	}
 
 	/**
 	 * Injects the Settings Service
 	 *
-	 * @param Tx_T3extblog_Service_SettingsService $settingsService
+	 * @param SettingsService $settingsService
 	 *
 	 * @return void
 	 */
-	public function injectSettingsService(Tx_T3extblog_Service_SettingsService $settingsService) {
+	public function injectSettingsService(SettingsService $settingsService) {
 		$this->settingsService = $settingsService;
 	}
 
 	/**
-	 * @param Tx_T3extblog_Service_EmailService $emailService
+	 * @param EmailService $emailService
+	 *
+	 * @return void
 	 */
-	public function injectEmailService(Tx_T3extblog_Service_EmailService $emailService) {
+	public function injectEmailService(EmailService $emailService) {
 		$this->emailService = $emailService;
 	}
 
 	/**
-	 * @param Tx_Extbase_Service_CacheService $cacheService
+	 * @param CacheService $cacheService
+	 *
+	 * @return void
 	 */
-	public function injectCacheService(Tx_Extbase_Service_CacheService $cacheService) {
+	public function injectCacheService(CacheService $cacheService) {
 		$this->cacheService = $cacheService;
 	}
 
 
 	/**
-	 *
+	 * @return void
 	 */
 	public function initializeObject() {
 		$this->settings = $this->settingsService->getTypoScriptSettings();
@@ -140,12 +154,12 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
+	 * @param Comment $comment Comment
 	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded(Tx_T3extblog_Domain_Model_Comment $comment, $notifyAdmin = TRUE) {
+	public function processCommentAdded(Comment $comment, $notifyAdmin = TRUE) {
 		if ($notifyAdmin === TRUE) {
 			$this->notifyAdmin($comment);
 		}
@@ -155,7 +169,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 		}
 
 		if ($comment->isValid()) {
-			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
+			if ($subscriber instanceof Subscriber) {
 				$this->sendOptInMail($subscriber, $comment);
 			}
 
@@ -171,14 +185,14 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * Process changed status of a comment
 	 * Comment is already persisted to DB
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
+	 * @param Comment $comment Comment
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged(Tx_T3extblog_Domain_Model_Comment $comment) {
+	public function processCommentStatusChanged(Comment $comment) {
 		if ($comment->isValid()) {
 			$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
-			if ($subscriber instanceof Tx_T3extblog_Domain_Model_Subscriber) {
+			if ($subscriber instanceof Subscriber) {
 				$this->sendOptInMail($subscriber, $comment);
 			}
 
@@ -192,17 +206,19 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	/**
 	 * Checks if a new subscription should be added
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 *
 	 * @return boolean
 	 */
-	protected function isNewSubscriptionValid(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function isNewSubscriptionValid(Comment $comment) {
 		if (!$this->settings['blogsystem']['comments']['subscribeForComments'] || !$comment->getSubscribe()) {
 			return FALSE;
 		}
 
 		// check if user already registered
-		$subscribers = $this->subscriberRepository->findExistingSubscriptions($comment->getPostId(), $comment->getEmail());
+		$subscribers = $this->subscriberRepository->findExistingSubscriptions(
+			$comment->getPostId(), $comment->getEmail()
+		);
 		if (count($subscribers) > 0) {
 			$this->log->notice('Subscriber [' . $comment->getEmail() . '] already registered.');
 			return FALSE;
@@ -214,12 +230,12 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	/**
 	 * Send optin mail for subscirber
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Subscriber $subscriber
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment Comment
+	 * @param Subscriber $subscriber
+	 * @param Comment $comment Comment
 	 *
 	 * @return void
 	 */
-	protected function sendOptInMail(Tx_T3extblog_Domain_Model_Subscriber $subscriber, Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function sendOptInMail(Subscriber $subscriber, Comment $comment) {
 		$this->log->dev('Send subscriber opt-in mail.');
 
 		$post = $subscriber->getPost();
@@ -247,15 +263,15 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	}
 
 	/**
-	 * Send
+	 * Add a subscriber
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 *
-	 * @return Tx_T3extblog_Domain_Model_Subscriber
+	 * @return Subscriber
 	 */
-	protected function addSubscriber(Tx_T3extblog_Domain_Model_Comment $comment) {
-		/* @var $newSubscriber Tx_T3extblog_Domain_Model_Subscriber */
-		$newSubscriber = $this->objectManager->create('Tx_T3extblog_Domain_Model_Subscriber', $comment->getPostId());
+	protected function addSubscriber(Comment $comment) {
+		/* @var $newSubscriber Subscriber */
+		$newSubscriber = $this->objectManager->create('TYPO3\\T3extblog\\Domain\\Model\\Subscriber', $comment->getPostId());
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
 
@@ -270,11 +286,11 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	/**
 	 * Send comment notification mails
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 *
 	 * @return    void
 	 */
-	protected function notifySubscribers(Tx_T3extblog_Domain_Model_Comment $comment) {
+	protected function notifySubscribers(Comment $comment) {
 		$settings = $this->settings['subscriptionManager']['subscriber'];
 
 		if (!$settings['enableNewCommentNotifications']) {
@@ -287,12 +303,12 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 
 		$this->log->dev('Send subscriber notification mails.');
 
-		/* @var $post Tx_T3extblog_Domain_Model_Post */
+		/* @var $post Post */
 		$post = $comment->getPost();
 		$subscribers = $this->subscriberRepository->findForNotification($post);
 		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
 
-		/* @var $subscriber Tx_T3extblog_Domain_Model_Subscriber */
+		/* @var $subscriber Subscriber */
 		foreach ($subscribers as $subscriber) {
 			// make sure we do not notify the author of the triggering comment
 			if ($comment->getEmail() === $subscriber->getEmail()) {
@@ -317,19 +333,19 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 
 		$comment->setMailsSent(TRUE);
 		if (version_compare(TYPO3_branch, '6.1', '>=')) {
-			$this->objectManager->get('Tx_T3extblog_Domain_Repository_CommentRepository')->update($comment);
+			$this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
 		}
 	}
 
 	/**
 	 * Notify the blog admin
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Comment $comment
+	 * @param Comment $comment
 	 * @param string $emailTemplate
 	 *
 	 * @return    void
 	 */
-	protected function notifyAdmin(Tx_T3extblog_Domain_Model_Comment $comment, $emailTemplate = 'AdminNewCommentMail.txt') {
+	protected function notifyAdmin(Comment $comment, $emailTemplate = 'AdminNewCommentMail.txt') {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
 		if (!$settings['enable']) {
@@ -343,7 +359,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 
 		$this->log->dev('Send admin notification mail.');
 
-		/* @var $post Tx_T3extblog_Domain_Model_Post */
+		/* @var $post Post */
 		$post = $comment->getPost();
 		$subject = $this->translate('subject.admin.newSubscription', $post->getTitle());
 		$variables = array(
@@ -370,7 +386,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 * @return string
 	 */
 	protected function translate($key, $variable = '') {
-		return Tx_Extbase_Utility_Localization::translate(
+		return LocalizationUtility::translate(
 			$key,
 			'T3extblog',
 			array(
@@ -405,9 +421,7 @@ class Tx_T3extblog_Service_NotificationService implements Tx_T3extblog_Service_N
 	 */
 	protected function persistToDatabase($force = FALSE) {
 		if ($force === TRUE || TYPO3_MODE === 'BE') {
-			$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
 		}
 	}
 }
-
-?>

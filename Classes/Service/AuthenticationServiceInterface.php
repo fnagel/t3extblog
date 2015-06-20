@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\Service;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,13 +27,10 @@
  ***************************************************************/
 
 /**
- *
- *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-interface Tx_T3extblog_Service_AuthenticationServiceInterface {
+interface AuthenticationServiceInterface {
 
 	/**
 	 *
@@ -61,5 +60,3 @@ interface Tx_T3extblog_Service_AuthenticationServiceInterface {
 	public function getEmail();
 
 }
-
-?>
