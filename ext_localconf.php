@@ -4,8 +4,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Blogsystem',
 	array(
 		'Post' => 'list, tag, category, show, permalink, preview',
@@ -18,8 +18,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Archive',
 	array(
 		'Post' => 'archive',
@@ -30,8 +30,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Rss',
 	array(
 		'Post' => 'rss',
@@ -42,8 +42,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'SubscriptionManager',
 	array(
 		'Subscriber' => 'list, delete, error, confirm, logout',
@@ -54,8 +54,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Categories',
 	array(
 		'Category' => 'list, show',
@@ -66,8 +66,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'LatestPosts',
 	array(
 		'Post' => 'latest',
@@ -78,8 +78,8 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
 	'LatestComments',
 	array(
 		'Comment' => 'latest',
@@ -92,15 +92,20 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 
 // add BE hooks
 if (TYPO3_MODE == 'BE') {
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:t3extblog/Classes/Hooks/Tcemain.php:Tx_T3extblog_Hooks_Tcemain';
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = 'EXT:t3extblog/Classes/Hooks/Tcemain.php:Tx_T3extblog_Hooks_Tcemain';
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
+		'EXT:t3extblog/Classes/Hooks/Tcemain.php:TYPO3\\T3extblog\\Hooks\\Tcemain';
+
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
+		'EXT:t3extblog/Classes/Hooks/Tcemain.php:TYPO3\\T3extblog\\Hooks\\Tcemain';
 }
 
 // add RealURL configuration
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] = 'EXT:t3extblog/Classes/Hooks/RealUrl.php:Tx_T3extblog_Hooks_RealUrl->extensionConfiguration';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
+	'EXT:t3extblog/Classes/Hooks/RealUrl.php:TYPO3\\T3extblog\\Hooks\\RealUrl->extensionConfiguration';
 
 // support for dd_googlesitemap
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] = 'Tx_T3extblog_Hooks_Sitemap_Generator->main';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
+	'TYPO3\\T3extblog\\Hooks\\RealUrl\\Sitemap\\Generator->main';
 
 // add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350

@@ -3,58 +3,66 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$extensionName = t3lib_div::underscoredToUpperCamelCase($_EXTKEY);
+$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
 
 
 // Add static TS
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Rss', 'T3Extblog: Rss setup');
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/RealUrl', 'T3Extblog: additional RealUrl config');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+	$_EXTKEY, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)'
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+	$_EXTKEY, 'Configuration/TypoScript/Rss', 'T3Extblog: Rss setup'
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+	$_EXTKEY, 'Configuration/TypoScript/RealUrl', 'T3Extblog: additional RealUrl config'
+);
 
 
 // Add Plugins and Flexforms
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Blogsystem',
 	'T3Blog Extbase: Blogsystem'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'SubscriptionManager',
 	'T3Blog Extbase: Subscription Manager'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Archive',
 	'T3Blog Extbase: Archive'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Rss',
 	'T3Blog Extbase: RSS'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Categories',
 	'T3Blog Extbase: Categories'
 );
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'LatestPosts',
 	'T3Blog Extbase: LatestPosts'
 );
 $pluginSignature = strtolower($extensionName) . '_latestposts';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestPosts.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestPosts.xml'
+);
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'LatestComments',
 	'T3Blog Extbase: LatestComments'
 );
@@ -62,13 +70,13 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 
 // Add record TCA configuration
 if (version_compare(TYPO3_branch, '6.1', '<')) {
-	t3lib_div::loadTCA('pages');
-	t3lib_div::loadTCA('be_users');
-	t3lib_div::loadTCA('tt_content');
+	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('pages');
+	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('be_users');
+	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tt_content');
 }
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_post');
-t3lib_extMgm::addToInsertRecords('tx_t3blog_post');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_post');
 $GLOBALS['TCA']['tx_t3blog_post'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
@@ -91,8 +99,8 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			'endtime' => 'endtime',
 			'fe_group' => 'fe_group',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Post.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/page.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Post.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/page.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title',
 	),
@@ -101,8 +109,8 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 	)
 );
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_cat');
-t3lib_extMgm::addToInsertRecords('tx_t3blog_cat');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_cat');
 $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
@@ -126,8 +134,8 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'endtime' => 'endtime',
 			'fe_group' => 'fe_group',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/category.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/category.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
@@ -136,8 +144,8 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 	)
 );
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com');
-t3lib_extMgm::addToInsertRecords('tx_t3blog_com');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_com');
 $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
@@ -155,8 +163,8 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'endtime' => 'endtime',
 			'fe_group' => 'fe_group',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title,author,email,website,text',
 	),
@@ -165,7 +173,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	)
 );
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_com_nl');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com_nl');
 $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
@@ -179,8 +187,8 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/subscriber.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/subscriber.png',
 		'searchFields' => 'email,name',
 	),
 	'feInterface' => array(
@@ -188,7 +196,7 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 	)
 );
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_pingback');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_pingback');
 $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback',
@@ -203,8 +211,8 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Pingback.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Pingback.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,url,text,',
 	),
 	'feInterface' => array(
@@ -212,7 +220,7 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 	)
 );
 
-t3lib_extMgm::allowTableOnStandardPages('tx_t3blog_trackback');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_trackback');
 $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
@@ -225,8 +233,8 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/Tca/Trackback.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Trackback.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
 	'feInterface' => array(
@@ -235,7 +243,7 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 );
 
 unset($GLOBALS['ICON_TYPES']['t3blog']);
-t3lib_SpriteManager::addTcaTypeIcon(
+\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
 	'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
 );
 
@@ -257,8 +265,8 @@ if (TYPO3_MODE === 'BE') {
 	}
 
 	// Register  Backend Module
-	Tx_Extbase_Utility_Extension::registerModule(
-		$_EXTKEY,
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+		'TYPO3.' . $_EXTKEY,
 		'web',
 		'Tx_T3extblog',
 		'',
