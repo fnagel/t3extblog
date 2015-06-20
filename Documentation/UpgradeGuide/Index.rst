@@ -72,12 +72,15 @@ How to upgrade
 
 #. "Clear all cache" in Install Tool (Important actions)
 
-#. Create new properties using "Compare current database with specification" in Install Tool (Important actions)
+#. Create new propertiesusing "Compare current database with specification" in Install Tool (Important actions)
 
 #. Use the Install Tool Wizard if you are currently using the ###MORE### marker functionality
 
 #. Adjust your templates
 
+
+.. tip::
+	Some old, unused database fields have been removed.
 
 
 Upgrade from 1.0.x to 1.1.0
