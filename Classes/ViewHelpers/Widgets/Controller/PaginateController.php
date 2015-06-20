@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\ViewHelpers\Widget\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,31 +26,34 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\Widget\Controller\PaginateController as BasePaginateController;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Paginate widget
  *
  * @todo It seems this overwrite is no longer needed in TYPO3 6.x, see here:
  * http://blog.teamgeist-medien.de/2014/11/typo3-fluid-viewhelper-templates-ueberschreiben-z-b-vom-paginate-widget.html
  */
-class Tx_T3extblog_ViewHelpers_Widget_Controller_PaginateController extends Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
+class PaginateController extends BasePaginateController {
 
 	/**
-	 * @param Tx_Extbase_MVC_View_ViewInterface $view
+	 * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
 	 *
 	 * @return void
 	 */
-	protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+	protected function setViewConfiguration(ViewInterface $view) {
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
 		$widgetViewHelperClassName = $this->request->getWidgetContext()->getWidgetViewHelperClassName();
 		$templateRootPath = $extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath'];
 
 		if (isset($templateRootPath) && strlen($templateRootPath) > 0 && method_exists($view, 'setTemplateRootPath')) {
-			$view->setTemplateRootPath(t3lib_div::getFileAbsFileName($templateRootPath));
+			$view->setTemplateRootPath(GeneralUtility::getFileAbsFileName($templateRootPath));
 		}
 	}
 
 }
-
-?>

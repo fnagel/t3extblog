@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +27,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Backend\Utility\IconUtility;
+
 /**
  * Displays sprite icon identified by iconName key
  *
@@ -31,7 +37,7 @@
  * @package TYPO3
  * @subpackage t3extblog
  */
-class Tx_T3extblog_ViewHelpers_SpriteManagerIconViewHelper extends Tx_Fluid_ViewHelpers_Be_AbstractBackendViewHelper {
+class SpriteManagerIconViewHelper extends AbstractBackendViewHelper {
 
 	/**
 	 * Prints sprite icon html for $iconName key
@@ -42,9 +48,7 @@ class Tx_T3extblog_ViewHelpers_SpriteManagerIconViewHelper extends Tx_Fluid_View
 	 * @return string
 	 */
 	public function render($iconName, $options = array()) {
-		return t3lib_iconWorks::getSpriteIcon($iconName, $options);
+		return IconUtility::getSpriteIcon($iconName, $options);
 	}
 
 }
-
-?>

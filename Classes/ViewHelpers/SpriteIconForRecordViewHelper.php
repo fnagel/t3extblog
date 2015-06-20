@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +27,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Backend\Utility\IconUtility;
+use TYPO3\CMS\Extbase\Domain\Model\BackendUser;
+
 /**
  * Views sprite icon for a record (object)
  *
@@ -31,7 +38,7 @@
  * @package TYPO3
  * @subpackage t3extblog
  */
-class Tx_T3extblog_ViewHelpers_SpriteIconForRecordViewHelper extends Tx_Fluid_ViewHelpers_Be_AbstractBackendViewHelper {
+class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper {
 
 	/**
 	 * Displays spriteIcon for database table and object
@@ -57,7 +64,7 @@ class Tx_T3extblog_ViewHelpers_SpriteIconForRecordViewHelper extends Tx_Fluid_Vi
 			$row['disable'] = $object->getIsDisabled();
 		}
 
-		if ($table === 'be_users' && get_class($object) === 'Tx_NewBeuser_Domain_Model_BackendUser') {
+		if ($table === 'be_users' && $object instanceof BackendUser) {
 			$row['admin'] = $object->getIsAdministrator();
 		}
 
@@ -69,9 +76,7 @@ class Tx_T3extblog_ViewHelpers_SpriteIconForRecordViewHelper extends Tx_Fluid_Vi
 			$row['endTime'] = $object->getEndDateAndTime();
 		}
 
-		return t3lib_iconWorks::getSpriteIconForRecord($table, $row);
+		return IconUtility::getSpriteIconForRecord($table, $row);
 	}
 
 }
-
-?>

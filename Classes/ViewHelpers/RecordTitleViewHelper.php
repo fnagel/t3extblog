@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +27,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+
 /**
  * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
  *
@@ -31,7 +37,7 @@
  * @package TYPO3
  * @subpackage t3extblog
  */
-class Tx_T3extblog_ViewHelpers_RecordTitleViewHelper extends Tx_Fluid_ViewHelpers_Be_AbstractBackendViewHelper {
+class RecordTitleViewHelper extends AbstractBackendViewHelper {
 
 	/**
 	 * @param string $table
@@ -40,10 +46,8 @@ class Tx_T3extblog_ViewHelpers_RecordTitleViewHelper extends Tx_Fluid_ViewHelper
 	 * @return string
 	 */
 	public function render($table, $uid) {
-		$row = t3lib_BEfunc::getRecord($table, (int) $uid);
+		$row = BackendUtility::getRecord($table, (int) $uid);
 
-		return t3lib_BEfunc::getRecordTitle($table, $row);
+		return BackendUtility::getRecordTitle($table, $row);
 	}
 }
-
-?>

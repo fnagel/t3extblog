@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -22,20 +25,23 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
  * ViewHelper
  *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_CommentAllowedViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractConditionViewHelper {
+class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 
 	/**
 	 * Check if a new comment is allowed
 	 *
-	 * @param Tx_T3extblog_Domain_Model_Post $post
+	 * @param Post $post
 	 *
 	 * @return string
 	 */
-	public function render($post) {
+	public function render(Post $post) {
 		$settings = $this->templateVariableContainer->get('settings');
 
 		if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
@@ -55,5 +61,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_CommentAllowedViewHelper extends Tx_Flui
 		return $this->renderThenChild();
 	}
 }
-
-?>

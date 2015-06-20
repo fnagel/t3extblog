@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,18 +26,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * ViewHelper PHP wordwrap
- *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_WordwrapViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class WordwrapViewHelper extends AbstractViewHelper {
 
 	/**
-	 * Php wordwrap function VH
+	 * PHP wordwrap function VH
 	 *
-	 * @param boolean $prepend
+	 * @param int $width
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function render($width = 75) {
 		$content = $this->renderChildren();
@@ -42,5 +46,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_WordwrapViewHelper extends Tx_Fluid_Core
 		return wordwrap($content, $width);
 	}
 }
-
-?>

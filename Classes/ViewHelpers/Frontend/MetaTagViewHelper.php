@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -12,6 +14,9 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper to render meta tags
@@ -34,7 +39,7 @@
  * <meta name="keywords" content="news 1, news 2" />
  * </output>
  */
-class Tx_T3extblog_ViewHelpers_Frontend_MetaTagViewHelper extends \Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class MetaTagViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * @var string
@@ -63,14 +68,17 @@ class Tx_T3extblog_ViewHelpers_Frontend_MetaTagViewHelper extends \Tx_Fluid_Core
 	public function render($useCurrentDomain = FALSE, $forceAbsoluteUrl = FALSE) {
 		// set current domain
 		if ($useCurrentDomain) {
-			$this->tag->addAttribute('content', \t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+			$this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 
 		// prepend current domain
 		if ($forceAbsoluteUrl) {
 			$path = $this->arguments['content'];
-			if (!GeneralUtility::isFirstPartOfStr($path, \t3lib_div::getIndpEnv('TYPO3_SITE_URL'))) {
-				$this->tag->addAttribute('content', rtrim(\t3lib_div::getIndpEnv('TYPO3_SITE_URL'), '/') . '/' . ltrim($this->arguments['content']), '/');
+			if (!GeneralUtility::isFirstPartOfStr($path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
+				$this->tag->addAttribute(
+					'content',
+					rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_URL'), '/') . '/' . ltrim($this->arguments['content']), '/'
+				);
 			}
 		}
 

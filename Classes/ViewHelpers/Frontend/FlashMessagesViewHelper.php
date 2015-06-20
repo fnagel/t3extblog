@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,22 +25,25 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\FlashMessagesViewHelper as BaseFlashMessagesViewHelper;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+
 /**
  * View helper which renders the flash messages
  *
  * Extended to use Twitter Bootstrap CSS classes
  */
-class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid_ViewHelpers_FlashMessagesViewHelper {
+class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 
 	/**
 	 * @var array
 	 */
 	protected $severityMapping = array(
-		t3lib_FlashMessage::NOTICE => 'alert-info',
-		t3lib_FlashMessage::INFO => 'alert-info',
-		t3lib_FlashMessage::OK => 'alert-success',
-		t3lib_FlashMessage::WARNING => 'alert-warning',
-		t3lib_FlashMessage::ERROR => 'alert-error'
+		FlashMessage::NOTICE => 'alert-info',
+		FlashMessage::INFO => 'alert-info',
+		FlashMessage::OK => 'alert-success',
+		FlashMessage::WARNING => 'alert-warning',
+		FlashMessage::ERROR => 'alert-error'
 	);
 
 	/**
@@ -97,5 +102,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_FlashMessagesViewHelper extends Tx_Fluid
 		return '';
 	}
 }
-
-?>

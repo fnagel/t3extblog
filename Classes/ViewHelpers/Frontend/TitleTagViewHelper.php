@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,11 +26,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * ViewHelper to render the page title
- *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_TitleTagViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TitleTagViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Override the title tag
@@ -36,13 +40,13 @@ class Tx_T3extblog_ViewHelpers_Frontend_TitleTagViewHelper extends Tx_Fluid_Core
 	 *
 	 * @return void
 	 */
-	public function render($prepend = true) {
+	public function render($prepend = TRUE) {
 		$content = $this->renderChildren();
 
-		if (empty($content) !== true) {
+		if (empty($content) !== TRUE) {
 			$GLOBALS['TSFE']->indexedDocTitle = $content;
 
-			if ($prepend === true) {
+			if ($prepend === TRUE) {
 				$content = $content . $GLOBALS['TSFE']->page['title'];
 			}
 
@@ -50,5 +54,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_TitleTagViewHelper extends Tx_Fluid_Core
 		}
 	}
 }
-
-?>

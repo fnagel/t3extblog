@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +27,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Utility\IconUtility;
+
 /**
  * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
  *
@@ -31,7 +39,7 @@
  * @package TYPO3
  * @subpackage t3extblog
  */
-class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpers_Be_AbstractBackendViewHelper {
+class LocalizationViewHelper extends AbstractBackendViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
@@ -55,7 +63,6 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 	 */
 	public function render($translations, $table, $object, $returnUrl) {
 		$content = '';
-		$records = array();
 		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
 
 		$this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
@@ -107,10 +114,10 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 	}
 
 	protected function getLanguageIconLink($sysLanguageUid, $href, $uid) {
-		$language = t3lib_BEfunc::getRecord('sys_language', $sysLanguageUid, 'title');
+		$language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
 		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
-			$icon = t3lib_iconWorks::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
+			$icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
 		} else {
 			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
 		}
@@ -125,12 +132,12 @@ class Tx_T3extblog_ViewHelpers_LocalizationViewHelper extends Tx_Fluid_ViewHelpe
 	 */
 	protected function getTranslateTools() {
 		if (!isset($this->translateTools)) {
-			$this->translateTools = t3lib_div::makeInstance('TYPO3\\CMS\\Backend\\Configuration\\TranslationConfigurationProvider');
+			$this->translateTools = GeneralUtility::makeInstance(
+				'TYPO3\\CMS\\Backend\\Configuration\\TranslationConfigurationProvider'
+			);
 		}
 
 		return $this->translateTools;
 	}
 
 }
-
-?>

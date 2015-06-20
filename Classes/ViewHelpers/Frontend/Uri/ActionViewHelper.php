@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +26,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as BaseActionViewHelper;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+
 /**
  * A view helper for creating URIs to extbase actions.
  *
@@ -40,21 +46,20 @@
  * (depending on the current page and your TS configuration)
  * </output>
  *
- *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_ViewHelpers_Uri_ActionViewHelper {
+class ActionViewHelper extends BaseActionViewHelper {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param ObjectManagerInterface $objectManager
 	 *
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -76,7 +81,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 	 * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
 	 * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 *
 	 * @return string Rendered link
 	 */
@@ -86,7 +91,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 		}
 
 		if ($pageUid === NULL && is_int($pageUid)) {
-			throw new Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
+			throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
 		}
 
 		$this->buildTSFE($pageUid);
@@ -114,15 +119,15 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 	 *
 	 * @return string Rendered link
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	protected function renderFrontendLink($action = NULL, array $arguments = array(), $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
 		if ($controller === NULL || $extensionName === NULL || $pluginName === NULL) {
-			throw new Exception('Missing arguments for extbase link generation from BE context. Check your template!');
+			throw new \Exception('Missing arguments for extbase link generation from BE context. Check your template!');
 		}
 
-		/* @var $uriBuilder Tx_T3extblog_MVC_Web_Routing_UriBuilder */
-		$uriBuilder = $this->objectManager->get("Tx_T3extblog_MVC_Web_Routing_UriBuilder");
+		/* @var $uriBuilder \TYPO3\T3extblog\MVC\Web\Routing\UriBuilder */
+		$uriBuilder = $this->objectManager->get('TYPO3\\T3extblog\\MVC\\Web\\Routing\\UriBuilder');
 
 		$uri = $uriBuilder
 			->reset()
@@ -147,11 +152,14 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 	 */
 	protected function buildTSFE($pageUid) {
 		if (!is_object($GLOBALS['TT'])) {
-			$GLOBALS['TT'] = new t3lib_timeTrack;
+			$GLOBALS['TT'] = new TimeTracker;
 			$GLOBALS['TT']->start();
 		}
 
-		$GLOBALS['TSFE'] = $this->objectManager->get('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int)$pageUid, '');
+		$GLOBALS['TSFE'] = $this->objectManager->get(
+			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+			$GLOBALS['TYPO3_CONF_VARS'], (int)$pageUid, ''
+		);
 
 		$GLOBALS['TSFE']->connectToDB();
 		$GLOBALS['TSFE']->initFEuser();
@@ -162,5 +170,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_Uri_ActionViewHelper extends Tx_Fluid_Vi
 	}
 
 }
-
-?>

@@ -1,4 +1,7 @@
 <?php
+
+namespace TYPO3\T3extblog\ViewHelpers;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,6 +27,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+
 /**
  * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
  *
@@ -31,12 +37,12 @@
  * @package TYPO3
  * @subpackage t3extblog
  */
-class Tx_T3extblog_ViewHelpers_GetPostViewHelper extends Tx_Fluid_ViewHelpers_Be_AbstractBackendViewHelper {
+class GetPostViewHelper extends AbstractBackendViewHelper {
 
 	/**
 	 * postRepository
 	 *
-	 * @var Tx_T3extblog_Domain_Repository_PostRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected $postRepository = NULL;
 
@@ -55,15 +61,13 @@ class Tx_T3extblog_ViewHelpers_GetPostViewHelper extends Tx_Fluid_ViewHelpers_Be
 	}
 
 	/**
-	 * @return Tx_T3extblog_Domain_Repository_PostRepository
+	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected function getPostRepository() {
 		if ($this->postRepository === NULL) {
-			$this->postRepository = t3lib_div::makeInstance('Tx_T3extblog_Domain_Repository_PostRepository');
+			$this->postRepository = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
 		}
 
 		return $this->postRepository;
 	}
 }
-
-?>

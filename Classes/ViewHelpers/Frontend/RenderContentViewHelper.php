@@ -1,5 +1,7 @@
 <?php
 
+namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,22 +26,24 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * ViewHelper for rendering content
  *
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+class RenderContentViewHelper extends CObjectViewHelper {
 
 	/**
 	 * Render content
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage|array 	$contentElements
-	 * @param int                                 	        $index
-	 * @param bool                                 	        $removeMarker
-	 * @param string                              	        $typoscript
+	 * @param ObjectStorage|array 	$contentElements
+	 * @param int                   $index
+	 * @param bool                  $removeMarker
+	 * @param string                $typoscript
 	 *
 	 * @return string
 	 */
@@ -47,7 +51,7 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_Fluid
 		$output = '';
 		$iterator = 0;
 
-		/* @var $content Tx_T3extblog_Domain_Model_Content */
+		/* @var $content \TYPO3\T3extblog\Domain\Model\Content */
 		foreach ($contentElements as $content) {
 			$iterator++;
 			if (($iterator - 1) < $index) {
@@ -75,5 +79,3 @@ class Tx_T3extblog_ViewHelpers_Frontend_RenderContentViewHelper extends Tx_Fluid
 		return str_replace('###MORE###', '', $output);
 	}
 }
-
-?>
