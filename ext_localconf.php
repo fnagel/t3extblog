@@ -90,13 +90,17 @@ if (!defined('TYPO3_MODE')) {
 	)
 );
 
-// add BE hooks
 if (TYPO3_MODE == 'BE') {
+	// add BE hooks
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
 		'EXT:t3extblog/Classes/Hooks/Tcemain.php:TYPO3\\T3extblog\\Hooks\\Tcemain';
 
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
 		'EXT:t3extblog/Classes/Hooks/Tcemain.php:TYPO3\\T3extblog\\Hooks\\Tcemain';
+
+	// Install Tool Upgrade Wizard
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['t3extblog_preview'] =
+		'TYPO3\\T3extblog\\Updates\\PreviewUpdateWizard';
 }
 
 // add RealURL configuration
