@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers;
+namespace TYPO3\T3extblog\ViewHelpers\Backend;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +28,8 @@ namespace TYPO3\T3extblog\ViewHelpers;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
@@ -37,37 +38,27 @@ use \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
  * @package TYPO3
  * @subpackage t3extblog
  */
-class GetPostViewHelper extends AbstractBackendViewHelper {
+class IssueCommandViewHelper extends AbstractBackendViewHelper {
 
 	/**
-	 * postRepository
+	 * Returns a URL with a command to TYPO3 Core Engine (tce_db.php)
 	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected $postRepository = NULL;
-
-	/**
-	 * @param int $uid
-	 * @param boolean $respectEnableFields if set to false, hidden records are shown
+	 * @param string $parameters Is a set of GET params to send to tce_db.php. Example: "&cmd[tt_content][123][move]=456" or "&data[tt_content][123][hidden]=1&data[tt_content][123][title]=Hello%20World"
+	 * @param string $redirectUrl Redirect URL if any other that t3lib_div::getIndpEnv('REQUEST_URI') is wished
 	 *
-	 * @return string
+	 * @return string URL to tce_db.php + parameters
+	 * @see t3lib_BEfunc::editOnClick()
+	 * @see template::issueCommand()
 	 */
-	public function render($uid = NULL, $respectEnableFields = TRUE) {
-		if ($uid === NULL) {
-			$uid = $this->renderChildren();
-		}
+	public function render($parameters, $redirectUrl = '') {
+		$redirectUrl = $redirectUrl ? $redirectUrl : GeneralUtility::getIndpEnv('REQUEST_URI');
 
-		return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
-	}
-
-	/**
-	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected function getPostRepository() {
-		if ($this->postRepository === NULL) {
-			$this->postRepository = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
-		}
-
-		return $this->postRepository;
+		return
+			$GLOBALS['BACK_PATH'] .
+			'tce_db.php?' . $parameters .
+			'&vC=' . rawurlencode($GLOBALS['BE_USER']->veriCode()) .
+			BackendUtility::getUrlToken('tceAction') .
+			'&prErr=1&uPT=1' .
+			'&redirect=' . ($redirectUrl == '' ? "' + T3_THIS_LOCATION + '" : rawurlencode($redirectUrl));
 	}
 }

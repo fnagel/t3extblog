@@ -1,37 +1,37 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
-<t3b:frontend.titleTag>{post.title} / </t3b:frontend.titleTag>
+<t3b:titleTag>{post.title} / </t3b:titleTag>
 
 <f:if condition="{settings.blogsystem.posts.metadata.enable}">
 	<f:if condition="{post.metaDescription}">
 		<f:then>
-			<t3b:frontend.metaTag property="description" content="{post.metaDescription}" />
+			<t3b:metaTag property="description" content="{post.metaDescription}" />
 		</f:then>
 		<f:else>
-			<t3b:frontend.metaTag property="description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
+			<t3b:metaTag property="description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
 		</f:else>
 	</f:if>
 </f:if>
 
 <f:if condition="{post.metaKeywords}">
 	<f:then>
-		<t3b:frontend.metaTag property="keywords" content="{post.metaKeywords}" />
+		<t3b:metaTag property="keywords" content="{post.metaKeywords}" />
 	</f:then>
 	<f:else>
-		<t3b:frontend.metaTag property="keywords" content="{post.rawTagCloud}" />
+		<t3b:metaTag property="keywords" content="{post.rawTagCloud}" />
 	</f:else>
 </f:if>
 
 <f:if condition="{settings.blogsystem.posts.metadata.twitterCards.enable}">
-	<t3b:frontend.metaTag property="twitter:card" content="summary" />
-	<t3b:frontend.metaTag property="twitter:title" content="{post.title}" />
-	<t3b:frontend.metaTag property="twitter:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
-	<t3b:frontend.metaTag property="twitter:url" content="{f:uri.action(controller: 'Post', action: 'show', pageUid: '{settings.blogsystem.pid}', absolute: 'true', arguments: '{post.linkParameter}')}" />
+	<t3b:metaTag property="twitter:card" content="summary" />
+	<t3b:metaTag property="twitter:title" content="{post.title}" />
+	<t3b:metaTag property="twitter:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
+	<t3b:metaTag property="twitter:url" content="{f:uri.action(controller: 'Post', action: 'show', pageUid: '{settings.blogsystem.pid}', absolute: 'true', arguments: '{post.linkParameter}')}" />
 	<f:if condition="{post.previewImage}">
-		<t3b:frontend.metaTag property="twitter:site" content="@{settings.blogsystem.posts.metadata.twitterCards.site}" />
+		<t3b:metaTag property="twitter:site" content="@{settings.blogsystem.posts.metadata.twitterCards.site}" />
 	</f:if>
 	<f:if condition="{post.previewImage}">
-		<t3b:frontend.metaTag property="twitter:image" content="{f:uri.image(src: '{post.previewImage.uid}', treatIdAsReference: 1, maxWidth: '500')}" />
+		<t3b:metaTag property="twitter:image" content="{f:uri.image(src: '{post.previewImage.uid}', treatIdAsReference: 1, maxWidth: '500')}" />
 	</f:if>
 </f:if>
 

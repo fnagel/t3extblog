@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
 
 <f:render section="title" arguments="{pagination: pagination}" />
@@ -88,7 +88,7 @@
 	<f:for each="{pagination.pages}" as="page">
 		<f:if condition="{page.isCurrent}">
 			<f:if condition="{page.number} > 1">
-				<t3b:frontend.titleTag><f:translate key="widget.pagination.page" /> {page.number} / </t3b:frontend.titleTag>
+				<t3b:titleTag><f:translate key="widget.pagination.page" /> {page.number} / </t3b:titleTag>
 			</f:if>
 		</f:if>
 	</f:for>

@@ -1,11 +1,11 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 Hello {subscriber.name},
 
 it seems you subscribed for new comments:
 
 Blogname: 	{settings.blogName}
 Blogpost: 	{post.title}
-Link:		<t3b:frontend.uri.action
+Link:		<t3b:uri.action
 				extensionName="T3extblog"
 				pluginName="Blogsystem"
 				controller="Post"
@@ -20,7 +20,7 @@ Your email: {subscriber.email}
 
 
 Please confirm your subscription by using this link:
-<t3b:frontend.uri.action
+<t3b:uri.action
 	extensionName="T3extblog"
 	pluginName="SubscriptionManager"
 	controller="Subscriber"

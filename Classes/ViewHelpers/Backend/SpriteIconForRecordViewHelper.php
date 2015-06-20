@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers;
+namespace TYPO3\T3extblog\ViewHelpers\Backend;
 
 /***************************************************************
  *  Copyright notice

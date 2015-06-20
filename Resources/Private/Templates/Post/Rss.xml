@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}<?xml version="1.0" encoding="utf-8"?>
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>{settings.blogName}</title>
@@ -73,7 +73,7 @@
                                 <br /><br />
                                 <f:if condition="{post.content}">
                                     <div class="content">
-                                        <t3b:frontend.renderContent contentElements="{post.content}" />
+                                        <t3b:renderContent contentElements="{post.content}" />
 								    </div>
                                     <div style="clear: both;"></div>
                                 </f:if>

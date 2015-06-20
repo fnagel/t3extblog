@@ -1,16 +1,16 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
 
-<t3b:frontend.flashMessages />
+<t3b:flashMessages />
 
-<t3b:frontend.commentAllowed post="{post}">
+<t3b:commentAllowed post="{post}">
 	<f:then>
 		<f:render section="commentForm" arguments="{_all}" />
 	</f:then>
 	<f:else>
 		<p class="alert alert-info alert-block"><f:translate key="comment.disabled" /></p>
 	</f:else>
-</t3b:frontend.commentAllowed>
+</t3b:commentAllowed>
 
 
 <f:section name="commentForm">

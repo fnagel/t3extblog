@@ -1,11 +1,11 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 Hello Admin,
 
 someone added a new comment!
 
 Blogname: 	{settings.blogName}
 Blogpost: 	{post.title}
-Link:		<t3b:frontend.uri.action
+Link:		<t3b:uri.action
 				extensionName="T3extblog"
 				pluginName="Blogsystem"
 				controller="Post"
@@ -26,7 +26,7 @@ Approved: 	<f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</
 Is spam: 	<f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
 
 Text:
-<t3b:frontend.wordwrap><f:format.stripTags>{comment.text}</f:format.stripTags></t3b:frontend.wordwrap>
+<t3b:wordwrap><f:format.stripTags>{comment.text}</f:format.stripTags></t3b:wordwrap>
 
 
 You could manage comments in the TYPO3 backend of your installation:

@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
 
 <f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
@@ -52,14 +52,14 @@
 					<f:render section="moreButton" arguments="{post: post, settings: settings}" />
 				</f:then>
 				<f:else>
-					<t3b:frontend.renderContent contentElements="{post.content}" />
+					<t3b:renderContent contentElements="{post.content}" />
 				</f:else>
 			</f:if>
 		</f:then>
 		<f:else>
 			<f:for each="{post.content}" as="content" iteration="iterator">
 				<f:if condition="{iterator.index} < {post.previewMode}">
-					<t3b:frontend.renderContent contentElements="{0: content}" />
+					<t3b:renderContent contentElements="{0: content}" />
 				</f:if>
 			</f:for>
 			<f:render section="moreButton" arguments="{post: post, settings: settings}" />

@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
 <f:layout name="Default" />
 
@@ -18,7 +18,7 @@
 
 		<f:if condition="{post.content}">
 			<div class="content">
-				<t3b:frontend.renderContent contentElements="{post.content}" />
+				<t3b:renderContent contentElements="{post.content}" />
 			</div>
 		</f:if>
 

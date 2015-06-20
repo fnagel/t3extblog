@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers;
+namespace TYPO3\T3extblog\ViewHelpers\Backend;
 
 /***************************************************************
  *  Copyright notice
@@ -27,7 +27,6 @@ namespace TYPO3\T3extblog\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -38,27 +37,17 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  * @package TYPO3
  * @subpackage t3extblog
  */
-class IssueCommandViewHelper extends AbstractBackendViewHelper {
+class RecordTitleViewHelper extends AbstractBackendViewHelper {
 
 	/**
-	 * Returns a URL with a command to TYPO3 Core Engine (tce_db.php)
+	 * @param string $table
+	 * @param int $uid
 	 *
-	 * @param string $parameters Is a set of GET params to send to tce_db.php. Example: "&cmd[tt_content][123][move]=456" or "&data[tt_content][123][hidden]=1&data[tt_content][123][title]=Hello%20World"
-	 * @param string $redirectUrl Redirect URL if any other that t3lib_div::getIndpEnv('REQUEST_URI') is wished
-	 *
-	 * @return string URL to tce_db.php + parameters
-	 * @see t3lib_BEfunc::editOnClick()
-	 * @see template::issueCommand()
+	 * @return string
 	 */
-	public function render($parameters, $redirectUrl = '') {
-		$redirectUrl = $redirectUrl ? $redirectUrl : GeneralUtility::getIndpEnv('REQUEST_URI');
+	public function render($table, $uid) {
+		$row = BackendUtility::getRecord($table, (int) $uid);
 
-		return
-			$GLOBALS['BACK_PATH'] .
-			'tce_db.php?' . $parameters .
-			'&vC=' . rawurlencode($GLOBALS['BE_USER']->veriCode()) .
-			BackendUtility::getUrlToken('tceAction') .
-			'&prErr=1&uPT=1' .
-			'&redirect=' . ($redirectUrl == '' ? "' + T3_THIS_LOCATION + '" : rawurlencode($redirectUrl));
+		return BackendUtility::getRecordTitle($table, $row);
 	}
 }

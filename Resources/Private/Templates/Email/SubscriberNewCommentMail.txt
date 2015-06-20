@@ -1,10 +1,10 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 Hello {subscriber.name},
 
 a new comment was posted on '{post.title}' at {settings.blogName}.
 
 
-See the comment: <t3b:frontend.uri.action
+See the comment: <t3b:uri.action
 					extensionName="T3extblog"
 					pluginName="Blogsystem"
 					controller="Post"
@@ -16,7 +16,7 @@ See the comment: <t3b:frontend.uri.action
 					section="comment-{comment.uid}" />
 
 You can manage your subscription by using this link:
-<t3b:frontend.uri.action
+<t3b:uri.action
 	extensionName="T3extblog"
 	pluginName="SubscriptionManager" 
 	controller="Subscriber" 

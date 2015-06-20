@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers;
+namespace TYPO3\T3extblog\ViewHelpers\Backend;
 
 /***************************************************************
  *  Copyright notice
@@ -27,8 +27,8 @@ namespace TYPO3\T3extblog\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 
 /**
  * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
@@ -37,17 +37,37 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  * @package TYPO3
  * @subpackage t3extblog
  */
-class RecordTitleViewHelper extends AbstractBackendViewHelper {
+class GetPostViewHelper extends AbstractBackendViewHelper {
 
 	/**
-	 * @param string $table
+	 * postRepository
+	 *
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+	 */
+	protected $postRepository = NULL;
+
+	/**
 	 * @param int $uid
+	 * @param boolean $respectEnableFields if set to false, hidden records are shown
 	 *
 	 * @return string
 	 */
-	public function render($table, $uid) {
-		$row = BackendUtility::getRecord($table, (int) $uid);
+	public function render($uid = NULL, $respectEnableFields = TRUE) {
+		if ($uid === NULL) {
+			$uid = $this->renderChildren();
+		}
 
-		return BackendUtility::getRecordTitle($table, $row);
+		return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
+	}
+
+	/**
+	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
+	 */
+	protected function getPostRepository() {
+		if ($this->postRepository === NULL) {
+			$this->postRepository = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
+		}
+
+		return $this->postRepository;
 	}
 }

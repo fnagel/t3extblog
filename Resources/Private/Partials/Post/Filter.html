@@ -1,7 +1,7 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers}
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
 <f:if condition="{category}">
-	<t3b:frontend.titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:frontend.titleTag>
+	<t3b:titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:titleTag>
 	<div class="alert alert-block alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.category" /> <em>{category.name}</em>
 		<f:link.action controller="Post" action="list" class="pull-right">
@@ -11,7 +11,7 @@
 	<br>
 </f:if>
 <f:if condition="{tag}">
-	<t3b:frontend.titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:frontend.titleTag>
+	<t3b:titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:titleTag>
 	<div class="alert alert-block alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.tag" /> <em>{tag}</em>
 		<f:link.action controller="Post" action="list" class="pull-right">
