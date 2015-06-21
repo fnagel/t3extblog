@@ -122,7 +122,13 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 * @return boolean
 	 */
 	protected function hasFlashMessages() {
-		if (count($this->flashMessageContainer->getAllMessages()) > 0) {
+		if (version_compare(TYPO3_branch, '6.2', '<')) {
+			$messages = $this->flashMessageContainer->getAllMessages();
+		} else {
+			$messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
+		}
+
+		if (count($messages) > 0) {
 			return TRUE;
 		}
 
