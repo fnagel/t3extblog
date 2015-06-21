@@ -53,7 +53,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 * Function is used to override the merge of settings via TS & flexforms
 	 * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration
 	 *
-	 * @param $configurationManager Tx_Extbase_Configuration_ConfigurationManagerInterface An instance of the Configuration Manager
+	 * @param $configurationManager ConfigurationManagerInterface An instance of the Configuration Manager
 	 *
 	 * @return void
 	 */
