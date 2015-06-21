@@ -1,11 +1,11 @@
 <f:be.container
 	pageTitle="T3extblog Management"
-	addCssFile="{f:uri.resource(path:'Css/BackendStyle.css')}"
+	includeCssFiles="{0: 'Css/BackendStyle.css'}"
 >
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
-			<div id="typo3-docheader-row1">
-				<div class="buttonsleft">
+			<div id="typo3-docheader-row1" class="typo3-docheader-functions">
+				<div class="buttonsleft left">
 					<f:be.buttons.csh />
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.post.title')}" controller="BackendPost" action="index" />
@@ -13,16 +13,16 @@
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
 					</f:be.menus.actionMenu>
 				</div>
-				<div class="buttonsright">
-					<f:be.buttons.shortcut />
+				<div class="buttonsright right">
+					<f:be.pagePath /><f:be.pageInfo />
 				</div>
 			</div>
-			<div id="typo3-docheader-row2">
-				<div class="docheader-row2-left">
+			<div id="typo3-docheader-row2" class="typo3-docheader-buttons">
+				<div class="docheader-row2-left left">
 					<f:render section="iconButtons" />
 				</div>
-				<div class="docheader-row2-right">
-					<f:be.pagePath /><f:be.pageInfo />
+				<div class="docheader-row2-right right">
+					<f:be.buttons.shortcut />
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 
 				<f:flashMessages renderMode="div" />
 
-				<f:render section="content" />
+				<f:render section="main" />
 			</div>
 		</div>
 	</div>
