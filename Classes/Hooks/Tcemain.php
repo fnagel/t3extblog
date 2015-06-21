@@ -99,7 +99,7 @@ class Tcemain {
 	 * @param    array $fields : (reference) The field array of a record     *
 	 * @param           $tceMain
 	 *
-	 * @internal param \t3lib_TCEmain $tce
+	 * @internal param \TYPO3\CMS\Core\DataHandling\DataHandler $tce
 	 *
 	 * @return    void
 	 */
@@ -143,8 +143,8 @@ class Tcemain {
 			'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid', ' AND irre_parenttable=\'tx_t3blog_post\'')
 		);
 
-		/* @var $tce DataHandler */
-		$tceMain = $this->getObjectContainer()->getInstance('t3lib_TCEmain');
+		/* @var $tce \TYPO3\CMS\Core\DataHandling\DataHandler */
+		$tceMain = $this->getObjectContainer()->getInstance('TYPO3\\CMS\\Core\\DataHandling\\DataHandler');
 
 		$tceMain->start(array(), $command);
 		$tceMain->process_cmdmap();
@@ -270,7 +270,7 @@ class Tcemain {
 	 */
 	protected function getObjectContainer() {
 		if ($this->objectContainer == NULL) {
-			$this->objectContainer = GeneralUtility::makeInstance('Tx_Extbase_Object_Container_Container');
+			$this->objectContainer = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\Container\\Container');
 		}
 
 		return $this->objectContainer;
