@@ -187,7 +187,7 @@ class PostController extends AbstractController {
 	 */
 	public function showAction(Post $post, Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = $this->objectManager->create('TYPO3\\T3extblog\\Domain\\Model\\Comment');
+			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
 
 		// @todo: This will not work as this action is cached
