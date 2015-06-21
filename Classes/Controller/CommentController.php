@@ -116,7 +116,7 @@ class CommentController extends AbstractController {
 	 */
 	public function newAction(Post $post, Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = $this->objectManager->create('TYPO3\\T3extblog\\Domain\\Model\\Comment');
+			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
 
 		$this->view->assign('newComment', $newComment);
