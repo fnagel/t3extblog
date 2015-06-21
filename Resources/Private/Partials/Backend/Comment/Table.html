@@ -1,42 +1,50 @@
 {namespace t3extblog = TYPO3\T3extblog\ViewHelpers\Backend}
 
-<f:if condition="{comments}">
-	<f:then>
-		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.backend.comments.paginate}">
-			<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
-				<tr class="t3-row-header">
-					<td>&nbsp;</td>
-					<td><f:translate key="module.comment.table.title" /></td>
-					<td><f:translate key="module.comment.table.date" /></td>
-					<td><f:translate key="module.comment.table.author" /></td>
-					<td><f:translate key="module.comment.table.email" /></td>
-					<td><f:translate key="module.comment.table.website" /></td>
-					<td><f:translate key="module.comment.table.approved" /></td>
-					<td><f:translate key="module.comment.table.spam" /></td>
-					<td style="width: 65px;">&nbsp;</td>
-				</tr>
+<div class="panel panel-space panel-default">
+	<f:if condition="{comments}">
+		<f:then>
+			<div class="table-fit">
+			<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.backend.comments.paginate}">
+				<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+					<thead>
+						<tr class="t3-row-header">
+							<td>&nbsp;</td>
+							<td><f:translate key="module.comment.table.title" /></td>
+							<td><f:translate key="module.comment.table.date" /></td>
+							<td><f:translate key="module.comment.table.author" /></td>
+							<td><f:translate key="module.comment.table.email" /></td>
+							<td><f:translate key="module.comment.table.website" /></td>
+							<td><f:translate key="module.comment.table.approved" /></td>
+							<td><f:translate key="module.comment.table.spam" /></td>
+							<td style="width: 65px;">&nbsp;</td>
+						</tr>
+					</thead>
 
-				<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
-					<tr class="c-headLine">
-						<td colspan="9" class="col-title">
-							<t3extblog:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+					<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
+						<tr class="c-headLine">
+							<td colspan="9" class="col-title">
+								<t3extblog:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+							</td>
+						</tr>
+						<f:for each="{paginatedCommentsByPost}" as="comment">
+							<f:render partial="Backend/Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+						</f:for>
+					</f:groupedFor>
+					<tr>
+						<td colspan="9">
+							<f:translate
+								key="module.comment.table.count"
+								arguments="{0: '{paginatedComments -> f:count()}', 1: '{comments -> f:count()}'}" />
 						</td>
 					</tr>
-					<f:for each="{paginatedCommentsByPost}" as="comment">
-						<f:render partial="Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
-					</f:for>
-				</f:groupedFor>
-				<tr>
-					<td colspan="9">
-						<f:translate
-							key="module.comment.table.count"
-							arguments="{0: '{paginatedComments -> f:count()}', 1: '{comments -> f:count()}'}" />
-					</td>
-				</tr>
-			</table>
-		</f:widget.paginate>
-	</f:then>
-	<f:else>
-		<em><f:translate key="module.comment.noRecords" /></em>
-	</f:else>
-</f:if>
+				</table>
+			</f:widget.paginate>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="panel-body">
+				<em><f:translate key="module.comment.noRecords" /></em>
+			</div>
+		</f:else>
+	</f:if>
+</div>

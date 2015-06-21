@@ -5,7 +5,7 @@
 
 <f:layout name="Backend" />
 
-<f:section name="content">
+<f:section name="main">
 	<h2><f:translate key="module.comment.title.all" /></h2>
 
 	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
@@ -23,9 +23,11 @@
 
 
 <f:section name="iconButtons">
-	<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][{pageId}]=new'; return false;">
-		<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
-	</a>
+	<div class="buttongroup">
+		<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_com][{pageId}]=new'; return false;">
+			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		</a>
+	</div>
 </f:section>
 
 </div>

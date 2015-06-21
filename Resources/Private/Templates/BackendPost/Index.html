@@ -11,19 +11,21 @@
 	<h3><f:translate key="module.post.title" /></h3>
 
 	<div class="panel panel-space panel-default">
-		<div class="table-fit">
 		<f:if condition="{posts}">
 			<f:then>
+				<div class="table-fit">
 				<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
 					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
-						<tr class="t3-row-header">
-							<td>&nbsp;</td>
-							<td><f:translate key="module.post.table.title" /></td>
-							<td><f:translate key="module.post.table.date" /></td>
-							<td><f:translate key="module.post.table.author" /></td>
-							<td><f:translate key="module.post.table.comments" /></td>
-							<td>&nbsp;</td>
-						</tr>
+						<thead>
+							<tr class="t3-row-header">
+								<td>&nbsp;</td>
+								<td><f:translate key="module.post.table.title" /></td>
+								<td><f:translate key="module.post.table.date" /></td>
+								<td><f:translate key="module.post.table.author" /></td>
+								<td><f:translate key="module.post.table.comments" /></td>
+								<td>&nbsp;</td>
+							</tr>
+						</thead>
 
 						<f:for each="{paginatedPosts}" as="post">
 							<tr class="db_list_normal">
@@ -55,12 +57,14 @@
 						</tr>
 					</table>
 				</f:widget.paginate>
+				</div>
 			</f:then>
 			<f:else>
-				<em><f:translate key="module.post.noRecords" /></em>
+				<div class="panel-body">
+					<em><f:translate key="module.post.noRecords" /></em>
+				</div>
 			</f:else>
 		</f:if>
-		</div>
 	</div>
 </f:section>
 
