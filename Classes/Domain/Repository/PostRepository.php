@@ -50,8 +50,10 @@ class PostRepository extends AbstractRepository {
 	 * @return Post
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
-		if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
-			return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
+		if (version_compare(TYPO3_branch, '7.0', '<')) {
+			if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
+				return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
+			}
 		}
 
 		$query = $this->createQuery();
