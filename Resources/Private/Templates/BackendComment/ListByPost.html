@@ -3,17 +3,17 @@
 <div xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:layout name="Default" />
+<f:layout name="Backend" />
 
 <f:section name="content">
 	<h2>
 		<f:translate key="module.comment.title.byPost" arguments="{0: '{post.title}'}" />
 	</h2>
 
-	<f:render partial="PendingComments" arguments="{pendingComments: pendingComments, addLink: 0}" />
+	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 0}" />
 
 	<f:render
-		partial="Comment/Table"
+		partial="Backend/Comment/Table"
 		arguments="{
 			comments: comments,
 			dateFormat: dateFormat,

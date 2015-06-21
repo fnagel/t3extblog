@@ -1,0 +1,76 @@
+{namespace t3extblog = TYPO3\T3extblog\ViewHelpers\Backend}
+
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Backend" />
+
+<f:section name="main">
+	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
+
+	<h3><f:translate key="module.post.title" /></h3>
+
+	<div class="panel panel-space panel-default">
+		<div class="table-fit">
+		<f:if condition="{posts}">
+			<f:then>
+				<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
+					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+						<tr class="t3-row-header">
+							<td>&nbsp;</td>
+							<td><f:translate key="module.post.table.title" /></td>
+							<td><f:translate key="module.post.table.date" /></td>
+							<td><f:translate key="module.post.table.author" /></td>
+							<td><f:translate key="module.post.table.comments" /></td>
+							<td>&nbsp;</td>
+						</tr>
+
+						<f:for each="{paginatedPosts}" as="post">
+							<tr class="db_list_normal">
+								<td class="col-icon">
+									<a href="#" onClick="showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" title="id={post.uid}">
+										<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+									</a>
+								</td>
+								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+							</tr>
+							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}" returnUrl="{returnUrl}">
+								<f:for each="{localizedRecords}" as="localizedPost">
+									<tr class="db_list_normal localized">
+										<td class="col-icon">
+											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
+										</td>
+										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+									</tr>
+								</f:for>
+							</t3extblog:localization>
+						</f:for>
+
+						<tr>
+							<td colspan="6">
+								<f:translate
+									key="module.post.table.count"
+									arguments="{0: '{paginatedPosts -> f:count()}', 1: '{posts -> f:count()}'}" />
+							</td>
+						</tr>
+					</table>
+				</f:widget.paginate>
+			</f:then>
+			<f:else>
+				<em><f:translate key="module.post.noRecords" /></em>
+			</f:else>
+		</f:if>
+		</div>
+	</div>
+</f:section>
+
+
+<f:section name="iconButtons">
+	<div class="buttongroup">
+		<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_post][{pageId}]]=new'; return false;">
+			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		</a>
+	</div>
+</f:section>
+
+</div>
