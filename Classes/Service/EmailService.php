@@ -128,7 +128,7 @@ class EmailService implements SingletonInterface {
 		}
 
 		/* @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-		$message = $this->objectManager->create('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+		$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$message
 			->setTo($mailTo)
 			->setFrom($mailFrom)
@@ -167,7 +167,7 @@ class EmailService implements SingletonInterface {
 	 */
 	public function render($variables, $templatePath = 'Default.txt', $format = 'txt') {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
-		$emailView = $this->objectManager->create('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
 		$emailView->setFormat($format);
 
