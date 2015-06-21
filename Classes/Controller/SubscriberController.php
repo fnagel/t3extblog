@@ -102,7 +102,7 @@ class SubscriberController extends AbstractController {
 
 			if (version_compare(TYPO3_branch, '6.1', '>=')) {
 				$this->subscriberRepository->update($this->subscriber);
-				$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+				$this->persistEntities();
 			}
 		}
 
@@ -125,7 +125,7 @@ class SubscriberController extends AbstractController {
 		}
 
 		$this->subscriberRepository->remove($subscriber);
-		$this->objectManager->get('Tx_Extbase_Persistence_Manager')->persistAll();
+		$this->persistEntities();
 
 		$this->addFlashMessageByKey('deleted', FlashMessage::NOTICE);
 		$this->redirect('list');
@@ -220,10 +220,7 @@ class SubscriberController extends AbstractController {
 
 				if (version_compare(TYPO3_branch, '6.1', '>=')) {
 					$this->subscriberRepository->update($subscriber);
-					$persistenceManager = $this->objectManager->get(
-						'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-					);
-					$persistenceManager->persistAll();
+					$this->persistEntities();
 				}
 
 				$this->processError('alreadyRegistered', FlashMessage::NOTICE);
@@ -260,6 +257,18 @@ class SubscriberController extends AbstractController {
 		}
 
 		return $code;
+	}
+
+	/**
+	 * Persist all entities
+	 *
+	 * @return void
+	 */
+	protected function persistEntities() {
+		$persistenceManager = $this->objectManager->get(
+			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+		);
+		$persistenceManager->persistAll();
 	}
 
 }
