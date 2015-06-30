@@ -13,7 +13,9 @@
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
 				<li>
-					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category : category}">{category.name}</f:link.action>
+					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category: category}">
+						{category.name}
+					</f:link.action>
 					<f:if condition="{category.childCategories}">
 						<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
 					</f:if>
@@ -28,7 +30,9 @@
 	<ul>
 	<f:for each="{categories}" as="category">
 		<li>
-			<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category : category}">{category.name}</f:link.action>
+			<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category: category}">
+				{category.name}
+			</f:link.action>
 			<f:if condition="{category.childCategories}">
 				<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
 			</f:if>
