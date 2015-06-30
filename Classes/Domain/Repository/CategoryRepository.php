@@ -35,8 +35,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 class CategoryRepository extends AbstractRepository {
 
 	protected $defaultOrderings = array(
-		'name' => QueryInterface::ORDER_ASCENDING,
 		'sorting' => QueryInterface::ORDER_ASCENDING,
+		'name' => QueryInterface::ORDER_ASCENDING,
 	);
 
 }
