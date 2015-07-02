@@ -46,10 +46,13 @@ class RenderContentViewHelper extends CObjectViewHelper {
 	 * @param int                   $index
 	 * @param bool                  $removeMarker
 	 * @param string                $typoscript
+	 * @param string                $table
 	 *
 	 * @return string
 	 */
-	public function render($contentElements, $index = 0, $removeMarker = TRUE, $typoscript = 'tt_content') {
+	public function render(
+		$contentElements, $index = 0, $removeMarker = TRUE, $typoscript = 'tt_content', $table = 'tt_content'
+	) {
 		$output = '';
 		$iterator = 0;
 
@@ -63,9 +66,9 @@ class RenderContentViewHelper extends CObjectViewHelper {
 			// Otherwise tt_content rendering will fail for plugins
 			if (is_object($content) && $content instanceof AbstractLocalizedEntity) {
 				$where = 'uid = ' . $content->getLocalizedUid();
-				$where  .= $this->getEnableFields($typoscript);
+				$where  .= $this->getEnableFields($table);
 
-				$content = $this->getDatabase()->exec_SELECTgetSingleRow('*', $typoscript, $where);
+				$content = $this->getDatabase()->exec_SELECTgetSingleRow('*', $table, $where);
 			}
 
 			$output .= parent::render($typoscript, $content);
@@ -108,6 +111,7 @@ class RenderContentViewHelper extends CObjectViewHelper {
 	/**
 	 * Remove marker
 	 *
+	 * @deprecated
 	 * @param string $output
 	 *
 	 * @return string Rendered string
