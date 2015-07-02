@@ -37,6 +37,12 @@ config.tx_extbase {
 	        TYPO3\T3extblog\Domain\Model\Content {
 		        mapping {
 			        tableName = tt_content
+			        columns {
+				        altText.mapOnProperty = altText
+				        titleText.mapOnProperty = titleText
+				        colPos.mapOnProperty = colPos
+				        CType.mapOnProperty = CType
+			        }
 		        }
 	        }
 	        TYPO3\T3extblog\Domain\Model\Category {
