@@ -73,8 +73,21 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 	 * @return string
 	 * @internal
 	 */
-	public function compile($argumentsVariableName, $renderChildrenClosureVariableName, &$initializationPhpCode, \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode, \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler) {
-		parent::compile($argumentsVariableName, $renderChildrenClosureVariableName, $initializationPhpCode, $syntaxTreeNode, $templateCompiler);
+	public function compile(
+		$argumentsVariableName,
+		$renderChildrenClosureVariableName,
+		&$initializationPhpCode,
+		\TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode,
+		\TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
+	) {
+		parent::compile(
+			$argumentsVariableName,
+			$renderChildrenClosureVariableName,
+			$initializationPhpCode,
+			$syntaxTreeNode,
+			$templateCompiler
+		);
+
 		return \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
 	}
 }
