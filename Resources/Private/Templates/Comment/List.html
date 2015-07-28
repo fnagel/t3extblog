@@ -1,0 +1,19 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
+
+	<div id="comment-list">
+		<f:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
+			<f:for each="{paginatedComments}" as="comment">
+				<f:render partial="Post/Comment" arguments="{post: post, comment: comment}" />
+				<hr>
+			</f:for>
+		</f:widget.paginate>
+	</div>
+</f:section>
+
+</div>

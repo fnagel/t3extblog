@@ -5,6 +5,9 @@ plugin.tx_t3extblog {
 		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
 
 		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+
+#		pluginNamespace = tx_t3extblog_blogsystem
+		callDefaultActionIfActionCantBeResolved = 1
 	}
 
 	email {

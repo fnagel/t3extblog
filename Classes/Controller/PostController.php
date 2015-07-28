@@ -177,25 +177,15 @@ class PostController extends AbstractController {
 	/**
 	 * Displays one single post
 	 *
-	 * @ignorevalidation $newComment
-	 * @dontvalidate $newComment
-	 *
 	 * @param Post $post The post to display
-	 * @param Comment $newComment A new comment
 	 *
 	 * @return void
 	 */
-	public function showAction(Post $post, Comment $newComment = NULL) {
-		if ($newComment === NULL) {
-			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
-		}
-
+	public function showAction(Post $post) {
 		// @todo: This will not work as this action is cached
 		// $post->riseNumberOfViews();
 
 		$this->view->assign('post', $post);
-		$this->view->assign('newComment', $newComment);
-
 		$this->view->assign('nextPost', $this->postRepository->nextPost($post));
 		$this->view->assign('previousPost', $this->postRepository->previousPost($post));
 	}

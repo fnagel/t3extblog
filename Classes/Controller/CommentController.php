@@ -61,6 +61,22 @@ class CommentController extends AbstractController {
 	 */
 	protected $spamCheckService;
 
+
+	/**
+	 * Initializes the controller before invoking an action method.
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		// Set the parameters from blogsystem plugin
+		$blogsystemParameters = GeneralUtility::_GET('tx_t3extblog_blogsystem');
+		if (isset($blogsystemParameters) && is_array($blogsystemParameters) && count($blogsystemParameters)) {
+			if (isset($blogsystemParameters['post'])) {
+				$this->request->setArgument('post', $blogsystemParameters['post']);
+			}
+		}
+	}
+
 	/**
 	 * action list
 	 *
@@ -93,7 +109,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Show action
 	 *
-	 * Redirect to post show if empty cmment create is called
+	 * Redirect to post show if empty comment create is called
 	 *
 	 * @param Post $post The post the comment is related to
 	 *
@@ -102,7 +118,6 @@ class CommentController extends AbstractController {
 	public function showAction(Post $post) {
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
 	}
-
 
 	/**
 	 * action new
@@ -116,7 +131,7 @@ class CommentController extends AbstractController {
 	 */
 	public function newAction(Post $post, Comment $newComment = NULL) {
 		if ($newComment === NULL) {
-			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\Model\\Comment');
+			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
 
 		$this->view->assign('newComment', $newComment);

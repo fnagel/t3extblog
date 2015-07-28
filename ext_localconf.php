@@ -9,12 +9,22 @@ if (!defined('TYPO3_MODE')) {
 	'Blogsystem',
 	array(
 		'Post' => 'list, tag, category, show, permalink, preview',
-		'Comment' => 'create, show',
 	),
 	// non-cacheable actions
 	array(
 		'Post' => 'permalink, preview',
-		'Comment' => 'create',
+	)
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
+	'Comment',
+	array(
+		'Comment' => 'new, create, list, show',
+	),
+	// non-cacheable actions
+	array(
+		'Comment' => 'new, create',
 	)
 );
 

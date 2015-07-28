@@ -40,26 +40,5 @@
 			</div>
 		</div>
 	</article>
-
-	<f:if condition="{newComment}">
-		<div id="comment-section">
-			<div class="well" id="comment-form">
-				<f:render partial="Comment/New" arguments="{post: post, newComment: newComment, settings: settings}" />
-			</div>
-
-			<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
-
-			<f:if condition="{post.comments}">
-				<div id="comment-list">
-					<f:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
-						<f:for each="{paginatedComments}" as="comment">
-							<f:render partial="Post/Comment" arguments="{post: post, comment: comment}" />
-							<hr>
-						</f:for>
-					</f:widget.paginate>
-				</div>
-			</f:if>
-		</div>
-	</f:if>
 </f:section>
 

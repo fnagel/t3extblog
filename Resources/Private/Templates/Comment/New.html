@@ -4,9 +4,11 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+	<div id="comment-section"></div>
 
-	<f:render partial="Comment/New" arguments="{post: post, newComment: newComment}" />
-
+	<div class="well" id="comment-form">
+		<f:render partial="Comment/New" arguments="{post: post, newComment: newComment, settings: settings}" />
+	</div>
 </f:section>
 
 </div>
