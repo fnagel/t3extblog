@@ -124,5 +124,3 @@ $requiredParameters = array(
 	'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
-
-?>

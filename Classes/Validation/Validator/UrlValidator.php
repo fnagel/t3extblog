@@ -59,5 +59,3 @@ class UrlValidator extends AbstractValidator {
 		return TRUE;
 	}
 }
-
-?>

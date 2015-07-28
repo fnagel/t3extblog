@@ -101,5 +101,3 @@ class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 	}
 
 }
-
-?>

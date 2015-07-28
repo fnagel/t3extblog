@@ -377,7 +377,7 @@ class Post extends AbstractLocalizedEntity {
 	 * @return array $tagCloud
 	 */
 	public function getTagCloud() {
-		return GeneralUtility::trimExplode(',', $this->tagCloud, true);
+		return GeneralUtility::trimExplode(',', $this->tagCloud, TRUE);
 	}
 
 	/**
@@ -645,7 +645,7 @@ class Post extends AbstractLocalizedEntity {
 			$this->rawComments = $this->getCommentRepository()->findValidByPost($this);
 
 			$this->comments = new ObjectStorage();
-			foreach($this->rawComments as $comment) {
+			foreach ($this->rawComments as $comment) {
 				$this->comments->attach($comment);
 			}
 		}
