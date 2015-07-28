@@ -40,7 +40,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  * @package t3extblog
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class SettingsService implements SingletonInterface {
+class SettingsService {
 
 	/**
 	 * Extension name
