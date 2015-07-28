@@ -100,10 +100,8 @@ class SubscriberController extends AbstractController {
 			$this->subscriber->_setProperty('hidden', FALSE);
 			$this->addFlashMessageByKey('confirmed', FlashMessage::NOTICE);
 
-			if (version_compare(TYPO3_branch, '6.1', '>=')) {
-				$this->subscriberRepository->update($this->subscriber);
-				$this->persistEntities();
-			}
+			$this->subscriberRepository->update($this->subscriber);
+			$this->persistEntities();
 		}
 
 		$this->redirect('list');
@@ -218,10 +216,8 @@ class SubscriberController extends AbstractController {
 			if (count($confirmedSubscriptions) > 0) {
 				$subscriber->_setProperty('deleted', TRUE);
 
-				if (version_compare(TYPO3_branch, '6.1', '>=')) {
-					$this->subscriberRepository->update($subscriber);
-					$this->persistEntities();
-				}
+				$this->subscriberRepository->update($subscriber);
+				$this->persistEntities();
 
 				$this->processError('alreadyRegistered', FlashMessage::NOTICE);
 			}

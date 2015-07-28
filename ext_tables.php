@@ -68,13 +68,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 );
 
 
-// Add record TCA configuration
-if (version_compare(TYPO3_branch, '6.1', '<')) {
-	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('pages');
-	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('be_users');
-	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tt_content');
-}
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_post');
 $GLOBALS['TCA']['tx_t3blog_post'] = array(

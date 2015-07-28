@@ -241,9 +241,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 		$post = $subscriber->getPost();
 		$subscriber->updateAuth();
 
-		if (version_compare(TYPO3_branch, '6.1', '>=')) {
-			$this->subscriberRepository->update($subscriber);
-		}
+		$this->subscriberRepository->update($subscriber);
 
 		$subject = $this->translate('subject.subscriber.new', $post->getTitle());
 		$variables = array(
@@ -316,9 +314,8 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 			}
 
 			$subscriber->updateAuth();
-			if (version_compare(TYPO3_branch, '6.1', '>=')) {
-				$this->subscriberRepository->update($subscriber);
-			}
+
+			$this->subscriberRepository->update($subscriber);
 
 			$variables = array(
 				'post' => $post,
@@ -332,9 +329,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 		}
 
 		$comment->setMailsSent(TRUE);
-		if (version_compare(TYPO3_branch, '6.1', '>=')) {
-			$this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
-		}
+		$this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
 	}
 
 	/**

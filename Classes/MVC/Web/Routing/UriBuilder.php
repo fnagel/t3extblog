@@ -15,7 +15,7 @@ namespace TYPO3\T3extblog\Mvc\Web\Routing;
  * Public License for more details.                                       *
  *                                                                        */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\T3extblog\Service\SettingsService;
 
 /**
@@ -23,6 +23,9 @@ use TYPO3\T3extblog\Service\SettingsService;
  *
  * This a modfied version of the default extbase class which enables us to
  * use a FE link within a BE context
+ *
+ * @todo Check if this is still needed
+ * @todo Check if this has changed lately
  */
 class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 
@@ -80,7 +83,8 @@ class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 			$pluginNamespace = $this->extensionService->getPluginNamespace($extensionName, $pluginName);
 			$prefixedControllerArguments = array($pluginNamespace => $controllerArguments);
 		}
-		$this->arguments = GeneralUtility::array_merge_recursive_overrule($this->arguments, $prefixedControllerArguments);
+
+		ArrayUtility::mergeRecursiveWithOverrule($this->arguments, $prefixedControllerArguments);
 
 		return $this->buildFrontendUri();
 	}

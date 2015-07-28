@@ -108,12 +108,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 		$titleLocallangKey = sprintf('%s.title', $messageLocallangKey);
 		$localizedTitle = $this->translate($titleLocallangKey, '[' . $titleLocallangKey . ']');
 
-		// @todo Remove this soon: as we do not support 4.x and 6.0 and 6.2 are no longer supported
-		if (version_compare(TYPO3_branch, '6.2', '<')) {
-			$this->flashMessageContainer->add($localizedMessage, $localizedTitle, $severity);
-		} else {
-			$this->addFlashMessage($localizedMessage, $localizedTitle, $severity);
-		}
+		$this->addFlashMessage($localizedMessage, $localizedTitle, $severity);
 	}
 
 	/**
@@ -122,11 +117,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 * @return boolean
 	 */
 	protected function hasFlashMessages() {
-		if (version_compare(TYPO3_branch, '6.2', '<')) {
-			$messages = $this->flashMessageContainer->getAllMessages();
-		} else {
-			$messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
-		}
+		$messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
 
 		if (count($messages) > 0) {
 			return TRUE;
