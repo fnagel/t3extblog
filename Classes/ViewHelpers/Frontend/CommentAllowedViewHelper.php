@@ -42,23 +42,37 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 	 * @return string
 	 */
 	public function render(Post $post) {
-		$settings = $this->templateVariableContainer->get('settings');
+		$this->arguments['settings'] = $this->templateVariableContainer->get('settings');
+
+		return parent::render();
+	}
+
+	/**
+	 * This method decides if the condition is TRUE or FALSE
+	 *
+	 * @param array $arguments ViewHelper arguments to evaluate the condition
+	 * @return bool
+	 */
+	static protected function evaluateCondition($arguments = NULL) {
+		/* @var Post $post */
+		$post = $arguments['post'];
+		$settings = $arguments['settings'];
 
 		if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
-			return $this->renderElseChild();
+			return FALSE;
 		}
 
 		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
-			return $this->renderElseChild();
+			return FALSE;
 		}
 
 		if ($settings['blogsystem']['comments']['allowedUntil']) {
 			if ($post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))) {
-				return $this->renderElseChild();
+				return FALSE;
 			}
 		}
 
-		return $this->renderThenChild();
+		return TRUE;
 	}
 
 	/**
