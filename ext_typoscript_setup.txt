@@ -112,8 +112,6 @@ config.tx_extbase {
 # Configure BE module
 # When this default TS is added to static TS templates instead, we run into issues regarding link generation (RealUrl)
 module.tx_t3extblog {
-	# Use Bootstrap 2/3 layout for TYPO3 7.x
-	# @todo This needs testing and CSS adjustments in TYPO3 6.2
 	view < plugin.tx_t3extblog.view
 
 	email < plugin.tx_t3extblog.email

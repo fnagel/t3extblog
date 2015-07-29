@@ -21,42 +21,24 @@ table td.action a {
 	text-decoration: none;
 }
 
-/* Paginate 7.x */
+/* Paginate 6.x & 7.x */
 .pagination {
+	display: inline-block;
 	margin: 5px 5px 0 5px;
 	padding: 0;
 }
 
-/* Paginate 6.x */
-.f3-widget-paginator {
-	display: block;
+.pagination > li {
+	display: inline;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+	position: relative;
 	float: left;
-	margin: 0 0 10px;
-	padding-left: 0;
-}
-
-.f3-widget-paginator li {
-	font-weight: bold;
-	display: block;
-	float: left;
-	width: 30px;
-	text-align: center;
-	margin: 0 2px 2px;
-}
-
-.f3-widget-paginator li.current {
-	border: 1px solid black;
-	padding: 2px;
-}
-
-.f3-widget-paginator li.next,
-.f3-widget-paginator li.previous {
-	width: auto;
-}
-
-.f3-widget-paginator a {
-	font-weight: normal;
-	display: block;
-	border: 1px solid black;
-	padding: 2px;
+	padding: 6px 12px;
+	margin-left: -1px;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
 }
