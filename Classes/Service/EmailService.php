@@ -164,9 +164,12 @@ class EmailService implements SingletonInterface {
 	 * @param array $variables Arguments for template
 	 * @param string $templatePath Choose a template
 	 * @param string $format Choose a format (txt or html)
+	 *
+	 * @return string
 	 */
 	public function render($variables, $templatePath = 'Default.txt', $format = 'txt') {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
+		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
 		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
 		$emailView->setFormat($format);
