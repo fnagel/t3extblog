@@ -21,7 +21,13 @@ table td.action a {
 	text-decoration: none;
 }
 
-/* Paginate */
+/* Paginate 7.x */
+.pagination {
+	margin: 5px 5px 0 5px;
+	padding: 0;
+}
+
+/* Paginate 6.x */
 .f3-widget-paginator {
 	display: block;
 	float: left;
