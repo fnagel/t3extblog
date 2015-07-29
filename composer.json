@@ -13,7 +13,7 @@
   "keywords": ["TYPO3 CMS", "blog"],
   "homepage": "https://github.com/fnagel/t3extblog",
   "license": "GPL-2.0+",
-  "version": "1.2.2-dev",
+  "version": "2.0.0-dev",
   "support": {
     "issues": "https://github.com/fnagel/t3extblog/issues"
   },
