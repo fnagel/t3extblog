@@ -44,7 +44,18 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 	public function render(Post $post) {
 		$this->arguments['settings'] = $this->templateVariableContainer->get('settings');
 
-		return parent::render();
+		// TYPO3 7.x
+		if (is_callable('parent::render')) {
+			return parent::render();
+		}
+
+		// TYPO3 6.x
+		// @todo Remove this someday
+		if (static::evaluateCondition($this->arguments)) {
+			return $this->renderThenChild();
+		} else {
+			return $this->renderElseChild();
+		}
 	}
 
 	/**
