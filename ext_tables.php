@@ -269,7 +269,7 @@ if (TYPO3_MODE === 'BE') {
 		),
 		array(
 			'access' => 'user,group',
-			'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			'icon' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/module.png',
 			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
 			'navigationComponentId' => 'typo3-pagetree',
 		)
