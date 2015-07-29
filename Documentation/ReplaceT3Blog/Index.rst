@@ -25,10 +25,11 @@ You have a TYPO3 4.5. with T3Blog (EXT:t3blog) installed. Goal is to get your bl
 #.	Deinstall t3blog if not done before (Don't remove any t3blog tables!)
 #.	Install t3extblog! Make sure to create / modify database fields.
 #.	Run the update-script (in Extensions-Manager)
+#.	Run the Install Tool Wizard (in Install Tool)
 #.	Clean up (deleting deinstalled extensions, run the database analyser)
 
 You will need to adjust your templates and TS configuration, but all your blogposts, comments etc. should be already available.
 
 
-
-
+.. tip::
+	Make sure to read the :ref:`Upgrade Guide <upgrade-guide>`.

@@ -1,4 +1,4 @@
-﻿﻿.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -22,20 +22,25 @@ Upgrade Guide
 Upgrade from 1.1.x to 1.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
 Changelog
 """""""""
 
 https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.0
 
-- Multi language support
+- Multi language support incl. improved BE module
 
-- Image and text preview fields
+- New image and text preview fields
 
 - Removed ###MORE### marker support (migration update wizard is available)
 
-- PHP Namespaces (TYPO3 CMS 7.x preparation)
+- PHP Namespaces (TYPO3 CMS 7.x compatibility preparation)
 
-- Tons of bugfixes
+- Support for meta tags (description, keywords, TwitterCards)
+
+- A lot of bugfixes
+
+- Removed quite a lot t3blog legacy code
 
 
 .. important::
@@ -62,8 +67,9 @@ Some major changes:
 
 * Now using namespaces for ViewHelpers, make sure to adjust your template references
 
-* RenderPreview ViewHelper has been removed as no longer needed.
+* ViewHelper namespace in default templates has changed. Be careful!
 
+* RenderPreview ViewHelper has been removed as no longer needed.
 
 
 
@@ -72,15 +78,18 @@ How to upgrade
 
 #. "Clear all cache" in Install Tool (Important actions)
 
-#. Create new propertiesusing "Compare current database with specification" in Install Tool (Important actions)
+#. Clean up DB fields by using "Compare current database with specification" in Install Tool (Important actions)
 
 #. Use the Install Tool Wizard if you are currently using the ###MORE### marker functionality
 
 #. Adjust your templates
 
+#. Adjust your blog post records if needed (depending on your setup)
+
 
 .. tip::
-	Some old, unused database fields have been removed.
+	Some old, unused database fields have been removed. Don't be scared but make sure to have a back-up available.
+
 
 
 Upgrade from 1.0.x to 1.1.0
