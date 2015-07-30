@@ -1,26 +1,28 @@
-<div id="comment-{comment.uid}" class="row-fluid comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
-	<div class="span3 text-right">
-		<strong>
-			<f:if condition="{comment.website}">
-				<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
-				<f:else>{comment.author}</f:else>
+<div id="comment-{comment.uid}" class="comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
+	<div class="row">
+		<div class="col-md-3 text-right">
+			<strong>
+				<f:if condition="{comment.website}">
+					<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
+					<f:else>{comment.author}</f:else>
+				</f:if>
+			</strong>
+			<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
+			</p>
+		</div>
+		<div class="col-md-8">
+			<f:if condition="{comment.title}">
+				<strong>{comment.title}</strong>
 			</f:if>
-		</strong>
-		<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
-		</p>
-	</div>
-	<div class="span8">
-		<f:if condition="{comment.title}">
-			<strong>{comment.title}</strong>
-		</f:if>
-		<f:format.html>{comment.text}</f:format.html>
-	</div>
+			<f:format.html>{comment.text}</f:format.html>
+		</div>
 
-	<div class="span1 text-right">
-		<f:comment>@todo Remove workaround for #51</f:comment>
-		<a href="#comment-{comment.uid}">
-			<i class="icon-comment"></i>
-		</a>
+		<div class="col-md-1 text-right">
+			<f:comment>@todo Remove workaround for #51</f:comment>
+			<a href="#comment-{comment.uid}">
+				<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+			</a>
+		</div>
 	</div>
 </div>

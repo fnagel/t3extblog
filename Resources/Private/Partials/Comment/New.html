@@ -8,7 +8,7 @@
 		<f:render section="commentForm" arguments="{_all}" />
 	</f:then>
 	<f:else>
-		<p class="alert alert-info alert-block"><f:translate key="comment.disabled" /></p>
+		<p class="alert alert-info"><f:translate key="comment.disabled" /></p>
 	</f:else>
 </t3b:commentAllowed>
 
@@ -29,12 +29,13 @@
 
 			<f:render partial="Comment/FormFields" />
 		</fieldset>
-		<br>
-		<fieldset class="row-fluid">
-			<div class="span2">
-				<f:form.submit class="btn btn-primary" value="{f:translate(key: 'comment.submit')}" />
+		<fieldset class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<f:form.submit class="btn btn-primary btn-block" value="{f:translate(key: 'comment.submit')}" />
+				</div>
 			</div>
-			<div class="span4">
+			<div class="col-md-9">
 				<f:render partial="Comment/Spam" />
 			</div>
 		</fieldset>
