@@ -1,14 +1,15 @@
 <f:if condition="{post.previewImage}">
 	<div class="thumbnails">
-		<figure class="thumbnail">
-			<div class="img-polaroid">
+		<figure>
+			<div>
 				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
 					<f:image
 						alt="{post.previewImage.properties.alternative}"
 						title="{post.previewImage.properties.title}"
 						src="{post.previewImage.uid}"
 						width="{settings.blogsystem.posts.preview.image.width}"
-						treatIdAsReference="1" />
+						treatIdAsReference="1"
+						class="img-responsive img-thumbnail" />
 				</f:link.action>
 			</div>
 
