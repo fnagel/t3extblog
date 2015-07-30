@@ -15,21 +15,19 @@
 
 
 <f:section name="paginator">
-	<div class="pagination">
-		<ul>
+	<nav>
+		<ul class="pagination">
 			<f:if condition="{pagination.previousPage}">
 				<li class="previous">
 					<f:if condition="{pagination.previousPage} > 1">
 						<f:then>
-							<f:widget.link arguments="{currentPage: pagination.previousPage}">
-								<i class="icon-arrow-left"></i>
-								<f:translate key="widget.pagination.previous" />
+							<f:widget.link arguments="{currentPage: pagination.previousPage}" additionalAttributes="{aria-label: {f:translate(key: 'widget.pagination.previous')}}">
+								<span aria-hidden="true">&laquo;</span>
 							</f:widget.link>
 						</f:then>
 						<f:else>
-							<f:widget.link>
-								<i class="icon-arrow-left"></i>
-								<f:translate key="widget.pagination.previous" />
+							<f:widget.link additionalAttributes="{aria-label: {f:translate(key: 'widget.pagination.previous')}}">
+								<span aria-hidden="true">&laquo;</span>
 							</f:widget.link>
 						</f:else>
 					</f:if>
@@ -74,14 +72,13 @@
 			</f:if>
 			<f:if condition="{pagination.nextPage}">
 				<li class="next">
-					<f:widget.link arguments="{currentPage: pagination.nextPage}">
-						<f:translate key="widget.pagination.next" />
-						<i class="icon-arrow-right"></i>
+					<f:widget.link arguments="{currentPage: pagination.nextPage}" additionalAttributes="{aria-label: {f:translate(key: 'widget.pagination.next')}}">
+						<span aria-hidden="true">&raquo;</span>
 					</f:widget.link>
 				</li>
 			</f:if>
 		</ul>
-	</div>
+	</nav>
 </f:section>
 
 <f:section name="title">

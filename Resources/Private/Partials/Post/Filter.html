@@ -2,7 +2,7 @@
 
 <f:if condition="{category}">
 	<t3b:titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:titleTag>
-	<div class="alert alert-block alert-info">
+	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.category" /> <em>{category.name}</em>
 		<f:link.action controller="Post" action="list" class="pull-right">
 			<f:translate key="post.filter.reset" />
@@ -12,7 +12,7 @@
 </f:if>
 <f:if condition="{tag}">
 	<t3b:titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:titleTag>
-	<div class="alert alert-block alert-info">
+	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.tag" /> <em>{tag}</em>
 		<f:link.action controller="Post" action="list" class="pull-right">
 			<f:translate key="post.filter.reset" />
