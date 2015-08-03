@@ -4,11 +4,11 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<a class="btn btn-primary" data-target=".blog-category-collapse" data-toggle="collapse">
+	<a class="btn btn-primary btn-block hidden-sm hidden-md hidden-lg" data-target=".blog-category-collapse" data-toggle="collapse">
 		<span class="caret" aria-hidden="true"></span> <f:translate key="post.category" />
 	</a>
 
-	<div class="nav-collapse blog-category-collapse collapse">
+	<div class="navbar-collapse blog-category-collapse collapse">
 		<ul class="nav nav-list">
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
