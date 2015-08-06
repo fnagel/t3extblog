@@ -1,5 +1,7 @@
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+
 <div class="row">
-	<div class="col-md-6 form-group">
+	<div class="col-md-6 form-group {t3b:formError(for: 'newComment.text')}">
 		<label class="control-label sr-only" for="newComment.text">
 			<f:translate key="comment.text" />
 		</label>
@@ -10,7 +12,7 @@
 	</div>
 
 	<div class="col-md-6 form-horizontal">
-		<div class="form-group">
+		<div class="form-group {t3b:formError(for: 'newComment.title')}">
 			<label class="col-sm-3 control-label" for="newComment.title">
 				<f:translate key="comment.title" />
 			</label>
@@ -18,7 +20,7 @@
 				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="form-control" id="newComment.title" property="title" />
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group {t3b:formError(for: 'newComment.author')}">
 			<label class="col-sm-3 control-label" for="newComment.author">
 				<f:translate key="comment.author" />
 			</label>
@@ -27,8 +29,7 @@
 			</div>
 		</div>
 
-
-		<div class="form-group">
+		<div class="form-group {t3b:formError(for: 'newComment.email')}">
 			<label class="col-sm-3 control-label" for="newComment.email">
 				<f:translate key="comment.email" />
 			</label>
@@ -36,7 +37,7 @@
 				<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="newComment.email" property="email" />
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group {t3b:formError(for: 'newComment.website')}">
 			<label class="col-sm-3 control-label" for="newComment.website">
 				<f:translate key="comment.website" />
 			</label>
