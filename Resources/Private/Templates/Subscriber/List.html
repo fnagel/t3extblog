@@ -20,23 +20,25 @@
 
 	<table class="table table-bordered table-striped" >
 		<caption><f:translate key="subscriber.headline" />: <em>{email}</em></caption>
+		<thead>
+			<tr>
+				<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
+				<th style="width: 25%;"><f:translate key="subscriber.table.header.name" /></th>
+				<th style="width: 10%;"><f:translate key="subscriber.table.header.comments" /></th>
+				<th style="width: 15%;"></th>
+			</tr>
+		</thead>
 
-		<tr>
-			<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
-			<th style="width: 25%;"><f:translate key="subscriber.table.header.name" /></th>
-			<th style="width: 10%;"><f:translate key="subscriber.table.header.comments" /></th>
-			<th style="width: 15%;"></th>
-		</tr>
-
+		<tbody>
 		<f:for each="{subscribers}" as="subscriber">
 			<tr>
 				<td>
 					<f:link.action
-						pageUid="{settings.blogsystem.pid}"
-						controller="Post"
-						action="show"
-						additionalParams="{L: subscriber.post.sysLanguageUid}"
-						arguments="{subscriber.post.linkParameter}">
+							pageUid="{settings.blogsystem.pid}"
+							controller="Post"
+							action="show"
+							additionalParams="{L: subscriber.post.sysLanguageUid}"
+							arguments="{subscriber.post.linkParameter}">
 						{subscriber.post.title}
 					</f:link.action>
 				</td>
@@ -53,6 +55,7 @@
 				</td>
 			</tr>
 		</f:for>
+		</tbody>
 	</table>
 
 </f:section>
