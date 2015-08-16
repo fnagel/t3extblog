@@ -1,40 +1,31 @@
 <f:if condition="{post.previewImage}">
-	<div class="thumbnails">
-		<figure class="thumbnail">
-			<div class="img-polaroid">
-				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-					<f:image
-						alt="{post.previewImage.properties.alternative}"
-						title="{post.previewImage.properties.title}"
-						src="{post.previewImage.uid}"
-						width="{settings.blogsystem.posts.preview.image.width}"
-						treatIdAsReference="1" />
-				</f:link.action>
-			</div>
+	<figure class="thumbnail preview">
+		<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.responsiveImage" data="{post.previewImage.uid}" />
+		</f:link.action>
 
-			<figcaption>
-				<f:if condition="{post.previewImage.properties.caption}">
-					<f:then>{post.previewImage.properties.caption}</f:then>
+		<figcaption>
+			<f:if condition="{post.previewImage.properties.caption}">
+				<f:then>{post.previewImage.properties.caption}</f:then>
+				<f:else>
+					<f:if condition="{post.previewImage.properties.description}">{post.previewImage.properties.description}</f:if>
+				</f:else>
+			</f:if>
+
+			<p class="small muted">
+				<f:if condition="{post.previewImage.properties.copyright_notice}">
+					<f:then>&copy; {post.previewImage.properties.author}</f:then>
 					<f:else>
-						<f:if condition="{post.previewImage.properties.description}">{post.previewImage.properties.description}</f:if>
+						<f:if condition="{post.previewImage.properties.creator}">&copy; {post.previewImage.properties.creator}</f:if>
 					</f:else>
 				</f:if>
-
-				<p class="small muted">
-					<f:if condition="{post.previewImage.properties.copyright_notice}">
-						<f:then>&copy; {post.previewImage.properties.author}</f:then>
-						<f:else>
-							<f:if condition="{post.previewImage.properties.creator}">&copy; {post.previewImage.properties.creator}</f:if>
-						</f:else>
-					</f:if>
-					<f:if condition="{post.previewImage.properties.source}">
-						<f:then>, {post.previewImage.properties.source}</f:then>
-						<f:else>
-							<f:if condition="{post.previewImage.properties.publisher}">, {post.previewImage.properties.publisher}</f:if>
-						</f:else>
-					</f:if>
-				</p>
-			</figcaption>
-		</figure>
-	</div>
+				<f:if condition="{post.previewImage.properties.source}">
+					<f:then>, {post.previewImage.properties.source}</f:then>
+					<f:else>
+						<f:if condition="{post.previewImage.properties.publisher}">, {post.previewImage.properties.publisher}</f:if>
+					</f:else>
+				</f:if>
+			</p>
+		</figcaption>
+	</figure>
 </f:if>

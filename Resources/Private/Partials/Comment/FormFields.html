@@ -1,58 +1,60 @@
-<div class="row-fluid">
-	<div class="span6">
-		<div class="control-group">
-			<label class="control-label hidden" for="newComment.text">
-				<f:translate key="comment.text" />
-			</label>
-			<div class="controls">
-				<f:form.textarea additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.text" property="text" rows="10" cols="10" />
-				<span class="help-block small">{settings.blogsystem.comments.allowTags}</span>
-			</div>
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+
+<div class="row">
+	<div class="col-md-6 form-group {t3b:formError(for: 'newComment.text')}">
+		<label class="control-label sr-only" for="newComment.text">
+			<f:translate key="comment.text" />
+		</label>
+		<div class="controls">
+			<f:form.textarea additionalAttributes="{required: 'required'}" class="form-control" id="newComment.text" property="text" rows="10" cols="10" />
+			<span class="help-block small">{settings.blogsystem.comments.allowTags}</span>
 		</div>
 	</div>
-	<div class="span6 form-horizontal">
-		<div class="control-group">
-			<label class="control-label" for="newComment.title">
+
+	<div class="col-md-6 form-horizontal">
+		<div class="form-group {t3b:formError(for: 'newComment.title')}">
+			<label class="col-sm-3 control-label" for="newComment.title">
 				<f:translate key="comment.title" />
 			</label>
-			<div class="controls">
-				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="newComment.title" property="title" />
+			<div class="col-sm-9">
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="form-control" id="newComment.title" property="title" />
 			</div>
 		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="newComment.author">
+		<div class="form-group {t3b:formError(for: 'newComment.author')}">
+			<label class="col-sm-3 control-label" for="newComment.author">
 				<f:translate key="comment.author" />
 			</label>
-			<div class="controls">
-				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.author" property="author" />
+			<div class="col-sm-9">
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="newComment.author" property="author" />
 			</div>
 		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="newComment.email">
+		<div class="form-group {t3b:formError(for: 'newComment.email')}">
+			<label class="col-sm-3 control-label" for="newComment.email">
 				<f:translate key="comment.email" />
 			</label>
-			<div class="controls">
-				<f:form.textfield additionalAttributes="{required: 'required'}" class="input-block-level" id="newComment.email" property="email" />
+			<div class="col-sm-9">
+				<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="newComment.email" property="email" />
 			</div>
 		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="newComment.website">
+		<div class="form-group {t3b:formError(for: 'newComment.website')}">
+			<label class="col-sm-3 control-label" for="newComment.website">
 				<f:translate key="comment.website" />
 			</label>
-			<div class="controls">
-				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="input-block-level" id="newComment.website" property="website" />
+			<div class="col-sm-9">
+				<f:form.textfield placeholder="{f:translate(key: 'comment.optional')}" class="form-control" id="newComment.website" property="website" />
 			</div>
 		</div>
 
+
 		<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
-			<div class="control-group">
-				<div class="controls">
-					<label class="checkbox" for="newComment.subscribe">
-						<f:form.checkbox property="subscribe" id="newComment.subscribe" value="1"/> <f:translate key="comment.subscribe" />
-					</label>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<div class="checkbox">
+						<label for="newComment.subscribe">
+							<f:form.checkbox property="subscribe" id="newComment.subscribe" value="1"/> <f:translate key="comment.subscribe" />
+						</label>
+					</div>
 				</div>
 			</div>
 		</f:if>

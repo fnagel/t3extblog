@@ -26,13 +26,13 @@ plugin.tx_t3extblog {
 		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid
 
 		# used for mails
-		blogName = Testblog
+		blogName = {$plugin.tx_t3extblog.settings.blogName}
 
 		# show hidden posts, should be used with a condition only
 		previewHiddenRecords = 0
 
 		blogsystem {
-			pid =
+			pid = {$plugin.tx_t3extblog.settings.blogsystem.pis}
 
 			posts {
 				viewCount {
@@ -59,13 +59,8 @@ plugin.tx_t3extblog {
 						enable = 1
 
 						# Your Twitter username
-						site =
+						site = {$plugin.tx_t3extblog.settings.twitterName}
 					}
-				}
-
-				# Post list preview
-				preview {
-					image.width = 960c
 				}
 			}
 			comments {
@@ -124,17 +119,17 @@ plugin.tx_t3extblog {
 		}
 
 		subscriptionManager {
-			pid =
+			pid = {$plugin.tx_t3extblog.settings.subscriptionManager.pid}
 
 			admin {
 				enable = 1
 				 mailTo {
-					 email =
+					 email = {$plugin.tx_t3extblog.settings.emailTo}
 					 name =
 				 }
 				 mailFrom {
-					 email =
-					 name =
+					 email = {$plugin.tx_t3extblog.settings.emailFrom}
+					 name = {$plugin.tx_t3extblog.settings.blogName}
 				 }
 			}
 			subscriber {
@@ -144,8 +139,8 @@ plugin.tx_t3extblog {
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				emailHashTimeout = +48 hours
 			 	mailFrom {
-				 	email =
-				 	name =
+				    email = {$plugin.tx_t3extblog.settings.emailFrom}
+				    name = {$plugin.tx_t3extblog.settings.blogName}
 			 	}
 			}
 		}
@@ -230,3 +225,17 @@ lib.tx_t3extblog.date {
 }
 lib.tx_t3extblog.month < lib.tx_t3extblog.date
 lib.tx_t3extblog.month.strftime = %B
+
+# Post list preview: render images like CSC does
+lib.tx_t3extblog.responsiveImage = IMAGE
+lib.tx_t3extblog.responsiveImage {
+	file.import.current = 1
+	file.treatIdAsReference = 1
+	file.width = {$plugin.tx_t3extblog.settings.previewImage.width}
+	file.height = {$plugin.tx_t3extblog.settings.previewImage.height}
+
+	params < tt_content.image.20.1.params
+	layoutKey = {$styles.content.imgtext.layoutKey}
+	layout < tt_content.image.20.1.layout
+	sourceCollection < tt_content.image.20.1.sourceCollection
+}

@@ -23,15 +23,19 @@
 				</div>
 			</f:if>
 
-			<div class="bottom row-fluid">
-				<div class="span4">
-					<span class="badge">
-						<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
-							<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
-						</f:link.action>
-					</span>
+			<br>
+
+			<div class="bottom row">
+				<div class="col-md-4">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
+						<span class="badge">
+							<span class="icon icon-comments glyphicon glyphicon-comments" aria-hidden="true"></span>
+							<f:count subject="{post.comments}" />
+							<f:translate key="post.comments" />
+						</span>
+					</f:link.action>
 				</div>
-				<div class="span8 text-right">
+				<div class="col-md-8 text-right">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
 				</div>
 			</div>
@@ -68,9 +72,8 @@
 </f:section>
 
 <f:section name="moreButton">
-	<br>
 	<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" class="btn btn-primary">
-		<i class="icon-arrow-right"></i>
+		<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
 		{post.title}
 	</f:link.action>
 </f:section>

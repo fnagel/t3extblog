@@ -11,4 +11,29 @@ plugin.tx_t3extblog {
 		# cat=plugin.tx_t3extblog//a; type=string; label=Default storage PID
 		storagePid =
 	}
+
+	settings {
+		# Blogname
+		blogName = Testblog
+
+		# Needed page uid's
+		blogsystem.pid =
+		subscriptionManager.pid =
+
+		## The following constants are shortcuts and DO NOT MATCH any TS setup
+
+		# Email sender address
+		emailFrom =
+		# Admin notification mails
+		emailTo =
+
+		# Preview image size
+		previewImage {
+			width = 960c
+			height =
+		}
+
+		# Your Twitter username
+		twitterName =
+	}
 }

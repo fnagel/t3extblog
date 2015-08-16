@@ -22,20 +22,23 @@
 			</div>
 		</f:if>
 
-		<div class="bottom row-fluid">
-			<div class="span4">
-				<span class="badge">
-					<f:comment>@todo Remove workaround for #51</f:comment>
-					<a href="#comment-section">
-						<f:count subject="{post.comments}" /> <f:translate key="post.comments" />
-					</a>
-				</span>
+		<div class="bottom row">
+			<div class="col-md-4">
+				<f:comment>@todo Remove workaround for #51</f:comment>
+				<a href="#comment-section">
+					<span class="badge">
+						<span class="icon icon-comments glyphicon glyphicon-comments" aria-hidden="true"></span>
+						<f:count subject="{post.comments}" />
+						<f:translate key="post.comments" />
+					</span>
+				</a>
+				&nbsp;
 				<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
-					<i class="icon-link"></i>
+					<span class="icon icon-link glyphicon glyphicon-link" aria-hidden="true"></span>
 					<f:translate key="post.permalink" />
 				</f:link.action>
 			</div>
-			<div class="span8 text-right">
+			<div class="col-md-8 text-right">
 				<f:render partial="Post/TagCloud" arguments="{post: post}" />
 			</div>
 		</div>
