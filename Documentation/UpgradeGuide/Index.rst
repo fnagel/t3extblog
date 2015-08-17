@@ -19,6 +19,41 @@ Upgrade Guide
 
 
 
+Upgrade from 1.2.x to 2.0.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
+
+- Twitter Bootstrap 3 theme
+
+- TYPO3 CMS 7.x support (and removed support for TYPO3 < 6.2)
+
+- New backend icons for records and module
+
+- Added FormError ViewHelper for easy Bootstrap form errors
+
+- Introduce constants for easier setup
+
+- Preview image now makes use of TYPO3's repsonsive image feature
+
+
+.. important::
+	Make sure to follow "How to upgrade" steps after updating!
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool (Important actions)
+
+#. Adjust your templates to new Bootstrap 3 Theme
+
+
+
 Upgrade from 1.1.x to 1.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -25,10 +25,10 @@ Currently implemented features:
 * Auto close comments functionality
 * RSS feed for posts
 * BE Module for posts and comments
-* Default HTML markup matches Twitter Bootstrap 2.3
+* Default HTML markup matches Twitter Bootstrap 3.x
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
 * Preview of hidden posts
-* Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2.
+* Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2 and 7.x
 * Mulit language support
 * A few unit tests
 
