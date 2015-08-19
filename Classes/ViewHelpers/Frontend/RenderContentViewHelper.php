@@ -81,7 +81,6 @@ class RenderContentViewHelper extends CObjectViewHelper {
 		return $output;
 	}
 
-
 	/**
 	 * Get database connection
 	 *

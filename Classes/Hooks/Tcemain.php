@@ -80,49 +80,45 @@ class Tcemain {
 	 * @return void
 	 */
 	public function processCmdmap_postProcess($command, $table, $id) {
-		if ($command == 'delete') {
-			if ($table == 'tx_t3blog_post') {
+		if ($command === 'delete') {
+			if ($table === 'tx_t3blog_post') {
 				$this->deletePostRelations(intval($id));
 			}
 		}
 	}
 
 	/**
+	 * TCEmain hook function for on-the-fly email sending
 	 * Hook: processDatamap_afterDatabaseOperations
 	 *
-	 * Note: When using the hook after INSERT operations, you will only get the temporary NEW... id passed to your hook as $id,
-	 *         but you can easily translate it to the real uid of the inserted record using the $this->substNEWwithIDs array.
+	 * @param string $status Status of the current operation, 'new' or 'update'
+	 * @param string $table The table currently processing data for
+	 * @param string $id The record uid currently processing data for
+	 * @param array $fields The field array of a record
+	 * @param DataHandler $tceMain
 	 *
-	 * @param    string $status : (reference) Status of the current operation, 'new' or 'update'
-	 * @param    string $table : (refrence) The table currently processing data for
-	 * @param    string $id : (reference) The record uid currently processing data for, [integer] or [string] (like 'NEW...')
-	 * @param    array $fields : (reference) The field array of a record     *
-	 * @param           $tceMain
-	 *
-	 * @internal param \TYPO3\CMS\Core\DataHandling\DataHandler $tce
-	 *
-	 * @return    void
+	 * @return void
 	 */
-	function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain) {
+	public function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain) {
 		$pid = $tceMain->checkValue_currentRecord['pid'];
 		if (!is_numeric($id)) {
 			$id = $tceMain->substNEWwithIDs[$id];
 		}
 
-		if ($table == 'tx_t3blog_post') {
+		if ($table === 'tx_t3blog_post') {
 			if (isset($GLOBALS['_POST']['_savedokview_x'])) {
 				$this->processPreview($id);
 			}
 		}
 
-		if ($table == 'tx_t3blog_com') {
+		if ($table === 'tx_t3blog_com') {
 			if ($status == 'update') {
 				if ($this->isUpdateNeeded($fields, $this->watchedFields)) {
 					$this->processChangedComment($id, $pid);
 				}
 			}
 
-			if ($status == 'new') {
+			if ($status === 'new') {
 				$this->processNewComment($id, $fields['pid']);
 			}
 		}
@@ -163,7 +159,7 @@ class Tcemain {
 
 		$where = $fieldName . '=' . $postId . BackendUtility::deleteClause($tableName) . $extraWhere;
 
-		$data = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid', $tableName, $where);
+		$data = $this->getDatabase()->exec_SELECTgetRows('uid', $tableName, $where);
 		foreach ($data as $record) {
 			$command[$record['uid']]['delete'] = 1;
 		}
@@ -254,7 +250,7 @@ class Tcemain {
 	 * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
 	 */
 	protected function getCommentRepository() {
-		if ($this->commentRepository == NULL) {
+		if ($this->commentRepository === NULL) {
 			$this->commentRepository = $this->getObjectContainer()->getInstance(
 				'TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository'
 			);
@@ -269,7 +265,7 @@ class Tcemain {
 	 * @return Container
 	 */
 	protected function getObjectContainer() {
-		if ($this->objectContainer == NULL) {
+		if ($this->objectContainer === NULL) {
 			$this->objectContainer = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\Container\\Container');
 		}
 
@@ -282,7 +278,7 @@ class Tcemain {
 	 * @return \TYPO3\T3extblog\Service\NotificationService
 	 */
 	protected function getNotificationService() {
-		if ($this->notificationService == NULL) {
+		if ($this->notificationService === NULL) {
 			$this->notificationService = $this->getObjectContainer()->getInstance(
 				'TYPO3\\T3extblog\\Service\\NotificationService'
 			);
@@ -316,6 +312,15 @@ class Tcemain {
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Get database connection
+	 *
+	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected function getDatabase() {
+		return $GLOBALS['TYPO3_DB'];
 	}
 
 }
