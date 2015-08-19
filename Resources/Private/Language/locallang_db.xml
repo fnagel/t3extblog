@@ -82,6 +82,7 @@
 			<label index="tx_t3blog_com_nl.post_uid">Subscribed to:</label>
 			<label index="tx_t3blog_com_nl.lastsent">Last sent:</label>
 			<label index="tx_t3blog_com_nl.code">Unsubscribe code:</label>
+			<label index="tx_t3blog_com_nl.tabs.meta">Metadata</label>
 
             <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
 		</languageKey>
@@ -164,6 +165,7 @@
             <label index="tx_t3blog_com_nl.post_uid">Abbonierter Artikel:</label>
             <label index="tx_t3blog_com_nl.lastsent">Zuletzt gesendet:</label>
             <label index="tx_t3blog_com_nl.code">Kündigungs-Code:</label>
+			<label index="tx_t3blog_com_nl.tabs.meta">Meta-Daten</label>
 
 			<label index="tt_content.list_type_pi2">Blog Widget Auswahl</label>
 		</languageKey>
