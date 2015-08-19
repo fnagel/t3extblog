@@ -200,9 +200,11 @@ class SubscriberController extends AbstractController {
 			$this->processError('authFailed');
 		}
 
-		if ($subscriber->isAuthCodeExpired(
-			trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']))
-		) {
+		$modify = '+1 hour';
+		if (isset($this->settings['subscriptionManager']['subscriber']['emailHashTimeout'])) {
+			$modify = trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']);
+		}
+		if ($subscriber->isAuthCodeExpired($modify)) {
 			$this->processError('linkOutdated');
 		}
 

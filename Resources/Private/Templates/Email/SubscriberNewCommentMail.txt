@@ -25,7 +25,7 @@ You can manage your subscription by using this link:
 	absolute="true"
 	arguments="{code : subscriber.code}" />
 
-This link is valid until: <f:format.date format="d.m.Y - H:i:s">{settings.subscriptionManager.subscriber.emailHashTimeout}</f:format.date> 
+This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
 
 Regards
 {settings.blogName} 

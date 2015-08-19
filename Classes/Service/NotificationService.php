@@ -248,7 +248,8 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 			'post' => $post,
 			'comment' => $comment,
 			'subscriber' => $subscriber,
-			'subject' => $subject
+			'subject' => $subject,
+			'validUntil' => $this->getValidUntil()
 		);
 		$emailBody = $this->emailService->render($variables, 'SubscriberOptinMail.txt');
 
@@ -321,7 +322,8 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 				'post' => $post,
 				'comment' => $comment,
 				'subscriber' => $subscriber,
-				'subject' => $subject
+				'subject' => $subject,
+				'validUntil' => $this->getValidUntil()
 			);
 			$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
 
@@ -370,6 +372,27 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 			$subject,
 			$emailBody
 		);
+	}
+
+	/**
+	 * Render dateTime object for using in template
+	 *
+	 * @todo We probably want to move this back to Fluid
+	 *       Using a format:date VH stopped working with 7.4
+	 *
+	 * @return \DateTime
+	 */
+	protected function getValidUntil() {
+		$date = new \DateTime();
+		$modify = '+1 hour';
+
+		if (isset($this->settings['subscriptionManager']['subscriber']['emailHashTimeout'])) {
+			$modify = trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']);
+		}
+
+		$date->modify($modify);
+
+		return $date;
 	}
 
 	/**
