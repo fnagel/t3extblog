@@ -119,9 +119,11 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 						'notNewRecords' => 1,
 						'RTEonly' => 1,
 						'type' => 'script',
-						'title' => 'LLL:EXT:cms/locallang_ttc.xml:bodytext.W.RTE',
-						'icon' => 'wizard_rte2.gif',
-						'script' => 'wizard_rte.php',
+						'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext.W.RTE',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
+						'module' => array(
+							'name' => 'wizard_rte'
+						)
 					),
 				),
 			)
@@ -178,3 +180,10 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'2' => array('showitem' => 'starttime, endtime, fe_group')
 	)
 );
+
+// @todo Remove this when 6.2 is no longer relevant
+if (version_compare(TYPO3_branch, '7.0', '<')) {
+	$GLOBALS['TCA']['tx_t3blog_com']['columns']['text']['config']['wizards']['RTE']['title'] =
+		'LLL:EXT:cms/locallang_ttc.xml:bodytext.W.RTE';
+	$GLOBALS['TCA']['tx_t3blog_com']['columns']['text']['config']['wizards']['RTE']['icon'] = 'wizard_rte2.gif';
+}
