@@ -32,7 +32,7 @@ plugin.tx_t3extblog {
 		previewHiddenRecords = 0
 
 		blogsystem {
-			pid = {$plugin.tx_t3extblog.settings.blogsystem.pis}
+			pid = {$plugin.tx_t3extblog.settings.blogsystem.pid}
 
 			posts {
 				viewCount {
