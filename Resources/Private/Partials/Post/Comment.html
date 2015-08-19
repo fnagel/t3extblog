@@ -1,6 +1,6 @@
 <div id="comment-{comment.uid}" class="comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
 	<div class="row">
-		<div class="col-md-3 text-right">
+		<div class="col-xs-3 text-right">
 			<strong>
 				<f:if condition="{comment.website}">
 					<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
@@ -11,14 +11,14 @@
 				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
 			</p>
 		</div>
-		<div class="col-md-8">
+		<div class="col-xs-8">
 			<f:if condition="{comment.title}">
 				<strong>{comment.title}</strong>
 			</f:if>
 			<f:format.html>{comment.text}</f:format.html>
 		</div>
 
-		<div class="col-md-1 text-right">
+		<div class="col-xs-1 text-right">
 			<f:comment>@todo Remove workaround for #51</f:comment>
 			<a href="#comment-{comment.uid}">
 				<span class="icon icon-comment glyphicon glyphicon-comment" aria-hidden="true"></span>
