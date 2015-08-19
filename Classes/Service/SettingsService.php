@@ -28,8 +28,7 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\SingletonInterface;
-use \TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -117,15 +116,6 @@ class SettingsService {
 				$this->extensionName,
 				$this->pluginName
 			);
-
-			// Update BE TS config with changed FE values
-			if (TYPO3_MODE === 'BE') {
-				$overruleSetup = $this->getFullTypoScriptConfig();
-				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['view'], $overruleSetup['view']);
-				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['email'], $overruleSetup['email']);
-				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['settings'], $overruleSetup['settings']);
-				ArrayUtility::mergeRecursiveWithOverrule($this->frameworkSettings['features'], $overruleSetup['features']);
-			}
 		}
 
 		if ($this->frameworkSettings === NULL) {
@@ -148,12 +138,6 @@ class SettingsService {
 				$this->extensionName,
 				$this->pluginName
 			);
-
-			// Update BE TS settings with changed FE values
-			if (TYPO3_MODE === 'BE') {
-				$overruleSetup = $this->getFullTypoScriptConfig();
-				ArrayUtility::mergeRecursiveWithOverrule($this->typoScriptSettings, $overruleSetup['settings']);
-			}
 		}
 
 		if ($this->typoScriptSettings === NULL) {
@@ -194,8 +178,7 @@ class SettingsService {
 	/**
 	 * Set storage pid in BE
 	 *
-	 * Only needed when the class is called or injected in a BE context, e.g. a hook
-	 * Needed for generation of the correct persistence.storagePid in Extbase TS.
+	 * Only needed when the class is called or injected in a BE context, e.g. a hook.
 	 * Without the generation of the TS is based upon the next root page (default
 	 * extbase behaviour) and repositories won't work as expected.
 	 *
@@ -205,8 +188,14 @@ class SettingsService {
 	 */
 	public function setPageUid($pageUid) {
 		if (TYPO3_MODE === 'BE') {
-			$currentPid['persistence']['storagePid'] = intval($pageUid);
-			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
+			// @todo Remove this when 6.2 is no longer relevant
+			if (version_compare(TYPO3_branch, '7.0', '<')) {
+				$currentPid['persistence']['storagePid'] = (int)$pageUid;
+				$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
+			}
+
+			// Needed for 7.x but seems not needed for 6.x, was needed in 4.x
+			GeneralUtility::_GETset((int) $pageUid, 'id');
 		}
 	}
 }

@@ -108,15 +108,3 @@ config.tx_extbase {
     	}
     }
 }
-
-# Configure BE module
-# When this default TS is added to static TS templates instead, we run into issues regarding link generation (RealUrl)
-module.tx_t3extblog {
-	view < plugin.tx_t3extblog.view
-
-	email < plugin.tx_t3extblog.email
-
-	features < plugin.tx_t3extblog.features
-
-	settings < plugin.tx_t3extblog.settings
-}

@@ -23,85 +23,17 @@ use TYPO3\T3extblog\Service\SettingsService;
  *
  * This a modfied version of the default extbase class which enables us to
  * use a FE link within a BE context
- *
- * @todo Check if this is still needed
- * @todo Check if this has changed lately
  */
 class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 
 	/**
-	 * @var \TYPO3\T3extblog\Service\SettingsService
-	 */
-	protected $settingsService;
-
-	/**
-	 * Injects the Settings Service
+	 * Builds the URI (always for frontend)
 	 *
-	 * @param \TYPO3\T3extblog\Service\SettingsService $settingsService
-	 *
-	 * @return void
+	 * @return string The URI
+	 * @see buildFrontendUri()
 	 */
-	public function injectSettingsService(SettingsService $settingsService) {
-		$this->settingsService = $settingsService;
-	}
-
-	/**
-	 * Creates an URI used for linking to an Extbase action.
-	 * Works in Frontend and Backend mode of TYPO3.
-	 *
-	 * @param string $actionName Name of the action to be called
-	 * @param array $controllerArguments Additional query parameters. Will be "namespaced" and merged with $this->arguments.
-	 * @param string $controllerName Name of the target controller. If not set, current ControllerName is used.
-	 * @param string $extensionName Name of the target extension, without underscores. If not set, current ExtensionName is used.
-	 * @param string $pluginName Name of the target plugin. If not set, current PluginName is used.
-	 * @return string the rendered URI
-	 * @api
-	 * @see build()
-	 */
-	public function uriFor($actionName = NULL, $controllerArguments = array(), $controllerName, $extensionName, $pluginName) {
-		if ($actionName !== NULL) {
-			$controllerArguments['action'] = $actionName;
-		}
-
-		$controllerArguments['controller'] = $controllerName;
-
-		if ($this->isFeatureEnabled('skipDefaultArguments')) {
-			$controllerArguments = $this->removeDefaultControllerAndAction($controllerArguments, $extensionName, $pluginName);
-		}
-
-		if ($this->targetPageUid === NULL) {
-			$this->targetPageUid = $this->extensionService->getTargetPidByPlugin($extensionName, $pluginName);
-		}
-
-		if ($this->format !== '') {
-			$controllerArguments['format'] = $this->format;
-		}
-
-		if ($this->argumentPrefix !== NULL) {
-			$prefixedControllerArguments = array($this->argumentPrefix => $controllerArguments);
-		} else {
-			$pluginNamespace = $this->extensionService->getPluginNamespace($extensionName, $pluginName);
-			$prefixedControllerArguments = array($pluginNamespace => $controllerArguments);
-		}
-
-		ArrayUtility::mergeRecursiveWithOverrule($this->arguments, $prefixedControllerArguments);
-
+	public function build() {
 		return $this->buildFrontendUri();
-	}
-
-	/**
-	 * Returns TRUE if a certain feature, identified by $featureName
-	 * should be activated, FALSE for backwards-compatible behavior.
-	 *
-	 * This is an INTERNAL API used throughout Extbase and Fluid for providing backwards-compatibility.
-	 * Do not use it in your custom code!
-	 *
-	 * @param string $featureName
-	 * @return boolean
-	 */
-	public function isFeatureEnabled($featureName) {
-		$configuration = $this->settingsService->getFrameworkSettings();
-		return (boolean)(isset($configuration['features'][$featureName]) && $configuration['features'][$featureName]);
 	}
 
 }

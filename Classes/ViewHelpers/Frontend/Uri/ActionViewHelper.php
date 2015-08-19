@@ -50,11 +50,6 @@ use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 class ActionViewHelper extends BaseActionViewHelper {
 
 	/**
-	 * @var ObjectManagerInterface
-	 */
-	protected $objectManager;
-
-	/**
 	 * @param ObjectManagerInterface $objectManager
 	 *
 	 * @return void
@@ -158,7 +153,7 @@ class ActionViewHelper extends BaseActionViewHelper {
 
 		$GLOBALS['TSFE'] = $this->objectManager->get(
 			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-			$GLOBALS['TYPO3_CONF_VARS'], (int)$pageUid, ''
+			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, ''
 		);
 
 		$GLOBALS['TSFE']->connectToDB();

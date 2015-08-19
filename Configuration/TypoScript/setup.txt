@@ -239,3 +239,7 @@ lib.tx_t3extblog.responsiveImage {
 	layout < tt_content.image.20.1.layout
 	sourceCollection < tt_content.image.20.1.sourceCollection
 }
+
+# Configure BE module
+# Make sure to update the backend TS every time you change the TS!
+module.tx_t3extblog < plugin.tx_t3extblog
