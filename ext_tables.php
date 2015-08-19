@@ -257,6 +257,13 @@ if (TYPO3_MODE === 'BE') {
 		);
 	}
 
+	// @todo Remove this when 6.2 is no longer relevant
+	$icon = '/Resources/Public/Icons/module.png';
+	if (version_compare(TYPO3_branch, '7.0', '<')) {
+		// Use a smaller icon for TYPO3 6.2
+		$icon = '/ext_icon.gif';
+	}
+
 	// Register  Backend Module
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		'TYPO3.' . $_EXTKEY,
@@ -269,7 +276,7 @@ if (TYPO3_MODE === 'BE') {
 		),
 		array(
 			'access' => 'user,group',
-			'icon' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/module.png',
+			'icon' => 'EXT:' . $_EXTKEY . $icon,
 			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
 			'navigationComponentId' => 'typo3-pagetree',
 		)
