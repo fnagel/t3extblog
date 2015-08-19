@@ -117,7 +117,7 @@ class Tcemain {
 
 		if ($table == 'tx_t3blog_com') {
 			if ($status == 'update') {
-				if ($this->isUpdateNeeded($table, $id, $tceMain, $this->watchedFields)) {
+				if ($this->isUpdateNeeded($fields, $this->watchedFields)) {
 					$this->processChangedComment($id, $pid);
 				}
 			}
@@ -292,26 +292,26 @@ class Tcemain {
 	}
 
 	/**
-	 * @param string $table
-	 * @param integer $id
-	 * @param DataHandler $tceMain
+	 * Check if one of our watched fields have been changed
+	 *
+	 * @param array $fields
 	 * @param array $watchedFields
 	 *
 	 * @return bool
 	 */
-	protected function isUpdateNeeded($table, $id, $tceMain, $watchedFields) {
-		// get history Record
-		$history = $tceMain->historyRecords[$table . ':' . $id]['newRecord'];
+	protected function isUpdateNeeded($fields, $watchedFields) {
+		// If uid field exists (and therefore all fields) nothing has been updated
+		if (array_key_exists('uid', $fields)) {
+			return FALSE;
+		}
 
-		if (is_array($history) === TRUE) {
-			$changedfields = array_keys($history);
+		// Check if one of the updated fields is relevant for us
+		$changedFields = array_keys($fields);
+		if (is_array($changedFields)) {
+			$updatedFields = array_intersect($changedFields, $watchedFields);
 
-			if (is_array($changedfields) === TRUE) {
-				$updatefields = array_intersect($changedfields, $watchedFields);
-
-				if (is_array($updatefields) === TRUE && count($updatefields) > 0) {
-					return TRUE;
-				}
+			if (is_array($updatedFields) && count($updatedFields) > 0) {
+				return TRUE;
 			}
 		}
 
