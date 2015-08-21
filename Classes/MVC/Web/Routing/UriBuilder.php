@@ -14,9 +14,7 @@ namespace TYPO3\T3extblog\Mvc\Web\Routing;
  * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General      *
  * Public License for more details.                                       *
  *                                                                        */
-
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\T3extblog\Service\SettingsService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * An URI Builder
@@ -27,13 +25,28 @@ use TYPO3\T3extblog\Service\SettingsService;
 class UriBuilder extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder {
 
 	/**
-	 * Builds the URI (always for frontend)
-	 *
-	 * @return string The URI
-	 * @see buildFrontendUri()
+	 * @var \TYPO3\T3extblog\Service\EnvironmentService
+	 * @inject
 	 */
-	public function build() {
-		return $this->buildFrontendUri();
+	protected $environmentService;
+
+	/**
+	 * Life-cycle method that is called by the DI container as soon as this object is completely built
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+
+		// @todo Remove this when TYPO3 6.2 is no longer relevant
+		// Replace it by a simple inject annotation like above
+		if (version_compare(TYPO3_branch, '7.0', '>')) {
+			// This makes sure the settings are found correctly\
+			// Seems there is no good reason but this would break TYPO3 6.2
+			/* @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface */
+			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			$this->configurationManager = $objectManager->get('TYPO3\\T3extblog\\Configuration\\ConfigurationManager');
+		}
 	}
 
 }
