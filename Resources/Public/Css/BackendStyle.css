@@ -47,3 +47,7 @@ table td.action a {
 	background-color: #fff;
 	border: 1px solid #ddd;
 }
+.pagination > li.active > a,
+.pagination > li.active > span {
+	font-weight: bold;
+}
