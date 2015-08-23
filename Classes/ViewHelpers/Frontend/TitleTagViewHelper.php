@@ -41,6 +41,10 @@ class TitleTagViewHelper extends AbstractViewHelper {
 	 * @return void
 	 */
 	public function render($prepend = TRUE) {
+		if (TYPO3_MODE === 'BE') {
+			return;
+		}
+
 		$content = $this->renderChildren();
 
 		if (empty($content) !== TRUE) {
