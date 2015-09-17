@@ -187,3 +187,6 @@ if (version_compare(TYPO3_branch, '7.0', '<')) {
 		'LLL:EXT:cms/locallang_ttc.xml:bodytext.W.RTE';
 	$GLOBALS['TCA']['tx_t3blog_com']['columns']['text']['config']['wizards']['RTE']['icon'] = 'wizard_rte2.gif';
 }
+if (version_compare(TYPO3_branch, '7.0', '>')) {
+	$GLOBALS['TCA']['tx_t3blog_com']['columns']['email']['config']['eval'] .= ',email';
+}
