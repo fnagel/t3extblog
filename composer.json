@@ -17,6 +17,9 @@
   "support": {
     "issues": "https://github.com/fnagel/t3extblog/issues"
   },
+  "require": {
+    "php": ">=5.5.0"
+  },
   "repositories": [
     {
       "type": "vcs",

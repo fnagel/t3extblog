@@ -98,6 +98,27 @@ class BackendBaseController extends ActionController {
 	}
 
 	/**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * @param ViewInterface $view The view to be initialized
+	 *
+	 * @return void
+	 */
+	protected function initializeView(ViewInterface $view) {
+		$moduleName = GeneralUtility::_GET('M');
+		$moduleToken = FormProtectionFactory::get()->generateToken('moduleCall', $moduleName);
+
+		$this->view->assignMultiple(array(
+			'pageId' => $this->pageId,
+			'returnUrl' => urlencode('mod.php?M=' . $moduleName . '&id=' . $this->pageId . '&moduleToken=' . $moduleToken),
+			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
+		));
+
+		$this->assignBlogRelatedPageInfo();
+	}
+
+	/**
 	 * Initialize actions
 	 *
 	 * @throws \RuntimeException
@@ -124,20 +145,63 @@ class BackendBaseController extends ActionController {
 	/**
 	 * Initializes the view before invoking an action method.
 	 *
-	 * @param ViewInterface $view The view to be initialized
-	 *
 	 * @return void
 	 */
-	protected function initializeView(ViewInterface $view) {
-		$moduleName = GeneralUtility::_GET('M');
-		$moduleToken = FormProtectionFactory::get()->generateToken('moduleCall', $moduleName);
+	protected function assignBlogRelatedPageInfo() {
+		$blogModulePages = $this->getBlogModulePages();
+		$blogRelatedPages = $this->getBlogRelatedPages();
 
-		$this->view->assignMultiple(array(
-			'pageId' => $this->pageId,
-			'returnUrl' => urlencode('mod.php?M=' . $moduleName . '&id=' . $this->pageId . '&moduleToken=' . $moduleToken),
-			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
+		$blogPages = array_unique(array_merge_recursive($blogModulePages, $blogRelatedPages), SORT_REGULAR);
+		$blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
+
+		if ($blogPagesCurrentPageKey !== FALSE) {
+			unset($blogPages[$blogPagesCurrentPageKey]);
+		}
+
+		$this->view->assign('pageNotice', array(
+			'show' => ($blogPagesCurrentPageKey === FALSE),
+			'pages' => $blogPages
 		));
+	}
+
+	/**
+	 * Get database connection
+	 *
+	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected function getDatabase() {
+		return $GLOBALS['TYPO3_DB'];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getBlogModulePages() {
+		$table = 'pages ';
+		$select = 'uid, title';
+		$where = 'module = "t3blog" AND deleted = 0';
+
+		return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where);
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getBlogRelatedPages() {
+		$table = 'pages ';
+		$table .= 'JOIN tx_t3blog_post as post ';
+		$table .= 'JOIN tx_t3blog_com as comment ';
+		$table .= 'ON pages.uid = comment.pid OR pages.uid = post.pid ';
+
+		$select = 'pages.title, pages.uid';
+
+		$where = 'pages.deleted = 0 AND ';
+		$where .= 'post.deleted = 0 AND ';
+		$where .= 'comment.deleted = 0';
+
+		$groupBy = 'pages.uid';
+
+		return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where, $groupBy);
 	}
 
 }

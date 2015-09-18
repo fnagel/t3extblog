@@ -299,6 +299,13 @@
             <trans-unit id="module.message.deleteRecord">
                 <target>Sind Sie sicher das Sie diesen Datensatz löschen wollen?</target>
             </trans-unit>
+
+			<trans-unit id="module.message.pageNotice.title">
+				<target>Keine Blog-Daten gefunden!</target>
+			</trans-unit>
+			<trans-unit id="module.message.pageNotice">
+				<targete>Es wurden einige Seiten mit Blog Daten gefunden:</targete>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

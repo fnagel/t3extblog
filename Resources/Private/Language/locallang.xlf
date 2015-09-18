@@ -288,6 +288,13 @@
 			<trans-unit id="module.message.deleteRecord">
 				<source>Are you sure you want to delete this record?</source>
 			</trans-unit>
+
+			<trans-unit id="module.message.pageNotice.title">
+				<source>No blog records found!</source>
+			</trans-unit>
+			<trans-unit id="module.message.pageNotice">
+				<source>We found some related data on the following pages:</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

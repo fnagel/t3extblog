@@ -1,0 +1,20 @@
+<f:if condition="{data.show}">
+	<div class="typo3-messages">
+		<div class="typo3-message message-warning">
+			<div class="message-header">
+				<f:translate key="module.message.pageNotice.title" />
+			</div>
+			<div class="message-body">
+				<p>
+					<f:translate key="module.message.pageNotice" />
+					<f:for each="{data.pages}" as="page" iteration="iterator">
+						<f:link.page additionalParams="{id: page.uid}">
+							{page.title}
+						</f:link.page>
+						<f:if condition="{iterator.cycle} < {iterator.total}">,</f:if>
+					</f:for>
+				</p>
+			</div>
+		</div>
+	</div>
+</f:if>
