@@ -131,7 +131,7 @@ class PostRepository extends AbstractRepository {
 	}
 
 	/**
-	 * Returns all objects of this repository
+	 * Returns all objects with specific PID
 	 *
 	 * @param integer $pid
 	 * @param boolean $respectEnableFields

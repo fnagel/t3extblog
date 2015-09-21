@@ -41,7 +41,7 @@ class BackendCommentController extends BackendBaseController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('comments', $this->commentRepository->findAll());
+		$this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
 		$this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
 	}
 
