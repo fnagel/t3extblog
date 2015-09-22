@@ -31,6 +31,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
  * Abstract base controller
@@ -78,6 +79,33 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 		}
 
 		$this->settings = $originalSettings;
+	}
+
+	/**
+	 * Initializes the controller before invoking an action method.
+	 *
+	 * @return void
+	 * @api
+	 */
+	protected function initializeAction() {
+		$this->validateTypoScriptConfiguration();
+	}
+
+	/**
+	 * Validate TypoScript settings
+	 *
+	 * @return void
+	 * @throw  TYPO3\T3extblog\Exception\InvalidConfigurationException
+	 */
+	protected function validateTypoScriptConfiguration() {
+		TypoScriptValidator::validateSettings($this->settings);
+
+		$frameworkConfiguration = $this->configurationManager->getConfiguration(
+			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+			$this->request->getControllerExtensionName(),
+			$this->request->getPluginName()
+		);
+		TypoScriptValidator::validateFrameworkConfiguration($frameworkConfiguration);
 	}
 
 	/**

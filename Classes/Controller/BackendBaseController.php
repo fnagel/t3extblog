@@ -34,6 +34,7 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
  * @package t3extblog
@@ -127,19 +128,15 @@ class BackendBaseController extends ActionController {
 	public function initializeAction() {
 		$this->pageId = intval(GeneralUtility::_GP('id'));
 
-		// @TODO: Extbase backend modules relies on frontend TypoScript for view, persistence
-		// and settings. Thus, we need a TypoScript root template, that then loads the
-		// ext_typoscript_setup.txt file of this module. This is nasty, but can not be
-		// circumvented until there is a better solution in extbase.
-		// For now we throw an exception if no settings are detected.
-		if (empty($this->settings)) {
-			throw new \RuntimeException(
-				'No settings detected. This module can not work then. ' .
-				'This usually happens if there is no frontend TypoScript template with root flag set. ' .
-				'Please create a frontend page with a TypoScript root template.',
-				1344375003
-			);
-		}
+		// Validate settings
+		TypoScriptValidator::validateSettings($this->settings);
+
+		$frameworkConfiguration = $this->configurationManager->getConfiguration(
+			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+			$this->request->getControllerExtensionName(),
+			$this->request->getPluginName()
+		);
+		TypoScriptValidator::validateFrameworkConfiguration($frameworkConfiguration);
 	}
 
 	/**
