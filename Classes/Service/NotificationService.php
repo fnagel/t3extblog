@@ -327,7 +327,12 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 			);
 			$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
 
-			$this->emailService->send($subscriber->getMailTo(), $settings['mailFrom'], $subject, $emailBody);
+			$this->emailService->send(
+				$subscriber->getMailTo(),
+				array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
+				$subject,
+				$emailBody
+			);
 		}
 
 		$comment->setMailsSent(TRUE);
