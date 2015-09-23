@@ -130,13 +130,6 @@ class BackendBaseController extends ActionController {
 
 		// Validate settings
 		TypoScriptValidator::validateSettings($this->settings);
-
-		$frameworkConfiguration = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-			$this->request->getControllerExtensionName(),
-			$this->request->getPluginName()
-		);
-		TypoScriptValidator::validateFrameworkConfiguration($frameworkConfiguration);
 	}
 
 	/**
