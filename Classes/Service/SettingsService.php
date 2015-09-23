@@ -188,13 +188,8 @@ class SettingsService {
 	 */
 	public function setPageUid($pageUid) {
 		if (TYPO3_MODE === 'BE') {
-			// @todo Remove this when 6.2 is no longer relevant
-			if (version_compare(TYPO3_branch, '7.0', '<')) {
-				$currentPid['persistence']['storagePid'] = (int)$pageUid;
-				$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
-			}
-
-			// Needed for 7.x but seems not needed for 6.x, was needed in 4.x
+			$currentPid['persistence']['storagePid'] = (int) $pageUid;
+			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
 			GeneralUtility::_GETset((int) $pageUid, 'id');
 		}
 	}
