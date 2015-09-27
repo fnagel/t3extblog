@@ -24,14 +24,13 @@
 
 		<div class="bottom row">
 			<div class="col-xs-4">
-				<f:comment>@todo Remove workaround for #51</f:comment>
-				<a href="#comment-section">
+				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
 					<span class="badge">
 						<span class="icon icon-comments glyphicon glyphicon-comments" aria-hidden="true"></span>
 						<f:count subject="{post.comments}" />
 						<f:translate key="post.comments" />
 					</span>
-				</a>
+				</f:link.action>
 				&nbsp;
 				<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
 					<span class="icon icon-link glyphicon glyphicon-link" aria-hidden="true"></span>

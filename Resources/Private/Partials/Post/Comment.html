@@ -19,10 +19,9 @@
 		</div>
 
 		<div class="col-xs-1 text-right">
-			<f:comment>@todo Remove workaround for #51</f:comment>
-			<a href="#comment-{comment.uid}">
+			<f:link.action arguments="{post.linkParameter}" section="comment-{comment.uid}">
 				<span class="icon icon-comment glyphicon glyphicon-comment" aria-hidden="true"></span>
-			</a>
+			</f:link.action>
 		</div>
 	</div>
 </div>

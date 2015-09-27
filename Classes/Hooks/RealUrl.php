@@ -96,6 +96,7 @@ class RealUrl {
 					'comment' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[controller]',
+							'noMatch' => 'bypass',
 							'valueMap' => array(
 								'new' => 'Comment',
 							),
