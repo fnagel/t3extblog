@@ -42,20 +42,10 @@ class AuthenticationService implements AuthenticationServiceInterface {
 	/**
 	 * Session Service
 	 *
-	 * @var SessionServiceInterface
+	 * @var \TYPO3\T3extblog\Service\SessionServiceInterface
+	 * @inject
 	 */
 	protected $session;
-
-	/**
-	 * Injects the Session Service
-	 *
-	 * @param SessionServiceInterface $sessionService
-	 *
-	 * @return void
-	 */
-	public function injectSessionService(SessionServiceInterface $sessionService) {
-		$this->session = $sessionService;
-	}
 
 	/**
 	 *

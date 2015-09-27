@@ -27,12 +27,9 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
-use TYPO3\CMS\Extbase\Service\CacheService;
 use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Comment;
 use TYPO3\T3extblog\Domain\Model\Subscriber;
-use TYPO3\T3extblog\Domain\Repository\SubscriberRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -44,26 +41,30 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class NotificationService implements NotificationServiceInterface, SingletonInterface {
 
 	/**
-	 * @var ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager;
 
 	/**
 	 * subscriberRepository
 	 *
-	 * @var SubscriberRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\SubscriberRepository
+	 * @inject
 	 */
 	protected $subscriberRepository;
 
 	/**
 	 * Logging Service
 	 *
-	 * @var LoggingService
+	 * @var \TYPO3\T3extblog\Service\LoggingService
+	 * @inject
 	 */
 	protected $log;
 
 	/**
-	 * @var SettingsService
+	 * @var \TYPO3\T3extblog\Service\SettingsService
+	 * @inject
 	 */
 	protected $settingsService;
 
@@ -73,75 +74,16 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	protected $settings;
 
 	/**
-	 * @var EmailService $emailService
+	 * @var \TYPO3\T3extblog\Service\EmailService
+	 * @inject
 	 */
 	protected $emailService;
 
 	/**
-	 * @var CacheService
+	 * @var \TYPO3\CMS\Extbase\Service\CacheService
+	 * @inject
 	 */
 	protected $cacheService;
-
-	/**
-	 * @param ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
-	 * Injects the Logging Service
-	 *
-	 * @param LoggingService $loggingService
-	 *
-	 * @return void
-	 */
-	public function injectLoggingService(LoggingService $loggingService) {
-		$this->log = $loggingService;
-	}
-
-	/**
-	 * Injects the Subscriber Repository
-	 *
-	 * @param SubscriberRepository $subscriberRepository
-	 *
-	 * @return void
-	 */
-	public function injectSubscriberRepository(SubscriberRepository $subscriberRepository) {
-		$this->subscriberRepository = $subscriberRepository;
-	}
-
-	/**
-	 * Injects the Settings Service
-	 *
-	 * @param SettingsService $settingsService
-	 *
-	 * @return void
-	 */
-	public function injectSettingsService(SettingsService $settingsService) {
-		$this->settingsService = $settingsService;
-	}
-
-	/**
-	 * @param EmailService $emailService
-	 *
-	 * @return void
-	 */
-	public function injectEmailService(EmailService $emailService) {
-		$this->emailService = $emailService;
-	}
-
-	/**
-	 * @param CacheService $cacheService
-	 *
-	 * @return void
-	 */
-	public function injectCacheService(CacheService $cacheService) {
-		$this->cacheService = $cacheService;
-	}
-
 
 	/**
 	 * @return void

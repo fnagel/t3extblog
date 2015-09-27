@@ -72,36 +72,16 @@ class SettingsService {
 	protected $frameworkSettings = NULL;
 
 	/**
-	 * @var ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService;
-
-	/**
-	 * Injects the Configuration Manager and loads the settings
-	 *
-	 * @param ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
-	 *
-	 * @return void
-	 */
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-	}
-
-	/**
-	 * Injects the TypoScriptService
-	 *
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 *
-	 * @return void
-	 */
-	public function injectTypoScriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-	}
 
 	/**
 	 * Returns all framework settings.

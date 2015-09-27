@@ -27,7 +27,6 @@ namespace TYPO3\T3extblog\Domain\Model;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
@@ -38,7 +37,8 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 abstract class AbstractEntity extends CoreAbstractEntity {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
 
@@ -55,15 +55,6 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected $postRepository = NULL;
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 	/**
 	 * Get commentRepository

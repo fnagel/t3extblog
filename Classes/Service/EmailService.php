@@ -28,7 +28,6 @@ namespace TYPO3\T3extblog\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Core\Utility\MailUtility;
 
 /**
@@ -47,19 +46,22 @@ class EmailService implements SingletonInterface {
 	protected $extensionName = 't3extblog';
 
 	/**
-	 * @var ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager;
 
 	/**
 	 * Logging Service
 	 *
-	 * @var LoggingService
+	 * @var \TYPO3\T3extblog\Service\LoggingService
+	 * @inject
 	 */
 	protected $log;
 
 	/**
-	 * @var SettingsService
+	 * @var \TYPO3\T3extblog\Service\SettingsService
+	 * @inject
 	 */
 	protected $settingsService;
 
@@ -67,37 +69,6 @@ class EmailService implements SingletonInterface {
 	 * @var array
 	 */
 	protected $settings;
-
-	/**
-	 * @param ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
-	 * Injects the Logging Service
-	 *
-	 * @param LoggingService $loggingService
-	 *
-	 * @return void
-	 */
-	public function injectLoggingService(LoggingService $loggingService) {
-		$this->log = $loggingService;
-	}
-
-	/**
-	 * Injects the Settings Service
-	 *
-	 * @param SettingsService $settingsService
-	 *
-	 * @return void
-	 */
-	public function injectSettingsService(SettingsService $settingsService) {
-		$this->settingsService = $settingsService;
-	}
 
 	/**
 	 * @return void

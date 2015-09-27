@@ -44,20 +44,10 @@ class SessionService implements SessionServiceInterface {
 	/**
 	 * Logging Service
 	 *
-	 * @var LoggingService
+	 * @var \TYPO3\T3extblog\Service\LoggingService
+	 * @inject
 	 */
 	protected $log;
-
-	/**
-	 * Injects the Logging Service
-	 *
-	 * @param LoggingService $loggingService
-	 *
-	 * @return void
-	 */
-	public function injectLoggingService(LoggingService $loggingService) {
-		$this->log = $loggingService;
-	}
 
 	/**
 	 * __construct

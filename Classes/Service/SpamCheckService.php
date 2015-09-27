@@ -41,12 +41,14 @@ class SpamCheckService implements SpamCheckServiceInterface {
 	/**
 	 * Logging Service
 	 *
-	 * @var LoggingService
+	 * @var \TYPO3\T3extblog\Service\LoggingService
+	 * @inject
 	 */
 	protected $log;
 
 	/**
-	 * @var SettingsService
+	 * @var \TYPO3\T3extblog\Service\SettingsService
+	 * @inject
 	 */
 	protected $settingsService;
 
@@ -59,28 +61,6 @@ class SpamCheckService implements SpamCheckServiceInterface {
 	 * @var array
 	 */
 	protected $spamSettings;
-
-	/**
-	 * Injects the Logging Service
-	 *
-	 * @param LoggingService $loggingService
-	 *
-	 * @return void
-	 */
-	public function injectLoggingService(LoggingService $loggingService) {
-		$this->log = $loggingService;
-	}
-
-	/**
-	 * Injects the Settings Service
-	 *
-	 * @param SettingsService $settingsService
-	 *
-	 * @return void
-	 */
-	public function injectSettingsService(SettingsService $settingsService) {
-		$this->settingsService = $settingsService;
-	}
 
 	/**
 	 * @return void

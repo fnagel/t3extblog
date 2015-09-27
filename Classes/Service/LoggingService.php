@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -61,7 +61,8 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface {
 	protected $renderInFe;
 
 	/**
-	 * @var SettingsService
+	 * @var \TYPO3\T3extblog\Service\SettingsService
+	 * @inject
 	 */
 	protected $settingsService;
 
@@ -69,18 +70,6 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface {
 	 * @var array
 	 */
 	protected $settings;
-
-
-	/**
-	 * Injects the Settings Service
-	 *
-	 * @param SettingsService $settingsService
-	 *
-	 * @return void
-	 */
-	public function injectSettingsService(SettingsService $settingsService) {
-		$this->settingsService = $settingsService;
-	}
 
 	/**
 	 * Init object

@@ -26,7 +26,6 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as BaseActionViewHelper;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 
@@ -48,15 +47,6 @@ use TYPO3\CMS\Core\TimeTracker\TimeTracker;
  *
  */
 class ActionViewHelper extends BaseActionViewHelper {
-
-	/**
-	 * @param ObjectManagerInterface $objectManager
-	 *
-	 * @return void
-	 */
-	public function injectObjectManager(ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 	/**
 	 * @param string $action Target action
