@@ -93,7 +93,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Post.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/page.png',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/page.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title',
 	),
@@ -128,7 +128,7 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/category.png',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/category.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
@@ -157,7 +157,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/comment.png',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/comment.png',
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title,author,email,website,text',
 	),
@@ -180,8 +180,9 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 		),
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Subscriber.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/subscriber.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+			'Configuration/Tca/Subscriber.php',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png',
 		'searchFields' => 'email,name',
 	),
 	'feInterface' => array(
@@ -204,8 +205,9 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Pingback.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+			'Configuration/Tca/Pingback.php',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,url,text,',
 	),
 	'feInterface' => array(
@@ -226,8 +228,9 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 		),
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Trackback.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/trackback.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+			'Configuration/Tca/Trackback.php',
+		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png',
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
 	'feInterface' => array(
