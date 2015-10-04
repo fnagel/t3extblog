@@ -238,6 +238,20 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 	)
 );
 
+// Use old icon path for TYPO3 6.2
+// @todo Remove this when 6.2 is no longer relevant
+if (version_compare(TYPO3_branch, '7.0', '<')) {
+	$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY);
+
+	$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/page.png';
+	$GLOBALS['TCA']['tx_t3blog_cat']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/category.png';
+	$GLOBALS['TCA']['tx_t3blog_com']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/comment.png';
+	$GLOBALS['TCA']['tx_t3blog_com_nl']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/subscriber.png';
+	$GLOBALS['TCA']['tx_t3blog_pingback']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/trackback.png';
+	$GLOBALS['TCA']['tx_t3blog_trackback']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/trackback.png';
+}
+
+
 unset($GLOBALS['ICON_TYPES']['t3blog']);
 \TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
 	'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
