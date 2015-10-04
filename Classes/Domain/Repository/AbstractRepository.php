@@ -30,8 +30,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * AbstractRepository
  */
 class AbstractRepository extends Repository {
 

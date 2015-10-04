@@ -32,10 +32,6 @@ use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /**
  * Displays sprite icon identified by iconName key
- *
- * @author Felix Kopp <felix-source@phorax.com>
- * @package TYPO3
- * @subpackage t3extblog
  */
 class SpriteManagerIconViewHelper extends AbstractBackendViewHelper {
 

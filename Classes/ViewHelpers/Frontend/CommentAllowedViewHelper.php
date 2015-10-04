@@ -30,7 +30,6 @@ use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
  * ViewHelper
- *
  */
 class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 

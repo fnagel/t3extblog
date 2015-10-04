@@ -32,8 +32,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\T3extblog\Domain\Model\Subscriber;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * SubscriberController
  */
 class SubscriberController extends AbstractController {
 

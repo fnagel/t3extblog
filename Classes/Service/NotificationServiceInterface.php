@@ -33,9 +33,6 @@ use TYPO3\T3extblog\Domain\Model\Comment;
  *
  * This class should send emails (admin, comment author opt-in, subscription)
  * when receiving new or changed comments.
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 interface NotificationServiceInterface {
 

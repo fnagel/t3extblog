@@ -32,9 +32,6 @@ use TYPO3\CMS\Core\Utility\MailUtility;
 
 /**
  * Handles email sending and templating
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class EmailService implements SingletonInterface {
 

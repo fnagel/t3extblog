@@ -30,10 +30,6 @@ use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
  * Test case for class Post
- *
- * @package TYPO3
- * @subpackage T3Blog Extbase
- *
  */
 class PostTest extends BaseTest {
 

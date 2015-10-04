@@ -29,8 +29,7 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Category
  */
 class Category extends AbstractLocalizedEntity {
 

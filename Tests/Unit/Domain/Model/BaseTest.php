@@ -31,8 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
- * @package TYPO3
- * @subpackage T3Blog Extbase
+ * BaseTest
  */
 abstract class BaseTest extends UnitTestCase {
 

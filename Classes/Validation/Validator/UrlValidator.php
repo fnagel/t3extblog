@@ -31,8 +31,6 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
  * Validator for URLs
- *
- * @package t3extblog
  */
 class UrlValidator extends AbstractValidator {
 

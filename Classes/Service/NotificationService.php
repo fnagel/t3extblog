@@ -34,9 +34,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Handles all notification mails
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class NotificationService implements NotificationServiceInterface, SingletonInterface {
 

@@ -35,9 +35,6 @@ use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
  * Abstract base controller
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 

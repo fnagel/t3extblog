@@ -29,9 +29,7 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Extbase\Domain\Model\BackendUser as BaseBackendUser;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * BackendUser
  */
 class BackendUser extends BaseBackendUser {
 

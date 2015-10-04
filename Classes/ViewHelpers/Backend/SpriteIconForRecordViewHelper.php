@@ -33,10 +33,6 @@ use TYPO3\CMS\Extbase\Domain\Model\BackendUser;
 
 /**
  * Views sprite icon for a record (object)
- *
- * @author Felix Kopp <felix-source@phorax.com>
- * @package TYPO3
- * @subpackage t3extblog
  */
 class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper {
 

@@ -32,9 +32,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Handles logging
  * Configured by TYPO3 core log level
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class LoggingService implements LoggingServiceInterface, SingletonInterface {
 

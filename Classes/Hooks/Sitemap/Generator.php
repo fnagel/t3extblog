@@ -44,10 +44,6 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  *
  * If you need to show news on different single view pages, make several sitemaps
  * (it is possible with Google).
- *
- * @author    Felix Nagel <info@felixnagel.com>
- * @package    TYPO3
- * @subpackage    t3extblog
  */
 class Generator extends TtNewsSitemapGenerator {
 

@@ -32,10 +32,6 @@ use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
  * Test case for class PostController.
- *
- * @package TYPO3
- * @subpackage T3Blog Extbase
- *
  */
 class PostControllerTest extends UnitTestCase {
 

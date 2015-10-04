@@ -34,8 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use \TYPO3\T3extblog\Domain\Model\BackendUser;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Post
  */
 class Post extends AbstractLocalizedEntity {
 

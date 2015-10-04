@@ -31,10 +31,6 @@ use TYPO3\T3extblog\Domain\Model\Subscriber;
 
 /**
  * Test case for class Subscriber
- *
- * @package TYPO3
- * @subpackage T3Blog Extbase
- *
  */
 class SubscriberTest extends BaseTest {
 

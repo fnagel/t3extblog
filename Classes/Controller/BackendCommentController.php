@@ -30,8 +30,7 @@ namespace TYPO3\T3extblog\Controller;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * BackendCommentController
  */
 class BackendCommentController extends BackendBaseController {
 

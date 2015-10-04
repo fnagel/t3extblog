@@ -27,10 +27,7 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * Handles logging
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * LoggingServiceInterface
  */
 interface LoggingServiceInterface {
 

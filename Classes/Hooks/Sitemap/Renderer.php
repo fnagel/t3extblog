@@ -28,11 +28,7 @@ namespace TYPO3\T3extblog\Hooks\Sitemap;
 use DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer;
 
 /**
- * This class contains a renderer for the 'news' sitemap.
- *
- * @author    Felix Nagel <info@felixnagel.com>
- * @package    TYPO3
- * @subpackage    t3extblog
+ * This class contains a renderer for the 'news' sitemap
  */
 class Renderer extends NewsSitemapRenderer {
 

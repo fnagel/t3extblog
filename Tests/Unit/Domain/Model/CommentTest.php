@@ -30,10 +30,6 @@ use TYPO3\T3extblog\Domain\Model\Comment;
 
 /**
  * Test case for class Comment
- *
- * @package TYPO3
- * @subpackage T3Blog Extbase
- *
  */
 class CommentTest extends BaseTest {
 

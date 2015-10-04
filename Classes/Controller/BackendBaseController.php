@@ -37,8 +37,7 @@ use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * BackendBaseController
  */
 class BackendBaseController extends ActionController {
 

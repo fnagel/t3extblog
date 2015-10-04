@@ -33,9 +33,6 @@ use TYPO3\CMS\Extbase\Object\Container\Container;
 
 /**
  * Class being included by TCEmain using a hook
- *
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Tcemain {
 

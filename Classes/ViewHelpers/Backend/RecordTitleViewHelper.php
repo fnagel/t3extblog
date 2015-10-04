@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Felix Kopp <felix-source@phorax.com>
+ *  (c) 2015 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -16,8 +16,6 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
  *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *  A copy is found in the textfile GPL.txt and important notices to the license
- *  from the author is found in LICENSE.txt distributed with these scripts.
  *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -31,11 +29,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
- * Issue command ViewHelper, see TYPO3 Core Engine method issueCommand
- *
- * @author Felix Kopp <felix-source@phorax.com>
- * @package TYPO3
- * @subpackage t3extblog
+ * Get record title view helper
  */
 class RecordTitleViewHelper extends AbstractBackendViewHelper {
 

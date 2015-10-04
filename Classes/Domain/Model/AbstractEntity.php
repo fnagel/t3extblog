@@ -30,9 +30,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
- * @package t3extblog
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * AbstractEntity
  */
 abstract class AbstractEntity extends CoreAbstractEntity {
 
