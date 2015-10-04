@@ -59,7 +59,7 @@ class EditOnClickViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render($parameters, $redirectUrl = '') {
-		$onClickAttribute = htmlspecialchars(BackendUtility::editOnClick('&' . $parameters, '', $redirectUrl));
+		$onClickAttribute = BackendUtility::editOnClick('&' . $parameters, '', $redirectUrl);
 
 		$this->tag->addAttribute('href', '#');
 		$this->tag->addAttribute('onclick', $onClickAttribute);
