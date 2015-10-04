@@ -1,6 +1,6 @@
 {namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
 
-<t3b:titleTag>{post.title} / </t3b:titleTag>
+<t3b:titleTag searchTitle="{post.title}">{post.title} / </t3b:titleTag>
 
 <f:if condition="{settings.blogsystem.posts.metadata.enable}">
 	<f:if condition="{post.metaDescription}">

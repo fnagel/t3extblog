@@ -37,10 +37,11 @@ class TitleTagViewHelper extends AbstractViewHelper {
 	 * Override the title tag
 	 *
 	 * @param boolean $prepend
+	 * @param string $searchTitle
 	 *
 	 * @return void
 	 */
-	public function render($prepend = TRUE) {
+	public function render($prepend = TRUE, $searchTitle = NULL) {
 		if (TYPO3_MODE === 'BE') {
 			return;
 		}
@@ -48,12 +49,16 @@ class TitleTagViewHelper extends AbstractViewHelper {
 		$content = $this->renderChildren();
 
 		if (empty($content) !== TRUE) {
-			$GLOBALS['TSFE']->indexedDocTitle = $content;
 
 			if ($prepend === TRUE) {
 				$content = $content . $GLOBALS['TSFE']->page['title'];
 			}
 
+			if ($searchTitle === NULL) {
+				$searchTitle = $content;
+			}
+
+			$GLOBALS['TSFE']->indexedDocTitle = $searchTitle;
 			$GLOBALS['TSFE']->page['title'] = $content;
 		}
 	}
