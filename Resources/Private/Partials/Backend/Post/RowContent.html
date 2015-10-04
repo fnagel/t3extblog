@@ -1,9 +1,9 @@
 {namespace t3extblog = TYPO3\T3extblog\ViewHelpers\Backend}
 
 <td class="title">
-	<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+	<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
 		{post.title}
-	</a>
+	</t3extblog:link.editOnClick>
 </td>
 <td>{post.publishDate -> f:format.date(format: 'd.m.Y - H:i')}</td>
 <td>{post.author.name}</td>
@@ -13,22 +13,23 @@
 	</f:link.action>
 </td>
 <td class="action">
-	<a href="alt_doc.php?edit[tx_t3blog_post][{post.uid}]=edit&returnUrl={returnUrl}">
+	<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
 		<t3extblog:spriteManagerIcon iconName="actions-document-open" />
-	</a>
+	</t3extblog:link.editOnClick>
 	<f:if condition="{post.hidden}">
 		<f:then>
-			<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0" />">
+			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0">
 				<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
-			</a>
+			</t3extblog:link.issueCommand>
 		</f:then>
 		<f:else>
-			<a href="<t3extblog:issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1" />">
+			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1">
 				<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hide'}" />
-			</a>
+			</t3extblog:link.issueCommand>
 		</f:else>
 	</f:if>
-	<a href="<t3extblog:issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" />" onclick="return confirm('{f:translate(key: "module.message.deleteRecord")}');">
+
+	<t3extblog:link.issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" onclick="return confirm(\"{f:translate(key: 'module.message.deleteRecord')}\");">
 		<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
-	</a>
+	</t3extblog:link.issueCommand>
 </td>

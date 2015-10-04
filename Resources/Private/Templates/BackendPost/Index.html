@@ -30,11 +30,17 @@
 						<f:for each="{paginatedPosts}" as="post">
 							<tr class="db_list_normal">
 								<td class="col-icon">
-									<a href="#" onClick="showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" title="id={post.uid}">
+									<f:comment>@todo Remove onclick event when TYPO3 6.2 is no longer relevant</f:comment>
+									<a href="#"
+									   onClick="if (window.showClickmenu) showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;"
+									   class="t3-js-clickmenutrigger"
+									   data-uid="{post.uid}"
+									   data-table="tx_t3blog_post"
+									   title="{post.uid}">
 										<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 									</a>
 								</td>
-								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
 							</tr>
 							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}" returnUrl="{returnUrl}">
 								<f:for each="{localizedRecords}" as="localizedPost">
@@ -42,7 +48,7 @@
 										<td class="col-icon">
 											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
 										</td>
-										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat, returnUrl: returnUrl}" />
+										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
 									</tr>
 								</f:for>
 							</t3extblog:localization>
@@ -71,9 +77,9 @@
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<a href="#" onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3blog_post][{pageId}]]=new'; return false;">
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new">
 			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
-		</a>
+		</t3extblog:link.editOnClick>
 	</div>
 </f:section>
 
