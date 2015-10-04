@@ -42,7 +42,7 @@
 								</td>
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
 							</tr>
-							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}" returnUrl="{returnUrl}">
+							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
 									<tr class="db_list_normal localized">
 										<td class="col-icon">

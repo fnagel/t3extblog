@@ -57,17 +57,16 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 	 * @param string $translations Name of the added variable
 	 * @param string $table Table to process
 	 * @param object $object Object to process
-	 * @param string $returnUrl BE return url
 	 *
 	 * @return string
 	 */
-	public function render($translations, $table, $object, $returnUrl) {
+	public function render($translations, $table, $object) {
 		$content = '';
 		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
 
 		$this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
 		if (count($this->systemLanguages) > 2) {
-			$records = $this->getLocalizedRecords($table, $object->toArray(), $returnUrl);
+			$records = $this->getLocalizedRecords($table, $object->toArray());
 
 			$templateVariableContainer->add($translations, $records);
 			$content = $this->renderChildren();
@@ -82,11 +81,10 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 	 *
 	 * @param string $table The table
 	 * @param array $row The record for which to make the localization panel.
-	 * @param string $returnUrl
 	 *
 	 * @return array
 	 */
-	public function getLocalizedRecords($table, $row, $returnUrl) {
+	public function getLocalizedRecords($table, $row) {
 		$records = array();
 		$translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
 
@@ -101,7 +99,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 					$records[$sysLanguageUid] = array(
 						'editIcon' => $this->getLanguageIconLink(
 							$sysLanguageUid,
-							'alt_doc.php?edit[' . $table . '][' . $translationData['uid'] . ']=edit&returnUrl=' . $returnUrl,
+							BackendUtility::editOnClick('&edit[' . $table . '][' . $translationData['uid'] . ']=edit'),
 							$translationData['uid']
 						),
 						'uid' => $translations['translations'][$sysLanguageUid]['uid']
@@ -113,7 +111,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 		return $records;
 	}
 
-	protected function getLanguageIconLink($sysLanguageUid, $href, $uid) {
+	protected function getLanguageIconLink($sysLanguageUid, $onclick, $uid) {
 		$language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
 		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
@@ -122,7 +120,8 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
 		}
 
-		return '<a href="' . htmlspecialchars($href) . '" title="' . $uid . ', ' . htmlspecialchars($language['title']) . '">' . $icon . '</a>';
+		return '<a href="" onclick="' . htmlspecialchars($onclick) . '" title="' . $uid . ', ' .
+			htmlspecialchars($language['title']) . '">' . $icon . '</a>';
 	}
 
 	/**
