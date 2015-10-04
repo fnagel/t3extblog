@@ -106,12 +106,8 @@ class BackendBaseController extends ActionController {
 	 * @return void
 	 */
 	protected function initializeView(ViewInterface $view) {
-		$moduleName = GeneralUtility::_GET('M');
-		$moduleToken = FormProtectionFactory::get()->generateToken('moduleCall', $moduleName);
-
 		$this->view->assignMultiple(array(
 			'pageId' => $this->pageId,
-			'returnUrl' => urlencode('mod.php?M=' . $moduleName . '&id=' . $this->pageId . '&moduleToken=' . $moduleToken),
 			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
 			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
 		));
