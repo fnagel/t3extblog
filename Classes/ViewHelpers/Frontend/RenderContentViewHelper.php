@@ -26,15 +26,15 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\T3extblog\Domain\Model\AbstractLocalizedEntity;
 
 /**
  * ViewHelper for rendering content
  */
-class RenderContentViewHelper extends CObjectViewHelper {
+class RenderContentViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Render content
@@ -42,14 +42,11 @@ class RenderContentViewHelper extends CObjectViewHelper {
 	 * @param ObjectStorage|array 	$contentElements
 	 * @param int                   $index
 	 * @param bool                  $removeMarker
-	 * @param string                $typoscript
 	 * @param string                $table
 	 *
 	 * @return string
 	 */
-	public function render(
-		$contentElements, $index = 0, $removeMarker = TRUE, $typoscript = 'tt_content', $table = 'tt_content'
-	) {
+	public function render($contentElements, $index = 0, $removeMarker = TRUE, $table = 'tt_content') {
 		$output = '';
 		$iterator = 0;
 
@@ -59,16 +56,12 @@ class RenderContentViewHelper extends CObjectViewHelper {
 				continue;
 			}
 
-			// We need to make sure to get all (!) DB fields if its an object
-			// Otherwise tt_content rendering will fail for plugins
-			if (is_object($content) && $content instanceof AbstractLocalizedEntity) {
-				$where = 'uid = ' . $content->getLocalizedUid();
-				$where  .= $this->getEnableFields($table);
-
-				$content = $this->getDatabase()->exec_SELECTgetSingleRow('*', $table, $where);
+			$uid = $this->getElementUid($content);
+			if ($uid === NULL) {
+				continue;
 			}
 
-			$output .= parent::render($typoscript, $content);
+			$output .= $this->renderRecord($uid, $table);
 		}
 
 		if ($removeMarker === TRUE) {
@@ -79,33 +72,87 @@ class RenderContentViewHelper extends CObjectViewHelper {
 	}
 
 	/**
-	 * Get database connection
+	 * This function renders a raw record into the corresponding
+	 * element by typoscript RENDER function
 	 *
-	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+	 * Taken from EXT:vhs/Classes/ViewHelpers/Content/AbstractContentViewHelper.php
+	 *
+	 * @param int $uid
+	 * @param string $table
+	 * @return string|NULL
 	 */
-	protected function getDatabase() {
-		return $GLOBALS['TYPO3_DB'];
+	protected function renderRecord($uid, $table) {
+		if (0 < $this->getTypoScriptFrontendController()->recordRegister[$table . ':' . $uid]) {
+			return NULL;
+		}
+
+		$configuration = array(
+			'tables' => $table,
+			'source' => $uid,
+			'dontCheckPid' => 1
+		);
+
+		$parent = $this->getTypoScriptFrontendController()->currentRecord;
+		if (FALSE === empty($parent)) {
+			$this->getTypoScriptFrontendController()->recordRegister[$parent]++;
+		}
+
+		$html = $this->getContentObjectRenderer()->cObjGetSingle('RECORDS', $configuration);
+
+		$this->getTypoScriptFrontendController()->currentRecord = $parent;
+		if (FALSE === empty($parent)) {
+			$this->getTypoScriptFrontendController()->recordRegister[$parent]--;
+		}
+
+		return $html;
 	}
 
 	/**
-	 * Get enable fields for DB where clause
+	 * Get element uid
 	 *
-	 * @param string $table
+	 * @param array|DomainObjectInterface $element
 	 *
-	 * @return string
+	 * @return int|NULL
 	 */
-	protected function getEnableFields($table) {
-		if (TYPO3_MODE === 'FE') {
-			$where = $GLOBALS['TSFE']->sys_page->enableFields($table);
-		} else {
-			$where = BackendUtility::BEenableFields($table);
+	protected function getElementUid($element) {
+		if ($element instanceof DomainObjectInterface) {
+
+			if ($element instanceof AbstractLocalizedEntity) {
+				return (int) $element->getLocalizedUid();
+			}
+
+			return (int) $element->getUid();
 		}
 
-		return $where;
+		if (is_array($element) && isset($element['uid'])) {
+			return (int) $element['uid'];
+		}
+
+		return NULL;
+	}
+
+	/**
+	 * Get content object renderer
+	 *
+	 * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 */
+	protected function getContentObjectRenderer() {
+		return $this->getTypoScriptFrontendController()->cObj;
+	}
+
+	/**
+	 * Get TSFE controller
+	 *
+	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+	 */
+	protected function getTypoScriptFrontendController() {
+		return $GLOBALS['TSFE'];
 	}
 
 	/**
 	 * Remove marker
+	 *
+	 * @todo Remove this in version 3.0.0
 	 *
 	 * @deprecated
 	 * @param string $output
