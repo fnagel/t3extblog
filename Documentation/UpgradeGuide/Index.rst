@@ -28,17 +28,29 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
+- A bunch of bugfixes
+
+- TYPO3 CMS 7.x support (tested up to TYPO3 7.5)
+
+- Removed support for TYPO3 < 6.2
+
 - Twitter Bootstrap 3 theme
 
-- TYPO3 CMS 7.x support (and removed support for TYPO3 < 6.2)
-
 - New backend icons for records and module
+
+- New flash message proposing pages with blog records helps to find correct storage folder in backend module
+
+- New settings validation check in frontend and backend help to ensure proper configuration
 
 - Added FormError ViewHelper for easy Bootstrap form errors
 
 - Introduce constants for easier setup
 
-- Preview image now makes use of TYPO3's repsonsive image feature
+- Preview image now makes use of TYPO3's responsive image feature
+
+- Improved documentation
+
+- Cleaner code base
 
 
 .. important::
@@ -54,14 +66,14 @@ How to upgrade
 
 
 
-Upgrade from 1.1.x to 1.2.0
+Upgrade from 1.1.x to 1.2.x
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.0
+https://github.com/fnagel/t3extblog/compare/1.1.0...1.2.x
 
 - Multi language support incl. improved BE module
 
