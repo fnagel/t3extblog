@@ -49,6 +49,13 @@ $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamel
 	'T3Blog Extbase: Categories'
 );
 
+$pluginSignature = strtolower($extensionName) . '_categories';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Categories.xml'
+);
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
 	'LatestPosts',
@@ -66,7 +73,12 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 	'LatestComments',
 	'T3Blog Extbase: LatestComments'
 );
-
+$pluginSignature = strtolower($extensionName) . '_latestcomments';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestComments.xml'
+);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_post');
