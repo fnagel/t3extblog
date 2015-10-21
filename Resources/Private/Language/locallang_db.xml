@@ -90,6 +90,7 @@
 
 
 		<languageKey index="de" type="array">
+			<label index="tx_t3blog.blogsystem.pid">Blog Seite</label>
 			<label index="tx_t3blog_post">Nachricht</label>
 			<label index="tx_t3blog_post.title">Titel</label>
 			<label index="tx_t3blog_post.tagClouds">Tag Cloud (Komma separierte Liste)</label>
