@@ -6,6 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="tx_t3blog.blogsystem.pid">Blog Page</label>
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
 			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
