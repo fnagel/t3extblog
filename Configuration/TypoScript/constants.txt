@@ -8,32 +8,34 @@ plugin.tx_t3extblog {
 		layoutRootPath = EXT:t3extblog/Resources/Private/Layouts/
 	}
 	persistence {
-		# cat=plugin.tx_t3extblog//a; type=string; label=Default storage PID
+		# cat=plugin.tx_t3extblog/persistence/1; type=string; label=Default storage PID
 		storagePid =
 	}
 
 	settings {
-		# Blogname
+		# cat=plugin.tx_t3extblog/settings/1; type=string; label=Blogname
 		blogName = Testblog
 
-		# Needed page uid's
+		# cat=plugin.tx_t3extblog/settings/2; type=int+; label=Page Uid Blogsystem Plugin
 		blogsystem.pid =
+		# cat=plugin.tx_t3extblog/settings/3; type=int+; label=Page Uid Subscription Manager Plugin
 		subscriptionManager.pid =
 
 		## The following constants are shortcuts and DO NOT MATCH any TS setup
 
-		# Email sender address
+		# cat=plugin.tx_t3extblog//1; type=string; label=Email sender address
 		emailFrom =
-		# Admin notification mails
+		# cat=plugin.tx_t3extblog//2; type=string; label=Admin notification mails
 		emailTo =
 
-		# Preview image size
 		previewImage {
+			# cat=plugin.tx_t3extblog//3; type=string; label=Preview image size: width
 			width = 960c
+			# cat=plugin.tx_t3extblog//4; type=string; label=Preview image size: height
 			height =
 		}
 
-		# Your Twitter username
+		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username
 		twitterName =
 	}
 }
