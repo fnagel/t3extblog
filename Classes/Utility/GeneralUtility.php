@@ -1,17 +1,18 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks\Sitemap;
+namespace TYPO3\T3extblog\Utility;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
+ *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
  *
  *  The GNU General Public License can be found at
@@ -25,24 +26,17 @@ namespace TYPO3\T3extblog\Hooks\Sitemap;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer;
-use TYPO3\T3extblog\Utility\GeneralUtility;
-
 /**
- * This class contains a renderer for the 'news' sitemap
+ * General utility class
  */
-class Renderer extends NewsSitemapRenderer {
+class GeneralUtility {
 
 	/**
-	 * Creates an instance of this class
+	 * Get TypoScript frontend controller
+	 *
+	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
 	 */
-	public function __construct() {
-		if (GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName']) {
-			$this->sitename = GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName'];
-		} else {
-			$this->sitename = GeneralUtility::getTsFe()->tmpl->setup['sitetitle'];
-		}
-
-		$this->sitename = htmlspecialchars($this->sitename);
+	public static function getTsFe() {
+		return $GLOBALS['TSFE'];
 	}
 }

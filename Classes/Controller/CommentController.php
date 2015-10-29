@@ -181,7 +181,7 @@ class CommentController extends AbstractController {
 			$this->errorAction();
 		}
 
-		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
+		if ($post->getAllowComments() === 2 && empty(\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->loginUser)) {
 			$this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
 			$this->errorAction();
 		}

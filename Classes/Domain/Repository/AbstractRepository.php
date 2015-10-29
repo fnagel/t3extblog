@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -61,7 +62,7 @@ class AbstractRepository extends Repository {
 		$where = '';
 
 		if (TYPO3_MODE === 'FE') {
-			$where .= $GLOBALS['TSFE']->sys_page->enableFields($table);
+			$where .= GeneralUtility::getTsFe()->sys_page->enableFields($table);
 		} else {
 			$where .= BackendUtility::BEenableFields($table);
 			$where .= BackendUtility::deleteClause($table);

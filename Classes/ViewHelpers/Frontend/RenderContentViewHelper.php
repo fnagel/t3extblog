@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -82,7 +83,7 @@ class RenderContentViewHelper extends AbstractViewHelper {
 	 * @return string|NULL
 	 */
 	protected function renderRecord($uid, $table) {
-		if (0 < $this->getTypoScriptFrontendController()->recordRegister[$table . ':' . $uid]) {
+		if (0 < GeneralUtility::getTsFe()->recordRegister[$table . ':' . $uid]) {
 			return NULL;
 		}
 
@@ -92,16 +93,16 @@ class RenderContentViewHelper extends AbstractViewHelper {
 			'dontCheckPid' => 1
 		);
 
-		$parent = $this->getTypoScriptFrontendController()->currentRecord;
+		$parent = GeneralUtility::getTsFe()->currentRecord;
 		if (FALSE === empty($parent)) {
-			$this->getTypoScriptFrontendController()->recordRegister[$parent]++;
+			GeneralUtility::getTsFe()->recordRegister[$parent]++;
 		}
 
 		$html = $this->getContentObjectRenderer()->cObjGetSingle('RECORDS', $configuration);
 
-		$this->getTypoScriptFrontendController()->currentRecord = $parent;
+		GeneralUtility::getTsFe()->currentRecord = $parent;
 		if (FALSE === empty($parent)) {
-			$this->getTypoScriptFrontendController()->recordRegister[$parent]--;
+			GeneralUtility::getTsFe()->recordRegister[$parent]--;
 		}
 
 		return $html;
@@ -137,16 +138,7 @@ class RenderContentViewHelper extends AbstractViewHelper {
 	 * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected function getContentObjectRenderer() {
-		return $this->getTypoScriptFrontendController()->cObj;
-	}
-
-	/**
-	 * Get TSFE controller
-	 *
-	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-	 */
-	protected function getTypoScriptFrontendController() {
-		return $GLOBALS['TSFE'];
+		return GeneralUtility::getTsFe()->cObj;
 	}
 
 	/**

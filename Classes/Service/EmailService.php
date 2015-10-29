@@ -101,7 +101,7 @@ class EmailService implements SingletonInterface {
 			->setTo($mailTo)
 			->setFrom($mailFrom)
 			->setSubject($subject)
-			->setCharset($GLOBALS['TSFE']->metaCharset);
+			->setCharset(\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset);
 
 		// send text or html emails
 		if (strip_tags($emailBody) === $emailBody) {

@@ -25,6 +25,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 use TYPO3\T3extblog\Domain\Model\Post;
 
@@ -72,7 +73,7 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 			return FALSE;
 		}
 
-		if ($post->getAllowComments() === 2 && !(isset($GLOBALS['TSFE']) && $GLOBALS['TSFE']->loginUser)) {
+		if ($post->getAllowComments() === 2 && empty(GeneralUtility::getTsFe()->loginUser)) {
 			return FALSE;
 		}
 

@@ -83,7 +83,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper {
 		}
 
 		if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-			$GLOBALS['TSFE']->getPageRenderer()->addMetaTag($this->tag->render());
+			\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->getPageRenderer()->addMetaTag($this->tag->render());
 		}
 	}
 }
