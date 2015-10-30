@@ -1,3 +1,5 @@
+<div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:if condition="{post.previewImage}">
 	<figure class="thumbnail preview">
 		<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
@@ -29,3 +31,5 @@
 		</figcaption>
 	</figure>
 </f:if>
+
+</div>
