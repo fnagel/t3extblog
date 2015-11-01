@@ -37,8 +37,8 @@ The output is managed via content modules. This means easy and flexible usage.
 Choose one or more of the plugins listed to build your blog. These can be distributed to different columns.
 
 
-.. figure:: ../Images/AdministratorManual/modules.png
-	:width: 539px
+.. figure:: ../Images/AdministratorManual/modules.jpg
+	:width: 627px
 	:alt: modules
 
 	Modules
@@ -62,7 +62,7 @@ Simple list of your blogposts, categorised by month, sorted by date.
 Blogsystem
 ^^^^^^^^^^
 
-Main part of the extension. Lists all your blogposts and shows some additional information like date of publishing,
+Main part of the extension (we´ve added this while installing this extension already). Lists all your blogposts and shows some additional information like date of publishing,
 name of author, categories, number of comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
@@ -113,7 +113,7 @@ Subscription Manager
 	Use a separate page for this plugin!
 
 
-This plugin manages blog post subscriptions. All email links will point to this page.
+This plugin manages blog post subscriptions. All email links will point to this page. We´ve already did some basic settings for this module in the installation process. But you should so some more configurations.
 
 Configure the Subscription manager via TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
 

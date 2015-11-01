@@ -21,10 +21,6 @@ Target group: **Administrators**
 Configuration
 =============
 
-Like most other extensions, settings can be overwritten via TypoScript.
-
-Have a look at :code:`/Configuration/TypoScript/setup.txt`.
-
 
 Minimal configuration
 ---------------------
@@ -38,6 +34,12 @@ Two configs are needed in any case:
 
 	# PID where you will store your blogposts
 	plugin.tx_t3extblog.persistence.storagePid = 456
+
+	# PID where your Subscription Manager ist includes
+	plugin.tx_t3extblog.settings.subscriptionManager.pid = 789
+
+	# Mailadress of the admin
+	plugin.tx_t3extblog.settings.subscriptionManager.admin.mailTo.email = mailadress@of-the-admin.tld
 
 
 General configuration
@@ -69,7 +71,11 @@ settings.debug                              Some debug configs
 lib.tx_t3extblog.date                       Localize date format, used within the fluid templates
 =========================================   =========================================================================================================
 
-See :code:`/Configuration/TypoScript/RealUrl/setup.txt` for details!
+
+Like most other extensions, settings can be overwritten via TypoScript.
+
+Have a look at :code:`/Configuration/TypoScript/setup.txt`.
+
 
 
 RealURL
@@ -82,3 +88,9 @@ When using EXT:realurl or similar extension you will need to add additional stat
 
 .. important::
 	Add this static TS to the blogsystem plugin page only to preserve cache!
+
+.. important::
+	When not using the realurl-autoconfig-feature, you need to add your own configuration!
+
+
+

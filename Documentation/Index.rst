@@ -58,7 +58,8 @@ T3Blog Extbase
 
 	Introduction/Index
 	UsersManual/Index
-	Installation/Index
+	QuickInstallation/Index
+        Installation/Index
 	AdministratorManual/Index
 	Configuration/Index
 	FAQ/Index
