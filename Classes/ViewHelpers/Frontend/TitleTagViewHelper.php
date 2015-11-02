@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -51,15 +52,15 @@ class TitleTagViewHelper extends AbstractViewHelper {
 		if (empty($content) !== TRUE) {
 
 			if ($prepend === TRUE) {
-				$content = $content . $GLOBALS['TSFE']->page['title'];
+				$content = $content . GeneralUtility::getTsFe()->page['title'];
 			}
 
 			if ($searchTitle === NULL) {
 				$searchTitle = $content;
 			}
 
-			$GLOBALS['TSFE']->indexedDocTitle = $searchTitle;
-			$GLOBALS['TSFE']->page['title'] = $content;
+			GeneralUtility::getTsFe()->indexedDocTitle = $searchTitle;
+			GeneralUtility::getTsFe()->page['title'] = $content;
 		}
 	}
 }

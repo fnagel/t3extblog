@@ -26,12 +26,14 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
+
 /**
  * SessionService
  */
 class SessionService implements SessionServiceInterface {
 
-	CONST SESSION_DATA_KEY = 'subscription_session';
+	const SESSION_DATA_KEY = 'subscription_session';
 
 	/**
 	 * Logging Service
@@ -53,7 +55,7 @@ class SessionService implements SessionServiceInterface {
 	 *
 	 */
 	public function __construct() {
-		$this->frontendUser = $GLOBALS['TSFE']->fe_user;
+		$this->frontendUser = GeneralUtility::getTsFe()->fe_user;
 	}
 
 	/**

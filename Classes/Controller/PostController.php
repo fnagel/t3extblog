@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Comment;
@@ -113,7 +114,7 @@ class PostController extends AbstractController {
 
 			$posts = $this->postRepository->findByTag($tag);
 			if (count($posts) === 0) {
-				$GLOBALS['TSFE']->pageNotFoundAndExit('Tag not found!');
+				GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
 			}
 
 			$this->view->assign('tag', $tag);
@@ -167,7 +168,7 @@ class PostController extends AbstractController {
 		$post = $this->postRepository->findByUid((int) $permalinkPost);
 
 		if ($post === NULL) {
-			$GLOBALS['TSFE']->pageNotFoundAndExit('Post not found!');
+			GeneralUtility::getTsFe()->pageNotFoundAndExit('Post not found!');
 		}
 
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter(), NULL, 0, 303);

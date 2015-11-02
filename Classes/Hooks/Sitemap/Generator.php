@@ -58,8 +58,8 @@ class Generator extends TtNewsSitemapGenerator {
 		$this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$this->cObj->start(array());
 
-		$this->offset = max(0, (int)GeneralUtility::_GET('offset'));
-		$this->limit = max(0, (int)GeneralUtility::_GET('limit'));
+		$this->offset = max(0, (int) GeneralUtility::_GET('offset'));
+		$this->limit = max(0, (int) GeneralUtility::_GET('limit'));
 		if ($this->limit <= 0) {
 			$this->limit = 100;
 		}
@@ -67,7 +67,8 @@ class Generator extends TtNewsSitemapGenerator {
 		$this->createRenderer();
 
 		$singlePid = intval(GeneralUtility::_GP('singlePid'));
-		$this->singlePid = $singlePid && $this->isInRootline($singlePid) ? $singlePid : $GLOBALS['TSFE']->id;
+		$this->singlePid = $singlePid && $this->isInRootline($singlePid) ?
+			$singlePid : \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->id;
 
 		$this->validateAndcreatePageList();
 	}
@@ -79,9 +80,6 @@ class Generator extends TtNewsSitemapGenerator {
 	 */
 	protected function generateSitemapContent() {
 		if (count($this->pidList) > 0) {
-			// @todo Remove this
-			GeneralUtility::loadTCA('tx_t3blog_post');
-
 			$languageCondition = '';
 			$language = GeneralUtility::_GP('L');
 			if (MathUtility::canBeInterpretedAsInteger($language)) {
