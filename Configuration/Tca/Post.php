@@ -346,3 +346,9 @@ $GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePale
 	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
 	'canNotCollapse' => TRUE
 );
+
+// @todo Remove this when 6.2 is no longer relevant, see #93
+if (version_compare(TYPO3_branch, '7.5', '>=')) {
+	unset($GLOBALS['TCA']['tx_t3blog_post']['columns']['content']['config']['appearance']['showPossibleLocalizationRecords']);
+	unset($GLOBALS['TCA']['tx_t3blog_post']['columns']['content']['config']['appearance']['showRemovedLocalizationRecords']);
+}
