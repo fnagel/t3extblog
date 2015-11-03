@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:if condition="{category}">
 	<t3b:titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:titleTag>
@@ -20,3 +20,5 @@
 	</div>
 	<br>
 </f:if>
+
+</div>
