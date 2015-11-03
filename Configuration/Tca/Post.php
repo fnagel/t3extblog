@@ -15,12 +15,16 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
+				'renderType' => 'selectSingle',
+				'special' => 'languages',
 				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
-				)
+					array(
+						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+						-1,
+						'flags-multiple'
+					),
+				),
+				'default' => 0,
 			)
 		),
 		'l18n_parent' => array(
@@ -342,3 +346,9 @@ $GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePale
 	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
 	'canNotCollapse' => TRUE
 );
+
+// @todo Remove this when 6.2 is no longer relevant, see #93
+if (version_compare(TYPO3_branch, '7.5', '>=')) {
+	unset($GLOBALS['TCA']['tx_t3blog_post']['columns']['content']['config']['appearance']['showPossibleLocalizationRecords']);
+	unset($GLOBALS['TCA']['tx_t3blog_post']['columns']['content']['config']['appearance']['showRemovedLocalizationRecords']);
+}

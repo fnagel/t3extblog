@@ -1,3 +1,5 @@
+<div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
 <div id="comment-{comment.uid}" class="comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
 	<div class="row">
 		<div class="col-xs-3 text-right">
@@ -24,4 +26,6 @@
 			</f:link.action>
 		</div>
 	</div>
+</div>
+
 </div>
