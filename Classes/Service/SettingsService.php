@@ -165,9 +165,9 @@ class SettingsService {
 	 */
 	public function setPageUid($pageUid) {
 		if (TYPO3_MODE === 'BE') {
+			GeneralUtility::_GETset((int) $pageUid, 'id');
 			$currentPid['persistence']['storagePid'] = (int) $pageUid;
 			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
-			GeneralUtility::_GETset((int) $pageUid, 'id');
 		}
 	}
 }
