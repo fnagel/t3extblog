@@ -27,7 +27,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as BaseActionViewHelper;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
  * A view helper for creating URIs to extbase actions.
@@ -133,25 +133,12 @@ class ActionViewHelper extends BaseActionViewHelper {
 	}
 
 	/**
-	 * @param $pageUid
+	 * @param int $pageUid
+	 *
+	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
 	 */
 	protected function buildTSFE($pageUid) {
-		if (!is_object($GLOBALS['TT'])) {
-			$GLOBALS['TT'] = new TimeTracker;
-			$GLOBALS['TT']->start();
-		}
-
-		$GLOBALS['TSFE'] = $this->objectManager->get(
-			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, ''
-		);
-
-		$GLOBALS['TSFE']->connectToDB();
-		$GLOBALS['TSFE']->initFEuser();
-		$GLOBALS['TSFE']->fetch_the_id();
-		$GLOBALS['TSFE']->getPageAndRootline();
-		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->getConfigArray();
+		return GeneralUtility::getTsFe($pageUid);
 	}
 
 }

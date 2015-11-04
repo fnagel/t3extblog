@@ -26,6 +26,9 @@ namespace TYPO3\T3extblog\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use \TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
+
 /**
  * General utility class
  */
@@ -34,9 +37,44 @@ class GeneralUtility {
 	/**
 	 * Get TypoScript frontend controller
 	 *
+	 * @param int $pageUid
+	 *
 	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
 	 */
-	public static function getTsFe() {
+	public static function getTsFe($pageUid = 0) {
+		if (TYPO3_MODE === 'BE') {
+			return self::generateTypoScriptFrontendController($pageUid);
+		}
+
 		return $GLOBALS['TSFE'];
 	}
+
+	/**
+	 * Generate TypoScriptFrontendController (use in BE context)
+	 *
+	 * @param int $pageUid
+	 *
+	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+	 */
+	protected static function generateTypoScriptFrontendController($pageUid) {
+		if (!is_object($GLOBALS['TT'])) {
+			$GLOBALS['TT'] = new TimeTracker;
+			$GLOBALS['TT']->start();
+		}
+
+		$GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
+			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, ''
+		);
+
+		$GLOBALS['TSFE']->connectToDB();
+		$GLOBALS['TSFE']->initFEuser();
+		$GLOBALS['TSFE']->fetch_the_id();
+		$GLOBALS['TSFE']->getPageAndRootline();
+		$GLOBALS['TSFE']->initTemplate();
+		$GLOBALS['TSFE']->getConfigArray();
+
+		return $GLOBALS['TSFE'];
+	}
+
 }
