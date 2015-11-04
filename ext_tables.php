@@ -49,12 +49,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 	'Rss',
 	'T3Blog Extbase: RSS'
 );
-$pluginSignature = strtolower($extensionName) . '_rss';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/RSS.xml'
-);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
