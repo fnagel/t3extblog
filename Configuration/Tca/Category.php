@@ -95,7 +95,7 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
 				),
 				'foreign_table' => 'fe_groups',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 			)
 		),
 		'parent_id' => array(

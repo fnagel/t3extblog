@@ -38,7 +38,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				),
 				'foreign_table' => 'tx_t3blog_post',
 				'foreign_table_where' => 'AND tx_t3blog_post.pid=###CURRENT_PID### AND tx_t3blog_post.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 			)
 		),
 		'l18n_diffsource' => array(
@@ -94,7 +94,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
 				),
 				'foreign_table' => 'fe_groups',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 			)
 		),
 		'title' => array(
@@ -124,7 +124,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'type' => 'select',
 				'foreign_table' => 'be_users',
 				'foreign_table_where' => ' and be_users.disable = 0 ORDER BY be_users.username',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,

@@ -58,7 +58,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
 				),
 				'foreign_table' => 'fe_groups',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 			)
 		),
 		'title' => array(
@@ -150,7 +150,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 				'type' => 'select',
 				'foreign_table' => 'tx_t3blog_post',
 				'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 				'minitems' => 1,
 				'maxitems' => 1,
 				'size' => 1,
