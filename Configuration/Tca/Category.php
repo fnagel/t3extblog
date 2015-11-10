@@ -33,6 +33,7 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => array(
 					array('', 0),
 				),
@@ -88,6 +89,7 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'items' => array(
 					array('', 0),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
@@ -104,9 +106,9 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.parent_id',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectTree',
 				'foreign_table' => 'tx_t3blog_cat',
 				'foreign_table_where' => ' AND (tx_t3blog_cat.sys_language_uid = 0 OR tx_t3blog_cat.l18n_parent = 0) AND tx_t3blog_cat.pid = ###CURRENT_PID### AND tx_t3blog_cat.uid != ###THIS_UID### ORDER BY tx_t3blog_cat.sorting',
-				'renderMode' => 'tree',
 				'subType' => 'db',
 				'treeConfig' => array(
 					'parentField' => 'parent_id',
@@ -154,3 +156,8 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
 	)
 );
+
+// @todo Remove this when 6.2 is no longer relevant
+if (version_compare(TYPO3_branch, '7.6', '>=')) {
+	$GLOBALS['TCA']['tx_t3blog_post']['columns']['parent_id']['config']['renderMode'] = 'tree';
+}

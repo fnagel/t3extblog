@@ -51,6 +51,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'items' => array(
 					array('', 0),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
@@ -148,6 +149,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.fk_post',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3blog_post',
 				'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
 				'showIconTable' => FALSE,
