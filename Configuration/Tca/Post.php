@@ -290,7 +290,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'cols' => '45',
 				'rows' => '2',
 			),
-			'defaultExtras' => 'richtext[*]:rte_transform[flag=rte_enabled|mode=ts]',
+			'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
 		),
 		'preview_image' => array(
 			'exclude' => 1,
