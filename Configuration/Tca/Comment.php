@@ -8,7 +8,6 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
-	'feInterface' => $GLOBALS['TCA']['tx_t3blog_com']['feInterface'],
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,

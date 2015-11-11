@@ -100,9 +100,6 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, title, author, date, content,allow_comments, cat, trackback,number_views',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
@@ -137,9 +134,6 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, parent_id, catname, description',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');
@@ -168,9 +162,6 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title,author,email,website,text',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post, mails_sent',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com_nl');
@@ -194,9 +185,6 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 		],
 		'searchFields' => 'email,name',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, email, name, lastsent, post_uid, code',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_pingback');
@@ -221,9 +209,6 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 		],
 		'searchFields' => 'title,url,text,',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, starttime, endtime, title, url, date, text',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_trackback');
@@ -246,9 +231,6 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 		],
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, fromurl, text, title, postid, id',
-	)
 );
 
 // Use old icon path for TYPO3 6.2

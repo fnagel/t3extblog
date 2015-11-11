@@ -8,7 +8,6 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,parent_id,catname,description'
 	),
-	'feInterface' => $GLOBALS['TCA']['tx_t3blog_cat']['feInterface'],
 	'columns' => array(
 		'sys_language_uid' => array(
 			'exclude' => 1,
