@@ -25,6 +25,8 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -109,7 +111,14 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 		$language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
 		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
-			$icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
+			// @todo Remove this when 6.2 is no longer relevant
+			if (version_compare(TYPO3_branch, '7.0', '<')) {
+				$icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
+			} else {
+				/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+				$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+				$icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
+			}
 		} else {
 			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
 		}
