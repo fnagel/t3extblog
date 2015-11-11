@@ -293,18 +293,23 @@ if (TYPO3_MODE === 'BE') {
 			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
 			['source' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png']
 		);
+		$iconRegistry->registerIcon(
+			'tcarecords-pages-contains-t3blog',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
+		);
 	}
 
 	// Add BE page icon
 	$pageModuleConfig = array(
 		0 => 'T3extblog',
 		1 => 't3blog',
-		2 => 'apps-pagetree-folder-contains-t3blog'
+		2 => 'tcarecords-pages-contains-t3blog'
 	);
 
 	if (version_compare(TYPO3_branch, '7.6', '>=')) {
-		// @todo FixMe: Icon is shown in page properties but not the page tree
 		$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
+		$GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-t3blog'] = 'tcarecords-pages-contains-t3blog';
 	} else {
 		// @todo Remove this when 6.2 is no longer relevant
 		$pageModuleConfig[2] = '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png';
