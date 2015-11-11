@@ -27,6 +27,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -59,9 +60,13 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render($parameters, $redirectUrl = '') {
-		/** @var $documentTemplate \TYPO3\CMS\Backend\Template\DocumentTemplate */
-		$documentTemplate = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
-		$href = $documentTemplate->issueCommand('&' . $parameters, $redirectUrl);
+		if (version_compare(TYPO3_branch, '7.0', '<')) {
+			/** @var $documentTemplate \TYPO3\CMS\Backend\Template\DocumentTemplate */
+			$documentTemplate = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
+			$href = $documentTemplate->issueCommand('&' . $parameters, $redirectUrl);
+		} else {
+			$href = BackendUtility::getLinkToDataHandlerAction('&' . $parameters, $redirectUrl);
+		}
 
 		$this->tag->addAttribute('href', $href);
 		$this->tag->setContent($this->renderChildren());
