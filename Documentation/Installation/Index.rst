@@ -5,7 +5,6 @@
 
 .. include:: ../Includes.txt
 
-
 .. _installation:
 
 
@@ -16,7 +15,7 @@ Target group: **Administrators**
 
 
 Installation process - step by step
---------------------
+-----------------------------------
 
 In this installation guide, we will override some values and make our Blog more individual.
 Some steps are allready described in the :ref:`Quick Installation <quick_installation>`.

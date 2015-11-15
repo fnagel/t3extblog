@@ -45,16 +45,39 @@ Create a blogpost
 
 
 .. figure:: ../Images/UserManual/createblogpost.png
-	:width: 609px
+	:width: 671px
 	:alt: Create blogpost
 
 	Create blogost
 
+Post
 
 - Author: is determined by the current BE user
 - Title: title of your blogpost, you need to fill this field
-- Content: click the 'create new' button to add new content elements
+
+Preview
+
 - Preview: configure a list preview for the blog post
+- There are diffrent "Preview modes", i.e. you can add your own preview text or show the first content element
+
+Category:
+
+- select one or more categories
+- you need so select at least one category
+
+Interactivity:
+
+- set option for comments
+
+Metadata:
+
+- Add some Metadata for your blogpost
+- Metadata is used for metadescription and metakeywords
+
+Content:
+
+- click the 'create new' button (post-tab) to add new content elements
+- You can add several content elements
 
 
 Add categories
@@ -77,10 +100,10 @@ You need to add at least one blog category to your post.
 Add blog categories
 -------------------
 
-Use the list view and click the button "create new record", then choose T3Blog Extbase -> categories
+Use the list view and click the button "create new record", to add categories:
 
 .. figure:: ../Images/UserManual/categories.png
-	:width: 159px
+	:width: 223px
 	:alt: Add categories
 
 	Add categories

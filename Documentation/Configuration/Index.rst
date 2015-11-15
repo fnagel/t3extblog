@@ -5,7 +5,6 @@
 
 .. include:: ../Includes.txt
 
-
 Target group: **Administrators**
 
 
@@ -92,5 +91,27 @@ When using EXT:realurl or similar extension you will need to add additional stat
 .. important::
 	When not using the realurl-autoconfig-feature, you need to add your own configuration!
 
+Overwrite templates (TYPO3 7+)
+------------------------------
 
+::
 
+	plugin.tx_t3extblog {
+        	view {
+                	templateRootPaths >
+                	templateRootPaths {
+                        	0 = EXT:news/Resources/Private/Templates/
+                        	1 = fileadmin/templates/ext/news/Templates/
+                	}
+                	partialRootPaths >
+                	partialRootPaths {
+                        	0 = EXT:news/Resources/Private/Partials/
+                        	1 = fileadmin/templates/ext/news/Partials/
+                	}
+                	layoutRootPaths >
+                	layoutRootPaths {
+                        	0 = EXT:news/Resources/Private/Layouts/
+                        	1 = fileadmin/templates/ext/news/Layouts/
+                	}
+        	}
+	}
