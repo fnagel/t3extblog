@@ -24,20 +24,22 @@ Configuration
 Minimal configuration
 ---------------------
 
-Two configs are needed in any case:
+.. _configuration-minimal:
+
+Make sure to setup at least the following settings (see :code:`/Configuration/TypoScript/constants.txt` for more details!):
 
 .. code-block:: typoscript
 
-	# PID where your blogsystem is included
-	plugin.tx_t3extblog.settings.blogsystem.pid = 123
-
-	# PID where you will store your blogposts
+	# PID of the blog sysfolder containing all blog related records
 	plugin.tx_t3extblog.persistence.storagePid = 456
 
-	# PID where your Subscription Manager ist includes
+	# PID where the "Blogsystem" plugin is located
+	plugin.tx_t3extblog.settings.blogsystem.pid = 123
+
+	# PID where the "Subscription Manager" plugin is located
 	plugin.tx_t3extblog.settings.subscriptionManager.pid = 789
 
-	# Mailadress of the admin
+	# E-mail address where notification mails were send to
 	plugin.tx_t3extblog.settings.subscriptionManager.admin.mailTo.email = mailadress@of-the-admin.tld
 
 
@@ -76,42 +78,61 @@ Like most other extensions, settings can be overwritten via TypoScript.
 Have a look at :code:`/Configuration/TypoScript/setup.txt`.
 
 
-
 RealURL
 -------
+.. _configuration-realurl:
 
 This extension include a predefined setup for RealURL auto configuration, see :code:`typo3conf/ext/t3extblog/Classes/Hooks/RealUrl.php` for details.
 
 When using EXT:realurl or similar extension you will need to add additional staticTS template
-"T3Extblog: additional RealUrl config (t3extblog)" (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
+`T3Extblog: additional RealUrl config (t3extblog)` (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
 
 .. important::
-	Add this static TS to the blogsystem plugin page only to preserve cache!
+	Add this static TS to the Blogsystem plugin page only to preserve cache!
 
 .. important::
-	When not using the realurl-autoconfig-feature, you need to add your own configuration!
+	When not using the realurl-autoconfig-feature, you need to add the configuration by yourself!
 
-Overwrite templates (TYPO3 7+)
-------------------------------
 
-::
+Overwrite templates
+-------------------
+.. _configuration-overwrite-templates:
+
+**TYPO3 7.x**
+
+.. code-block:: typoscript
 
 	plugin.tx_t3extblog {
-        	view {
-                	templateRootPaths >
-                	templateRootPaths {
-                        	0 = EXT:news/Resources/Private/Templates/
-                        	1 = fileadmin/templates/ext/news/Templates/
-                	}
-                	partialRootPaths >
-                	partialRootPaths {
-                        	0 = EXT:news/Resources/Private/Partials/
-                        	1 = fileadmin/templates/ext/news/Partials/
-                	}
-                	layoutRootPaths >
-                	layoutRootPaths {
-                        	0 = EXT:news/Resources/Private/Layouts/
-                        	1 = fileadmin/templates/ext/news/Layouts/
-                	}
-        	}
+        view {
+            templateRootPaths >
+            templateRootPaths {
+                0 = EXT:news/Resources/Private/Templates/
+                1 = fileadmin/templates/ext/news/Templates/
+            }
+            partialRootPaths >
+            partialRootPaths {
+                0 = EXT:news/Resources/Private/Partials/
+                1 = fileadmin/templates/ext/news/Partials/
+            }
+            layoutRootPaths >
+            layoutRootPaths {
+                0 = EXT:news/Resources/Private/Layouts/
+                1 = fileadmin/templates/ext/news/Layouts/
+            }
+        }
+	}
+
+
+**TYPO3 6.x**
+
+Make sure to copy ALL templates!
+
+.. code-block:: typoscript
+
+	plugin.tx_t3extblog {
+        view {
+            templateRootPaths = fileadmin/templates/ext/news/Templates/
+            partialRootPaths = fileadmin/templates/ext/news/Partials/
+            layoutRootPaths = fileadmin/templates/ext/news/Layouts/
+        }
 	}

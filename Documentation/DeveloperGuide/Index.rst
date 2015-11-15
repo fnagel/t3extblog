@@ -10,7 +10,7 @@
 Developer Guide
 ===============
 
-Target group: **Administrators**
+Target group: **Developers**
 
 
 .. only:: html

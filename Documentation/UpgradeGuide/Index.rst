@@ -30,7 +30,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - A bunch of bugfixes
 
-- TYPO3 CMS 7.x support (tested up to TYPO3 7.5)
+- TYPO3 CMS 7.x support (tested up to TYPO3 7.6)
 
 - Removed support for TYPO3 < 6.2
 
@@ -42,7 +42,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - New settings validation check in frontend and backend help to ensure proper configuration
 
-- Added FormError ViewHelper for easy Bootstrap form errors
+- Added FormError ViewHelper for easy Twitter Bootstrap form errors
 
 - Introduce constants for easier setup
 
@@ -50,7 +50,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - Improved documentation
 
-- Cleaner code base
+- Cleaner code base and CGL improvements
 
 
 .. important::
@@ -62,7 +62,7 @@ How to upgrade
 
 #. "Clear all cache" in Install Tool (Important actions)
 
-#. Adjust your templates to new Bootstrap 3 Theme
+#. Adjust your all your templates
 
 
 

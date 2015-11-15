@@ -10,23 +10,22 @@
 
 
 Quick Installation
-============
+==================
 
-Target group: **Administrators**
-
+Target group: **Integrators**
 
 
 Quick installation guide
---------------------
+------------------------
 
-T3Extblog can be installed quickly by using the constant editor. You need to perform the following steps
+T3Extblog can be installed quickly by using the constant editor. You need to perform the following steps:
 
-#. Install the extension via the Extensionmanager
+#. Install the extension via the Extension-Manager
 
 #. Include static template:
 	This can be done on your root-page or in an extension template places on a specific page.
-	Minimum requirement: "T3Extblog: Default Setup (needed) (t3extblog)".
-	Do NOT include "T3Extblog: Rss setup (t3extblog)"! We will need this elsewhere.
+	Minimum requirement: `T3Extblog: Default Setup (needed) (t3extblog)`.
+	Do NOT include `T3Extblog: Rss setup (t3extblog)`! We will need this elsewhere.
 
 	.. figure:: ../Images/Installation/includestatic.png
 		:width: 674px
@@ -38,7 +37,7 @@ T3Extblog can be installed quickly by using the constant editor. You need to per
 	At least we need a page for the blogsystem and a page for the Subscription Manager. We recommend to create an sysfolder for your blogposts to.
 
 	.. figure:: ../Images/QuickInstallation/quickinstallation_folderstructur.png
-		:width: 219px
+		:width: 293px
 		:alt: typical page structure
 
 		recommended page structure for quick installation
@@ -56,15 +55,16 @@ T3Extblog can be installed quickly by using the constant editor. You need to per
 
 #. Make Settings in the Constant Editor:
 	.. figure:: ../Images/QuickInstallation/constant_editor.png
-		:width: 627px
+		:width: 601px
 		:alt: constant editor
 
 		Settings Constant Editor
 
-You need to do the following settings:
 
-- Admin notification mails: Mailadress where notification mails were send to
-- Blogsystem Pid: PageId where the "blogsystem" is
-- Default storage PID: PageId of your blog-sysfolder (where your blogposts are stored)
-- Subscription Manager Pid: PageId of your Subscription Manager
+See :ref:`Configuration <configuration>` for all possible settings.
+
+.. important::
+
+	Except Twitter name and image sizes, all of these settings are mandatory!
+
 

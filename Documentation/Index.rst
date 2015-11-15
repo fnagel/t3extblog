@@ -56,9 +56,9 @@ T3Blog Extbase
 	:glob:
 
 	Introduction/Index
+	Installation/Quick
+	Installation/Full
 	UsersManual/Index
-	QuickInstallation/Index
-        Installation/Index
 	AdministratorManual/Index
 	Configuration/Index
 	FAQ/Index
