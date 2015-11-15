@@ -40,6 +40,20 @@ Translations could be added here:
 http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
 
 
+Documentation
+-------------
+
+Anyone is very welcome to help improving our documentation!
+Just send a pull request or add an issue at GitHub.
+
+To view your changes before submitting them you will need to install following extensions:
+
+* EXT:sphinx
+* EXT:restdoc
+
+See this link for more information: https://docs.typo3.org/typo3cms/extensions/sphinx/WritersManual/SphinxRest/Index.html
+
+
 TER deployment
 --------------
 
