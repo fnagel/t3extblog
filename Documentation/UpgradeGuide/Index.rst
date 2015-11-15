@@ -53,16 +53,26 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 - Cleaner code base and CGL improvements
 
 
-.. important::
-	Make sure to follow "How to upgrade" steps after updating!
+**Templating**
+
+Quite a few templates and partials have been changed to match Twitter Bootstrap 3.
+Please make sure to adapt these changes in your templates.
+
+
+**Responsive image rendering**
+
+T3extblog is now able to make use of TYPO3's RWD image rendering.
+See :ref:`Responsive image configuration <configuration-rwd-images>`
 
 
 How to upgrade
 """"""""""""""
 
-#. "Clear all cache" in Install Tool (Important actions)
+#. "Clear all cache" in Install Tool (including Opcode caches!)
 
-#. Adjust your all your templates
+#. Reload the TYPO3 backend
+
+#. Adjust and update all templates!
 
 
 
