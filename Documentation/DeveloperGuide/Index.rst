@@ -54,6 +54,18 @@ To view your changes before submitting them you will need to install following e
 See this link for more information: https://docs.typo3.org/typo3cms/extensions/sphinx/WritersManual/SphinxRest/Index.html
 
 
+Testing
+-------
+
+**What needs to be tested:**
+
+* Creating log posts (with and without preview image and text)
+* Posting comments and subscribe for new comments
+* Using the subscription manager (confirm and delete)
+* Email sending: admin, subscriber opt-in and notification
+* Email sending triggered by: Frontend & Backend (confirm and un-spam a comment)
+
+
 TER deployment
 --------------
 
