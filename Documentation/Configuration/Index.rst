@@ -94,6 +94,22 @@ When using EXT:realurl or similar extension you will need to add additional stat
 	When not using the realurl-autoconfig-feature, you need to add the configuration by yourself!
 
 
+Responsive image rendering
+--------------------------
+.. _configuration-rwd-images:
+
+T3extblog is able to make use of TYPO3's RWD image rendering (sourceCollection feature).
+
+This works by using a cObject ViewHelper within the templates which processes a TypoScript Lib:
+:code:`lib.tx_t3extblog.responsiveImage` (defined in :code:`/Configuration/TypoScript/RealUrl/setup.txt`)
+
+This feature is configured via TypoScript as described here:
+https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Image/Index.html
+
+By default, T3extblog makes uses of the tt_content image rendering configuration. It's possible to adjust the
+rendering for t3extblog by modifying this TypoScript lib or by using a custom (i.e. Fluid) rendering.
+
+
 Overwrite templates
 -------------------
 .. _configuration-overwrite-templates:
