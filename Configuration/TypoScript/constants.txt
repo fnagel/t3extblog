@@ -1,41 +1,44 @@
 plugin.tx_t3extblog {
 	view {
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template root (FE)
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template root
 		templateRootPath = EXT:t3extblog/Resources/Private/Templates/
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template partials (FE)
+
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template partials
 		partialRootPath = EXT:t3extblog/Resources/Private/Partials/
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template layouts (FE)
+
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template layouts
 		layoutRootPath = EXT:t3extblog/Resources/Private/Layouts/
 	}
+
 	persistence {
-		# cat=plugin.tx_t3extblog/persistence/1; type=string; label=Default storage PID
+		# cat=plugin.tx_t3extblog/persistence/1; type=string; label=Default storage PID: Page or Sysfolder containing your blog records
 		storagePid =
 	}
 
 	settings {
-		# cat=plugin.tx_t3extblog/settings/1; type=string; label=Blogname
+		# cat=plugin.tx_t3extblog/settings/1; type=string; label=Blogname: Used within email and RSS templates
 		blogName = Testblog
 
-		# cat=plugin.tx_t3extblog/settings/2; type=int+; label=Page Uid Blogsystem Plugin
+		# cat=plugin.tx_t3extblog/settings/2; type=int+; label=Blogsystem Plugin PID: Page containing the Blogsystem plugin
 		blogsystem.pid =
-		# cat=plugin.tx_t3extblog/settings/3; type=int+; label=Page Uid Subscription Manager Plugin
+		# cat=plugin.tx_t3extblog/settings/3; type=int+; label=Subscription Manager Plugin PID: Page containing the Subscription Manager plugin
 		subscriptionManager.pid =
 
 		## The following constants are shortcuts and DO NOT MATCH any TS setup
 
-		# cat=plugin.tx_t3extblog//1; type=string; label=Email sender address
+		# cat=plugin.tx_t3extblog//1; type=string; label=Sender address: All emails are sent from this address
 		emailFrom =
-		# cat=plugin.tx_t3extblog//2; type=string; label=Admin notification mails
+		# cat=plugin.tx_t3extblog//2; type=string; label=Admin notification: Email address for sending admin notifications
 		emailTo =
 
 		previewImage {
-			# cat=plugin.tx_t3extblog//3; type=string; label=Preview image size: width
+			# cat=plugin.tx_t3extblog//3; type=string; label=Preview image width: Width of the preview image
 			width = 960c
-			# cat=plugin.tx_t3extblog//4; type=string; label=Preview image size: height
+			# cat=plugin.tx_t3extblog//4; type=string; label=Preview image height: Height of the preview image
 			height =
 		}
 
-		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username
+		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)
 		twitterName =
 	}
 }
