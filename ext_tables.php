@@ -6,6 +6,12 @@ if (!defined('TYPO3_MODE')) {
 $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
 $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY);
 
+/***************
+ * Make the extension configuration accessible
+ */
+if (!is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY])) {
+	$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY] = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+}
 
 // Add static TS
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
@@ -38,12 +44,19 @@ $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath(
 	'T3Blog Extbase: Archive'
 );
 
-$pluginSignature = strtolower($extensionName) . '_archive';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Archive.xml'
-);
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site'])
+	&& !$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site']
+){
+	//disable sheet for multiBlogSite
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('TCEFORM.tt_content.pi_flexform.t3extblog_archive.multiBlogSite.disabled = 1');
+}else {
+	$pluginSignature = strtolower($extensionName) . '_archive';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+		$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Archive.xml'
+	);
+}
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
@@ -57,12 +70,20 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 	'T3Blog Extbase: Categories'
 );
 
-$pluginSignature = strtolower($extensionName) . '_categories';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Categories.xml'
-);
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site'])
+	&& !$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site']
+){
+	//disable sheet for multiBlogSite
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('TCEFORM.tt_content.pi_flexform.t3extblog_categories.multiBlogSite.disabled = 1');
+}else{
+	//remove from conditional include if settings in sDEF Sheet exists
+	$pluginSignature = strtolower($extensionName) . '_categories';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+		$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Categories.xml'
+	);
+}
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
@@ -76,17 +97,32 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestPosts.xml'
 );
 
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site'])
+	&& !$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site']
+){
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('TCEFORM.tt_content.pi_flexform.t3extblog_latestposts.multiBlogSite.disabled = 1');
+}
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
 	'LatestComments',
 	'T3Blog Extbase: LatestComments'
 );
-$pluginSignature = strtolower($extensionName) . '_latestcomments';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestComments.xml'
-);
+
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site'])
+	&& !$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]['multiple_blogs_one_site']
+){
+	//disable sheet for multiBlogSite
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('TCEFORM.tt_content.pi_flexform.t3extblog_latestcomments.multiBlogSite.disabled = 1');
+}else{
+	$pluginSignature = strtolower($extensionName) . '_latestcomments';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
+	//remove from conditional include if settings in sDEF Sheet exists
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+		$pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/LatestComments.xml'
+	);
+}
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_post');

@@ -1,0 +1,3 @@
+# cat=General/10; type=boolean; label=LLL:EXT:t3extblog/Resources/Private/Language/ExtConfTemplate.xlf:feature.multiple_blogs_one_site
+multiple_blogs_one_site = 0
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2015-11-16T09:11:39Z" product-name="t3extblog">
+        <header/>
+        <body>
+            <trans-unit id="feature.multiple_blogs_one_site">
+                <source>Enable multiple blogs on site</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

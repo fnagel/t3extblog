@@ -7,6 +7,8 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="tx_t3blog.blogsystem.pid">Blog Page</label>
+			<label index="tx_t3blog.subscriptionManager.pid">Subscription Manager Page</label>
+
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
 			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
@@ -91,6 +93,8 @@
 
 		<languageKey index="de" type="array">
 			<label index="tx_t3blog.blogsystem.pid">Blog Seite</label>
+			<label index="tx_t3blog.subscriptionManager.pid">Abonnentenverwaltungsseite</label>
+
 			<label index="tx_t3blog_post">Nachricht</label>
 			<label index="tx_t3blog_post.title">Titel</label>
 			<label index="tx_t3blog_post.tagClouds">Tag Cloud (Komma separierte Liste)</label>

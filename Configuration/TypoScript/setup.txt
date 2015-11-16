@@ -23,7 +23,7 @@ plugin.tx_t3extblog {
 	}
 
 	settings {
-		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid,blogsystem.pid
+		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid,blogsystem.pid,subscriptionManager.pid
 
 		# used for mails
 		blogName = {$plugin.tx_t3extblog.settings.blogName}

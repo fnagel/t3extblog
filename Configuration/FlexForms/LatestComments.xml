@@ -3,10 +3,10 @@
 		<langDisable>1</langDisable>
 	</meta>
 	<sheets>
-		<sDEF>
+		<multiBlogSite>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
+					<sheetTitle>multiBlogSite Setup</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -29,8 +29,28 @@
 							</config>
 						</TCEforms>
 					</settings.blogsystem.pid>
+					<settings.subscriptionManager.pid>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog.subscriptionManager.pid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<wizards>
+									<_PADDING type="integer">18</_PADDING>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.subscriptionManager.pid>
 				</el>
 			</ROOT>
-		</sDEF>
+		</multiBlogSite>
 	</sheets>
 </T3DataStructure>
