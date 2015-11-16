@@ -32,7 +32,6 @@ Currently implemented features:
 * Mulit language support
 * A few unit tests
 
-
 .. tip::
 
 	Visit & contribute: https://github.com/fnagel/t3extblog

@@ -5,7 +5,6 @@
 
 .. include:: Includes.txt
 
-
 .. _start:
 
 =============================================================
@@ -57,8 +56,9 @@ T3Blog Extbase
 	:glob:
 
 	Introduction/Index
+	Installation/Quick
+	Installation/Full
 	UsersManual/Index
-	Installation/Index
 	AdministratorManual/Index
 	Configuration/Index
 	FAQ/Index

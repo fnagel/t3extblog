@@ -4,6 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
+$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY);
 
 
 // Add static TS
@@ -112,13 +113,12 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Post.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/page.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-post',
+		],
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, title, author, date, content,allow_comments, cat, trackback,number_views',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
@@ -147,13 +147,12 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Category.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/category.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-category',
+		],
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'catname,description',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'sys_language_uid, l18n_parent, l18n_diffsource, hidden, starttime, endtime, fe_group, parent_id, catname, description',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');
@@ -176,13 +175,12 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'fe_group' => 'fe_group',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/Comment.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/comment.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-comment',
+		],
 		'dividers2tabs' => TRUE,
 		'searchFields' => 'title,author,email,website,text',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, starttime, endtime, fe_group, title, author, email, website, date, text, approved, spam, fk_post, mails_sent',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com_nl');
@@ -201,12 +199,11 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
 			'Configuration/Tca/Subscriber.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-subscriber',
+		],
 		'searchFields' => 'email,name',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, email, name, lastsent, post_uid, code',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_pingback');
@@ -226,12 +223,11 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
 			'Configuration/Tca/Pingback.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-trackback',
+		],
 		'searchFields' => 'title,url,text,',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, starttime, endtime, title, url, date, text',
-	)
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_trackback');
@@ -249,48 +245,85 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
 			'Configuration/Tca/Trackback.php',
-		'iconfile' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-trackback',
+		],
 		'searchFields' => 'title,fromurl,text,blogname',
 	),
-	'feInterface' => array(
-		'fe_admin_fieldList' => 'hidden, fromurl, text, title, postid, id',
-	)
 );
 
-// Use old icon path for TYPO3 6.2
-// @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.0', '<')) {
-	$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY);
-
-	$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/page.png';
-	$GLOBALS['TCA']['tx_t3blog_cat']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/category.png';
-	$GLOBALS['TCA']['tx_t3blog_com']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/comment.png';
-	$GLOBALS['TCA']['tx_t3blog_com_nl']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/subscriber.png';
-	$GLOBALS['TCA']['tx_t3blog_pingback']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/trackback.png';
-	$GLOBALS['TCA']['tx_t3blog_trackback']['ctrl']['iconfile'] = $extensionPath . 'Resources/Public/Icons/trackback.png';
-}
-
-
-unset($GLOBALS['ICON_TYPES']['t3blog']);
-\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
-	'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
-);
 
 if (TYPO3_MODE === 'BE') {
-	// Add BE page icon
-	$addNewsToModuleSelection = TRUE;
-	foreach ($GLOBALS['TCA']['pages']['columns']['module']['config']['items'] as $item) {
-		if ($item[1] === 't3blog') {
-			$addNewsToModuleSelection = FALSE;
-			continue;
-		}
-	}
-	if ($addNewsToModuleSelection) {
-		$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = array(
-			0 => 'T3extblog',
-			1 => 't3blog',
-			2 => '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
+	$pageModuleConfig = array(
+		0 => 'T3extblog',
+		1 => 't3blog',
+		2 => 'tcarecords-pages-contains-t3blog'
+	);
+
+	// @todo Remove if statement when 6.2 is no longer relevant
+	if (version_compare(TYPO3_branch, '7.6', '>=')) {
+		// Add icons to registry
+		/* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
+		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-post',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/page.png']
 		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-category',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/category.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-comment',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/comment.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-subscriber',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-trackback',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png']
+		);
+
+		// Add BE page icon
+		$iconRegistry->registerIcon(
+			'tcarecords-pages-contains-t3blog',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
+		);
+		$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
+		$GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-t3blog'] = 'tcarecords-pages-contains-t3blog';
+
+	} else {
+		\TYPO3\CMS\Backend\Sprite\SpriteManager::addSingleIcons(array(
+			'post' => $extensionPath . 'Resources/Public/Icons/page.png',
+			'category' => $extensionPath . 'Resources/Public/Icons/category.png',
+			'comment' => $extensionPath . 'Resources/Public/Icons/comment.png',
+			'subscriber' => $extensionPath . 'Resources/Public/Icons/subscriber.png',
+			'trackback' => $extensionPath . 'Resources/Public/Icons/trackback.png',
+		), 't3extblog');
+
+		// Add BE page icon
+		unset($GLOBALS['ICON_TYPES']['t3blog']);
+		\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
+			'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
+		);
+		$addNewsToModuleSelection = TRUE;
+		foreach ($GLOBALS['TCA']['pages']['columns']['module']['config']['items'] as $item) {
+			if ($item[1] === 't3blog') {
+				$addNewsToModuleSelection = FALSE;
+				continue;
+			}
+		}
+		if ($addNewsToModuleSelection) {
+			$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
+		}
 	}
 
 	// @todo Remove this when 6.2 is no longer relevant

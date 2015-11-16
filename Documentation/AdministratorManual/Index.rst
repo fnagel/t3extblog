@@ -5,7 +5,6 @@
 
 .. include:: ../Includes.txt
 
-
 .. _admin-manual:
 
 Administrator Manual
@@ -37,8 +36,8 @@ The output is managed via content modules. This means easy and flexible usage.
 Choose one or more of the plugins listed to build your blog. These can be distributed to different columns.
 
 
-.. figure:: ../Images/AdministratorManual/modules.png
-	:width: 539px
+.. figure:: ../Images/Installation/plugin_blogsystem.jpg
+	:width: 627px
 	:alt: modules
 
 	Modules
@@ -62,7 +61,7 @@ Simple list of your blogposts, categorised by month, sorted by date.
 Blogsystem
 ^^^^^^^^^^
 
-Main part of the extension. Lists all your blogposts and shows some additional information like date of publishing,
+Main part of the extension (we´ve added this while installing this extension already). Lists all your blogposts and shows some additional information like date of publishing,
 name of author, categories, number of comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
@@ -71,16 +70,18 @@ name of author, categories, number of comments.
 
 	Blogsystem
 
+
 Categories
 ^^^^^^^^^^
 
-lists the blogcategories
+List all blog categories including sub categories.
 
 .. figure:: ../Images/AdministratorManual/blogcats.png
 	:width: 145px
 	:alt: categories
 
 	Categories
+
 
 Latest Comments
 ^^^^^^^^^^^^^^^
@@ -99,6 +100,7 @@ List of the latest blog posts. Configurable via :code:`paginate` settings.
 
 	Lastest posts
 
+
 RSS Feed
 ^^^^^^^^
 
@@ -113,10 +115,9 @@ Subscription Manager
 	Use a separate page for this plugin!
 
 
-This plugin manages blog post subscriptions. All email links will point to this page.
+This plugin manages blog post subscriptions. All email links will point to this page. We´ve already did some basic settings for this module in the installation process. But you should so some more configurations.
 
 Configure the Subscription manager via TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
-
 
 
 RSS Feed
@@ -126,8 +127,8 @@ The RSS-Module need some special treatment, but no need to worry.
 
 Just create a single page for the RSS-output, then
 
-1. Choose the rss-modul and insert it to that page (see above how to do this)
-2. Create an extension template and include „T3Extblog: Rss setup (t3extblog)
+1. Choose the RSS plugin and insert it to that page (see above how to do this)
+2. Create an extension template and include `T3Extblog: Rss setup (t3extblog)`
 
 .. figure:: ../Images/AdministratorManual/rssincludestatic.png
 	:width: 689px
@@ -147,13 +148,12 @@ When you open the page, the output should look like this:
 Have a look at :code:`/Configuration/TypoScript/RSS/setup.txt`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
 
-When you want to use RealURL add the static template "T3Extblog: additional RealUrl config (t3extblog)" too.
+When you want to use RealURL add the static template `T3Extblog: additional RealUrl config (t3extblog)` too.
 When overriding the TS-values, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
 
 .. important::
 	Please note: Default RSS template depends on using RealUrl.
 	You will need to escape links when using plain TYPO3 links.
-
 
 
 Preview blog posts

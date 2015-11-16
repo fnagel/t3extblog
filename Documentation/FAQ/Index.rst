@@ -5,7 +5,6 @@
 
 .. include:: ../Includes.txt
 
-
 .. _faq:
 
 FAQ
@@ -28,7 +27,7 @@ Check if :code:`plugin.tx_t3extblog.settings.blogsystem.pid` is set right (see :
 RSS Output instead of page
 --------------------------
 
-Remove static template "T3Extblog: Rss setup (t3extblog)". It should only be included on a seperate rss-page.
+Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a seperate rss-page.
 
 
 Does it work together with "indexed search engine"?
@@ -41,14 +40,15 @@ Your sould restrict indexing to the main content (blogposts) and exclude latest 
 Can I override the basic templates?
 -----------------------------------
 
-Of course! Copy the template files (:code:`t3extblog\Resources\PrivateSet\Layouts` +Partials +Templates)
-in your fileadmin and set the path via TS or constant editor.
+Copy the template files (:code:`t3extblog\Resources\PrivateSet\Layouts` +Partials +Templates)
+in your fileadmin or custom extension and set the path via TS or constant editor.
 
+See :ref:`Configuration <configuration-overwrite-templates>` for code snippets!
 
 Does it work with dd_googlesitemap?
 -----------------------------------
 
-Yes! User this syntax: :code:`?eID=dd_googlesitemap&sitemap=t3extblog&pidList=123` (where 123 is your storage folder page id).
+Yes! Use this syntax: :code:`?eID=dd_googlesitemap&sitemap=t3extblog&pidList=123` (where 123 is your storage folder page id).
 Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=100`.
 
 .. tip::
@@ -56,7 +56,7 @@ Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=1
 	Since google supports RSS-Feeds, we recommend to use this solution!
 
 
-Filtering tags doesn´t work?
+Filtering tags doesn't work?
 ----------------------------
 
 To avoid filling the cache with not existing pages, the filter only works with tags => 3 letters.
@@ -67,7 +67,7 @@ Translation / Localization
 
 Localization works like for any other TYPO3 extension:
 
-.. code-block:: ts
+.. code-block:: typoscript
 
 	plugin.tx_t3extblog._LOCAL_LANG {
 		en {

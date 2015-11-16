@@ -27,6 +27,9 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\IconUtility;
 use TYPO3\CMS\Extbase\Domain\Model\BackendUser;
@@ -72,7 +75,16 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper {
 			$row['endTime'] = $object->getEndDateAndTime();
 		}
 
-		return IconUtility::getSpriteIconForRecord($table, $row);
+		// @todo Remove this when 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '7.0', '<')) {
+			$icon = IconUtility::getSpriteIconForRecord($table, $row);
+		} else {
+			/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+			$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+			$icon = $iconFactory->getIconForRecord($table, $row, Icon::SIZE_SMALL)->render();
+		}
+
+		return $icon;
 	}
 
 }

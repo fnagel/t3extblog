@@ -35,6 +35,7 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.post_uid',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3blog_post',
 				'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
 				'minitems' => 1,

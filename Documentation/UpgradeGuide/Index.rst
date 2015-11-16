@@ -30,7 +30,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - A bunch of bugfixes
 
-- TYPO3 CMS 7.x support (tested up to TYPO3 7.5)
+- TYPO3 CMS 7.x support (tested up to TYPO3 7.6)
 
 - Removed support for TYPO3 < 6.2
 
@@ -42,7 +42,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - New settings validation check in frontend and backend help to ensure proper configuration
 
-- Added FormError ViewHelper for easy Bootstrap form errors
+- Added FormError ViewHelper for easy Twitter Bootstrap form errors
 
 - Introduce constants for easier setup
 
@@ -50,19 +50,29 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - Improved documentation
 
-- Cleaner code base
+- Cleaner code base and CGL improvements
 
 
-.. important::
-	Make sure to follow "How to upgrade" steps after updating!
+**Templating**
+
+Quite a few templates and partials have been changed to match Twitter Bootstrap 3.
+Please make sure to adapt these changes in your templates.
+
+
+**Responsive image rendering**
+
+T3extblog is now able to make use of TYPO3's RWD image rendering.
+See :ref:`Responsive image configuration <configuration-rwd-images>`
 
 
 How to upgrade
 """"""""""""""
 
-#. "Clear all cache" in Install Tool (Important actions)
+#. "Clear all cache" in Install Tool (including Opcode caches!)
 
-#. Adjust your templates to new Bootstrap 3 Theme
+#. Reload the TYPO3 backend
+
+#. Adjust and update all templates!
 
 
 

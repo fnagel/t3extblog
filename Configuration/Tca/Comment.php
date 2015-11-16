@@ -8,7 +8,6 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post'
 	),
-	'feInterface' => $GLOBALS['TCA']['tx_t3blog_com']['feInterface'],
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,
@@ -51,6 +50,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'items' => array(
 					array('', 0),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
@@ -58,7 +58,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
 				),
 				'foreign_table' => 'fe_groups',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 			)
 		),
 		'title' => array(
@@ -148,9 +148,10 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.fk_post',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3blog_post',
 				'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => FALSE,
 				'minitems' => 1,
 				'maxitems' => 1,
 				'size' => 1,
@@ -172,7 +173,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 	'types' => array(
 		'0' => array('showitem' => '
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.general,
-				fk_post, title, author, email, website, date, text;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
+				fk_post, title, author, email, website, date, text,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.access,
 				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.approval;1,
 				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.access;2')

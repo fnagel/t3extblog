@@ -27,7 +27,8 @@ Please confirm your subscription by using this link:
 	action="confirm"
 	pageUid="{settings.subscriptionManager.pid}"
 	absolute="true"
-	arguments="{code: subscriber.code}" />
+	arguments="{code: subscriber.code}"
+	additionalParams="{L: post.sysLanguageUid}" />
 
 This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
 
