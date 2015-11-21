@@ -293,7 +293,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 			'config' => array(
 				'type' => 'text',
 				'cols' => '45',
-				'rows' => '2',
+				'rows' => '10',
 			),
 			'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
 		),
