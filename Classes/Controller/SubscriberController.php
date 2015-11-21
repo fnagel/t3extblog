@@ -29,7 +29,7 @@ namespace TYPO3\T3extblog\Controller;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
-use TYPO3\T3extblog\Domain\Model\Subscriber;
+use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * SubscriberController
@@ -47,7 +47,7 @@ class SubscriberController extends AbstractController {
 	/**
 	 * subscriber
 	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\Subscriber
+	 * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
 	 */
 	protected $subscriber = NULL;
 
@@ -109,12 +109,12 @@ class SubscriberController extends AbstractController {
 	/**
 	 * action delete
 	 *
-	 * @param Subscriber $subscriber
+	 * @param PostSubscriber $subscriber
 	 *
 	 * @throws InvalidArgumentValueException
 	 * @return void
 	 */
-	public function deleteAction(Subscriber $subscriber = NULL) {
+	public function deleteAction(PostSubscriber $subscriber = NULL) {
 		$this->checkAuth();
 
 		if ($subscriber === NULL) {
@@ -197,7 +197,7 @@ class SubscriberController extends AbstractController {
 	protected function authenticate($isConfirmRequest = FALSE) {
 		$code = $this->getAuthCode();
 
-		/* @var $subscriber Subscriber */
+		/* @var $subscriber PostSubscriber */
 		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
 		if ($subscriber === NULL) {

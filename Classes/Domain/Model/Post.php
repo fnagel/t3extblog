@@ -719,22 +719,22 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Adds a Subscriber
 	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscription
+	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscription
 	 *
 	 * @return void
 	 */
-	public function addSubscription(Subscriber $subscription) {
+	public function addSubscription(PostSubscriber $subscription) {
 		$this->subscriptions->attach($subscription);
 	}
 
 	/**
 	 * Removes a Subscriber
 	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscriptionToRemove The Subscriber to be removed
+	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriptionToRemove The Subscriber to be removed
 	 *
 	 * @return void
 	 */
-	public function removeSubscription(Subscriber $subscriptionToRemove) {
+	public function removeSubscription(PostSubscriber $subscriptionToRemove) {
 		$this->subscriptions->detach($subscriptionToRemove);
 	}
 

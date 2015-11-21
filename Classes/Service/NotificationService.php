@@ -29,7 +29,7 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Subscriber;
+use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -108,7 +108,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 		}
 
 		if ($comment->isValid()) {
-			if ($subscriber instanceof Subscriber) {
+			if ($subscriber instanceof PostSubscriber) {
 				$this->sendOptInMail($subscriber, $comment);
 			}
 
@@ -131,7 +131,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	public function processCommentStatusChanged(Comment $comment) {
 		if ($comment->isValid()) {
 			$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
-			if ($subscriber instanceof Subscriber) {
+			if ($subscriber instanceof PostSubscriber) {
 				$this->sendOptInMail($subscriber, $comment);
 			}
 
@@ -169,12 +169,12 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	/**
 	 * Send optin mail for subscirber
 	 *
-	 * @param Subscriber $subscriber
+	 * @param PostSubscriber $subscriber
 	 * @param Comment $comment Comment
 	 *
 	 * @return void
 	 */
-	protected function sendOptInMail(Subscriber $subscriber, Comment $comment) {
+	protected function sendOptInMail(PostSubscriber $subscriber, Comment $comment) {
 		$this->log->dev('Send subscriber opt-in mail.');
 
 		$post = $subscriber->getPost();
@@ -205,10 +205,10 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	 *
 	 * @param Comment $comment
 	 *
-	 * @return Subscriber
+	 * @return PostSubscriber
 	 */
 	protected function addSubscriber(Comment $comment) {
-		/* @var $newSubscriber Subscriber */
+		/* @var $newSubscriber PostSubscriber */
 		$newSubscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Subscriber', $comment->getPostId());
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
@@ -246,7 +246,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 		$subscribers = $this->subscriberRepository->findForNotification($post);
 		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
 
-		/* @var $subscriber Subscriber */
+		/* @var $subscriber PostSubscriber */
 		foreach ($subscribers as $subscriber) {
 			// make sure we do not notify the author of the triggering comment
 			if ($comment->getEmail() === $subscriber->getEmail()) {

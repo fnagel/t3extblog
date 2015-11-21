@@ -30,9 +30,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Subscriber
+ * PostSubscriber
  */
-class Subscriber extends AbstractEntity {
+class PostSubscriber extends AbstractEntity {
 
 	/**
 	 * @var boolean
