@@ -183,11 +183,33 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
-			'Configuration/Tca/Subscriber.php',
+			'Configuration/Tca/PostSubscriber.php',
 		'typeicon_classes' => [
 			'default' => 'extensions-t3extblog-subscriber',
 		],
 		'searchFields' => 'email,name',
+	),
+);
+
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_blog_nl');
+$GLOBALS['TCA']['tx_t3blog_blog_nl'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_blog_nl',
+		'label' => 'email',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'default_sortby' => 'ORDER BY crdate DESC',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+		),
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+			'Configuration/Tca/BlogSubscriber.php',
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-subscriber',
+		],
+		'searchFields' => 'email',
 	),
 );
 

@@ -46,7 +46,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	/**
 	 * subscriberRepository
 	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\SubscriberRepository
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
 	 * @inject
 	 */
 	protected $subscriberRepository;

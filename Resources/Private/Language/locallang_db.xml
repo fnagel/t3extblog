@@ -74,13 +74,19 @@
             <label index="tx_t3blog_cat.tabs.general">General</label>
             <label index="tx_t3blog_com.tabs.general">General</label>
 
-			<label index="tx_t3blog_com_nl">Subscriber</label>
+			<label index="tx_t3blog_com_nl">Comment-Subscriber</label>
 			<label index="tx_t3blog_com_nl.name">User name:</label>
 			<label index="tx_t3blog_com_nl.email">E-mail:</label>
 			<label index="tx_t3blog_com_nl.post_uid">Subscribed to:</label>
 			<label index="tx_t3blog_com_nl.lastsent">Last sent:</label>
 			<label index="tx_t3blog_com_nl.code">Unsubscribe code:</label>
 			<label index="tx_t3blog_com_nl.tabs.meta">Metadata</label>
+
+			<label index="tx_t3blog_blog_nl">Blog-Subscriber</label>
+			<label index="tx_t3blog_blog_nl.email">E-mail:</label>
+			<label index="tx_t3blog_blog_nl.lastsent">Last sent:</label>
+			<label index="tx_t3blog_blog_nl.code">Unsubscribe code:</label>
+			<label index="tx_t3blog_blog_nl.tabs.meta">Metadata</label>
 
             <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
 		</languageKey>
@@ -153,13 +159,19 @@
             <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
             <label index="tx_t3blog_com.tabs.general">Allgemein</label>
 
-            <label index="tx_t3blog_com_nl">Abonnent</label>
+            <label index="tx_t3blog_com_nl">Kommentar-Abonnent</label>
             <label index="tx_t3blog_com_nl.name">Name:</label>
             <label index="tx_t3blog_com_nl.email">E-Mail:</label>
             <label index="tx_t3blog_com_nl.post_uid">Abbonierter Artikel:</label>
             <label index="tx_t3blog_com_nl.lastsent">Zuletzt gesendet:</label>
-            <label index="tx_t3blog_com_nl.code">Kündigungs-Code:</label>
+            <label index="tx_t3blog_com_nl.code">Auth-Code:</label>
 			<label index="tx_t3blog_com_nl.tabs.meta">Meta-Daten</label>
+
+            <label index="tx_t3blog_blog_nl">Blog-Abonnent</label>
+            <label index="tx_t3blog_blog_nl.email">E-Mail:</label>
+            <label index="tx_t3blog_blog_nl.lastsent">Zuletzt gesendet:</label>
+            <label index="tx_t3blog_blog_nl.code">Auth-Code:</label>
+			<label index="tx_t3blog_blog_nl.tabs.meta">Meta-Daten</label>
 
 			<label index="tt_content.list_type_pi2">Blog Widget Auswahl</label>
 		</languageKey>

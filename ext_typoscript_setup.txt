@@ -90,7 +90,7 @@ config.tx_extbase {
 			        tableName = be_users
 		        }
 	        }
-	        TYPO3\T3extblog\Domain\Model\Subscriber {
+	        TYPO3\T3extblog\Domain\Model\PostSubscriber {
                 mapping {
                     tableName = tx_t3blog_com_nl
 					columns {
@@ -100,6 +100,19 @@ config.tx_extbase {
 						name.mapOnProperty = name
 						email.mapOnProperty = email
 						post_uid.mapOnProperty = postUid
+						lastsent.mapOnProperty = lastSent
+						code.mapOnProperty = code
+					}
+                }
+            }
+	        TYPO3\T3extblog\Domain\Model\BlogSubscriber {
+                mapping {
+                    tableName = tx_t3blog_blog_nl
+					columns {
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						email.mapOnProperty = email
 						lastsent.mapOnProperty = lastSent
 						code.mapOnProperty = code
 					}

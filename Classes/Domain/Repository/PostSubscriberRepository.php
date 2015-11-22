@@ -30,9 +30,9 @@ use TYPO3\T3extblog\Domain\Model\Comment;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * SubscriberRepository
+ * PostSubscriberRepository
  */
-class SubscriberRepository extends AbstractRepository {
+class PostSubscriberRepository extends AbstractSubscriberRepository {
 
 	/**
 	 * @param Post $post The post the comment is related to
@@ -60,14 +60,9 @@ class SubscriberRepository extends AbstractRepository {
 	 */
 	public function findExistingSubscriptions($postUid, $email, $excludeUid = NULL) {
 		$query = $this->createQuery();
-		$constraints = array();
 
+		$constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
 		$constraints[] = $query->equals('postUid', $postUid);
-		$constraints[] = $query->equals('email', $email);
-
-		if ($excludeUid !== NULL) {
-			$constraints[] = $query->logicalNot($query->equals('uid', intval($excludeUid)));
-		}
 
 		$query->matching(
 			$query->logicalAnd($constraints)
@@ -77,7 +72,7 @@ class SubscriberRepository extends AbstractRepository {
 	}
 
 	/**
-	 * Finds subscriber without opt-in mail sent before
+	 * Finds a single subscriber without opt-in mail sent before
 	 *
 	 * @param Comment $comment
 	 *
@@ -87,38 +82,14 @@ class SubscriberRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 
+		$constraints = $this->getBasicForSubscriptionMailConstraints($query, $comment->getEmail());
+		$constraints[] = $query->equals('postUid', $comment->getPostId());
+
 		$query->matching(
-			$query->logicalAnd(
-				$query->equals('postUid', $comment->getPostId()),
-				$query->equals('email', $comment->getEmail()),
-				$query->equals('lastSent', 0),
-				$query->equals('hidden', 1),
-				$query->equals('deleted', 0)
-			)
+			$query->logicalAnd($constraints)
 		);
 
 		return $query->execute()->getFirst();
 	}
 
-	/**
-	 * Find by code
-	 *
-	 * @param string $code
-	 * @param boolean $enableFields
-	 *
-	 * @return Comment
-	 */
-	public function findByCode($code, $enableFields = TRUE) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
-
-		$query->matching(
-			$query->logicalAnd(
-				$query->equals('code', $code),
-				$query->equals('deleted', 0)
-			)
-		);
-
-		return $query->execute()->getFirst();
-	}
 }

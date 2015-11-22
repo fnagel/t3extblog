@@ -26,31 +26,12 @@ namespace TYPO3\T3extblog\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * PostSubscriber
  */
-class PostSubscriber extends AbstractEntity {
-
-	/**
-	 * @var boolean
-	 */
-	protected $hidden = TRUE;
-
-	/**
-	 * @var boolean
-	 */
-	protected $deleted;
-
-	/**
-	 * email
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $email;
+class PostSubscriber extends AbstractSubscriber {
 
 	/**
 	 * name
@@ -93,23 +74,6 @@ class PostSubscriber extends AbstractEntity {
 	protected $postPendingComments = NULL;
 
 	/**
-	 * lastSent
-	 *
-	 * @var \DateTime
-	 * @validate NotEmpty
-	 */
-	protected $lastSent = NULL;
-
-	/**
-	 * code
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $code;
-
-
-	/**
 	 * __construct
 	 *
 	 * @param int $postUid
@@ -118,26 +82,6 @@ class PostSubscriber extends AbstractEntity {
 		$this->postUid = $postUid;
 	}
 
-
-	/**
-	 * Returns the email
-	 *
-	 * @return string $email
-	 */
-	public function getEmail() {
-		return $this->email;
-	}
-
-	/**
-	 * Sets the email
-	 *
-	 * @param string $email
-	 *
-	 * @return void
-	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
 
 	/**
 	 * Returns the name
@@ -228,92 +172,4 @@ class PostSubscriber extends AbstractEntity {
 		$this->postUid = $postUid;
 	}
 
-	/**
-	 * Returns the lastSent
-	 *
-	 * @return \DateTime $lastSent
-	 */
-	public function getLastSent() {
-		return $this->lastSent;
-	}
-
-	/**
-	 * Sets the lastSent
-	 *
-	 * @param \DateTime $lastSent
-	 *
-	 * @return void
-	 */
-	public function setLastSent($lastSent) {
-		$this->lastSent = $lastSent;
-	}
-
-	/**
-	 * Returns the code
-	 *
-	 * @return string $code
-	 */
-	public function getCode() {
-		return $this->code;
-	}
-
-	/**
-	 * Sets the code
-	 *
-	 * @param string $code
-	 *
-	 * @return void
-	 */
-	public function setCode($code) {
-		$this->code = $code;
-	}
-
-	/**
-	 * Creates a code
-	 *
-	 * @return void
-	 */
-	private function createCode() {
-		$now = new \DateTime();
-		$input = $this->email . $this->postUid . $now->getTimestamp() . uniqid();
-
-		$this->code = substr(GeneralUtility::hmac($input), 0, 32);
-	}
-
-	/**
-	 * Update subscriber
-	 *
-	 * @return void
-	 */
-	public function updateAuth() {
-		$this->setLastSent(new \DateTime());
-		$this->createCode();
-	}
-
-	/**
-	 * Returns prepared mailto array
-	 *
-	 * @return array
-	 */
-	public function getMailTo() {
-		return array($this->getEmail() => $this->getName());
-	}
-
-	/**
-	 * Checks if the authCode is still valid
-	 *
-	 * @param string $expireDate
-	 *
-	 * @return boolean
-	 */
-	public function isAuthCodeExpired($expireDate) {
-		$now = new \DateTime();
-		$expire = clone $this->getLastSent();
-
-		if ($now > $expire->modify($expireDate)) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
 }
