@@ -26,7 +26,6 @@ namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Subscriber;
 
 /**
@@ -44,7 +43,10 @@ class SubscriberTest extends BaseTest {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->fixture = new Post();
+		$this->fixture = new Subscriber(123);
+
+		$this->fixture->setName('John Doe');
+		$this->fixture->setEmail('test@domain.com');
 	}
 
 	/**
@@ -55,7 +57,7 @@ class SubscriberTest extends BaseTest {
 	public function testCanGetPostUid() {
 		$this->assertEquals(
 			123,
-			$this->fixture->getUid()
+			$this->fixture->getPostUid()
 		);
 	}
 
