@@ -26,9 +26,6 @@ namespace TYPO3\T3extblog\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Post;
-
 /**
  * BlogSubscriberRepository
  */

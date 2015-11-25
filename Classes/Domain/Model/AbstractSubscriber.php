@@ -48,6 +48,7 @@ abstract class AbstractSubscriber extends AbstractEntity {
 	 *
 	 * @var string
 	 * @validate NotEmpty
+	 * @validate EmailAddress
 	 */
 	protected $email;
 
@@ -55,7 +56,6 @@ abstract class AbstractSubscriber extends AbstractEntity {
 	 * lastSent
 	 *
 	 * @var \DateTime
-	 * @validate NotEmpty
 	 */
 	protected $lastSent = NULL;
 
@@ -63,7 +63,6 @@ abstract class AbstractSubscriber extends AbstractEntity {
 	 * code
 	 *
 	 * @var string
-	 * @validate NotEmpty
 	 */
 	protected $code;
 

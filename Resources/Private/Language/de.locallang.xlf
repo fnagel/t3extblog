@@ -85,9 +85,23 @@
 				<target>Löschen</target>
 			</trans-unit>
 
-			<trans-unit id="error.comment.createAction">
-				<target>Fehler:</target>
+			<trans-unit id="subscriber.email">
+				<target>E-Mail Adresse</target>
 			</trans-unit>
+			<trans-unit id="subscriber.form.new">
+				<target>Benachrichtigung bei neuen Blog-Artikeln</target>
+			</trans-unit>
+			<trans-unit id="subscriber.form.submit">
+				<target>Absenden</target>
+			</trans-unit>
+
+			<trans-unit id="error.blogSubscriber.email.1221560718">
+				<target>Bitte geben Sie eine Email-Adresse ein.</target>
+			</trans-unit>
+			<trans-unit id="error.blogSubscriber.email.1221559976">
+				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
+			</trans-unit>
+
 			<trans-unit id="error.newComment.title.1221565786">
 				<target>Die Überschrift darf nur Text enthalten.</target>
 			</trans-unit>

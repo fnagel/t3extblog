@@ -38,6 +38,12 @@ $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath(
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,
+	'BlogSubscription',
+	'T3Blog Extbase: Blog Subscription Form'
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'TYPO3.' . $_EXTKEY,
 	'Archive',
 	'T3Blog Extbase: Archive'
 );

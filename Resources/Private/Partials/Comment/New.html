@@ -21,7 +21,7 @@
 		object="{newComment}"
 		arguments="{post.linkParameter}">
 
-		<f:render partial="FormErrors" arguments="{object:Comment, post: post}" />
+		<f:render partial="FormErrors" arguments="{object: Comment, anchorLink: '{f:uri.action(action: \'create\', controller: \'Comment\', arguments: post.linkParameter)}'}" />
 
 		<fieldset>
 			<legend><f:translate key="comment.new" /></legend>

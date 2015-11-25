@@ -1,0 +1,44 @@
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<t3b:flashMessages />
+
+	<f:form
+		controller="BlogSubscriberForm"
+		action="create"
+		section="subscriber-form"
+		id="subscriber-form"
+		class="form-horizontal"
+		name="subscriber"
+		object="{subscriber}">
+
+		<f:render partial="FormErrors" arguments="{object: Subscriber, anchorLink: '{f:uri.action(action: \'create\', controller: \'BlogSubscriberForm\')}'}" />
+
+		<fieldset>
+			<legend><f:translate key="subscriber.form.new" /></legend>
+
+			<div class="form-group {t3b:formError(for: 'subscriber.email')}">
+				<label class="col-sm-3 control-label" for="subscriber.email">
+					<f:translate key="subscriber.email" />
+				</label>
+				<div class="col-sm-9">
+					<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="subscriber.email" property="email" />
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<f:form.submit class="btn btn-primary"
+						value="{f:translate(key: 'subscriber.form.submit')}" />
+				</div>
+			</div>
+		</fieldset>
+	</f:form>
+
+</f:section>
+
+</div>

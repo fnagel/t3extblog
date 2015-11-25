@@ -85,8 +85,14 @@
 				<source>Delete</source>
 			</trans-unit>
 
-			<trans-unit id="error.comment.createAction">
-				<source>Error:</source>
+			<trans-unit id="subscriber.email">
+				<source>Email address</source>
+			</trans-unit>
+			<trans-unit id="subscriber.form.new">
+				<source>Subscribe for new blog posts</source>
+			</trans-unit>
+			<trans-unit id="subscriber.form.submit">
+				<source>Submit</source>
 			</trans-unit>
 
 			<trans-unit id="subject.admin.newSubscription">

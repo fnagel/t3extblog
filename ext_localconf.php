@@ -47,10 +47,24 @@ if (!defined('TYPO3_MODE')) {
 	'SubscriptionManager',
 	array(
 		'PostSubscriber' => 'list, delete, error, confirm, logout',
+		'BlogSubscriber' => 'list, create, delete, error, confirm, logout',
 	),
 	// non-cacheable actions
 	array(
 		'PostSubscriber' => 'list, delete, error, confirm, logout',
+		'BlogSubscriber' => 'list, create, delete, error, confirm, logout',
+	)
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
+	'BlogSubscription',
+	array(
+		'BlogSubscriberForm' => 'new, create, success',
+	),
+	// non-cacheable actions
+	array(
+		'BlogSubscriberForm' => 'new, create, success',
 	)
 );
 
