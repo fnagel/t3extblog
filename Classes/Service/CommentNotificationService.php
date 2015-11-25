@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,22 +26,14 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Comment;
 use TYPO3\T3extblog\Domain\Model\PostSubscriber;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * Handles all notification mails
+ * Handles all notification mails for new or changed comments
  */
-class NotificationService implements NotificationServiceInterface, SingletonInterface {
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+class CommentNotificationService extends AbstractNotificationService {
 
 	/**
 	 * subscriberRepository
@@ -52,57 +44,19 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	protected $subscriberRepository;
 
 	/**
-	 * Logging Service
-	 *
-	 * @var \TYPO3\T3extblog\Service\LoggingService
-	 * @inject
-	 */
-	protected $log;
-
-	/**
-	 * @var \TYPO3\T3extblog\Service\SettingsService
-	 * @inject
-	 */
-	protected $settingsService;
-
-	/**
-	 * @var array
-	 */
-	protected $settings;
-
-	/**
-	 * @var \TYPO3\T3extblog\Service\EmailService
-	 * @inject
-	 */
-	protected $emailService;
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\CacheService
-	 * @inject
-	 */
-	protected $cacheService;
-
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		$this->settings = $this->settingsService->getTypoScriptSettings();
-	}
-
-	/**
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
 	 * @param Comment $comment Comment
-	 * @param boolean $notifyAdmin
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded(Comment $comment, $notifyAdmin = TRUE) {
-		if ($notifyAdmin === TRUE) {
-			$this->notifyAdmin($comment);
+	public function processNewEntity($comment) {
+		if (!($comment instanceof Comment)) {
+			throw new \InvalidArgumentException('Object should be of type Comment!');
 		}
 
+		$subscriber = NULL;
 		if ($this->isNewSubscriptionValid($comment)) {
 			$subscriber = $this->addSubscriber($comment);
 		}
@@ -128,7 +82,11 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged(Comment $comment) {
+	public function processChangedStatus($comment) {
+		if (!($comment instanceof Comment)) {
+			throw new \InvalidArgumentException('Object should be of type Comment!');
+		}
+
 		if ($comment->isValid()) {
 			$subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
 			if ($subscriber instanceof PostSubscriber) {
@@ -288,7 +246,7 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	 *
 	 * @return    void
 	 */
-	protected function notifyAdmin(Comment $comment, $emailTemplate = 'AdminNewCommentMail.txt') {
+	public function notifyAdmin(Comment $comment, $emailTemplate = 'AdminNewCommentMail.txt') {
 		$settings = $this->settings['subscriptionManager']['admin'];
 
 		if (!$settings['enable']) {
@@ -320,72 +278,4 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 		);
 	}
 
-	/**
-	 * Render dateTime object for using in template
-	 *
-	 * @todo We probably want to move this back to Fluid
-	 *       Using a format:date VH stopped working with 7.4
-	 *
-	 * @return \DateTime
-	 */
-	protected function getValidUntil() {
-		$date = new \DateTime();
-		$modify = '+1 hour';
-
-		if (isset($this->settings['subscriptionManager']['subscriber']['emailHashTimeout'])) {
-			$modify = trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']);
-		}
-
-		$date->modify($modify);
-
-		return $date;
-	}
-
-	/**
-	 * Translate helper
-	 *
-	 * @param string $key Translation key
-	 * @param string $variable Argument for translation
-	 *
-	 * @return string
-	 */
-	protected function translate($key, $variable = '') {
-		return LocalizationUtility::translate(
-			$key,
-			'T3extblog',
-			array(
-				$this->settings['blogName'],
-				$variable,
-			)
-		);
-	}
-
-	/**
-	 * Helper function for flush frontend page cache
-	 *
-	 * Needed as we want to make sure new comments are visible after enabling in BE.
-	 *
-	 * @return void
-	 */
-	protected function flushFrontendCache() {
-		if (TYPO3_MODE === 'BE' && !empty($this->settings['blogsystem']['pid'])) {
-			$this->cacheService->clearPageCache((integer)$this->settings['blogsystem']['pid']);
-		}
-	}
-
-	/**
-	 * Helper function for persisting all changed data to the DB
-	 *
-	 * Needed as in non FE controller context (aka our hook) there is no
-	 * auto persisting.
-	 *
-	 * @param bool $force
-	 *
-	 * @return void
-	 */
-	protected function persistToDatabase($force = FALSE) {
-		if ($force === TRUE || TYPO3_MODE === 'BE') {
-			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-		}
-	}
 }

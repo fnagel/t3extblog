@@ -26,8 +26,6 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Comment;
-
 /**
  * Interface for Notification Service
  *
@@ -37,24 +35,21 @@ use TYPO3\T3extblog\Domain\Model\Comment;
 interface NotificationServiceInterface {
 
 	/**
-	 * Process added comment
-	 * Comment is already persisted to DB
+	 * Process added entity
 	 *
-	 * @param Comment $comment Comment uid
-	 * @param boolean $notifyAdmin
+	 * @param object $entity
 	 *
 	 * @return void
 	 */
-	public function processCommentAdded(Comment $comment, $notifyAdmin = TRUE);
+	public function processNewEntity($entity);
 
 	/**
-	 * Process changed status of a comment
-	 * Comment is already persisted to DB
+	 * Process changed status of a entity
 	 *
-	 * @param Comment $comment Comment uid
+	 * @param object $entity
 	 *
 	 * @return void
 	 */
-	public function processCommentStatusChanged(Comment $comment);
+	public function processChangedStatus($entity);
 
 }

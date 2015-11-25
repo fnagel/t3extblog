@@ -49,7 +49,7 @@ class Tcemain {
 	/**
 	 * notificationService
 	 *
-	 * @var \TYPO3\T3extblog\Service\NotificationService
+	 * @var \TYPO3\T3extblog\Service\CommentNotificationService
 	 */
 	protected $notificationService = NULL;
 
@@ -213,7 +213,7 @@ class Tcemain {
 			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
 			->setPageUid($pid);
 
-		$this->getNotificationService()->processCommentAdded($this->getComment($id), FALSE);
+		$this->getNotificationService()->processNewEntity($this->getComment($id));
 	}
 
 	/**
@@ -228,7 +228,7 @@ class Tcemain {
 			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
 			->setPageUid($pid);
 
-		$this->getNotificationService()->processCommentStatusChanged($this->getComment($id));
+		$this->getNotificationService()->processChangedStatus($this->getComment($id));
 	}
 
 	/**
@@ -275,12 +275,12 @@ class Tcemain {
 	/**
 	 * Get notification service
 	 *
-	 * @return \TYPO3\T3extblog\Service\NotificationService
+	 * @return \TYPO3\T3extblog\Service\CommentNotificationService
 	 */
 	protected function getNotificationService() {
 		if ($this->notificationService === NULL) {
 			$this->notificationService = $this->getObjectContainer()->getInstance(
-				'TYPO3\\T3extblog\\Service\\NotificationService'
+				'TYPO3\\T3extblog\\Service\\CommentNotificationService'
 			);
 		}
 

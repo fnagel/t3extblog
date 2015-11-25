@@ -47,7 +47,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Notification Service
 	 *
-	 * @var \TYPO3\T3extblog\Service\NotificationService
+	 * @var \TYPO3\T3extblog\Service\CommentNotificationService
 	 * @inject
 	 */
 	protected $notificationService;
@@ -146,7 +146,8 @@ class CommentController extends AbstractController {
 
 		$this->persistAllEntities();
 
-		$this->notificationService->processCommentAdded($newComment);
+		$this->notificationService->processNewEntity($newComment);
+		$this->notificationService->notifyAdmin($newComment);
 
 		if (!$this->hasFlashMessages()) {
 			if ($newComment->isApproved()) {
