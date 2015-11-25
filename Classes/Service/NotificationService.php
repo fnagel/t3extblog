@@ -209,7 +209,9 @@ class NotificationService implements NotificationServiceInterface, SingletonInte
 	 */
 	protected function addSubscriber(Comment $comment) {
 		/* @var $newSubscriber PostSubscriber */
-		$newSubscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Subscriber', $comment->getPostId());
+		$newSubscriber = $this->objectManager->get(
+			'TYPO3\\T3extblog\\Domain\\Model\\PostSubscriber', $comment->getPostId()
+		);
 		$newSubscriber->setEmail($comment->getEmail());
 		$newSubscriber->setName($comment->getAuthor());
 

@@ -110,52 +110,52 @@
 				<target>Bitte geben Sie valide URL ein.</target>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmed.title">
+			<trans-unit id="flashMessage.postSubscriber.confirmed.title">
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmed">
+			<trans-unit id="flashMessage.postSubscriber.confirmed">
 				<target>Vielen Dank! Sie erhalten ab sofort eine Email wenn neue Kommentare erstellt wurden.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted.title">
+			<trans-unit id="flashMessage.postSubscriber.deleted.title">
 				<target>Abbonement gelöscht!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted">
+			<trans-unit id="flashMessage.postSubscriber.deleted">
 				<target>Das Abbonement wurde gekündigt.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.logout.title">
+			<trans-unit id="flashMessage.postSubscriber.logout.title">
 				<target>Abgemeldet!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.logout">
+			<trans-unit id="flashMessage.postSubscriber.logout">
 				<target>Sie wurden erfolgreich abgemeldet.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
+			<trans-unit id="flashMessage.postSubscriber.invalidAuth.title">
 				<target>Keine Authentifizierung!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidAuth">
+			<trans-unit id="flashMessage.postSubscriber.invalidAuth">
 				<target>Keine Authentifizierung möglich.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.authFailed.title">
+			<trans-unit id="flashMessage.postSubscriber.authFailed.title">
 				<target>Authentifizierung fehlgeschlagen!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.authFailed">
+			<trans-unit id="flashMessage.postSubscriber.authFailed">
 				<target>Die Authentifizierung ist fehlgeschlagen. Es scheint kein solches Abbonement zu geben.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.linkOutdated.title">
+			<trans-unit id="flashMessage.postSubscriber.linkOutdated.title">
 				<target>Link abgelaufen!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.linkOutdated">
+			<trans-unit id="flashMessage.postSubscriber.linkOutdated">
 				<target>Der Authenifizierungs-Link ist abgelaufen.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.alreadyRegistered.title">
+			<trans-unit id="flashMessage.postSubscriber.alreadyRegistered.title">
 				<target>Bereits registriert!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
+			<trans-unit id="flashMessage.postSubscriber.alreadyRegistered">
 				<target>Ihre Email-Adresse ist bereits für diesen Artikel registriert.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidLink.title">
+			<trans-unit id="flashMessage.postSubscriber.invalidLink.title">
 				<target>Fehlerhafter Link!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidLink">
+			<trans-unit id="flashMessage.postSubscriber.invalidLink">
 				<target>Der Authenifizierungs-Link ist fehlerhaft.</target>
 			</trans-unit>
 

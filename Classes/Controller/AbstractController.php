@@ -152,7 +152,20 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	}
 
 	/**
-	 * helper function to use localized strings in BlogExample controllers
+	 * Persist all records to database
+	 *
+	 * @return string
+	 */
+	protected function persistAllEntities() {
+		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $this->objectManager->get(
+			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+		);
+		$persistenceManager->persistAll();
+	}
+
+	/**
+	 * Helper function to use localized strings in BlogExample controllers
 	 *
 	 * @param string $key locallang key
 	 * @param string $defaultMessage the default message to show if key was not found

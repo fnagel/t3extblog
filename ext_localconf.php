@@ -46,11 +46,11 @@ if (!defined('TYPO3_MODE')) {
 	'TYPO3.' . $_EXTKEY,
 	'SubscriptionManager',
 	array(
-		'Subscriber' => 'list, delete, error, confirm, logout',
+		'PostSubscriber' => 'list, delete, error, confirm, logout',
 	),
 	// non-cacheable actions
 	array(
-		'Subscriber' => 'list, delete, error, confirm, logout',
+		'PostSubscriber' => 'list, delete, error, confirm, logout',
 	)
 );
 

@@ -99,52 +99,52 @@
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmed.title">
+			<trans-unit id="flashMessage.postSubscriber.confirmed.title">
 				<source>Successfully confirmed!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmed">
+			<trans-unit id="flashMessage.postSubscriber.confirmed">
 				<source>Thank you! Your subscription has been confirmed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted.title">
+			<trans-unit id="flashMessage.postSubscriber.deleted.title">
 				<source>Successfully deleted!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted">
+			<trans-unit id="flashMessage.postSubscriber.deleted">
 				<source>Your subscription has been deleted.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.logout.title">
+			<trans-unit id="flashMessage.postSubscriber.logout.title">
 				<source>Logged out!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.logout">
+			<trans-unit id="flashMessage.postSubscriber.logout">
 				<source>You have been successfully logged out.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidAuth.title">
+			<trans-unit id="flashMessage.postSubscriber.invalidAuth.title">
 				<source>Missing authentication!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidAuth">
+			<trans-unit id="flashMessage.postSubscriber.invalidAuth">
 				<source>Authentication missing. Please try again.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.authFailed.title">
+			<trans-unit id="flashMessage.postSubscriber.authFailed.title">
 				<source>Authentication failed!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.authFailed">
+			<trans-unit id="flashMessage.postSubscriber.authFailed">
 				<source>Authentication has failed. It seems no such subscription exists.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.linkOutdated.title">
+			<trans-unit id="flashMessage.postSubscriber.linkOutdated.title">
 				<source>Link outdated!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.linkOutdated">
+			<trans-unit id="flashMessage.postSubscriber.linkOutdated">
 				<source>The used authentication link is expired.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.alreadyRegistered.title">
+			<trans-unit id="flashMessage.postSubscriber.alreadyRegistered.title">
 				<source>Already registered.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
+			<trans-unit id="flashMessage.postSubscriber.alreadyRegistered">
 				<source>Your email address is already registered for this post.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidLink.title">
+			<trans-unit id="flashMessage.postSubscriber.invalidLink.title">
 				<source>Invalid link!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.invalidLink">
+			<trans-unit id="flashMessage.postSubscriber.invalidLink">
 				<source>The authentication link seems to be invalid.</source>
 			</trans-unit>
 

@@ -144,11 +144,7 @@ class CommentController extends AbstractController {
 
 		$post->addComment($newComment);
 
-		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-		$persistenceManager = $this->objectManager->get(
-			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-		);
-		$persistenceManager->persistAll();
+		$this->persistAllEntities();
 
 		$this->notificationService->processCommentAdded($newComment);
 
