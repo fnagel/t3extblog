@@ -6,13 +6,13 @@ A flexible blog extension for TYPO3 CMS powered by Extbase / Fluid which aims to
 
 Current state
 -------------
-Beta - in production use but missing some features from the original extension.
+Stable - in production use but missing some features from the original extension.
 
 
 Idea & goals
 ------------
 This extension aims to be an improved replacement for EXT:t3blog. It's based upon Extbase and Fluid.
-Very easy data migration as a slightly modified SQL and TCA is used.
+Easy data migration as a slightly modified SQL and TCA is used.
 
 This extension could (but should probably not) be used for starting a new blog with TYPO3.
 Keep in mind: TYPO3 is not a dedicated blogging platform.
@@ -30,7 +30,7 @@ https://github.com/fnagel/t3extblog/issues
 Documentation
 -------------
 
-See `/Documentation` directory or online: http://docs.typo3.org/typo3cms/extensions/t3extblog/
+See `/Documentation` (latest) directory or online: http://docs.typo3.org/typo3cms/extensions/t3extblog/ (latest TER)
 
 
 Installation
