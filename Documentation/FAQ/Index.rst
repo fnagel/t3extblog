@@ -76,6 +76,16 @@ Localization works like for any other TYPO3 extension:
 	}
 
 
+**Adding localizations**
+
+Feel free to add new localization!
+
+TYPO3 Pootle project: http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
+
+More information about TYPO3 translation server: https://wiki.typo3.org/Translations
+
+
+
 Some output tweaks
 ------------------
 
