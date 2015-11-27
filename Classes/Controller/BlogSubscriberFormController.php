@@ -25,6 +25,7 @@ namespace TYPO3\T3extblog\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
@@ -39,6 +40,14 @@ class BlogSubscriberFormController extends AbstractController {
 	 * @inject
 	 */
 	protected $blogSubscriberRepository;
+
+	/**
+	 * Notification Service
+	 *
+	 * @var \TYPO3\T3extblog\Service\BlogNotificationService
+	 * @inject
+	 */
+	protected $notificationService;
 
 	/**
 	 * action new
@@ -71,11 +80,25 @@ class BlogSubscriberFormController extends AbstractController {
 			$this->redirect('new');
 		}
 
+		if (!$this->settings['subscriptionManager']['blog']['subscribeForPosts']) {
+			$this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
+			$this->errorAction();
+		}
+
+		// check if user already registered
+		$subscribers = $this->blogSubscriberRepository->findExistingSubscriptions($subscriber->getEmail());
+		if (count($subscribers) > 0) {
+			$this->addFlashMessageByKey('alreadySubscribed', FlashMessage::INFO);
+			$this->errorAction();
+		}
+
+		$subscriber->_setProperty('sys_laguage_uid', (int) $GLOBALS['TSFE']->sys_language_uid);
+
 		$this->blogSubscriberRepository->add($subscriber);
-
 		$this->persistAllEntities();
+		$this->log->dev('Added blog subscriber uid=' . $subscriber->getUid());
 
-//		$this->notificationService->processCommentAdded($newComment);
+		$this->notificationService->processNewEntity($subscriber);
 
 		$this->addFlashMessageByKey('success');
 		$this->redirect('success');
@@ -87,6 +110,9 @@ class BlogSubscriberFormController extends AbstractController {
 	 * @return void
 	 */
 	public function successAction() {
+		if (!$this->hasFlashMessages()) {
+			$this->redirect('new');
+		}
 	}
 
 	/**
