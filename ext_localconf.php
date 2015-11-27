@@ -48,11 +48,13 @@ if (!defined('TYPO3_MODE')) {
 	array(
 		'Subscriber' => 'list, error, logout, confirm',
 		'PostSubscriber' => 'list, delete, confirm',
+		'BlogSubscriber' => 'list, delete, confirm, create',
 	),
 	// non-cacheable actions
 	array(
 		'Subscriber' => 'list, error, logout, confirm',
 		'PostSubscriber' => 'list, delete, confirm',
+		'BlogSubscriber' => 'list, delete, confirm, create',
 	)
 );
 

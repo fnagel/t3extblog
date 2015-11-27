@@ -154,6 +154,28 @@ plugin.tx_t3extblog {
 				    }
 				}
 			}
+
+			# Subscription for new posts
+			blog {
+				# subscribe for new posts allowed
+				subscribeForPosts = 1
+
+				subscriber {
+					enableNotifications = 1
+
+					template {
+						confirm = BlogSubscriberOptinMail.txt
+						notification = SubscriberNewPostMail.txt
+					}
+
+					# email link invalid after
+					emailHashTimeout = +48 hours
+				    mailFrom {
+					    email = {$plugin.tx_t3extblog.settings.emailFrom}
+					    name = {$plugin.tx_t3extblog.settings.blogName}
+				    }
+				}
+			}
 		}
 
 		categories {

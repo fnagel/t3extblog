@@ -32,6 +32,15 @@ namespace TYPO3\T3extblog\Domain\Repository;
 class BlogSubscriberRepository extends AbstractSubscriberRepository {
 
 	/**
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findForNotification() {
+		$query = $this->createQuery();
+
+		return $query->execute();
+	}
+
+	/**
 	 * Search for already registered subscriptions
 	 *
 	 * @param string $email
@@ -51,23 +60,4 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository {
 		return $query->execute();
 	}
 
-	/**
-	 * Finds a single subscriber without opt-in mail sent before
-	 *
-	 * @param string $email
-	 *
-	 * @return object
-	 */
-	public function findForSubscriptionMail($email) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-
-		$constraints = $this->getBasicForSubscriptionMailConstraints($query, $email);
-
-		$query->matching(
-			$query->logicalAnd($constraints)
-		);
-
-		return $query->execute()->getFirst();
-	}
 }
