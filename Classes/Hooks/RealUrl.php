@@ -153,9 +153,18 @@ class RealUrl {
 
 					'subscription' => array(
 						array(
+							'GETvar' => 'tx_t3extblog_subscriptionmanager[controller]',
+							'valueMap' => array(
+								'blog' => 'BlogSubscriber',
+								'post' => 'PostSubscriber',
+							),
+							'noMatch' => 'bypass',
+						),
+						array(
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[action]',
 							'valueMap' => array(
 								'confirmation' => 'confirm',
+								'create' => 'create',
 								'delete' => 'delete',
 								'error' => 'error',
 								'logout' => 'logout',
@@ -164,6 +173,12 @@ class RealUrl {
 						),
 						array(
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[code]',
+						),
+					),
+
+					'subscription-blog' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsubscription[action]',
 						),
 					),
 				),
