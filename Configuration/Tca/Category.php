@@ -157,6 +157,6 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 );
 
 // @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.6', '>=')) {
+if (version_compare(TYPO3_branch, '7.0', '<')) {
 	$GLOBALS['TCA']['tx_t3blog_post']['columns']['parent_id']['config']['renderMode'] = 'tree';
 }

@@ -353,6 +353,6 @@ $GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePale
 );
 
 // @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.6', '>=')) {
+if (version_compare(TYPO3_branch, '7.0', '<')) {
 	$GLOBALS['TCA']['tx_t3blog_post']['columns']['cat']['config']['renderMode'] = 'tree';
 }
