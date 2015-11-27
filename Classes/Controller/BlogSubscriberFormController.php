@@ -52,8 +52,6 @@ class BlogSubscriberFormController extends AbstractController {
 	/**
 	 * action new
 	 *
-	 * @todo Auto fill email field when authenticated
-	 *
 	 * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
 	 * @ignorevalidation $subscriber
 	 * @return void
