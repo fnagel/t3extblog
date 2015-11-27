@@ -31,7 +31,7 @@ use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 /**
  * Test case for class Subscriber
  */
-class SubscriberTest extends BaseTest {
+class PostSubscriberTest extends BaseTest {
 
 	/**
 	 * @var PostSubscriber
