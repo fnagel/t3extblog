@@ -26,6 +26,7 @@ config.tx_extbase {
 						cat.mapOnProperty = categories
 						tagClouds.mapOnProperty = tagCloud
 						number_views.mapOnProperty = numberOfViews
+						mails_sent.mapOnProperty = mailsSent
 						meta_description.mapOnProperty = metaDescription
 						meta_keywords.mapOnProperty = metaKeywords
 						preview_mode.mapOnProperty = previewMode

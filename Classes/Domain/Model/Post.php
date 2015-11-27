@@ -93,6 +93,13 @@ class Post extends AbstractLocalizedEntity {
 	protected $numberOfViews;
 
 	/**
+	 * If the notification mails are already sent
+	 *
+	 * @var boolean
+	 */
+	protected $mailsSent = FALSE;
+
+	/**
 	 * metaDescription
 	 *
 	 * @var string
@@ -434,6 +441,22 @@ class Post extends AbstractLocalizedEntity {
 	 */
 	public function riseNumberOfViews() {
 		$this->numberOfViews = $$this->numberOfViews + 1;
+	}
+
+	/**
+	 * @param boolean $mailsSent
+	 *
+	 * @return void
+	 */
+	public function setMailsSent($mailsSent) {
+		$this->mailsSent = (boolean) $mailsSent;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getMailsSent() {
+		return (boolean) $this->mailsSent;
 	}
 
 	/**

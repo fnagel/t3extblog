@@ -31,6 +31,7 @@
             <label index="tx_t3blog_post.preview_mode.3">Show three content elements as preview</label>
             <label index="tx_t3blog_post.preview_text">Text</label>
             <label index="tx_t3blog_post.preview_image">Image</label>
+			<label index="tx_t3blog_post.mails_sent">Notification mails already sent</label>
 
 			<label index="tx_t3blog_cat">Categories</label>
 			<label index="tx_t3blog_cat.parent_id">Category tree</label>
@@ -116,6 +117,7 @@
             <label index="tx_t3blog_post.preview_mode.3">Zeige drei Inhalts-Elemente als Vorschau</label>
             <label index="tx_t3blog_post.preview_text">Text</label>
             <label index="tx_t3blog_post.preview_image">Bild</label>
+            <label index="tx_t3blog_post.mails_sent">Benachrichtigungs-Emails bereits versendet</label>
 
 			<label index="tx_t3blog_cat">Kategorien</label>
 			<label index="tx_t3blog_cat.parent_id">Kategorie-Baum</label>

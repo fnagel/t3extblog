@@ -65,6 +65,8 @@ CREATE TABLE tx_t3blog_post (
 	preview_mode tinyint(4) DEFAULT '0' NOT NULL,
 	preview_text text,
 	preview_image int(11) unsigned DEFAULT '0',
+	mails_sent tinyint(3) DEFAULT NULL,
+
 	PRIMARY KEY (uid),
 	KEY be_date (pid,`date`)
 );
