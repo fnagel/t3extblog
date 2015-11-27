@@ -80,10 +80,10 @@ class TypoScriptValidator {
 			);
 		}
 
-		if (empty($settings['subscriptionManager']['admin']['mailTo']['email'])) {
+		if (empty($settings['subscriptionManager']['comment']['admin']['mailTo']['email'])) {
 			throw new InvalidConfigurationException(
 				'No subscription manager admin email receiver address detected.
-				Make sure ' . $key . '.subscriptionManager.admin.mailTo.email is set.',
+				Make sure ' . $key . '.subscriptionManager.comment.admin.mailTo.email is set.',
 				1344375019
 			);
 		}

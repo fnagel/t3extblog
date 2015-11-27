@@ -75,21 +75,4 @@ abstract class AbstractSubscriberRepository extends AbstractRepository {
 		return $constraints;
 	}
 
-	/**
-	 * @param QueryInterface $query
-	 * @param string $email
-	 *
-	 * @return array
-	 */
-	protected function getBasicForSubscriptionMailConstraints(QueryInterface $query, $email) {
-		$constraints = array(
-			$query->equals('lastSent', 0),
-			$query->equals('hidden', 1),
-			$query->equals('deleted', 0),
-			$query->equals('email', $email),
-		);
-
-		return $constraints;
-	}
-
 }

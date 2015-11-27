@@ -44,6 +44,15 @@ class CommentNotificationService extends AbstractNotificationService {
 	protected $subscriberRepository;
 
 	/**
+	 * @return void
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+
+		$this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.comment');
+	}
+
+	/**
 	 * Process added comment
 	 * Comment is already persisted to DB
 	 *
@@ -136,25 +145,18 @@ class CommentNotificationService extends AbstractNotificationService {
 		$this->log->dev('Send subscriber opt-in mail.');
 
 		$post = $subscriber->getPost();
-		$subscriber->updateAuth();
 
+		$subscriber->updateAuth();
 		$this->subscriberRepository->update($subscriber);
 
-		$subject = $this->translate('subject.subscriber.new', $post->getTitle());
-		$variables = array(
-			'post' => $post,
-			'comment' => $comment,
-			'subscriber' => $subscriber,
-			'subject' => $subject,
-			'validUntil' => $this->getValidUntil()
-		);
-		$emailBody = $this->emailService->render($variables, 'SubscriberOptinMail.txt');
-
-		$this->emailService->send(
-			$subscriber->getMailTo(),
-			$this->settings['subscriptionManager']['subscriber']['mailFrom'],
-			$subject,
-			$emailBody
+		$this->sendEmail(
+			$subscriber,
+			$this->translate('subject.subscriber.new', $post->getTitle()),
+			$this->subscriptionSettings['subscriber']['template']['confirm'],
+			array(
+				'post' => $post,
+				'comment' => $comment,
+			)
 		);
 	}
 
@@ -176,7 +178,7 @@ class CommentNotificationService extends AbstractNotificationService {
 		$this->subscriberRepository->add($newSubscriber);
 		$this->persistToDatabase(TRUE);
 
-		$this->log->dev('Added subscriber uid=' . $newSubscriber->getUid());
+		$this->log->dev('Added comment subscriber uid=' . $newSubscriber->getUid());
 
 		return $newSubscriber;
 	}
@@ -189,9 +191,9 @@ class CommentNotificationService extends AbstractNotificationService {
 	 * @return    void
 	 */
 	protected function notifySubscribers(Comment $comment) {
-		$settings = $this->settings['subscriptionManager']['subscriber'];
+		$settings = $this->subscriptionSettings['subscriber'];
 
-		if (!$settings['enableNewCommentNotifications']) {
+		if (!$settings['enableNotifications']) {
 			return;
 		}
 
@@ -199,12 +201,16 @@ class CommentNotificationService extends AbstractNotificationService {
 			return;
 		}
 
-		$this->log->dev('Send subscriber notification mails.');
-
 		/* @var $post Post */
 		$post = $comment->getPost();
 		$subscribers = $this->subscriberRepository->findForNotification($post);
 		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
+		$variables = array(
+			'post' => $post,
+			'comment' => $comment,
+		);
+
+		$this->log->dev('Send post subscriber notification mails to ' . count($subscribers) . ' users.');
 
 		/* @var $subscriber PostSubscriber */
 		foreach ($subscribers as $subscriber) {
@@ -214,23 +220,10 @@ class CommentNotificationService extends AbstractNotificationService {
 			}
 
 			$subscriber->updateAuth();
-
 			$this->subscriberRepository->update($subscriber);
 
-			$variables = array(
-				'post' => $post,
-				'comment' => $comment,
-				'subscriber' => $subscriber,
-				'subject' => $subject,
-				'validUntil' => $this->getValidUntil()
-			);
-			$emailBody = $this->emailService->render($variables, 'SubscriberNewCommentMail.txt');
-
-			$this->emailService->send(
-				$subscriber->getMailTo(),
-				array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
-				$subject,
-				$emailBody
+			$this->sendEmail(
+				$subscriber, $subject, $settings['template']['notification'], $variables
 			);
 		}
 
@@ -242,14 +235,13 @@ class CommentNotificationService extends AbstractNotificationService {
 	 * Notify the blog admin
 	 *
 	 * @param Comment $comment
-	 * @param string $emailTemplate
 	 *
 	 * @return    void
 	 */
-	public function notifyAdmin(Comment $comment, $emailTemplate = 'AdminNewCommentMail.txt') {
-		$settings = $this->settings['subscriptionManager']['admin'];
+	public function notifyAdmin(Comment $comment) {
+		$settings = $this->subscriptionSettings['admin'];
 
-		if (!$settings['enable']) {
+		if (!$settings['enableNotifications']) {
 			return;
 		}
 
@@ -258,7 +250,7 @@ class CommentNotificationService extends AbstractNotificationService {
 			return;
 		}
 
-		$this->log->dev('Send admin notification mail.');
+		$this->log->dev('Send admin new comment notification mail.');
 
 		/* @var $post Post */
 		$post = $comment->getPost();
@@ -268,7 +260,7 @@ class CommentNotificationService extends AbstractNotificationService {
 			'comment' => $comment,
 			'subject' => $subject
 		);
-		$emailBody = $this->emailService->render($variables, $emailTemplate);
+		$emailBody = $this->emailService->render($variables, $settings['template']);
 
 		$this->emailService->send(
 			array($settings['mailTo']['email'] => $settings['mailTo']['name']),

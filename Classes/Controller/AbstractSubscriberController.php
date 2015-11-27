@@ -27,8 +27,6 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
 
 /**
@@ -74,25 +72,25 @@ abstract class AbstractSubscriberController extends AbstractController {
 	/**
 	 * action confirm
 	 *
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception
+	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
 	public function confirmAction() {
 		$this->checkAuth(TRUE);
 
 		if ($this->subscriber === NULL) {
-			throw new MvcException('No authenticated subscriber given.');
+			throw new \InvalidArgumentException('No authenticated subscriber given.');
 		}
 
 		if ($this->subscriber->_getProperty('hidden') === TRUE) {
 			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessageByKey('confirmed', FlashMessage::NOTICE);
+			$this->addFlashMessageByKey('confirmed', FlashMessage::OK);
 
 			$this->subscriberRepository->update($this->subscriber);
 			$this->persistAllEntities();
 		}
 
-		$this->redirect('list');
+		$this->redirect('list', 'PostSubscriber');
 	}
 
 	/**
@@ -100,14 +98,14 @@ abstract class AbstractSubscriberController extends AbstractController {
 	 *
 	 * @param AbstractSubscriber $subscriber
 	 *
-	 * @throws InvalidArgumentValueException
+	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
 	public function deleteAction(AbstractSubscriber $subscriber = NULL) {
 		$this->checkAuth();
 
 		if ($subscriber === NULL) {
-			throw new InvalidArgumentValueException('No subscriber given.');
+			throw new \InvalidArgumentException('No subscriber given.');
 		}
 
 		// Check if the given subscriber is owned by authenticated user
@@ -118,43 +116,8 @@ abstract class AbstractSubscriberController extends AbstractController {
 		$this->subscriberRepository->remove($subscriber);
 		$this->persistAllEntities();
 
-		$this->addFlashMessageByKey('deleted', FlashMessage::NOTICE);
-		$this->redirect('list');
-	}
-
-	/**
-	 * Invalidates the auth and redirects user
-	 *
-	 * @return void
-	 */
-	protected function logoutAction() {
-		$this->processError('logout', FlashMessage::NOTICE);
-	}
-
-	/**
-	 * Error action
-	 *
-	 * @return void
-	 */
-	public function errorAction() {
-		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
-		}
-	}
-
-	/**
-	 * Redirects user when no auth was possible
-	 *
-	 * @param string $message Flash message key
-	 * @param integer $severity Severity code. One of the FlashMessage constants
-	 *
-	 * @return void
-	 */
-	protected function processError($message = 'invalidAuth', $severity = FlashMessage::ERROR) {
-		$this->authentication->logout();
-
-		$this->addFlashMessageByKey($message, $severity);
-		$this->redirect('error');
+		$this->addFlashMessageByKey('deleted', FlashMessage::INFO);
+		$this->redirect('list', 'PostSubscriber');
 	}
 
 	/**
@@ -173,7 +136,7 @@ abstract class AbstractSubscriberController extends AbstractController {
 			return;
 		}
 
-		$this->processError();
+		$this->forward('processError', 'Subscriber');
 	}
 
 	/**
@@ -190,7 +153,7 @@ abstract class AbstractSubscriberController extends AbstractController {
 		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
 		if ($subscriber === NULL) {
-			$this->processError('authFailed');
+			$this->forward('processError', 'Subscriber', NULL, array('message' => 'authFailed'));
 		}
 
 		$modify = '+1 hour';
@@ -198,7 +161,7 @@ abstract class AbstractSubscriberController extends AbstractController {
 			$modify = trim($this->subscriptionSettings['emailHashTimeout']);
 		}
 		if ($subscriber->isAuthCodeExpired($modify)) {
-			$this->processError('linkOutdated');
+			$this->forward('processError', 'Subscriber', NULL, array('message' => 'linkOutdated'));
 		}
 
 		if ($isConfirmRequest === TRUE) {
@@ -210,7 +173,12 @@ abstract class AbstractSubscriberController extends AbstractController {
 				$this->subscriberRepository->update($subscriber);
 				$this->persistAllEntities();
 
-				$this->processError('alreadyRegistered', FlashMessage::NOTICE);
+				$this->forward(
+					'processError',
+					'Subscriber',
+					NULL,
+					array('message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE)
+				);
 			}
 		}
 
@@ -240,7 +208,7 @@ abstract class AbstractSubscriberController extends AbstractController {
 		$code = $this->request->getArgument('code');
 
 		if (strlen($code) !== 32 || !ctype_alnum($code)) {
-			$this->processError('invalidLink');
+			$this->forward('processError', 'Subscriber', NULL, array('message' => 'invalidLink'));
 		}
 
 		return $code;

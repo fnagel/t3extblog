@@ -44,6 +44,14 @@ class PostSubscriberController extends AbstractSubscriberController {
 	protected $subscriberRepository;
 
 	/**
+	 * blogSubscriberRepository
+	 *
+	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+	 * @inject
+	 */
+	protected $blogSubscriberRepository;
+
+	/**
 	 * subscriber
 	 *
 	 * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
@@ -58,22 +66,18 @@ class PostSubscriberController extends AbstractSubscriberController {
 	protected function initializeAction() {
 		parent::initializeAction();
 
-		$this->subscriptionSettings = $this->settings['subscriptionManager']['subscriber'];
+		$this->subscriptionSettings = $this->settings['subscriptionManager']['comment']['subscriber'];
 	}
 
 	/**
-	 * Displays a list of all posts a user subscribed to
+	 * action list
 	 *
 	 * @return void
 	 */
 	public function listAction() {
 		$this->checkAuth();
 
-		$email = $this->authentication->getEmail();
-		$subscribers = $this->subscriberRepository->findByEmail($email);
-
-		$this->view->assign('email', $email);
-		$this->view->assign('subscribers', $subscribers);
+		$this->redirect('list', 'Subscriber');
 	}
 
 	/**

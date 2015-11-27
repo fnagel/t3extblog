@@ -4,19 +4,40 @@
 
 <f:section name="main">
 
-	<t3b:flashMessages />
+	<h2>
+		<f:translate key="subscriber.headline" />:
+		<em class="small">{email}</em>
+	</h2>
 
-	<h2><f:translate key="subscriber.headline" /></h2>
+	<t3b:flashMessages />
 
 	<div class="clearfix">
 		<f:link.action class="btn btn-info pull-right" action="logout">
-			<span class="glyphicon glyphicon-log-out"></span>
+			<span class="icon icon-unlock-alt glyphicon glyphicon-lock"></span>
 			<f:translate key="subscriber.logout" />
 		</f:link.action>
+
+		<f:if condition="{blogSubscriber}">
+			<f:then>
+				<f:link.action class="btn btn-danger pull-left" controller="BlogSubscriber" action="delete" arguments="{subscriber: blogSubscriber}">
+					<span class="icon icon-sign-out glyphicon glyphicon-log-out"></span>
+					<f:translate key="subscriber.delete" />
+				</f:link.action>
+			</f:then>
+			<f:else>
+				<f:if condition="{settings.subscriptionManager.blog.subscribeForPosts}">
+					<f:link.action class="btn btn-primary pull-left" controller="BlogSubscriber" action="create">
+						<span class="icon icon-sign-in glyphicon glyphicon-log-in"></span>
+						<f:translate key="subscriber.create" />
+					</f:link.action>
+				</f:if>
+			</f:else>
+		</f:if>
 	</div>
 
+	<f:if condition="{postSubscriber}">
 	<table class="table table-bordered table-striped" >
-		<caption><f:translate key="subscriber.headline" />: <em>{email}</em></caption>
+		<caption><f:translate key="subscriber.headline" /></caption>
 		<thead>
 			<tr>
 				<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
@@ -27,7 +48,7 @@
 		</thead>
 
 		<tbody>
-		<f:for each="{subscribers}" as="subscriber">
+		<f:for each="{postSubscriber}" as="subscriber">
 			<tr>
 				<td>
 					<f:link.action
@@ -46,7 +67,7 @@
 				</td>
 				<td>
 					<f:link.action class="btn btn-danger" action="delete" arguments="{subscriber : subscriber}">
-						<span class="icon icon-tras glyphicon glyphicon-trash"></span>
+						<span class="icon icon-trash glyphicon glyphicon-trash"></span>
 						<f:translate key="subscriber.table.delete" />
 					</f:link.action>
 				</td>
@@ -54,6 +75,7 @@
 		</f:for>
 		</tbody>
 	</table>
+	</f:if>
 
 </f:section>
 

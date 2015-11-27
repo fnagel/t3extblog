@@ -10,7 +10,7 @@ plugin.tx_t3extblog {
 	email {
 		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}Email/
 		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}Email/
-		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}Email/
 	}
 
 	persistence {
@@ -73,7 +73,7 @@ plugin.tx_t3extblog {
 				# comments are approved by default
 				approvedByDefault = 1
 
-				# subscibe to new comment allowed
+				# subscribe for new comment allowed
 				subscribeForComments = 1
 
 				# Allow tags in comment text
@@ -122,27 +122,37 @@ plugin.tx_t3extblog {
 		subscriptionManager {
 			pid = {$plugin.tx_t3extblog.settings.subscriptionManager.pid}
 
-			admin {
-				enable = 1
-				 mailTo {
-					 email = {$plugin.tx_t3extblog.settings.emailTo}
-					 name =
-				 }
-				 mailFrom {
-					 email = {$plugin.tx_t3extblog.settings.emailFrom}
-					 name = {$plugin.tx_t3extblog.settings.blogName}
-				 }
-			}
-			subscriber {
-				enableNewCommentNotifications = 1
+			# Subscription for new comments
+			comment {
+				admin {
+					enableNotifications = 1
 
-				# email link invalid after
-				# use http://www.php.net/manual/en/datetime.formats.relative.php
-				emailHashTimeout = +48 hours
-			 	mailFrom {
-				    email = {$plugin.tx_t3extblog.settings.emailFrom}
-				    name = {$plugin.tx_t3extblog.settings.blogName}
-			 	}
+					template = AdminNewCommentMail.txt
+
+					mailTo {
+						email = {$plugin.tx_t3extblog.settings.emailTo}
+						name =
+					}
+					mailFrom {
+						email = {$plugin.tx_t3extblog.settings.emailFrom}
+						name = {$plugin.tx_t3extblog.settings.blogName}
+					}
+				}
+				subscriber {
+					enableNotifications = 1
+
+					template {
+						confirm = SubscriberOptinMail.txt
+						notification = SubscriberNewCommentMail.txt
+					}
+
+					# email link invalid after
+					emailHashTimeout = +48 hours
+				    mailFrom {
+				        email = {$plugin.tx_t3extblog.settings.emailFrom}
+					    name = {$plugin.tx_t3extblog.settings.blogName}
+				    }
+				}
 			}
 		}
 
@@ -180,6 +190,8 @@ plugin.tx_t3extblog {
 		rss {
 			paginate {
 				itemsPerPage = 10
+
+				# Do not change this!
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0

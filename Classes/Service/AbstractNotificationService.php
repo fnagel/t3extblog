@@ -28,6 +28,7 @@ namespace TYPO3\T3extblog\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
 
 /**
  * Handles all notification mails
@@ -65,6 +66,11 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	protected $settings;
 
 	/**
+	 * @var array
+	 */
+	protected $subscriptionSettings;
+
+	/**
 	 * @var \TYPO3\T3extblog\Service\EmailService
 	 * @inject
 	 */
@@ -84,6 +90,34 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	}
 
 	/**
+	 * Send subscriber emails
+	 *
+	 * @param AbstractSubscriber $subscriber
+	 * @param string $subject
+	 * @param string $template
+	 * @param array $variables
+	 *
+	 * @return void
+	 */
+	protected function sendEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array()) {
+		$settings = $this->subscriptionSettings['subscriber'];
+		$defaultVariables =  array(
+			'subscriber' => $subscriber,
+			'subject' => $subject,
+			'validUntil' => $this->getValidUntil()
+		);
+
+		$emailBody = $this->emailService->render(array_merge($defaultVariables, $variables), $template);
+
+		$this->emailService->send(
+			$subscriber->getMailTo(),
+			array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
+			$subject,
+			$emailBody
+		);
+	}
+
+	/**
 	 * Render dateTime object for using in template
 	 *
 	 * @todo We probably want to move this back to Fluid
@@ -95,8 +129,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 		$date = new \DateTime();
 		$modify = '+1 hour';
 
-		if (isset($this->settings['subscriptionManager']['subscriber']['emailHashTimeout'])) {
-			$modify = trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']);
+		if (isset($this->subscriptionSettings['subscriber']['emailHashTimeout'])) {
+			$modify = trim($this->subscriptionSettings['subscriber']['emailHashTimeout']);
 		}
 
 		$date->modify($modify);
@@ -132,7 +166,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	 */
 	protected function flushFrontendCache() {
 		if (TYPO3_MODE === 'BE' && !empty($this->settings['blogsystem']['pid'])) {
-			$this->cacheService->clearPageCache((integer)$this->settings['blogsystem']['pid']);
+			$this->cacheService->clearPageCache((int) $this->settings['blogsystem']['pid']);
 		}
 	}
 
