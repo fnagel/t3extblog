@@ -67,6 +67,29 @@ abstract class AbstractSubscriber extends AbstractEntity {
 	protected $code;
 
 	/**
+	 * If the subscriber is valid for opt in email
+	 *
+	 * @return boolean
+	 */
+	public function isValidForOptin() {
+		return ($this->isHidden() && !$this->deleted && $this->getLastSent() === NULL);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isHidden() {
+		return (bool) $this->hidden;
+	}
+
+	/**
+	 * @param boolean $hidden
+	 */
+	public function setHidden($hidden) {
+		$this->hidden = (bool) $hidden;
+	}
+
+	/**
 	 * Returns the email
 	 *
 	 * @return string $email
@@ -154,7 +177,13 @@ abstract class AbstractSubscriber extends AbstractEntity {
 	 * @return array
 	 */
 	public function getMailTo() {
-		return array($this->getEmail() => $this->getName());
+		$mail = array($this->getEmail() => '');
+
+		if (method_exists($this, 'getName')) {
+			$mail = array($this->getEmail() => $this->getName());
+		}
+
+		return $mail;
 	}
 
 	/**

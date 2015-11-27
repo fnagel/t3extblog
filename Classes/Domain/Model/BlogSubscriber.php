@@ -31,4 +31,11 @@ namespace TYPO3\T3extblog\Domain\Model;
  */
 class BlogSubscriber extends AbstractSubscriber {
 
+	/**
+	 * @return integer
+	 */
+	public function getSysLanguageUid() {
+		return $this->_languageUid;
+	}
+
 }
