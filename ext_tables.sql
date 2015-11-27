@@ -211,6 +211,7 @@ CREATE TABLE tx_t3blog_blog_nl (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 	email tinytext NOT NULL,
 	lastsent int(11) DEFAULT '0' NOT NULL,
 	code tinytext NOT NULL,

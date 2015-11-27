@@ -6,9 +6,26 @@ if (!defined('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_t3blog_blog_nl'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_t3blog_blog_nl']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden,email,lastsent,code'
+		'showRecordFieldList' => 'sys_language_uid,hidden,email,lastsent,code'
 	),
 	'columns' => array(
+		'sys_language_uid' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+			'config' => array(
+				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'special' => 'languages',
+				'items' => array(
+					array(
+						'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
+						-1,
+						'flags-multiple'
+					),
+				),
+				'default' => 0,
+			)
+		),
 		'hidden' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -43,7 +60,7 @@ $GLOBALS['TCA']['tx_t3blog_blog_nl'] = array(
 	),
 	'types' => array(
 		'0' => array('showitem' => '
-			email, hidden,
+			sys_language_uid, email, hidden,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_blog_nl.tabs.meta,
 				lastsent, code')
 	),
