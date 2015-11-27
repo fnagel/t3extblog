@@ -331,6 +331,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 		),
 		'mails_sent' => array(
 			'displayCond' => 'HIDE_FOR_NON_ADMINS',
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.mails_sent',
 			'config' => array(

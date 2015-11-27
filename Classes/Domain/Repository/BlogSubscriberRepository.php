@@ -32,6 +32,19 @@ namespace TYPO3\T3extblog\Domain\Repository;
 class BlogSubscriberRepository extends AbstractSubscriberRepository {
 
 	/**
+	 * @param null $pageUid
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+	 */
+	public function createQuery($pageUid = NULL) {
+		$query = parent::createQuery($pageUid);
+
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+
+		return $query;
+	}
+
+	/**
 	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findForNotification() {

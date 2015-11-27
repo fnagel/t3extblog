@@ -90,7 +90,7 @@ class BlogSubscriberFormController extends AbstractController {
 			$this->errorAction();
 		}
 
-		$subscriber->_setProperty('sys_laguage_uid', (int) $GLOBALS['TSFE']->sys_language_uid);
+		$subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
 
 		$this->blogSubscriberRepository->add($subscriber);
 		$this->persistAllEntities();

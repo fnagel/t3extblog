@@ -106,7 +106,7 @@ class BlogSubscriberController extends AbstractSubscriberController {
 		$subscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\BlogSubscriber');
 		$subscriber->setEmail($email);
 		$subscriber->setHidden(FALSE);
-		$subscriber->_setProperty('sys_laguage_uid', (int) $GLOBALS['TSFE']->sys_language_uid);
+		$subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
 
 		$this->subscriberRepository->add($subscriber);
 		$this->persistAllEntities();

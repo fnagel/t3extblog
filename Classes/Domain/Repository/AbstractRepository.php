@@ -41,7 +41,6 @@ class AbstractRepository extends Repository {
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
 	public function createQuery($pageUid = NULL) {
-
 		$query = parent::createQuery();
 
 		if ($pageUid !== NULL) {

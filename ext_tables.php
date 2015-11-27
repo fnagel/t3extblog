@@ -206,6 +206,7 @@ $GLOBALS['TCA']['tx_t3blog_blog_nl'] = array(
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'default_sortby' => 'ORDER BY crdate DESC',
+		'languageField' => 'sys_language_uid',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
