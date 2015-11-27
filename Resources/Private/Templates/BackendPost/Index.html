@@ -21,6 +21,9 @@
 								<td><f:translate key="module.post.table.author" /></td>
 								<td><f:translate key="module.post.table.comments" /></td>
 								<td style="width: 75px;">&nbsp;</td>
+								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
+									<td style="width: 25px;">&nbsp;</td>
+								</f:if>
 							</tr>
 						</thead>
 
@@ -38,6 +41,17 @@
 									</a>
 								</td>
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
+								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
+									<td>
+										<f:if condition="{post.mailsSent}">
+											<f:else>
+												<f:link.action title="Send notification mails" action="sendPostNotifications" arguments="{post: post}">
+													<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</td>
+								</f:if>
 							</tr>
 							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
@@ -46,6 +60,7 @@
 											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
 										</td>
 										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
+										<td></td>
 									</tr>
 								</f:for>
 							</t3extblog:localization>

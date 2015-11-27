@@ -27,6 +27,8 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\Post;
+
 /**
  * BackendPostController
  */
@@ -42,6 +44,23 @@ class BackendPostController extends BackendBaseController {
 			'posts' => $this->postRepository->findByPage($this->pageId, FALSE),
 			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId)
 		));
+	}
+	/**
+	 * Send post notification mails
+	 *
+	 * @param \TYPO3\T3extblog\Domain\Model\Post $post
+	 *
+	 * @return void
+	 */
+	public function sendPostNotificationsAction(Post $post) {
+		/* @var $notificationService \TYPO3\T3extblog\Service\BlogNotificationService */
+		$notificationService = $this->objectManager->get('TYPO3\\T3extblog\\Service\\BlogNotificationService');
+		$notificationService->notifySubscribers($post);
+
+		// @todo Translation!
+		$this->addFlashMessage('Mails sent');
+
+		$this->redirect('index');
 	}
 
 }
