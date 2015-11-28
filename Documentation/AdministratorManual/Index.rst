@@ -159,8 +159,30 @@ When overriding the TS-values, add a :code:`config.tx_realurl_enable = 1` to you
 Preview blog posts
 ------------------
 
-The extension has a preview functionality. To activate it, just add :code:`tx_t3extblog.singlePid = 123`
-to your page tsconfig (123 is the PID of the page where the blogsystem is included).
+The extension has a preview functionality. Add following TypoScript to your page TSconfig (where 123 is the PID of
+the page where the blogsystem is included).
+
+
+.. code-block:: typoscript
+
+	# TYPO3 <= 6.2
+	tx_t3extblog.singlePid = 123
+
+	# TYPO3 >= 7.2
+	TCEMAIN.preview {
+		tx_t3blog_post {
+			previewPageId = 338
+			useDefaultLanguageRecord = 1
+			fieldToParameterMap {
+				uid = tx_t3extblog_blogsystem[previewPost]
+			}
+			additionalGetParameters {
+				tx_t3extblog_blogsystem.controller = Post
+				tx_t3extblog_blogsystem.action = preview
+			}
+		}
+	}
+
 
 By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript
 (:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
