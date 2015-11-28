@@ -178,6 +178,35 @@ plugin.tx_t3extblog {
 			}
 		}
 
+		blogSubscription {
+			spamCheck {
+				enable = 1
+
+				# limit of spam points
+				threshold {
+					# to block comment (user could  try again), 0 = disable
+					block = 10
+					# to block comment and redirect user, 0 = disable
+					redirect = 30
+				}
+				redirect {
+					pid =
+					arguments {
+					}
+				}
+
+				### spam points by check, 0 = disabled
+				# simple checkbox which needs to be enabled
+				isHumanCheckbox = 10
+				# hidden honeypot fields
+				honeypot = 3
+				# checks for useragent
+				userAgent = 5
+				# checks if client accepts cookies
+				cookie = 2
+			}
+		}
+
 		categories {
 			paginate {
 				itemsPerPage = 10

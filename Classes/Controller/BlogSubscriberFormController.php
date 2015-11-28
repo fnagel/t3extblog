@@ -50,6 +50,14 @@ class BlogSubscriberFormController extends AbstractController {
 	protected $notificationService;
 
 	/**
+	 * Spam Check Service
+	 *
+	 * @var \TYPO3\T3extblog\Service\SpamCheckService
+	 * @inject
+	 */
+	protected $spamCheckService;
+
+	/**
 	 * action new
 	 *
 	 * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
@@ -68,8 +76,6 @@ class BlogSubscriberFormController extends AbstractController {
 	/**
 	 * Adds a subscriber
 	 *
-	 * @todo Add SPAM check service
-	 *
 	 * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
 	 * @return void
 	 */
@@ -82,6 +88,8 @@ class BlogSubscriberFormController extends AbstractController {
 			$this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
 			$this->errorAction();
 		}
+
+		$this->checkSpamPoints();
 
 		// check if user already registered
 		$subscribers = $this->blogSubscriberRepository->findExistingSubscriptions($subscriber->getEmail());
@@ -100,6 +108,32 @@ class BlogSubscriberFormController extends AbstractController {
 
 		$this->addFlashMessageByKey('success');
 		$this->redirect('success');
+	}
+
+	/**
+	 * Process SPAM point
+	 *
+	 * @return void
+	 */
+	protected function checkSpamPoints() {
+		$settings = $this->settings['blogSubscription']['spamCheck'];
+		$threshold = $settings['threshold'];
+
+		$spamPoints = $this->spamCheckService->process($settings);
+		$logData = array('spamPoints' => $spamPoints);
+
+		// block comment and redirect user
+		if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
+			$this->log->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
+			$this->redirect('', NULL, NULL, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
+		}
+
+		// block comment and show message
+		if ($threshold['block'] > 0 && $spamPoints >= intval($threshold['block'])) {
+			$this->log->notice('New blog subscriber blocked because of SPAM.', $logData);
+			$this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
+			$this->errorAction();
+		}
 	}
 
 	/**

@@ -3,8 +3,6 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<t3b:flashMessages />
-
 	<f:form
 		controller="BlogSubscriberForm"
 		action="create"
@@ -14,6 +12,7 @@
 		name="subscriber"
 		object="{subscriber}">
 
+		<t3b:flashMessages />
 		<f:render partial="FormErrors" arguments="{object: Subscriber, anchorLink: '{f:uri.action(action: \'create\', controller: \'BlogSubscriberForm\')}'}" />
 
 		<fieldset>
@@ -25,6 +24,11 @@
 				</label>
 				<div class="col-sm-9">
 					<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="subscriber.email" property="email" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
 				</div>
 			</div>
 		</fieldset>
