@@ -132,10 +132,7 @@ class CommentController extends AbstractController {
 	 */
 	public function createAction(Post $post, Comment $newComment) {
 		$this->checkIfCommentIsAllowed($post);
-
-		$this->spamCheckService->process($newComment, $this->request);
-		$this->checkSpamPoints($newComment, $post);
-
+		$this->checkSpamPoints($newComment);
 		$this->sanitizeComment($newComment);
 
 		if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
@@ -143,7 +140,6 @@ class CommentController extends AbstractController {
 		}
 
 		$post->addComment($newComment);
-
 		$this->persistAllEntities();
 
 		$this->notificationService->processNewEntity($newComment);
@@ -195,15 +191,16 @@ class CommentController extends AbstractController {
 	 * Process comment request
 	 *
 	 * @param Comment $comment The comment to be deleted
-	 * @param Post $post The comment to be deleted
 	 *
 	 * @return void
 	 */
-	protected function checkSpamPoints(Comment $comment, Post $post) {
+	protected function checkSpamPoints(Comment $comment) {
 		$settings = $this->settings['blogsystem']['comments']['spamCheck'];
+		$comment->setSpamPoints($this->spamCheckService->process($settings));
+
 		$threshold = $settings['threshold'];
 		$logData = array(
-			'postUid' => $post->getUid(),
+			'commentUid' => $comment->getUid(),
 			'spamPoints' => $comment->getSpamPoints(),
 		);
 

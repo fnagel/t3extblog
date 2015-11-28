@@ -26,22 +26,18 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Comment;
-use \TYPO3\CMS\Extbase\Mvc\Request;
-
 /**
- * Handles comment spam check
+ * Handles spam check
  */
 interface SpamCheckServiceInterface {
 
 	/**
-	 * Checks comment for SPAM
+	 * Checks GET / POST parameter for SPAM
 	 *
-	 * @param Comment $comment The comment to be checked
-	 * @param Request $request The request to be checked
+	 * @var array $settings
 	 *
-	 * @return integer Spam points
+	 * @return int SPAM points
 	 */
-	public function process(Comment $comment, Request $request);
+	public function process($settings);
 
 }
