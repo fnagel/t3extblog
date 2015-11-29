@@ -6,6 +6,9 @@
 			<trans-unit id="error.headline">
 				<source>Error:</source>
 			</trans-unit>
+			<trans-unit id="general.confirm">
+				<source>Are you sure?</source>
+			</trans-unit>
 
 			<trans-unit id="post.comments">
 				<source>comments</source>
@@ -361,9 +364,6 @@
 			</trans-unit>
 			<trans-unit id="module.message.pendingComments">
 				<source>%1$s comments await moderation.</source>
-			</trans-unit>
-			<trans-unit id="module.message.deleteRecord">
-				<source>Are you sure you want to delete this record?</source>
 			</trans-unit>
 
 			<trans-unit id="module.message.pageNotice.title">

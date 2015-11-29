@@ -6,6 +6,9 @@
 			<trans-unit id="error.headline">
 				<target>Fehler:</target>
 			</trans-unit>
+			<trans-unit id="general.confirm">
+				<target>Sind Sie sicher?</target>
+			</trans-unit>
 
 			<trans-unit id="post.comments">
 				<target>Kommentare</target>
@@ -380,9 +383,6 @@
             </trans-unit>
             <trans-unit id="module.message.pendingComments">
                 <target>%1$s Kommentare warten auf Moderation.</target>
-            </trans-unit>
-            <trans-unit id="module.message.deleteRecord">
-                <target>Sind Sie sicher das Sie diesen Datensatz löschen wollen?</target>
             </trans-unit>
 
 			<trans-unit id="module.message.pageNotice.title">

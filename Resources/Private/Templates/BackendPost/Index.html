@@ -45,7 +45,10 @@
 									<td>
 										<f:if condition="{post.mailsSent}">
 											<f:else>
-												<f:link.action title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}" action="sendPostNotifications" arguments="{post: post}">
+												<f:link.action
+													title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}"
+													action="sendPostNotifications" arguments="{post: post}"
+												 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 													<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
 												</f:link.action>
 											</f:else>
