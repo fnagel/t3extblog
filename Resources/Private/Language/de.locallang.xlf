@@ -95,10 +95,10 @@
 				<target>Absenden</target>
 			</trans-unit>
 
-			<trans-unit id="error.blogSubscriber.email.1221560718">
+			<trans-unit id="error.subscriber.email.1221560718">
 				<target>Bitte geben Sie eine Email-Adresse ein.</target>
 			</trans-unit>
-			<trans-unit id="error.blogSubscriber.email.1221559976">
+			<trans-unit id="error.subscriber.email.1221559976">
 				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
 			</trans-unit>
 
@@ -197,10 +197,10 @@
 			<trans-unit id="flashMessage.comment.blockedAsSpam">
 				<target>Ihr Kommentar wurde als SPAM erkannt und geblockt. Bitte versuchen Sie es noch einmal.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.nNotAllowed.title">
+			<trans-unit id="flashMessage.comment.notAllowed.title">
 				<target>Keine Kommentare erlaubt.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.nNotAllowed">
+			<trans-unit id="flashMessage.comment.notAllowed">
 				<target>Es sind keine neuen Kommentare erlaubt.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.commentsClosed.title">
@@ -216,6 +216,30 @@
 				<target>Bitte melden Sie sich an um zu kommentieren.</target>
 			</trans-unit>
 
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
+				<target>Bereits registriert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered">
+				<target>Ihre Email-Adresse ist bereits registriert.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam.title">
+				<target>Abbonement nicht gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam">
+				<target>Ihr Abbonement wurde als SPAM erkannt und geblockt. Bitte versuchen Sie es noch einmal.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed.title">
+				<target>Keine Abbonements erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed">
+				<target>Es sind keine neuen Abbonements erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created.title">
+				<target>Abbonement gespeichert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created">
+				<target>Danke, Ihr Abbonement wurde gespeichert.</target>
+			</trans-unit>
 
             <trans-unit id="module.title">
                 <target>T3extblog Administration</target>

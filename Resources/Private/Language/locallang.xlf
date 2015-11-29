@@ -197,6 +197,30 @@
 				<source>Please login to comment.</source>
 			</trans-unit>
 
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
+				<source>Already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered">
+				<source>Your email address is already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam.title">
+				<source>Subscription not saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam">
+				<source>Sorry, your subscription has recognized as SPAM. Please try again!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed.title">
+				<source>Subscription not allowed</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed">
+				<source>Sorry, no new subscriptions allowed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created.title">
+				<source>Subscription saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created">
+				<source>Thanks, your subscription has been saved.</source>
+			</trans-unit>
 
 			<trans-unit id="module.title">
 				<source>T3extblog Administration</source>
