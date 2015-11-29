@@ -11,6 +11,8 @@
 
 	<t3b:flashMessages />
 
+	<br>
+
 	<div class="clearfix">
 		<f:link.action class="btn btn-info pull-right" action="logout">
 			<span class="icon icon-unlock-alt glyphicon glyphicon-lock"></span>
@@ -21,14 +23,14 @@
 			<f:then>
 				<f:link.action class="btn btn-danger pull-left" controller="BlogSubscriber" action="delete" arguments="{subscriber: blogSubscriber}">
 					<span class="icon icon-sign-out glyphicon glyphicon-log-out"></span>
-					<f:translate key="subscriber.delete" />
+					<f:translate key="subscriber.blog.delete" />
 				</f:link.action>
 			</f:then>
 			<f:else>
 				<f:if condition="{settings.subscriptionManager.blog.subscribeForPosts}">
 					<f:link.action class="btn btn-primary pull-left" controller="BlogSubscriber" action="create">
 						<span class="icon icon-sign-in glyphicon glyphicon-log-in"></span>
-						<f:translate key="subscriber.create" />
+						<f:translate key="subscriber.blog.create" />
 					</f:link.action>
 				</f:if>
 			</f:else>
@@ -36,8 +38,9 @@
 	</div>
 
 	<f:if condition="{postSubscriber}">
+	<br>
 	<table class="table table-bordered table-striped" >
-		<caption><f:translate key="subscriber.headline" /></caption>
+		<caption><f:translate key="subscriber.table.caption" /></caption>
 		<thead>
 			<tr>
 				<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
@@ -66,7 +69,7 @@
 					<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
 				</td>
 				<td>
-					<f:link.action class="btn btn-danger" action="delete" arguments="{subscriber : subscriber}">
+					<f:link.action class="btn btn-danger pull-right" action="delete" arguments="{subscriber : subscriber}">
 						<span class="icon icon-trash glyphicon glyphicon-trash"></span>
 						<f:translate key="subscriber.table.delete" />
 					</f:link.action>

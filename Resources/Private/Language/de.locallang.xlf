@@ -63,6 +63,9 @@
 			<trans-unit id="subscriber.headline">
 				<target>Liste der Benachrichtigungen</target>
 			</trans-unit>
+			<trans-unit id="subscriber.table.caption">
+				<target>Kommentar Benachrichtigungen</target>
+			</trans-unit>
 			<trans-unit id="subscriber.logout">
 				<target>Abmelden</target>
 			</trans-unit>
@@ -83,6 +86,12 @@
 			</trans-unit>
 			<trans-unit id="subscriber.table.delete">
 				<target>Löschen</target>
+			</trans-unit>
+			<trans-unit id="subscriber.blog.delete">
+				<target>Keine Benachrichtigung bei neuen Artikeln</target>
+			</trans-unit>
+			<trans-unit id="subscriber.blog.create">
+				<target>E-Mail Benachrichtigung bei neuen Artikeln</target>
 			</trans-unit>
 
 			<trans-unit id="subscriber.email">
