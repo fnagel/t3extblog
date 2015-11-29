@@ -102,7 +102,7 @@ class BlogNotificationService extends AbstractNotificationService {
 
 		$this->sendEmail(
 			$subscriber,
-			$this->translate('subject.subscriber.new'),
+			$this->translate('subject.subscriber.blog.new'),
 			$this->subscriptionSettings['subscriber']['template']['confirm']
 		);
 	}
@@ -126,7 +126,7 @@ class BlogNotificationService extends AbstractNotificationService {
 		}
 
 		$subscribers = $this->subscriberRepository->findForNotification();
-		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
+		$subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
 
 		$this->log->dev('Send blog subscriber notification mails to ' . count($subscribers) . ' users.');
 

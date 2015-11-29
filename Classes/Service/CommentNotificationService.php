@@ -151,7 +151,7 @@ class CommentNotificationService extends AbstractNotificationService {
 
 		$this->sendEmail(
 			$subscriber,
-			$this->translate('subject.subscriber.new', $post->getTitle()),
+			$this->translate('subject.subscriber.comment.new', $post->getTitle()),
 			$this->subscriptionSettings['subscriber']['template']['confirm'],
 			array(
 				'post' => $post,
@@ -204,7 +204,7 @@ class CommentNotificationService extends AbstractNotificationService {
 		/* @var $post Post */
 		$post = $comment->getPost();
 		$subscribers = $this->subscriberRepository->findForNotification($post);
-		$subject = $this->translate('subject.subscriber.notify', $post->getTitle());
+		$subject = $this->translate('subject.subscriber.comment.notify', $post->getTitle());
 		$variables = array(
 			'post' => $post,
 			'comment' => $comment,
@@ -254,7 +254,7 @@ class CommentNotificationService extends AbstractNotificationService {
 
 		/* @var $post Post */
 		$post = $comment->getPost();
-		$subject = $this->translate('subject.admin.newSubscription', $post->getTitle());
+		$subject = $this->translate('subject.comment.admin.new', $post->getTitle());
 		$variables = array(
 			'post' => $post,
 			'comment' => $comment,

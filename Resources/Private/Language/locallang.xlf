@@ -107,14 +107,20 @@
 				<source>Submit</source>
 			</trans-unit>
 
-			<trans-unit id="subject.admin.newSubscription">
+			<trans-unit id="subject.comment.admin.new">
 				<source>%1$s: New comment</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.notify">
+			<trans-unit id="subject.subscriber.comment.notify">
 				<source>%1$s: New comment on '%2$s'</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.new">
+			<trans-unit id="subject.subscriber.comment.new">
 				<source>%1$s: Subscribe to '%2$s'</source>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.blog.notify">
+				<source>%1$s: New blog post '%2$s'</source>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.blog.new">
+				<source>%1$s: Subscribe to new blog posts</source>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">
