@@ -112,7 +112,7 @@ class BlogNotificationService extends AbstractNotificationService {
 	 *
 	 * @param Post $post
 	 *
-	 * @return    void
+	 * @return int Amount of subscribers
 	 */
 	public function notifySubscribers(Post $post) {
 		$settings = $this->subscriptionSettings['subscriber'];
@@ -141,6 +141,8 @@ class BlogNotificationService extends AbstractNotificationService {
 		$post->setMailsSent(TRUE);
 		$this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
 		$this->persistToDatabase();
+
+		return count($subscribers);
 	}
 
 }

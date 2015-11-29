@@ -288,6 +288,9 @@
 			<trans-unit id="module.post.noRecords">
 				<source>No blog posts found.</source>
 			</trans-unit>
+			<trans-unit id="module.post.emailsSent">
+				<source>Successfully sent notification emails to %1$s subscribers.</source>
+			</trans-unit>
 
 			<trans-unit id="module.comment.title.byPost">
 				<source><![CDATA[All comments for post <em>%1$s</em>]]></source>
