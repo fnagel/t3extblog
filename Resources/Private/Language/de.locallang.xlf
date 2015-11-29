@@ -45,13 +45,13 @@
 				<target>Name</target>
 			</trans-unit>
 			<trans-unit id="comment.email">
-				<target>Email</target>
+				<target>E-Mail</target>
 			</trans-unit>
 			<trans-unit id="comment.website">
 				<target>Link</target>
 			</trans-unit>
 			<trans-unit id="comment.subscribe">
-				<target>Email bei neuen Kommentaren</target>
+				<target>E-Mail bei neuen Kommentaren</target>
 			</trans-unit>
 			<trans-unit id="comment.human">
 				<target>Ich bin ein Mensch</target>
@@ -105,10 +105,10 @@
 			</trans-unit>
 
 			<trans-unit id="error.subscriber.email.1221560718">
-				<target>Bitte geben Sie eine Email-Adresse ein.</target>
+				<target>Bitte geben Sie eine E-Mail Adresse ein.</target>
 			</trans-unit>
 			<trans-unit id="error.subscriber.email.1221559976">
-				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
+				<target>Bitte geben Sie eine korrekte E-Mail Adresse an.</target>
 			</trans-unit>
 
 			<trans-unit id="error.newComment.title.1221565786">
@@ -121,10 +121,10 @@
 				<target>Der Name darf nur Text enthalten.</target>
 			</trans-unit>
 			<trans-unit id="error.newComment.email.1221560718">
-				<target>Bitte geben Sie eine Email-Adresse ein.</target>
+				<target>Bitte geben Sie eine E-Mail Adresse ein.</target>
 			</trans-unit>
 			<trans-unit id="error.newComment.email.1221559976">
-				<target>Bitte geben Sie eine korrekte Email-Adresse an.</target>
+				<target>Bitte geben Sie eine korrekte E-Mail Adresse an.</target>
 			</trans-unit>
 			<trans-unit id="error.newComment.text.1221560718">
 				<target>Bitte geben Sie eine Nachricht ein.</target>
@@ -133,18 +133,50 @@
 				<target>Bitte geben Sie valide URL ein.</target>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmed.title">
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">
+				<target>Bereits registriert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered">
+				<target>Ihre E-Mail-Adresse ist bereits registriert.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed.title">
+				<target>Keine Abbonement erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed">
+				<target>Es sind keine neuen Abbonements erlaubt.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created.title">
+				<target>Benachrichtigungen aktiviert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created">
+				<target>Sie erhalten eine Benachrichtigung wenn neue Artikel veröffentlicht werden.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.confirmed.title">
 				<target>Benachrichtigung bestätigt!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmed">
-				<target>Vielen Dank! Sie erhalten ab sofort eine Email wenn neue Kommentare erstellt wurden.</target>
+			<trans-unit id="flashMessage.blogSubscriber.confirmed">
+				<target>Vielen Dank! Sie erhalten eine E-Mail wenn neue Artikel veröffentlicht wurden.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted.title">
+			<trans-unit id="flashMessage.blogSubscriber.deleted.title">
+				<target>Benachrichtigungen deaktiviert!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.deleted">
+				<target>Sie erhalten keine Benachrichtigungen mehr.</target>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.postSubscriber.confirmed.title">
+				<target>Benachrichtigung bestätigt!</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.confirmed">
+				<target>Vielen Dank! Sie erhalten eine E-Mail wenn neue Kommentare erstellt wurden.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.deleted.title">
 				<target>Abbonement gelöscht!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted">
+			<trans-unit id="flashMessage.postSubscriber.deleted">
 				<target>Das Abbonement wurde gekündigt.</target>
 			</trans-unit>
+
 			<trans-unit id="flashMessage.subscriber.logout.title">
 				<target>Abgemeldet!</target>
 			</trans-unit>
@@ -173,7 +205,7 @@
 				<target>Bereits registriert!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
-				<target>Ihre Email-Adresse ist bereits für diesen Artikel registriert.</target>
+				<target>Ihre E-Mail Adresse ist bereits registriert.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidLink.title">
 				<target>Fehlerhafter Link!</target>
@@ -229,7 +261,7 @@
 				<target>Bereits registriert!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered">
-				<target>Ihre Email-Adresse ist bereits registriert.</target>
+				<target>Ihre E-Mail Adresse ist bereits registriert.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam.title">
 				<target>Abbonement nicht gespeichert!</target>
@@ -247,7 +279,7 @@
 				<target>Abbonement gespeichert!</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.created">
-				<target>Danke, Ihr Abbonement wurde gespeichert.</target>
+				<target>Danke, Ihr Abbonement wurde gespeichert. Eine E-Mail zur Bestätigung wurde an Sie versendet.</target>
 			</trans-unit>
 
             <trans-unit id="module.title">

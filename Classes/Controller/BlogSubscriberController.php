@@ -98,7 +98,7 @@ class BlogSubscriberController extends AbstractSubscriberController {
 		// check if user already registered
 		$subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
 		if (count($subscribers) > 0) {
-			$this->addFlashMessageByKey('alreadySubscribed', FlashMessage::NOTICE);
+			$this->addFlashMessageByKey('alreadyRegistered', FlashMessage::NOTICE);
 			$this->redirect('list', 'PostSubscriber');
 		}
 

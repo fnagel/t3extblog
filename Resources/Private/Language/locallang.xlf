@@ -114,18 +114,50 @@
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmed.title">
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">
+				<source>Already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered">
+				<source>Your email address is already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed.title">
+				<source>Subscription not allowed</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed">
+				<source>Sorry, no new subscriptions allowed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created.title">
+				<source>Subscription enabled!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created">
+				<source>New post notification has been enabled.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.confirmed.title">
 				<source>Successfully confirmed!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmed">
+			<trans-unit id="flashMessage.blogSubscriber.confirmed">
 				<source>Thank you! Your subscription has been confirmed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted.title">
+			<trans-unit id="flashMessage.blogSubscriber.deleted.title">
+				<source>Successfully disabled!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.deleted">
+				<source>New post notification has been disabled.</source>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.postSubscriber.confirmed.title">
+				<source>Successfully confirmed!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.confirmed">
+				<source>Thank you! Your subscription has been confirmed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.deleted.title">
 				<source>Successfully deleted!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted">
+			<trans-unit id="flashMessage.postSubscriber.deleted">
 				<source>Your subscription has been deleted.</source>
 			</trans-unit>
+
 			<trans-unit id="flashMessage.subscriber.logout.title">
 				<source>Logged out!</source>
 			</trans-unit>
@@ -154,7 +186,7 @@
 				<source>Already registered.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
-				<source>Your email address is already registered for this post.</source>
+				<source>Your email address is already registered.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidLink.title">
 				<source>Invalid link!</source>
@@ -228,7 +260,7 @@
 				<source>Subscription saved!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.created">
-				<source>Thanks, your subscription has been saved.</source>
+				<source>Thanks, your subscription has been saved. A confirmation e-mail has been sent.</source>
 			</trans-unit>
 
 			<trans-unit id="module.title">
