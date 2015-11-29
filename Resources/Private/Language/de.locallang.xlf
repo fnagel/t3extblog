@@ -307,6 +307,9 @@
             <trans-unit id="module.post.noRecords">
                 <target>Keine Blog-Posts gefunden.</target>
             </trans-unit>
+			<trans-unit id="module.post.sendBlogSubscriptionEmails">
+				<target>Sende Benachrichtigungs-E-Mails für neuen Artikel</target>
+			</trans-unit>
 			<trans-unit id="module.post.emailsSent">
 				<target>Es wurden erfolgreich %1$s E-Mails versendet.</target>
 			</trans-unit>

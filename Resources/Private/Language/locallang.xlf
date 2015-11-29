@@ -288,6 +288,9 @@
 			<trans-unit id="module.post.noRecords">
 				<source>No blog posts found.</source>
 			</trans-unit>
+			<trans-unit id="module.post.sendBlogSubscriptionEmails">
+				<source>Send new post notification mail to blog subscribers</source>
+			</trans-unit>
 			<trans-unit id="module.post.emailsSent">
 				<source>Successfully sent notification emails to %1$s subscribers.</source>
 			</trans-unit>
