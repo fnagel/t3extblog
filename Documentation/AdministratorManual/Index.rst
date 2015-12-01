@@ -61,7 +61,8 @@ Simple list of your blogposts, categorised by month, sorted by date.
 Blogsystem
 ^^^^^^^^^^
 
-Main part of the extension (we´ve added this while installing this extension already). Lists all your blogposts and shows some additional information like date of publishing,
+Main part of the extension (we´ve added this while installing this extension already).
+Lists all your blogposts and shows some additional information like date of publishing,
 name of author, categories, number of comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
@@ -110,18 +111,38 @@ RSS output, see chapter RSS.
 Subscription Manager
 ^^^^^^^^^^^^^^^^^^^^
 
+.. _administration-subscription-manager:
+
+This plugin manages all blog related subscriptions. All email links will point to this page.
+Depending on your configuration users can confirm, add and remove subscriptions for new comments and new posts.
+
+We've already did some basic settings for this plugin in the installation process, but you should do so some more configuration.
+
+Configure the Subscription manager via with (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
+
 .. important::
 
 	Use a separate page for this plugin!
 
+.. tip::
 
-This plugin manages blog post subscriptions. All email links will point to this page. We´ve already did some basic settings for this module in the installation process. But you should so some more configurations.
+	More information about email sending in the :ref:`Users Manual <users-manual-notifications>`
 
-Configure the Subscription manager via TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
+
+Blog Subscription Form
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. _administration-blog-subscription-form:
+
+This plugin provides as simple form which enables users to subscribe for new blog posts. Uses opt-in emails for confirmation.
+
+Configure the Subscription manager form with TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "blogSubscription"!
 
 
 RSS Feed
 --------
+
+.. _administration-rss:
 
 The RSS-Module need some special treatment, but no need to worry.
 
@@ -171,7 +192,7 @@ the page where the blogsystem is included).
 	# TYPO3 >= 7.2
 	TCEMAIN.preview {
 		tx_t3blog_post {
-			previewPageId = 338
+			previewPageId = 123
 			useDefaultLanguageRecord = 1
 			fieldToParameterMap {
 				uid = tx_t3extblog_blogsystem[previewPost]

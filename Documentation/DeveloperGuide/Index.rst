@@ -64,11 +64,14 @@ Testing
 
 **What needs to be tested:**
 
-* Creating log posts (with and without preview image and text)
+* Creating blog posts (with and without preview image and text)
 * Posting comments and subscribe for new comments
-* Using the subscription manager (confirm and delete)
-* Email sending: admin, subscriber opt-in and notification
-* Email sending triggered by: Frontend & Backend (confirm and un-spam a comment)
+* Using the subscription manager (confirm and delete for new comment and post subscription)
+* New comment subscription
+	* admin, subscriber opt-in and notification emails
+	* triggered by: frontend & backend (confirm and un-spam a comment)
+* New post subscription
+	* subscriber opt-in (frontend) and notification emails (button in BE module)
 
 
 TER deployment
