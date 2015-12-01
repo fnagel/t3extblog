@@ -44,9 +44,12 @@ https://github.com/fnagel/t3extblog/compare/2.0.0...2.1.0
 
 - Opt-in email for new subscriber
 
-- Subscription management within the known subscription manager plugin
+- Subscription management within the existing subscription manager plugin
+
+- Send notification emails for single posts form the BE module
 
 - Configuration for email templates
+
 
 See :ref:`Users Manual <users-manual-notifications>` and
 :ref:`Administration manual <administration-subscription-manager>` for more information.

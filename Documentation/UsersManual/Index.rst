@@ -137,15 +137,25 @@ This extension comes with two types of subscriptions and there for notification 
 New comments notification
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- **Admin email** Simple notification email. Sent to admin when an new comment has been created.
+**Admin email**
 
-- **Subscriber opt-in email** Confirmation for new subscriber. Sent either when:
-	- comment is approved by default and not SPAM or
-	- comment has been approved by an admin
+Simple notification email. Sent to admin when an new comment has been created.
 
-- **Notification emails** New comment notification for all subscribers. Sent if a new comment has been created when:
-	- comment is approved by default and not SPAM or
-	- comment has been approved by an admin
+
+**Subscriber opt-in email**
+
+Confirmation for new subscriber. Sent either when:
+
+- comment is approved by default and not SPAM or
+- comment has been approved by an admin
+
+
+**Notification emails**
+
+New comment notification for all subscribers. Sent if a new comment has been created when:
+
+- comment is approved by default and not SPAM or
+- comment has been approved by an admin
 
 .. hint::
 	We'are listening for changed or new comments, so sending opt-in and notification emails works from within
@@ -155,7 +165,11 @@ New comments notification
 New blog posts notification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- **Subscriber opt-in email** Confirmation for new subscriber. Sent when subscription is created successfully.
+**Subscriber opt-in email**
 
-- **Notification emails** New comment notification for all subscribers.
-	Use the provided button in BE module to start email sending.
+Confirmation for new subscriber. Sent when subscription is created successfully.
+
+
+**Notification emails**
+
+New comment notification for all subscribers. Use the provided button in BE module to start email sending.

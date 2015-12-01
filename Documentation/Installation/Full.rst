@@ -22,26 +22,26 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 
 
 #. Import and install the extension
-	via the extension manager
+	- via the extension manager
 
 #. Create the following pages
-	:ref:`Quick Installation <quick_installation>`
-	Optional: add an RSS page (standard page) which will contain the RSS plugin
-	Optional: add a page (standard page) for subscribing to new blog posts
+	- See :ref:`Quick Installation <quick_installation>`
+	- Optional: add an RSS page (standard page) which will contain the RSS plugin
+	- Optional: add a page (standard page) for subscribing to new blog posts
 
 	.. figure:: ../Images/Installation/pagestructure.png
 		:width: 286px
-		:alt: typical page structure
+		:alt: Typical page structure
 
-		recommended page structure
+		Recommended page structure
 
-	#. Include static template
-		See :ref:`Quick Installation <quick_installation>`
+#. Include static template
+	- See :ref:`Quick Installation <quick_installation>`
 
 #. Add plugins to the pages
-	See :ref:`Quick Installation <quick_installation>`
-	Optional: add the RSS plugin to your RSS page
-	Optional: add the Blog Subscription Form plugin to the previously created page
+	- See :ref:`Quick Installation <quick_installation>`
+	- Optional: add the RSS plugin to your RSS page
+	- Optional: add the Blog Subscription Form plugin to the previously created page
 
 #. Start to configure your Blog. This is an TypoScript example:
 
