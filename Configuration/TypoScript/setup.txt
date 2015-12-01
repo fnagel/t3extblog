@@ -157,9 +157,6 @@ plugin.tx_t3extblog {
 
 			# Subscription for new posts
 			blog {
-				# subscribe for new posts allowed
-				subscribeForPosts = 1
-
 				subscriber {
 					enableNotifications = 1
 
@@ -179,6 +176,9 @@ plugin.tx_t3extblog {
 		}
 
 		blogSubscription {
+			# subscribe for new posts allowed
+			subscribeForPosts = 1
+
 			spamCheck {
 				enable = 1
 

@@ -90,7 +90,7 @@ class BlogSubscriberController extends AbstractSubscriberController {
 		$this->checkAuth();
 		$email = $this->authentication->getEmail();
 
-		if (!$this->settings['subscriptionManager']['blog']['subscribeForPosts']) {
+		if (!$this->settings['blogSubscription']['subscribeForPosts']) {
 			$this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
 			$this->redirect('list', 'PostSubscriber');
 		}

@@ -27,7 +27,7 @@
 				</f:link.action>
 			</f:then>
 			<f:else>
-				<f:if condition="{settings.subscriptionManager.blog.subscribeForPosts}">
+				<f:if condition="{settings.blogSubscription.subscribeForPosts}">
 					<f:link.action class="btn btn-primary pull-left" controller="BlogSubscriber" action="create">
 						<span class="icon icon-sign-in glyphicon glyphicon-log-in"></span>
 						<f:translate key="subscriber.blog.create" />
