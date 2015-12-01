@@ -124,3 +124,38 @@ Preview blog posts
 The extension has a preview functionality. It's possible to preview your posts before it's open to the public.
 Just keep the blog post hidden and use the "Save document and view page" button (at the top, next to the
 "Save and close record" button) within your post records.
+
+
+Notification emails
+-------------------
+
+.. _users-manual-notifications:
+
+This extension comes with two types of subscriptions and there for notification emails.
+
+
+New comments notification
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Admin email** Simple notification email. Sent to admin when an new comment has been created.
+
+- **Subscriber opt-in email** Confirmation for new subscriber. Sent either when:
+	- comment is approved by default and not SPAM or
+	- comment has been approved by an admin
+
+- **Notification emails** New comment notification for all subscribers. Sent if a new comment has been created when:
+	- comment is approved by default and not SPAM or
+	- comment has been approved by an admin
+
+.. hint::
+	We'are listening for changed or new comments, so sending opt-in and notification emails works from within
+	the custom module and the default list module!
+
+
+New blog posts notification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Subscriber opt-in email** Confirmation for new subscriber. Sent when subscription is created successfully.
+
+- **Notification emails** New comment notification for all subscribers.
+	Use the provided button in BE module to start email sending.
