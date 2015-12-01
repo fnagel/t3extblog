@@ -46,7 +46,7 @@ Make sure to setup at least the following settings (see :code:`/Configuration/Ty
 General configuration
 ---------------------
 
-plugin.tx_t3extblog.
+*plugin.tx_t3extblog.*
 
 =========================================   =========================================================================================================
 Property                                    Description
@@ -61,8 +61,9 @@ persistence.storagePid                      See above
 persistence.enableAutomaticCacheClearing    Enable automatic clearing of the cache
 settings.blogName                           Name of your blog
 settings.previewHiddenRecords               Enable preview of hidden records (see usermanual)
-settings.blogsystem                         All settings of your blogsystem, i.e. pagination, commenthandling...
-settings.subscriptionManager                Configure the subscriptionprocess, i.e. adminmail, notification...
+settings.blogsystem                         All settings of your blog system, i.e. pagination, comment handling...
+settings.subscriptionManager                Configure the subscription process, i.e. admin email, notification email...
+settings.blogSubscription                   Configure blog (new post) subscription form
 settings.categories                         Some settings for the categorie-module
 settings.latestPosts                        Some settings for the latest posts module
 settings.latestComments                     Some settings for the latest comments module
@@ -70,6 +71,8 @@ settings.rss                                Basis rss-settings (see :code:`/Conf
 settings.backend                            Configure the backend output
 settings.debug                              Some debug configs
 lib.tx_t3extblog.date                       Localize date format, used within the fluid templates
+lib.tx_t3extblog.month                      Localize month format, used within the fluid templates
+lib.tx_t3extblog.responsiveImage            TypoScript lib for rendering responsive images
 =========================================   =========================================================================================================
 
 
