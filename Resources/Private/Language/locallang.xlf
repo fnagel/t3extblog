@@ -257,7 +257,7 @@
 				<source>Subscription not saved!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam">
-				<source>Sorry, your subscription has recognized as SPAM. Please try again!</source>
+				<source>Sorry, your subscription has been recognized as SPAM. Please try again!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed.title">
 				<source>Subscription not allowed</source>
