@@ -122,6 +122,7 @@ $requiredParameters = array(
 	'tx_t3extblog_blogsystem[tag]',
 	'tx_t3extblog_blogsystem[category]',
 	'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+	'tx_t3extblog_subscriptionmanager[subscriber]',
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
 
