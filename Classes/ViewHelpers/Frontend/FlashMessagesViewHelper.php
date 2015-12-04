@@ -43,7 +43,7 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		FlashMessage::INFO => 'alert-info',
 		FlashMessage::OK => 'alert-success',
 		FlashMessage::WARNING => 'alert-warning',
-		FlashMessage::ERROR => 'alert-error'
+		FlashMessage::ERROR => 'alert-danger'
 	);
 
 	/**
