@@ -69,7 +69,7 @@
 					<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
 				</td>
 				<td>
-					<f:link.action class="btn btn-danger pull-right" action="delete" arguments="{subscriber : subscriber}">
+					<f:link.action class="btn btn-danger pull-right" controller="PostSubscriber" action="delete" arguments="{subscriber : subscriber}">
 						<span class="icon icon-trash glyphicon glyphicon-trash"></span>
 						<f:translate key="subscriber.table.delete" />
 					</f:link.action>
