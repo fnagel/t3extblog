@@ -25,6 +25,12 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY])) {
 );
 
 
+// Add page TSconfig
+TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+	RTE.config.tx_t3blog_post.preview_text.RTEHeightOverride = 300
+');
+
+
 // Add Plugins and Flexforms
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'TYPO3.' . $_EXTKEY,

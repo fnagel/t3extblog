@@ -11,7 +11,8 @@
 
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
-			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud</label>
+			<label index="tx_t3blog_post.tagClouds.placeholder">tag1, tag2, tag3</label>
 			<label index="tx_t3blog_post.author">Author</label>
 			<label index="tx_t3blog_post.date">Date &amp; Time</label>
 			<label index="tx_t3blog_post.content">Contents</label>
@@ -24,7 +25,8 @@
 			<label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
 			<label index="tx_t3blog_post.number_views">Number of views</label>
             <label index="tx_t3blog_post.meta_description">Description</label>
-            <label index="tx_t3blog_post.meta_keywords">Keywords (comma separated list)</label>
+            <label index="tx_t3blog_post.meta_keywords">Keywords</label>
+            <label index="tx_t3blog_post.meta_keywords.placeholder">keyword1, keyword2, keyword3</label>
             <label index="tx_t3blog_post.preview_mode">Preview mode</label>
             <label index="tx_t3blog_post.preview_mode.0">Auto - Use preview text and image (otherwise complete post)</label>
             <label index="tx_t3blog_post.preview_mode.1">Show the first content element as preview</label>
@@ -70,14 +72,10 @@
 			<label index="tx_t3blog_post.tabs.post">Post</label>
 			<label index="tx_t3blog_post.tabs.category">Category</label>
 			<label index="tx_t3blog_post.tabs.interactive">Interactivity</label>
-			<label index="tx_t3blog_post.tabs.access">Access</label>
 			<label index="tx_t3blog_post.tabs.meta">Metadata</label>
             <label index="tx_t3blog_post.tabs.preview">Preview</label>
             <label index="tx_t3blog_cat.tabs.general">General</label>
-            <label index="tx_t3blog_cat.tabs.access">Access</label>
             <label index="tx_t3blog_com.tabs.general">General</label>
-            <label index="tx_t3blog_com.tabs.access">Access</label>
-            <label index="tx_t3blog_com.tabs.approval">Approval</label>
 
 			<label index="tx_t3blog_com_nl">Subscriber</label>
 			<label index="tx_t3blog_com_nl.name">User name:</label>
@@ -156,14 +154,10 @@
             <label index="tx_t3blog_post.tabs.post">Artikel</label>
             <label index="tx_t3blog_post.tabs.category">Kategorie</label>
             <label index="tx_t3blog_post.tabs.interactive">Interaktivität</label>
-            <label index="tx_t3blog_post.tabs.access">Zugriff</label>
             <label index="tx_t3blog_post.tabs.meta">Meta-Daten</label>
             <label index="tx_t3blog_post.tabs.preview">Vorschau</label>
             <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
-            <label index="tx_t3blog_cat.tabs.access">Zugriff</label>
             <label index="tx_t3blog_com.tabs.general">Allgemein</label>
-            <label index="tx_t3blog_com.tabs.access">Zugriff</label>
-            <label index="tx_t3blog_com.tabs.approval">Sichtbarkeit</label>
 
             <label index="tx_t3blog_com_nl">Abonnent</label>
             <label index="tx_t3blog_com_nl.name">Name:</label>

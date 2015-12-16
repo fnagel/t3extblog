@@ -39,6 +39,11 @@ Translations
 Translations could be added here:
 http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
 
+*Please note:*
+German localization is configured in `Resources/Private/Language/de.*.xlf`, not within the TYPO3 Pootle instance.
+Please see this issue for more information: https://github.com/fnagel/t3extblog/issues/99
+
+
 
 Documentation
 -------------

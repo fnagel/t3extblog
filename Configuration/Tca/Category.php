@@ -89,13 +89,16 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
+				'size' => 7,
+				'maxitems' => 20,
 				'items' => array(
-					array('', 0),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.hide_at_login', -1),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.any_login', -2),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.usergroups', '--div--')
 				),
+				'exclusiveKeys' => '-1,-2',
 				'foreign_table' => 'fe_groups',
+				'foreign_table_where' => 'ORDER BY fe_groups.title',
 				'showIconTable' => FALSE,
 			)
 		),
@@ -148,15 +151,35 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 		'0' => array('showitem' => '
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general;;;;1-1-1,
 				l18n_parent,l18n_diffsource,catname,description,parent_id,
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access,
-				--palette--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.access;1')
+			--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
+				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
+		)
 	),
 	'palettes' => array(
-		'1' => array('showitem' => 'starttime, endtime, fe_group, hidden', 'canNotCollapse' => 1)
+		'visibility' => array(
+			'showitem' => 'hidden',
+		),
+		'access' => array(
+			'showitem' => '
+				starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.starttime_formlabel,
+				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
+				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel'
+		),
 	)
 );
 
 // @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.6', '>=')) {
-	$GLOBALS['TCA']['tx_t3blog_post']['columns']['parent_id']['config']['renderMode'] = 'tree';
+if (version_compare(TYPO3_branch, '7.0', '<')) {
+	$GLOBALS['TCA']['tx_t3blog_cat']['columns']['parent_id']['config']['renderMode'] = 'tree';
+
+	// Use old localization path
+	$GLOBALS['TCA']['tx_t3blog_cat']['types']['0']['showitem'] =
+		str_replace('frontend/Resources/Private/Language', 'cms', $GLOBALS['TCA']['tx_t3blog_cat']['types']['0']['showitem']);
+	$GLOBALS['TCA']['tx_t3blog_cat']['palettes']['access']['showitem'] =
+		str_replace('frontend/Resources/Private/Language', 'cms', $GLOBALS['TCA']['tx_t3blog_cat']['palettes']['access']['showitem']);
+
+	// Add do not collapse
+	$GLOBALS['TCA']['tx_t3blog_cat']['palettes']['visibility']['canNotCollapse'] = TRUE;
+	$GLOBALS['TCA']['tx_t3blog_cat']['palettes']['access']['canNotCollapse'] = TRUE;
 }

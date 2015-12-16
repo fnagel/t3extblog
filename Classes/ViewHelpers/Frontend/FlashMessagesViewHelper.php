@@ -43,7 +43,7 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		FlashMessage::INFO => 'alert-info',
 		FlashMessage::OK => 'alert-success',
 		FlashMessage::WARNING => 'alert-warning',
-		FlashMessage::ERROR => 'alert-error'
+		FlashMessage::ERROR => 'alert-danger'
 	);
 
 	/**
@@ -54,8 +54,11 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	public function initializeArguments() {
 		parent::initializeArguments();
 
-		// Add default Bootstrap alert classes
-		$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
+		// @todo Remove this when 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '7.0', '<')) {
+			// Add default Bootstrap alert classes for older TYPO3
+			$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
+		}
 
 		// Register role attribute for better a11y
 		$this->registerArgument('role', 'string', 'ARIA role for this element', FALSE, 'alert');
@@ -73,6 +76,11 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	 * @return string rendered Flash Messages, if there are any.
 	 */
 	public function render($renderMode = self::RENDER_MODE_DIV) {
+		// @todo Use this only when 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '7.0', '>=')) {
+			return parent::render($renderMode);
+		}
+
 		$flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
 		if ($flashMessages === NULL || count($flashMessages) === 0) {
 			return '';

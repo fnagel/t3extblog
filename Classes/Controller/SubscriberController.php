@@ -121,6 +121,11 @@ class SubscriberController extends AbstractController {
 			throw new InvalidArgumentValueException('No subscriber given.');
 		}
 
+		// Check if the given subscriber is owned by authenticated user
+		if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
+			throw new \InvalidArgumentException('Invalid subscriber given.');
+		}
+
 		$this->subscriberRepository->remove($subscriber);
 		$this->persistEntities();
 

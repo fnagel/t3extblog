@@ -30,8 +30,6 @@ use TYPO3\T3extblog\Exception\InvalidConfigurationException;
 
 /**
  * TypoScript Settings Validator class
- *
- * @todo Add persistence pid check
  */
 class TypoScriptValidator {
 
