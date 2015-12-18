@@ -143,10 +143,6 @@ $requiredParameters = array(
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
 
-// @todo Remove this, see: https://github.com/fnagel/t3extblog/issues/99
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:t3extblog/Resources/Private/Language/locallang.xlf'][] =
-	'EXT:t3extblog/Resources/Private/Language/de.locallang.xlf';
-
 // Make default avatar provider abailable in FE
 // @todo Remove this when 6.2 is no longer relevant
 if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
