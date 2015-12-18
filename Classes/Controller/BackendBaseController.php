@@ -180,9 +180,8 @@ class BackendBaseController extends ActionController {
 
 		$select = 'pages.title, pages.uid';
 
-		$where = 'pages.deleted = 0 AND ';
-		$where .= 'post.deleted = 0 AND ';
-		$where .= 'comment.deleted = 0';
+		$where = '(pages.deleted = 0 AND post.deleted = 0) OR ';
+		$where .= '(pages.deleted = 0 AND comment.deleted = 0) ';
 
 		$groupBy = 'pages.uid';
 
