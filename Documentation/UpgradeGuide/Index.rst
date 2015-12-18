@@ -30,7 +30,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - A bunch of bugfixes
 
-- TYPO3 CMS 7.x support (tested up to TYPO3 7.6)
+- TYPO3 CMS 7.x support (tested up to TYPO3 7.6.1)
 
 - Removed support for TYPO3 < 6.2
 
