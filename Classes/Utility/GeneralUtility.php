@@ -73,6 +73,8 @@ class GeneralUtility {
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->getConfigArray();
+		$GLOBALS['TSFE']->settingLanguage();
+		$GLOBALS['TSFE']->settingLocale();
 
 		return $GLOBALS['TSFE'];
 	}
