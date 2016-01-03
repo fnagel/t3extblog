@@ -60,8 +60,6 @@ class Post extends AbstractLocalizedEntity {
 	 * author
 	 *
 	 * @var \TYPO3\T3extblog\Domain\Model\BackendUser
-	 * @lazy
-	 * @validate NotEmpty
 	 */
 	protected $author;
 
@@ -258,6 +256,12 @@ class Post extends AbstractLocalizedEntity {
 	 * @return BackendUser $author
 	 */
 	public function getAuthor() {
+		if (!($this->author instanceof BackendUser)) {
+			$this->author = new BackendUser();
+			$this->author->setUserName(uniqid('author-unavailable'));
+			$this->author->setRealName('Author unavailable');
+		}
+
 		return $this->author;
 	}
 
