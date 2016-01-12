@@ -29,10 +29,10 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 	Optional: add an RSS page (standard page) which will contain the RSS plugin
 
 	.. figure:: ../Images/Installation/pagestructure.png
-:width: 286px
+		:width: 286px
 		:alt: typical page structure
 
-			recommended page structure
+		recommended page structure
 
 	#. Include static template
 		See :ref:`Quick Installation <quick_installation>`
