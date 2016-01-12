@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,6 +27,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 
 use TYPO3\CMS\Fluid\ViewHelpers\FlashMessagesViewHelper as BaseFlashMessagesViewHelper;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * View helper which renders the flash messages
@@ -45,6 +46,21 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		FlashMessage::WARNING => 'alert-warning',
 		FlashMessage::ERROR => 'alert-danger'
 	);
+
+	/**
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 */
+	protected $contentObject;
+
+	/**
+	 * Taken from TYPO3 6.2 to restore cache behaviour
+	 *
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+	 * @return void
+	 */
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+		$this->contentObject = $configurationManager->getContentObject();
+	}
 
 	/**
 	 * Initialize arguments
@@ -66,8 +82,8 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 
 	/**
 	 * Renders FlashMessages and flushes the FlashMessage queue
-	 * Note: This disables the current page cache in order to prevent FlashMessage output
-	 * from being cached.
+	 * Note: This disables the current page cache in order to prevent
+	 * FlashMessage output from being cached.
 	 *
 	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
 	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
@@ -76,11 +92,23 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	 * @return string rendered Flash Messages, if there are any.
 	 */
 	public function render($renderMode = self::RENDER_MODE_DIV) {
+		// TYPO3 7.x
 		// @todo Use this only when 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			return parent::render($renderMode);
+			$result = parent::render($renderMode);
+
+			// Prevent caching if a flash message is displayed
+			// @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
+			if ($result !== '') {
+				if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
+					$GLOBALS['TSFE']->no_cache = 1;
+				}
+			}
+
+			return $result;
 		}
 
+		// TYPO3 6.2
 		$flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
 		if ($flashMessages === NULL || count($flashMessages) === 0) {
 			return '';
