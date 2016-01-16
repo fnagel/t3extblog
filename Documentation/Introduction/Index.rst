@@ -30,6 +30,7 @@ Currently implemented features:
 * Preview of hidden posts
 * Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2 and 7.x
 * Mulit language support
+* Link validator support
 * A few unit tests
 
 .. tip::

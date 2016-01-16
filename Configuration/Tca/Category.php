@@ -144,6 +144,7 @@ $GLOBALS['TCA']['tx_t3blog_cat'] = array(
 			'config' => array(
 				'type' => 'input',
 				'size' => '40',
+				'softref' => 'typolink_tag,email[subst],url',
 			)
 		),
 	),

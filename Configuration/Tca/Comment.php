@@ -88,6 +88,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 				'type' => 'input',
 				'size' => '30',
 				'eval' => 'required',
+				'softref' => 'email',
 			)
 		),
 		'website' => array(
@@ -96,6 +97,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 			'config' => array(
 				'type' => 'input',
 				'size' => '30',
+				'softref' => 'typolink,url',
 			)
 		),
 		'date' => array(
@@ -130,6 +132,7 @@ $GLOBALS['TCA']['tx_t3blog_com'] = array(
 						)
 					),
 				),
+				'softref' => 'typolink_tag,email[subst],url',
 			)
 		),
 		'approved' => array(

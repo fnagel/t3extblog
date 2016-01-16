@@ -228,6 +228,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'cols' => '45',
 				'rows' => '3',
 				'wrap' => 'off',
+				'softref' => 'url',
 			)
 		),
 		'trackback_hash' => array(
@@ -297,6 +298,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'type' => 'text',
 				'cols' => '45',
 				'rows' => '10',
+				'softref' => 'typolink_tag,email[subst],url',
 			),
 			'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
 		),

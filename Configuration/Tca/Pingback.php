@@ -59,6 +59,7 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 			'config' => array(
 				'type' => 'input',
 				'size' => '30',
+				'softref' => 'url',
 			)
 		),
 		'date' => array(
@@ -70,7 +71,7 @@ $GLOBALS['TCA']['tx_t3blog_pingback'] = array(
 				'max' => '20',
 				'eval' => 'datetime',
 				'checkbox' => '0',
-				'default' => '0'
+				'default' => '0',
 			)
 		),
 		'text' => array(
