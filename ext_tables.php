@@ -18,12 +18,10 @@ $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath(
 	$_EXTKEY, 'Configuration/TypoScript/RealUrl', 'T3Extblog: additional RealUrl config'
 );
 
-
-// Add page TSconfig
-TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
-	RTE.config.tx_t3blog_post.preview_text.RTEHeightOverride = 300
-');
-
+// Add page TS config
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TypoScript/pageTsConfig.ts">'
+);
 
 // Add Plugins and Flexforms
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
