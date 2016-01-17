@@ -49,6 +49,7 @@ plugin.tx_t3extblog {
 					insertAbove = 0
 					insertBelow = 1
 					maximumNumberOfLinks = 100
+					addQueryStringMethod = GET
 				}
 
 				metadata {
@@ -151,6 +152,7 @@ plugin.tx_t3extblog {
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0
+				addQueryStringMethod = GET
 			}
 		}
 
@@ -162,6 +164,7 @@ plugin.tx_t3extblog {
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0
+				addQueryStringMethod = GET
 			}
 		}
 
