@@ -4,10 +4,10 @@
 
 ---
 conf.py:
-  copyright: 2015
+  copyright: 2016
   project: T3Blog Extbase
-  version: 2.0.0
-  release: 2.0.0
+  version: 2.0.1
+  release: 2.0.1
   latex_documents:
   - - Index
     - t3extblog.tex

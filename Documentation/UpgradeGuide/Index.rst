@@ -76,6 +76,38 @@ How to upgrade
 
 
 
+Upgrade from 2.0.0 to 2.0.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.0.0...2.0.1
+
+- Bugfix for broken flash message caching in TYPO3 >= 7.3, see https://github.com/fnagel/t3extblog/issues/112
+
+- Bugfix for hidden or deleted BE users (author field)
+
+- Respect current post filter when using paginator
+
+- TYPO3 Link validator support
+
+
+How to upgrade
+""""""""""""""
+
+Make sure to add `addQueryStringMethod = GET` to all `paginate` TypoScript config arrays and to
+adopt the changes in `Resources/Private/Templates/ViewHelpers/Widget/Paginate/Index.html` if needed.
+Your RealUrl configuration needs to be updated if you're not using the auto configuration feature.
+
+
+#. "Clear all cache" in Install Tool (including Opcode caches!)
+
+#. Make sure to adopt TypoScript and Template changes!
+
+
+
 Upgrade from 1.1.x to 1.2.x
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
