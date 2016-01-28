@@ -11,10 +11,12 @@
 			</f:link.action>
 		</h2>
 		<p class="top">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
 			<f:if condition="{post.author.uid}">
+				<img src="{t3b:backendUserAvatar(uid: '{post.author.uid}')}" class="img-circle" alt="Avatar of {post.author.name}" />
 				<span class="author">{post.author.name}</span> -
 			</f:if>
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />
+			-
 			<f:render partial="Post/Categories" arguments="{post: post}" />
 		</p>
 
