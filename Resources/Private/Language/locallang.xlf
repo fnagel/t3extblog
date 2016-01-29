@@ -276,6 +276,16 @@
 				<source>T3extblog Administration</source>
 			</trans-unit>
 
+			<trans-unit id="module.post.new.post">
+			   <source>Create new post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.new.category">
+			   <source>Creat new category</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.new.comment">
+			   <source>Creat new comment</source>
+		   </trans-unit>
+
 			<trans-unit id="module.post.title">
 				<source>All posts</source>
 			</trans-unit>

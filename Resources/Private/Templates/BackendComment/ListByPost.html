@@ -11,15 +11,14 @@
 
 	<f:render
 		partial="Backend/Comment/Table"
-		arguments="{comments: comments,	dateFormat: dateFormat,	timeFormat: timeFormat}"
-	/>
+		arguments="{comments: comments,	dateFormat: dateFormat,	timeFormat: timeFormat}" />
 </f:section>
 
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new&defVals[tx_t3blog_com][fk_post]={post.uid}">
-			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new&defVals[tx_t3blog_com][fk_post]={post.uid}" title="{f:translate(key: 'module.post.new.comment')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
 		</t3extblog:link.editOnClick>
 	<div>
 </f:section>

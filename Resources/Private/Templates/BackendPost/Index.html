@@ -92,8 +92,12 @@
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new">
-			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.post.new.post')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
+		</t3extblog:link.editOnClick>
+
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_cat][{pageId}]]=new" title="{f:translate(key: 'module.post.new.category')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-category" />
 		</t3extblog:link.editOnClick>
 	</div>
 </f:section>

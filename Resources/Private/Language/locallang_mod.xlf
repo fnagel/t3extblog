@@ -10,7 +10,7 @@
 				<source>Blog Administration</source>
 			</trans-unit>
 			<trans-unit id="mlang_tabs_tab" xml:space="preserve">
-				<source>T3extblog</source>
+				<source>Blog</source>
 			</trans-unit>
 		</body>
 	</file>
