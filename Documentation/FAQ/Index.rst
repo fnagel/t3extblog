@@ -62,6 +62,25 @@ Filtering tags doesn't work?
 To avoid filling the cache with not existing pages, the filter only works with tags => 3 letters.
 
 
+Set default post category
+-------------------------
+
+Add this to your user TS config:
+
+.. code-block:: typoscript
+
+	TCAdefaults {
+		tx_t3blog_post {
+			# CSV of category UIDs
+			cat = 1,2,3
+
+			# Works for other fields too!
+			hidden = 0
+		}
+	}
+
+
+
 Translation / Localization
 --------------------------
 
