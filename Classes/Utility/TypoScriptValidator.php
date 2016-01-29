@@ -44,7 +44,7 @@ class TypoScriptValidator {
 	 * @return void
 	 * @throws InvalidConfigurationException
 	 */
-	static public function validateSettings(array $settings) {
+	static public function validateSettings(array $settings = NULL) {
 		$key = 'plugin';
 		if (TYPO3_MODE === 'BE') {
 			$key = 'module';
