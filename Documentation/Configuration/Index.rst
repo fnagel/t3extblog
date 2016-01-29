@@ -116,24 +116,27 @@ Overwrite templates
 
 **TYPO3 7.x**
 
+In 7.x it's possible to copy only the needed files and have a fallback. Use something like this:
+
 .. code-block:: typoscript
 
 	plugin.tx_t3extblog {
         view {
-            templateRootPaths >
+            templateRootPath >
             templateRootPaths {
-                0 = EXT:news/Resources/Private/Templates/
-                1 = fileadmin/templates/ext/news/Templates/
+                0 = {$plugin.tx_t3extblog.view.templateRootPath}
+                1 = EXT:my_theme/Resources/Private/T3extblog/Templates/
+                2 = fileadmin/templates/ext/t3extblog/Templates/
             }
-            partialRootPaths >
+            partialRootPath >
             partialRootPaths {
-                0 = EXT:news/Resources/Private/Partials/
-                1 = fileadmin/templates/ext/news/Partials/
+                0 = {$plugin.tx_t3extblog.view.partialRootPath}
+                1 = EXT:my_theme/Resources/Private/T3extblog/Layouts/
             }
-            layoutRootPaths >
+            layoutRootPath >
             layoutRootPaths {
-                0 = EXT:news/Resources/Private/Layouts/
-                1 = fileadmin/templates/ext/news/Layouts/
+                0 = {$plugin.tx_t3extblog.view.layoutRootPath}
+                1 = EXT:my_theme/Resources/Private/T3extblog/Partials/
             }
         }
 	}
@@ -141,7 +144,9 @@ Overwrite templates
 
 **TYPO3 6.x**
 
-Make sure to copy ALL templates!
+Make sure to copy ALL template files!
+
+Use the constants or change the TS setup:
 
 .. code-block:: typoscript
 
