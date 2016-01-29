@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
 	'TYPO3.' . $_EXTKEY,
 	'Blogsystem',
 	array(
-		'Post' => 'list, tag, category, show, permalink, preview',
+		'Post' => 'list, tag, category, author, show, permalink, preview',
 		'Comment' => 'create, show',
 	),
 	// non-cacheable actions
@@ -137,6 +137,7 @@ $requiredParameters = array(
 	'tx_t3extblog_blogsystem[previewPost]',
 	'tx_t3extblog_blogsystem[tag]',
 	'tx_t3extblog_blogsystem[category]',
+	'tx_t3extblog_blogsystem[author]',
 	'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 	'tx_t3extblog_subscriptionmanager[subscriber]',
 );

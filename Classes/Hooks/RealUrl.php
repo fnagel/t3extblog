@@ -111,6 +111,26 @@ class RealUrl {
 						),
 					),
 
+					'author' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[author]',
+							'lookUpTable' => array(
+								'table' => 'be_users',
+								'id_field' => 'uid',
+								'alias_field' => 'username',
+								'addWhereClause' => ' AND deleted !=1 AND disable !=1',
+								'useUniqueCache' => 1,
+								'useUniqueCache_conf' => array(
+									'strtolower' => 1,
+									'spaceCharacter' => '-',
+								),
+								'enable404forInvalidAlias' => 1,
+								'autoUpdate' => 1,
+								'expireDays' => 180,
+							)
+						)
+					),
+
 					'tags' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[tag]',

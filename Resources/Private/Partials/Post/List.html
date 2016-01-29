@@ -1,6 +1,6 @@
 <div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
+<f:render partial="Post/Filter" arguments="{category: category, tag: tag, author: author}" />
 
 <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 	<f:for each="{paginatedPosts}" as="post">

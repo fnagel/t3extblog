@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\BackendUser;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
@@ -65,6 +66,17 @@ class PostController extends AbstractController {
 	}
 
 	/**
+	 * Displays a list of posts created by an author
+	 *
+	 * @param BackendUser $author
+	 *
+	 * @return void
+	 */
+	public function authorAction(BackendUser $author) {
+		$this->view->assign('posts', $this->findPosts($author));
+	}
+
+	/**
 	 * Displays a list of posts related to a tag
 	 *
 	 * @param string $tag The name of the tag to show the posts for
@@ -72,7 +84,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function tagAction($tag) {
-		$this->view->assign('posts', $this->findPosts(NULL, $tag));
+		$this->view->assign('posts', $this->findPosts($tag));
 	}
 
 	/**
@@ -93,24 +105,33 @@ class PostController extends AbstractController {
 	}
 
 	/**
-	 * Find all or filtered by tag or by category
+	 * Find all or filtered by tag, category or author
 	 *
 	 * @todo Performance: do not fetch all by default, consider paginator
 	 *
-	 * @param Category $category
-	 * @param string $tag The name of the tag to show the posts for
+	 * @param mixed $filter
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	private function findPosts($category = NULL, $tag = NULL) {
-		if ($category !== NULL) {
-			$this->view->assign('category', $category);
-
-			return $this->postRepository->findByCategory($category);
+	private function findPosts($filter = NULL) {
+		if ($filter === NULL) {
+			return $this->postRepository->findAll();
 		}
 
-		if ($tag !== NULL && strlen($tag) > 2) {
-			$tag = urldecode($tag);
+		if ($filter instanceof BackendUser) {
+			$this->view->assign('author', $filter);
+
+			return $this->postRepository->findByAuthor($filter);
+		}
+
+		if ($filter instanceof Category) {
+			$this->view->assign('category', $filter);
+
+			return $this->postRepository->findByCategory($filter);
+		}
+
+		if (is_string($filter) && strlen($filter) > 2) {
+			$tag = urldecode($filter);
 
 			$posts = $this->postRepository->findByTag($tag);
 			if (count($posts) === 0) {
