@@ -10,6 +10,10 @@
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.post.title')}" controller="BackendPost" action="index" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.all')}" controller="BackendComment" action="index" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
+
+						<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'module.subscriber.post.title')}" controller="BackendSubscriber" action="indexPostSubscriber" />
+						</f:if>
 					</f:be.menus.actionMenu>
 				</div>
 				<div class="buttonsright right">

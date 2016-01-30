@@ -34,6 +34,10 @@ use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
  */
 abstract class AbstractSubscriberRepository extends AbstractRepository {
 
+	protected $defaultOrderings = array(
+		'crdate' => QueryInterface::ORDER_DESCENDING
+	);
+
 	/**
 	 * Find by code
 	 *

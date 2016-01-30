@@ -269,6 +269,14 @@ plugin.tx_t3extblog {
 				insertBelow = 1
 				maximumNumberOfLinks = 100
 			}
+			subscriber {
+				post.paginate {
+					itemsPerPage = 20
+					insertAbove = 0
+					insertBelow = 1
+					maximumNumberOfLinks = 100
+				}
+			}
 		}
 
 		# some debug configs

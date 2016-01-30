@@ -387,6 +387,39 @@
                 <source>Delete comment</source>
             </trans-unit>
 
+
+			<trans-unit id="module.subscriber.table.count">
+		   		<source>Show %1$s of %2$s subscriptions</source>
+	   		</trans-unit>
+			<trans-unit id="module.subscriber.noRecords">
+				<source>No subscribers found.</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.help.hide.0">
+			   <source>Enable subscription</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.hide.1">
+			   <source>Disable subscription</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.edit">
+			   <source>Edit subscriber</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.delete">
+			   <source>Delete subscriber</source>
+		   </trans-unit>
+
+			<trans-unit id="module.subscriber.post.title">
+				<source>Subscriptions for new comments</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.table.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.table.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.table.date">
+				<source>Date</source>
+			</trans-unit>
+
 			<trans-unit id="module.message.pendingComments.title">
 				<source>Pending comments</source>
 			</trans-unit>
