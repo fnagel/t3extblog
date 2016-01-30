@@ -36,7 +36,7 @@ plugin.tx_t3extblog {
 
 			posts {
 				viewCount {
-					# NOT IMPLENTED YET
+					# NOT IMPLEMENTED YET
 					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
 					# if you want to have counted each view just put a negative number.
 					# timePeriod = 10000
