@@ -13,23 +13,26 @@
 	</f:link.action>
 </td>
 <td class="action">
-	<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
+	<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit" title="{f:translate(key: 'module.post.help.edit')}">
 		<t3extblog:spriteManagerIcon iconName="actions-document-open" />
 	</t3extblog:link.editOnClick>
+
 	<f:if condition="{post.hidden}">
 		<f:then>
-			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0">
+			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0" title="{f:translate(key: 'module.post.help.hide.0')}">
 				<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
 			</t3extblog:link.issueCommand>
 		</f:then>
 		<f:else>
-			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1">
+			<t3extblog:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1" title="{f:translate(key: 'module.post.help.hide.1')}">
 				<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hide'}" />
 			</t3extblog:link.issueCommand>
 		</f:else>
 	</f:if>
 
-	<t3extblog:link.issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1" onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
+	<t3extblog:link.issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1"
+		title="{f:translate(key: 'module.post.help.delete')}"
+	 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 		<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
 	</t3extblog:link.issueCommand>
 </td>

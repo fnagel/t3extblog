@@ -24,13 +24,13 @@
 	<td>
 		<f:if condition="{comment.approved}">
 			<f:then>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=0">
-					<t3extblog:spriteManagerIcon iconName="status-status-permission-granted" options="{title: '{f:translate(key: \"module.comment.help.approved.0\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=0" title="{f:translate(key: 'module.comment.help.approved.0')}">
+					<t3extblog:spriteManagerIcon iconName="status-status-permission-granted" />
 				</t3extblog:link.issueCommand>
 			</f:then>
 			<f:else>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=1">
-					<t3extblog:spriteManagerIcon iconName="status-status-permission-denied" options="{title: '{f:translate(key: \"module.comment.help.approved.1\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=1" title="{f:translate(key: 'module.comment.help.approved.1')}">
+					<t3extblog:spriteManagerIcon iconName="status-status-permission-denied" />
 				</t3extblog:link.issueCommand>
 			</f:else>
 		</f:if>
@@ -38,36 +38,39 @@
 	<td>
 		<f:if condition="{comment.spam}">
 			<f:then>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=0">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-high" options="{title: '{f:translate(key: \"module.comment.help.spam.0\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=0" title="{f:translate(key: 'module.comment.help.spam.0')}">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-high" />
 				</t3extblog:link.issueCommand>
 			</f:then>
 			<f:else>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=1">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-low" options="{title: '{f:translate(key: \"module.comment.help.spam.1\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=1" title="{f:translate(key: 'module.comment.help.spam.1')}">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-localize-status-low" />
 				</t3extblog:link.issueCommand>
 			</f:else>
 		</f:if>
 	</td>
 	<td class="action">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit">
-			<t3extblog:spriteManagerIcon iconName="actions-document-open" options="{title: '{f:translate(key: \"module.comment.help.edit\")}'}" />
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit" title="{f:translate(key: 'module.comment.help.edit')}">
+			<t3extblog:spriteManagerIcon iconName="actions-document-open" />
 		</t3extblog:link.editOnClick>
+
 		<f:if condition="{comment.hidden}">
 			<f:then>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=0">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" options="{title: '{f:translate(key: \"module.comment.help.hide.0\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=0" title="{f:translate(key: 'module.comment.help.hide.0')}">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" />
 				</t3extblog:link.issueCommand>
 			</f:then>
 			<f:else>
-				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=1">
-					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" options="{title: '{f:translate(key: \"module.comment.help.hide.1\")}'}" />
+				<t3extblog:link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=1" title="{f:translate(key: 'module.comment.help.hide.1')}">
+					<t3extblog:spriteManagerIcon iconName="actions-edit-hide" />
 				</t3extblog:link.issueCommand>
 			</f:else>
 		</f:if>
 
-		<t3extblog:link.issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1" onclick="return confirm(\"{f:translate(key: 'module.message.deleteRecord')}\");">
-			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" options="{title: '{f:translate(key: \"module.comment.help.delete\")}'}" />
+		<t3extblog:link.issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1"
+	 		title="{f:translate(key: 'module.comment.help.delete')}"
+	 		onclick="return confirm(\"{f:translate(key: 'module.message.deleteRecord')}\");">
+			<t3extblog:spriteManagerIcon iconName="actions-edit-delete" />
 		</t3extblog:link.issueCommand>
 	</td>
 </tr>

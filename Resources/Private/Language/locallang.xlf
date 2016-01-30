@@ -307,6 +307,18 @@
 			<trans-unit id="module.post.noRecords">
 				<source>No blog posts found.</source>
 			</trans-unit>
+		   <trans-unit id="module.post.help.hide.0">
+			   <source>Unhide post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.hide.1">
+			   <source>Hide post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.edit">
+			   <source>Edit post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.delete">
+			   <source>Delete post</source>
+		   </trans-unit>
 			<trans-unit id="module.post.sendBlogSubscriptionEmails">
 				<source>Send new post notification mail to blog subscribers</source>
 			</trans-unit>
