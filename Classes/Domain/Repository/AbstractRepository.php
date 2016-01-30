@@ -50,5 +50,27 @@ class AbstractRepository extends Repository {
 		return $query;
 	}
 
+	/**
+	 * Returns all objects with specific PID
+	 *
+	 * @param integer $pid
+	 * @param boolean $respectEnableFields
+	 *
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
+		$query = $this->createQuery((int) $pid);
+
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+			$query->matching(
+				$query->equals('deleted', '0')
+			);
+		}
+
+		return $query->execute();
+	}
+
 }
 

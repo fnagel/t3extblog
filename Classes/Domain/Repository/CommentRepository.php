@@ -208,19 +208,6 @@ class CommentRepository extends AbstractRepository {
 	}
 
 	/**
-	 * Returns all objects with specific PID
-	 *
-	 * @param integer $pid
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByPage($pid = 0) {
-		$query = $this->createQuery((int) $pid);
-
-		return $query->execute();
-	}
-
-	/**
 	 * Create constraints
 	 *
 	 * @param QueryInterface $query
