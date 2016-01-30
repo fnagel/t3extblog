@@ -46,6 +46,7 @@ class BackendPostController extends BackendBaseController {
 			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId)
 		));
 	}
+
 	/**
 	 * Send post notification mails
 	 *

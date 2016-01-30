@@ -50,24 +50,5 @@ class AbstractRepository extends Repository {
 		return $query;
 	}
 
-	/**
-	 * Enable fields for BE and FE
-	 *
-	 * @param string $table
-	 *
-	 * @return string
-	 */
-	public function enableFields($table) {
-		$where = '';
-
-		if (TYPO3_MODE === 'FE') {
-			$where .= GeneralUtility::getTsFe()->sys_page->enableFields($table);
-		} else {
-			$where .= BackendUtility::BEenableFields($table);
-			$where .= BackendUtility::deleteClause($table);
-		}
-
-		return $where;
-	}
 }
 

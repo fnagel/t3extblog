@@ -49,6 +49,7 @@ class PostRepository extends AbstractRepository {
 	 * @return Post
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
+		// @todo Remove this when 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '7.0', '<')) {
 			if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
 				return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
