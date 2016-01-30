@@ -18,6 +18,7 @@ Upgrade Guide
 		:depth: 3
 
 
+
 Upgrade from 2.0.x to 2.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -27,7 +28,7 @@ This release has been sponsored by *Elementare Teilchen* (http://www.elementare-
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/2.0.0...2.1.0
+https://github.com/fnagel/t3extblog/compare/2.0.1...2.1.0
 
 - New major feature: Subscribe for new posts
 
@@ -47,8 +48,6 @@ https://github.com/fnagel/t3extblog/compare/2.0.0...2.1.0
 - Subscription management within the existing subscription manager plugin
 
 - Send notification emails for single posts form the BE module
-
-- Configuration for email templates
 
 
 See :ref:`Users Manual <users-manual-notifications>` and
@@ -87,7 +86,6 @@ How to upgrade
 
 Upgrade from 2.0.0 to 2.0.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 Changelog
 """""""""
