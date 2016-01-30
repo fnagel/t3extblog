@@ -14,8 +14,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_post
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						title.mapOnProperty = title
@@ -50,8 +51,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_cat
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						catname.mapOnProperty = name
@@ -64,8 +66,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_com
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						title.mapOnProperty = title
@@ -95,6 +98,7 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_com_nl
 					columns {
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
@@ -110,6 +114,7 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_blog_nl
 					columns {
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden

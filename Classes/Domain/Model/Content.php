@@ -34,11 +34,6 @@ class Content extends AbstractLocalizedEntity {
 	/**
 	 * @var \DateTime
 	 */
-	protected $crdate;
-
-	/**
-	 * @var \DateTime
-	 */
 	protected $tstamp;
 
 	/**
@@ -150,22 +145,6 @@ class Content extends AbstractLocalizedEntity {
 	 * @var string
 	 */
 	protected $listType;
-
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
-
-	/**
-	 * @param $crdate
-	 * @return void
-	 */
-	public function setCrdate($crdate) {
-		$this->crdate = $crdate;
-	}
 
 	/**
 	 * @return \DateTime
