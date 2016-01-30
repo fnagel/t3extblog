@@ -78,7 +78,7 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 		}
 		module.tx_t3extblog < plugin.tx_t3extblog
 
-	For more configuration-options and the associated explanations see :code:`/Configuration/TypoScript/setup.txt`.
+For more configuration-options and the associated explanations see :code:`/Configuration/TypoScript/setup.txt`.
 
 
 .. important::
