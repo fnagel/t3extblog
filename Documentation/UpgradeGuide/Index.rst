@@ -70,7 +70,6 @@ See :ref:`Users Manual <users-manual-notifications>` and
 
 - Massive code refactoring (so in case you extended t3extblog, make sure to adjust your changes if needed)
 
-Please make sure to adapt these changes in your TS, templates and overwrites.
 
 
 How to upgrade
@@ -81,6 +80,8 @@ How to upgrade
 #. Create new DB fields by using "Compare current database with specification" in Install Tool
 
 #. Adjust and update TypoScript configuration, templates and localization overwrites
+
+#. You probably want to run the upgrade wizard in EM to mark all old posts as "notification has been sent"
 
 
 
