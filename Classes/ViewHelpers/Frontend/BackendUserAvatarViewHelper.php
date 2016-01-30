@@ -25,12 +25,13 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Backend\Backend\Avatar\Image;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Get avatar for backend user
+ *
+ * This VH does work for TYPO3 >= 7.5 only
  */
 class BackendUserAvatarViewHelper extends AbstractViewHelper {
 
@@ -62,33 +63,17 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper {
 	 * @return string|NULL
 	 */
 	protected function getAvatarUrl($uid, $size) {
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.5', '>=')) {
-			$avatarImage = $this->getAvatarImage($uid, $size);
-
-			if ($avatarImage !== NULL) {
-				return $avatarImage->getUrl(TRUE);
-			}
-		}
-
-		return NULL;
-	}
-
-	/**
-	 * Get avatar image using TYPO3 avatar provider
-	 *
-	 * @param int $uid
-	 * @param int $size
-	 *
-	 * @return Image|NULL
-	 */
-	protected function getAvatarImage($uid, $size) {
 		$backendUser = $this->getDatabase()->exec_SELECTgetSingleRow('*', 'be_users', 'uid=' . (int) $uid);
 
 		/** @var \TYPO3\CMS\Backend\Backend\Avatar\Avatar $avatar */
 		$avatar = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Backend\\Avatar\\Avatar');
+		$avatarImage = $avatar->getImage($backendUser, $size);
 
-		return $avatar->getImage($backendUser, $size);
+		if ($avatarImage !== NULL) {
+			return $avatarImage->getUrl(TRUE);
+		}
+
+		return NULL;
 	}
 
 	/**
@@ -99,7 +84,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper {
 	 * @return string
 	 */
 	protected function noAvatarFound($default = NULL) {
-		if ($default === NULL) {
+		if ($default === NULL || strlen(trim($default)) < 10) {
 			$default = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 		}
 
