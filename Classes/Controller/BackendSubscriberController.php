@@ -32,22 +32,6 @@ namespace TYPO3\T3extblog\Controller;
 class BackendSubscriberController extends BackendBaseController {
 
 	/**
-	 * postSubscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
-	 * @inject
-	 */
-	protected $postSubscriberRepository;
-
-	/**
-	 * blogSubscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $blogSubscriberRepository;
-
-	/**
 	 * Show post subscribers
 	 *
 	 * @return void

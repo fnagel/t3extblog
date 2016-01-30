@@ -66,6 +66,22 @@ class BackendBaseController extends ActionController {
 	protected $commentRepository;
 
 	/**
+	 * postSubscriberRepository
+	 *
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+	 * @inject
+	 */
+	protected $postSubscriberRepository;
+
+	/**
+	 * blogSubscriberRepository
+	 *
+	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+	 * @inject
+	 */
+	protected $blogSubscriberRepository;
+
+	/**
 	 * The page id
 	 *
 	 * @var integer
