@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -29,6 +29,7 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Handles email sending and templating
@@ -103,11 +104,13 @@ class EmailService implements SingletonInterface {
 			->setSubject($subject)
 			->setCharset(\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset);
 
-		// send text or html emails
-		if (strip_tags($emailBody) === $emailBody) {
+		// Plain text only
+		if (strip_tags($emailBody) == $emailBody) {
 			$message->setBody($emailBody, 'text/plain');
 		} else {
+			// Send as HTML and plain text
 			$message->setBody($emailBody, 'text/html');
+			$message->addPart($this->preparePlainTextBody($emailBody), 'text/plain' );
 		}
 
 		if (!$this->settings['debug']['disableEmailTransmission']) {
@@ -131,15 +134,15 @@ class EmailService implements SingletonInterface {
 	 *
 	 * @param array $variables Arguments for template
 	 * @param string $templatePath Choose a template
-	 * @param string $format Choose a format (txt or html)
 	 *
 	 * @return string
 	 */
-	public function render($variables, $templatePath = 'Default.txt', $format = 'txt') {
+	public function render($variables, $templatePath = 'Default.txt') {
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
 		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
 		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
+		$format = array_pop(explode('.', $templatePath));
 		$emailView->setFormat($format);
 
 		$emailView->setLayoutRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
@@ -160,5 +163,22 @@ class EmailService implements SingletonInterface {
 		));
 
 		return $emailView->render();
+	}
+
+	/**
+	 * Prepare html as plain text
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	protected function preparePlainTextBody($html) {
+		$output = preg_replace('/<style\\b[^>]*>(.*?)<\\/style>/s', '', $html);
+		$output = strip_tags(preg_replace('/<a.* href=(?:"|\')(.*)(?:"|\').*>/', '$1', $output));
+		$output = GeneralUtility::substUrlsInPlainText($output);
+		$output = MailUtility::breakLinesForEmail($output);
+		$output = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $output);
+
+		return $output;
 	}
 }

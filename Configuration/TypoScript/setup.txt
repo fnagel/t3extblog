@@ -127,6 +127,8 @@ plugin.tx_t3extblog {
 				admin {
 					enableNotifications = 1
 
+					# Configure email template file (txt or html)
+					# Path is controlled by plugin.tx_t3extblog.view.email[]
 					template = AdminNewCommentMail.txt
 
 					mailTo {
