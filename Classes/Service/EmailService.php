@@ -138,18 +138,13 @@ class EmailService implements SingletonInterface {
 	 * @return string
 	 */
 	public function render($variables, $templatePath = 'Default.txt') {
-		$frameworkConfig = $this->settingsService->getFrameworkSettings();
 		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
 		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
+		$this->setPathsAndFile($emailView, $templatePath);
+
 		$format = array_pop(explode('.', $templatePath));
 		$emailView->setFormat($format);
-
-		$emailView->setLayoutRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
-		$emailView->setPartialRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
-		$emailView->setTemplatePathAndFilename(
-			GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
-		);
 
 		$emailView->getRequest()->setPluginName('');
 		$emailView->getRequest()->setControllerName('');
@@ -163,6 +158,54 @@ class EmailService implements SingletonInterface {
 		));
 
 		return $emailView->render();
+	}
+
+	/**
+	 * Set paths and file to standalone view
+	 *
+	 * @param \TYPO3\CMS\Fluid\View\StandaloneView $emailView
+	 * @param string $templatePath Choose a template
+	 *
+	 * @return void
+	 */
+	public function setPathsAndFile(StandaloneView $emailView, $templatePath) {
+		$frameworkConfig = $this->settingsService->getFrameworkSettings();
+
+		// @todo Remove this when TYPO3 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '6.2', '<=')) {
+			$emailView->setLayoutRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
+			$emailView->setPartialRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
+			$emailView->setTemplatePathAndFilename(
+				GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
+			);
+
+			return;
+		}
+
+		// TYPO3 7.x with fallback for old settings
+		// @todo Remove else statements when TYPO3 6.2 is no longer relevant
+		if (isset($frameworkConfig['email']['layoutRootPaths'])) {
+			$layoutPaths = $frameworkConfig['email']['layoutRootPaths'];
+		} else {
+			$layoutPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
+		}
+
+		if (isset($frameworkConfig['email']['partialRootPaths'])) {
+			$partialPaths = $frameworkConfig['email']['partialRootPaths'];
+		} else {
+			$partialPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
+		}
+
+		if (isset($frameworkConfig['email']['templateRootPaths'])) {
+			$rootPaths = $frameworkConfig['email']['templateRootPaths'];
+		} else {
+			$rootPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']));
+		}
+
+		$emailView->setLayoutRootPaths($layoutPaths);
+		$emailView->setPartialRootPaths($partialPaths);
+		$emailView->setTemplateRootPaths($rootPaths);
+		$emailView->setTemplate($templatePath);
 	}
 
 	/**
