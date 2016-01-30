@@ -356,7 +356,7 @@ if (TYPO3_MODE === 'BE') {
 		array(
 			'BackendPost' => 'index, sendPostNotifications',
 			'BackendComment' => 'index, listPending, listByPost',
-			'BackendSubscriber' => 'indexPostSubscriber'
+			'BackendSubscriber' => 'indexPostSubscriber, indexBlogSubscriber'
 		),
 		array(
 			'access' => 'user,group',

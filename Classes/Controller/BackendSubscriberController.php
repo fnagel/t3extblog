@@ -40,13 +40,32 @@ class BackendSubscriberController extends BackendBaseController {
 	protected $postSubscriberRepository;
 
 	/**
-	 * Show
+	 * blogSubscriberRepository
+	 *
+	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+	 * @inject
+	 */
+	protected $blogSubscriberRepository;
+
+	/**
+	 * Show post subscribers
 	 *
 	 * @return void
 	 */
 	public function indexPostSubscriberAction() {
 		$this->view->assignMultiple(array(
 			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId)
+		));
+	}
+
+	/**
+	 * Show blog subscribers
+	 *
+	 * @return void
+	 */
+	public function indexBlogSubscriberAction() {
+		$this->view->assignMultiple(array(
+			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId)
 		));
 	}
 

@@ -395,7 +395,7 @@
 		   		<source>Show %1$s of %2$s subscriptions</source>
 	   		</trans-unit>
 			<trans-unit id="module.subscriber.noRecords">
-				<source>No subscribers found.</source>
+				<source>No subscriptions found.</source>
 			</trans-unit>
 			<trans-unit id="module.subscriber.help.hide.0">
 			   <source>Enable subscription</source>
@@ -404,10 +404,10 @@
 			   <source>Disable subscription</source>
 		   </trans-unit>
 		   <trans-unit id="module.subscriber.help.edit">
-			   <source>Edit subscriber</source>
+			   <source>Edit subscription</source>
 		   </trans-unit>
 		   <trans-unit id="module.subscriber.help.delete">
-			   <source>Delete subscriber</source>
+			   <source>Delete subscription</source>
 		   </trans-unit>
 
 			<trans-unit id="module.subscriber.group">
@@ -416,6 +416,10 @@
 			<trans-unit id="module.subscriber.post.title">
 				<source>Subscriptions for new comments</source>
 			</trans-unit>
+			<trans-unit id="module.subscriber.blog.title">
+				<source>Subscriptions for new posts</source>
+			</trans-unit>
+
 			<trans-unit id="module.subscriber.post.table.name">
 				<source>Name</source>
 			</trans-unit>
