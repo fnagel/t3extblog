@@ -72,6 +72,19 @@ Testing
 	* triggered by: frontend & backend (confirm and un-spam a comment)
 * New post subscription
 	* subscriber opt-in (frontend) and notification emails (button in BE module)
+* Run unit tests (see below)
+
+
+Run unit tests
+^^^^^^^^^^^^^^
+
+   .. code-block:: bash
+
+      cd typoconf/ext/t3extblog
+
+      composer install
+
+      ./vendor/bin/runtests
 
 
 TER deployment
