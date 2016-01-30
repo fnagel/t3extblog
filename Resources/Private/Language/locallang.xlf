@@ -287,7 +287,7 @@
 		   </trans-unit>
 
 			<trans-unit id="module.post.title">
-				<source>All posts</source>
+				<source>Posts</source>
 			</trans-unit>
 			<trans-unit id="module.post.table.title">
 				<source>Title</source>
@@ -329,11 +329,14 @@
 			<trans-unit id="module.comment.title.byPost">
 				<source><![CDATA[All comments for post <em>%1$s</em>]]></source>
 			</trans-unit>
+			<trans-unit id="module.comment.group">
+				<source>Comments</source>
+			</trans-unit>
 			<trans-unit id="module.comment.title.all">
 				<source>All comments</source>
 			</trans-unit>
 			<trans-unit id="module.comment.title.pending">
-				<source>All pending comments</source>
+				<source>Pending comments</source>
 			</trans-unit>
             <trans-unit id="module.comment.table.title">
                 <source>Title</source>
@@ -407,6 +410,9 @@
 			   <source>Delete subscriber</source>
 		   </trans-unit>
 
+			<trans-unit id="module.subscriber.group">
+				<source>Subscriptions</source>
+			</trans-unit>
 			<trans-unit id="module.subscriber.post.title">
 				<source>Subscriptions for new comments</source>
 			</trans-unit>

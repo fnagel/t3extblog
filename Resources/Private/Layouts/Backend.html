@@ -6,14 +6,18 @@
 			<div id="typo3-docheader-row1" class="typo3-docheader-functions">
 				<div class="buttonsleft left">
 					<f:be.buttons.csh />
+
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.post.title')}" controller="BackendPost" action="index" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.all')}" controller="BackendComment" action="index" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
 
-						<f:if condition="{settings.blogsystem.comments.subscribeForComments}">
+						<f:be.menus.actionMenuItemGroup label="{f:translate(key: 'module.comment.group')}">
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.all')}" controller="BackendComment" action="index" />
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
+						</f:be.menus.actionMenuItemGroup>
+
+						<f:be.menus.actionMenuItemGroup label="{f:translate(key: 'module.subscriber.group')}">
 							<f:be.menus.actionMenuItem label="{f:translate(key: 'module.subscriber.post.title')}" controller="BackendSubscriber" action="indexPostSubscriber" />
-						</f:if>
+						</f:be.menus.actionMenuItemGroup>
 					</f:be.menus.actionMenu>
 				</div>
 				<div class="buttonsright right">
