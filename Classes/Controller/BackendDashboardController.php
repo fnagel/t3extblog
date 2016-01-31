@@ -38,6 +38,7 @@ class BackendDashboardController extends BackendBaseController {
 	 */
 	public function indexAction() {
 		$this->view->assignMultiple(array(
+			'postDrafts' => $this->postRepository->findDrafts($this->pageId),
 			'comments' => $this->commentRepository->findByPage($this->pageId),
 			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
 			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, FALSE),

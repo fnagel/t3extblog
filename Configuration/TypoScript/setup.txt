@@ -258,6 +258,13 @@ plugin.tx_t3extblog {
 		# Backend
 		backend {
 			dashboard {
+				postDrafts.paginate {
+					itemsPerPage = 5
+					insertAbove = 0
+					insertBelow = 0
+					maximumNumberOfLinks = 0
+				}
+
 				comments.paginate {
 					itemsPerPage = 10
 					insertAbove = 0
@@ -290,7 +297,7 @@ plugin.tx_t3extblog {
 			}
 
 			comments.paginate {
-				itemsPerPage = 10
+				itemsPerPage = 20
 				insertAbove = 0
 				insertBelow = 1
 				maximumNumberOfLinks = 100

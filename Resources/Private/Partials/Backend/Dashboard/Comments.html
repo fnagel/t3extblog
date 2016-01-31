@@ -34,7 +34,7 @@
 					</td>
 					<td>
 						<span title="{comment.plainText -> f:format.crop(maxCharacters: 200)}">
-							{comment.author -> f:format.crop(maxCharacters: 20)}
+							{comment.author -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
 						</span>
 					</td>
 					<td>{comment.date -> f:format.date(format: 'd.m.y H:i')}</td>

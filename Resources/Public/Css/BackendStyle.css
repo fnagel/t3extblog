@@ -26,7 +26,7 @@ table td.action a {
 }
 
 /* Dashboard */
-#dashboard .panel {
+#dashboard .grid {
 	margin: 0 0.75%;
 	float: left;
 }

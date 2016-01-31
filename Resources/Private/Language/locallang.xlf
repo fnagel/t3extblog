@@ -301,6 +301,9 @@
 			<trans-unit id="module.dashboard.subscriptions">
 				<source>Latest subscriptions</source>
 			</trans-unit>
+			<trans-unit id="module.dashboard.drafts">
+				<source>Post drafts</source>
+			</trans-unit>
 
 			<trans-unit id="module.post.title">
 				<source>Posts</source>
@@ -414,7 +417,7 @@
 				<source>No subscriptions found.</source>
 			</trans-unit>
 			<trans-unit id="module.subscriber.help.hide.0">
-			   <source>Enable subscription</source>
+			   <source>Enable subscription (not confirmed yet)</source>
 		   </trans-unit>
 		   <trans-unit id="module.subscriber.help.hide.1">
 			   <source>Disable subscription</source>

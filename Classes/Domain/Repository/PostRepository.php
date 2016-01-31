@@ -173,4 +173,29 @@ class PostRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
+	/**
+	 * Returns all hidden posts of a time frame from now
+	 *
+	 * @param integer $pid
+	 *
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findDrafts($pid = 0, $until = '- 3 months') {
+		$query = $this->createQuery((int) $pid);
+		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+		$date = new \DateTime();
+		$date->modify($until);
+
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('hidden', 1),
+				$query->equals('deleted', 0),
+				$query->greaterThanOrEqual('crdate', $date->getTimestamp())
+			)
+		);
+
+		return $query->execute();
+	}
+
 }

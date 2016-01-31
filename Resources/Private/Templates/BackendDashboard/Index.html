@@ -8,36 +8,51 @@
 
 		<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
 
-		<div class="panel panel-space panel-default" style="width: 25%;">
-			<div class="panel-heading">
-				<f:translate key="module.dashboard.actions" />
+		<div class="grid" style="width: 25%;">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<f:translate key="module.dashboard.actions" />
+				</div>
+
+				<div class="panel-body">
+					<f:link.action controller="BackendPost" action="index" class="btn btn-default btn-block">
+						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-post" />
+						{f:translate(key: 'module.post.title')}
+					</f:link.action>
+					<f:link.action controller="BackendComment" action="index" class="btn btn-default btn-block">
+						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						{f:translate(key: 'module.comment.title.all')}
+					</f:link.action>
+					<f:link.action controller="BackendComment" action="listPending" class="btn btn-default btn-block">
+						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						{f:translate(key: 'module.comment.title.pending')}
+					</f:link.action>
+					<f:link.action controller="BackendSubscriber" action="indexPostSubscriber" class="btn btn-default btn-block">
+						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						{f:translate(key: 'module.subscriber.post.title')}
+					</f:link.action>
+					<f:link.action controller="BackendSubscriber" action="indexBlogSubscriber" class="btn btn-default btn-block">
+						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						{f:translate(key: 'module.subscriber.blog.title')}
+					</f:link.action>
+				</div>
 			</div>
 
-			<div class="panel-body">
-				<f:link.action controller="BackendPost" action="index" class="btn btn-default btn-block">
-					<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-post" />
-					{f:translate(key: 'module.post.title')}
-				</f:link.action>
-				<f:link.action controller="BackendComment" action="index" class="btn btn-default btn-block">
-					<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
-					{f:translate(key: 'module.comment.title.all')}
-				</f:link.action>
-				<f:link.action controller="BackendComment" action="listPending" class="btn btn-default btn-block">
-					<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
-					{f:translate(key: 'module.comment.title.pending')}
-				</f:link.action>
-				<f:link.action controller="BackendSubscriber" action="indexPostSubscriber" class="btn btn-default btn-block">
-					<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
-					{f:translate(key: 'module.subscriber.post.title')}
-				</f:link.action>
-				<f:link.action controller="BackendSubscriber" action="indexBlogSubscriber" class="btn btn-default btn-block">
-					<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
-					{f:translate(key: 'module.subscriber.blog.title')}
-				</f:link.action>
-			</div>
+			<f:if condition="{postDrafts}">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<f:translate key="module.dashboard.drafts" />
+					</div>
+
+					<f:render partial="Backend/Dashboard/Posts"
+						arguments="{posts: postDrafts, dateFormat: dateFormat, timeFormat: timeFormat}" />
+
+				</div>
+			</f:if>
+
 		</div>
 
-		<div class="panel panel-space panel-default" style="width: 35%;">
+		<div class="grid panel panel-default" style="width: 35%;">
 			<div class="panel-heading">
 				<f:translate key="module.dashboard.comments" />
 			</div>
@@ -55,7 +70,7 @@
 			</f:if>
 		</div>
 
-		<div class="panel panel-space panel-default" style="width: 35%;">
+		<div class="grid panel panel-default" style="width: 35%;">
 			<div class="panel-heading">
 				<f:translate key="module.dashboard.subscriptions" />
 			</div>
