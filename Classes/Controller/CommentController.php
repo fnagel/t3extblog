@@ -149,7 +149,7 @@ class CommentController extends AbstractController {
 			if ($newComment->isApproved()) {
 				$this->addFlashMessageByKey('created', FlashMessage::OK);
 			} else {
-				$this->addFlashMessageByKey('createdUnapproved', FlashMessage::NOTICE);
+				$this->addFlashMessageByKey('createdDisapproved', FlashMessage::NOTICE);
 			}
 		}
 

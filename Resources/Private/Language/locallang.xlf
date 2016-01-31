@@ -210,10 +210,10 @@
 			<trans-unit id="flashMessage.comment.created">
 				<source>Thanks, your comment has been saved.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved.title">
+			<trans-unit id="flashMessage.comment.createdDisapproved.title">
 				<source>Comment saved!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved">
+			<trans-unit id="flashMessage.comment.createdDisapproved">
 				<source>Thanks, your comment has been saved and is awaiting moderation.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam.title">

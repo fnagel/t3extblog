@@ -223,10 +223,10 @@
 			<trans-unit id="flashMessage.comment.created">
 				<target>Danke, Ihr Kommentar wurde gespeichert.</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved.title">
+			<trans-unit id="flashMessage.comment.createdDisapproved.title">
 				<target>Kommentar gespeichert!</target>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved">
+			<trans-unit id="flashMessage.comment.createdDisapproved">
 				<target>Danke, Ihr Kommentar wurde gespeichert und wird in Kürze freigeschaltet.</target>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam.title">
