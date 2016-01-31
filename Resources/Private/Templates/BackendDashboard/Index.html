@@ -75,7 +75,7 @@
 				<f:translate key="module.dashboard.subscriptions" />
 			</div>
 
-			<div class="table-fit">
+			<tr class="table-fit">
 				<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
 					<thead>
 						<tr class="t3-row-header">
@@ -87,28 +87,42 @@
 					</thead>
 
 					<tbody>
+						<tr class="c-headLine">
+							<td colspan="4" class="col-title">
+								<b><f:translate key="module.subscriber.post.title" /></b>
+							</td>
+						</tr>
 						<f:if condition="{postSubscribers}">
-							<tr class="c-headLine">
-								<td colspan="4" class="col-title">
-									<b><f:translate key="module.subscriber.post.title" /></b>
-								</td>
-							</tr>
-							<f:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
-								<f:render partial="Backend/Dashboard/Subscriber"
-										  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
-							</f:widget.paginate>
+							<f:then>
+								<f:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
+									<f:render partial="Backend/Dashboard/Subscriber"
+											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
+								</f:widget.paginate>
+							</f:then>
+							<f:else>
+								<tr class="db_list_normal">
+									<td colspan="4"><em><f:translate key="module.subscriber.noRecords" /></em></td>
+								</tr>
+							</f:else>
 						</f:if>
 
+						<tr class="c-headLine">
+							<td colspan="4" class="col-title">
+								<b><f:translate key="module.subscriber.blog.title" /></b>
+							</td>
+						</tr>
 						<f:if condition="{blogSubscribers}">
-							<tr class="c-headLine">
-								<td colspan="4" class="col-title">
-									<b><f:translate key="module.subscriber.blog.title" /></b>
-								</td>
-							</tr>
-							<f:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
-								<f:render partial="Backend/Dashboard/Subscriber"
-										  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
-							</f:widget.paginate>
+							<f:then>
+								<f:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
+									<f:render partial="Backend/Dashboard/Subscriber"
+											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
+								</f:widget.paginate>
+							</f:then>
+							<f:else>
+								<tr class="db_list_normal">
+									<td colspan="4"><em><f:translate key="module.subscriber.noRecords" /></em></td>
+								</tr>
+							</f:else>
 						</f:if>
 					</tbody>
 				</table>
