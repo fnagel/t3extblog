@@ -54,7 +54,9 @@
 
 		<div class="grid panel panel-default" style="width: 35%;">
 			<div class="panel-heading">
-				<f:translate key="module.dashboard.comments" />
+				<f:link.action controller="BackendComment" action="index">
+					<f:translate key="module.dashboard.comments" />
+				</f:link.action>
 			</div>
 
 			<f:if condition="{comments}">
@@ -89,7 +91,9 @@
 					<tbody>
 						<tr class="c-headLine">
 							<td colspan="4" class="col-title">
-								<b><f:translate key="module.subscriber.post.title" /></b>
+								<f:link.action controller="BackendSubscriber" action="indexPostSubscriber">
+									<b><f:translate key="module.subscriber.post.title" /></b>
+								</f:link.action>
 							</td>
 						</tr>
 						<f:if condition="{postSubscribers}">
@@ -108,7 +112,9 @@
 
 						<tr class="c-headLine">
 							<td colspan="4" class="col-title">
-								<b><f:translate key="module.subscriber.blog.title" /></b>
+								<f:link.action controller="BackendSubscriber" action="indexBlogSubscriber">
+									<b><f:translate key="module.subscriber.blog.title" /></b>
+								</f:link.action>
 							</td>
 						</tr>
 						<f:if condition="{blogSubscribers}">
