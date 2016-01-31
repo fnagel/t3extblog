@@ -94,7 +94,7 @@
 				<source>Delete subscription for new posts</source>
 			</trans-unit>
 			<trans-unit id="subscriber.blog.create">
-				<source>Add e-mail subscription for new posts</source>
+				<source>Add email subscription for new posts</source>
 			</trans-unit>
 
 			<trans-unit id="subscriber.email">
@@ -269,7 +269,7 @@
 				<source>Subscription saved!</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.created">
-				<source>Thanks, your subscription has been saved. A confirmation e-mail has been sent.</source>
+				<source>Thanks, your subscription has been saved. A confirmation email has been sent.</source>
 			</trans-unit>
 
 			<trans-unit id="module.title">
@@ -367,7 +367,7 @@
                 <source>Author</source>
             </trans-unit>
             <trans-unit id="module.comment.table.email">
-                <source>E-Mail</source>
+                <source>Email</source>
             </trans-unit>
             <trans-unit id="module.comment.table.website">
                 <source>Website</source>
