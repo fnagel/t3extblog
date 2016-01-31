@@ -354,6 +354,7 @@ if (TYPO3_MODE === 'BE') {
 		'Tx_T3extblog',
 		'',
 		array(
+			'BackendDashboard' => 'index',
 			'BackendPost' => 'index, sendPostNotifications',
 			'BackendComment' => 'index, listPending, listByPost',
 			'BackendSubscriber' => 'indexPostSubscriber, indexBlogSubscriber'

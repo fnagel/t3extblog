@@ -21,6 +21,12 @@ table td.action a {
 	text-decoration: none;
 }
 
+/* Dashboard */
+#dashboard .panel {
+	margin: 0 0.75%;
+	float: left;
+}
+
 /* Paginate 6.x & 7.x */
 .t3extblog .pagination {
 	display: inline-block;

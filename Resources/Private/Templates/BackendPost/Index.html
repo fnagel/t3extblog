@@ -3,8 +3,6 @@
 <f:layout name="Backend" />
 
 <f:section name="main">
-	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
-
 	<h3><f:translate key="module.post.title" /></h3>
 
 	<div class="panel panel-space panel-default">
@@ -92,12 +90,10 @@
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.post.new.post')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
-		</t3extblog:link.editOnClick>
+		<span>{f:translate(key: 'module.buttons.new')}</span>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_cat][{pageId}]]=new" title="{f:translate(key: 'module.post.new.category')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-category" />
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
 		</t3extblog:link.editOnClick>
 	</div>
 </f:section>

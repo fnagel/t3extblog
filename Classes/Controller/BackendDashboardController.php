@@ -5,8 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,40 +26,23 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\T3extblog\Domain\Model\Post;
-
 /**
- * BackendPostController
+ * BackendDashboardController
  */
-class BackendPostController extends BackendBaseController {
+class BackendDashboardController extends BackendBaseController {
 
 	/**
-	 * Main Backendmodule: displays posts and pending comments
+	 * Blog dashboard
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
 		$this->view->assignMultiple(array(
-			'posts' => $this->postRepository->findByPage($this->pageId, FALSE),
+			'comments' => $this->commentRepository->findByPage($this->pageId),
+			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
+			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId),
+			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId)
 		));
-	}
-
-	/**
-	 * Send post notification mails
-	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\Post $post
-	 *
-	 * @return void
-	 */
-	public function sendPostNotificationsAction(Post $post) {
-		/* @var $notificationService \TYPO3\T3extblog\Service\BlogNotificationService */
-		$notificationService = $this->objectManager->get('TYPO3\\T3extblog\\Service\\BlogNotificationService');
-		$amount = $notificationService->notifySubscribers($post);
-
-		$this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', array($amount)));
-
-		$this->redirect('index');
 	}
 
 }

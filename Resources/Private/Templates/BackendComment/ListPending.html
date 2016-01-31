@@ -13,7 +13,9 @@
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new" title="{f:translate(key: 'module.post.new.comment')}">
+		<span>{f:translate(key: 'module.buttons.new')}</span>
+
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new" title="{f:translate(key: 'module.buttons.new.comment')}">
 			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
 		</t3extblog:link.editOnClick>
 	</div>

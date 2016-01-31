@@ -273,18 +273,34 @@
 			</trans-unit>
 
 			<trans-unit id="module.title">
-				<source>T3extblog Administration</source>
+				<source>Blog-Administration</source>
 			</trans-unit>
 
-			<trans-unit id="module.post.new.post">
+			<trans-unit id="module.buttons.new">
+			   <source>Create new:</source>
+		 	</trans-unit>
+			<trans-unit id="module.buttons.new.post">
 			   <source>Create new post</source>
-		   </trans-unit>
-		   <trans-unit id="module.post.new.category">
+		 	</trans-unit>
+		   	<trans-unit id="module.buttons.new.category">
 			   <source>Creat new category</source>
-		   </trans-unit>
-		   <trans-unit id="module.post.new.comment">
+		   	</trans-unit>
+		   	<trans-unit id="module.buttons.new.comment">
 			   <source>Creat new comment</source>
-		   </trans-unit>
+		   	</trans-unit>
+
+			<trans-unit id="module.dashboard.title">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.actions">
+				<source>Choose a view:</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.comments">
+				<source>Latest comments</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.subscriptions">
+				<source>Latest subscriptions</source>
+			</trans-unit>
 
 			<trans-unit id="module.post.title">
 				<source>Posts</source>
@@ -414,10 +430,10 @@
 				<source>Subscriptions</source>
 			</trans-unit>
 			<trans-unit id="module.subscriber.post.title">
-				<source>Subscriptions for new comments</source>
+				<source>New comment subscriptions</source>
 			</trans-unit>
 			<trans-unit id="module.subscriber.blog.title">
-				<source>Subscriptions for new posts</source>
+				<source>New post subscriptions</source>
 			</trans-unit>
 
 			<trans-unit id="module.subscriber.post.table.name">
@@ -429,6 +445,7 @@
 			<trans-unit id="module.subscriber.post.table.date">
 				<source>Date</source>
 			</trans-unit>
+
 
 			<trans-unit id="module.message.pendingComments.title">
 				<source>Pending comments</source>

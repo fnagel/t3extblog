@@ -257,27 +257,55 @@ plugin.tx_t3extblog {
 
 		# Backend
 		backend {
+			dashboard {
+				comments.paginate {
+					itemsPerPage = 10
+					insertAbove = 0
+					insertBelow = 0
+					maximumNumberOfLinks = 0
+				}
+
+				subscriber {
+					post.paginate {
+						itemsPerPage = 5
+						insertAbove = 0
+						insertBelow = 0
+						maximumNumberOfLinks = 0
+					}
+
+					blog.paginate {
+						itemsPerPage = 5
+						insertAbove = 0
+						insertBelow = 0
+						maximumNumberOfLinks = 0
+					}
+				}
+			}
+
 			posts.paginate {
-				itemsPerPage = 20
+				itemsPerPage = 15
 				insertAbove = 0
 				insertBelow = 1
 				maximumNumberOfLinks = 100
 			}
+
 			comments.paginate {
-				itemsPerPage = 20
+				itemsPerPage = 10
 				insertAbove = 0
 				insertBelow = 1
 				maximumNumberOfLinks = 100
 			}
+
 			subscriber {
 				post.paginate {
-					itemsPerPage = 20
+					itemsPerPage = 10
 					insertAbove = 0
 					insertBelow = 1
 					maximumNumberOfLinks = 100
 				}
+
 				blog.paginate {
-					itemsPerPage = 20
+					itemsPerPage = 15
 					insertAbove = 0
 					insertBelow = 1
 					maximumNumberOfLinks = 100
