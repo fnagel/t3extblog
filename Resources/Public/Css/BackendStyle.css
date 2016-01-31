@@ -21,6 +21,10 @@ table td.action a {
 	text-decoration: none;
 }
 
+#pending-comments-list table tr.warning td {
+	background: transparent;
+}
+
 /* Dashboard */
 #dashboard .panel {
 	margin: 0 0.75%;

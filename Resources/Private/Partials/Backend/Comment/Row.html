@@ -1,6 +1,6 @@
 <div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<tr class="db_list_normal">
+<tr class="db_list_normal{f:if(condition: '{comment.valid}', else: ' warning')}">
 	<td class="col-icon">
 		<f:comment>@todo Remove onclick event when TYPO3 6.2 is no longer relevant</f:comment>
 		<a href="#"

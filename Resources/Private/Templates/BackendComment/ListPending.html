@@ -5,9 +5,11 @@
 <f:section name="main">
 	<h2><f:translate key="module.comment.title.pending" /></h2>
 
-	<f:render
-		partial="Backend/Comment/Table"
-		arguments="{comments: pendingComments, dateFormat:	dateFormat, timeFormat: timeFormat}" />
+	<div id="pending-comments-list">
+		<f:render
+			partial="Backend/Comment/Table"
+			arguments="{comments: pendingComments, dateFormat:	dateFormat, timeFormat: timeFormat}" />
+	</div>
 </f:section>
 
 
