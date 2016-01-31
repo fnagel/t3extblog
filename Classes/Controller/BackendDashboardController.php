@@ -40,8 +40,8 @@ class BackendDashboardController extends BackendBaseController {
 		$this->view->assignMultiple(array(
 			'comments' => $this->commentRepository->findByPage($this->pageId),
 			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
-			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId),
-			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId)
+			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, FALSE),
+			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, FALSE)
 		));
 	}
 
