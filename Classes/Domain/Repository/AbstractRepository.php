@@ -44,7 +44,7 @@ class AbstractRepository extends Repository {
 		$query = parent::createQuery();
 
 		if ($pageUid !== NULL) {
-			$query->getQuerySettings()->setStoragePageIds(array($pageUid));
+			$query->getQuerySettings()->setStoragePageIds(array((int) $pageUid));
 		}
 
 		return $query;
@@ -58,8 +58,8 @@ class AbstractRepository extends Repository {
 	 *
 	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
-		$query = $this->createQuery((int) $pid);
+	public function findByPage($pid = NULL, $respectEnableFields = TRUE) {
+		$query = $this->createQuery($pid);
 
 		if ($respectEnableFields === FALSE) {
 			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
