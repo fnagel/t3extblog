@@ -22,7 +22,7 @@ Upgrade Guide
 Upgrade from 2.1.x to 2.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-"Author improvements"
+*"Author improvements"*
 
 
 Changelog
@@ -36,11 +36,9 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Show backend user (post author) avatar image (available since TYPO3 7.5)
 
-- Backend module
+- Backend module: Add a dashboard view
 
-	- Add a dashboard view
-
-	- Add list views for post and blog subscriptions
+- Backend module: Add list views for post and blog subscriptions
 
 - Multiple fixes and improvements
 

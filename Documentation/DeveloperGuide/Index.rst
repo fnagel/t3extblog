@@ -81,13 +81,13 @@ Testing
 Run unit tests
 ^^^^^^^^^^^^^^
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      cd typoconf/ext/t3extblog
+	cd typoconf/ext/t3extblog
 
-      composer install
+	composer install
 
-      ./vendor/bin/runtests
+	./vendor/bin/runtests
 
 
 TER deployment
