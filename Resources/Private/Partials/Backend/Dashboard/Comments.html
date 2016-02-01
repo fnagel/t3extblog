@@ -16,7 +16,11 @@
 		<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
 			<tr class="c-headLine">
 				<td colspan="4" class="col-title">
-					<b><t3extblog:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" /></b>
+					<b>
+						<f:format:crop maxCharacters="50" respectWordBoundaries="0">
+							<t3extblog:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+						</f:format:crop>
+					</b>
 				</td>
 			</tr>
 			<f:for each="{paginatedCommentsByPost}" as="comment">
