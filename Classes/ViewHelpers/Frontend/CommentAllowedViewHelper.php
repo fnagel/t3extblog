@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use TYPO3\T3extblog\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
@@ -44,18 +44,7 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 	public function render(Post $post) {
 		$this->arguments['settings'] = $this->templateVariableContainer->get('settings');
 
-		// TYPO3 7.x
-		if (is_callable('parent::render')) {
-			return parent::render();
-		}
-
-		// TYPO3 6.x
-		// @todo Remove this someday
-		if (static::evaluateCondition($this->arguments)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
+		return parent::render();
 	}
 
 	/**
@@ -86,33 +75,4 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 		return TRUE;
 	}
 
-	/**
-	 * The compiled ViewHelper adds two new ViewHelper arguments: __thenClosure and __elseClosure.
-	 * These contain closures which are be executed to render the then(), respectively else() case.
-	 *
-	 * @param string $argumentsVariableName
-	 * @param string $renderChildrenClosureVariableName
-	 * @param string $initializationPhpCode
-	 * @param \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode
-	 * @param \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-	 * @return string
-	 * @internal
-	 */
-	public function compile(
-		$argumentsVariableName,
-		$renderChildrenClosureVariableName,
-		&$initializationPhpCode,
-		\TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode,
-		\TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-	) {
-		parent::compile(
-			$argumentsVariableName,
-			$renderChildrenClosureVariableName,
-			$initializationPhpCode,
-			$syntaxTreeNode,
-			$templateCompiler
-		);
-
-		return \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
-	}
 }

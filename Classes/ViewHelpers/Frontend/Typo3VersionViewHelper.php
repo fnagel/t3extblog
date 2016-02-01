@@ -25,7 +25,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 
 /**
  * ViewHelper to render children only for specific versions
@@ -35,18 +35,30 @@ class Typo3VersionViewHelper extends AbstractConditionViewHelper {
 	/**
 	 * Render children if version matches
 	 *
-	 * Use then / else VH inside if needed.
-	 *
 	 * @param string $version
 	 * @param string $operator
 	 *
 	 * @return string
 	 */
 	public function render($version = '6.2', $operator = '>') {
-		if (version_compare(TYPO3_branch, $version, $operator)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
+		return parent::render();
 	}
+
+	/**
+	 * This method decides if the condition is TRUE or FALSE
+	 *
+	 * @param array $arguments ViewHelper arguments to evaluate the condition
+	 * @return bool
+	 */
+	static protected function evaluateCondition($arguments = NULL) {
+		$version = $arguments['version'];
+		$operator = $arguments['operator'];
+
+		if (version_compare(TYPO3_branch, $version, $operator)) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
 }
