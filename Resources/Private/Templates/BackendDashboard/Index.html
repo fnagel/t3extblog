@@ -9,7 +9,7 @@
 		<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
 
 		<div class="grid" style="width: 25%;">
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="dashboard-actions">
 				<div class="panel-heading">
 					<f:translate key="module.dashboard.actions" />
 				</div>
@@ -39,7 +39,7 @@
 			</div>
 
 			<f:if condition="{postDrafts}">
-				<div class="panel panel-default">
+				<div class="panel panel-default" id="dashboard-drafts">
 					<div class="panel-heading">
 						<f:translate key="module.dashboard.drafts" />
 					</div>
@@ -52,7 +52,7 @@
 
 		</div>
 
-		<div class="grid panel panel-default" style="width: 35%;">
+		<div class="grid panel panel-default" style="width: 35%;" id="dashboard-comments">
 			<div class="panel-heading">
 				<f:link.action controller="BackendComment" action="index">
 					<f:translate key="module.dashboard.comments" />
@@ -72,7 +72,7 @@
 			</f:if>
 		</div>
 
-		<div class="grid panel panel-default" style="width: 35%;">
+		<div class="grid panel panel-default" style="width: 35%;" id="dashboard-subscriptions">
 			<div class="panel-heading">
 				<f:translate key="module.dashboard.subscriptions" />
 			</div>
@@ -84,7 +84,7 @@
 							<td>&nbsp;</td>
 							<td><f:translate key="module.subscriber.post.table.email" /></td>
 							<td><f:translate key="module.subscriber.post.table.date" /></td>
-							<td style="width: 75px;">&nbsp;</td>
+							<td>&nbsp;</td>
 						</tr>
 					</thead>
 
