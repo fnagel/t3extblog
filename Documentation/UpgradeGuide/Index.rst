@@ -19,6 +19,58 @@ Upgrade Guide
 
 
 
+Upgrade from 2.1.x to 2.2.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+"Author improvements"
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
+
+- Use HTML files as email templates
+
+- Author filter for post list action
+
+- Show backend user (post author) avatar image (available since TYPO3 7.5)
+
+- Backend module
+
+	- Add a dashboard view
+
+	- Add list views for post and blog subscriptions
+
+- Multiple fixes and improvements
+
+
+**Breaking changes**
+
+- New TypoScript configurations for BE modules
+
+- Some localization keys have changed
+
+- Some templates have changed (mostly backend module related)
+
+- RealUrl configuration has been extended
+
+
+.. tip::
+	German localizations are now managed by the TYPO3 Pootle (translation.typo3.org) server (just like every other localization).
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Adjust and update TypoScript configuration and template overwrites
+
+#. Download localizations (using the "Languages" BE module)
+
+
+
 Upgrade from 2.0.x to 2.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
