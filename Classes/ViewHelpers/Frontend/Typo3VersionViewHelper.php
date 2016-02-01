@@ -25,15 +25,17 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * ViewHelper to render children only for specific versions
  */
-class Typo3VersionViewHelper extends AbstractViewHelper {
+class Typo3VersionViewHelper extends AbstractConditionViewHelper {
 
 	/**
 	 * Render children if version matches
+	 *
+	 * Use then / else VH inside if needed.
 	 *
 	 * @param string $version
 	 * @param string $operator
@@ -42,9 +44,9 @@ class Typo3VersionViewHelper extends AbstractViewHelper {
 	 */
 	public function render($version = '6.2', $operator = '>') {
 		if (version_compare(TYPO3_branch, $version, $operator)) {
-			return $this->renderChildren();
+			return $this->renderThenChild();
+		} else {
+			return $this->renderElseChild();
 		}
-
-		return '';
 	}
 }
