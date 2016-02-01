@@ -104,6 +104,13 @@ See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the 
 * Push changes to GitHub (:code:`git push --tags`)
 
 
+**After a release**
+
+* Make sure the release has been pushed to the TER
+* Add t3x file rendered by TER to the GitHub release
+* Update maintained translations (German) on http://translation.typo3.org
+
+
 .. important::
 	Please be careful when pushing tags.
 	Do not push "non release" tags without changing the version number in :code:`/ext_emconf.php` to a dev version number
