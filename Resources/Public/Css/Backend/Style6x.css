@@ -43,7 +43,6 @@ table.typo3-dblist tr.db_list_normal.warning td {
 	margin: 1em 0;
 }
 #dashboard-comments td.action {
-	width: 110px;
 	padding-right: 0;
 }
 #dashboard-subscriptions td.action {

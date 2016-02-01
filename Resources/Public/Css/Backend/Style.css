@@ -8,6 +8,9 @@
 	margin: 0 0.75%;
 	float: left;
 }
+#dashboard-comments td.action {
+	width: 110px;
+}
 #dashboard-subscriptions td.action {
 	width: 70px;
 }
