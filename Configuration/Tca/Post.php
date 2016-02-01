@@ -130,7 +130,9 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'be_users',
-				'foreign_table_where' => ' and be_users.disable = 0 ORDER BY be_users.username',
+				'foreign_table_where' => ' AND be_users.disable = 0 ' .
+					'AND (be_users.username != "_cli_lowlevel" AND be_users.username != "_cli_scheduler") ' .
+					'ORDER BY be_users.username',
 				'showIconTable' => FALSE,
 				'size' => 1,
 				'minitems' => 0,
