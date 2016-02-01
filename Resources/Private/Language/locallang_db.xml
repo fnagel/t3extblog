@@ -8,7 +8,7 @@
 		<languageKey index="default" type="array">
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
-			<label index="tx_t3blog_post.tagClouds">Tag Cloud</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
 			<label index="tx_t3blog_post.tagClouds.placeholder">tag1, tag2, tag3</label>
 			<label index="tx_t3blog_post.author">Author</label>
 			<label index="tx_t3blog_post.date">Date &amp; Time</label>
@@ -90,92 +90,6 @@
 			<label index="tx_t3blog_blog_nl.tabs.meta">Metadata</label>
 
             <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
-		</languageKey>
-
-
-		<languageKey index="de" type="array">
-			<label index="tx_t3blog_post">Nachricht</label>
-			<label index="tx_t3blog_post.title">Titel</label>
-			<label index="tx_t3blog_post.tagClouds">Tag Cloud (Komma separierte Liste)</label>
-			<label index="tx_t3blog_post.author">Autor</label>
-			<label index="tx_t3blog_post.date">Datum &amp; Zeit</label>
-			<label index="tx_t3blog_post.content">Inhalt</label>
-			<label index="tx_t3blog_post.allow_comments.I.0">Jedermann</label>
-			<label index="tx_t3blog_post.allow_comments.I.1">Niemand</label>
-			<label index="tx_t3blog_post.allow_comments.I.2">Nur registrierte Benutzer</label>
-			<label index="tx_t3blog_post.allow_comments">Erlaube Kommentare</label>
-			<label index="tx_t3blog_post.cat">Kategorien</label>
-            <label index="tx_t3blog_post.trackback">Trackback URLs (eine URL pro Zeile)</label>
-            <label index="tx_t3blog_post.trackback_hash">Trackback Hash</label>
-            <label index="tx_t3blog_post.number_views">Anzahl der Aufrufe</label>
-            <label index="tx_t3blog_post.meta_description">Beschreibung</label>
-            <label index="tx_t3blog_post.meta_keywords">Keywords (Komma separierte Liste)</label>
-            <label index="tx_t3blog_post.preview_mode">Vorschau-Modus</label>
-            <label index="tx_t3blog_post.preview_mode.0">Auto - Nutze Vorschau Text und Bild (oder den ganzen Artikel)</label>
-            <label index="tx_t3blog_post.preview_mode.1">Zeige das erste Inhalts-Element als Vorschau</label>
-            <label index="tx_t3blog_post.preview_mode.2">Zeige zwei Inhalts-Elemente als Vorschau</label>
-            <label index="tx_t3blog_post.preview_mode.3">Zeige drei Inhalts-Elemente als Vorschau</label>
-            <label index="tx_t3blog_post.preview_text">Text</label>
-            <label index="tx_t3blog_post.preview_image">Bild</label>
-            <label index="tx_t3blog_post.mails_sent">Benachrichtigungs-Emails bereits versendet</label>
-
-			<label index="tx_t3blog_cat">Kategorien</label>
-			<label index="tx_t3blog_cat.parent_id">Kategorie-Baum</label>
-			<label index="tx_t3blog_cat.page_shortcut">Detailansicht für Kategorie</label>
-			<label index="tx_t3blog_cat.catname">Kategorie Name</label>
-			<label index="tx_t3blog_cat.nav_title">Navigationsüberschrift</label>
-			<label index="tx_t3blog_cat.subtitle">Untertitel</label>
-			<label index="tx_t3blog_cat.keywords">Keywords (Komma separierte Liste)</label>
-			<label index="tx_t3blog_cat.description">Beschreibung</label>
-
-			<label index="tx_t3blog_com">Kommentar</label>
-			<label index="tx_t3blog_com.title">Titel</label>
-			<label index="tx_t3blog_com.author">Autor</label>
-			<label index="tx_t3blog_com.email">E-Mail</label>
-			<label index="tx_t3blog_com.website">Webseite</label>
-			<label index="tx_t3blog_com.date">Datum &amp; Zeit</label>
-			<label index="tx_t3blog_com.text">Text</label>
-			<label index="tx_t3blog_com.approved">Angenommen</label>
-            <label index="tx_t3blog_com.spam">Spam</label>
-            <label index="tx_t3blog_com.mails_sent">Benachrichtigungs-Emails bereits versendet</label>
-			<label index="tx_t3blog_com.fk_post">Verbundener Artikel</label>
-
-            <label index="tx_t3blog_pingback">Pingback</label>
-            <label index="tx_t3blog_pingback.title">Titel</label>
-            <label index="tx_t3blog_pingback.url">URL</label>
-            <label index="tx_t3blog_pingback.date">Datum</label>
-            <label index="tx_t3blog_pingback.text">Text</label>
-
-            <label index="tx_t3blog_trackback">Trackback</label>
-            <label index="tx_t3blog_trackback.fromurl">Verbundene Website</label>
-            <label index="tx_t3blog_trackback.text">Text</label>
-            <label index="tx_t3blog_trackback.title">Titel</label>
-            <label index="tx_t3blog_trackback.blogname">Blog-Name</label>
-            <label index="tx_t3blog_trackback.postid">Verbundener Artikel</label>
-
-            <label index="tx_t3blog_post.tabs.post">Artikel</label>
-            <label index="tx_t3blog_post.tabs.category">Kategorie</label>
-            <label index="tx_t3blog_post.tabs.interactive">Interaktivität</label>
-            <label index="tx_t3blog_post.tabs.meta">Meta-Daten</label>
-            <label index="tx_t3blog_post.tabs.preview">Vorschau</label>
-            <label index="tx_t3blog_cat.tabs.general">Allgemein</label>
-            <label index="tx_t3blog_com.tabs.general">Allgemein</label>
-
-            <label index="tx_t3blog_com_nl">Kommentar-Abonnent</label>
-            <label index="tx_t3blog_com_nl.name">Name:</label>
-            <label index="tx_t3blog_com_nl.email">E-Mail:</label>
-            <label index="tx_t3blog_com_nl.post_uid">Abbonierter Artikel:</label>
-            <label index="tx_t3blog_com_nl.lastsent">Zuletzt gesendet:</label>
-            <label index="tx_t3blog_com_nl.code">Auth-Code:</label>
-			<label index="tx_t3blog_com_nl.tabs.meta">Meta-Daten</label>
-
-            <label index="tx_t3blog_blog_nl">Blog-Abonnent</label>
-            <label index="tx_t3blog_blog_nl.email">E-Mail:</label>
-            <label index="tx_t3blog_blog_nl.lastsent">Zuletzt gesendet:</label>
-            <label index="tx_t3blog_blog_nl.code">Auth-Code:</label>
-			<label index="tx_t3blog_blog_nl.tabs.meta">Meta-Daten</label>
-
-			<label index="tt_content.list_type_pi2">Blog Widget Auswahl</label>
 		</languageKey>
 	</data>
 </T3locallang>
