@@ -304,6 +304,15 @@
 			<trans-unit id="module.dashboard.drafts">
 				<source>Post drafts</source>
 			</trans-unit>
+			<trans-unit id="module.dashboard.statistic">
+				<source>Blog statistic</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.statistic.postAndComments">
+				<source>%1$s posts with %2$s comments and %3$s subscriptions for new comments</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.statistic.subscriptions">
+				<source>%1$s subscriptions for new blog posts</source>
+			</trans-unit>
 
 			<trans-unit id="module.post.title">
 				<source>Posts</source>

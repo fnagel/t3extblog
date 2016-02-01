@@ -46,9 +46,25 @@
 
 					<f:render partial="Backend/Dashboard/Posts"
 						arguments="{posts: postDrafts, dateFormat: dateFormat, timeFormat: timeFormat}" />
-
 				</div>
 			</f:if>
+
+			<div class="panel panel-default" id="dashboard-statistic">
+				<div class="panel-heading">
+					<f:translate key="module.dashboard.statistic" />
+				</div>
+
+				<ul class="list-group"">
+				    <li class="list-group-item">
+						<f:translate key="module.dashboard.statistic.postAndComments"
+							arguments="{0: '{postCount}', 1: '{validCommentsCount}', 2: '{validPostSubscribersCount}'}"/>
+					</li>
+
+				    <li class="list-group-item">
+						<f:translate key="module.dashboard.statistic.subscriptions" arguments="{0: '{validBlogSubscribersCount}'}"/>
+					</li>
+			  	</ul>
+			</div>
 
 		</div>
 

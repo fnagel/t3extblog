@@ -42,7 +42,12 @@ class BackendDashboardController extends BackendBaseController {
 			'comments' => $this->commentRepository->findByPage($this->pageId),
 			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
 			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, FALSE),
-			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, FALSE)
+			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, FALSE),
+			// For statistic
+			'postCount' => $this->postRepository->findByPage($this->pageId)->count(),
+			'validCommentsCount' => $this->commentRepository->findValid($this->pageId)->count(),
+			'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
+			'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count()
 		));
 	}
 
