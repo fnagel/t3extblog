@@ -104,6 +104,29 @@ TYPO3 Pootle project: http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3ex
 More information about TYPO3 translation server: https://wiki.typo3.org/Translations
 
 
+Clear frontend cache
+--------------------
+
+When a **frontend user adds a new comment** the blogsystem plugin page cache is cleared using default TYPO3 extbase
+functionality.
+
+
+When **editing records in backend** (for example posts or comments) as a non admin user the cache needs to be cleared
+manually or by using page TS config:
+
+.. code-block:: typoscript
+
+	# PIDs of page which need to be cleared
+	TCEMAIN.clearCacheCmd = 123,456,789
+
+
+The code needs to be added to the sys folder where the blog records are edited.
+
+
+.. Hint::
+
+	The mentioned TCEMAIN settings are part of the TYPO3 core and can be used therefore not only for the t3extblog extension.
+
 
 Some output tweaks
 ------------------
