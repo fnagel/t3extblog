@@ -168,10 +168,7 @@ class BackendBaseController extends ActionController {
 	 * @return array
 	 */
 	protected function getBlogRelatedPageInfo() {
-		$blogModulePages = $this->getBlogModulePages();
-		$blogRelatedPages = $this->getBlogRelatedPages();
-
-		$blogPages = array_unique(array_merge_recursive($blogModulePages, $blogRelatedPages), SORT_REGULAR);
+		$blogPages = $this->getBlogRelatedPages();
 		$blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
 
 		if ($blogPagesCurrentPageKey !== FALSE) {
@@ -196,30 +193,48 @@ class BackendBaseController extends ActionController {
 	/**
 	 * @return array
 	 */
-	protected function getBlogModulePages() {
-		$table = 'pages ';
-		$select = 'uid, title';
-		$where = 'module = "t3blog" AND deleted = 0';
+	protected function getBlogRelatedPages() {
+		$pages = array_merge_recursive(
+			// Get pages with set module property
+			$this->execBlogPageRelatedQuery('pages', 'pages.module = "t3blog"'),
+			// Split the join queries because otherwise the query is awful slow
+			$this->getPagesWithBlogRecords(array('tx_t3blog_post', 'tx_t3blog_com')),
+			$this->getPagesWithBlogRecords(array('tx_t3blog_com_nl', 'tx_t3blog_blog_nl'))
+		);
 
-		return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where);
+		return array_unique($pages, SORT_REGULAR);
 	}
 
 	/**
+	 * Run query for getting page info
+	 *
+	 * @param string $table Needs to be 'pages' or at least related (think of joins)
+	 * @param string $additionalWhere
+	 * @param string $groupBy
+	 *
 	 * @return array
 	 */
-	protected function getBlogRelatedPages() {
-		$table = 'pages ';
-		$table .= 'LEFT JOIN tx_t3blog_post as post ON pages.uid = post.pid ';
-		$table .= 'LEFT JOIN tx_t3blog_com as comment ON pages.uid = comment.pid ';
-
-		$select = 'pages.title, pages.uid';
-
-		$where = 'pages.deleted = 0 AND ';
-		$where .= '(post.deleted = 0 OR comment.deleted = 0)';
-
-		$groupBy = 'pages.uid';
+	protected function execBlogPageRelatedQuery($table, $additionalWhere = '', $groupBy = '') {
+		$select = 'pages.uid, pages.title';
+		$where = 'pages.deleted = 0 AND ' . $additionalWhere;
 
 		return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where, $groupBy);
+	}
+
+	/**
+	 * @param $joinTables
+	 * @return array
+	 */
+	protected function getPagesWithBlogRecords($joinTables) {
+		$table = 'pages';
+		$whereArray = array();
+
+		foreach ($joinTables as $joinTable) {
+			$table .= ' LEFT JOIN ' . $joinTable . ' ON pages.uid = ' . $joinTable . '.pid';
+			$whereArray[] = $joinTable . '.deleted = 0';
+		}
+
+		return $this->execBlogPageRelatedQuery($table, '(' . join(' OR ', $whereArray) . ')', 'pages.uid');
 	}
 
 }
