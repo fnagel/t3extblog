@@ -103,7 +103,7 @@ class Tcemain {
 		}
 
 		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.2', '>=')) {
+		if (version_compare(TYPO3_branch, '7.2', '<=')) {
 			if ($table === 'tx_t3blog_post') {
 				if (isset($GLOBALS['_POST']['_savedokview_x'])) {
 					$this->processPreview($id);
