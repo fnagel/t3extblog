@@ -209,9 +209,8 @@ class BackendBaseController extends ActionController {
 	 */
 	protected function getBlogRelatedPages() {
 		$table = 'pages ';
-		$table .= 'JOIN tx_t3blog_post as post ';
-		$table .= 'JOIN tx_t3blog_com as comment ';
-		$table .= 'ON pages.uid = comment.pid OR pages.uid = post.pid ';
+		$table .= 'LEFT JOIN tx_t3blog_post as post ON pages.uid = post.pid ';
+		$table .= 'LEFT JOIN tx_t3blog_com as comment ON pages.uid = comment.pid ';
 
 		$select = 'pages.title, pages.uid';
 
