@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -78,7 +78,7 @@ class CommentNotificationService extends AbstractNotificationService {
 			$this->notifySubscribers($comment);
 
 			$this->persistToDatabase();
-			$this->flushFrontendCache();
+			$this->flushFrontendCache($comment);
 		}
 
 	}
@@ -105,7 +105,7 @@ class CommentNotificationService extends AbstractNotificationService {
 			$this->notifySubscribers($comment);
 
 			$this->persistToDatabase();
-			$this->flushFrontendCache();
+			$this->flushFrontendCache($comment);
 		}
 	}
 

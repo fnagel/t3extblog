@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Hooks;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -80,6 +80,8 @@ class Tcemain {
 		if ($command === 'delete') {
 			if ($table === 'tx_t3blog_post') {
 				$this->deletePostRelations(intval($id));
+				// @todo Improve this by using a PID cache tag
+				\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags(array('tx_t3extblog'));
 			}
 		}
 	}
@@ -102,12 +104,20 @@ class Tcemain {
 			$id = $tceMain->substNEWwithIDs[$id];
 		}
 
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.2', '<=')) {
-			if ($table === 'tx_t3blog_post') {
+		$tagsToFlush = array();
+
+		if ($table === 'tx_t3blog_post') {
+			// @todo Remove this when 6.2 is no longer relevant
+			if (version_compare(TYPO3_branch, '7.2', '<=')) {
 				if (isset($GLOBALS['_POST']['_savedokview_x'])) {
 					$this->processPreview($id);
 				}
+			}
+
+			// Cache tags for posts
+			if ($status == 'update' || $status === 'new') {
+				$tagsToFlush[] = $table . '_pid_' . $pid;
+				$tagsToFlush[] = $table . '_uid_' . $id;
 			}
 		}
 
@@ -119,9 +129,24 @@ class Tcemain {
 			}
 
 			if ($status === 'new') {
-				$this->processNewComment($id, $fields['pid']);
+				$pid = $fields['pid'];
+				$this->processNewComment($id, $pid);
+			}
+
+			// Cache tags for comments
+			if ($status == 'update' || $status === 'new') {
+				$tagsToFlush[] = $table . '_pid_' . $pid;
 			}
 		}
+
+		if ($table === 'tx_t3blog_cat') {
+			// Cache tags for categories
+			if ($status == 'update' || $status === 'new') {
+				$tagsToFlush[] = $table . '_pid_' . $pid;
+			}
+		}
+
+		\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags($tagsToFlush);
 	}
 
 	/**
@@ -200,7 +225,6 @@ class Tcemain {
 		}
 	}
 
-
 	/**
 	 * @param integer $id
 	 * @param integer $pid
@@ -208,11 +232,7 @@ class Tcemain {
 	 * @internal param int $fields
 	 */
 	protected function processNewComment($id, $pid) {
-		// extbase fix
-		$this->getObjectContainer()
-			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
-			->setPageUid($pid);
-
+		$this->ensureCorrectTypoScriptSettings($pid);
 		$this->getNotificationService()->processNewEntity($this->getComment($id));
 	}
 
@@ -223,11 +243,7 @@ class Tcemain {
 	 * @internal param int $fields
 	 */
 	protected function processChangedComment($id, $pid) {
-		// extbase fix
-		$this->getObjectContainer()
-			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
-			->setPageUid($pid);
-
+		$this->ensureCorrectTypoScriptSettings($pid);
 		$this->getNotificationService()->processChangedStatus($this->getComment($id));
 	}
 
@@ -321,6 +337,17 @@ class Tcemain {
 	 */
 	protected function getDatabase() {
 		return $GLOBALS['TYPO3_DB'];
+	}
+
+	/**
+	 * Extbase TS fix
+	 *
+	 * @param int $pid
+	 */
+	protected function ensureCorrectTypoScriptSettings($pid) {
+		$this->getObjectContainer()
+			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
+			->setPageUid($pid);
 	}
 
 }

@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -29,6 +29,8 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
  * Handles all notification mails
@@ -162,11 +164,16 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	 *
 	 * Needed as we want to make sure new comments are visible after enabling in BE.
 	 *
+	 * @param Comment $comment Comment
+	 *
 	 * @return void
 	 */
-	protected function flushFrontendCache() {
-		if (TYPO3_MODE === 'BE' && !empty($this->settings['blogsystem']['pid'])) {
-			$this->cacheService->clearPageCache((int) $this->settings['blogsystem']['pid']);
+	protected function flushFrontendCache($comment) {
+		if (TYPO3_MODE === 'BE') {
+			GeneralUtility::flushFrontendCacheByTags(array(
+				'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
+				'tx_t3blog_com_pid_' . $comment->getPid(),
+			));
 		}
 	}
 

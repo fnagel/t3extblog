@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -75,6 +75,9 @@ class CommentController extends AbstractController {
 			$this->view->assign('post', $post);
 		}
 
+		// Add basic PID based cache tag
+		$this->addCacheTags($comments->getFirst());
+
 		$this->view->assign('comments', $comments);
 	}
 
@@ -92,7 +95,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Show action
 	 *
-	 * Redirect to post show if empty cmment create is called
+	 * Redirect to post show if empty comment create is called
 	 *
 	 * @param Post $post The post the comment is related to
 	 *
@@ -101,7 +104,6 @@ class CommentController extends AbstractController {
 	public function showAction(Post $post) {
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
 	}
-
 
 	/**
 	 * action new

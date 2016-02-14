@@ -84,7 +84,13 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function tagAction($tag) {
-		$this->view->assign('posts', $this->findPosts($tag));
+		$posts = $this->findPosts($tag);
+
+		if (count($posts) === 0) {
+			GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
+		}
+
+		$this->view->assign('posts', $posts);
 	}
 
 	/**
@@ -107,45 +113,33 @@ class PostController extends AbstractController {
 	/**
 	 * Find all or filtered by tag, category or author
 	 *
-	 * @todo Performance: do not fetch all by default, consider paginator
-	 *
 	 * @param mixed $filter
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	private function findPosts($filter = NULL) {
-		if ($filter === NULL) {
-			return $this->postRepository->findAll();
-		}
-
+	protected function findPosts($filter = NULL) {
 		if ($filter instanceof BackendUser) {
 			$this->view->assign('author', $filter);
-
-			return $this->postRepository->findByAuthor($filter);
 		}
 
 		if ($filter instanceof Category) {
 			$this->view->assign('category', $filter);
-
-			return $this->postRepository->findByCategory($filter);
 		}
 
 		if (is_string($filter) && strlen($filter) > 2) {
-			$tag = urldecode($filter);
-
-			$posts = $this->postRepository->findByTag($tag);
-			if (count($posts) === 0) {
-				GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
-			}
-
-			$this->view->assign('tag', $tag);
-
-			return $posts;
+			$filter = urldecode($filter);
+			$this->view->assign('tag', $filter);
 		}
 
-		return $this->postRepository->findAll();
-	}
+		$posts = $this->postRepository->findByFilter($filter);
 
+		if ($posts !== NULL) {
+			// Add basic PID based cache tag
+			$this->addCacheTags($posts->getFirst());
+		}
+
+		return $posts;
+	}
 
 	/**
 	 * Displays archive of all posts.
@@ -153,9 +147,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function archiveAction() {
-		$posts = $this->postRepository->findAll();
-
-		$this->view->assign('posts', $posts);
+		$this->view->assign('posts', $this->findPosts());
 	}
 
 	/**
@@ -174,8 +166,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function rssAction() {
-		$posts = $this->postRepository->findAll();
-		$this->view->assign('posts', $posts);
+		$this->view->assign('posts', $this->findPosts());
 	}
 
 	/**
@@ -210,6 +201,10 @@ class PostController extends AbstractController {
 		if ($newComment === NULL) {
 			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
+
+		// Add cache tags
+		$this->addCacheTags($post);
+		$this->addCacheTags('tx_t3blog_post_uid_' . $post->getLocalizedUid());
 
 		// @todo: This will not work as this action is cached
 		// $post->riseNumberOfViews();

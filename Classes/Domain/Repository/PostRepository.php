@@ -27,6 +27,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\T3extblog\Domain\Model\BackendUser;
 use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
 
@@ -131,6 +132,33 @@ class PostRepository extends AbstractRepository {
 	}
 
 	/**
+	 * Find all or filtered by tag, category or author
+	 *
+	 * @param mixed $filter
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findByFilter($filter = NULL) {
+		if ($filter === NULL) {
+			return $this->findAll();
+		}
+
+		if ($filter instanceof BackendUser) {
+			return $this->findByAuthor($filter);
+		}
+
+		if ($filter instanceof Category) {
+			return $this->findByCategory($filter);
+		}
+
+		if (is_string($filter)) {
+			return $this->findByTag($filter);
+		}
+
+		return NULL;
+	}
+
+	/**
 	 * Finds posts by the specified tag
 	 *
 	 * @param string $tag
@@ -177,6 +205,7 @@ class PostRepository extends AbstractRepository {
 	 * Returns all hidden posts of a time frame from now
 	 *
 	 * @param integer $pid
+	 * @param string $until
 	 *
 	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
