@@ -144,6 +144,7 @@ class CommentController extends AbstractController {
 		$post->addComment($newComment);
 		$this->persistAllEntities();
 
+		// Process comment (send mails, clear cache, etc.)
 		$this->notificationService->processNewEntity($newComment);
 		$this->notificationService->notifyAdmin($newComment);
 
@@ -155,10 +156,28 @@ class CommentController extends AbstractController {
 			}
 		}
 
-		// clear cache so new comment is displayed
-		$this->clearCacheOnError();
-
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
+	}
+
+	/**
+	 * Clear cache of current post page and sends correct header.
+	 *
+	 * @return void
+	 */
+	protected function clearCacheOnError() {
+		if ($this->arguments->hasArgument('post')) {
+			$post = $this->arguments->getArgument('post')->getValue();
+			\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags(array(
+				'tx_t3blog_post_uid_' . $post->getLocalizedUid()
+			));
+		} else {
+			parent::clearCacheOnError();
+		}
+
+		$this->response->setHeader('Cache-Control', 'private', TRUE);
+		$this->response->setHeader('Expires', '0', TRUE);
+		$this->response->setHeader('Pragma', 'no-cache', TRUE);
+		$this->response->sendHeaders();
 	}
 
 	/**

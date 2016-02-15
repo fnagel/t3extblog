@@ -163,18 +163,17 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	 * Helper function for flush frontend page cache
 	 *
 	 * Needed as we want to make sure new comments are visible after enabling in BE.
+	 * In addition, this clears the cache when a new comment is added in FE.
 	 *
 	 * @param Comment $comment Comment
 	 *
 	 * @return void
 	 */
 	protected function flushFrontendCache($comment) {
-		if (TYPO3_MODE === 'BE') {
-			GeneralUtility::flushFrontendCacheByTags(array(
-				'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
-				'tx_t3blog_com_pid_' . $comment->getPid(),
-			));
-		}
+		GeneralUtility::flushFrontendCacheByTags(array(
+			'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
+			'tx_t3blog_com_pid_' . $comment->getPid(),
+		));
 	}
 
 	/**

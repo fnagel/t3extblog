@@ -188,25 +188,6 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	}
 
 	/**
-	 * Clear cache of current page on error and sends correct header.
-	 *
-	 * @return void
-	 */
-	protected function clearCacheOnError() {
-		// @todo Move this to comment controller?
-		// Is this overwrite really needed for other controllers?
-		// @todo Improve caching, see #8
-		// We probably want to clear the cache for specific tags
-		// instead of the whole page cache (Extbase default)
-		parent::clearCacheOnError();
-
-		$this->response->setHeader('Cache-Control', 'private', TRUE);
-		$this->response->setHeader('Expires', '0', TRUE);
-		$this->response->setHeader('Pragma', 'no-cache', TRUE);
-		$this->response->sendHeaders();
-	}
-
-	/**
 	 * Add page cache tag by strinf or object
 	 *
 	 * @param mixed $object A cache tag string or a blog model object
@@ -217,29 +198,29 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 			return;
 		}
 
-		$tagsToFlush = array();
+		$tags = array();
 
 		if (is_string($object)) {
-			$tagsToFlush[] = $object;
+			$tags[] = $object;
 		}
 
 		// Add base PID based tag
 		if ($object instanceof AbstractEntity) {
-			$tagsToFlush[] = 'tx_t3extblog_' . $object->getPid();
+			$tags[] = 'tx_t3extblog_' . $object->getPid();
 		}
 
 		// Add model based tag
 		if ($object instanceof Post) {
-			$tagsToFlush[] = 'tx_t3blog_post_pid_' . $object->getPid();
+			$tags[] = 'tx_t3blog_post_pid_' . $object->getPid();
 		}
 		if ($object instanceof Comment) {
-			$tagsToFlush[] = 'tx_t3blog_com_pid_' . $object->getPid();
+			$tags[] = 'tx_t3blog_com_pid_' . $object->getPid();
 		}
 		if ($object instanceof Category) {
-			$tagsToFlush[] = 'tx_t3blog_cat_pid_' . $object->getPid();
+			$tags[] = 'tx_t3blog_cat_pid_' . $object->getPid();
 		}
 
-		\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tagsToFlush);
+		\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tags);
 	}
 
 	/**
