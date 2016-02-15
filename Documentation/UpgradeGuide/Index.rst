@@ -42,6 +42,10 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Multiple fixes and improvements
 
+- Auto cache clearing when editing posts in backend (no more page TS config needed!)
+
+- Greatly improved cache handling when creating new comments
+
 
 **Breaking changes**
 
