@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,29 +27,11 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
-use TYPO3\T3extblog\Domain\Model\Subscriber;
 
 /**
  * SubscriberController
  */
 class SubscriberController extends AbstractController {
-
-	/**
-	 * subscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\SubscriberRepository
-	 * @inject
-	 */
-	protected $subscriberRepository;
-
-	/**
-	 * subscriber
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\Subscriber
-	 */
-	protected $subscriber = NULL;
 
 	/**
 	 * feUserService
@@ -60,12 +42,16 @@ class SubscriberController extends AbstractController {
 	protected $authentication;
 
 	/**
-	 * objectManager
-	 *
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
 	 * @inject
 	 */
-	protected $objectManager;
+	protected $blogSubscriberRepository;
+
+	/**
+	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+	 * @inject
+	 */
+	protected $postSubscriberRepository;
 
 	/**
 	 * Displays a list of all posts a user subscribed to
@@ -73,73 +59,18 @@ class SubscriberController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		$this->checkAuth();
+		if (!$this->authentication->isValid()) {
+			$this->forward('list', 'PostSubscriber');
+		}
 
 		$email = $this->authentication->getEmail();
-		$subscribers = $this->subscriberRepository->findByEmail($email);
+
+		$postSubscriber = $this->postSubscriberRepository->findByEmail($email);
+		$blogSubscriber = $this->blogSubscriberRepository->findOneByEmail($email);
 
 		$this->view->assign('email', $email);
-		$this->view->assign('subscribers', $subscribers);
-	}
-
-	/**
-	 * action confirm
-	 *
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception
-	 * @return void
-	 */
-	public function confirmAction() {
-		$this->checkAuth(TRUE);
-
-		if ($this->subscriber === NULL) {
-			throw new MvcException('No authenticated subscriber given.');
-		}
-
-		if ($this->subscriber->_getProperty('hidden') === TRUE) {
-			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessageByKey('confirmed', FlashMessage::NOTICE);
-
-			$this->subscriberRepository->update($this->subscriber);
-			$this->persistEntities();
-		}
-
-		$this->redirect('list');
-	}
-
-	/**
-	 * action delete
-	 *
-	 * @param Subscriber $subscriber
-	 *
-	 * @throws InvalidArgumentValueException
-	 * @return void
-	 */
-	public function deleteAction(Subscriber $subscriber = NULL) {
-		$this->checkAuth();
-
-		if ($subscriber === NULL) {
-			throw new InvalidArgumentValueException('No subscriber given.');
-		}
-
-		// Check if the given subscriber is owned by authenticated user
-		if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
-			throw new \InvalidArgumentException('Invalid subscriber given.');
-		}
-
-		$this->subscriberRepository->remove($subscriber);
-		$this->persistEntities();
-
-		$this->addFlashMessageByKey('deleted', FlashMessage::NOTICE);
-		$this->redirect('list');
-	}
-
-	/**
-	 * Invalidates the auth and redirects user
-	 *
-	 * @return void
-	 */
-	protected function logoutAction() {
-		$this->processError('logout', FlashMessage::NOTICE);
+		$this->view->assign('postSubscriber', $postSubscriber);
+		$this->view->assign('blogSubscriber', $blogSubscriber);
 	}
 
 	/**
@@ -154,14 +85,23 @@ class SubscriberController extends AbstractController {
 	}
 
 	/**
-	 * Redirects user when no auth was possible
-	 *
-	 * @param string $message Flash message key
-	 * @param integer $severity optional severity code. One of the t3lib_FlashMessage constants
+	 * Invalidates the auth and redirects user
 	 *
 	 * @return void
 	 */
-	protected function processError($message = 'invalidAuth', $severity = FlashMessage::ERROR) {
+	public function logoutAction() {
+		$this->processErrorAction('logout', FlashMessage::INFO);
+	}
+
+	/**
+	 * Redirects user when no auth was possible
+	 *
+	 * @param string $message Flash message key
+	 * @param integer $severity Severity code. One of the FlashMessage constants
+	 *
+	 * @return void
+	 */
+	protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR) {
 		$this->authentication->logout();
 
 		$this->addFlashMessageByKey($message, $severity);
@@ -169,108 +109,15 @@ class SubscriberController extends AbstractController {
 	}
 
 	/**
-	 * Check and get authentication
+	 * Fallback for old real url confirm configuration
 	 *
-	 * @param boolean $isConfirmRequest
-	 *
-	 * @return void
-	 */
-	protected function checkAuth($isConfirmRequest = FALSE) {
-		if ($this->hasCodeArgument()) {
-			$this->authenticate($isConfirmRequest);
-		}
-
-		if ($this->authentication->isValid()) {
-			return;
-		}
-
-		$this->processError();
-	}
-
-	/**
-	 * Get authentication
-	 *
-	 * @param boolean $isConfirmRequest
+	 * @todo Remove this with v3.0.0
+	 * @deprecated
 	 *
 	 * @return void
 	 */
-	protected function authenticate($isConfirmRequest = FALSE) {
-		$code = $this->getAuthCode();
-
-		/* @var $subscriber Subscriber */
-		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
-
-		if ($subscriber === NULL) {
-			$this->processError('authFailed');
-		}
-
-		$modify = '+1 hour';
-		if (isset($this->settings['subscriptionManager']['subscriber']['emailHashTimeout'])) {
-			$modify = trim($this->settings['subscriptionManager']['subscriber']['emailHashTimeout']);
-		}
-		if ($subscriber->isAuthCodeExpired($modify)) {
-			$this->processError('linkOutdated');
-		}
-
-		if ($isConfirmRequest === TRUE) {
-			$confirmedSubscriptions = $this->subscriberRepository->findExistingSubscriptions(
-				$subscriber->getPostUid(),
-				$subscriber->getEmail(),
-				$subscriber->getUid()
-			);
-
-			if (count($confirmedSubscriptions) > 0) {
-				$subscriber->_setProperty('deleted', TRUE);
-
-				$this->subscriberRepository->update($subscriber);
-				$this->persistEntities();
-
-				$this->processError('alreadyRegistered', FlashMessage::NOTICE);
-			}
-		}
-
-		$this->authentication->login($subscriber->getEmail());
-		$this->subscriber = $subscriber;
-	}
-
-	/**
-	 * If the request has argument 'code'
-	 *
-	 * @return string
-	 */
-	protected function hasCodeArgument() {
-		if ($this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
-	/**
-	 * Checks the code
-	 *
-	 * @return string
-	 */
-	protected function getAuthCode() {
-		$code = $this->request->getArgument('code');
-
-		if (strlen($code) !== 32 || !ctype_alnum($code)) {
-			$this->processError('invalidLink');
-		}
-
-		return $code;
-	}
-
-	/**
-	 * Persist all entities
-	 *
-	 * @return void
-	 */
-	protected function persistEntities() {
-		$persistenceManager = $this->objectManager->get(
-			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-		);
-		$persistenceManager->persistAll();
+	public function confirmAction() {
+		$this->forward('confirm', 'PostSubscriber');
 	}
 
 }

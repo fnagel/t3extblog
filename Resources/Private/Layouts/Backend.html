@@ -1,16 +1,23 @@
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 <f:be.container
 	pageTitle="T3extblog Management"
-	includeCssFiles="{0: '{f:uri.resource(path: \'Css/BackendStyle.css\')}'}">
+	includeCssFiles="{
+		0: '{f:uri.resource(path: \'Css/Backend/Style.css\')}',
+		1: '{f:uri.resource(path: \'Css/Backend\')}/Style{t3b:typo3Version(version: \'7.3\', operator: \'>=\', then: \'7x\', else: \'6x\')}.css'
+	}">
 	<div class="typo3-fullDoc t3extblog">
 		<div id="typo3-docheader">
 			<div id="typo3-docheader-row1" class="typo3-docheader-functions">
 				<div class="buttonsleft left">
 					<f:be.buttons.csh />
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.post.title')}" controller="BackendPost" action="index" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.all')}" controller="BackendComment" action="index" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'module.comment.title.pending')}" controller="BackendComment" action="listPending" />
-					</f:be.menus.actionMenu>
+
+					<f:comment>@todo Remove version conditions when TYPO3 6.2 is no longer relevant</f:comment>
+					<t3b:typo3Version version="7.3" operator=">=">
+						<f:render partial="Backend/Menu/7x" />
+					</t3b:typo3Version>
+					<t3b:typo3Version version="7.3" operator="<">
+						<f:render partial="Backend/Menu/6x" />
+					</t3b:typo3Version>
 				</div>
 				<div class="buttonsright right">
 					<f:be.pagePath /><f:be.pageInfo />
@@ -37,3 +44,4 @@
 		</div>
 	</div>
 </f:be.container>
+</div>

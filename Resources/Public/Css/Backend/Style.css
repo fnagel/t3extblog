@@ -1,0 +1,35 @@
+/* Lists */
+#pending-comments-list table tr.warning td {
+	background: transparent;
+}
+
+/* Dashboard */
+#dashboard .grid {
+	margin: 0 0.75%;
+	float: left;
+}
+#dashboard-comments td.action {
+	width: 110px;
+}
+#dashboard-subscriptions td.action {
+	width: 70px;
+}
+
+/* Paginate */
+.t3extblog .pagination {
+	display: inline-block;
+	margin: 5px;
+	padding: 0;
+}
+
+.t3extblog .pagination > li {
+	display: inline;
+}
+.t3extblog .pagination > li > a,
+.t3extblog .pagination > li > span {
+	position: relative;
+	float: left;
+	padding: 6px 12px;
+	margin-left: -1px;
+	text-decoration: none;
+}

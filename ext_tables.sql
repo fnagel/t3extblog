@@ -65,6 +65,8 @@ CREATE TABLE tx_t3blog_post (
 	preview_mode tinyint(4) DEFAULT '0' NOT NULL,
 	preview_text text,
 	preview_image int(11) unsigned DEFAULT '0',
+	mails_sent tinyint(3) DEFAULT NULL,
+
 	PRIMARY KEY (uid),
 	KEY be_date (pid,`date`)
 );
@@ -191,6 +193,26 @@ CREATE TABLE tx_t3blog_com_nl (
 	email tinytext NOT NULL,
 	name tinytext NOT NULL,
 	post_uid int(11) DEFAULT '0' NOT NULL,
+	lastsent int(11) DEFAULT '0' NOT NULL,
+	code tinytext NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+
+#
+# Table structure for table 'tx_t3blog_blog_nl'
+#
+CREATE TABLE tx_t3blog_blog_nl (
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	hidden tinyint(4) DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	sys_language_uid int(11) DEFAULT '0' NOT NULL,
+	email tinytext NOT NULL,
 	lastsent int(11) DEFAULT '0' NOT NULL,
 	code tinytext NOT NULL,
 

@@ -7,7 +7,7 @@ namespace TYPO3\T3extblog\Controller;
  *
  *  (c) 2009 Jochen Rau <jochen.rau@typoplanet.de>
  *  (c) 2011 Bastian Waidelich <bastian@typo3.org>
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,6 +31,10 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\T3extblog\Domain\Model\AbstractEntity;
+use TYPO3\T3extblog\Domain\Model\Category;
+use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
@@ -86,6 +90,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 */
 	protected function initializeAction() {
 		$this->validateTypoScriptConfiguration();
+		$this->addDefaultCacheTags();
 	}
 
 	/**
@@ -152,7 +157,20 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	}
 
 	/**
-	 * helper function to use localized strings in BlogExample controllers
+	 * Persist all records to database
+	 *
+	 * @return string
+	 */
+	protected function persistAllEntities() {
+		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $this->objectManager->get(
+			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+		);
+		$persistenceManager->persistAll();
+	}
+
+	/**
+	 * Helper function to use localized strings in BlogExample controllers
 	 *
 	 * @param string $key locallang key
 	 * @param string $defaultMessage the default message to show if key was not found
@@ -170,16 +188,54 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	}
 
 	/**
-	 * Clear cache of current page on error and sends correct header.
+	 * Add page cache tag by strinf or object
+	 *
+	 * @param mixed $object A cache tag string or a blog model object
+	 * @return void
+	 */
+	protected function addCacheTags($object = NULL) {
+		if (TYPO3_MODE !== 'FE') {
+			return;
+		}
+
+		$tags = array();
+
+		if (is_string($object)) {
+			$tags[] = $object;
+		}
+
+		// Add base PID based tag
+		if ($object instanceof AbstractEntity) {
+			$tags[] = 'tx_t3extblog_' . $object->getPid();
+		}
+
+		// Add model based tag
+		if ($object instanceof Post) {
+			$tags[] = 'tx_t3blog_post_pid_' . $object->getPid();
+		}
+		if ($object instanceof Comment) {
+			$tags[] = 'tx_t3blog_com_pid_' . $object->getPid();
+		}
+		if ($object instanceof Category) {
+			$tags[] = 'tx_t3blog_cat_pid_' . $object->getPid();
+		}
+
+		\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tags);
+	}
+
+	/**
+	 * Add basic cache tag for all related pages
 	 *
 	 * @return void
 	 */
-	protected function clearCacheOnError() {
-		parent::clearCacheOnError();
+	protected function addDefaultCacheTags() {
+		static $cacheTagsSet = FALSE;
 
-		$this->response->setHeader('Cache-Control', 'private', TRUE);
-		$this->response->setHeader('Expires', '0', TRUE);
-		$this->response->setHeader('Pragma', 'no-cache', TRUE);
-		$this->response->sendHeaders();
+		if (!$cacheTagsSet) {
+			$this->addCacheTags(array('tx_t3extblog'));
+
+			// We only want to set the tag once in one request
+			$cacheTagsSet = TRUE;
+		}
 	}
 }

@@ -19,9 +19,158 @@ Upgrade Guide
 
 
 
-Upgrade from 1.2.x to 2.0.0
+Upgrade from 2.1.x to 2.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+*"Author improvements"*
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
+
+- Use HTML files as email templates
+
+- Author filter for post list action
+
+- Show backend user (post author) avatar image (available since TYPO3 7.5)
+
+- Backend module: Add a dashboard view
+
+- Backend module: Add list views for post and blog subscriptions
+
+- Multiple fixes and improvements
+
+- Auto cache clearing when editing posts in backend (no more page TS config needed!)
+
+- Greatly improved cache handling when creating new comments
+
+
+**Breaking changes**
+
+- New TypoScript configurations for BE modules
+
+- Some localization keys have changed
+
+- Some templates have changed (mostly backend module related)
+
+- RealUrl configuration has been extended
+
+
+.. tip::
+	German localizations are now managed by the TYPO3 Pootle (translation.typo3.org) server (just like every other localization).
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Adjust and update TypoScript configuration and template overwrites
+
+#. Download localizations (using the "Languages" BE module)
+
+
+
+Upgrade from 2.0.x to 2.1.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This release has been sponsored by *Elementare Teilchen* (http://www.elementare-teilchen.de).
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.0.1...2.1.0
+
+- New major feature: Subscribe for new posts
+
+- Configure email template files with TypoScript
+
+- Some minor bugfixes and improvements
+
+- Documentation improvements
+
+
+**Subscribe for new posts**
+
+- New plugin with simple subscription form (SPAM protected)
+
+- Opt-in email for new subscriber
+
+- Subscription management within the existing subscription manager plugin
+
+- Send notification emails for single posts form the BE module
+
+
+See :ref:`Users Manual <users-manual-notifications>` and
+:ref:`Administration manual <administration-subscription-manager>` for more information.
+
+
+**Breaking changes**
+
+- Subscription manager TypoScript has changed:
+	-  `subscriptionManager.admin` and `subscriptionManager.subscriber` moved to `subscriptionManager.comment.*`
+	-  `subscriptionManager.admin.enable` changed to `subscriptionManager.admin.enableNotifications`
+	-  `subscriptionManager.subscriber.enableNewCommentNotifications` changed to `subscriptionManager.subscriber.enableNotifications`
+
+- Quite some localization keys have changed (mostly `subscriber` and `flashMessage.subscriber` related)
+
+- Some templates have changed (e.g. changed link parameter in email templates, SPAM check partial, ...)
+
+- RealUrl configuration has been extended
+
+- Massive code refactoring (so in case you extended t3extblog, make sure to adjust your changes if needed)
+
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Create new DB fields by using "Compare current database with specification" in Install Tool
+
+#. Adjust and update TypoScript configuration, templates and localization overwrites
+
+#. You probably want to run the upgrade wizard in EM to mark all old posts as "notification has been sent"
+
+
+
+Upgrade from 2.0.0 to 2.0.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.0.0...2.0.1
+
+- Bugfix for broken flash message caching in TYPO3 >= 7.3, see https://github.com/fnagel/t3extblog/issues/112
+
+- Bugfix for hidden or deleted BE users (author field)
+
+- Respect current post filter when using paginator
+
+- TYPO3 Link validator support
+
+
+How to upgrade
+""""""""""""""
+
+Make sure to add `addQueryStringMethod = GET` to all `paginate` TypoScript config arrays and to
+adopt the changes in `Resources/Private/Templates/ViewHelpers/Widget/Paginate/Index.html` if needed.
+Your RealUrl configuration needs to be updated if you're not using the auto configuration feature.
+
+
+#. "Clear all cache" in Install Tool (including Opcode caches!)
+
+#. Make sure to adopt TypoScript and Template changes!
+
+
+
+Upgrade from 1.2.x to 2.0.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Changelog
 """""""""
@@ -30,7 +179,7 @@ https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
 
 - A bunch of bugfixes
 
-- TYPO3 CMS 7.x support (tested up to TYPO3 7.6.1)
+- TYPO3 CMS 7.x support (tested up to TYPO3 7.6)
 
 - Removed support for TYPO3 < 6.2
 
@@ -78,7 +227,6 @@ How to upgrade
 
 Upgrade from 1.1.x to 1.2.x
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 Changelog
 """""""""

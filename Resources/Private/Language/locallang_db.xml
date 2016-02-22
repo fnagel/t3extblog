@@ -11,7 +11,7 @@
 
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
-			<label index="tx_t3blog_post.tagClouds">Tag Cloud</label>
+			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
 			<label index="tx_t3blog_post.tagClouds.placeholder">tag1, tag2, tag3</label>
 			<label index="tx_t3blog_post.author">Author</label>
 			<label index="tx_t3blog_post.date">Date &amp; Time</label>
@@ -34,6 +34,7 @@
             <label index="tx_t3blog_post.preview_mode.3">Show three content elements as preview</label>
             <label index="tx_t3blog_post.preview_text">Text</label>
             <label index="tx_t3blog_post.preview_image">Image</label>
+			<label index="tx_t3blog_post.mails_sent">Notification mails already sent</label>
 
 			<label index="tx_t3blog_cat">Categories</label>
 			<label index="tx_t3blog_cat.parent_id">Category tree</label>
@@ -47,12 +48,12 @@
 			<label index="tx_t3blog_com">Comment</label>
 			<label index="tx_t3blog_com.title">Title</label>
 			<label index="tx_t3blog_com.author">Author</label>
-			<label index="tx_t3blog_com.email">E-Mail</label>
+			<label index="tx_t3blog_com.email">Email</label>
 			<label index="tx_t3blog_com.website">Website</label>
 			<label index="tx_t3blog_com.date">Date &amp; Time</label>
 			<label index="tx_t3blog_com.text">Text</label>
 			<label index="tx_t3blog_com.approved">Approved</label>
-			<label index="tx_t3blog_com.spam">Spam</label>
+			<label index="tx_t3blog_com.spam">SPAM</label>
 			<label index="tx_t3blog_com.mails_sent">Notification mails already sent</label>
 			<label index="tx_t3blog_com.fk_post">Related post</label>
 
@@ -77,17 +78,21 @@
             <label index="tx_t3blog_cat.tabs.general">General</label>
             <label index="tx_t3blog_com.tabs.general">General</label>
 
-			<label index="tx_t3blog_com_nl">Subscriber</label>
-			<label index="tx_t3blog_com_nl.name">User name:</label>
-			<label index="tx_t3blog_com_nl.email">E-mail:</label>
+			<label index="tx_t3blog_com_nl">Comment-Subscriber</label>
+			<label index="tx_t3blog_com_nl.name">Name:</label>
+			<label index="tx_t3blog_com_nl.email">Email:</label>
 			<label index="tx_t3blog_com_nl.post_uid">Subscribed to:</label>
 			<label index="tx_t3blog_com_nl.lastsent">Last sent:</label>
 			<label index="tx_t3blog_com_nl.code">Unsubscribe code:</label>
 			<label index="tx_t3blog_com_nl.tabs.meta">Metadata</label>
 
-            <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
-		</languageKey>
+			<label index="tx_t3blog_blog_nl">Blog-Subscriber</label>
+			<label index="tx_t3blog_blog_nl.email">Email:</label>
+			<label index="tx_t3blog_blog_nl.lastsent">Last sent:</label>
+			<label index="tx_t3blog_blog_nl.code">Auth-Code:</label>
+			<label index="tx_t3blog_blog_nl.tabs.meta">Metadata</label>
 
+            <label index="tt_content.list_type_pi2">Blog Widget Selector</label>
 
 		<languageKey index="de" type="array">
 			<label index="tx_t3blog.blogsystem.pid">Blog Seite</label>

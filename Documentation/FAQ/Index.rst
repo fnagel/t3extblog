@@ -62,6 +62,25 @@ Filtering tags doesn't work?
 To avoid filling the cache with not existing pages, the filter only works with tags => 3 letters.
 
 
+Set default post category
+-------------------------
+
+Add this to your user TS config:
+
+.. code-block:: typoscript
+
+	TCAdefaults {
+		tx_t3blog_post {
+			# CSV of category UIDs
+			cat = 1,2,3
+
+			# Works for other fields too!
+			hidden = 0
+		}
+	}
+
+
+
 Translation / Localization
 --------------------------
 
@@ -84,6 +103,61 @@ TYPO3 Pootle project: http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3ex
 
 More information about TYPO3 translation server: https://wiki.typo3.org/Translations
 
+
+Clear frontend cache
+--------------------
+
+Since version 2.2.0 this extension makes use of cache tags. The following cache tags are available:
+
+* tx_t3extblog
+* tx_t3extblog_PID
+* tx_t3blog_post_uid_UID
+* tx_t3blog_post_pid_PID
+* tx_t3blog_com_pid_PID
+* tx_t3blog_cat_pid_PID
+
+*PID = page uid, UID = record uid*
+
+
+Cache tags are cleared by a built-in functionality when a record is modified or created in backend and frontend.
+
+This works by adding cache tags for each page rendered with a t3extblog plugin. Each time a blog record is edited,
+deleted or created, this cache entry is flushed. No additional cache configuration is needed.
+
+It's still possible to use TS config for adjusting the cache behaviour. This could be basic configuration (see below) or
+using a more advanced tag approach:
+
+.. code-block:: typoscript
+
+	# Flushes all blog related caches
+	TCEMAIN.clearCacheCmd = cacheTag:tx_t3extblog
+
+	# Flushes cache for all records in page with UID 123
+	TCEMAIN.clearCacheCmd = cacheTag:tx_t3extblog_123
+
+
+Before version 2.2.0
+^^^^^^^^^^^^^^^^^^^^
+
+When a **frontend user adds a new comment** the blogsystem plugin page cache is cleared using default TYPO3 extbase
+functionality.
+
+
+When **editing records in backend** (for example posts or comments) as a non admin user the cache needs to be cleared
+manually or by using page TS config:
+
+.. code-block:: typoscript
+
+	# PIDs of page which need to be cleared
+	TCEMAIN.clearCacheCmd = 123,456,789
+
+
+The code needs to be added to the sys folder where the blog records are edited.
+
+
+.. Hint::
+
+	The mentioned TCEMAIN settings are part of the TYPO3 core and can be used therefore not only for the t3extblog extension.
 
 
 Some output tweaks

@@ -111,6 +111,26 @@ class RealUrl {
 						),
 					),
 
+					'author' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[author]',
+							'lookUpTable' => array(
+								'table' => 'be_users',
+								'id_field' => 'uid',
+								'alias_field' => 'username',
+								'addWhereClause' => ' AND deleted !=1 AND disable !=1',
+								'useUniqueCache' => 1,
+								'useUniqueCache_conf' => array(
+									'strtolower' => 1,
+									'spaceCharacter' => '-',
+								),
+								'enable404forInvalidAlias' => 1,
+								'autoUpdate' => 1,
+								'expireDays' => 180,
+							)
+						)
+					),
+
 					'tags' => array(
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[tag]',
@@ -146,13 +166,25 @@ class RealUrl {
 						array(
 							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 						),
+						array(
+							'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][addQueryStringMethod]',
+						),
 					),
 
 					'subscription' => array(
 						array(
+							'GETvar' => 'tx_t3extblog_subscriptionmanager[controller]',
+							'valueMap' => array(
+								'blog' => 'BlogSubscriber',
+								'post' => 'PostSubscriber',
+							),
+							'noMatch' => 'bypass',
+						),
+						array(
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[action]',
 							'valueMap' => array(
 								'confirmation' => 'confirm',
+								'create' => 'create',
 								'delete' => 'delete',
 								'error' => 'error',
 								'logout' => 'logout',
@@ -161,6 +193,12 @@ class RealUrl {
 						),
 						array(
 							'GETvar' => 'tx_t3extblog_subscriptionmanager[code]',
+						),
+					),
+
+					'subscription-blog' => array(
+						array(
+							'GETvar' => 'tx_t3extblog_blogsubscription[action]',
 						),
 					),
 				),

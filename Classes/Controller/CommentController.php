@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -47,7 +47,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Notification Service
 	 *
-	 * @var \TYPO3\T3extblog\Service\NotificationService
+	 * @var \TYPO3\T3extblog\Service\CommentNotificationService
 	 * @inject
 	 */
 	protected $notificationService;
@@ -75,6 +75,9 @@ class CommentController extends AbstractController {
 			$this->view->assign('post', $post);
 		}
 
+		// Add basic PID based cache tag
+		$this->addCacheTags($comments->getFirst());
+
 		$this->view->assign('comments', $comments);
 	}
 
@@ -92,7 +95,7 @@ class CommentController extends AbstractController {
 	/**
 	 * Show action
 	 *
-	 * Redirect to post show if empty cmment create is called
+	 * Redirect to post show if empty comment create is called
 	 *
 	 * @param Post $post The post the comment is related to
 	 *
@@ -101,7 +104,6 @@ class CommentController extends AbstractController {
 	public function showAction(Post $post) {
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
 	}
-
 
 	/**
 	 * action new
@@ -132,10 +134,7 @@ class CommentController extends AbstractController {
 	 */
 	public function createAction(Post $post, Comment $newComment) {
 		$this->checkIfCommentIsAllowed($post);
-
-		$this->spamCheckService->process($newComment, $this->request);
-		$this->checkSpamPoints($newComment, $post);
-
+		$this->checkSpamPoints($newComment);
 		$this->sanitizeComment($newComment);
 
 		if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
@@ -143,27 +142,42 @@ class CommentController extends AbstractController {
 		}
 
 		$post->addComment($newComment);
+		$this->persistAllEntities();
 
-		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-		$persistenceManager = $this->objectManager->get(
-			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-		);
-		$persistenceManager->persistAll();
-
-		$this->notificationService->processCommentAdded($newComment);
+		// Process comment (send mails, clear cache, etc.)
+		$this->notificationService->processNewEntity($newComment);
+		$this->notificationService->notifyAdmin($newComment);
 
 		if (!$this->hasFlashMessages()) {
 			if ($newComment->isApproved()) {
 				$this->addFlashMessageByKey('created', FlashMessage::OK);
 			} else {
-				$this->addFlashMessageByKey('createdUnapproved', FlashMessage::NOTICE);
+				$this->addFlashMessageByKey('createdDisapproved', FlashMessage::NOTICE);
 			}
 		}
 
-		// clear cache so new comment is displayed
-		$this->clearCacheOnError();
-
 		$this->redirect('show', 'Post', NULL, $post->getLinkParameter());
+	}
+
+	/**
+	 * Clear cache of current post page and sends correct header.
+	 *
+	 * @return void
+	 */
+	protected function clearCacheOnError() {
+		if ($this->arguments->hasArgument('post')) {
+			$post = $this->arguments->getArgument('post')->getValue();
+			\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags(array(
+				'tx_t3blog_post_uid_' . $post->getLocalizedUid()
+			));
+		} else {
+			parent::clearCacheOnError();
+		}
+
+		$this->response->setHeader('Cache-Control', 'private', TRUE);
+		$this->response->setHeader('Expires', '0', TRUE);
+		$this->response->setHeader('Pragma', 'no-cache', TRUE);
+		$this->response->sendHeaders();
 	}
 
 	/**
@@ -198,15 +212,16 @@ class CommentController extends AbstractController {
 	 * Process comment request
 	 *
 	 * @param Comment $comment The comment to be deleted
-	 * @param Post $post The comment to be deleted
 	 *
 	 * @return void
 	 */
-	protected function checkSpamPoints(Comment $comment, Post $post) {
+	protected function checkSpamPoints(Comment $comment) {
 		$settings = $this->settings['blogsystem']['comments']['spamCheck'];
+		$comment->setSpamPoints($this->spamCheckService->process($settings));
+
 		$threshold = $settings['threshold'];
 		$logData = array(
-			'postUid' => $post->getUid(),
+			'commentUid' => $comment->getUid(),
 			'spamPoints' => $comment->getSpamPoints(),
 		);
 

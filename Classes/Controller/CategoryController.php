@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -49,6 +49,10 @@ class CategoryController extends AbstractController {
 	 */
 	public function listAction() {
 		$categories = $this->categoryRepository->findAll();
+
+		// Add basic PID based cache tag
+		$this->addCacheTags($categories->getFirst());
+
 		$this->view->assign('categories', $categories);
 	}
 
@@ -60,6 +64,7 @@ class CategoryController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(Category $category) {
+		$this->addCacheTags($category);
 		$this->view->assign('category', $category);
 	}
 

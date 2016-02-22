@@ -10,10 +10,22 @@
 	</div>
 	<br>
 </f:if>
+
 <f:if condition="{tag}">
 	<t3b:titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:titleTag>
 	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.tag" /> <em>{tag}</em>
+		<f:link.action controller="Post" action="list" class="pull-right">
+			<f:translate key="post.filter.reset" />
+		</f:link.action>
+	</div>
+	<br>
+</f:if>
+
+<f:if condition="{author}">
+	<t3b:titleTag>"{author.name}" / </t3b:titleTag>
+	<div class="alert alert-info">
+		<f:translate key="post.filter.legend" /> <em>{author.name}</em>
 		<f:link.action controller="Post" action="list" class="pull-right">
 			<f:translate key="post.filter.reset" />
 		</f:link.action>

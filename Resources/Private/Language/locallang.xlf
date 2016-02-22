@@ -6,6 +6,9 @@
 			<trans-unit id="error.headline">
 				<source>Error:</source>
 			</trans-unit>
+			<trans-unit id="general.confirm">
+				<source>Are you sure?</source>
+			</trans-unit>
 
 			<trans-unit id="post.comments">
 				<source>comments</source>
@@ -63,6 +66,9 @@
 			<trans-unit id="subscriber.headline">
 				<source>Listing of subscriptions</source>
 			</trans-unit>
+			<trans-unit id="subscriber.table.caption">
+				<source>Comment subscriptions</source>
+			</trans-unit>
 			<trans-unit id="subscriber.logout">
 				<source>Logout</source>
 			</trans-unit>
@@ -84,33 +90,83 @@
 			<trans-unit id="subscriber.table.delete">
 				<source>Delete</source>
 			</trans-unit>
-
-			<trans-unit id="error.comment.createAction">
-				<source>Error:</source>
+			<trans-unit id="subscriber.blog.delete">
+				<source>Delete subscription for new posts</source>
+			</trans-unit>
+			<trans-unit id="subscriber.blog.create">
+				<source>Add email subscription for new posts</source>
 			</trans-unit>
 
-			<trans-unit id="subject.admin.newSubscription">
+			<trans-unit id="subscriber.email">
+				<source>Email address</source>
+			</trans-unit>
+			<trans-unit id="subscriber.form.new">
+				<source>Subscribe for new blog posts</source>
+			</trans-unit>
+			<trans-unit id="subscriber.form.submit">
+				<source>Submit</source>
+			</trans-unit>
+
+			<trans-unit id="subject.comment.admin.new">
 				<source>%1$s: New comment</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.notify">
+			<trans-unit id="subject.subscriber.comment.notify">
 				<source>%1$s: New comment on '%2$s'</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.new">
+			<trans-unit id="subject.subscriber.comment.new">
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
+			<trans-unit id="subject.subscriber.blog.notify">
+				<source>%1$s: New blog post '%2$s'</source>
+			</trans-unit>
+			<trans-unit id="subject.subscriber.blog.new">
+				<source>%1$s: Subscribe to new blog posts</source>
+			</trans-unit>
 
-			<trans-unit id="flashMessage.subscriber.confirmed.title">
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">
+				<source>Already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered">
+				<source>Your email address is already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed.title">
+				<source>Subscription not allowed</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.notAllowed">
+				<source>Sorry, no new subscriptions allowed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created.title">
+				<source>Subscription enabled!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.created">
+				<source>New post notification has been enabled.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.confirmed.title">
 				<source>Successfully confirmed!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.confirmed">
+			<trans-unit id="flashMessage.blogSubscriber.confirmed">
 				<source>Thank you! Your subscription has been confirmed.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted.title">
+			<trans-unit id="flashMessage.blogSubscriber.deleted.title">
+				<source>Successfully disabled!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriber.deleted">
+				<source>New post notification has been disabled.</source>
+			</trans-unit>
+
+			<trans-unit id="flashMessage.postSubscriber.confirmed.title">
+				<source>Successfully confirmed!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.confirmed">
+				<source>Thank you! Your subscription has been confirmed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.postSubscriber.deleted.title">
 				<source>Successfully deleted!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.subscriber.deleted">
+			<trans-unit id="flashMessage.postSubscriber.deleted">
 				<source>Your subscription has been deleted.</source>
 			</trans-unit>
+
 			<trans-unit id="flashMessage.subscriber.logout.title">
 				<source>Logged out!</source>
 			</trans-unit>
@@ -139,7 +195,7 @@
 				<source>Already registered.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.alreadyRegistered">
-				<source>Your email address is already registered for this post.</source>
+				<source>Your email address is already registered.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.invalidLink.title">
 				<source>Invalid link!</source>
@@ -154,10 +210,10 @@
 			<trans-unit id="flashMessage.comment.created">
 				<source>Thanks, your comment has been saved.</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved.title">
+			<trans-unit id="flashMessage.comment.createdDisapproved.title">
 				<source>Comment saved!</source>
 			</trans-unit>
-			<trans-unit id="flashMessage.comment.createdUnapproved">
+			<trans-unit id="flashMessage.comment.createdDisapproved">
 				<source>Thanks, your comment has been saved and is awaiting moderation.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.markedAsSpam.title">
@@ -191,13 +247,75 @@
 				<source>Please login to comment.</source>
 			</trans-unit>
 
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
+				<source>Already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered">
+				<source>Your email address is already registered.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam.title">
+				<source>Subscription not saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam">
+				<source>Sorry, your subscription has been recognized as SPAM. Please try again!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed.title">
+				<source>Subscription not allowed</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.notAllowed">
+				<source>Sorry, no new subscriptions allowed.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created.title">
+				<source>Subscription saved!</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.created">
+				<source>Thanks, your subscription has been saved. A confirmation email has been sent.</source>
+			</trans-unit>
 
 			<trans-unit id="module.title">
-				<source>T3extblog Administration</source>
+				<source>Blog-Administration</source>
+			</trans-unit>
+
+			<trans-unit id="module.buttons.new">
+			   <source>Create new:</source>
+		 	</trans-unit>
+			<trans-unit id="module.buttons.new.post">
+			   <source>Create new post</source>
+		 	</trans-unit>
+		   	<trans-unit id="module.buttons.new.category">
+			   <source>Creat new category</source>
+		   	</trans-unit>
+		   	<trans-unit id="module.buttons.new.comment">
+			   <source>Creat new comment</source>
+		   	</trans-unit>
+
+			<trans-unit id="module.dashboard.title">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.actions">
+				<source>Choose a view:</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.comments">
+				<source>Latest comments</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.subscriptions">
+				<source>Latest subscriptions</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.drafts">
+				<source>Post drafts</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.statistic">
+				<source>Blog statistic</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.statistic.postAndComments">
+				<source>%1$s posts with %2$s comments and %3$s subscriptions for new comments</source>
+			</trans-unit>
+			<trans-unit id="module.dashboard.statistic.subscriptions">
+				<source>%1$s subscriptions for new blog posts</source>
 			</trans-unit>
 
 			<trans-unit id="module.post.title">
-				<source>All posts</source>
+				<source>Posts</source>
 			</trans-unit>
 			<trans-unit id="module.post.table.title">
 				<source>Title</source>
@@ -217,15 +335,36 @@
 			<trans-unit id="module.post.noRecords">
 				<source>No blog posts found.</source>
 			</trans-unit>
+		   <trans-unit id="module.post.help.hide.0">
+			   <source>Unhide post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.hide.1">
+			   <source>Hide post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.edit">
+			   <source>Edit post</source>
+		   </trans-unit>
+		   <trans-unit id="module.post.help.delete">
+			   <source>Delete post</source>
+		   </trans-unit>
+			<trans-unit id="module.post.sendBlogSubscriptionEmails">
+				<source>Send new post notification mail to blog subscribers</source>
+			</trans-unit>
+			<trans-unit id="module.post.emailsSent">
+				<source>Successfully sent notification emails to %1$s subscribers.</source>
+			</trans-unit>
 
 			<trans-unit id="module.comment.title.byPost">
 				<source><![CDATA[All comments for post <em>%1$s</em>]]></source>
+			</trans-unit>
+			<trans-unit id="module.comment.group">
+				<source>Comments</source>
 			</trans-unit>
 			<trans-unit id="module.comment.title.all">
 				<source>All comments</source>
 			</trans-unit>
 			<trans-unit id="module.comment.title.pending">
-				<source>All pending comments</source>
+				<source>Pending comments</source>
 			</trans-unit>
             <trans-unit id="module.comment.table.title">
                 <source>Title</source>
@@ -237,7 +376,7 @@
                 <source>Author</source>
             </trans-unit>
             <trans-unit id="module.comment.table.email">
-                <source>E-Mail</source>
+                <source>Email</source>
             </trans-unit>
             <trans-unit id="module.comment.table.website">
                 <source>Website</source>
@@ -279,14 +418,52 @@
                 <source>Delete comment</source>
             </trans-unit>
 
+
+			<trans-unit id="module.subscriber.table.count">
+		   		<source>Show %1$s of %2$s subscriptions</source>
+	   		</trans-unit>
+			<trans-unit id="module.subscriber.noRecords">
+				<source>No subscriptions found.</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.help.hide.0">
+			   <source>Enable subscription (not confirmed yet)</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.hide.1">
+			   <source>Disable subscription</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.edit">
+			   <source>Edit subscription</source>
+		   </trans-unit>
+		   <trans-unit id="module.subscriber.help.delete">
+			   <source>Delete subscription</source>
+		   </trans-unit>
+
+			<trans-unit id="module.subscriber.group">
+				<source>Subscriptions</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.title">
+				<source>New comment subscriptions</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.blog.title">
+				<source>New post subscriptions</source>
+			</trans-unit>
+
+			<trans-unit id="module.subscriber.post.table.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.table.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="module.subscriber.post.table.date">
+				<source>Date</source>
+			</trans-unit>
+
+
 			<trans-unit id="module.message.pendingComments.title">
 				<source>Pending comments</source>
 			</trans-unit>
 			<trans-unit id="module.message.pendingComments">
 				<source>%1$s comments await moderation.</source>
-			</trans-unit>
-			<trans-unit id="module.message.deleteRecord">
-				<source>Are you sure you want to delete this record?</source>
 			</trans-unit>
 
 			<trans-unit id="module.message.pageNotice.title">

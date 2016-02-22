@@ -25,6 +25,7 @@ $GLOBALS['TCA']['tx_t3blog_trackback'] = array(
 				'size' => '30',
 				'max' => '100',
 				'eval' => 'trim',
+				'softref' => 'url',
 			)
 		),
 		'text' => array(

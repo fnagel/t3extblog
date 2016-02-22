@@ -67,7 +67,7 @@ $GLOBALS['TCA']['tx_t3blog_com_nl'] = array(
 	),
 	'types' => array(
 		'0' => array('showitem' => '
-			name, email,
+			name, email, hidden,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.tabs.meta,
 				post_uid, lastsent, code')
 	),

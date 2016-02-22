@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,6 +26,7 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\T3extblog\Domain\Model\BackendUser;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
@@ -65,6 +66,17 @@ class PostController extends AbstractController {
 	}
 
 	/**
+	 * Displays a list of posts created by an author
+	 *
+	 * @param BackendUser $author
+	 *
+	 * @return void
+	 */
+	public function authorAction(BackendUser $author) {
+		$this->view->assign('posts', $this->findPosts($author));
+	}
+
+	/**
 	 * Displays a list of posts related to a tag
 	 *
 	 * @param string $tag The name of the tag to show the posts for
@@ -72,7 +84,13 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function tagAction($tag) {
-		$this->view->assign('posts', $this->findPosts(NULL, $tag));
+		$posts = $this->findPosts($tag);
+
+		if (count($posts) === 0) {
+			GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
+		}
+
+		$this->view->assign('posts', $posts);
 	}
 
 	/**
@@ -93,38 +111,35 @@ class PostController extends AbstractController {
 	}
 
 	/**
-	 * Find all or filtered by tag or by category
+	 * Find all or filtered by tag, category or author
 	 *
-	 * @todo Performance: do not fetch all by default, consider paginator
-	 *
-	 * @param Category $category
-	 * @param string $tag The name of the tag to show the posts for
+	 * @param mixed $filter
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	private function findPosts($category = NULL, $tag = NULL) {
-		if ($category !== NULL) {
-			$this->view->assign('category', $category);
-
-			return $this->postRepository->findByCategory($category);
+	protected function findPosts($filter = NULL) {
+		if ($filter instanceof BackendUser) {
+			$this->view->assign('author', $filter);
 		}
 
-		if ($tag !== NULL && strlen($tag) > 2) {
-			$tag = urldecode($tag);
-
-			$posts = $this->postRepository->findByTag($tag);
-			if (count($posts) === 0) {
-				GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
-			}
-
-			$this->view->assign('tag', $tag);
-
-			return $posts;
+		if ($filter instanceof Category) {
+			$this->view->assign('category', $filter);
 		}
 
-		return $this->postRepository->findAll();
+		if (is_string($filter) && strlen($filter) > 2) {
+			$filter = urldecode($filter);
+			$this->view->assign('tag', $filter);
+		}
+
+		$posts = $this->postRepository->findByFilter($filter);
+
+		if ($posts !== NULL) {
+			// Add basic PID based cache tag
+			$this->addCacheTags($posts->getFirst());
+		}
+
+		return $posts;
 	}
-
 
 	/**
 	 * Displays archive of all posts.
@@ -132,9 +147,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function archiveAction() {
-		$posts = $this->postRepository->findAll();
-
-		$this->view->assign('posts', $posts);
+		$this->view->assign('posts', $this->findPosts());
 	}
 
 	/**
@@ -153,8 +166,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function rssAction() {
-		$posts = $this->postRepository->findAll();
-		$this->view->assign('posts', $posts);
+		$this->view->assign('posts', $this->findPosts());
 	}
 
 	/**
@@ -189,6 +201,10 @@ class PostController extends AbstractController {
 		if ($newComment === NULL) {
 			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
 		}
+
+		// Add cache tags
+		$this->addCacheTags($post);
+		$this->addCacheTags('tx_t3blog_post_uid_' . $post->getLocalizedUid());
 
 		// @todo: This will not work as this action is cached
 		// $post->riseNumberOfViews();

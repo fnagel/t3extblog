@@ -1,0 +1,34 @@
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+Hello,
+
+it seems you subscribed for new posts:
+
+Blogname: 	{settings.blogName}
+Link:		<t3b:uri.action
+				extensionName="T3extblog"
+				pluginName="Blogsystem"
+				controller="Post"
+				action="list"
+				pageUid="{settings.blogsystem.pid}"
+				absolute="true"
+				additionalParams="{L: subscriber.sysLanguageUid}" />
+
+Your email: {subscriber.email}
+
+
+Please confirm your subscription by using this link:
+<t3b:uri.action
+	extensionName="T3extblog"
+	pluginName="SubscriptionManager"
+	controller="BlogSubscriber"
+	action="confirm"
+	pageUid="{settings.subscriptionManager.pid}"
+	absolute="true"
+	arguments="{code: subscriber.code}"
+	additionalParams="{L: subscriber.sysLanguageUid}" />
+
+This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
+
+Regards
+{settings.blogName} 
+ 

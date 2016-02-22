@@ -60,8 +60,6 @@ class Post extends AbstractLocalizedEntity {
 	 * author
 	 *
 	 * @var \TYPO3\T3extblog\Domain\Model\BackendUser
-	 * @lazy
-	 * @validate NotEmpty
 	 */
 	protected $author;
 
@@ -93,6 +91,13 @@ class Post extends AbstractLocalizedEntity {
 	 * @var integer
 	 */
 	protected $numberOfViews;
+
+	/**
+	 * If the notification mails are already sent
+	 *
+	 * @var boolean
+	 */
+	protected $mailsSent = FALSE;
 
 	/**
 	 * metaDescription
@@ -164,7 +169,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * subscriptions
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber>
 	 * @lazy
 	 */
 	protected $subscriptions;
@@ -258,6 +263,12 @@ class Post extends AbstractLocalizedEntity {
 	 * @return BackendUser $author
 	 */
 	public function getAuthor() {
+		if (!($this->author instanceof BackendUser)) {
+			$this->author = new BackendUser();
+			$this->author->setUserName(uniqid('author-unavailable'));
+			$this->author->setRealName('Author unavailable');
+		}
+
 		return $this->author;
 	}
 
@@ -430,6 +441,22 @@ class Post extends AbstractLocalizedEntity {
 	 */
 	public function riseNumberOfViews() {
 		$this->numberOfViews = $$this->numberOfViews + 1;
+	}
+
+	/**
+	 * @param boolean $mailsSent
+	 *
+	 * @return void
+	 */
+	public function setMailsSent($mailsSent) {
+		$this->mailsSent = (boolean) $mailsSent;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getMailsSent() {
+		return (boolean) $this->mailsSent;
 	}
 
 	/**
@@ -715,29 +742,29 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Adds a Subscriber
 	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscription
+	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscription
 	 *
 	 * @return void
 	 */
-	public function addSubscription(Subscriber $subscription) {
+	public function addSubscription(PostSubscriber $subscription) {
 		$this->subscriptions->attach($subscription);
 	}
 
 	/**
 	 * Removes a Subscriber
 	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\Subscriber $subscriptionToRemove The Subscriber to be removed
+	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriptionToRemove The Subscriber to be removed
 	 *
 	 * @return void
 	 */
-	public function removeSubscription(Subscriber $subscriptionToRemove) {
+	public function removeSubscription(PostSubscriber $subscriptionToRemove) {
 		$this->subscriptions->detach($subscriptionToRemove);
 	}
 
 	/**
 	 * Returns the subscriptions
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber> $subscriptions
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber> $subscriptions
 	 */
 	public function getSubscriptions() {
 		return $this->subscriptions;
@@ -746,7 +773,7 @@ class Post extends AbstractLocalizedEntity {
 	/**
 	 * Sets the subscriptions
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Subscriber> $subscriptions
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber> $subscriptions
 	 *
 	 * @return void
 	 */

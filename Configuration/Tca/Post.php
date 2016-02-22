@@ -6,7 +6,8 @@ if (!defined('TYPO3_MODE')) {
 $GLOBALS['TCA']['tx_t3blog_post'] = array(
 	'ctrl' => $GLOBALS['TCA']['tx_t3blog_post']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views'
+		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
+			author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent'
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -129,7 +130,9 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'be_users',
-				'foreign_table_where' => ' and be_users.disable = 0 ORDER BY be_users.username',
+				'foreign_table_where' => ' AND be_users.disable = 0 ' .
+					'AND (be_users.username != "_cli_lowlevel" AND be_users.username != "_cli_scheduler") ' .
+					'ORDER BY be_users.username',
 				'showIconTable' => FALSE,
 				'size' => 1,
 				'minitems' => 0,
@@ -228,6 +231,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'cols' => '45',
 				'rows' => '3',
 				'wrap' => 'off',
+				'softref' => 'url',
 			)
 		),
 		'trackback_hash' => array(
@@ -297,6 +301,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				'type' => 'text',
 				'cols' => '45',
 				'rows' => '10',
+				'softref' => 'typolink_tag,email[subst],url',
 			),
 			'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
 		),
@@ -326,6 +331,15 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 			)
 		),
+		'mails_sent' => array(
+			'displayCond' => 'HIDE_FOR_NON_ADMINS',
+			'l10n_mode' => 'exclude',
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.mails_sent',
+			'config' => array(
+				'type' => 'check',
+			)
+		),
 	),
 	'types' => array(
 		'0' => array(
@@ -337,7 +351,7 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.category,
 					tagClouds,cat,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.interactive,
-					allow_comments,trackback,number_views,
+					allow_comments,trackback,number_views,mails_sent,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.meta,
 					meta_description,meta_keywords,
 				--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,

@@ -22,24 +22,26 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 
 
 #. Import and install the extension
-	via the extension manager
+	- via the extension manager
 
 #. Create the following pages
-	:ref:`Quick Installation <quick_installation>`
-	Optional: add an RSS page (standard page) which will contain the RSS plugin
+	- See :ref:`Quick Installation <quick_installation>`
+	- Optional: add an RSS page (standard page) which will contain the RSS plugin
+	- Optional: add a page (standard page) for subscribing to new blog posts
 
 	.. figure:: ../Images/Installation/pagestructure.png
-:width: 286px
-		:alt: typical page structure
+		:width: 286px
+		:alt: Typical page structure
 
-			recommended page structure
+		Recommended page structure
 
-	#. Include static template
-		See :ref:`Quick Installation <quick_installation>`
+#. Include static template
+	- See :ref:`Quick Installation <quick_installation>`
 
 #. Add plugins to the pages
-	See :ref:`Quick Installation <quick_installation>`
-	Optional: add the RSS plugin to your RSS page
+	- See :ref:`Quick Installation <quick_installation>`
+	- Optional: add the RSS plugin to your RSS page
+	- Optional: add the Blog Subscription Form plugin to the previously created page
 
 #. Start to configure your Blog. This is an TypoScript example:
 
@@ -76,7 +78,7 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 		}
 		module.tx_t3extblog < plugin.tx_t3extblog
 
-	For more configuration-options and the associated explanations see :code:`/Configuration/TypoScript/setup.txt`.
+For more configuration-options and the associated explanations see :code:`/Configuration/TypoScript/setup.txt`.
 
 
 .. important::
@@ -92,13 +94,13 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 
 	It is recommended to use the constants in conjunction with custom TypoScript. Copy both configuration files
 	(constants.txt and setup.txt located in `typo3conf/ext/t3extblog/Configuration/TypoScript`) and include
-	(using :code:`<INCLUDE_TYPOSCRIPT: source="FILE:EXT:my-extension/.../setup.txt">` them in your root template.
+	(using :code:`<INCLUDE_TYPOSCRIPT: source="FILE:EXT:my_extension/.../setup.txt">` them in your root template.
 
 
 Next Steps
 ----------
 
-#. Setup the RSS page TypoScript: :ref:`RSS setup <configuration>`
+#. Setup the RSS page TypoScript: :ref:`RSS setup <administration-rss>`
 
 #. Configure RealURL: :ref:`RealUrl configuration <configuration-realurl>`
 

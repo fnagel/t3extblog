@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
 	'TYPO3.' . $_EXTKEY,
 	'Blogsystem',
 	array(
-		'Post' => 'list, tag, category, show, permalink, preview',
+		'Post' => 'list, tag, category, author, show, permalink, preview',
 		'Comment' => 'create, show',
 	),
 	// non-cacheable actions
@@ -46,11 +46,27 @@ if (!defined('TYPO3_MODE')) {
 	'TYPO3.' . $_EXTKEY,
 	'SubscriptionManager',
 	array(
-		'Subscriber' => 'list, delete, error, confirm, logout',
+		'Subscriber' => 'list, error, logout, confirm',
+		'PostSubscriber' => 'list, delete, confirm',
+		'BlogSubscriber' => 'list, delete, confirm, create',
 	),
 	// non-cacheable actions
 	array(
-		'Subscriber' => 'list, delete, error, confirm, logout',
+		'Subscriber' => 'list, error, logout, confirm',
+		'PostSubscriber' => 'list, delete, confirm',
+		'BlogSubscriber' => 'list, delete, confirm, create',
+	)
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'TYPO3.' . $_EXTKEY,
+	'BlogSubscription',
+	array(
+		'BlogSubscriberForm' => 'new, create, success',
+	),
+	// non-cacheable actions
+	array(
+		'BlogSubscriberForm' => 'new, create, success',
 	)
 );
 
@@ -121,11 +137,16 @@ $requiredParameters = array(
 	'tx_t3extblog_blogsystem[previewPost]',
 	'tx_t3extblog_blogsystem[tag]',
 	'tx_t3extblog_blogsystem[category]',
+	'tx_t3extblog_blogsystem[author]',
 	'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 	'tx_t3extblog_subscriptionmanager[subscriber]',
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
 
-// @todo Remove this, see: https://github.com/fnagel/t3extblog/issues/99
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:t3extblog/Resources/Private/Language/locallang.xlf'][] =
-	'EXT:t3extblog/Resources/Private/Language/de.locallang.xlf';
+// Make default avatar provider abailable in FE
+// @todo Remove this when 6.2 is no longer relevant
+if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
+		'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider'
+	);
+}

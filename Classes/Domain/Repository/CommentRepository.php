@@ -40,9 +40,13 @@ class CommentRepository extends AbstractRepository {
 
 	/**
 	 * Finds all valid comments
+	 *
+	 * @param integer $pid
+	 *
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findValid() {
-		$query = $this->createQuery();
+	public function findValid($pid = NULL) {
+		$query = $this->createQuery($pid);
 
 		$query->matching(
 			$this->getValidConstraints($query)
@@ -203,19 +207,6 @@ class CommentRepository extends AbstractRepository {
 		$query->matching(
 			$this->getPendingConstraints($query)
 		);
-
-		return $query->execute();
-	}
-
-	/**
-	 * Returns all objects with specific PID
-	 *
-	 * @param integer $pid
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByPage($pid = 0) {
-		$query = $this->createQuery((int) $pid);
 
 		return $query->execute();
 	}

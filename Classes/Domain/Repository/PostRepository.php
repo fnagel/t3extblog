@@ -27,6 +27,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\T3extblog\Domain\Model\BackendUser;
 use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
 
@@ -49,6 +50,7 @@ class PostRepository extends AbstractRepository {
 	 * @return Post
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
+		// @todo Remove this when 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '7.0', '<')) {
 			if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
 				return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
@@ -130,27 +132,31 @@ class PostRepository extends AbstractRepository {
 	}
 
 	/**
-	 * Returns all objects with specific PID
+	 * Find all or filtered by tag, category or author
 	 *
-	 * @param integer $pid
-	 * @param boolean $respectEnableFields
+	 * @param mixed $filter
 	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findByPage($pid = 0, $respectEnableFields = TRUE) {
-		$query = $this->createQuery((int) $pid);
-
-		if ($respectEnableFields === FALSE) {
-			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-
-			$query->matching(
-				$query->equals('deleted', '0')
-			);
+	public function findByFilter($filter = NULL) {
+		if ($filter === NULL) {
+			return $this->findAll();
 		}
 
-		return $query->execute();
-	}
+		if ($filter instanceof BackendUser) {
+			return $this->findByAuthor($filter);
+		}
 
+		if ($filter instanceof Category) {
+			return $this->findByCategory($filter);
+		}
+
+		if (is_string($filter)) {
+			return $this->findByTag($filter);
+		}
+
+		return NULL;
+	}
 
 	/**
 	 * Finds posts by the specified tag
@@ -191,6 +197,32 @@ class PostRepository extends AbstractRepository {
 		}
 
 		$query->matching($query->logicalOr($constraints));
+
+		return $query->execute();
+	}
+
+	/**
+	 * Returns all hidden posts of a time frame from now
+	 *
+	 * @param integer $pid
+	 * @param string $until
+	 *
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findDrafts($pid = 0, $until = '- 3 months') {
+		$query = $this->createQuery((int) $pid);
+		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+		$date = new \DateTime();
+		$date->modify($until);
+
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('hidden', 1),
+				$query->equals('deleted', 0),
+				$query->greaterThanOrEqual('crdate', $date->getTimestamp())
+			)
+		);
 
 		return $query->execute();
 	}

@@ -14,8 +14,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_post
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						title.mapOnProperty = title
@@ -26,6 +27,7 @@ config.tx_extbase {
 						cat.mapOnProperty = categories
 						tagClouds.mapOnProperty = tagCloud
 						number_views.mapOnProperty = numberOfViews
+						mails_sent.mapOnProperty = mailsSent
 						meta_description.mapOnProperty = metaDescription
 						meta_keywords.mapOnProperty = metaKeywords
 						preview_mode.mapOnProperty = previewMode
@@ -49,8 +51,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_cat
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						catname.mapOnProperty = name
@@ -63,8 +66,9 @@ config.tx_extbase {
                 mapping {
                     tableName = tx_t3blog_com
 					columns {
-						sorting.mapOnProperty = sorting
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
+						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						title.mapOnProperty = title
@@ -90,16 +94,31 @@ config.tx_extbase {
 			        tableName = be_users
 		        }
 	        }
-	        TYPO3\T3extblog\Domain\Model\Subscriber {
+	        TYPO3\T3extblog\Domain\Model\PostSubscriber {
                 mapping {
                     tableName = tx_t3blog_com_nl
 					columns {
+						crdate.mapOnProperty = crdate
 						tstamp.mapOnProperty = tstamp
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						name.mapOnProperty = name
 						email.mapOnProperty = email
 						post_uid.mapOnProperty = postUid
+						lastsent.mapOnProperty = lastSent
+						code.mapOnProperty = code
+					}
+                }
+            }
+	        TYPO3\T3extblog\Domain\Model\BlogSubscriber {
+                mapping {
+                    tableName = tx_t3blog_blog_nl
+					columns {
+						crdate.mapOnProperty = crdate
+						tstamp.mapOnProperty = tstamp
+						deleted.mapOnProperty = deleted
+						hidden.mapOnProperty = hidden
+						email.mapOnProperty = email
 						lastsent.mapOnProperty = lastSent
 						code.mapOnProperty = code
 					}

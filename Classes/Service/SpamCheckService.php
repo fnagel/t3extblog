@@ -27,86 +27,50 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
- * Handles comment spam check
+ * Handles spam check
  */
 class SpamCheckService implements SpamCheckServiceInterface {
 
 	/**
-	 * Logging Service
+	 * Checks GET / POST parameter for SPAM
 	 *
-	 * @var \TYPO3\T3extblog\Service\LoggingService
-	 * @inject
-	 */
-	protected $log;
-
-	/**
-	 * @var \TYPO3\T3extblog\Service\SettingsService
-	 * @inject
-	 */
-	protected $settingsService;
-
-	/**
-	 * @var array
-	 */
-	protected $settings;
-
-	/**
-	 * @var array
-	 */
-	protected $spamSettings;
-
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		$this->settings = $this->settingsService->getTypoScriptSettings();
-		$this->spamSettings = $this->settings['blogsystem']['comments']['spamCheck'];
-	}
-
-	/**
-	 * Checks comment for SPAM
-	 *
-	 * @param Comment $comment The comment to be checked
-	 * @param Request $request The request to be checked
+	 * @var array $settings
 	 *
 	 * @return integer
 	 */
-	public function process(Comment $comment, Request $request) {
+	public function process($settings) {
+		$arguments = GeneralUtility::_GPmerged('tx_t3extblog');
 		$spamPoints = 0;
 
-		if (!$this->spamSettings['enable']) {
+		if (!$settings['enable']) {
 			return $spamPoints;
 		}
 
-		if ($this->spamSettings['honeypot']) {
-			if (!$this->checkHoneyPotFields($request)) {
-				$spamPoints += intval($this->spamSettings['honeypot']);
+		if ($settings['honeypot']) {
+			if (!$this->checkHoneyPotFields($arguments)) {
+				$spamPoints += intval($settings['honeypot']);
 			}
 		}
 
-		if ($this->spamSettings['isHumanCheckbox']) {
-			if (!$request->hasArgument('human') || !$request->hasArgument('human')) {
-				$spamPoints += intval($this->spamSettings['isHumanCheckbox']);
+		if ($settings['isHumanCheckbox']) {
+			if (!isset($arguments['human']) && empty($arguments['human'])) {
+				$spamPoints += intval($settings['isHumanCheckbox']);
 			}
 		}
 
-		if ($this->spamSettings['cookie']) {
+		if ($settings['cookie']) {
 			if (!$_COOKIE['fe_typo_user']) {
-				$spamPoints += intval($this->spamSettings['cookie']);
+				$spamPoints += intval($settings['cookie']);
 			}
 		}
 
-		if ($this->spamSettings['userAgent']) {
+		if ($settings['userAgent']) {
 			if (GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
-				$spamPoints += intval($this->spamSettings['userAgent']);
+				$spamPoints += intval($settings['userAgent']);
 			}
 		}
-
-		$comment->setSpamPoints($spamPoints);
 
 		return $spamPoints;
 	}
@@ -114,21 +78,24 @@ class SpamCheckService implements SpamCheckServiceInterface {
 	/**
 	 * Checks honeypot fields
 	 *
-	 * @param Request $request The request to be checked
+	 * @param array $arguments
 	 *
 	 * @return boolean
 	 */
-	protected function checkHoneyPotFields(Request $request) {
-		if (!$request->hasArgument('author') || strlen($request->getArgument('author')) > 0) {
+	protected function checkHoneyPotFields($arguments) {
+		if (!isset($arguments['author']) || strlen($arguments['author']) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument('link') || strlen($request->getArgument('link')) > 0) {
+
+		if (!isset($arguments['link']) || strlen($arguments['link']) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument('text') || strlen($request->getArgument('text')) > 0) {
+
+		if (!isset($arguments['text']) || strlen($arguments['text']) > 0) {
 			return FALSE;
 		}
-		if (!$request->hasArgument('timestamp') || $request->getArgument('timestamp') !== '1368283172') {
+
+		if (!isset($arguments['timestamp']) || $arguments['timestamp'] !== '1368283172') {
 			return FALSE;
 		}
 

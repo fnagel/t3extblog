@@ -5,17 +5,20 @@
 <f:section name="main">
 	<h2><f:translate key="module.comment.title.pending" /></h2>
 
-	<f:render
-		partial="Backend/Comment/Table"
-		arguments="{comments: pendingComments, dateFormat:	dateFormat, timeFormat: timeFormat}"
-	/>
+	<div id="pending-comments-list">
+		<f:render
+			partial="Backend/Comment/Table"
+			arguments="{comments: pendingComments, dateFormat:	dateFormat, timeFormat: timeFormat}" />
+	</div>
 </f:section>
 
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new">
-			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		<span>{f:translate(key: 'module.buttons.new')}</span>
+
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new" title="{f:translate(key: 'module.buttons.new.comment')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
 		</t3extblog:link.editOnClick>
 	</div>
 </f:section>

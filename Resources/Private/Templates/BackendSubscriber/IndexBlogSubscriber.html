@@ -1,0 +1,45 @@
+<f:layout name="Backend" />
+
+<f:section name="main">
+	<h3><f:translate key="module.subscriber.blog.title" /></h3>
+
+	<div class="panel panel-space panel-default">
+		<f:if condition="{blogSubscribers}">
+			<f:then>
+				<div class="table-fit">
+				<f:widget.paginate objects="{blogSubscribers}" as="paginatedBlogSubscriber" configuration="{settings.backend.subscriber.blog.paginate}">
+					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+						<thead>
+							<tr class="t3-row-header">
+								<td>&nbsp;</td>
+								<td><f:translate key="module.subscriber.post.table.email" /></td>
+								<td><f:translate key="module.subscriber.post.table.date" /></td>
+								<td style="width: 50px;">&nbsp;</td>
+							</tr>
+						</thead>
+
+						<f:for each="{paginatedBlogSubscriber}" as="subscriber">
+							<f:render partial="Backend/Subscriber/BlogSubscriberRow" arguments="{subscriber: subscriber, dateFormat: dateFormat, timeFormat: timeFormat}" />
+						</f:for>
+
+						<tr>
+							<td colspan="6">
+								<f:translate
+									key="module.subscriber.table.count"
+									arguments="{0: '{paginatedBlogSubscriber -> f:count()}', 1: '{blogSubscribers -> f:count()}'}" />
+							</td>
+						</tr>
+					</table>
+				</f:widget.paginate>
+				</div>
+			</f:then>
+			<f:else>
+				<div class="panel-body">
+					<em><f:translate key="module.subscriber.noRecords" /></em>
+				</div>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="iconButtons"></f:section>

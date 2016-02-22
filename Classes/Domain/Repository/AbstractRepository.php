@@ -41,34 +41,36 @@ class AbstractRepository extends Repository {
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
 	 */
 	public function createQuery($pageUid = NULL) {
-
 		$query = parent::createQuery();
 
 		if ($pageUid !== NULL) {
-			$query->getQuerySettings()->setStoragePageIds(array($pageUid));
+			$query->getQuerySettings()->setStoragePageIds(array((int) $pageUid));
 		}
 
 		return $query;
 	}
 
 	/**
-	 * Enable fields for BE and FE
+	 * Returns all objects with specific PID
 	 *
-	 * @param string $table
+	 * @param integer $pid
+	 * @param boolean $respectEnableFields
 	 *
-	 * @return string
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function enableFields($table) {
-		$where = '';
+	public function findByPage($pid = NULL, $respectEnableFields = TRUE) {
+		$query = $this->createQuery($pid);
 
-		if (TYPO3_MODE === 'FE') {
-			$where .= GeneralUtility::getTsFe()->sys_page->enableFields($table);
-		} else {
-			$where .= BackendUtility::BEenableFields($table);
-			$where .= BackendUtility::deleteClause($table);
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+
+			$query->matching(
+				$query->equals('deleted', '0')
+			);
 		}
 
-		return $where;
+		return $query->execute();
 	}
+
 }
 

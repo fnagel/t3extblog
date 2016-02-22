@@ -3,8 +3,6 @@
 <f:layout name="Backend" />
 
 <f:section name="main">
-	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
-
 	<h3><f:translate key="module.post.title" /></h3>
 
 	<div class="panel panel-space panel-default">
@@ -21,6 +19,9 @@
 								<td><f:translate key="module.post.table.author" /></td>
 								<td><f:translate key="module.post.table.comments" /></td>
 								<td style="width: 75px;">&nbsp;</td>
+								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
+									<td style="width: 25px;">&nbsp;</td>
+								</f:if>
 							</tr>
 						</thead>
 
@@ -38,6 +39,20 @@
 									</a>
 								</td>
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
+								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
+									<td>
+										<f:if condition="{post.mailsSent}">
+											<f:else>
+												<f:link.action
+													title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}"
+													action="sendPostNotifications" arguments="{post: post}"
+												 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
+													<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</td>
+								</f:if>
 							</tr>
 							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
@@ -46,6 +61,7 @@
 											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
 										</td>
 										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
+										<td></td>
 									</tr>
 								</f:for>
 							</t3extblog:localization>
@@ -74,8 +90,10 @@
 
 <f:section name="iconButtons">
 	<div class="buttongroup">
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new">
-			<t3extblog:SpriteManagerIcon iconName="actions-document-new" />
+		<span>{f:translate(key: 'module.buttons.new')}</span>
+
+		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
+			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
 		</t3extblog:link.editOnClick>
 	</div>
 </f:section>

@@ -1,6 +1,6 @@
 <div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
+<f:render partial="Post/Filter" arguments="{category: category, tag: tag, author: author}" />
 
 <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 	<f:for each="{paginatedPosts}" as="post">
@@ -12,7 +12,9 @@
 			</h2>
 			<p class="top">
 				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
-				<span class="author">{post.author.name}</span> -
+				<f:if condition="{post.author.uid}">
+					<span class="author">{post.author.name}</span> -
+				</f:if>
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 			</p>
 

@@ -35,6 +35,13 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 abstract class AbstractEntity extends CoreAbstractEntity {
 
 	/**
+	 * Creation date and time
+	 *
+	 * @var \DateTime
+	 */
+	protected $crdate;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 * @inject
 	 */
@@ -53,6 +60,28 @@ abstract class AbstractEntity extends CoreAbstractEntity {
 	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
 	 */
 	protected $postRepository = NULL;
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getCrdate() {
+		return $this->crdate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreateDate() {
+		return $this->getCrdate();
+	}
+
+	/**
+	 * @param $crdate
+	 * @return void
+	 */
+	public function setCrdate($crdate) {
+		$this->crdate = $crdate;
+	}
 
 	/**
 	 * Get commentRepository

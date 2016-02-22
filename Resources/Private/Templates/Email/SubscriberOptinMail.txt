@@ -23,7 +23,7 @@ Please confirm your subscription by using this link:
 <t3b:uri.action
 	extensionName="T3extblog"
 	pluginName="SubscriptionManager"
-	controller="Subscriber"
+	controller="PostSubscriber"
 	action="confirm"
 	pageUid="{settings.subscriptionManager.pid}"
 	absolute="true"

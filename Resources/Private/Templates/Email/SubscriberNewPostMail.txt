@@ -1,0 +1,33 @@
+{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+Hello,
+
+a new post has been released on {settings.blogName}:
+{post.title}
+
+<t3b:uri.action
+	extensionName="T3extblog"
+	pluginName="Blogsystem"
+	controller="Post"
+	action="show"
+	pageUid="{settings.blogsystem.pid}"
+	absolute="true"
+	arguments="{post.linkParameter}"
+	additionalParams="{L: subscriber.sysLanguageUid}" />
+
+
+You can manage your subscription by using this link:
+<t3b:uri.action
+	extensionName="T3extblog"
+	pluginName="SubscriptionManager" 
+	controller="BlogSubscriber"
+	action="list"
+	pageUid="{settings.subscriptionManager.pid}"
+	absolute="true"
+	arguments="{code : subscriber.code}"
+	additionalParams="{L: subscriber.sysLanguageUid}" />
+
+This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
+
+Regards
+{settings.blogName} 
+ 

@@ -9,7 +9,7 @@
 				<ul class="message-body">
 				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
 					<li>
-						<a href="{f:uri.action(action: 'create', controller: 'Comment', arguments: post.linkParameter)}#{propertyPath}">
+						<a href="{anchorLink}#{propertyPath}">
 							<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
 						</a>
 					</li>

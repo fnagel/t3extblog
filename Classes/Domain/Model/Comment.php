@@ -326,7 +326,7 @@ class Comment extends AbstractEntity {
 	 * @return void
 	 */
 	public function setApproved($approved) {
-		$this->approved = (boolean)$approved;
+		$this->approved = (boolean) $approved;
 	}
 
 	/**
@@ -335,7 +335,7 @@ class Comment extends AbstractEntity {
 	 * @return boolean
 	 */
 	public function isApproved() {
-		return (boolean)$this->getApproved();
+		return (boolean) $this->getApproved();
 	}
 
 	/**
@@ -442,7 +442,7 @@ class Comment extends AbstractEntity {
 	 * @return void
 	 */
 	public function setSubscribe($subscribe) {
-		$this->subscribe = (boolean)$subscribe;
+		$this->subscribe = (boolean) $subscribe;
 	}
 
 	/**
@@ -451,14 +451,14 @@ class Comment extends AbstractEntity {
 	 * @return void
 	 */
 	public function setMailsSent($mailsSent) {
-		$this->mailsSent = (boolean)$mailsSent;
+		$this->mailsSent = (boolean) $mailsSent;
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function getMailsSent() {
-		return (boolean)$this->mailsSent;
+		return (boolean) $this->mailsSent;
 	}
 
 	/**
