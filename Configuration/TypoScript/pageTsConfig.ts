@@ -14,3 +14,8 @@ mod.linkvalidator.searchFields {
 	tx_t3blog_pingback = url
 	tx_t3blog_trackback = fromurl
 }
+
+# Hide tt_content elements in list view
+[page|module = t3blog]
+	mod.web_list.table.tt_content.hideTable = 1
+[global]
