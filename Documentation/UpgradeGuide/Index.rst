@@ -30,7 +30,7 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
-- Use HTML files as email templates
+- Use HTML or text files as email templates
 
 - Author filter for post list action
 
@@ -38,13 +38,15 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Backend module: Add a dashboard view
 
-- Backend module: Add list views for post and blog subscriptions
-
-- Multiple fixes and improvements
+- Backend module: Add list view for post and blog subscriptions
 
 - Auto cache clearing when editing posts in backend (no more page TS config needed!)
 
 - Greatly improved cache handling when creating new comments
+
+- Multiple minor fixes and improvements
+
+- Added some FAQ sections and information about new cache handling in documentation
 
 
 **Breaking changes**
