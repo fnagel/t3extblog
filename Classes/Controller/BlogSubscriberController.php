@@ -121,12 +121,12 @@ class BlogSubscriberController extends AbstractSubscriberController {
 	/**
 	 * action delete
 	 *
-	 * @param BlogSubscriber $subscriber
+	 * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
 	 *
 	 * @throws InvalidArgumentValueException
 	 * @return void
 	 */
-	public function deleteAction(BlogSubscriber $subscriber = NULL) {
+	public function deleteAction($subscriber = NULL) {
 		parent::deleteAction($subscriber);
 	}
 

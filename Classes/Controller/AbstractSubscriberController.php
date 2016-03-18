@@ -28,6 +28,8 @@ namespace TYPO3\T3extblog\Controller;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
+use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
+use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * SubscriberController
@@ -96,15 +98,15 @@ abstract class AbstractSubscriberController extends AbstractController {
 	/**
 	 * action delete
 	 *
-	 * @param AbstractSubscriber $subscriber
+	 * @param \TYPO3\T3extblog\Domain\Model\AbstractSubscriber $subscriber
 	 *
 	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
-	public function deleteAction(AbstractSubscriber $subscriber = NULL) {
+	public function deleteAction($subscriber = NULL) {
 		$this->checkAuth();
 
-		if ($subscriber === NULL) {
+		if (!($subscriber instanceof BlogSubscriber || $subscriber instanceof PostSubscriber)) {
 			throw new \InvalidArgumentException('No subscriber given.');
 		}
 

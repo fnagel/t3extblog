@@ -83,12 +83,12 @@ class PostSubscriberController extends AbstractSubscriberController {
 	/**
 	 * action delete
 	 *
-	 * @param PostSubscriber $subscriber
+	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriber
 	 *
 	 * @throws InvalidArgumentValueException
 	 * @return void
 	 */
-	public function deleteAction(PostSubscriber $subscriber = NULL) {
+	public function deleteAction($subscriber = NULL) {
 		parent::deleteAction($subscriber);
 	}
 
