@@ -82,20 +82,27 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 
 	/**
 	 * Renders FlashMessages and flushes the FlashMessage queue
-	 * Note: This disables the current page cache in order to prevent
-	 * FlashMessage output from being cached.
+	 * Note: This disables the current page cache in order to prevent FlashMessage output
+	 * from being cached.
 	 *
 	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
-	 *
-	 * @param string $renderMode one of the RENDER_MODE_* constants
+	 * @param string $renderMode @deprecated since TYPO3 CMS 7.3. If you need custom output, use <f:flashMessages as="messages"><f:for each="messages" as="message">...</f:for></f:flashMessages>
+	 * @param string $as The name of the current flashMessage variable for rendering inside
 	 * @return string rendered Flash Messages, if there are any.
+	 * @api
 	 */
-	public function render($renderMode = self::RENDER_MODE_DIV) {
+	public function render($renderMode = null, $as = null) {
+		// Add defaults here as we need keep signature intact
+		// @todo Remove this when dropping 6.2 support
+		// @todo Test this in 6.2!
+		if ($renderMode === NULL) {
+			$renderMode = self::RENDER_MODE_DIV;
+		}
+
 		// TYPO3 7.x
 		// @todo Use this only when 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			$result = parent::render($renderMode);
+			$result = parent::render($renderMode, $as);
 
 			// Prevent caching if a flash message is displayed
 			// @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112

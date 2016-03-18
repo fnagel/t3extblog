@@ -35,13 +35,20 @@ use TYPO3\T3extblog\Domain\Model\Post;
 class CommentAllowedViewHelper extends AbstractConditionViewHelper {
 
 	/**
+	 * Initializes the "then" and "else" arguments
+	 */
+	public function __construct() {
+		parent::__construct();
+
+		$this->registerArgument('post', 'TYPO3\\T3extblog\\Doomain\\Model\\Post', 'Post object to check if new comments are allowed.', TRUE);
+	}
+
+	/**
 	 * Check if a new comment is allowed
-	 *
-	 * @param Post $post
 	 *
 	 * @return string
 	 */
-	public function render(Post $post) {
+	public function render() {
 		$this->arguments['settings'] = $this->templateVariableContainer->get('settings');
 
 		return parent::render();
