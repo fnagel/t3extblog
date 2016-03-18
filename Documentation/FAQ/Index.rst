@@ -65,7 +65,7 @@ To avoid filling the cache with not existing pages, the filter only works with t
 Set default post category
 -------------------------
 
-Add this to your user TS config:
+Add this to the page or user TS config:
 
 .. code-block:: typoscript
 
@@ -79,6 +79,28 @@ Add this to your user TS config:
 		}
 	}
 
+
+Disable post fields
+-------------------
+
+Add something similar to the page or user TS config:
+
+.. code-block:: typoscript
+
+	TCEFORM.tx_t3blog_post {
+		# Just some examples...
+		hidden.disabled = 1
+		starttime.disabled = 1
+		endtime.disabled = 1
+
+		preview_mode.disabled = 1
+		preview_text.disabled = 1
+	}
+
+
+.. Hint::
+
+	Do not hide the `date` field as it's needed for sorting!
 
 
 Translation / Localization
