@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,7 +27,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as BaseActionViewHelper;
-use TYPO3\T3extblog\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * A view helper for creating URIs to extbase actions.
@@ -65,12 +65,13 @@ class ActionViewHelper extends BaseActionViewHelper {
 	 * @param boolean $absolute If set, an absolute URI is rendered
 	 * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
 	 * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
+	 * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
 	 *
 	 * @throws \Exception
 	 *
 	 * @return string Rendered link
 	 */
-	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
+	public function render($action = NULL, array $arguments = array(), $controller = NULL, $extensionName = NULL, $pluginName = NULL, $pageUid = NULL, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = NULL) {
 		if (TYPO3_MODE === 'FE') {
 			return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
 		}
@@ -79,9 +80,7 @@ class ActionViewHelper extends BaseActionViewHelper {
 			throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
 		}
 
-		$this->buildTSFE($pageUid);
-
-		return $this->renderFrontendLink($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
+		return $this->renderFrontendLink($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
 	}
 
 	/**
@@ -101,21 +100,21 @@ class ActionViewHelper extends BaseActionViewHelper {
 	 * @param boolean $absolute If set, an absolute URI is rendered
 	 * @param boolean $addQueryString If set, the current query parameters will be kept in the URI
 	 * @param array $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
+	 * @param string $addQueryStringMethod Set which parameters will be kept. Only active if $addQueryString = TRUE
 	 *
 	 * @return string Rendered link
 	 *
 	 * @throws \Exception
 	 */
-	protected function renderFrontendLink($action = NULL, array $arguments = array(), $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array()) {
+	protected function renderFrontendLink($action = NULL, array $arguments = array(), $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = FALSE, $noCacheHash = FALSE, $section = '', $format = '', $linkAccessRestrictedPages = FALSE, array $additionalParams = array(), $absolute = FALSE, $addQueryString = FALSE, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = NULL) {
 		if ($controller === NULL || $extensionName === NULL || $pluginName === NULL) {
 			throw new \Exception('Missing arguments for extbase link generation from BE context. Check your template!');
 		}
 
-		/* @var $uriBuilder \TYPO3\T3extblog\MVC\Web\Routing\UriBuilder */
-		$uriBuilder = $this->objectManager->get('TYPO3\\T3extblog\\MVC\\Web\\Routing\\UriBuilder');
+		$uriBuilder = $this->controllerContext->getUriBuilder();
 
-		$uri = $uriBuilder
-			->reset()
+		$this->buildFrontend($pageUid);
+		$uri = $uriBuilder->reset()
 			->setTargetPageUid($pageUid)
 			->setTargetPageType($pageType)
 			->setNoCache($noCache)
@@ -123,13 +122,55 @@ class ActionViewHelper extends BaseActionViewHelper {
 			->setSection($section)
 			->setFormat($format)
 			->setLinkAccessRestrictedPages($linkAccessRestrictedPages)
-			->setArguments($additionalParams)
+			->setArguments($this->uriFor($action, $arguments, $controller, $extensionName, $pluginName, $format, $additionalParams))
 			->setCreateAbsoluteUri($absolute)
 			->setAddQueryString($addQueryString)
 			->setArgumentsToBeExcludedFromQueryString($argumentsToBeExcludedFromQueryString)
-			->uriFor($action, $arguments, $controller, $extensionName, $pluginName);
+			->setAddQueryStringMethod($addQueryStringMethod)
+			->buildFrontendUri();
 
 		return $uri;
+	}
+
+
+	/**
+	 * Creates an URI used for linking to an Extbase action.
+	 * Works in Frontend and Backend mode of TYPO3.
+	 *
+	 * @param string $actionName Name of the action to be called
+	 * @param array $controllerArguments Additional query parameters. Will be "namespaced" and merged with $this->arguments.
+	 * @param string $controllerName Name of the target controller. If not set, current ControllerName is used.
+	 * @param string $extensionName Name of the target extension, without underscores. If not set, current ExtensionName is used.
+	 * @param string $pluginName Name of the target plugin. If not set, current PluginName is used.
+	 * @param string $format The requested format, e.g. ".html
+	 * @param array $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
+	 * @return string the rendered URI
+	 * @api
+	 * @see build()
+	 */
+	public function uriFor($actionName = NULL, $controllerArguments = array(), $controllerName = NULL, $extensionName = NULL, $pluginName = NULL, $format = '', array $additionalParams = array()) {
+		/* @var $extensionService \TYPO3\CMS\Extbase\Service\ExtensionService */
+		$extensionService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\ExtensionService');
+
+		if ($actionName !== NULL) {
+			$controllerArguments['action'] = $actionName;
+		}
+		if ($controllerName !== NULL) {
+			$controllerArguments['controller'] = $controllerName;
+		}
+		if ($pluginName === NULL) {
+			$pluginName = $extensionService->getPluginNameByAction(
+				$extensionName, $controllerArguments['controller'], $controllerArguments['action']
+			);
+		}
+		if ($format !== '') {
+			$controllerArguments['format'] = $format;
+		}
+
+		$pluginNamespace = $extensionService->getPluginNamespace($extensionName, $pluginName);
+		$prefixedControllerArguments = array($pluginNamespace => $controllerArguments);
+
+		return array_merge_recursive($additionalParams, $prefixedControllerArguments);
 	}
 
 	/**
@@ -137,8 +178,8 @@ class ActionViewHelper extends BaseActionViewHelper {
 	 *
 	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
 	 */
-	protected function buildTSFE($pageUid) {
-		return GeneralUtility::getTsFe($pageUid);
+	protected function buildFrontend($pageUid) {
+		return \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe($pageUid);
 	}
 
 }

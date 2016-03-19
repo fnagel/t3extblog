@@ -28,6 +28,7 @@ namespace TYPO3\T3extblog\Utility;
 
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use \TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
+use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
  * General utility class
@@ -53,10 +54,13 @@ class GeneralUtility {
 	 * Generate TypoScriptFrontendController (use in BE context)
 	 *
 	 * @param int $pageUid
+	 * @param int $pageType
 	 *
 	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
 	 */
-	protected static function generateTypoScriptFrontendController($pageUid) {
+	protected static function generateTypoScriptFrontendController($pageUid, $pageType = 0) {
+		EidUtility::initTCA();
+
 		if (!is_object($GLOBALS['TT'])) {
 			$GLOBALS['TT'] = new TimeTracker;
 			$GLOBALS['TT']->start();
@@ -64,13 +68,12 @@ class GeneralUtility {
 
 		$GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
 			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, ''
+			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, $pageType
 		);
 
 		$GLOBALS['TSFE']->connectToDB();
 		$GLOBALS['TSFE']->initFEuser();
-		$GLOBALS['TSFE']->fetch_the_id();
-		$GLOBALS['TSFE']->getPageAndRootline();
+		$GLOBALS['TSFE']->determineId();
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->getConfigArray();
 		$GLOBALS['TSFE']->settingLanguage();
