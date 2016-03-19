@@ -169,7 +169,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	 *
 	 * @return void
 	 */
-	protected function flushFrontendCache($comment) {
+	public function flushFrontendCache($comment) {
 		GeneralUtility::flushFrontendCacheByTags(array(
 			'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
 			'tx_t3blog_com_pid_' . $comment->getPid(),

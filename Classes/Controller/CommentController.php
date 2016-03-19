@@ -147,6 +147,7 @@ class CommentController extends AbstractController {
 		// Process comment (send mails, clear cache, etc.)
 		$this->notificationService->processNewEntity($newComment);
 		$this->notificationService->notifyAdmin($newComment);
+		$this->notificationService->flushFrontendCache($newComment);
 
 		if (!$this->hasFlashMessages()) {
 			if ($newComment->isApproved()) {
