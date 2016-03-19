@@ -32,9 +32,11 @@ $EM_CONF[$_EXTKEY] = array(
 		),
 		'conflicts' => array(
 			't3blog' => '',
+			'realurl' => '2.0.0-2.99.99',
 		),
 		'suggests' => array(
 			'dd_googlesitemap' => '2.0.0-2.0.99',
+			'realurl' => ''
 		),
 	),
 );

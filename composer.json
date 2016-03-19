@@ -20,6 +20,9 @@
   "require": {
     "php": ">=5.5,<7.0"
   },
+  "conflict": {
+    "dmitryd/typo3-realurl": ">=2.0"
+  },
   "repositories": [
     {
       "type": "vcs",
