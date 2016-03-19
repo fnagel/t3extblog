@@ -80,7 +80,6 @@ class CommentNotificationService extends AbstractNotificationService {
 			$this->persistToDatabase();
 			$this->flushFrontendCache($comment);
 		}
-
 	}
 
 	/**

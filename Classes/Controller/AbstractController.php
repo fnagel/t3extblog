@@ -126,7 +126,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	/**
 	 * Helper function to render localized flashmessages
 	 *
-	 * @param string $action
+	 * @param string $key
 	 * @param integer $severity optional severity code. One of the FlashMessage constants
 	 *
 	 * @return void
@@ -188,7 +188,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	}
 
 	/**
-	 * Add page cache tag by strinf or object
+	 * Add page cache tag by string or object
 	 *
 	 * @param mixed $object A cache tag string or a blog model object
 	 * @return void
