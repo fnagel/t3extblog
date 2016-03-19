@@ -30,6 +30,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Container\Container;
+use TYPO3\T3extblog\Service\FlushCacheService;
 
 /**
  * Class being included by TCEmain using a hook
@@ -81,7 +82,7 @@ class Tcemain {
 			if ($table === 'tx_t3blog_post') {
 				$this->deletePostRelations(intval($id));
 				// @todo Improve this by using a PID cache tag
-				\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags(array('tx_t3extblog'));
+				FlushCacheService::flushFrontendCacheByTags(array('tx_t3extblog'));
 			}
 		}
 	}
@@ -146,7 +147,7 @@ class Tcemain {
 			}
 		}
 
-		\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags($tagsToFlush);
+		FlushCacheService::flushFrontendCacheByTags($tagsToFlush);
 	}
 
 	/**

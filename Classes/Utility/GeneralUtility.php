@@ -79,26 +79,4 @@ class GeneralUtility {
 		return $GLOBALS['TSFE'];
 	}
 
-	/**
-	 * Clear frontend page cache by tags
-	 *
-	 * @param $cacheTagsToFlush
-	 *
-	 * @return void
-	 * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-	 */
-	public static function flushFrontendCacheByTags($cacheTagsToFlush) {
-		if (count($cacheTagsToFlush) < 1) {
-			return;
-		}
-
-		/** @var $cacheManager \TYPO3\CMS\Core\Cache\CacheManager */
-		$cacheManager = CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-
-		foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
-			$cacheManager->getCache('cache_pages')->flushByTag($cacheTag);
-			$cacheManager->getCache('cache_pagesection')->flushByTag($cacheTag);
-		}
-	}
-
 }

@@ -30,7 +30,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
 use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
  * Handles all notification mails
@@ -79,7 +78,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	protected $emailService;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Service\CacheService
+	 * @var \TYPO3\T3extblog\Service\FlushCacheService
 	 * @inject
 	 */
 	protected $cacheService;
@@ -170,7 +169,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 	 * @return void
 	 */
 	public function flushFrontendCache($comment) {
-		GeneralUtility::flushFrontendCacheByTags(array(
+		$this->cacheService->addCacheTagsToFlush(array(
 			'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
 			'tx_t3blog_com_pid_' . $comment->getPid(),
 		));

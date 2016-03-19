@@ -61,6 +61,12 @@ class CommentController extends AbstractController {
 	protected $spamCheckService;
 
 	/**
+	 * @var \TYPO3\T3extblog\Service\FlushCacheService
+	 * @inject
+	 */
+	protected $cacheService;
+
+	/**
 	 * action list
 	 *
 	 * @param Post $post Show only comments related to this post
@@ -168,7 +174,7 @@ class CommentController extends AbstractController {
 	protected function clearCacheOnError() {
 		if ($this->arguments->hasArgument('post')) {
 			$post = $this->arguments->getArgument('post')->getValue();
-			\TYPO3\T3extblog\Utility\GeneralUtility::flushFrontendCacheByTags(array(
+			$this->cacheService->addCacheTagsToFlush(array(
 				'tx_t3blog_post_uid_' . $post->getLocalizedUid()
 			));
 		} else {
