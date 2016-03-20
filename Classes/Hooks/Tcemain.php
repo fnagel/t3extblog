@@ -69,20 +69,54 @@ class Tcemain {
 	protected $commentRepository = NULL;
 
 	/**
-	 * Processes item deletion
+	 * Before processing: clear cache
 	 *
-	 * @param string $command
-	 * @param string $table
-	 * @param mixed $id
+	 * @param string $command The TCEmain operation status, fx. 'update'
+	 * @param string $table The table TCEmain is currently processing
+	 * @param string $id The records id (if any)
+	 * @param array $relativeTo Filled if command is relative to another element
+	 * @param DataHandler $tceMain Reference to the parent object (TCEmain)
+	 * @param bool $commandIsProcessed If the command has been processed
 	 *
 	 * @return void
 	 */
-	public function processCmdmap_postProcess($command, $table, $id) {
+	public function processCmdmap($command, $table, $id, $relativeTo, $commandIsProcessed, $tceMain) {
+		if (!in_array($table, array('tx_t3blog_post', 'tx_t3blog_com'))) {
+			return;
+		}
+
+		if ($command === 'delete') {
+			$pid = $this->resolveRecordPid($table, $id, $tceMain);
+			$tagsToFlush = array();
+
+			// Cache tags
+			if ($table === 'tx_t3blog_post') {
+				$tagsToFlush[] = $table . '_pid_' . $pid;
+				$tagsToFlush[] = $table . '_uid_' . $id;
+			}
+			if ($table === 'tx_t3blog_com') {
+				$tagsToFlush[] = $table . '_pid_' . $pid;
+			}
+
+			FlushCacheService::flushFrontendCacheByTags($tagsToFlush);
+		}
+	}
+
+	/**
+	 * After processing: delete related objects
+	 *
+	 * @param string $command The TCEmain operation status, fx. 'update'
+	 * @param string $table The table TCEmain is currently processing
+	 * @param string $id The records id (if any)
+	 * @param array $relativeTo Filled if command is relative to another element
+	 * @param DataHandler $tceMain Reference to the parent object (TCEmain)
+	 *
+	 * @return void
+	 */
+	public function processCmdmap_postProcess($command, $table, $id, $relativeTo, $tceMain) {
 		if ($command === 'delete') {
 			if ($table === 'tx_t3blog_post') {
 				$this->deletePostRelations(intval($id));
-				// @todo Improve this by using a PID cache tag
-				FlushCacheService::flushFrontendCacheByTags(array('tx_t3extblog'));
 			}
 		}
 	}
@@ -91,19 +125,21 @@ class Tcemain {
 	 * TCEmain hook function for on-the-fly email sending
 	 * Hook: processDatamap_afterDatabaseOperations
 	 *
-	 * @param string $status Status of the current operation, 'new' or 'update'
-	 * @param string $table The table currently processing data for
-	 * @param string $id The record uid currently processing data for
-	 * @param array $fields The field array of a record
-	 * @param DataHandler $tceMain
+	 * @param string $status The command which has been sent to processDatamap
+	 * @param string $table The table we're dealing with
+	 * @param mixed $id Either the record UID or a string if a new record has been created
+	 * @param array $fields The record row how it has been inserted into the database
+	 * @param DataHandler $tceMain A reference to the TCEmain instance
 	 *
 	 * @return void
 	 */
 	public function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain) {
-		$pid = $tceMain->checkValue_currentRecord['pid'];
-		if (!is_numeric($id)) {
-			$id = $tceMain->substNEWwithIDs[$id];
+		if (!in_array($table, array('tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'))) {
+			return;
 		}
+
+		$pid = $this->resolveRecordPid($table, $id, $tceMain, $fields);
+		$id = $this->resolveRecordUid($id, $tceMain);
 
 		$tagsToFlush = array();
 
@@ -130,7 +166,6 @@ class Tcemain {
 			}
 
 			if ($status === 'new') {
-				$pid = $fields['pid'];
 				$this->processNewComment($id, $pid);
 			}
 
@@ -182,7 +217,6 @@ class Tcemain {
 	 */
 	protected function getDeleteArrayForTable($postId, $tableName, $fieldName, $extraWhere = '') {
 		$command = array();
-
 		$where = $fieldName . '=' . $postId . BackendUtility::deleteClause($tableName) . $extraWhere;
 
 		$data = $this->getDatabase()->exec_SELECTgetRows('uid', $tableName, $where);
@@ -302,6 +336,49 @@ class Tcemain {
 		}
 
 		return $this->notificationService;
+	}
+
+	/**
+	 * Get record uid
+	 *
+	 * @param integer $id
+	 * @param DataHandler $reference
+	 * @return integer
+	 */
+	protected function resolveRecordUid($id, DataHandler $reference) {
+		if (FALSE !== strpos($id, 'NEW')) {
+			if (FALSE === empty($reference->substNEWwithIDs[$id])) {
+				$id = $reference->substNEWwithIDs[$id];
+			}
+		}
+
+		return (int) $id;
+	}
+	/**
+	 * Get record pid
+	 *
+	 * @param string $table
+	 * @param int $id
+	 * @param DataHandler $tceMain
+	 * @param array $fields
+	 *
+	 * @return int
+	 */
+	protected function resolveRecordPid($table, $id, $tceMain, $fields = NULL) {
+		// Changed records
+		if (isset($tceMain->checkValue_currentRecord['pid'])) {
+			return (int) $tceMain->checkValue_currentRecord['pid'];
+		}
+
+		// New records
+		if (is_array($fields) && isset($fields['pid'])) {
+			return (int) $fields['pid'];
+		}
+
+		// Fallback (used for deleted records)
+		list($pid) = BackendUtility::getTSCpid($table, $id, '');
+
+		return (int) $pid;
 	}
 
 	/**
