@@ -204,6 +204,7 @@ class PostController extends AbstractController {
 
 		// Add cache tags
 		$this->addCacheTags($post);
+		$this->addCacheTags('tx_t3blog_com_pid_' . $post->getPid());
 		$this->addCacheTags('tx_t3blog_post_uid_' . $post->getLocalizedUid());
 
 		// @todo: This will not work as this action is cached
