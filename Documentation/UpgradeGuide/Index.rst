@@ -46,6 +46,8 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Multiple minor fixes and improvements
 
+- PHP 7.0 compatibility
+
 - Added some FAQ sections and information about new cache handling in documentation
 
 
