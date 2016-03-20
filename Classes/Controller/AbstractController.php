@@ -198,7 +198,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 			return;
 		}
 
-		$tags = array();
+		$tags = is_array($object) ? $object : array();
 
 		if (is_string($object)) {
 			$tags[] = $object;
@@ -231,7 +231,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	protected function addDefaultCacheTags() {
 		static $cacheTagsSet = FALSE;
 
-		if (!$cacheTagsSet) {
+		if ($cacheTagsSet === FALSE) {
 			$this->addCacheTags(array('tx_t3extblog'));
 
 			// We only want to set the tag once in one request
