@@ -374,9 +374,15 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 
 // Add new palette type to hide link field for preview image
 $GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette'] = array(
-	'showitem' => 'title, alternative;;;;3-3-3, --linebreak--, description',
+	'showitem' => 'title, alternative, --linebreak--, description',
 	'canNotCollapse' => TRUE
 );
+
+// @todo Remove this when 6.2 is no longer relevant
+if (version_compare(TYPO3_branch, '7.2', '>=')) {
+	// Enable cropping for newer TYPO3
+	$GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette']['showitem'] .= ', --linebreak--, crop';
+}
 
 // @todo Remove this when 6.2 is no longer relevant
 if (version_compare(TYPO3_branch, '7.0', '<')) {

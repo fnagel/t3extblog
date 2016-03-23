@@ -40,6 +40,8 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Backend module: Add list view for post and blog subscriptions
 
+- Use built-in image cropping (since TYPO3 7.2) for preview image
+
 - Auto cache clearing when editing posts in backend (no more page TS config needed!)
 
 - Greatly improved cache handling when creating new comments
