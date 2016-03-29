@@ -36,21 +36,15 @@ https://github.com/fnagel/t3extblog/compare/2.1.0...2.2.0
 
 - Show backend user (post author) avatar image (available since TYPO3 7.5)
 
-- Backend module: Add a dashboard view
-
-- Backend module: Add list view for post and blog subscriptions
+- New backend modules: dashboard view, list view for post and blog subscriptions
 
 - Use built-in image cropping (since TYPO3 7.2) for preview image
 
-- Auto cache clearing when editing posts in backend (no more page TS config needed!)
-
-- Greatly improved cache handling when creating new comments
+- :ref:`Greatly improved cache handling <faq-clear-cache>` when creating new comments or editing posts in backend (no more page TS config needed!)
 
 - Multiple minor fixes and improvements
 
 - PHP 7.0 compatibility
-
-- Added some FAQ sections and information about new cache handling in documentation
 
 
 **Breaking changes**

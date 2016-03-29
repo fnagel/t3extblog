@@ -128,6 +128,7 @@ More information about TYPO3 translation server: https://wiki.typo3.org/Translat
 
 Clear frontend cache
 --------------------
+.. _faq-clear-cache:
 
 Since version 2.2.0 this extension makes use of cache tags. The following cache tags are available:
 
