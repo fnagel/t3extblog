@@ -31,6 +31,7 @@ Currently implemented features:
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
 * Send HTML and / or text emails
 * Preview of hidden posts
+* Reasonable cache handling (using cache tags)
 * Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2 and 7.x
 * Multi language support
 * Link validator support

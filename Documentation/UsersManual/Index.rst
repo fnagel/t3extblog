@@ -71,7 +71,7 @@ Create a blogpost
 
 **Metadata:**
 
-- Add some metadata for your blogpost (keywords and description text)
+- Add some metadata for your blog post (keywords and description text)
 - Metadata tab content is used for SEO relevant meta tags only
 
 **Content:**
@@ -93,7 +93,7 @@ You need to add at least one blog category to your post.
 
 
 .. tip::
-	New posts are hidden by default, you need to activate them (uncheck "hide" within the access tab)
+	New posts are hidden by default, you need to activate them (un-check "hide" within the access tab)
 
 
 

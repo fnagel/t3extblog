@@ -49,7 +49,7 @@ Plugins
 Archive
 ^^^^^^^
 
-Simple list of your blogposts, categorised by month, sorted by date.
+Simple list of your blog posts, categorised by month, sorted by date.
 
 .. figure:: ../Images/AdministratorManual/archive.png
 	:width: 260px
@@ -181,7 +181,7 @@ Preview blog posts
 ------------------
 
 The extension has a preview functionality. Add following TypoScript to your page TSconfig (where 123 is the PID of
-the page where the blogsystem is included).
+the page where the blogsystem plugin is included).
 
 
 .. code-block:: typoscript

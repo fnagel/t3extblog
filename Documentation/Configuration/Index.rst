@@ -91,10 +91,10 @@ When using EXT:realurl or similar extension you will need to add additional stat
 `T3Extblog: additional RealUrl config (t3extblog)` (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
 
 .. important::
-	Add this static TS to the Blogsystem plugin page only to preserve cache!
+	Add this static TS to the blogsystem plugin page only to preserve cache!
 
 .. important::
-	When not using the realurl-autoconfig-feature, you need to add the configuration by yourself!
+	When not using the realurl autoconfig feature, you need to add the configuration by yourself!
 
 
 Responsive image rendering
