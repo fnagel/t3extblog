@@ -21,7 +21,7 @@
     "php": ">=5.5,<7.1"
   },
   "conflict": {
-    "dmitryd/typo3-realurl": ">=2.0"
+    "dmitryd/typo3-realurl": ">=2.0.0 <=2.0.10"
   },
   "repositories": [
     {
