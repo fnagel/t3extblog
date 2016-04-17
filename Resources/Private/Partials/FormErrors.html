@@ -1,23 +1,37 @@
 <div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:form.validationResults for="{object}">
-	<f:if condition="{validationResults.flattenedErrors}">
-		<div class="alert alert-danger" role="alert">
-			<div class="typo3-message message-error">
-				<div class="message-header"><f:translate key="error.headline" /></div>
+<f:comment>@todo Remove this when validation input is escaped as expected</f:comment>
+<t3b:typo3Version version="8.0" operator=">=">
+	<f:then>
+		<f:format.htmlentitiesDecode>
+			<f:render section="Errors" arguments="{_all}" />
+		</f:format.htmlentitiesDecode>
+	</f:then>
+	<f:else>
+		<f:render section="Errors" arguments="{_all}" />
+	</f:else>
+</t3b:typo3Version>
 
-				<ul class="message-body">
-				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
-					<li>
-						<a href="{anchorLink}#{propertyPath}">
-							<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
-						</a>
-					</li>
-				</f:for>
-				</ul>
+<f:section name="Errors">
+	<f:form.validationResults for="{object}">
+		<f:if condition="{validationResults.flattenedErrors}">
+			<div class="alert alert-danger" role="alert">
+				<div class="typo3-message message-error">
+					<div class="message-header"><f:translate key="error.headline" /></div>
+
+					<ul class="message-body">
+						<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+							<li>
+								<a href="{anchorLink}#{propertyPath}">
+									<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
+								</a>
+							</li>
+						</f:for>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</f:if>
-</f:form.validationResults>
+		</f:if>
+	</f:form.validationResults>
+</f:section>
 
 </div>
