@@ -1,10 +1,33 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
-}
 
-$GLOBALS['TCA']['tx_t3blog_post'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_t3blog_post']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'author',
+		'versioningWS' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l18n_parent',
+		'transOrigDiffSourceField' => 'l18n_diffsource',
+		'prependAtCopy' => 'LLL:EXT:lang/locallang_general.xlf:LGL.prependAtCopy',
+		'hideAtCopy' => TRUE,
+		'default_sortby' => 'ORDER BY date DESC',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+			'fe_group' => 'fe_group',
+		),
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-post',
+		],
+		'dividers2tabs' => TRUE,
+		'searchFields' => 'title',
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
 			author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent'
@@ -369,32 +392,5 @@ $GLOBALS['TCA']['tx_t3blog_post'] = array(
 				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
 				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel'
 		),
-	)
+	),
 );
-
-// Add new palette type to hide link field for preview image
-$GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette'] = array(
-	'showitem' => 'title, alternative, --linebreak--, description',
-	'canNotCollapse' => TRUE
-);
-
-// @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.2', '>=')) {
-	// Enable cropping for newer TYPO3
-	$GLOBALS['TCA']['sys_file_reference']['palettes']['t3extblogPostPreviewImagePalette']['showitem'] .= ', --linebreak--, crop';
-}
-
-// @todo Remove this when 6.2 is no longer relevant
-if (version_compare(TYPO3_branch, '7.0', '<')) {
-	$GLOBALS['TCA']['tx_t3blog_post']['columns']['cat']['config']['renderMode'] = 'tree';
-
-	// Use old localization path
-	$GLOBALS['TCA']['tx_t3blog_post']['types']['0']['showitem'] =
-		str_replace('frontend/Resources/Private/Language', 'cms', $GLOBALS['TCA']['tx_t3blog_post']['types']['0']['showitem']);
-	$GLOBALS['TCA']['tx_t3blog_post']['palettes']['access']['showitem'] =
-		str_replace('frontend/Resources/Private/Language', 'cms', $GLOBALS['TCA']['tx_t3blog_post']['palettes']['access']['showitem']);
-
-	// Add do not collapse
-	$GLOBALS['TCA']['tx_t3blog_post']['palettes']['visibility']['canNotCollapse'] = TRUE;
-	$GLOBALS['TCA']['tx_t3blog_post']['palettes']['access']['canNotCollapse'] = TRUE;
-}

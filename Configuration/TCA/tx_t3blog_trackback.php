@@ -1,10 +1,22 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
-}
 
-$GLOBALS['TCA']['tx_t3blog_trackback'] = array(
-	'ctrl' => $GLOBALS['TCA']['tx_t3blog_trackback']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
+		'label' => 'uid',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'default_sortby' => 'ORDER BY crdate',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+		),
+		'typeicon_classes' => [
+			'default' => 'extensions-t3extblog-trackback',
+		],
+		'searchFields' => 'title,fromurl,text,blogname',
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'hidden,fromurl,text,title,postid,id'
 	),
