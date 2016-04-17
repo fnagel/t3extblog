@@ -1,6 +1,6 @@
-<div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" class="table-fit">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" class="table-fit">
 
-<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.dashboard.postDrafts.paginate}">
+<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.dashboard.postDrafts.paginate}">
 	<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
 		<thead>
 			<tr class="t3-row-header">
@@ -20,19 +20,19 @@
 					   data-uid="{post.uid}"
 					   data-table="tx_t3blog_post"
 					   title="{post.uid}">
-						<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+						<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 					</a>
 				</td>
 
 				<td class="title">
-					<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
+					<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
 						{post.title -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
-					</t3extblog:link.editOnClick>
+					</t3b:backend.link.editOnClick>
 				</td>
 				<td>{post.author.username}</td>
 			</tr>
 		</f:for>
 	</table>
-</f:widget.paginate>
+</t3b:widget.paginate>
 
 </div>

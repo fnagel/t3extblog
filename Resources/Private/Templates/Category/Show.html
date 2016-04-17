@@ -1,4 +1,4 @@
-<div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:layout name="Default" />
 
@@ -10,7 +10,7 @@
 		{category.description}
 	</div>
 
-	<f:widget.paginate objects="{category.posts}" as="paginatedPosts" configuration="{settings.categories.paginate}">
+	<t3b:widget.paginate objects="{category.posts}" as="paginatedPosts" configuration="{settings.categories.paginate}">
 		<ul>
 		<f:for each="{paginatedPosts}" as="post">
 			<li>
@@ -18,7 +18,7 @@
 			</li>
 		</f:for>
 		</ul>
-	</f:widget.paginate>
+	</t3b:widget.paginate>
 
 </f:section>
 

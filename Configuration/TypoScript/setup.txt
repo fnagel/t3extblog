@@ -1,10 +1,16 @@
 plugin.tx_t3extblog {
 	view {
-		templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
-		partialRootPath = {$plugin.tx_t3extblog.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_t3extblog.view.layoutRootPath}
+		templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
+		templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
 
-		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}
+		partialRootPaths.0 = EXT:t3extblog/Resources/Private/Partials/
+		partialRootPaths.10 = {$plugin.tx_t3extblog.view.partialRootPath}
+
+		layoutRootPaths.0 = EXT:t3extblog/Resources/Private/Layouts/
+		layoutRootPaths.10 = {$plugin.tx_t3extblog.view.layoutRootPath}
+
+		widget.TYPO3\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
+		widget.TYPO3\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
 
 	email {

@@ -1,15 +1,15 @@
-<div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:layout name="Default" />
 
 <f:section name="main">
 
 	<f:if condition="{comments}">
-		<f:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.latestComments.paginate}">
+		<t3b:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.latestComments.paginate}">
 			<f:for each="{paginatedComments}" as="comment">
 				<f:render partial="Comment/Show" arguments="{post: comment.post, comment: comment}" />
 			</f:for>
-		</f:widget.paginate>
+		</t3b:widget.paginate>
 	</f:if>
 
 </f:section>

@@ -1,4 +1,4 @@
-<div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:layout name="Backend" />
 
@@ -16,23 +16,23 @@
 
 				<div class="panel-body">
 					<f:link.action controller="BackendPost" action="index" class="btn btn-default btn-block">
-						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-post" />
+						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-post" />
 						{f:translate(key: 'module.post.title')}
 					</f:link.action>
 					<f:link.action controller="BackendComment" action="index" class="btn btn-default btn-block">
-						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-comment" />
 						{f:translate(key: 'module.comment.title.all')}
 					</f:link.action>
 					<f:link.action controller="BackendComment" action="listPending" class="btn btn-default btn-block">
-						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-comment" />
 						{f:translate(key: 'module.comment.title.pending')}
 					</f:link.action>
 					<f:link.action controller="BackendSubscriber" action="indexPostSubscriber" class="btn btn-default btn-block">
-						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
 						{f:translate(key: 'module.subscriber.post.title')}
 					</f:link.action>
 					<f:link.action controller="BackendSubscriber" action="indexBlogSubscriber" class="btn btn-default btn-block">
-						<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
 						{f:translate(key: 'module.subscriber.blog.title')}
 					</f:link.action>
 				</div>
@@ -114,10 +114,10 @@
 						</tr>
 						<f:if condition="{postSubscribers}">
 							<f:then>
-								<f:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
+								<t3b:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
 									<f:render partial="Backend/Dashboard/Subscriber"
 											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
-								</f:widget.paginate>
+								</t3b:widget.paginate>
 							</f:then>
 							<f:else>
 								<tr class="db_list_normal">
@@ -135,10 +135,10 @@
 						</tr>
 						<f:if condition="{blogSubscribers}">
 							<f:then>
-								<f:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
+								<t3b:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
 									<f:render partial="Backend/Dashboard/Subscriber"
 											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
-								</f:widget.paginate>
+								</t3b:widget.paginate>
 							</f:then>
 							<f:else>
 								<tr class="db_list_normal">
@@ -158,17 +158,17 @@
 	<div class="buttongroup">
 		<span>{f:translate(key: 'module.buttons.new')}</span>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
-		</t3extblog:link.editOnClick>
+		<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
+			<t3b:backend.SpriteManagerIcon iconName="extensions-t3extblog-post" />
+		</t3b:backend.link.editOnClick>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_cat][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.category')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-category" />
-		</t3extblog:link.editOnClick>
+		<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_cat][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.category')}">
+			<t3b:backend.SpriteManagerIcon iconName="extensions-t3extblog-category" />
+		</t3b:backend.link.editOnClick>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.comment')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
-		</t3extblog:link.editOnClick>
+		<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.comment')}">
+			<t3b:backend.SpriteManagerIcon iconName="extensions-t3extblog-comment" />
+		</t3b:backend.link.editOnClick>
 	</div>
 </f:section>
 

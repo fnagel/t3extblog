@@ -1,4 +1,4 @@
-<div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 	<f:for each="{subscribers}" as="subscriber">
 	<tr class="db_list_normal">
@@ -10,7 +10,7 @@
 			   data-uid="{subscriber.uid}"
 			   data-table="{table}"
 			   title="{subscriber.uid}">
-				<t3extblog:spriteIconForRecord table="{table}" object="{subscriber}" />
+				<t3b:backend.spriteIconForRecord table="{table}" object="{subscriber}" />
 			</a>
 		</td>
 		<td>
@@ -27,28 +27,28 @@
 		</td>
 		<td>{subscriber.crdate -> f:format.date(format: 'd.m.y H:i')}</td>
 		<td class="action">
-			<t3extblog:link.editOnClick parameters="edit[{table}][{subscriber.uid}]=edit" title="{f:translate(key: 'module.subscriber.help.edit')}">
-				<t3extblog:spriteManagerIcon iconName="actions-document-open" />
-			</t3extblog:link.editOnClick>
+			<t3b:backend.link.editOnClick parameters="edit[{table}][{subscriber.uid}]=edit" title="{f:translate(key: 'module.subscriber.help.edit')}">
+				<t3b:backend.spriteManagerIcon iconName="actions-document-open" />
+			</t3b:backend.link.editOnClick>
 
 			<f:if condition="{subscriber.hidden}">
 				<f:then>
-					<t3extblog:link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=0" title="{f:translate(key: 'module.subscriber.help.hide.0')}">
-						<t3extblog:spriteManagerIcon iconName="actions-edit-unhide" />
-					</t3extblog:link.issueCommand>
+					<t3b:backend.link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=0" title="{f:translate(key: 'module.subscriber.help.hide.0')}">
+						<t3b:backend.spriteManagerIcon iconName="actions-edit-unhide" />
+					</t3b:backend.link.issueCommand>
 				</f:then>
 				<f:else>
-					<t3extblog:link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=1" title="{f:translate(key: 'module.subscriber.help.hide.1')}">
-						<t3extblog:spriteManagerIcon iconName="actions-edit-hide" />
-					</t3extblog:link.issueCommand>
+					<t3b:backend.link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=1" title="{f:translate(key: 'module.subscriber.help.hide.1')}">
+						<t3b:backend.spriteManagerIcon iconName="actions-edit-hide" />
+					</t3b:backend.link.issueCommand>
 				</f:else>
 			</f:if>
 
-			<t3extblog:link.issueCommand parameters="cmd[{table}][{subscriber.uid}][delete]=1"
+			<t3b:backend.link.issueCommand parameters="cmd[{table}][{subscriber.uid}][delete]=1"
 				title="{f:translate(key: 'module.subscriber.help.delete')}"
 				onclick="return confirm(\"{f:translate(key: 'module.message.deleteRecord')}\");">
-				<t3extblog:spriteManagerIcon iconName="actions-edit-delete" />
-			</t3extblog:link.issueCommand>
+				<t3b:backend.spriteManagerIcon iconName="actions-edit-delete" />
+			</t3b:backend.link.issueCommand>
 		</td>
 	</tr>
 	</f:for>

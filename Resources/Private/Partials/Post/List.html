@@ -1,8 +1,8 @@
-<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:render partial="Post/Filter" arguments="{category: category, tag: tag, author: author}" />
 
-<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
+<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 	<f:for each="{paginatedPosts}" as="post">
 		<article class="well">
 			<h2>
@@ -42,7 +42,7 @@
 			</div>
 		</article>
 	</f:for>
-</f:widget.paginate>
+</t3b:widget.paginate>
 
 
 <f:section name="teaser">
@@ -57,14 +57,14 @@
 					<f:render section="moreButton" arguments="{post: post, settings: settings}" />
 				</f:then>
 				<f:else>
-					<t3b:renderContent contentElements="{post.content}" />
+					<t3b:frontend.renderContent contentElements="{post.content}" />
 				</f:else>
 			</f:if>
 		</f:then>
 		<f:else>
 			<f:for each="{post.content}" as="content" iteration="iterator">
 				<f:if condition="{iterator.index} < {post.previewMode}">
-					<t3b:renderContent contentElements="{0: content}" />
+					<t3b:frontend.renderContent contentElements="{0: content}" />
 				</f:if>
 			</f:for>
 			<f:render section="moreButton" arguments="{post: post, settings: settings}" />

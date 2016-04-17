@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Widget\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,33 +27,12 @@ namespace TYPO3\T3extblog\ViewHelpers\Widget\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\ViewHelpers\Widget\Controller\PaginateController as BasePaginateController;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Paginate widget
  *
- * @todo It seems this overwrite is no longer needed in TYPO3 6.x, see here:
- * http://blog.teamgeist-medien.de/2014/11/typo3-fluid-viewhelper-templates-ueberschreiben-z-b-vom-paginate-widget.html
+ * Needed for custom template configuration (at least in TYPO3 8.0)
  */
 class PaginateController extends BasePaginateController {
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
-	 *
-	 * @return void
-	 */
-	protected function setViewConfiguration(ViewInterface $view) {
-		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-		);
-		$widgetViewHelperClassName = $this->request->getWidgetContext()->getWidgetViewHelperClassName();
-		$templateRootPath = $extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath'];
-
-		if (isset($templateRootPath) && strlen($templateRootPath) > 0 && method_exists($view, 'setTemplateRootPath')) {
-			$view->setTemplateRootPath(GeneralUtility::getFileAbsFileName($templateRootPath));
-		}
-	}
 
 }

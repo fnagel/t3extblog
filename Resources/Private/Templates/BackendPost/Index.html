@@ -1,4 +1,4 @@
-<div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:layout name="Backend" />
 
@@ -9,7 +9,7 @@
 		<f:if condition="{posts}">
 			<f:then>
 				<div class="table-fit">
-				<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
+				<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.posts.paginate}">
 					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
 						<thead>
 							<tr class="t3-row-header">
@@ -29,13 +29,8 @@
 							<tr class="db_list_normal">
 								<td class="col-icon">
 									<f:comment>@todo Remove onclick event when TYPO3 6.2 is no longer relevant</f:comment>
-									<a href="#"
-									   onClick="if (window.showClickmenu) showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;"
-									   class="t3-js-clickmenutrigger"
-									   data-uid="{post.uid}"
-									   data-table="tx_t3blog_post"
-									   title="{post.uid}">
-										<t3extblog:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+									<a href="#" onClick="if (window.showClickmenu) showClickmenu('tx_t3blog_post', '{post.uid}', '1', '', '', ''); return false;" class="t3-js-clickmenutrigger" data-uid="{post.uid}" data-table="tx_t3blog_post" title="{post.uid}">
+										<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 									</a>
 								</td>
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
@@ -46,23 +41,23 @@
 												title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}"
 												action="sendPostNotifications" arguments="{post: post}"
 												onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
-													<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+												<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
 											</f:link.action>
 										</f:if>
 									</td>
 								</f:if>
 							</tr>
-							<t3extblog:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
+							<t3b:backend.localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
 									<tr class="db_list_normal localized">
 										<td class="col-icon">
 											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
 										</td>
-										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3extblog:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
+										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
 										<td></td>
 									</tr>
 								</f:for>
-							</t3extblog:localization>
+							</t3b:backend.localization>
 						</f:for>
 
 						<tr>
@@ -73,7 +68,7 @@
 							</td>
 						</tr>
 					</table>
-				</f:widget.paginate>
+				</t3b:widget.paginate>
 				</div>
 			</f:then>
 			<f:else>
@@ -90,9 +85,9 @@
 	<div class="buttongroup">
 		<span>{f:translate(key: 'module.buttons.new')}</span>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-post" />
-		</t3extblog:link.editOnClick>
+		<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_post][{pageId}]]=new" title="{f:translate(key: 'module.buttons.new.post')}">
+			<t3b:backend.SpriteManagerIcon iconName="extensions-t3extblog-post" />
+		</t3b:backend.link.editOnClick>
 	</div>
 </f:section>
 

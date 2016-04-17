@@ -1,3 +1,5 @@
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Backend" />
 
 <f:section name="main">
@@ -7,7 +9,7 @@
 		<f:if condition="{blogSubscribers}">
 			<f:then>
 				<div class="table-fit">
-				<f:widget.paginate objects="{blogSubscribers}" as="paginatedBlogSubscriber" configuration="{settings.backend.subscriber.blog.paginate}">
+				<t3b:widget.paginate objects="{blogSubscribers}" as="paginatedBlogSubscriber" configuration="{settings.backend.subscriber.blog.paginate}">
 					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
 						<thead>
 							<tr class="t3-row-header">
@@ -30,7 +32,7 @@
 							</td>
 						</tr>
 					</table>
-				</f:widget.paginate>
+				</t3b:widget.paginate>
 				</div>
 			</f:then>
 			<f:else>
@@ -43,3 +45,5 @@
 </f:section>
 
 <f:section name="iconButtons"></f:section>
+
+</div>

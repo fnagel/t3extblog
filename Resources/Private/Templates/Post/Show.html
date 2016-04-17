@@ -1,4 +1,4 @@
-<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:layout name="Default" />
 
@@ -13,10 +13,10 @@
 		<p class="top">
 			<f:if condition="{post.author.uid}">
 				<f:link.action controller="Post" action="author" arguments="{author: post.author}">
-					<t3b:typo3Version version="7.5" operator=">=">
+					<t3b:frontend.typo3Version version="7.5" operator=">=">
 						<f:comment>@todo Remove version condition when TYPO3 6.2 is no longer relevant</f:comment>
-						<img src="{t3b:backendUserAvatar(uid: '{post.author.uid}')}" class="img-circle" alt="Avatar of {post.author.name}" />
-					</t3b:typo3Version>
+						<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}')}" class="img-circle" alt="Avatar of {post.author.name}" />
+					</t3b:frontend.typo3Version>
 					<span class="author">{post.author.name}</span>
 				</f:link.action> -
 			</f:if>
@@ -27,7 +27,7 @@
 
 		<f:if condition="{post.content}">
 			<div class="content">
-				<t3b:renderContent contentElements="{post.content}" />
+				<t3b:frontend.renderContent contentElements="{post.content}" />
 			</div>
 		</f:if>
 
@@ -62,12 +62,12 @@
 
 			<f:if condition="{post.comments}">
 				<div id="comment-list">
-					<f:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
+					<t3b:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
 						<f:for each="{paginatedComments}" as="comment">
 							<f:render partial="Post/Comment" arguments="{post: post, comment: comment}" />
 							<hr>
 						</f:for>
-					</f:widget.paginate>
+					</t3b:widget.paginate>
 				</div>
 			</f:if>
 		</div>
