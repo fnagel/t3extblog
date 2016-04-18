@@ -36,6 +36,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class EmailService implements SingletonInterface {
 
+	const TEMPLATE_FOLDER = 'Email';
+
 	/**
 	 * Extension name
 	 *
@@ -138,17 +140,7 @@ class EmailService implements SingletonInterface {
 	 * @return string
 	 */
 	public function render($variables, $templatePath = 'Default.txt') {
-		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
-		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-
-		$this->setPathsAndFile($emailView, $templatePath);
-
-		$format = array_pop(explode('.', $templatePath));
-		$emailView->setFormat($format);
-
-		$emailView->getRequest()->setPluginName('');
-		$emailView->getRequest()->setControllerName('');
-		$emailView->getRequest()->setControllerExtensionName($this->extensionName);
+		$emailView = $this->getEmailView($templatePath);
 
 		$emailView->assignMultiple($variables);
 		$emailView->assignMultiple(array(
@@ -161,51 +153,56 @@ class EmailService implements SingletonInterface {
 	}
 
 	/**
-	 * Set paths and file to standalone view
+	 * Create and configure the view
 	 *
-	 * @param \TYPO3\CMS\Fluid\View\StandaloneView $emailView
 	 * @param string $templatePath Choose a template
 	 *
-	 * @return void
+	 * @return StandaloneView
 	 */
-	public function setPathsAndFile(StandaloneView $emailView, $templatePath) {
+	public function getEmailView($templatePath) {
+		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
+		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$frameworkConfig = $this->settingsService->getFrameworkSettings();
+
+		$emailView->getRequest()->setPluginName('');
+		$emailView->getRequest()->setControllerExtensionName($this->extensionName);
+		$emailView->getRequest()->setControllerName(self::TEMPLATE_FOLDER);
+
+		$format = pathinfo($templatePath, PATHINFO_EXTENSION);
+		$emailView->setFormat($format);
+		$emailView->getRequest()->setFormat($format);
+
+		if (isset($frameworkConfig['view']['layoutRootPaths'])) {
+			$emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
+		}
+		if (isset($frameworkConfig['view']['partialRootPaths'])) {
+			$emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
+		}
 
 		// @todo Remove this when TYPO3 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '6.2', '<=')) {
-			$emailView->setLayoutRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
-			$emailView->setPartialRootPath(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
 			$emailView->setTemplatePathAndFilename(
-				GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']) . $templatePath
+				GeneralUtility::getFileAbsFileName($frameworkConfig['email']['emailTemplateRootPath'] . $templatePath)
 			);
-
-			return;
-		}
-
-		// TYPO3 7.x with fallback for old settings
-		// @todo Remove else statements when TYPO3 6.2 is no longer relevant
-		if (isset($frameworkConfig['email']['layoutRootPaths'])) {
-			$layoutPaths = $frameworkConfig['email']['layoutRootPaths'];
 		} else {
-			$layoutPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['layoutRootPath']));
+			// TYPO3 > 6.2
+			if (isset($frameworkConfig['view']['templateRootPaths'])) {
+				$emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
+			}
+
+			if (version_compare(TYPO3_branch, '8.0', '>=')) {
+				// 8.x
+				$emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
+				$emailView->getTemplatePaths()->setFormat($format);
+			} else {
+				// 7.x
+				$templatePath = self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $templatePath;
+			}
+
+			$emailView->setTemplate($templatePath);
 		}
 
-		if (isset($frameworkConfig['email']['partialRootPaths'])) {
-			$partialPaths = $frameworkConfig['email']['partialRootPaths'];
-		} else {
-			$partialPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['partialRootPath']));
-		}
-
-		if (isset($frameworkConfig['email']['templateRootPaths'])) {
-			$rootPaths = $frameworkConfig['email']['templateRootPaths'];
-		} else {
-			$rootPaths = array(GeneralUtility::getFileAbsFileName($frameworkConfig['email']['templateRootPath']));
-		}
-
-		$emailView->setLayoutRootPaths($layoutPaths);
-		$emailView->setPartialRootPaths($partialPaths);
-		$emailView->setTemplateRootPaths($rootPaths);
-		$emailView->setTemplate($templatePath);
+		return $emailView;
 	}
 
 	/**
@@ -216,9 +213,18 @@ class EmailService implements SingletonInterface {
 	 * @return string
 	 */
 	protected function preparePlainTextBody($html) {
+		// Remove style tags
 		$output = preg_replace('/<style\\b[^>]*>(.*?)<\\/style>/s', '', $html);
+
+		// Remove tags and extract url from link tags
 		$output = strip_tags(preg_replace('/<a.* href=(?:"|\')(.*)(?:"|\').*>/', '$1', $output));
-		$output = GeneralUtility::substUrlsInPlainText($output);
+
+		// Short URLs
+		if (version_compare(TYPO3_branch, '8.0', '<')) {
+			$output = GeneralUtility::substUrlsInPlainText($output);
+		}
+
+		// Break lines and clean up white spaces
 		$output = MailUtility::breakLinesForEmail($output);
 		$output = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $output);
 

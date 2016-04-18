@@ -51,15 +51,6 @@ General configuration
 =========================================   =========================================================================================================
 Property                                    Description
 =========================================   =========================================================================================================
-view.templateRootPath                       Path to the template root
-view.partialRootPath                        Path to the partials
-view.layoutRootPath                         Path to the layout
-email.templateRootPath                      Path to the email template root
-email.partialRootPath                       Path to the email partials
-email.layoutRootPath                        Path to the email layout
-persistence.storagePid                      See above
-persistence.enableAutomaticCacheClearing    Enable automatic clearing of the cache
-settings.blogName                           Name of your blog
 settings.previewHiddenRecords               Enable preview of hidden records (see usermanual)
 settings.blogsystem                         All settings of your blog system, i.e. pagination, comment handling...
 settings.subscriptionManager                Configure the subscription process, i.e. admin email, notification email...
@@ -117,26 +108,24 @@ Overwrite templates
 -------------------
 .. _configuration-overwrite-templates:
 
-**TYPO3 7.x**
+It's possible to copy only the needed files and have a fallback.
+"Email/" is appended to all paths when rendering emails.
 
-In 7.x it's possible to copy only the needed files and have a fallback. Use something like this:
+Use the constants or change the TS setup:
 
 .. code-block:: typoscript
 
 	plugin.tx_t3extblog {
         view {
-            templateRootPath >
             templateRootPaths {
                 0 = {$plugin.tx_t3extblog.view.templateRootPath}
                 1 = EXT:my_theme/Resources/Private/T3extblog/Templates/
                 2 = fileadmin/templates/ext/t3extblog/Templates/
             }
-            partialRootPath >
             partialRootPaths {
                 0 = {$plugin.tx_t3extblog.view.partialRootPath}
                 1 = EXT:my_theme/Resources/Private/T3extblog/Layouts/
             }
-            layoutRootPath >
             layoutRootPaths {
                 0 = {$plugin.tx_t3extblog.view.layoutRootPath}
                 1 = EXT:my_theme/Resources/Private/T3extblog/Partials/
@@ -145,18 +134,11 @@ In 7.x it's possible to copy only the needed files and have a fallback. Use some
 	}
 
 
-**TYPO3 6.x**
+**TYPO3 6.2**
 
-Make sure to copy ALL template files!
-
-Use the constants or change the TS setup:
+Use this config for for email templates path:
 
 .. code-block:: typoscript
 
-	plugin.tx_t3extblog {
-        view {
-            templateRootPaths = fileadmin/templates/ext/news/Templates/
-            partialRootPaths = fileadmin/templates/ext/news/Partials/
-            layoutRootPaths = fileadmin/templates/ext/news/Layouts/
-        }
-	}
+	plugin.tx_t3extblog.email.templateRootPath = ...
+
