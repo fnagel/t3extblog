@@ -4,7 +4,7 @@ return array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
 		'label' => 'title',
-		'label_alt' => 'fk_post',
+		'label_alt' => 'email, fk_post',
 		'label_alt_force' => TRUE,
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
