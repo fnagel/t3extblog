@@ -83,6 +83,19 @@ class GeneralUtility {
 	}
 
 	/**
+	 * Get page renderer
+	 *
+	 * @return \TYPO3\CMS\Core\Page\PageRenderer
+	 */
+	public static function getPageRenderer() {
+		if (version_compare(TYPO3_branch, '8.0', '>=')) {
+			return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+		} else {
+			return self::getTsFe()->getPageRenderer();
+		}
+	}
+
+	/**
 	 * Check if a valid BE login exists
 	 *
 	 * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.

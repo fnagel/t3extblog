@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace TYPO3\T3extblog\Traits;
 
 /***************************************************************
  *  Copyright notice
@@ -25,35 +25,28 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
+use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ViewHelperNode;
+use TYPO3Fluid\Fluid\Core\Compiler\TemplateCompiler;
 
 /**
- * ViewHelper to render children only for specific versions
+ * Includes caching fixes for 8.x
  */
-class Typo3VersionViewHelper extends AbstractConditionViewHelper {
+trait ConditionViewHelper8xTrait  {
 
 	/**
+	 * Disable caching for TYPO3 8.x
+	 *
 	 * @inheritdoc
 	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
+	public function compile(
+		$argumentsName,
+		$closureName,
+		&$initializationPhpCode,
+		ViewHelperNode $node,
+		TemplateCompiler $compiler
+	) {
+		$compiler->disable();
 
-		$this->registerArgument('version', 'string', 'Version to match', TRUE, '6.2');
-		$this->registerArgument('operator', 'string', 'Compare oprtator', TRUE, '>');
+		return $compiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
 	}
-
-	/**
-	 * @inheritdoc
-	 */
-	static protected function evaluateCondition($arguments = NULL) {
-		$version = $arguments['version'];
-		$operator = $arguments['operator'];
-
-		if (version_compare(TYPO3_branch, (int) $version, $operator)) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
 }

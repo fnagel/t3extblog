@@ -63,9 +63,7 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	}
 
 	/**
-	 * Initialize arguments
-	 *
-	 * @return void
+	 * @inheritdoc
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -75,9 +73,6 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 			// Add default Bootstrap alert classes for older TYPO3
 			$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
 		}
-
-		// Register role attribute for better a11y
-		$this->registerArgument('role', 'string', 'ARIA role for this element', FALSE, 'alert');
 	}
 
 	/**
@@ -92,6 +87,15 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	 * @api
 	 */
 	public function render($renderMode = null, $as = null) {
+		// TYPO3 8.x
+		if (version_compare(TYPO3_branch, '8.0', '>=')) {
+			if (($result = parent::render($as)) !== '') {
+				$this->preventCaching();
+			}
+
+			return $result;
+		}
+		
 		// Add defaults here as we need keep signature intact
 		// @todo Remove this when dropping 6.2 support
 		// @todo Test this in 6.2!
@@ -100,16 +104,9 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		}
 
 		// TYPO3 7.x
-		// @todo Use this only when 6.2 is no longer relevant
 		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			$result = parent::render($renderMode, $as);
-
-			// Prevent caching if a flash message is displayed
-			// @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
-			if ($result !== '') {
-				if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
-					$GLOBALS['TSFE']->no_cache = 1;
-				}
+			if (($result = parent::render($renderMode, $as)) !== '') {
+				$this->preventCaching();
 			}
 
 			return $result;
@@ -130,6 +127,19 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		}
 
 		return parent::render($renderMode);
+	}
+
+	/**
+	 * Prevent caching if a flash message is displayed
+	 *
+	 * @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
+	 *
+	 * @return void
+	 */
+	protected function preventCaching() {
+		if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
+			$GLOBALS['TSFE']->no_cache = TRUE;
+		}
 	}
 
 	/**

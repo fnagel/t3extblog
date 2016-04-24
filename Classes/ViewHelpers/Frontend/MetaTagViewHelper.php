@@ -52,27 +52,26 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper {
 	 * @return void
 	 */
 	public function initializeArguments() {
+		$this->registerTagAttribute('useCurrentDomain', 'bool', 'If set, current domain is used', FALSE, FALSE);
+		$this->registerTagAttribute('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced', FALSE, FALSE);
 		$this->registerTagAttribute('property', 'string', 'Property of meta tag');
 		$this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
 		$this->registerTagAttribute('content', 'string', 'Content of meta tag');
 	}
 
-
 	/**
 	 * Renders a meta tag
 	 *
-	 * @param boolean $useCurrentDomain If set, current domain is used
-	 * @param boolean $forceAbsoluteUrl If set, absolute url is forced
 	 * @return void
 	 */
-	public function render($useCurrentDomain = FALSE, $forceAbsoluteUrl = FALSE) {
+	public function render() {
 		// set current domain
-		if ($useCurrentDomain) {
+		if ($this->arguments['useCurrentDomain']) {
 			$this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 
 		// prepend current domain
-		if ($forceAbsoluteUrl) {
+		if ($this->arguments['forceAbsoluteUrl']) {
 			$path = $this->arguments['content'];
 			if (!GeneralUtility::isFirstPartOfStr($path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
 				$this->tag->addAttribute(
@@ -82,8 +81,11 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper {
 			}
 		}
 
-		if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-			\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->getPageRenderer()->addMetaTag($this->tag->render());
+		if (
+			$this->arguments['useCurrentDomain'] ||
+			(isset($this->arguments['content']) && !empty($this->arguments['content']))
+		) {
+			\TYPO3\T3extblog\Utility\GeneralUtility::getPageRenderer()->addMetaTag($this->tag->render());
 		}
 	}
 }

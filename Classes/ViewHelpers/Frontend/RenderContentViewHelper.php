@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -29,7 +29,6 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\T3extblog\Domain\Model\AbstractLocalizedEntity;
 
 /**
@@ -38,22 +37,27 @@ use TYPO3\T3extblog\Domain\Model\AbstractLocalizedEntity;
 class RenderContentViewHelper extends AbstractViewHelper {
 
 	/**
+	 * @inheritdoc
+	 */
+	public function initializeArguments() {
+		$this->registerArgument('contentElements', 'array', 'Content elements to render, array or object implementing \ArrayAccess to iterated over', TRUE);
+		$this->registerArgument('index', 'int', 'Index of array or object storage', FALSE, 0);
+		$this->registerArgument('removeMarker', 'bool', 'Remove the ###MORE### marker, deprecated!', FALSE, TRUE);
+		$this->registerArgument('table', 'string', 'Table to render', FALSE, 'tt_content');
+	}
+
+	/**
 	 * Render content
-	 *
-	 * @param ObjectStorage|array 	$contentElements
-	 * @param int                   $index
-	 * @param bool                  $removeMarker
-	 * @param string                $table
 	 *
 	 * @return string
 	 */
-	public function render($contentElements, $index = 0, $removeMarker = TRUE, $table = 'tt_content') {
+	public function render() {
 		$output = '';
 		$iterator = 0;
 
-		foreach ($contentElements as $content) {
+		foreach ($this->arguments['contentElements'] as $content) {
 			$iterator++;
-			if (($iterator - 1) < $index) {
+			if (($iterator - 1) < $this->arguments['index']) {
 				continue;
 			}
 
@@ -62,10 +66,10 @@ class RenderContentViewHelper extends AbstractViewHelper {
 				continue;
 			}
 
-			$output .= $this->renderRecord($uid, $table);
+			$output .= $this->renderRecord($uid, $this->arguments['table']);
 		}
 
-		if ($removeMarker === TRUE) {
+		if ($this->arguments['removeMarker'] === TRUE) {
 			$output = $this->removeMarker($output);
 		}
 

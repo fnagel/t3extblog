@@ -157,3 +157,17 @@ if (version_compare(TYPO3_branch, '8.0', '>=')) {
 		'className' => 'TYPO3\\T3extblog\\Configuration\\BackendConfigurationManager',
 	);
 }
+
+// Change classes due to method signature changes
+// @todo Remove this some time
+if (version_compare(TYPO3_branch, '8.0', '>=')) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3VersionViewHelper'] = array(
+		'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3Version8xViewHelper',
+	);
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\FlashMessageViewHelper'] = array(
+		'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\FlashMessage8xViewHelper',
+	);
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowedViewHelper'] = array(
+		'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowed8xViewHelper',
+	);
+}

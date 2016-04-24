@@ -25,35 +25,23 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
-
 /**
- * ViewHelper to render children only for specific versions
+ * View helper which renders the flash messages
  */
-class Typo3VersionViewHelper extends AbstractConditionViewHelper {
+class FlashMessages8xViewHelper extends FlashMessagesViewHelper {
 
 	/**
-	 * @inheritdoc
+	 * Renders FlashMessages and flushes the FlashMessage queue
+	 * Note: This disables the current page cache in order to prevent FlashMessage output
+	 * from being cached.
+	 *
+	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
+	 * @param string $as The name of the current flashMessage variable for rendering inside
+	 * @return string rendered Flash Messages, if there are any.
+	 * @api
 	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-
-		$this->registerArgument('version', 'string', 'Version to match', TRUE, '6.2');
-		$this->registerArgument('operator', 'string', 'Compare oprtator', TRUE, '>');
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	static protected function evaluateCondition($arguments = NULL) {
-		$version = $arguments['version'];
-		$operator = $arguments['operator'];
-
-		if (version_compare(TYPO3_branch, (int) $version, $operator)) {
-			return TRUE;
-		}
-
-		return FALSE;
+	public function render($as = null) {
+		return parent::render(null, $as);
 	}
 
 }

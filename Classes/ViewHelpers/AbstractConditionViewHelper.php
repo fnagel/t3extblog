@@ -30,28 +30,44 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractC
 /**
  * Base for condition VH
  *
- * Includes caching fixes for 7.x while maintaining 6.x compaability
+ * Includes caching fixes for 7.x & 8.x while maintaining 6.x compatibility
  */
 class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper {
 
 	/**
-	 * Render children if version matches
 	 *
-	 * Use then / else VH inside if needed.
-	 *
-	 * @todo Remove this when 6.2 is no longer needed
-	 *
-	 * See https://github.com/fnagel/t3extblog/pull/73 for more info
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
-	public function render() {
-		// TYPO3 7.x
-		if (is_callable('parent::render')) {
-			return parent::render();
+	public function __construct() {
+		// @todo Remove parent call when 7.6 is no longer relevant
+		if (is_callable('parent::__construct')) {
+			parent::__construct();
 		}
 
-		// TYPO3 6.x
+		// @todo Remove this when 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '7.0', '<')) {
+			$this->initializeArguments();
+		}
+	}
+
+	/**
+	 * @todo Remove this when 6.2 is no longer relevant
+	 *
+	 * @inheritdoc
+	 */
+	public function initializeArguments() {
+		// @todo Remove this when 6.2 is no longer relevant
+		if (version_compare(TYPO3_branch, '7.0', '>=')) {
+			parent::initializeArguments();
+		}
+	}
+
+	/**
+	 * @todo Remove this when 6.2 is no longer relevant
+	 *
+	 * @inheritdoc
+	 */
+	public function render() {
 		if (static::evaluateCondition($this->arguments)) {
 			return $this->renderThenChild();
 		} else {
@@ -60,16 +76,9 @@ class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper {
 	}
 
 	/**
-	 * The compiled ViewHelper adds two new ViewHelper arguments: __thenClosure and __elseClosure.
-	 * These contain closures which are be executed to render the then(), respectively else() case.
+	 * Disable caching for 7.x, not called in 6.x
 	 *
-	 * @param string $argumentsVariableName
-	 * @param string $renderChildrenClosureVariableName
-	 * @param string $initializationPhpCode
-	 * @param \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode
-	 * @param \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-	 * @return string
-	 * @internal
+	 * @inheritdoc
 	 */
 	public function compile(
 		$argumentsVariableName,
