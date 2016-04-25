@@ -7,7 +7,7 @@ namespace TYPO3\T3extblog\Service;
  *
  *  (c) 2010 Sebastian Schreiber <me@schreibersebastian.de >
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -46,7 +46,7 @@ class SettingsService {
 	 *
 	 * @var string
 	 */
-	protected $extensionName = 't3extblog';
+	protected $extensionName = 'T3extblog';
 
 	/**
 	 * Plugin name
@@ -159,12 +159,15 @@ class SettingsService {
 	 * Without the generation of the TS is based upon the next root page (default
 	 * extbase behaviour) and repositories won't work as expected.
 	 *
+	 * @todo Seems no longer functional for TYPO3 8.0, fixed by using GET paramater in BE templates
+	 * @todo Does template change work for < v8 versions too?
+	 *
 	 * @param $pageUid
 	 *
 	 * @return void
 	 */
 	public function setPageUid($pageUid) {
-		if (TYPO3_MODE === 'BE') {
+		if (TYPO3_MODE === 'BE' && version_compare(TYPO3_branch, '8.0', '<')) {
 			$currentPid['persistence']['storagePid'] = (int) $pageUid;
 			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
 			GeneralUtility::_GETset((int) $pageUid, 'id');

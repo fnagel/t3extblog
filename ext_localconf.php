@@ -150,3 +150,10 @@ if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
 		'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider'
 	);
 }
+
+// @todo Check if this works for lower TYPO3 versions as well
+if (version_compare(TYPO3_branch, '8.0', '>=')) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
+		'className' => 'TYPO3\\T3extblog\\Configuration\\BackendConfigurationManager',
+	);
+}
