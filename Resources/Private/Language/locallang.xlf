@@ -283,10 +283,10 @@
 			   <source>Create new post</source>
 		 	</trans-unit>
 		   	<trans-unit id="module.buttons.new.category">
-			   <source>Creat new category</source>
+			   <source>Create new category</source>
 		   	</trans-unit>
 		   	<trans-unit id="module.buttons.new.comment">
-			   <source>Creat new comment</source>
+			   <source>Create new comment</source>
 		   	</trans-unit>
 
 			<trans-unit id="module.dashboard.title">
