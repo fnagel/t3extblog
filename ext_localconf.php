@@ -143,8 +143,8 @@ $requiredParameters = array(
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ',' . implode(',', $requiredParameters);
 
-// Make default avatar provider abailable in FE
-// @todo Remove this when 6.2 is no longer relevant
+// Make default avatar provider available in FE
+// @todo Remove this when 7.5 is no longer relevant
 if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
 	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
 		'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider'
@@ -159,7 +159,7 @@ if (version_compare(TYPO3_branch, '8.0', '>=')) {
 }
 
 // Change classes due to method signature changes
-// @todo Remove this some time
+// @todo Remove this when TYPO3 7.x is no longer relevant
 if (version_compare(TYPO3_branch, '8.0', '>=')) {
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3VersionViewHelper'] = array(
 		'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3Version8xViewHelper',

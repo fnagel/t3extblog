@@ -30,7 +30,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractC
 /**
  * Base for condition VH
  *
- * Includes caching fixes for 7.x & 8.x while maintaining 6.x compatibility
+ * Includes caching fixes for 7.x & 8.x
  */
 class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper {
 
@@ -39,44 +39,14 @@ class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper {
 	 * @inheritdoc
 	 */
 	public function __construct() {
-		// @todo Remove parent call when 7.6 is no longer relevant
+		// @todo Remove parent call when 7.x is no longer relevant
 		if (is_callable('parent::__construct')) {
 			parent::__construct();
 		}
-
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			$this->initializeArguments();
-		}
 	}
 
 	/**
-	 * @todo Remove this when 6.2 is no longer relevant
-	 *
-	 * @inheritdoc
-	 */
-	public function initializeArguments() {
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			parent::initializeArguments();
-		}
-	}
-
-	/**
-	 * @todo Remove this when 6.2 is no longer relevant
-	 *
-	 * @inheritdoc
-	 */
-	public function render() {
-		if (static::evaluateCondition($this->arguments)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
-	}
-
-	/**
-	 * Disable caching for 7.x, not called in 6.x
+	 * Disable caching for 7.x
 	 *
 	 * @inheritdoc
 	 */

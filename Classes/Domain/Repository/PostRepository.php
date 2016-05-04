@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -50,13 +50,6 @@ class PostRepository extends AbstractRepository {
 	 * @return Post
 	 */
 	public function findByUid($uid, $respectEnableFields = TRUE) {
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			if ($this->identityMap->hasIdentifier($uid, $this->objectType)) {
-				return $this->identityMap->getObjectByIdentifier($uid, $this->objectType);
-			}
-		}
-
 		$query = $this->createQuery();
 
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);

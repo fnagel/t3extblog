@@ -178,29 +178,21 @@ class EmailService implements SingletonInterface {
 		if (isset($frameworkConfig['view']['partialRootPaths'])) {
 			$emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
 		}
-
-		// @todo Remove this when TYPO3 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '6.2', '<=')) {
-			$emailView->setTemplatePathAndFilename(
-				GeneralUtility::getFileAbsFileName($frameworkConfig['email']['emailTemplateRootPath'] . $templatePath)
-			);
-		} else {
-			// TYPO3 > 6.2
-			if (isset($frameworkConfig['view']['templateRootPaths'])) {
-				$emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
-			}
-
-			if (version_compare(TYPO3_branch, '8.0', '>=')) {
-				// 8.x
-				$emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-				$emailView->getTemplatePaths()->setFormat($format);
-			} else {
-				// 7.x
-				$templatePath = self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $templatePath;
-			}
-
-			$emailView->setTemplate($templatePath);
+		if (isset($frameworkConfig['view']['templateRootPaths'])) {
+			$emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
 		}
+
+		// @todo Remove this when 7.x is no longer relevant
+		if (version_compare(TYPO3_branch, '8.0', '>=')) {
+			// 8.x
+			$emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
+			$emailView->getTemplatePaths()->setFormat($format);
+		} else {
+			// 7.x
+			$templatePath = self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $templatePath;
+		}
+
+		$emailView->setTemplate($templatePath);
 
 		return $emailView;
 	}

@@ -105,7 +105,7 @@ return array(
 			'config' => array(
 				'type' => 'input',
 				'size' => '30',
-				'eval' => 'required',
+				'eval' => 'required,email',
 				'softref' => 'email',
 			)
 		),

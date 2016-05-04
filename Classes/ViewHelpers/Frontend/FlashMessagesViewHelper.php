@@ -26,26 +26,14 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\ViewHelpers\FlashMessagesViewHelper as BaseFlashMessagesViewHelper;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * View helper which renders the flash messages
  *
- * Extended to use Twitter Bootstrap CSS classes
+ * Extended to fix a caching issue
  */
 class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
-
-	/**
-	 * @var array
-	 */
-	protected $severityMapping = array(
-		FlashMessage::NOTICE => 'alert-info',
-		FlashMessage::INFO => 'alert-info',
-		FlashMessage::OK => 'alert-success',
-		FlashMessage::WARNING => 'alert-warning',
-		FlashMessage::ERROR => 'alert-danger'
-	);
 
 	/**
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -63,17 +51,10 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	}
 
 	/**
+	 * @todo Remove this when dropping TYPO3 7.6 support
+	 *
 	 * @inheritdoc
 	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			// Add default Bootstrap alert classes for older TYPO3
-			$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
-		}
-	}
 
 	/**
 	 * Renders FlashMessages and flushes the FlashMessage queue
@@ -95,38 +76,18 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 
 			return $result;
 		}
-		
-		// Add defaults here as we need keep signature intact
-		// @todo Remove this when dropping 6.2 support
-		// @todo Test this in 6.2!
+
+		// TYPO3 7.x
 		if ($renderMode === NULL) {
+			// Add defaults here as we need keep signature intact
 			$renderMode = self::RENDER_MODE_DIV;
 		}
 
-		// TYPO3 7.x
-		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			if (($result = parent::render($renderMode, $as)) !== '') {
-				$this->preventCaching();
-			}
-
-			return $result;
+		if (($result = parent::render($renderMode, $as)) !== '') {
+			$this->preventCaching();
 		}
 
-		// TYPO3 6.2
-		$flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
-		if ($flashMessages === NULL || count($flashMessages) === 0) {
-			return '';
-		}
-
-		// Add role attribute
-		$this->tag->addAttribute('role', $this->arguments['role']);
-
-		/* @var $singleFlashMessage \TYPO3\CMS\Core\Messaging\FlashMessage */
-		foreach ($flashMessages as $singleFlashMessage) {
-			$this->arguments['class'] .= ' ' . $this->getSeverityClass($singleFlashMessage->getSeverity());
-		}
-
-		return parent::render($renderMode);
+		return $result;
 	}
 
 	/**
@@ -142,16 +103,4 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 		}
 	}
 
-	/**
-	 * @param integer $severity
-	 *
-	 * @return string
-	 */
-	protected function getSeverityClass($severity) {
-		if (array_key_exists($severity, $this->severityMapping)) {
-			return $this->severityMapping[$severity];
-		}
-
-		return '';
-	}
 }

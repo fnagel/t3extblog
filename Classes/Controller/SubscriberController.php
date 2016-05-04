@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -106,18 +106,6 @@ class SubscriberController extends AbstractController {
 
 		$this->addFlashMessageByKey($message, $severity);
 		$this->redirect('error');
-	}
-
-	/**
-	 * Fallback for old real url confirm configuration
-	 *
-	 * @todo Remove this with v3.0.0
-	 * @deprecated
-	 *
-	 * @return void
-	 */
-	public function confirmAction() {
-		$this->forward('confirm', 'PostSubscriber');
 	}
 
 }

@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend\Link;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -60,14 +60,8 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render($parameters, $redirectUrl = '') {
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			/** @var $documentTemplate \TYPO3\CMS\Backend\Template\DocumentTemplate */
-			$documentTemplate = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
-			$href = $documentTemplate->issueCommand('&' . $parameters, $redirectUrl);
-		} else {
-			$parameters = '&id=' . intval(GeneralUtility::_GP('id')) . '&' . $parameters;
-			$href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);
-		}
+		$parameters = '&id=' . intval(GeneralUtility::_GP('id')) . '&' . $parameters;
+		$href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);
 
 		$this->tag->addAttribute('href', $href);
 		$this->tag->setContent($this->renderChildren());

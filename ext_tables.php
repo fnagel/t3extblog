@@ -101,78 +101,43 @@ call_user_func(function($packageKey) {
 			2 => 'tcarecords-pages-contains-t3blog'
 		);
 
-		// @todo Remove if statement when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.6', '>=')) {
-			// Add icons to registry
-			/* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
-			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-			$iconRegistry->registerIcon(
-				'extensions-t3extblog-post',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/page.png']
-			);
-			$iconRegistry->registerIcon(
-				'extensions-t3extblog-category',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/category.png']
-			);
-			$iconRegistry->registerIcon(
-				'extensions-t3extblog-comment',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/comment.png']
-			);
-			$iconRegistry->registerIcon(
-				'extensions-t3extblog-subscriber',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png']
-			);
-			$iconRegistry->registerIcon(
-				'extensions-t3extblog-trackback',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png']
-			);
+		// Add icons to registry
+		/* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
+		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-post',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/page.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-category',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/category.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-comment',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/comment.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-subscriber',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png']
+		);
+		$iconRegistry->registerIcon(
+			'extensions-t3extblog-trackback',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png']
+		);
 
-			// Add BE page icon
-			$iconRegistry->registerIcon(
-				'tcarecords-pages-contains-t3blog',
-				\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-				['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
-			);
-			$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
-			$GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-t3blog'] = 'tcarecords-pages-contains-t3blog';
-
-		} else {
-			\TYPO3\CMS\Backend\Sprite\SpriteManager::addSingleIcons(array(
-				'post' => $extensionPath . 'Resources/Public/Icons/page.png',
-				'category' => $extensionPath . 'Resources/Public/Icons/category.png',
-				'comment' => $extensionPath . 'Resources/Public/Icons/comment.png',
-				'subscriber' => $extensionPath . 'Resources/Public/Icons/subscriber.png',
-				'trackback' => $extensionPath . 'Resources/Public/Icons/trackback.png',
-			), 't3extblog');
-
-			// Add BE page icon
-			unset($GLOBALS['ICON_TYPES']['t3blog']);
-			\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
-				'pages', 'contains-t3blog', '../typo3conf/ext/t3extblog/Resources/Public/Icons/folder.png'
-			);
-			$addNewsToModuleSelection = TRUE;
-			foreach ($GLOBALS['TCA']['pages']['columns']['module']['config']['items'] as $item) {
-				if ($item[1] === 't3blog') {
-					$addNewsToModuleSelection = FALSE;
-					continue;
-				}
-			}
-			if ($addNewsToModuleSelection) {
-				$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
-			}
-		}
-
-		// @todo Remove this when 6.2 is no longer relevant
-		$icon = '/Resources/Public/Icons/module.png';
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			// Use a smaller icon for TYPO3 6.2
-			$icon = '/ext_icon.gif';
-		}
+		// Add BE page icon
+		$iconRegistry->registerIcon(
+			'tcarecords-pages-contains-t3blog',
+			\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
+		);
+		$GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
+		$GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-t3blog'] = 'tcarecords-pages-contains-t3blog';
 
 		// Register  Backend Module
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
@@ -188,7 +153,7 @@ call_user_func(function($packageKey) {
 			),
 			array(
 				'access' => 'user,group',
-				'icon' => 'EXT:' . $packageKey . $icon,
+				'icon' => 'EXT:' . $packageKey . '/Resources/Public/Icons/module.png',
 				'labels' => 'LLL:EXT:' . $packageKey . '/Resources/Private/Language/locallang_mod.xml',
 				'navigationComponentId' => 'typo3-pagetree',
 			)

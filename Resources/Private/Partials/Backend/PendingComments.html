@@ -1,23 +1,22 @@
 <div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:if condition="{pendingComments}">
-	<div class="typo3-messages">
-		<div class="typo3-message message-information">
-			<div class="message-header"><f:translate key="module.message.pendingComments.title" /></div>
-			<div class="message-body">
-				<f:if condition="{addLink}">
-					<f:then>
-						<f:link.action controller="BackendComment" action="listPending">
-							<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
-						</f:link.action>
-					</f:then>
-					<f:else>
-						<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
-					</f:else>
-				</f:if>
-			</div>
-		</div>
-	</div>
+	<f:be.infobox title="{f:translate(key: 'module.message.pendingComments.title')}" state="-1">
+		<f:render section="content" arguments="{_all}" />
+	</f:be.infobox>
 </f:if>
+
+<f:section name="content">
+	<f:if condition="{addLink}">
+		<f:then>
+			<f:link.action controller="BackendComment" action="listPending">
+				<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
+			</f:link.action>
+		</f:then>
+		<f:else>
+			<f:translate key="module.message.pendingComments" arguments="{0: '{pendingComments -> f:count()}'}" />
+		</f:else>
+	</f:if>
+</f:section>
 
 </div>

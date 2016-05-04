@@ -144,13 +144,6 @@ class Tcemain {
 		$tagsToFlush = array();
 
 		if ($table === 'tx_t3blog_post') {
-			// @todo Remove this when 6.2 is no longer relevant
-			if (version_compare(TYPO3_branch, '7.2', '<=')) {
-				if (isset($GLOBALS['_POST']['_savedokview_x'])) {
-					$this->processPreview($id);
-				}
-			}
-
 			// Cache tags for posts
 			if ($status == 'update' || $status === 'new') {
 				$tagsToFlush[] = $table . '_pid_' . $pid;
@@ -161,12 +154,12 @@ class Tcemain {
 		if ($table === 'tx_t3blog_com') {
 			if ($status == 'update') {
 				if ($this->isUpdateNeeded($fields, $this->watchedFields)) {
-					$this->processChangedComment($id, $pid);
+					$this->processChangedComment($id);
 				}
 			}
 
 			if ($status === 'new') {
-				$this->processNewComment($id, $pid);
+				$this->processNewComment($id);
 			}
 
 			// Cache tags for comments
@@ -266,8 +259,7 @@ class Tcemain {
 	 *
 	 * @internal param int $fields
 	 */
-	protected function processNewComment($id, $pid) {
-		$this->ensureCorrectTypoScriptSettings($pid);
+	protected function processNewComment($id) {
 		$this->getNotificationService()->processNewEntity($this->getComment($id));
 	}
 
@@ -277,8 +269,7 @@ class Tcemain {
 	 *
 	 * @internal param int $fields
 	 */
-	protected function processChangedComment($id, $pid) {
-		$this->ensureCorrectTypoScriptSettings($pid);
+	protected function processChangedComment($id) {
 		$this->getNotificationService()->processChangedStatus($this->getComment($id));
 	}
 
@@ -415,17 +406,6 @@ class Tcemain {
 	 */
 	protected function getDatabase() {
 		return $GLOBALS['TYPO3_DB'];
-	}
-
-	/**
-	 * Extbase TS fix
-	 *
-	 * @param int $pid
-	 */
-	protected function ensureCorrectTypoScriptSettings($pid) {
-		$this->getObjectContainer()
-			->getInstance('TYPO3\\T3extblog\\Service\\SettingsService')
-			->setPageUid($pid);
 	}
 
 }

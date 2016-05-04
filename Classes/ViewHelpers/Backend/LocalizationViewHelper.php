@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -30,7 +30,6 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /**
  * Show localized posts view helper
@@ -111,14 +110,9 @@ class LocalizationViewHelper extends AbstractBackendViewHelper {
 		$language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
 		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
-			// @todo Remove this when 6.2 is no longer relevant
-			if (version_compare(TYPO3_branch, '7.0', '<')) {
-				$icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
-			} else {
-				/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
-				$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-				$icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
-			}
+			/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+			$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+			$icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
 		} else {
 			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
 		}

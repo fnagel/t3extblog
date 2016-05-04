@@ -28,7 +28,6 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -152,25 +151,4 @@ class SettingsService {
 		return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
 	}
 
-	/**
-	 * Set storage pid in BE
-	 *
-	 * Only needed when the class is called or injected in a BE context, e.g. a hook.
-	 * Without the generation of the TS is based upon the next root page (default
-	 * extbase behaviour) and repositories won't work as expected.
-	 *
-	 * @todo Seems no longer functional for TYPO3 8.0, fixed by using GET paramater in BE templates
-	 * @todo Does template change work for < v8 versions too?
-	 *
-	 * @param $pageUid
-	 *
-	 * @return void
-	 */
-	public function setPageUid($pageUid) {
-		if (TYPO3_MODE === 'BE' && version_compare(TYPO3_branch, '8.0', '<')) {
-			$currentPid['persistence']['storagePid'] = (int) $pageUid;
-			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
-			GeneralUtility::_GETset((int) $pageUid, 'id');
-		}
-	}
 }

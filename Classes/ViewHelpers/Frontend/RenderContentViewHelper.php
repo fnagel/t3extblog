@@ -42,7 +42,6 @@ class RenderContentViewHelper extends AbstractViewHelper {
 	public function initializeArguments() {
 		$this->registerArgument('contentElements', 'array', 'Content elements to render, array or object implementing \ArrayAccess to iterated over', TRUE);
 		$this->registerArgument('index', 'int', 'Index of array or object storage', FALSE, 0);
-		$this->registerArgument('removeMarker', 'bool', 'Remove the ###MORE### marker, deprecated!', FALSE, TRUE);
 		$this->registerArgument('table', 'string', 'Table to render', FALSE, 'tt_content');
 	}
 
@@ -67,10 +66,6 @@ class RenderContentViewHelper extends AbstractViewHelper {
 			}
 
 			$output .= $this->renderRecord($uid, $this->arguments['table']);
-		}
-
-		if ($this->arguments['removeMarker'] === TRUE) {
-			$output = $this->removeMarker($output);
 		}
 
 		return $output;
@@ -145,17 +140,4 @@ class RenderContentViewHelper extends AbstractViewHelper {
 		return GeneralUtility::getTsFe()->cObj;
 	}
 
-	/**
-	 * Remove marker
-	 *
-	 * @todo Remove this in version 3.0.0
-	 *
-	 * @deprecated
-	 * @param string $output
-	 *
-	 * @return string Rendered string
-	 */
-	protected function removeMarker($output) {
-		return str_replace('###MORE###', '', $output);
-	}
 }
