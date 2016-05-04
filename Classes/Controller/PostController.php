@@ -230,7 +230,7 @@ class PostController extends AbstractController {
 	 * @return void
 	 */
 	public function previewAction($previewPost) {
-		if (empty($this->settings['previewHiddenRecords'])) {
+		if (!GeneralUtility::isValidBackendUser()) {
 			throw new \Exception('Preview not allowed.');
 		}
 

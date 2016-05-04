@@ -82,4 +82,29 @@ class GeneralUtility {
 		return $GLOBALS['TSFE'];
 	}
 
+	/**
+	 * Check if a valid BE login exists
+	 *
+	 * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.
+	 * See https://forge.typo3.org/issues/23625
+	 *
+	 * @todo Fixme! Workaround for bug in TYPO3
+	 *
+	 * @return bool
+	 */
+	public static function isValidBackendUser() {
+		// Init if needed
+		if (!isset($GLOBALS['BE_USER'])) {
+			$bootstrap = \TYPO3\CMS\Core\Core\Bootstrap::getInstance();
+			$bootstrap->initializeBackendUser();
+		}
+
+		// Check for valid user
+		if (is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid'])) {
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
 }
