@@ -13,9 +13,6 @@ table tr.db_list_normal td.title {
 	font-weight: bold;
 }
 
-table tr.localized td.col-icon {
-	padding-left: 20px;
-}
 table tr.db_list_normal.localized td.title {
 	font-weight: normal;
 }

@@ -3,6 +3,10 @@
 	background: transparent;
 }
 
+table tr.localized td.col-icon {
+	padding-left: 20px;
+}
+
 /* Dashboard */
 #dashboard .grid {
 	margin: 0 0.75%;
