@@ -91,10 +91,10 @@
 				<source>Delete</source>
 			</trans-unit>
 			<trans-unit id="subscriber.blog.delete">
-				<source>Delete subscription for new posts</source>
+				<source>End subscription for new posts</source>
 			</trans-unit>
 			<trans-unit id="subscriber.blog.create">
-				<source>Add email subscription for new posts</source>
+				<source>Subscribe for new posts</source>
 			</trans-unit>
 
 			<trans-unit id="subscriber.email">
