@@ -37,6 +37,13 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 class LocalizationViewHelper extends AbstractBackendViewHelper {
 
 	/**
+	 * Needed for TYPO3 8.x
+	 *
+	 * @inheritdoc
+	 */
+	protected $escapeOutput = FALSE;
+
+	/**
 	 * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
 	 */
 	protected $translateTools;

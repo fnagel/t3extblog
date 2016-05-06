@@ -1,16 +1,9 @@
 <div xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:comment>@todo Remove this when validation input is escaped as expected</f:comment>
-<t3b:typo3Version version="8.0" operator=">=">
-	<f:then>
-		<f:format.htmlentitiesDecode>
-			<f:render section="Errors" arguments="{_all}" />
-		</f:format.htmlentitiesDecode>
-	</f:then>
-	<f:else>
-		<f:render section="Errors" arguments="{_all}" />
-	</f:else>
-</t3b:typo3Version>
+<f:comment>@todo Needed as validation result encoding seems changed in TYPO3 8.x (caused no issues in 7.6)</f:comment>
+<f:format.htmlentitiesDecode>
+	<f:render section="Errors" arguments="{_all}" />
+</f:format.htmlentitiesDecode>
 
 <f:section name="Errors">
 	<f:form.validationResults for="{object}">
