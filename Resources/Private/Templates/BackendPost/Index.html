@@ -41,15 +41,13 @@
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
 								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
 									<td>
-										<f:if condition="{post.mailsSent}">
-											<f:else>
-												<f:link.action
-													title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}"
-													action="sendPostNotifications" arguments="{post: post}"
-												 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
+										<f:if condition="{post.mailSendingAllowed}">
+											<f:link.action
+												title="{f:translate(key: 'module.post.sendBlogSubscriptionEmails')}"
+												action="sendPostNotifications" arguments="{post: post}"
+												onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 													<t3extblog:spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
-												</f:link.action>
-											</f:else>
+											</f:link.action>
 										</f:if>
 									</td>
 								</f:if>

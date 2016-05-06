@@ -460,6 +460,15 @@ class Post extends AbstractLocalizedEntity {
 	}
 
 	/**
+	 * Is it possible to send post subscription mails?
+	 *
+	 * @return boolean
+	 */
+	public function isMailSendingAllowed() {
+		return (!$this->getMailsSent() && !$this->getHidden() && !$this->getDeleted());
+	}
+
+	/**
 	 * Returns the metaDescription
 	 *
 	 * @return string
