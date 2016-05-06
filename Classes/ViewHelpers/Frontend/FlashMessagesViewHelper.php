@@ -98,7 +98,13 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	 * @return void
 	 */
 	protected function preventCaching() {
-		if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
+		if (isset($GLOBALS['TSFE']) && 
+			(
+				// @todo It seems that in TYPO3 8.1 (most likely in 8.0 too) getUserObjectType returns false
+				version_compare(TYPO3_branch, '8.0', '>=') ||
+				$this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER
+			)
+		) {
 			$GLOBALS['TSFE']->no_cache = TRUE;
 		}
 	}
