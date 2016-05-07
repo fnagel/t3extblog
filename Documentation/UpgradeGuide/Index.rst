@@ -19,6 +19,32 @@ Upgrade Guide
 
 
 
+Upgrade from 2.2.0 to 2.2.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.2.0...2.2.1
+
+- Tested with EXT:realurl 2.x
+
+- Minor bugfixes for backend modules
+
+- Fix post preview for non-admin BE users in newer TYPO3 versions
+
+- Adjust TCA to match latest TYPO3 API
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Uninstall and install extension if needed (TCA issues)
+
+
+
 Upgrade from 2.1.x to 2.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
