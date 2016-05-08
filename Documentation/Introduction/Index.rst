@@ -41,3 +41,47 @@ Currently implemented features:
 .. tip::
 
 	Visit & contribute: https://github.com/fnagel/t3extblog
+
+
+Screenshots
+-----------
+
+**Frontend**
+
+Blogsystem
+
+.. figure:: ../Images/AdministratorManual/blogsystem.png
+	:alt: Blogsystem
+
+
+Comment form
+
+.. figure:: ../Images/Screenshots/comment.png
+	:alt: Comment form
+
+
+Archive
+
+.. figure:: ../Images/AdministratorManual/archive.png
+	:alt: Archive
+
+
+Subscription Manager
+
+.. figure:: ../Images/AdministratorManual/subscription-manager.png
+	:alt: Subscription Manager
+
+
+**Backend**
+
+Dashboard
+
+.. figure:: ../Images/Screenshots/dashboard.png
+	:alt: Dashboard backend module
+
+
+Post records list
+
+.. figure:: ../Images/UserManual/module.png
+	:alt: Post records backend module
+
