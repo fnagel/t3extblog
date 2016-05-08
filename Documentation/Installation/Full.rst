@@ -30,10 +30,7 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 	- Optional: add a page (standard page) for subscribing to new blog posts
 
 	.. figure:: ../Images/Installation/pagestructure.png
-		:width: 286px
-		:alt: Typical page structure
-
-		Recommended page structure
+		:alt: Recommended page structure
 
 #. Include static template
 	- See :ref:`Quick Installation <quick_installation>`

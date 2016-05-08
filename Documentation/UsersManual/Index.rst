@@ -29,10 +29,7 @@ You can write blog posts using the default TYPO3 CMS way: Open the folder or pag
 Another way to manage posts and comments is t3extblog's simple backend module. It's located in the "web" module section.
 
 .. figure:: ../Images/UserManual/module.png
-	:width: 600px
 	:alt: Backend module
-
-	Backend module
 
 To write a blog post, just click the plus-icon on the top.
 
@@ -43,10 +40,7 @@ Create a blogpost
 -----------------
 
 .. figure:: ../Images/UserManual/createblogpost.png
-	:width: 671px
 	:alt: Create blogpost
-
-	Create blogost
 
 
 **Post:**
@@ -86,10 +80,7 @@ Add categories
 You need to add at least one blog category to your post.
 
 .. figure:: ../Images/UserManual/addcategories.png
-	:width: 508px
-	:alt: Categorize post
-
-	Categorize your post
+	:alt: Categorize your post
 
 
 .. tip::
@@ -103,10 +94,7 @@ Create blog categories
 Use the list module and click the button "create new record", to add categories:
 
 .. figure:: ../Images/UserManual/categories.png
-	:width: 223px
 	:alt: Add categories
-
-	Add categories
 
 
 Blog administration

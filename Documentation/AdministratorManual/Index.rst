@@ -28,19 +28,13 @@ The output is managed via content modules. This means easy and flexible usage.
 1. Insert a content element, choose "Plugins" -> "General Plugin"
 
 .. figure:: ../Images/AdministratorManual/plugin.png
-	:width: 652px
-	:alt: insert plugin
-
-	Insert plugin
+	:alt: Insert plugin
 
 Choose one or more of the plugins listed to build your blog. These can be distributed to different columns.
 
 
 .. figure:: ../Images/Installation/plugin_blogsystem.jpg
-	:width: 627px
-	:alt: modules
-
-	Modules
+	:alt: Modules
 
 
 Plugins
@@ -52,10 +46,7 @@ Archive
 Simple list of your blog posts, categorised by month, sorted by date.
 
 .. figure:: ../Images/AdministratorManual/archive.png
-	:width: 260px
-	:alt: archive
-
-	Archive
+	:alt: Archive
 
 
 Blogsystem
@@ -66,22 +57,13 @@ Lists all your blogposts and shows some additional information like date of publ
 name of author, categories, number of comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
-	:width: 502px
-	:alt: blogsystem
-
-	Blogsystem
+	:alt: Blogsystem
 
 
 Categories
 ^^^^^^^^^^
 
 List all blog categories including sub categories.
-
-.. figure:: ../Images/AdministratorManual/blogcats.png
-	:width: 145px
-	:alt: categories
-
-	Categories
 
 
 Latest Comments
@@ -94,12 +76,6 @@ Lastest Posts
 ^^^^^^^^^^^^^
 
 List of the latest blog posts. Configurable via :code:`paginate` settings.
-
-.. figure:: ../Images/AdministratorManual/latestposts.png
-	:width: 201px
-	:alt: latestposts
-
-	Lastest posts
 
 
 RSS Feed
@@ -115,6 +91,9 @@ Subscription Manager
 
 This plugin manages all blog related subscriptions. All email links will point to this page.
 Depending on your configuration users can confirm, add and remove subscriptions for new comments and new posts.
+
+.. figure:: ../Images/AdministratorManual/subscription-manager.png
+	:alt: Subscription Manager
 
 We've already did some basic settings for this plugin in the installation process, but you should do so some more configuration.
 
@@ -152,19 +131,13 @@ Just create a single page for the RSS-output, then
 2. Create an extension template and include `T3Extblog: Rss setup (t3extblog)`
 
 .. figure:: ../Images/AdministratorManual/rssincludestatic.png
-	:width: 689px
 	:alt: RSS include static
-
-	RSS
 
 
 When you open the page, the output should look like this:
 
 .. figure:: ../Images/AdministratorManual/rssoutput.png
-	:width: 609px
 	:alt: RSS output
-
-	RSS Output
 
 Have a look at :code:`/Configuration/TypoScript/RSS/setup.txt`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
