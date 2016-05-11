@@ -47,7 +47,6 @@ Please consider opening a GitHub ticket so we can review new translations as soo
 	Please see this issue for more information: https://github.com/fnagel/t3extblog/issues/99
 
 
-
 Documentation
 -------------
 
@@ -65,17 +64,38 @@ See this link for more information: https://docs.typo3.org/typo3cms/extensions/s
 Testing
 -------
 
+This needs to be done for latest supported TYPO3 versions in a multi-language site setup.
+It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
+
+
 **What needs to be tested:**
 
 * Creating blog posts (with and without preview image and text)
 * Posting comments and subscribe for new comments
+	* With and without SPAM check triggered
+	* Test field validation
 * Using the subscription manager (confirm and delete for new comment and post subscription)
 * New comment subscription
 	* admin, subscriber opt-in and notification emails
 	* triggered by: frontend & backend (confirm and un-spam a comment)
+	* make sure mails are sent with localized links for multi language setups
 * New post subscription
 	* subscriber opt-in (frontend) and notification emails (button in BE module)
 * Run unit tests (see below)
+
+
+**Quick test procedure**
+
+* Create a new post
+* Add comment with subscription (saved but marked as SPAM) -> admin email sent
+* Mark as non SPAM using the dashboard (T3extblog BE module) -> subscription mail sent
+* Confirm subscription by email link
+* When in subscription manager, add new article subscription
+* Add another comment (saved but marked as SPAM) -> admin email sent
+* Edit the comment record you just created in "list" module
+* Un-check the SPAM checkbox, save record -> new comment mail sent
+* Click envelope icon in "all post" view (T3extblog BE module) -> New post subscription mail sent
+
 
 
 Run unit tests
@@ -95,6 +115,7 @@ TER deployment
 
 TYPO3 TER deployment is done automated via GitHub hooks. Just add a version tag and push to GitHub.
 See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the topic.
+
 
 **How to release**
 
