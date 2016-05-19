@@ -140,7 +140,12 @@ class EmailService implements SingletonInterface {
 	 * @return string
 	 */
 	public function render($variables, $templatePath = 'Default.txt') {
-		$emailView = $this->getEmailView($templatePath);
+		if (version_compare(TYPO3_branch, '8.0', '>=')) {
+			$emailView = $this->getEmailViewFor8x($templatePath);
+		} else {
+			// @todo Remove this when 7.x is no longer relevant
+			$emailView = $this->getEmailViewFor7x($templatePath);
+		}
 
 		$emailView->assignMultiple($variables);
 		$emailView->assignMultiple(array(
@@ -155,22 +160,60 @@ class EmailService implements SingletonInterface {
 	/**
 	 * Create and configure the view
 	 *
-	 * @param string $templatePath Choose a template
+	 * @param string $templateFile Choose a template
 	 *
 	 * @return StandaloneView
 	 */
-	public function getEmailView($templatePath) {
+	public function getEmailViewFor7x($templateFile) {
+		$emailView = $this->createStandaloneView();
+
+		$format = pathinfo($templateFile, PATHINFO_EXTENSION);
+		$emailView->setFormat($format);
+
+		$emailView->setTemplate(self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $templateFile);
+
+		return $emailView;
+	}
+
+	/**
+	 * Create and configure the view
+	 *
+	 * @param string $templateFile Choose a template
+	 *
+	 * @return StandaloneView
+	 */
+	public function getEmailViewFor8x($templateFile) {
+		$emailView = $this->createStandaloneView();
+
+		$format = pathinfo($templateFile, PATHINFO_EXTENSION);
+		$emailView->setFormat($format);
+		$emailView->getTemplatePaths()->setFormat($format);
+
+		$emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
+		$emailView->setTemplate($templateFile);
+
+		return $emailView;
+	}
+
+	/**
+	 * @return StandaloneView
+	 */
+	protected function createStandaloneView() {
 		/* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
 		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$frameworkConfig = $this->settingsService->getFrameworkSettings();
-
 		$emailView->getRequest()->setPluginName('');
 		$emailView->getRequest()->setControllerExtensionName($this->extensionName);
-		$emailView->getRequest()->setControllerName(self::TEMPLATE_FOLDER);
 
-		$format = pathinfo($templatePath, PATHINFO_EXTENSION);
-		$emailView->setFormat($format);
-		$emailView->getRequest()->setFormat($format);
+		$this->setViewPaths($emailView);
+
+		return $emailView;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Fluid\View\StandaloneView $emailView
+	 */
+	protected function setViewPaths($emailView) {
+		$frameworkConfig = $this->settingsService->getFrameworkSettings();
 
 		if (isset($frameworkConfig['view']['layoutRootPaths'])) {
 			$emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
@@ -181,20 +224,6 @@ class EmailService implements SingletonInterface {
 		if (isset($frameworkConfig['view']['templateRootPaths'])) {
 			$emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
 		}
-
-		// @todo Remove this when 7.x is no longer relevant
-		if (version_compare(TYPO3_branch, '8.0', '>=')) {
-			// 8.x
-			$emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-			$emailView->getTemplatePaths()->setFormat($format);
-		} else {
-			// 7.x
-			$templatePath = self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $templatePath;
-		}
-
-		$emailView->setTemplate($templatePath);
-
-		return $emailView;
 	}
 
 	/**
@@ -212,6 +241,7 @@ class EmailService implements SingletonInterface {
 		$output = strip_tags(preg_replace('/<a.* href=(?:"|\')(.*)(?:"|\').*>/', '$1', $output));
 
 		// Short URLs
+		// @todo Create standalone or remove when 7.x is no longer relevant
 		if (version_compare(TYPO3_branch, '8.0', '<')) {
 			$output = GeneralUtility::substUrlsInPlainText($output);
 		}

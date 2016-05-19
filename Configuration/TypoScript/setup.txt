@@ -1,6 +1,6 @@
 plugin.tx_t3extblog {
-	# Please note: "Email/" is added to each path
 	view {
+		# "Email/" is appended to the final template path when rendering emails
 		templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
 		templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
 
@@ -13,9 +13,6 @@ plugin.tx_t3extblog {
 		widget.TYPO3\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
 		widget.TYPO3\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
 	}
-
-	# Email fallback path for TYPO3 6.2:
-	email.templateRootPath = {$plugin.tx_t3extblog.view.templateRootPath}Email/
 
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
