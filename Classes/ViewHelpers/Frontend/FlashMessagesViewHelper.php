@@ -93,6 +93,8 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
 	/**
 	 * Prevent caching if a flash message is displayed
 	 *
+	 * Tested in 7.6.7 and 8.1.0
+	 *
 	 * @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
 	 *
 	 * @return void
