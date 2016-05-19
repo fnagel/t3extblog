@@ -1,4 +1,8 @@
 {namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+
+<f:layout name="Email" />
+
+<f:section name="main">
 Hello Admin,
 
 someone added a new comment!
@@ -36,6 +40,5 @@ Text:
 You could manage comments in the TYPO3 backend of your installation:
 {domain}typo3
 
-Regards
-{settings.blogName} 
- 
+<f:render partial="Email/Footer" arguments="{_all}" />
+</f:section>

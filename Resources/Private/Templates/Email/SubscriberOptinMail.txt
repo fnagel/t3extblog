@@ -1,4 +1,8 @@
 {namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+
+<f:layout name="Email" />
+
+<f:section name="main">
 Hello {subscriber.name},
 
 it seems you subscribed for new comments:
@@ -32,6 +36,5 @@ Please confirm your subscription by using this link:
 
 This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
 
-Regards
-{settings.blogName} 
- 
+<f:render partial="Email/Footer" arguments="{_all}" />
+</f:section>

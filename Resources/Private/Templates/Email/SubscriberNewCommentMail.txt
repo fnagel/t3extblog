@@ -1,4 +1,8 @@
 {namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+
+<f:layout name="Email" />
+
+<f:section name="main">
 Hello {subscriber.name},
 
 a new comment was posted on '{post.title}' at {settings.blogName}.
@@ -18,7 +22,7 @@ See the comment: <t3b:uri.action
 You can manage your subscription by using this link:
 <t3b:uri.action
 	extensionName="T3extblog"
-	pluginName="SubscriptionManager" 
+	pluginName="SubscriptionManager"
 	controller="PostSubscriber"
 	action="list"
 	pageUid="{settings.subscriptionManager.pid}"
@@ -28,6 +32,5 @@ You can manage your subscription by using this link:
 
 This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
 
-Regards
-{settings.blogName} 
- 
+<f:render partial="Email/Footer" arguments="{_all}" />
+</f:section>
