@@ -27,6 +27,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -59,6 +60,8 @@ class EditOnClickViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render($parameters, $redirectUrl = '') {
+		// Need to add id for TYPO3 8.x
+		$parameters = '&id=' . intval(GeneralUtility::_GP('id')) . '&' . $parameters;
 		$onClickAttribute = BackendUtility::editOnClick('&' . $parameters, '', $redirectUrl);
 
 		$this->tag->addAttribute('href', '#');

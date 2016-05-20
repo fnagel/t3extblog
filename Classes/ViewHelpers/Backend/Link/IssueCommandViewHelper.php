@@ -60,6 +60,7 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper {
 	 * @return string
 	 */
 	public function render($parameters, $redirectUrl = '') {
+		// Needed in 7.x and 8.x
 		$parameters = '&id=' . intval(GeneralUtility::_GP('id')) . '&' . $parameters;
 		$href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);
 
