@@ -159,10 +159,6 @@ the page where the blogsystem plugin is included).
 
 .. code-block:: typoscript
 
-	# TYPO3 <= 6.2
-	tx_t3extblog.singlePid = 123
-
-	# TYPO3 >= 7.2
 	TCEMAIN.preview {
 		tx_t3blog_post {
 			previewPageId = 123

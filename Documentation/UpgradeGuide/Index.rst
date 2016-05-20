@@ -19,6 +19,49 @@ Upgrade Guide
 
 
 
+
+Upgrade from 2.x to 3.0.0
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+*"TYPO3 8.x support"*
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.2.1...3.0.0
+
+- Removed TYPO3 < 7.3 support - lots of legacy code has been removed!
+
+- Added TYPO3 8.x support
+
+- Added email layout and footer partial for easier customization
+
+- Updated and added new screens in documentation
+
+- Improved info boxes in backend modules (using default VH)
+
+
+**Breaking changes**
+
+- Introduced custom paginate ViewHelper
+
+- Changed email template configuration
+	- Old `plugin.tx_t3extblog.email` configuration has been removed
+	- Use default `plugin.tx_t3extblog.view` configuration instead
+	- `Email/` is appended to the final template path when rendering emails
+	- No changes needed when default path structure has been used
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Adjust and update TypoScript configuration and template overwrites
+
+
+
 Upgrade from 2.2.0 to 2.2.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

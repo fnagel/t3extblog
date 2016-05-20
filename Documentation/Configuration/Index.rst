@@ -51,7 +51,7 @@ General configuration
 =========================================   =========================================================================================================
 Property                                    Description
 =========================================   =========================================================================================================
-settings.previewHiddenRecords               Enable preview of hidden records (see usermanual)
+settings.blogName                           Name of your blog
 settings.blogsystem                         All settings of your blog system, i.e. pagination, comment handling...
 settings.subscriptionManager                Configure the subscription process, i.e. admin email, notification email...
 settings.blogSubscription                   Configure blog (new post) subscription form
@@ -109,7 +109,6 @@ Overwrite templates
 .. _configuration-overwrite-templates:
 
 It's possible to copy only the needed files and have a fallback.
-"Email/" is appended to all paths when rendering emails.
 
 Use the constants or change the TS setup:
 
@@ -117,6 +116,7 @@ Use the constants or change the TS setup:
 
 	plugin.tx_t3extblog {
         view {
+			# "Email/" is appended to the final template path when rendering emails
             templateRootPaths {
                 0 = {$plugin.tx_t3extblog.view.templateRootPath}
                 1 = EXT:my_theme/Resources/Private/T3extblog/Templates/
@@ -132,13 +132,3 @@ Use the constants or change the TS setup:
             }
         }
 	}
-
-
-**TYPO3 6.2**
-
-Use this config for for email templates path:
-
-.. code-block:: typoscript
-
-	plugin.tx_t3extblog.email.templateRootPath = ...
-

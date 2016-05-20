@@ -28,11 +28,11 @@ Currently implemented features:
 * RSS feed for posts
 * BE Module with dashboard and lists for posts, comments and subscriptions
 * Default HTML markup matches Twitter Bootstrap 3.x
-* Reasonable email sending, even when you accept comments in BE (extension module AND default list module, uses TCEMAIN)
+* Reasonable email sending, even when you accept comments in BE (extension module AND default list module, using TCEMAIN hooks)
 * Send HTML and / or text emails
-* Preview of hidden posts
+* Preview of hidden posts (drafts)
 * Reasonable cache handling (using cache tags)
-* Supports migration (of EXT:t3blog) to and is tested in TYPO3 6.2 and 7.x
+* Supports migration (of EXT:t3blog) and is tested in TYPO3 7.x and 8.x
 * Multi language support
 * Link validator support
 * Using Pootle translation server (translation.typo3.org)

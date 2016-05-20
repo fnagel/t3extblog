@@ -221,8 +221,18 @@ Link the previous / next article in the detais-view of a post. The following lin
 
 
 
-TYPO3 CMS version 4.5 - 4.7 support
------------------------------------
+TYPO3 CMS legacy support
+------------------------
+
+Version 6.0 - 6.2
+^^^^^^^^^^^^^^^^^
+
+Version 3.0.0 of this extension will no longer support TYPO3 6.2 LTS. Some bugfixes and small features might be
+backported to this branch: https://github.com/fnagel/t3extblog/tree/2.x
+
+
+Version 4.5 - 4.7
+^^^^^^^^^^^^^^^^^
 
 There is a legacy branch for TYPO3 4.5-4.7. It's functional (tested in TYPO3 4.7) but needs some fixes backported.
 Please open an issue on GitHub if you are interested in a bugfixed 4.5 branch.
