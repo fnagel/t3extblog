@@ -2,7 +2,7 @@
   "name": "typo3/t3extblog",
   "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
   "require-dev": {
-    "fluidtypo3/development": "*"
+    "fluidtypo3/development": "1.5.3"
   },
   "autoload": {
     "psr-4": {

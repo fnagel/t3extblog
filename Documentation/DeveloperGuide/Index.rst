@@ -103,7 +103,7 @@ Run unit tests
 
 .. code-block:: bash
 
-	cd typoconf/ext/t3extblog
+	cd typo3conf/ext/t3extblog
 
 	composer install
 
