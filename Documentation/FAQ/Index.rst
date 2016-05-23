@@ -30,6 +30,25 @@ RSS Output instead of page
 Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a seperate rss-page.
 
 
+Link RSS in page header
+-----------------------
+
+Use following TS config where `123` is the UID of yours RSS page:
+
+.. code-block:: typoscript
+
+	page.headerData {
+		100 =  TEXT
+		100.wrap = <link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="|" />
+		100.typolink {
+			parameter = 123
+			returnLast = url
+			forceAbsoluteUrl = 1
+		}
+	}
+
+
+
 Does it work together with "indexed search engine"?
 ---------------------------------------------------
 
