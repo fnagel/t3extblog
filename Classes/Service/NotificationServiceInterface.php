@@ -27,29 +27,24 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * Interface for Notification Service
+ * Interface for Notification Service.
  *
  * This class should send emails (admin, comment author opt-in, subscription)
  * when receiving new or changed comments.
  */
-interface NotificationServiceInterface {
+interface NotificationServiceInterface
+{
+    /**
+     * Process added entity.
+     *
+     * @param object $entity
+     */
+    public function processNewEntity($entity);
 
-	/**
-	 * Process added entity
-	 *
-	 * @param object $entity
-	 *
-	 * @return void
-	 */
-	public function processNewEntity($entity);
-
-	/**
-	 * Process changed status of a entity
-	 *
-	 * @param object $entity
-	 *
-	 * @return void
-	 */
-	public function processChangedStatus($entity);
-
+    /**
+     * Process changed status of a entity.
+     *
+     * @param object $entity
+     */
+    public function processChangedStatus($entity);
 }

@@ -29,10 +29,10 @@ namespace TYPO3\T3extblog\ViewHelpers\Widget\Controller;
 use TYPO3\CMS\Fluid\ViewHelpers\Widget\Controller\PaginateController as BasePaginateController;
 
 /**
- * Paginate widget
+ * Paginate widget.
  *
  * Needed for custom template configuration (at least in TYPO3 8.0)
  */
-class PaginateController extends BasePaginateController {
-
+class PaginateController extends BasePaginateController
+{
 }

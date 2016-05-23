@@ -31,28 +31,28 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
- * BaseTest
+ * BaseTest.
  */
-abstract class BaseTest extends UnitTestCase {
+abstract class BaseTest extends UnitTestCase
+{
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
 
-	/**
-	 * @var ObjectManagerInterface
-	 */
-	protected $objectManager;
+    protected $fixture;
 
-	protected $fixture;
+    /**
+     */
+    public function setUp()
+    {
+        $this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+    }
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-	}
-
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->fixture);
-	}
+    /**
+     */
+    public function tearDown()
+    {
+        unset($this->fixture);
+    }
 }

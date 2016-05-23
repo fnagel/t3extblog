@@ -26,22 +26,25 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 /**
- * View helper which renders the flash messages
+ * View helper which renders the flash messages.
  */
-class FlashMessages8xViewHelper extends FlashMessagesViewHelper {
-
-	/**
-	 * Renders FlashMessages and flushes the FlashMessage queue
-	 * Note: This disables the current page cache in order to prevent FlashMessage output
-	 * from being cached.
-	 *
-	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
-	 * @param string $as The name of the current flashMessage variable for rendering inside
-	 * @return string rendered Flash Messages, if there are any.
-	 * @api
-	 */
-	public function render($as = null) {
-		return parent::render(null, $as);
-	}
-
+class FlashMessages8xViewHelper extends FlashMessagesViewHelper
+{
+    /**
+     * Renders FlashMessages and flushes the FlashMessage queue
+     * Note: This disables the current page cache in order to prevent FlashMessage output
+     * from being cached.
+     *
+     * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
+     *
+     * @param string $as The name of the current flashMessage variable for rendering inside
+     *
+     * @return string rendered Flash Messages, if there are any.
+     *
+     * @api
+     */
+    public function render($as = null)
+    {
+        return parent::render(null, $as);
+    }
 }

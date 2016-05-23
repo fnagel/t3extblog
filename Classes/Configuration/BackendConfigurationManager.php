@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\T3extblog\Configuration;
 
 /*
@@ -21,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager
 {
     /**
-     * Make sure TS is generated from currently selected page
+     * Make sure TS is generated from currently selected page.
      *
      * Needed basically to make extbase work. Without PID is set to 0 (which is root)
      * and persistence, TS generation, etc. will fail. This is the case in TYPO3 8.x
@@ -31,16 +32,16 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
      *
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected function getCurrentPageIdFromGetPostData() {
+    protected function getCurrentPageIdFromGetPostData()
+    {
         $id = parent::getCurrentPageIdFromGetPostData();
 
-        if (empty($id)){
+        if (empty($id)) {
             $id = (int) GeneralUtility::_GP('popViewId');
         }
 
         return $id;
     }
-
 }

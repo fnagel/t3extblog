@@ -32,162 +32,161 @@ use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
 use TYPO3\T3extblog\Domain\Model\Comment;
 
 /**
- * Handles all notification mails
+ * Handles all notification mails.
  */
-abstract class AbstractNotificationService implements NotificationServiceInterface, SingletonInterface {
+abstract class AbstractNotificationService implements NotificationServiceInterface, SingletonInterface
+{
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+    /**
+     * subscriberRepository.
+     */
+    protected $subscriberRepository;
 
-	/**
-	 * subscriberRepository
-	 */
-	protected $subscriberRepository;
+    /**
+     * Logging Service.
+     *
+     * @var \TYPO3\T3extblog\Service\LoggingService
+     * @inject
+     */
+    protected $log;
 
-	/**
-	 * Logging Service
-	 *
-	 * @var \TYPO3\T3extblog\Service\LoggingService
-	 * @inject
-	 */
-	protected $log;
+    /**
+     * @var \TYPO3\T3extblog\Service\SettingsService
+     * @inject
+     */
+    protected $settingsService;
 
-	/**
-	 * @var \TYPO3\T3extblog\Service\SettingsService
-	 * @inject
-	 */
-	protected $settingsService;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * @var array
+     */
+    protected $subscriptionSettings;
 
-	/**
-	 * @var array
-	 */
-	protected $subscriptionSettings;
+    /**
+     * @var \TYPO3\T3extblog\Service\EmailService
+     * @inject
+     */
+    protected $emailService;
 
-	/**
-	 * @var \TYPO3\T3extblog\Service\EmailService
-	 * @inject
-	 */
-	protected $emailService;
+    /**
+     * @var \TYPO3\T3extblog\Service\FlushCacheService
+     * @inject
+     */
+    protected $cacheService;
 
-	/**
-	 * @var \TYPO3\T3extblog\Service\FlushCacheService
-	 * @inject
-	 */
-	protected $cacheService;
+    /**
+     */
+    public function initializeObject()
+    {
+        $this->settings = $this->settingsService->getTypoScriptSettings();
+    }
 
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		$this->settings = $this->settingsService->getTypoScriptSettings();
-	}
+    /**
+     * Send subscriber emails.
+     *
+     * @param AbstractSubscriber $subscriber
+     * @param string             $subject
+     * @param string             $template
+     * @param array              $variables
+     */
+    protected function sendEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array())
+    {
+        $settings = $this->subscriptionSettings['subscriber'];
+        $defaultVariables = array(
+            'subscriber' => $subscriber,
+            'subject' => $subject,
+            'validUntil' => $this->getValidUntil(),
+        );
 
-	/**
-	 * Send subscriber emails
-	 *
-	 * @param AbstractSubscriber $subscriber
-	 * @param string $subject
-	 * @param string $template
-	 * @param array $variables
-	 *
-	 * @return void
-	 */
-	protected function sendEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array()) {
-		$settings = $this->subscriptionSettings['subscriber'];
-		$defaultVariables =  array(
-			'subscriber' => $subscriber,
-			'subject' => $subject,
-			'validUntil' => $this->getValidUntil()
-		);
+        $emailBody = $this->emailService->render(array_merge($defaultVariables, $variables), $template);
 
-		$emailBody = $this->emailService->render(array_merge($defaultVariables, $variables), $template);
+        $this->emailService->send(
+            $subscriber->getMailTo(),
+            array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
+            $subject,
+            $emailBody
+        );
+    }
 
-		$this->emailService->send(
-			$subscriber->getMailTo(),
-			array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
-			$subject,
-			$emailBody
-		);
-	}
+    /**
+     * Render dateTime object for using in template.
+     *
+     * @todo We probably want to move this back to Fluid
+     *       Using a format:date VH stopped working with 7.4
+     *
+     * @return \DateTime
+     */
+    protected function getValidUntil()
+    {
+        $date = new \DateTime();
+        $modify = '+1 hour';
 
-	/**
-	 * Render dateTime object for using in template
-	 *
-	 * @todo We probably want to move this back to Fluid
-	 *       Using a format:date VH stopped working with 7.4
-	 *
-	 * @return \DateTime
-	 */
-	protected function getValidUntil() {
-		$date = new \DateTime();
-		$modify = '+1 hour';
+        if (isset($this->subscriptionSettings['subscriber']['emailHashTimeout'])) {
+            $modify = trim($this->subscriptionSettings['subscriber']['emailHashTimeout']);
+        }
 
-		if (isset($this->subscriptionSettings['subscriber']['emailHashTimeout'])) {
-			$modify = trim($this->subscriptionSettings['subscriber']['emailHashTimeout']);
-		}
+        $date->modify($modify);
 
-		$date->modify($modify);
+        return $date;
+    }
 
-		return $date;
-	}
+    /**
+     * Translate helper.
+     *
+     * @param string $key      Translation key
+     * @param string $variable Argument for translation
+     *
+     * @return string
+     */
+    protected function translate($key, $variable = '')
+    {
+        return LocalizationUtility::translate(
+            $key,
+            'T3extblog',
+            array(
+                $this->settings['blogName'],
+                $variable,
+            )
+        );
+    }
 
-	/**
-	 * Translate helper
-	 *
-	 * @param string $key Translation key
-	 * @param string $variable Argument for translation
-	 *
-	 * @return string
-	 */
-	protected function translate($key, $variable = '') {
-		return LocalizationUtility::translate(
-			$key,
-			'T3extblog',
-			array(
-				$this->settings['blogName'],
-				$variable,
-			)
-		);
-	}
+    /**
+     * Helper function for flush frontend page cache.
+     *
+     * Needed as we want to make sure new comments are visible after enabling in BE.
+     * In addition, this clears the cache when a new comment is added in FE.
+     *
+     * @param Comment $comment Comment
+     */
+    public function flushFrontendCache($comment)
+    {
+        $this->cacheService->addCacheTagsToFlush(array(
+            'tx_t3blog_post_uid_'.$comment->getPost()->getLocalizedUid(),
+            'tx_t3blog_com_pid_'.$comment->getPid(),
+        ));
+    }
 
-	/**
-	 * Helper function for flush frontend page cache
-	 *
-	 * Needed as we want to make sure new comments are visible after enabling in BE.
-	 * In addition, this clears the cache when a new comment is added in FE.
-	 *
-	 * @param Comment $comment Comment
-	 *
-	 * @return void
-	 */
-	public function flushFrontendCache($comment) {
-		$this->cacheService->addCacheTagsToFlush(array(
-			'tx_t3blog_post_uid_' . $comment->getPost()->getLocalizedUid(),
-			'tx_t3blog_com_pid_' . $comment->getPid(),
-		));
-	}
-
-	/**
-	 * Helper function for persisting all changed data to the DB
-	 *
-	 * Needed as in non FE controller context (aka our hook) there is no
-	 * auto persisting.
-	 *
-	 * @param bool $force
-	 *
-	 * @return void
-	 */
-	protected function persistToDatabase($force = FALSE) {
-		if ($force === TRUE || TYPO3_MODE === 'BE') {
-			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
-		}
-	}
+    /**
+     * Helper function for persisting all changed data to the DB.
+     *
+     * Needed as in non FE controller context (aka our hook) there is no
+     * auto persisting.
+     *
+     * @param bool $force
+     */
+    protected function persistToDatabase($force = false)
+    {
+        if ($force === true || TYPO3_MODE === 'BE') {
+            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+        }
+    }
 }

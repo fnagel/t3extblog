@@ -27,17 +27,16 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * Handles spam check
+ * Handles spam check.
  */
-interface SpamCheckServiceInterface {
-
-	/**
-	 * Checks GET / POST parameter for SPAM
-	 *
-	 * @var array $settings
-	 *
-	 * @return int SPAM points
-	 */
-	public function process($settings);
-
+interface SpamCheckServiceInterface
+{
+    /**
+     * Checks GET / POST parameter for SPAM.
+     *
+     * @var array
+     *
+     * @return int SPAM points
+     */
+    public function process($settings);
 }

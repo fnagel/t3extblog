@@ -29,43 +29,39 @@ namespace TYPO3\T3extblog\Controller;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 
 /**
- * CategoryController
+ * CategoryController.
  */
-class CategoryController extends AbstractController {
+class CategoryController extends AbstractController
+{
+    /**
+     * categoryRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\CategoryRepository
+     * @inject
+     */
+    protected $categoryRepository;
 
-	/**
-	 * categoryRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\CategoryRepository
-	 * @inject
-	 */
-	protected $categoryRepository;
+    /**
+     * action list.
+     */
+    public function listAction()
+    {
+        $categories = $this->categoryRepository->findAll();
 
+        // Add basic PID based cache tag
+        $this->addCacheTags($categories->getFirst());
 
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$categories = $this->categoryRepository->findAll();
+        $this->view->assign('categories', $categories);
+    }
 
-		// Add basic PID based cache tag
-		$this->addCacheTags($categories->getFirst());
-
-		$this->view->assign('categories', $categories);
-	}
-
-	/**
-	 * action show
-	 *
-	 * @param Category $category
-	 *
-	 * @return void
-	 */
-	public function showAction(Category $category) {
-		$this->addCacheTags($category);
-		$this->view->assign('category', $category);
-	}
-
+    /**
+     * action show.
+     *
+     * @param Category $category
+     */
+    public function showAction(Category $category)
+    {
+        $this->addCacheTags($category);
+        $this->view->assign('category', $category);
+    }
 }

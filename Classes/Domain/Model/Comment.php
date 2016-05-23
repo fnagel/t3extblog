@@ -27,446 +27,452 @@ namespace TYPO3\T3extblog\Domain\Model;
  ***************************************************************/
 
 /**
- * Comment
+ * Comment.
  */
-class Comment extends AbstractEntity {
+class Comment extends AbstractEntity
+{
+    /**
+     * @var bool
+     */
+    protected $hidden = false;
 
-	/**
-	 * @var boolean
-	 */
-	protected $hidden = FALSE;
+    /**
+     * @var bool
+     */
+    protected $deleted;
 
-	/**
-	 * @var boolean
-	 */
-	protected $deleted;
+    /**
+     * title.
+     *
+     * @validate Text
+     *
+     * @var string
+     */
+    protected $title;
 
-	/**
-	 * title
-	 *
-	 * @validate Text
-	 * @var string
-	 */
-	protected $title;
+    /**
+     * author.
+     *
+     * @validate Text
+     * @validate NotEmpty
+     *
+     * @var string
+     */
+    protected $author;
 
-	/**
-	 * author
-	 *
-	 * @validate Text
-	 * @validate NotEmpty
-	 * @var string
-	 */
-	protected $author;
+    /**
+     * email.
+     *
+     * @var string
+     * @validate NotEmpty
+     * @validate EmailAddress
+     */
+    protected $email;
 
-	/**
-	 * email
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 * @validate EmailAddress
-	 */
-	protected $email;
+    /**
+     * website.
+     *
+     * @var string
+     * @validate \TYPO3\T3extblog\Validation\Validator\UrlValidator
+     */
+    protected $website;
 
-	/**
-	 * website
-	 *
-	 * @var string
-	 * @validate \TYPO3\T3extblog\Validation\Validator\UrlValidator
-	 */
-	protected $website;
+    /**
+     * date.
+     *
+     * @var \DateTime
+     */
+    protected $date;
 
-	/**
-	 * date
-	 *
-	 * @var \DateTime
-	 */
-	protected $date;
+    /**
+     * text.
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $text;
 
-	/**
-	 * text
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $text;
+    /**
+     * approved.
+     *
+     * @var bool
+     */
+    protected $approved = false;
 
-	/**
-	 * approved
-	 *
-	 * @var boolean
-	 */
-	protected $approved = FALSE;
+    /**
+     * spam.
+     *
+     * @var bool
+     */
+    protected $spam = false;
 
-	/**
-	 * spam
-	 *
-	 * @var boolean
-	 */
-	protected $spam = FALSE;
+    /**
+     * spamPoints.
+     *
+     * @var int
+     */
+    protected $spamPoints = null;
 
-	/**
-	 * spamPoints
-	 *
-	 * @var integer
-	 */
-	protected $spamPoints = NULL;
+    /**
+     * postId.
+     *
+     * @var int
+     */
+    protected $postId;
 
-	/**
-	 * postId
-	 *
-	 * @var integer
-	 */
-	protected $postId;
+    /**
+     * post.
+     *
+     * @var \TYPO3\T3extblog\Domain\Model\Post
+     * @lazy
+     */
+    protected $post = null;
 
-	/**
-	 * post
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\Post
-	 * @lazy
-	 */
-	protected $post = NULL;
+    /**
+     * subscribe (not persisted).
+     *
+     * @var bool
+     */
+    protected $subscribe = false;
 
-	/**
-	 * subscribe (not persisted)
-	 *
-	 * @var boolean
-	 */
-	protected $subscribe = FALSE;
+    /**
+     * If the notification mails are already sent.
+     *
+     * @var bool
+     */
+    protected $mailsSent = false;
 
-	/**
-	 * If the notification mails are already sent
-	 *
-	 * @var boolean
-	 */
-	protected $mailsSent = FALSE;
+    /**
+     * __construct.
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
 
-	/**
-	 * __construct
-	 */
-	public function __construct() {
-		$this->date = new \DateTime();
-	}
+    /**
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-	/**
-	 * @param boolean $deleted
-	 *
-	 * @return void
-	 */
-	public function setDeleted($deleted) {
-		$this->deleted = $deleted;
-	}
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getDeleted() {
-		return $this->deleted;
-	}
+    /**
+     * @return bool
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
 
-	/**
-	 * @param boolean $hidden
-	 *
-	 * @return void
-	 */
-	public function setHidden($hidden) {
-		$this->hidden = $hidden;
-	}
+    /**
+     * Returns the title.
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getHidden() {
-		return $this->hidden;
-	}
+    /**
+     * Sets the title.
+     *
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * Returns the title
-	 *
-	 * @return string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * Returns the author.
+     *
+     * @return string $author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
-	/**
-	 * Sets the title
-	 *
-	 * @param string $title
-	 *
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * Sets the author.
+     *
+     * @param string $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
 
-	/**
-	 * Returns the author
-	 *
-	 * @return string $author
-	 */
-	public function getAuthor() {
-		return $this->author;
-	}
+    /**
+     * Returns the email.
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	/**
-	 * Sets the author
-	 *
-	 * @param string $author
-	 *
-	 * @return void
-	 */
-	public function setAuthor($author) {
-		$this->author = $author;
-	}
+    /**
+     * Sets the email.
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-	/**
-	 * Returns the email
-	 *
-	 * @return string $email
-	 */
-	public function getEmail() {
-		return $this->email;
-	}
+    /**
+     * Returns the website.
+     *
+     * @return string $website
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
 
-	/**
-	 * Sets the email
-	 *
-	 * @param string $email
-	 *
-	 * @return void
-	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
+    /**
+     * Sets the website.
+     *
+     * @param string $website
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    }
 
-	/**
-	 * Returns the website
-	 *
-	 * @return string $website
-	 */
-	public function getWebsite() {
-		return $this->website;
-	}
+    /**
+     * Returns the date.
+     *
+     * @return \DateTime $date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 
-	/**
-	 * Sets the website
-	 *
-	 * @param string $website
-	 *
-	 * @return void
-	 */
-	public function setWebsite($website) {
-		$this->website = $website;
-	}
+    /**
+     * Sets the date.
+     *
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
 
-	/**
-	 * Returns the date
-	 *
-	 * @return \DateTime $date
-	 */
-	public function getDate() {
-		return $this->date;
-	}
+    /**
+     * Returns the text.
+     *
+     * @return string $text
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
 
-	/**
-	 * Sets the date
-	 *
-	 * @param \DateTime $date
-	 *
-	 * @return void
-	 */
-	public function setDate($date) {
-		$this->date = $date;
-	}
+    /**
+     * Returns the plain text without tags.
+     *
+     * @return string $text
+     */
+    public function getPlainText()
+    {
+        return strip_tags($this->text);
+    }
 
-	/**
-	 * Returns the text
-	 *
-	 * @return string $text
-	 */
-	public function getText() {
-		return $this->text;
-	}
+    /**
+     * Sets the text.
+     *
+     * @param string $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
 
-	/**
-	 * Returns the plain text without tags
-	 *
-	 * @return string $text
-	 */
-	public function getPlainText() {
-		return strip_tags($this->text);
-	}
+    /**
+     * Returns the approved.
+     *
+     * @return bool $approved
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
 
-	/**
-	 * Sets the text
-	 *
-	 * @param string $text
-	 *
-	 * @return void
-	 */
-	public function setText($text) {
-		$this->text = $text;
-	}
+    /**
+     * Sets the approved.
+     *
+     * @param bool $approved
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = (boolean) $approved;
+    }
 
-	/**
-	 * Returns the approved
-	 *
-	 * @return boolean $approved
-	 */
-	public function getApproved() {
-		return $this->approved;
-	}
+    /**
+     * Returns the boolean state of approved.
+     *
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return (boolean) $this->getApproved();
+    }
 
-	/**
-	 * Sets the approved
-	 *
-	 * @param boolean $approved
-	 *
-	 * @return void
-	 */
-	public function setApproved($approved) {
-		$this->approved = (boolean) $approved;
-	}
+    /**
+     * Returns the spam.
+     *
+     * @return bool $spam
+     */
+    public function getSpam()
+    {
+        return $this->spam;
+    }
 
-	/**
-	 * Returns the boolean state of approved
-	 *
-	 * @return boolean
-	 */
-	public function isApproved() {
-		return (boolean) $this->getApproved();
-	}
+    /**
+     * Sets the spam.
+     *
+     * @param bool $spam
+     */
+    public function setSpam($spam)
+    {
+        $this->spam = (boolean) $spam;
+    }
 
-	/**
-	 * Returns the spam
-	 *
-	 * @return boolean $spam
-	 */
-	public function getSpam() {
-		return $this->spam;
-	}
+    /**
+     * @param int $spamPoints
+     */
+    public function setSpamPoints($spamPoints)
+    {
+        $this->spamPoints = $spamPoints;
+    }
 
-	/**
-	 * Sets the spam
-	 *
-	 * @param boolean $spam
-	 *
-	 * @return void
-	 */
-	public function setSpam($spam) {
-		$this->spam = (boolean)$spam;
-	}
+    /**
+     * @return int
+     */
+    public function getSpamPoints()
+    {
+        return $this->spamPoints;
+    }
 
-	/**
-	 * @param int $spamPoints
-	 *
-	 * @return void
-	 */
-	public function setSpamPoints($spamPoints) {
-		$this->spamPoints = $spamPoints;
-	}
+    /**
+     * Returns the boolean state of spam.
+     *
+     * @return bool
+     */
+    public function isSpam()
+    {
+        return (boolean) $this->getSpam();
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getSpamPoints() {
-		return $this->spamPoints;
-	}
+    /**
+     * Mark comment as spam.
+     */
+    public function markAsSpam()
+    {
+        $this->spam = true;
+    }
 
-	/**
-	 * Returns the boolean state of spam
-	 *
-	 * @return boolean
-	 */
-	public function isSpam() {
-		return (boolean)$this->getSpam();
-	}
+    /**
+     * Sets the postId.
+     *
+     * @param int $postId
+     */
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
+    }
 
-	/**
-	 * Mark comment as spam
-	 *
-	 * @return void
-	 */
-	public function markAsSpam() {
-		$this->spam = TRUE;
-	}
+    /**
+     * Returns the post id.
+     *
+     * @return int
+     */
+    public function getPostId()
+    {
+        return $this->postId;
+    }
 
-	/**
-	 * Sets the postId
-	 *
-	 * @param integer $postId
-	 *
-	 * @return void
-	 */
-	public function setPostId($postId) {
-		$this->postId = $postId;
-	}
+    /**
+     * Returns the post.
+     *
+     * @return \TYPO3\T3extblog\Domain\Model\Post
+     */
+    public function getPost()
+    {
+        if ($this->post === null) {
+            $this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
+        }
 
-	/**
-	 * Returns the post id
-	 *
-	 * @return integer
-	 */
-	public function getPostId() {
-		return $this->postId;
-	}
+        return $this->post;
+    }
 
-	/**
-	 * Returns the post
-	 *
-	 * @return \TYPO3\T3extblog\Domain\Model\Post
-	 */
-	public function getPost() {
-		if ($this->post === NULL) {
-			$this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
-		}
+    /**
+     * Returns the subscribe.
+     *
+     * @return bool $spam
+     */
+    public function getSubscribe()
+    {
+        return (boolean) $this->subscribe;
+    }
 
-		return $this->post;
-	}
+    /**
+     * Sets the subscribe.
+     *
+     * @param bool $subscribe
+     */
+    public function setSubscribe($subscribe)
+    {
+        $this->subscribe = (boolean) $subscribe;
+    }
 
-	/**
-	 * Returns the subscribe
-	 *
-	 * @return boolean $spam
-	 */
-	public function getSubscribe() {
-		return (boolean) $this->subscribe;
-	}
+    /**
+     * @param bool $mailsSent
+     */
+    public function setMailsSent($mailsSent)
+    {
+        $this->mailsSent = (boolean) $mailsSent;
+    }
 
-	/**
-	 * Sets the subscribe
-	 *
-	 * @param boolean $subscribe
-	 *
-	 * @return void
-	 */
-	public function setSubscribe($subscribe) {
-		$this->subscribe = (boolean) $subscribe;
-	}
+    /**
+     * @return bool
+     */
+    public function getMailsSent()
+    {
+        return (boolean) $this->mailsSent;
+    }
 
-	/**
-	 * @param boolean $mailsSent
-	 *
-	 * @return void
-	 */
-	public function setMailsSent($mailsSent) {
-		$this->mailsSent = (boolean) $mailsSent;
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function getMailsSent() {
-		return (boolean) $this->mailsSent;
-	}
-
-	/**
-	 * If the comment is shown in frontend
-	 *
-	 * @return boolean
-	 */
-	public function isValid() {
-		return (!$this->spam && $this->approved && !$this->hidden && !$this->deleted);
-	}
+    /**
+     * If the comment is shown in frontend.
+     *
+     * @return bool
+     */
+    public function isValid()
+    {
+        return !$this->spam && $this->approved && !$this->hidden && !$this->deleted;
+    }
 }

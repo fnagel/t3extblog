@@ -29,24 +29,24 @@ use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ViewHelperNode;
 use TYPO3Fluid\Fluid\Core\Compiler\TemplateCompiler;
 
 /**
- * Includes caching fixes for 8.x
+ * Includes caching fixes for 8.x.
  */
-trait ConditionViewHelper8xTrait  {
+trait ConditionViewHelper8xTrait
+{
+    /**
+     * Disable caching for TYPO3 8.x.
+     *
+     * {@inheritdoc}
+     */
+    public function compile(
+        $argumentsName,
+        $closureName,
+        &$initializationPhpCode,
+        ViewHelperNode $node,
+        TemplateCompiler $compiler
+    ) {
+        $compiler->disable();
 
-	/**
-	 * Disable caching for TYPO3 8.x
-	 *
-	 * @inheritdoc
-	 */
-	public function compile(
-		$argumentsName,
-		$closureName,
-		&$initializationPhpCode,
-		ViewHelperNode $node,
-		TemplateCompiler $compiler
-	) {
-		$compiler->disable();
-
-		return $compiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
-	}
+        return $compiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
+    }
 }

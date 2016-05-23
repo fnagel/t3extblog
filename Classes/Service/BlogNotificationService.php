@@ -30,119 +30,116 @@ use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
- * Handles all notification mails for new posts notification
+ * Handles all notification mails for new posts notification.
  */
-class BlogNotificationService extends AbstractNotificationService {
+class BlogNotificationService extends AbstractNotificationService
+{
+    /**
+     * subscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @inject
+     */
+    protected $subscriberRepository;
 
-	/**
-	 * subscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $subscriberRepository;
+    /**
+     */
+    public function initializeObject()
+    {
+        parent::initializeObject();
 
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		parent::initializeObject();
+        $this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.blog');
+    }
 
-		$this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.blog');
-	}
+    /**
+     * Process added subscriber.
+     *
+     * @param BlogSubscriber $subscriber
+     */
+    public function processNewEntity($subscriber)
+    {
+        if (!($subscriber instanceof BlogSubscriber)) {
+            throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
+        }
 
-	/**
-	 * Process added subscriber
-	 *
-	 * @param BlogSubscriber $subscriber
-	 *
-	 * @return void
-	 */
-	public function processNewEntity($subscriber) {
-		if (!($subscriber instanceof BlogSubscriber)) {
-			throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
-		}
+        if ($subscriber->isValidForOptin()) {
+            $this->sendOptInMail($subscriber);
+            $this->persistToDatabase();
+        }
+    }
 
-		if ($subscriber->isValidForOptin()) {
-			$this->sendOptInMail($subscriber);
-			$this->persistToDatabase();
-		}
-	}
+    /**
+     * Process changed status of a subscriber.
+     *
+     * @param BlogSubscriber $subscriber
+     */
+    public function processChangedStatus($subscriber)
+    {
+        if (!($subscriber instanceof BlogSubscriber)) {
+            throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
+        }
 
-	/**
-	 * Process changed status of a subscriber
-	 *
-	 * @param BlogSubscriber $subscriber
-	 *
-	 * @return void
-	 */
-	public function processChangedStatus($subscriber) {
-		if (!($subscriber instanceof BlogSubscriber)) {
-			throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
-		}
+        if ($subscriber->isValidForOptin()) {
+            $this->sendOptInMail($subscriber);
+            $this->persistToDatabase();
+        }
+    }
 
-		if ($subscriber->isValidForOptin()) {
-			$this->sendOptInMail($subscriber);
-			$this->persistToDatabase();
-		}
-	}
+    /**
+     * Send optin mail for subscriber.
+     *
+     * @param BlogSubscriber $subscriber
+     */
+    protected function sendOptInMail(BlogSubscriber $subscriber)
+    {
+        $this->log->dev('Send blog subscriber opt-in mail.');
 
-	/**
-	 * Send optin mail for subscriber
-	 *
-	 * @param BlogSubscriber $subscriber
-	 *
-	 * @return void
-	 */
-	protected function sendOptInMail(BlogSubscriber $subscriber) {
-		$this->log->dev('Send blog subscriber opt-in mail.');
+        $subscriber->updateAuth();
+        $this->subscriberRepository->update($subscriber);
 
-		$subscriber->updateAuth();
-		$this->subscriberRepository->update($subscriber);
+        $this->sendEmail(
+            $subscriber,
+            $this->translate('subject.subscriber.blog.new'),
+            $this->subscriptionSettings['subscriber']['template']['confirm']
+        );
+    }
 
-		$this->sendEmail(
-			$subscriber,
-			$this->translate('subject.subscriber.blog.new'),
-			$this->subscriptionSettings['subscriber']['template']['confirm']
-		);
-	}
+    /**
+     * Send post notification mails.
+     *
+     * @param Post $post
+     *
+     * @return int Amount of subscribers
+     */
+    public function notifySubscribers(Post $post)
+    {
+        $settings = $this->subscriptionSettings['subscriber'];
 
-	/**
-	 * Send post notification mails
-	 *
-	 * @param Post $post
-	 *
-	 * @return int Amount of subscribers
-	 */
-	public function notifySubscribers(Post $post) {
-		$settings = $this->subscriptionSettings['subscriber'];
+        if (!$settings['enableNotifications']) {
+            return;
+        }
 
-		if (!$settings['enableNotifications']) {
-			return;
-		}
+        if ($post->getMailsSent()) {
+            return;
+        }
 
-		if ($post->getMailsSent()) {
-			return;
-		}
+        $subscribers = $this->subscriberRepository->findForNotification();
+        $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
 
-		$subscribers = $this->subscriberRepository->findForNotification();
-		$subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
+        $this->log->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 
-		$this->log->dev('Send blog subscriber notification mails to ' . count($subscribers) . ' users.');
+        /* @var $subscriber BlogSubscriber */
+        foreach ($subscribers as $subscriber) {
+            $subscriber->updateAuth();
+            $this->subscriberRepository->update($subscriber);
 
-		/* @var $subscriber BlogSubscriber */
-		foreach ($subscribers as $subscriber) {
-			$subscriber->updateAuth();
-			$this->subscriberRepository->update($subscriber);
+            $this->sendEmail($subscriber, $subject, $settings['template']['notification'], array('post' => $post));
+        }
 
-			$this->sendEmail($subscriber, $subject, $settings['template']['notification'], array('post' => $post));
-		}
+        $post->setMailsSent(true);
+        $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
+        $this->persistToDatabase();
 
-		$post->setMailsSent(TRUE);
-		$this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
-		$this->persistToDatabase();
-
-		return count($subscribers);
-	}
-
+        return count($subscribers);
+    }
 }

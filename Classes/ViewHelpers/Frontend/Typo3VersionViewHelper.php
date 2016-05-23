@@ -28,32 +28,33 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 
 /**
- * ViewHelper to render children only for specific versions
+ * ViewHelper to render children only for specific versions.
  */
-class Typo3VersionViewHelper extends AbstractConditionViewHelper {
+class Typo3VersionViewHelper extends AbstractConditionViewHelper
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
 
-	/**
-	 * @inheritdoc
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
+        $this->registerArgument('version', 'string', 'Version to match', true, '6.2');
+        $this->registerArgument('operator', 'string', 'Compare oprtator', true, '>');
+    }
 
-		$this->registerArgument('version', 'string', 'Version to match', TRUE, '6.2');
-		$this->registerArgument('operator', 'string', 'Compare oprtator', TRUE, '>');
-	}
+    /**
+     * {@inheritdoc}
+     */
+    protected static function evaluateCondition($arguments = null)
+    {
+        $version = $arguments['version'];
+        $operator = $arguments['operator'];
 
-	/**
-	 * @inheritdoc
-	 */
-	static protected function evaluateCondition($arguments = NULL) {
-		$version = $arguments['version'];
-		$operator = $arguments['operator'];
+        if (version_compare(TYPO3_branch, (int) $version, $operator)) {
+            return true;
+        }
 
-		if (version_compare(TYPO3_branch, (int) $version, $operator)) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
+        return false;
+    }
 }

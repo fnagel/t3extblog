@@ -31,10 +31,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper;
 
 /**
- * PaginateViewHelper
+ * PaginateViewHelper.
  */
-class PaginateViewHelper extends AbstractWidgetViewHelper {
-
+class PaginateViewHelper extends AbstractWidgetViewHelper
+{
     /**
      * @var \TYPO3\T3extblog\ViewHelpers\Widget\Controller\PaginateController
      */
@@ -49,18 +49,20 @@ class PaginateViewHelper extends AbstractWidgetViewHelper {
     }
 
     /**
-     * @param mixed $objects
+     * @param mixed  $objects
      * @param string $as
-     * @param array $configuration
+     * @param array  $configuration
+     *
      * @return string
+     *
      * @throws \UnexpectedValueException
      */
     public function render($objects, $as, array $configuration = array('itemsPerPage' => 10, 'insertAbove' => false, 'insertBelow' => true, 'maximumNumberOfLinks' => 99))
     {
         if (!($objects instanceof QueryResultInterface || $objects instanceof ObjectStorage || is_array($objects))) {
-            throw new \UnexpectedValueException('Supplied file object type ' . get_class($objects) . ' must be QueryResultInterface or ObjectStorage or be an array.', 1454510731);
+            throw new \UnexpectedValueException('Supplied file object type '.get_class($objects).' must be QueryResultInterface or ObjectStorage or be an array.', 1454510731);
         }
+
         return $this->initiateSubRequest();
     }
-
 }

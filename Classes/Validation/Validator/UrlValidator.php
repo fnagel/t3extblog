@@ -30,30 +30,31 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
- * Validator for URLs
+ * Validator for URLs.
  */
-class UrlValidator extends AbstractValidator {
+class UrlValidator extends AbstractValidator
+{
+    /**
+     * Returns TRUE, if the given property ($propertyValue) is a valid URL / URI.
+     *
+     * If at least one error occurred, the result is FALSE.
+     *
+     * @param mixed $value The value that should be validated
+     *
+     * @return bool TRUE if the value is valid, FALSE if an error occured
+     */
+    public function isValid($value)
+    {
+        if (empty($value)) {
+            return true;
+        }
 
-	/**
-	 * Returns TRUE, if the given property ($propertyValue) is a valid URL / URI.
-	 *
-	 * If at least one error occurred, the result is FALSE.
-	 *
-	 * @param mixed $value The value that should be validated
-	 *
-	 * @return boolean TRUE if the value is valid, FALSE if an error occured
-	 */
-	public function isValid($value) {
-		if (empty($value)) {
-			return TRUE;
-		}
+        if (GeneralUtility::isValidUrl($value) === false) {
+            $this->addError('The given subject was not a valid URL.', 1392679659);
 
-		if (GeneralUtility::isValidUrl($value) === FALSE) {
-			$this->addError('The given subject was not a valid URL.', 1392679659);
+            return false;
+        }
 
-			return FALSE;
-		}
-
-		return TRUE;
-	}
+        return true;
+    }
 }

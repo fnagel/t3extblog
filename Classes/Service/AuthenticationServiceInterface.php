@@ -27,35 +27,31 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * AuthenticationServiceInterface
+ * AuthenticationServiceInterface.
  */
-interface AuthenticationServiceInterface {
+interface AuthenticationServiceInterface
+{
+    /**
+     * @return bool
+     */
+    public function isValid();
 
-	/**
-	 *
-	 * @return boolean
-	 */
-	public function isValid();
+    /**
+     * @param string $email
+     *
+     * @return bool
+     */
+    public function login($email);
 
-	/**
-	 *
-	 * @param string $email
-	 *
-	 * @return boolean
-	 */
-	public function login($email);
+    /**
+     *
+     */
+    public function logout();
 
-	/**
-	 *
-	 * @return void
-	 */
-	public function logout();
-
-	/**
-	 * Returns email of the subscriber object
-	 *
-	 * @return string
-	 */
-	public function getEmail();
-
+    /**
+     * Returns email of the subscriber object.
+     *
+     * @return string
+     */
+    public function getEmail();
 }

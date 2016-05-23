@@ -27,120 +27,117 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
- * BlogSubscriberController
+ * BlogSubscriberController.
  */
-class BlogSubscriberController extends AbstractSubscriberController {
+class BlogSubscriberController extends AbstractSubscriberController
+{
+    /**
+     * subscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @inject
+     */
+    protected $subscriberRepository;
 
-	/**
-	 * subscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $subscriberRepository;
+    /**
+     * Notification Service.
+     *
+     * @var \TYPO3\T3extblog\Service\BlogNotificationService
+     * @inject
+     */
+    protected $notificationService;
 
-	/**
-	 * Notification Service
-	 *
-	 * @var \TYPO3\T3extblog\Service\BlogNotificationService
-	 * @inject
-	 */
-	protected $notificationService;
+    /**
+     * subscriber.
+     *
+     * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
+     */
+    protected $subscriber = null;
 
-	/**
-	 * subscriber
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
-	 */
-	protected $subscriber = NULL;
+    /**
+     * {@inheritdoc}
+     */
+    protected function initializeAction()
+    {
+        parent::initializeAction();
 
-	/**
-	 * @inheritdoc
-	 *
-	 * @return void
-	 */
-	protected function initializeAction() {
-		parent::initializeAction();
+        $this->subscriptionSettings = $this->settings['subscriptionManager']['blog']['subscriber'];
+    }
 
-		$this->subscriptionSettings = $this->settings['subscriptionManager']['blog']['subscriber'];
-	}
+    /**
+     * action list.
+     */
+    public function listAction()
+    {
+        $this->checkAuth();
 
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$this->checkAuth();
+        $this->redirect('list', 'Subscriber');
+    }
 
-		$this->redirect('list', 'Subscriber');
-	}
+    /**
+     * Displays a form (create) or a button (delete).
+     */
+    public function createAction()
+    {
+        $this->checkAuth();
+        $email = $this->authentication->getEmail();
 
-	/**
-	 * Displays a form (create) or a button (delete)
-	 *
-	 * @return void
-	 */
-	public function createAction() {
-		$this->checkAuth();
-		$email = $this->authentication->getEmail();
+        if (!$this->settings['blogSubscription']['subscribeForPosts']) {
+            $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
+            $this->redirect('list', 'PostSubscriber');
+        }
 
-		if (!$this->settings['blogSubscription']['subscribeForPosts']) {
-			$this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
-			$this->redirect('list', 'PostSubscriber');
-		}
+        // check if user already registered
+        $subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
+        if (count($subscribers) > 0) {
+            $this->addFlashMessageByKey('alreadyRegistered', FlashMessage::NOTICE);
+            $this->redirect('list', 'PostSubscriber');
+        }
 
-		// check if user already registered
-		$subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
-		if (count($subscribers) > 0) {
-			$this->addFlashMessageByKey('alreadyRegistered', FlashMessage::NOTICE);
-			$this->redirect('list', 'PostSubscriber');
-		}
+        /* @var $subscriber \TYPO3\T3extblog\Domain\Model\BlogSubscriber */
+        $subscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\BlogSubscriber');
+        $subscriber->setEmail($email);
+        $subscriber->setHidden(false);
+        $subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
 
-		/* @var $subscriber \TYPO3\T3extblog\Domain\Model\BlogSubscriber */
-		$subscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\BlogSubscriber');
-		$subscriber->setEmail($email);
-		$subscriber->setHidden(FALSE);
-		$subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
+        $this->subscriberRepository->add($subscriber);
+        $this->persistAllEntities();
+        $this->log->dev('Added blog subscriber uid='.$subscriber->getUid());
 
-		$this->subscriberRepository->add($subscriber);
-		$this->persistAllEntities();
-		$this->log->dev('Added blog subscriber uid=' . $subscriber->getUid());
+        $this->notificationService->processNewEntity($subscriber);
 
-		$this->notificationService->processNewEntity($subscriber);
+        $this->addFlashMessageByKey('created');
+        $this->redirect('list', 'PostSubscriber');
+    }
 
-		$this->addFlashMessageByKey('created');
-		$this->redirect('list', 'PostSubscriber');
-	}
+    /**
+     * action delete.
+     *
+     * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     *
+     * @throws InvalidArgumentValueException
+     */
+    public function deleteAction($subscriber = null)
+    {
+        parent::deleteAction($subscriber);
+    }
 
-	/**
-	 * action delete
-	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
-	 *
-	 * @throws InvalidArgumentValueException
-	 * @return void
-	 */
-	public function deleteAction($subscriber = NULL) {
-		parent::deleteAction($subscriber);
-	}
-
-	/**
-	 * Finds existing subscriptions
-	 *
-	 * @param BlogSubscriber $subscriber
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	protected function findExistingSubscriptions($subscriber) {
-		return $this->subscriberRepository->findExistingSubscriptions(
-			$subscriber->getEmail(),
-			$subscriber->getUid()
-		);
-	}
-
+    /**
+     * Finds existing subscriptions.
+     *
+     * @param BlogSubscriber $subscriber
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    protected function findExistingSubscriptions($subscriber)
+    {
+        return $this->subscriberRepository->findExistingSubscriptions(
+            $subscriber->getEmail(),
+            $subscriber->getUid()
+        );
+    }
 }

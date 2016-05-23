@@ -27,36 +27,39 @@ namespace TYPO3\T3extblog\Domain\Model;
  ***************************************************************/
 
 /**
- * AbstractLocalizedEntity
+ * AbstractLocalizedEntity.
  */
-abstract class AbstractLocalizedEntity extends AbstractEntity {
+abstract class AbstractLocalizedEntity extends AbstractEntity
+{
+    /**
+     * @return int
+     */
+    public function getLocalizedUid()
+    {
+        if ($this->_languageUid) {
+            return $this->_localizedUid;
+        }
 
-	/**
-	 * @return integer
-	 */
-	public function getLocalizedUid() {
-		if ($this->_languageUid) {
-			return $this->_localizedUid;
-		}
+        return $this->getUid();
+    }
 
-		return $this->getUid();
-	}
+    /**
+     * @return int
+     */
+    public function getSysLanguageUid()
+    {
+        return $this->_languageUid;
+    }
 
-	/**
-	 * @return integer
-	 */
-	public function getSysLanguageUid() {
-		return $this->_languageUid;
-	}
+    /**
+     * @return int|null
+     */
+    public function getL18nParent()
+    {
+        if ($this->getSysLanguageUid() === 0) {
+            return 0;
+        }
 
-	/**
-	 * @return integer|null
-	 */
-	public function getL18nParent() {
-		if ($this->getSysLanguageUid() === 0) {
-			return 0;
-		}
-
-		return $this->_localizedUid;
-	}
+        return $this->_localizedUid;
+    }
 }

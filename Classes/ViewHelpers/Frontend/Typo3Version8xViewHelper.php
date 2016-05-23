@@ -28,9 +28,9 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 use TYPO3\T3extblog\Traits\ConditionViewHelper8xTrait;
 
 /**
- * ViewHelper with changed compile method signature (needed for PHP7)
+ * ViewHelper with changed compile method signature (needed for PHP7).
  */
-class Typo3Version8xViewHelper extends Typo3VersionViewHelper {
-
-	use ConditionViewHelper8xTrait;
+class Typo3Version8xViewHelper extends Typo3VersionViewHelper
+{
+    use ConditionViewHelper8xTrait;
 }

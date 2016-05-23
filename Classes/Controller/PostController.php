@@ -33,213 +33,202 @@ use TYPO3\T3extblog\Domain\Model\Post;
 use TYPO3\T3extblog\Domain\Model\Comment;
 
 /**
- * PostController
+ * PostController.
  */
-class PostController extends AbstractController {
+class PostController extends AbstractController
+{
+    /**
+     * postRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @inject
+     */
+    protected $postRepository;
 
-	/**
-	 * postRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 * @inject
-	 */
-	protected $postRepository;
+    /**
+     * Displays a list of posts.
+     */
+    public function listAction()
+    {
+        $this->view->assign('posts', $this->findPosts());
+    }
 
-	/**
-	 * Displays a list of posts.
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$this->view->assign('posts', $this->findPosts());
-	}
+    /**
+     * Displays a list of posts related to a category.
+     *
+     * @param Category $category
+     */
+    public function categoryAction(Category $category)
+    {
+        $this->view->assign('posts', $this->findPosts($category));
+    }
 
-	/**
-	 * Displays a list of posts related to a category
-	 *
-	 * @param Category $category
-	 *
-	 * @return void
-	 */
-	public function categoryAction(Category $category) {
-		$this->view->assign('posts', $this->findPosts($category));
-	}
+    /**
+     * Displays a list of posts created by an author.
+     *
+     * @param BackendUser $author
+     */
+    public function authorAction(BackendUser $author)
+    {
+        $this->view->assign('posts', $this->findPosts($author));
+    }
 
-	/**
-	 * Displays a list of posts created by an author
-	 *
-	 * @param BackendUser $author
-	 *
-	 * @return void
-	 */
-	public function authorAction(BackendUser $author) {
-		$this->view->assign('posts', $this->findPosts($author));
-	}
+    /**
+     * Displays a list of posts related to a tag.
+     *
+     * @param string $tag The name of the tag to show the posts for
+     */
+    public function tagAction($tag)
+    {
+        $posts = $this->findPosts($tag);
 
-	/**
-	 * Displays a list of posts related to a tag
-	 *
-	 * @param string $tag The name of the tag to show the posts for
-	 *
-	 * @return void
-	 */
-	public function tagAction($tag) {
-		$posts = $this->findPosts($tag);
+        if (count($posts) === 0) {
+            GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
+        }
 
-		if (count($posts) === 0) {
-			GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
-		}
+        $this->view->assign('posts', $posts);
+    }
 
-		$this->view->assign('posts', $posts);
-	}
+    /**
+     * Displays a list of latest posts.
+     */
+    public function latestAction()
+    {
+        $category = null;
 
-	/**
-	 * Displays a list of latest posts.
-	 *
-	 * @return void
-	 */
-	public function latestAction() {
-		$category = NULL;
+        if (isset($this->settings['latestPosts']['categoryUid'])) {
+            $category = $this->objectManager
+                ->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
+                ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
+        }
 
-		if (isset($this->settings['latestPosts']['categoryUid'])) {
-			$category = $this->objectManager
-				->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
-				->findByUid((int) $this->settings['latestPosts']['categoryUid']);
-		}
+        $this->view->assign('posts', $this->findPosts($category));
+    }
 
-		$this->view->assign('posts', $this->findPosts($category));
-	}
+    /**
+     * Find all or filtered by tag, category or author.
+     *
+     * @param mixed $filter
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    protected function findPosts($filter = null)
+    {
+        if ($filter instanceof BackendUser) {
+            $this->view->assign('author', $filter);
+        }
 
-	/**
-	 * Find all or filtered by tag, category or author
-	 *
-	 * @param mixed $filter
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	protected function findPosts($filter = NULL) {
-		if ($filter instanceof BackendUser) {
-			$this->view->assign('author', $filter);
-		}
+        if ($filter instanceof Category) {
+            $this->view->assign('category', $filter);
+        }
 
-		if ($filter instanceof Category) {
-			$this->view->assign('category', $filter);
-		}
+        if (is_string($filter) && strlen($filter) > 2) {
+            $filter = urldecode($filter);
+            $this->view->assign('tag', $filter);
+        }
 
-		if (is_string($filter) && strlen($filter) > 2) {
-			$filter = urldecode($filter);
-			$this->view->assign('tag', $filter);
-		}
+        $posts = $this->postRepository->findByFilter($filter);
 
-		$posts = $this->postRepository->findByFilter($filter);
+        if ($posts !== null) {
+            // Add basic PID based cache tag
+            $this->addCacheTags($posts->getFirst());
+        }
 
-		if ($posts !== NULL) {
-			// Add basic PID based cache tag
-			$this->addCacheTags($posts->getFirst());
-		}
+        return $posts;
+    }
 
-		return $posts;
-	}
+    /**
+     * Displays archive of all posts.
+     */
+    public function archiveAction()
+    {
+        $this->view->assign('posts', $this->findPosts());
+    }
 
-	/**
-	 * Displays archive of all posts.
-	 *
-	 * @return void
-	 */
-	public function archiveAction() {
-		$this->view->assign('posts', $this->findPosts());
-	}
+    /**
+     * Initializes the current action.
+     */
+    public function initializeRssAction()
+    {
+        // set format to xml
+        $this->request->setFormat('xml');
+    }
 
-	/**
-	 * Initializes the current action
-	 *
-	 * @return void
-	 */
-	public function initializeRssAction() {
-		// set format to xml
-		$this->request->setFormat('xml');
-	}
+    /**
+     * Displays rss feed of all posts.
+     */
+    public function rssAction()
+    {
+        $this->view->assign('posts', $this->findPosts());
+    }
 
-	/**
-	 * Displays rss feed of all posts.
-	 *
-	 * @return void
-	 */
-	public function rssAction() {
-		$this->view->assign('posts', $this->findPosts());
-	}
+    /**
+     * Redirects permalinks to default show action.
+     *
+     * @param int $permalinkPost The post to display
+     */
+    public function permalinkAction($permalinkPost)
+    {
+        $post = $this->postRepository->findByUid((int) $permalinkPost);
 
-	/**
-	 * Redirects permalinks to default show action
-	 *
-	 * @param int $permalinkPost The post to display
-	 *
-	 * @return void
-	 */
-	public function permalinkAction($permalinkPost) {
-		$post = $this->postRepository->findByUid((int) $permalinkPost);
+        if ($post === null) {
+            GeneralUtility::getTsFe()->pageNotFoundAndExit('Post not found!');
+        }
 
-		if ($post === NULL) {
-			GeneralUtility::getTsFe()->pageNotFoundAndExit('Post not found!');
-		}
+        $this->redirect('show', 'Post', null, $post->getLinkParameter(), null, 0, 303);
+    }
 
-		$this->redirect('show', 'Post', NULL, $post->getLinkParameter(), NULL, 0, 303);
-	}
+    /**
+     * Displays one single post.
+     *
+     * @ignorevalidation $newComment
+     * @dontvalidate $newComment
+     *
+     * @param Post    $post       The post to display
+     * @param Comment $newComment A new comment
+     */
+    public function showAction(Post $post, Comment $newComment = null)
+    {
+        if ($newComment === null) {
+            $newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
+        }
 
-	/**
-	 * Displays one single post
-	 *
-	 * @ignorevalidation $newComment
-	 * @dontvalidate $newComment
-	 *
-	 * @param Post $post The post to display
-	 * @param Comment $newComment A new comment
-	 *
-	 * @return void
-	 */
-	public function showAction(Post $post, Comment $newComment = NULL) {
-		if ($newComment === NULL) {
-			$newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
-		}
+        // Add cache tags
+        $this->addCacheTags($post);
+        $this->addCacheTags('tx_t3blog_com_pid_'.$post->getPid());
+        $this->addCacheTags('tx_t3blog_post_uid_'.$post->getLocalizedUid());
 
-		// Add cache tags
-		$this->addCacheTags($post);
-		$this->addCacheTags('tx_t3blog_com_pid_' . $post->getPid());
-		$this->addCacheTags('tx_t3blog_post_uid_' . $post->getLocalizedUid());
+        // @todo: This will not work as this action is cached
+        // $post->riseNumberOfViews();
 
-		// @todo: This will not work as this action is cached
-		// $post->riseNumberOfViews();
+        $this->view->assign('post', $post);
+        $this->view->assign('newComment', $newComment);
 
-		$this->view->assign('post', $post);
-		$this->view->assign('newComment', $newComment);
+        $this->view->assign('nextPost', $this->postRepository->nextPost($post));
+        $this->view->assign('previousPost', $this->postRepository->previousPost($post));
+    }
 
-		$this->view->assign('nextPost', $this->postRepository->nextPost($post));
-		$this->view->assign('previousPost', $this->postRepository->previousPost($post));
-	}
+    /**
+     * Preview a post.
+     * 
+     * Testing does not work on local environment
+     * Issues when baseUrl AND absRefPrefix are set
+     *
+     * @param int $previewPost The post to display
+     *
+     * @throws \Exception
+     */
+    public function previewAction($previewPost)
+    {
+        if (!GeneralUtility::isValidBackendUser()) {
+            throw new \Exception('Preview not allowed.');
+        }
 
-	/**
-	 * Preview a post
-	 * 
-	 * Testing does not work on local environment
-	 * Issues when baseUrl AND absRefPrefix are set
-	 *
-	 * @param integer $previewPost The post to display
-	 *
-	 * @throws \Exception
-	 *
-	 * @return void
-	 */
-	public function previewAction($previewPost) {
-		if (!GeneralUtility::isValidBackendUser()) {
-			throw new \Exception('Preview not allowed.');
-		}
+        if (is_int($previewPost)) {
+            $post = $this->postRepository->findByUid($previewPost, false);
+            $this->forward('show', null, null, array('post' => $post));
+        }
 
-		if (is_int($previewPost)) {
-			$post = $this->postRepository->findByUid($previewPost, FALSE);
-			$this->forward('show', NULL, NULL, array('post' => $post));
-		}
-
-		$this->errorAction();
-	}
-
+        $this->errorAction();
+    }
 }

@@ -32,192 +32,199 @@ use TYPO3\T3extblog\Domain\Model\Category;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * PostRepository
+ * PostRepository.
  */
-class PostRepository extends AbstractRepository {
+class PostRepository extends AbstractRepository
+{
+    protected $defaultOrderings = array(
+        'publishDate' => QueryInterface::ORDER_DESCENDING,
+    );
 
-	protected $defaultOrderings = array(
-		'publishDate' => QueryInterface::ORDER_DESCENDING
-	);
+    /**
+     * Override default findByUid function to enable also the option to turn of
+     * the enableField setting.
+     *
+     * @param int  $uid                 id of record
+     * @param bool $respectEnableFields if set to false, hidden records are shown
+     *
+     * @return Post
+     */
+    public function findByUid($uid, $respectEnableFields = true)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Override default findByUid function to enable also the option to turn of
-	 * the enableField setting
-	 *
-	 * @param integer $uid id of record
-	 * @param boolean $respectEnableFields if set to false, hidden records are shown
-	 *
-	 * @return Post
-	 */
-	public function findByUid($uid, $respectEnableFields = TRUE) {
-		$query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+        $query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
 
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('uid', $uid),
+                $query->equals('deleted', 0)
+            )
+        );
 
-		$query->matching(
-			$query->logicalAnd(
-				$query->equals('uid', $uid),
-				$query->equals('deleted', 0)
-			)
-		);
+        return $query->execute()->getFirst();
+    }
 
-		return $query->execute()->getFirst();
-	}
+    /**
+     * Gets post by uid.
+     *
+     * Workaround as long as setRespectStoragePage does not work
+     * See related bug: https://forge.typo3.org/issues/47192
+     *
+     * @todo This should be changed to a default findByUid when above bug is fixed
+     *
+     * @param int  $uid                 id of record
+     * @param bool $respectEnableFields if set to false, hidden records are shown
+     *
+     * @return Post
+     */
+    public function findByLocalizedUid($uid, $respectEnableFields = true)
+    {
+        $temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];
+        $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = null;
 
-	/**
-	 * Gets post by uid
-	 *
-	 * Workaround as long as setRespectStoragePage does not work
-	 * See related bug: https://forge.typo3.org/issues/47192
-	 *
-	 * @todo This should be changed to a default findByUid when above bug is fixed
-	 *
-	 * @param integer $uid id of record
-	 * @param boolean $respectEnableFields if set to false, hidden records are shown
-	 *
-	 * @return Post
-	 */
-	public function findByLocalizedUid($uid, $respectEnableFields = TRUE) {
-		$temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];
-		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = NULL;
+        $post = $this->findByUid($uid, $respectEnableFields);
 
-		$post = $this->findByUid($uid, $respectEnableFields);
+        $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = $temp;
 
-		$GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = $temp;
+        return $post;
+    }
 
-		return $post;
-	}
+    /**
+     * Get next post.
+     *
+     * @param Post $post
+     *
+     * @return Post
+     */
+    public function nextPost(Post $post)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Get next post
-	 *
-	 * @param Post $post
-	 *
-	 * @return Post
-	 */
-	public function nextPost(Post $post) {
-		$query = $this->createQuery();
+        $query->setOrderings(
+            array('publishDate' => QueryInterface::ORDER_ASCENDING)
+        );
 
-		$query->setOrderings(
-			array('publishDate' => QueryInterface::ORDER_ASCENDING)
-		);
+        $query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
 
-		$query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
+        return $query->execute()->getFirst();
+    }
 
-		return $query->execute()->getFirst();
-	}
+    /**
+     * Get previous post.
+     *
+     * @param Post $post
+     *
+     * @return Post
+     */
+    public function previousPost(Post $post)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Get previous post
-	 *
-	 * @param Post $post
-	 *
-	 * @return Post
-	 */
-	public function previousPost(Post $post) {
-		$query = $this->createQuery();
+        $query->matching($query->lessThan('publishDate', $post->getPublishDate()));
 
-		$query->matching($query->lessThan('publishDate', $post->getPublishDate()));
+        return $query->execute()->getFirst();
+    }
 
-		return $query->execute()->getFirst();
-	}
+    /**
+     * Find all or filtered by tag, category or author.
+     *
+     * @param mixed $filter
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByFilter($filter = null)
+    {
+        if ($filter === null) {
+            return $this->findAll();
+        }
 
-	/**
-	 * Find all or filtered by tag, category or author
-	 *
-	 * @param mixed $filter
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByFilter($filter = NULL) {
-		if ($filter === NULL) {
-			return $this->findAll();
-		}
+        if ($filter instanceof BackendUser) {
+            return $this->findByAuthor($filter);
+        }
 
-		if ($filter instanceof BackendUser) {
-			return $this->findByAuthor($filter);
-		}
+        if ($filter instanceof Category) {
+            return $this->findByCategory($filter);
+        }
 
-		if ($filter instanceof Category) {
-			return $this->findByCategory($filter);
-		}
+        if (is_string($filter)) {
+            return $this->findByTag($filter);
+        }
 
-		if (is_string($filter)) {
-			return $this->findByTag($filter);
-		}
+        return;
+    }
 
-		return NULL;
-	}
+    /**
+     * Finds posts by the specified tag.
+     *
+     * @param string $tag
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByTag($tag)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Finds posts by the specified tag
-	 *
-	 * @param string $tag
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByTag($tag) {
-		$query = $this->createQuery();
+        $query->matching(
+            $query->like('tagCloud', '%'.$tag.'%')
+        );
 
-		$query->matching(
-			$query->like('tagCloud', '%' . $tag . '%')
-		);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Returns all objects of this repository with matching category.
+     *
+     * @param Category $category
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByCategory($category)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Returns all objects of this repository with matching category
-	 *
-	 * @param Category $category
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByCategory($category) {
-		$query = $this->createQuery();
+        $constraints = array();
+        $constraints[] = $query->contains('categories', $category);
 
-		$constraints = array();
-		$constraints[] = $query->contains('categories', $category);
+        $categories = $category->getChildCategories();
 
-		$categories = $category->getChildCategories();
+        if (count($categories) > 0) {
+            foreach ($categories as $childCategory) {
+                $constraints[] = $query->contains('categories', $childCategory);
+            }
+        }
 
-		if (count($categories) > 0) {
-			foreach ($categories as $childCategory) {
-				$constraints[] = $query->contains('categories', $childCategory);
-			}
-		}
+        $query->matching($query->logicalOr($constraints));
 
-		$query->matching($query->logicalOr($constraints));
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Returns all hidden posts of a time frame from now.
+     *
+     * @param int    $pid
+     * @param string $until
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findDrafts($pid = 0, $until = '- 3 months')
+    {
+        $query = $this->createQuery((int) $pid);
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-	/**
-	 * Returns all hidden posts of a time frame from now
-	 *
-	 * @param integer $pid
-	 * @param string $until
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findDrafts($pid = 0, $until = '- 3 months') {
-		$query = $this->createQuery((int) $pid);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+        $date = new \DateTime();
+        $date->modify($until);
 
-		$date = new \DateTime();
-		$date->modify($until);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('hidden', 1),
+                $query->equals('deleted', 0),
+                $query->greaterThanOrEqual('crdate', $date->getTimestamp())
+            )
+        );
 
-		$query->matching(
-			$query->logicalAnd(
-				$query->equals('hidden', 1),
-				$query->equals('deleted', 0),
-				$query->greaterThanOrEqual('crdate', $date->getTimestamp())
-			)
-		);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

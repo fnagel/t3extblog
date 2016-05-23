@@ -45,105 +45,105 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  * If you need to show news on different single view pages, make several sitemaps
  * (it is possible with Google).
  */
-class Generator extends TtNewsSitemapGenerator {
+class Generator extends TtNewsSitemapGenerator
+{
+    /**
+     * Creates an instance of this.
+     *
+     * We cant use parent constructor as the wrong class will be initiated
+     */
+    public function __construct()
+    {
+        $this->rendererClass = 'TYPO3\\T3extblog\\Hooks\\Sitemap\\Renderer';
 
-	/**
-	 * Creates an instance of this
-	 *
-	 * We cant use parent constructor as the wrong class will be initiated
-	 */
-	public function __construct() {
-		$this->rendererClass = 'TYPO3\\T3extblog\\Hooks\\Sitemap\\Renderer';
+        $this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        $this->cObj->start(array());
 
-		$this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
-		$this->cObj->start(array());
+        $this->offset = max(0, (int) GeneralUtility::_GET('offset'));
+        $this->limit = max(0, (int) GeneralUtility::_GET('limit'));
+        if ($this->limit <= 0) {
+            $this->limit = 100;
+        }
 
-		$this->offset = max(0, (int) GeneralUtility::_GET('offset'));
-		$this->limit = max(0, (int) GeneralUtility::_GET('limit'));
-		if ($this->limit <= 0) {
-			$this->limit = 100;
-		}
+        $this->createRenderer();
 
-		$this->createRenderer();
+        $singlePid = intval(GeneralUtility::_GP('singlePid'));
+        $this->singlePid = $singlePid && $this->isInRootline($singlePid) ?
+            $singlePid : \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->id;
 
-		$singlePid = intval(GeneralUtility::_GP('singlePid'));
-		$this->singlePid = $singlePid && $this->isInRootline($singlePid) ?
-			$singlePid : \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->id;
+        $this->validateAndcreatePageList();
+    }
 
-		$this->validateAndcreatePageList();
-	}
+    /**
+     * Generates news site map.
+     */
+    protected function generateSitemapContent()
+    {
+        if (count($this->pidList) > 0) {
+            $languageCondition = '';
+            $language = GeneralUtility::_GP('L');
+            if (MathUtility::canBeInterpretedAsInteger($language)) {
+                $languageCondition = ' AND sys_language_uid='.$language;
+            }
 
-	/**
-	 * Generates news site map.
-	 *
-	 * @return    void
-	 */
-	protected function generateSitemapContent() {
-		if (count($this->pidList) > 0) {
-			$languageCondition = '';
-			$language = GeneralUtility::_GP('L');
-			if (MathUtility::canBeInterpretedAsInteger($language)) {
-				$languageCondition = ' AND sys_language_uid=' . $language;
-			}
-
-			/** @noinspection PhpUndefinedMethodInspection */
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',
-				'tx_t3blog_post', 'pid IN (' . implode(',', $this->pidList) . ')' .
+            /* @noinspection PhpUndefinedMethodInspection */
+            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',
+                'tx_t3blog_post', 'pid IN ('.implode(',', $this->pidList).')'.
 //				' AND date>=' . (time() - 48 * 60 * 60) .
-				$languageCondition .
-				$this->cObj->enableFields('tx_t3blog_post'), '', 'date DESC',
-				$this->offset . ',' . $this->limit
-			);
-			/** @noinspection PhpUndefinedMethodInspection */
-			$rowCount = $GLOBALS['TYPO3_DB']->sql_num_rows($res);
-			/** @noinspection PhpUndefinedMethodInspection */
-			while (FALSE !== ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
-				if (($url = $this->getPostItemUrl($row))) {
-					echo $this->renderer->renderEntry($url, $row['title'], $row['date'], '', $row['tagClouds']);
-				}
-			}
-			/** @noinspection PhpUndefinedMethodInspection */
-			$GLOBALS['TYPO3_DB']->sql_free_result($res);
+                $languageCondition.
+                $this->cObj->enableFields('tx_t3blog_post'), '', 'date DESC',
+                $this->offset.','.$this->limit
+            );
+            /* @noinspection PhpUndefinedMethodInspection */
+            $rowCount = $GLOBALS['TYPO3_DB']->sql_num_rows($res);
+            /* @noinspection PhpUndefinedMethodInspection */
+            while (false !== ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+                if (($url = $this->getPostItemUrl($row))) {
+                    echo $this->renderer->renderEntry($url, $row['title'], $row['date'], '', $row['tagClouds']);
+                }
+            }
+            /* @noinspection PhpUndefinedMethodInspection */
+            $GLOBALS['TYPO3_DB']->sql_free_result($res);
 
-			if ($rowCount === 0) {
-				echo '<!-- It appears that there are no tx_t3blog_post entries. If your ' .
-					'blog storage sysfolder is outside of the rootline, you may ' .
-					'want to use the dd_googlesitemap.skipRootlineCheck=1 TS ' .
-					'setup option. Beware: it is insecure and may cause certain ' .
-					'undesired effects! Better move your news sysfolder ' .
-					'inside the rootline! -->';
-			}
-		}
-	}
+            if ($rowCount === 0) {
+                echo '<!-- It appears that there are no tx_t3blog_post entries. If your '.
+                    'blog storage sysfolder is outside of the rootline, you may '.
+                    'want to use the dd_googlesitemap.skipRootlineCheck=1 TS '.
+                    'setup option. Beware: it is insecure and may cause certain '.
+                    'undesired effects! Better move your news sysfolder '.
+                    'inside the rootline! -->';
+            }
+        }
+    }
 
-	/**
-	 * Creates a link to the news item
-	 *
-	 * @param array $row Post item
-	 *
-	 * @return    string
-	 */
-	protected function getPostItemUrl($row) {
-		$date = new \DateTime();
-		$date->setTimestamp($row['date']);
+    /**
+     * Creates a link to the news item.
+     *
+     * @param array $row Post item
+     *
+     * @return string
+     */
+    protected function getPostItemUrl($row)
+    {
+        $date = new \DateTime();
+        $date->setTimestamp($row['date']);
 
-		$linkParameters = GeneralUtility::implodeArrayForUrl('tx_t3extblog_blogsystem', array(
-			'post' => $row['uid'],
-			'day' => $date->format('d'),
-			'month' => $date->format('m'),
-			'year' => $date->format('Y'),
-		));
+        $linkParameters = GeneralUtility::implodeArrayForUrl('tx_t3extblog_blogsystem', array(
+            'post' => $row['uid'],
+            'day' => $date->format('d'),
+            'month' => $date->format('m'),
+            'year' => $date->format('Y'),
+        ));
 
-		$conf = array(
-			'additionalParams' => $linkParameters,
-			'forceAbsoluteUrl' => 1,
-			'parameter' => $this->singlePid,
-			'returnLast' => 'url',
-			'useCacheHash' => TRUE,
-		);
-		$link = htmlspecialchars($this->cObj->typoLink('', $conf));
+        $conf = array(
+            'additionalParams' => $linkParameters,
+            'forceAbsoluteUrl' => 1,
+            'parameter' => $this->singlePid,
+            'returnLast' => 'url',
+            'useCacheHash' => true,
+        );
+        $link = htmlspecialchars($this->cObj->typoLink('', $conf));
 
-		return $link;
-	}
-
+        return $link;
+    }
 }

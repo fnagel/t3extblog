@@ -30,60 +30,63 @@ use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * ViewHelper
+ * ViewHelper.
  */
-class CommentAllowedViewHelper extends AbstractConditionViewHelper {
+class CommentAllowedViewHelper extends AbstractConditionViewHelper
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
 
-	/**
-	 * @inheritdoc
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
+        $this->registerArgument(
+            'post',
+            'TYPO3\\T3extblog\\Domain\\Model\\Post', 'Post object to check if new comments are allowed.',
+            true
+        );
+    }
 
-		$this->registerArgument(
-			'post',
-			'TYPO3\\T3extblog\\Domain\\Model\\Post', 'Post object to check if new comments are allowed.',
-			TRUE
-		);
-	}
+    /**
+     * Check if a new comment is allowed.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $this->arguments['settings'] = $this->templateVariableContainer->get('settings');
 
-	/**
-	 * Check if a new comment is allowed
-	 *
-	 * @return string
-	 */
-	public function render() {
-		$this->arguments['settings'] = $this->templateVariableContainer->get('settings');
+        return parent::render();
+    }
 
-		return parent::render();
-	}
+    /**
+     * This method decides if the condition is TRUE or FALSE.
+     *
+     * @param array $arguments ViewHelper arguments to evaluate the condition
+     *
+     * @return bool
+     */
+    protected static function evaluateCondition($arguments = null)
+    {
+        /* @var Post $post */
+        $post = $arguments['post'];
+        $settings = $arguments['settings'];
 
-	/**
-	 * This method decides if the condition is TRUE or FALSE
-	 *
-	 * @param array $arguments ViewHelper arguments to evaluate the condition
-	 * @return bool
-	 */
-	static protected function evaluateCondition($arguments = null) {
-		/* @var Post $post */
-		$post = $arguments['post'];
-		$settings = $arguments['settings'];
+        if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
+            return false;
+        }
 
-		if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
-			return FALSE;
-		}
+        if ($post->getAllowComments() === 2 && empty(GeneralUtility::getTsFe()->loginUser)) {
+            return false;
+        }
 
-		if ($post->getAllowComments() === 2 && empty(GeneralUtility::getTsFe()->loginUser)) {
-			return FALSE;
-		}
+        if ($settings['blogsystem']['comments']['allowedUntil']) {
+            if ($post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))) {
+                return false;
+            }
+        }
 
-		if ($settings['blogsystem']['comments']['allowedUntil']) {
-			if ($post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))) {
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
+        return true;
+    }
 }

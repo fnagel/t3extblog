@@ -30,126 +30,132 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
- * AbstractEntity
+ * AbstractEntity.
  */
-abstract class AbstractEntity extends CoreAbstractEntity {
+abstract class AbstractEntity extends CoreAbstractEntity
+{
+    /**
+     * Creation date and time.
+     *
+     * @var \DateTime
+     */
+    protected $crdate;
 
-	/**
-	 * Creation date and time
-	 *
-	 * @var \DateTime
-	 */
-	protected $crdate;
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager = null;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager = NULL;
+    /**
+     * commentRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     */
+    protected $commentRepository = null;
 
-	/**
-	 * commentRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
-	 */
-	protected $commentRepository = NULL;
+    /**
+     * postRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     */
+    protected $postRepository = null;
 
-	/**
-	 * postRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected $postRepository = NULL;
+    /**
+     * @return \DateTime
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
+    }
 
-	/**
-	 * @return \DateTime
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
+    /**
+     * @return \DateTime
+     */
+    public function getCreateDate()
+    {
+        return $this->getCrdate();
+    }
 
-	/**
-	 * @return \DateTime
-	 */
-	public function getCreateDate() {
-		return $this->getCrdate();
-	}
+    /**
+     * @param $crdate
+     */
+    public function setCrdate($crdate)
+    {
+        $this->crdate = $crdate;
+    }
 
-	/**
-	 * @param $crdate
-	 * @return void
-	 */
-	public function setCrdate($crdate) {
-		$this->crdate = $crdate;
-	}
+    /**
+     * Get commentRepository.
+     *
+     * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     */
+    protected function getCommentRepository()
+    {
+        if ($this->commentRepository === null) {
+            $this->commentRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository');
+        }
 
-	/**
-	 * Get commentRepository
-	 *
-	 * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
-	 */
-	protected function getCommentRepository() {
-		if ($this->commentRepository === NULL) {
-			$this->commentRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository');
-		}
+        return $this->commentRepository;
+    }
 
-		return $this->commentRepository;
-	}
+    /**
+     * Get postRepository.
+     *
+     * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
+     */
+    protected function getPostRepository()
+    {
+        if ($this->postRepository === null) {
+            $this->postRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
+        }
 
-	/**
-	 * Get postRepository
-	 *
-	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected function getPostRepository() {
-		if ($this->postRepository === NULL) {
-			$this->postRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
-		}
+        return $this->postRepository;
+    }
 
-		return $this->postRepository;
-	}
+    /**
+     * Makes an array out of all public getter methods.
+     *
+     * @param bool $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
+     *
+     * @return array
+     */
+    public function toArray($camelCaseKeys = false)
+    {
+        $camelCaseProperties = ObjectAccess::getGettableProperties($this);
 
-	/**
-	 * Makes an array out of all public getter methods
-	 *
-	 * @param boolean $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
-	 *
-	 * @return array
-	 */
-	public function toArray($camelCaseKeys = FALSE) {
-		$camelCaseProperties = ObjectAccess::getGettableProperties($this);
+        if ($camelCaseKeys === true) {
+            return $camelCaseProperties;
+        }
 
-		if ($camelCaseKeys === TRUE) {
-			return $camelCaseProperties;
-		}
+        $data = array();
+        foreach ($camelCaseProperties as $camelCaseFieldKey => $value) {
+            $fieldKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseFieldKey));
 
-		$data = array();
-		foreach ($camelCaseProperties as $camelCaseFieldKey => $value) {
-			$fieldKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseFieldKey));
+            // TYPO3 cObj edge case
+            if ($camelCaseFieldKey === 'cType') {
+                $fieldKey = ucfirst($camelCaseFieldKey);
+            }
 
-			// TYPO3 cObj edge case
-			if ($camelCaseFieldKey === 'cType') {
-				$fieldKey = ucfirst($camelCaseFieldKey);
-			}
+            $data[$fieldKey] = $value;
+        }
 
-			$data[$fieldKey] = $value;
-		}
+        return $data;
+    }
 
-		return $data;
-	}
+    /**
+     * Serialization (sleep) helper.
+     *
+     * @return array Names of the properties to be serialized
+     */
+    public function __sleep()
+    {
+        $properties = get_object_vars($this);
 
-	/**
-	 * Serialization (sleep) helper.
-	 *
-	 * @return array Names of the properties to be serialized
-	 */
-	public function __sleep() {
-		$properties = get_object_vars($this);
+        // fix to make sure we are able to use forward in controller
+        unset($properties['postRepository']);
+        unset($properties['commentRepository']);
 
-		// fix to make sure we are able to use forward in controller
-		unset($properties['postRepository']);
-		unset($properties['commentRepository']);
-
-		return array_keys($properties);
-	}
+        return array_keys($properties);
+    }
 }

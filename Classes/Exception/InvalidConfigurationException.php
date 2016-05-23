@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\T3extblog\Exception;
 
 /***************************************************************
@@ -25,8 +26,8 @@ namespace TYPO3\T3extblog\Exception;
  ***************************************************************/
 
 /**
- * Handle Exception for missing / invalid configuration
+ * Handle Exception for missing / invalid configuration.
  */
-class InvalidConfigurationException extends \Exception {
-
+class InvalidConfigurationException extends \Exception
+{
 }

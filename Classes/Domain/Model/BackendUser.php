@@ -29,32 +29,33 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Extbase\Domain\Model\BackendUser as BaseBackendUser;
 
 /**
- * BackendUser
+ * BackendUser.
  */
-class BackendUser extends BaseBackendUser {
+class BackendUser extends BaseBackendUser
+{
+    /**
+     * Returns the name value.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        $name = $this->getRealName();
 
-	/**
-	 * Returns the name value
-	 *
-	 * @return string
-	 */
-	public function getName() {
-		$name = $this->getRealName();
+        if ($name === '') {
+            $name = $this->getUserName();
+        }
 
-		if ($name === '') {
-			$name = $this->getUserName();
-		}
+        return $name;
+    }
 
-		return $name;
-	}
-
-	/**
-	 * Returns prepared mailto array
-	 *
-	 * @return array
-	 */
-	public function getMailTo() {
-		return array($this->getEmail() => $this->getName());
-	}
-
+    /**
+     * Returns prepared mailto array.
+     *
+     * @return array
+     */
+    public function getMailTo()
+    {
+        return array($this->getEmail() => $this->getName());
+    }
 }

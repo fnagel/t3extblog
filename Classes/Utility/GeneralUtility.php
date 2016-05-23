@@ -27,97 +27,100 @@ namespace TYPO3\T3extblog\Utility;
  ***************************************************************/
 
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use \TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
- * General utility class
+ * General utility class.
  */
-class GeneralUtility {
+class GeneralUtility
+{
+    /**
+     * Get TypoScript frontend controller.
+     *
+     * @param int $pageUid
+     *
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    public static function getTsFe($pageUid = 0)
+    {
+        if (TYPO3_MODE === 'BE') {
+            return self::generateTypoScriptFrontendController($pageUid);
+        }
 
-	/**
-	 * Get TypoScript frontend controller
-	 *
-	 * @param int $pageUid
-	 *
-	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-	 */
-	public static function getTsFe($pageUid = 0) {
-		if (TYPO3_MODE === 'BE') {
-			return self::generateTypoScriptFrontendController($pageUid);
-		}
+        return $GLOBALS['TSFE'];
+    }
 
-		return $GLOBALS['TSFE'];
-	}
+    /**
+     * Generate TypoScriptFrontendController (use in BE context).
+     *
+     * @param int $pageUid
+     * @param int $pageType
+     *
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    protected static function generateTypoScriptFrontendController($pageUid, $pageType = 0)
+    {
+        EidUtility::initTCA();
 
-	/**
-	 * Generate TypoScriptFrontendController (use in BE context)
-	 *
-	 * @param int $pageUid
-	 * @param int $pageType
-	 *
-	 * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-	 */
-	protected static function generateTypoScriptFrontendController($pageUid, $pageType = 0) {
-		EidUtility::initTCA();
+        if (!is_object($GLOBALS['TT'])) {
+            $GLOBALS['TT'] = new TimeTracker();
+            $GLOBALS['TT']->start();
+        }
 
-		if (!is_object($GLOBALS['TT'])) {
-			$GLOBALS['TT'] = new TimeTracker;
-			$GLOBALS['TT']->start();
-		}
+        $GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
+            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+            $GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, $pageType
+        );
 
-		$GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
-			'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-			$GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, $pageType
-		);
+        $GLOBALS['TSFE']->connectToDB();
+        $GLOBALS['TSFE']->initFEuser();
+        $GLOBALS['TSFE']->determineId();
+        $GLOBALS['TSFE']->initTemplate();
+        $GLOBALS['TSFE']->getConfigArray();
+        $GLOBALS['TSFE']->settingLanguage();
+        $GLOBALS['TSFE']->settingLocale();
 
-		$GLOBALS['TSFE']->connectToDB();
-		$GLOBALS['TSFE']->initFEuser();
-		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->getConfigArray();
-		$GLOBALS['TSFE']->settingLanguage();
-		$GLOBALS['TSFE']->settingLocale();
+        return $GLOBALS['TSFE'];
+    }
 
-		return $GLOBALS['TSFE'];
-	}
+    /**
+     * Get page renderer.
+     *
+     * @return \TYPO3\CMS\Core\Page\PageRenderer
+     */
+    public static function getPageRenderer()
+    {
+        if (version_compare(TYPO3_branch, '8.0', '>=')) {
+            return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+        } else {
+            return self::getTsFe()->getPageRenderer();
+        }
+    }
 
-	/**
-	 * Get page renderer
-	 *
-	 * @return \TYPO3\CMS\Core\Page\PageRenderer
-	 */
-	public static function getPageRenderer() {
-		if (version_compare(TYPO3_branch, '8.0', '>=')) {
-			return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
-		} else {
-			return self::getTsFe()->getPageRenderer();
-		}
-	}
+    /**
+     * Check if a valid BE login exists.
+     *
+     * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.
+     * See https://forge.typo3.org/issues/23625
+     *
+     * @todo Fixme! Workaround for bug in TYPO3
+     *
+     * @return bool
+     */
+    public static function isValidBackendUser()
+    {
+        // Init if needed
+        if (!isset($GLOBALS['BE_USER'])) {
+            $bootstrap = \TYPO3\CMS\Core\Core\Bootstrap::getInstance();
+            $bootstrap->initializeBackendUser();
+        }
 
-	/**
-	 * Check if a valid BE login exists
-	 *
-	 * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.
-	 * See https://forge.typo3.org/issues/23625
-	 *
-	 * @todo Fixme! Workaround for bug in TYPO3
-	 *
-	 * @return bool
-	 */
-	public static function isValidBackendUser() {
-		// Init if needed
-		if (!isset($GLOBALS['BE_USER'])) {
-			$bootstrap = \TYPO3\CMS\Core\Core\Bootstrap::getInstance();
-			$bootstrap->initializeBackendUser();
-		}
+        // Check for valid user
+        if (is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid'])) {
+            return true;
+        }
 
-		// Check for valid user
-		if (is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid'])) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
+        return false;
+    }
 }

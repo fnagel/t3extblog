@@ -27,22 +27,23 @@ namespace TYPO3\T3extblog\Domain\Model;
  ***************************************************************/
 
 /**
- * PostSubscriber
+ * PostSubscriber.
  */
-class BlogSubscriber extends AbstractSubscriber {
+class BlogSubscriber extends AbstractSubscriber
+{
+    /**
+     * @return int
+     */
+    public function getSysLanguageUid()
+    {
+        return (int) $this->_languageUid;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getSysLanguageUid() {
-		return (int) $this->_languageUid;
-	}
-
-	/**
-	 * @param int $language
-	 */
-	public function setSysLanguageUid($language) {
-		$this->_languageUid = (int) $language;
-	}
-
+    /**
+     * @param int $language
+     */
+    public function setSysLanguageUid($language)
+    {
+        $this->_languageUid = (int) $language;
+    }
 }

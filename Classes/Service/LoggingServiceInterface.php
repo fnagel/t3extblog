@@ -27,37 +27,31 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * LoggingServiceInterface
+ * LoggingServiceInterface.
  */
-interface LoggingServiceInterface {
+interface LoggingServiceInterface
+{
+    /**
+     * Error logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function error($msg, $data = array());
 
-	/**
-	 * Error logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function error($msg, $data = array());
+    /**
+     * Notice logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function notice($msg, $data = array());
 
-	/**
-	 * Notice logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function notice($msg, $data = array());
-
-	/**
-	 * Development logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function dev($msg, $data = array());
+    /**
+     * Development logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function dev($msg, $data = array());
 }

@@ -30,71 +30,73 @@ use TYPO3\T3extblog\Domain\Model\Comment;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * PostSubscriberRepository
+ * PostSubscriberRepository.
  */
-class PostSubscriberRepository extends AbstractSubscriberRepository {
+class PostSubscriberRepository extends AbstractSubscriberRepository
+{
+    /**
+     * @param Post $post The post the comment is related to
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findForNotification(Post $post)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * @param Post $post The post the comment is related to
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findForNotification(Post $post) {
-		$query = $this->createQuery();
+        $query->matching(
+            $query->equals('postUid', $post->getUid())
+        );
 
-		$query->matching(
-			$query->equals('postUid', $post->getUid())
-		);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Searchs for already registered subscriptions.
+     *
+     * @param int    $postUid
+     * @param string $email
+     * @param int    $excludeUid
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findExistingSubscriptions($postUid, $email, $excludeUid = null)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Searchs for already registered subscriptions
-	 *
-	 * @param integer $postUid
-	 * @param string $email
-	 * @param integer $excludeUid
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findExistingSubscriptions($postUid, $email, $excludeUid = NULL) {
-		$query = $this->createQuery();
+        $constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
+        $constraints[] = $query->equals('postUid', $postUid);
 
-		$constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
-		$constraints[] = $query->equals('postUid', $postUid);
+        $query->matching(
+            $query->logicalAnd($constraints)
+        );
 
-		$query->matching(
-			$query->logicalAnd($constraints)
-		);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds a single subscriber without opt-in mail sent before.
+     *
+     * @param Comment $comment
+     *
+     * @return object
+     */
+    public function findForSubscriptionMail(Comment $comment)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-	/**
-	 * Finds a single subscriber without opt-in mail sent before
-	 *
-	 * @param Comment $comment
-	 *
-	 * @return object
-	 */
-	public function findForSubscriptionMail(Comment $comment) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+        $constraints = array(
+            $query->equals('postUid', $comment->getPostId()),
+            $query->equals('email', $comment->getEmail()),
+            $query->equals('lastSent', 0),
+            $query->equals('hidden', 1),
+            $query->equals('deleted', 0),
+        );
 
-		$constraints =  array(
-			$query->equals('postUid', $comment->getPostId()),
-			$query->equals('email', $comment->getEmail()),
-			$query->equals('lastSent', 0),
-			$query->equals('hidden', 1),
-			$query->equals('deleted', 0),
-		);
+        $query->matching(
+            $query->logicalAnd($constraints)
+        );
 
-		$query->matching(
-			$query->logicalAnd($constraints)
-		);
-
-		return $query->execute()->getFirst();
-	}
-
+        return $query->execute()->getFirst();
+    }
 }

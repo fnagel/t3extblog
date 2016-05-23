@@ -29,141 +29,142 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Category
+ * Category.
  */
-class Category extends AbstractLocalizedEntity {
+class Category extends AbstractLocalizedEntity
+{
+    /**
+     * name.
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $name;
 
-	/**
-	 * name
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name;
+    /**
+     * description.
+     *
+     * @var string
+     */
+    protected $description;
 
-	/**
-	 * description
-	 *
-	 * @var string
-	 */
-	protected $description;
+    /**
+     * Id of parent category.
+     *
+     * @var int
+     */
+    protected $parentId;
 
-	/**
-	 * Id of parent category
-	 *
-	 * @var integer
-	 */
-	protected $parentId;
+    /**
+     * Posts.
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
+     * @lazy
+     */
+    protected $posts = null;
 
-	/**
-	 * Posts
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
-	 * @lazy
-	 */
-	protected $posts = NULL;
+    /**
+     * child categories.
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
+     * @lazy
+     */
+    protected $childCategories = null;
 
-	/**
-	 * child categories
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
-	 * @lazy
-	 */
-	protected $childCategories = NULL;
+    /**
+     * Returns the name.
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Returns the name
-	 *
-	 * @return string $name
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Sets the name
-	 *
-	 * @param string $name
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Returns the description.
+     *
+     * @return string $description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-	/**
-	 * Returns the description
-	 *
-	 * @return string $description
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
+    /**
+     * Sets the description.
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
-	/**
-	 * Sets the description
-	 *
-	 * @param string $description
-	 *
-	 * @return void
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
+    /**
+     * If category is first level.
+     *
+     * @return bool
+     */
+    public function isFirstLevel()
+    {
+        if ($this->parentId) {
+            return false;
+        }
 
+        return true;
+    }
 
-	/**
-	 * If category is first level
-	 *
-	 * @return boolean
-	 */
-	public function isFirstLevel() {
-		if ($this->parentId) {
-			return FALSE;
-		}
+    /**
+     * Returns all matching posts.
+     *
+     * @return \Tx_Extbase_Persistence_ObjectStorage $posts
+     */
+    public function getPosts()
+    {
+        if ($this->posts === null) {
+            $posts = $this->getPostRepository()->findByCategory($this);
 
-		return TRUE;
-	}
+            $this->posts = new ObjectStorage();
+            foreach ($posts as $post) {
+                $this->posts->attach($post);
+            }
+        }
 
+        return $this->posts;
+    }
 
-	/**
-	 * Returns all matching posts
-	 *
-	 * @return \Tx_Extbase_Persistence_ObjectStorage $posts
-	 */
-	public function getPosts() {
-		if ($this->posts === NULL) {
-			$posts = $this->getPostRepository()->findByCategory($this);
+    /**
+     * Returns all child categories.
+     *
+     * @return null|ObjectStorage $posts
+     */
+    public function getChildCategories()
+    {
+        if (!$this->isFirstLevel()) {
+            return;
+        }
 
-			$this->posts = new ObjectStorage();
-			foreach ($posts as $post) {
-				$this->posts->attach($post);
-			}
-		}
+        if ($this->childCategories === null) {
+            $categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
+                ->findByParentId($this->getUid());
 
-		return $this->posts;
-	}
+            $this->childCategories = new ObjectStorage();
+            foreach ($categories as $category) {
+                $this->childCategories->attach($category);
+            }
+        }
 
-	/**
-	 * Returns all child categories
-	 *
-	 * @return null|ObjectStorage $posts
-	 */
-	public function getChildCategories() {
-		if (!$this->isFirstLevel()) {
-			return NULL;
-		}
-
-		if ($this->childCategories === NULL) {
-			$categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
-				->findByParentId($this->getUid());
-
-			$this->childCategories = new ObjectStorage();
-			foreach ($categories as $category) {
-				$this->childCategories->attach($category);
-			}
-		}
-
-		return $this->childCategories;
-	}
+        return $this->childCategories;
+    }
 }

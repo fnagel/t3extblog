@@ -29,147 +29,149 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * PostSubscriber
+ * PostSubscriber.
  */
-class PostSubscriber extends AbstractSubscriber {
+class PostSubscriber extends AbstractSubscriber
+{
+    /**
+     * name.
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $name;
 
-	/**
-	 * name
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name;
+    /**
+     * postUid.
+     *
+     * @var int
+     * @validate NotEmpty
+     */
+    protected $postUid;
 
-	/**
-	 * postUid
-	 *
-	 * @var integer
-	 * @validate NotEmpty
-	 */
-	protected $postUid;
+    /**
+     * post.
+     *
+     * @var \TYPO3\T3extblog\Domain\Model\Post
+     * @lazy
+     */
+    protected $post = null;
 
-	/**
-	 * post
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\Post
-	 * @lazy
-	 */
-	protected $post = NULL;
+    /**
+     * comments.
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
+     * @lazy
+     */
+    protected $postComments = null;
 
-	/**
-	 * comments
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
-	 * @lazy
-	 */
-	protected $postComments = NULL;
+    /**
+     * comments.
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
+     * @lazy
+     */
+    protected $postPendingComments = null;
 
-	/**
-	 * comments
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
-	 * @lazy
-	 */
-	protected $postPendingComments = NULL;
+    /**
+     * __construct.
+     *
+     * @param int $postUid
+     */
+    public function __construct($postUid)
+    {
+        $this->postUid = $postUid;
+    }
 
-	/**
-	 * __construct
-	 *
-	 * @param int $postUid
-	 */
-	public function __construct($postUid) {
-		$this->postUid = $postUid;
-	}
+    /**
+     * Returns the name.
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
+    /**
+     * Sets the name.
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Returns the name
-	 *
-	 * @return string $name
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Returns the postUid.
+     *
+     * @return int $postUid
+     */
+    public function getPostUid()
+    {
+        return $this->postUid;
+    }
 
-	/**
-	 * Sets the name
-	 *
-	 * @param string $name
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Returns the post.
+     *
+     * @return Post $post
+     */
+    public function getPost()
+    {
+        if ($this->post === null) {
+            $this->post = $this->getPostRepository()->findByLocalizedUid($this->postUid);
+        }
 
-	/**
-	 * Returns the postUid
-	 *
-	 * @return integer $postUid
-	 */
-	public function getPostUid() {
-		return $this->postUid;
-	}
+        return $this->post;
+    }
 
-	/**
-	 * Returns the post
-	 *
-	 * @return Post $post
-	 */
-	public function getPost() {
-		if ($this->post === NULL) {
-			$this->post = $this->getPostRepository()->findByLocalizedUid($this->postUid);
-		}
+    /**
+     * Returns the post comments.
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
+     */
+    public function getPostComments()
+    {
+        if ($this->postComments === null) {
+            $postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
 
-		return $this->post;
-	}
+            $this->postComments = new ObjectStorage();
+            foreach ($postComments as $comment) {
+                $this->postComments->attach($comment);
+            }
+        }
 
-	/**
-	 * Returns the post comments
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
-	 */
-	public function getPostComments() {
-		if ($this->postComments === NULL) {
-			$postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
+        return $this->postComments;
+    }
 
-			$this->postComments = new ObjectStorage();
-			foreach ($postComments as $comment) {
-				$this->postComments->attach($comment);
-			}
-		}
+    /**
+     * Returns the post pending comments.
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
+     */
+    public function getPostPendingComments()
+    {
+        if ($this->postPendingComments === null) {
+            $postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);
 
-		return $this->postComments;
-	}
+            $this->postPendingComments = new ObjectStorage();
+            foreach ($postPendingComments as $comment) {
+                $this->postPendingComments->attach($comment);
+            }
+        }
 
-	/**
-	 * Returns the post pending comments
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
-	 */
-	public function getPostPendingComments() {
-		if ($this->postPendingComments === NULL) {
-			$postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);
+        return $this->postPendingComments;
+    }
 
-			$this->postPendingComments = new ObjectStorage();
-			foreach ($postPendingComments as $comment) {
-				$this->postPendingComments->attach($comment);
-			}
-		}
-
-		return $this->postPendingComments;
-	}
-
-	/**
-	 * Sets the postUid
-	 *
-	 * @param integer $postUid
-	 *
-	 * @return void
-	 */
-	public function setPostUid($postUid) {
-		$this->postUid = $postUid;
-	}
-
+    /**
+     * Sets the postUid.
+     *
+     * @param int $postUid
+     */
+    public function setPostUid($postUid)
+    {
+        $this->postUid = $postUid;
+    }
 }

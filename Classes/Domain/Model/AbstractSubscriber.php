@@ -29,178 +29,181 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * AbstractSubscriber
+ * AbstractSubscriber.
  */
-abstract class AbstractSubscriber extends AbstractEntity {
+abstract class AbstractSubscriber extends AbstractEntity
+{
+    /**
+     * @var bool
+     */
+    protected $hidden = true;
 
-	/**
-	 * @var boolean
-	 */
-	protected $hidden = TRUE;
+    /**
+     * @var bool
+     */
+    protected $deleted;
 
-	/**
-	 * @var boolean
-	 */
-	protected $deleted;
+    /**
+     * email.
+     *
+     * @var string
+     * @validate NotEmpty
+     * @validate EmailAddress
+     */
+    protected $email;
 
-	/**
-	 * email
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 * @validate EmailAddress
-	 */
-	protected $email;
+    /**
+     * lastSent.
+     *
+     * @var \DateTime
+     */
+    protected $lastSent = null;
 
-	/**
-	 * lastSent
-	 *
-	 * @var \DateTime
-	 */
-	protected $lastSent = NULL;
+    /**
+     * code.
+     *
+     * @var string
+     */
+    protected $code;
 
-	/**
-	 * code
-	 *
-	 * @var string
-	 */
-	protected $code;
+    /**
+     * If the subscriber is valid for opt in email.
+     *
+     * @return bool
+     */
+    public function isValidForOptin()
+    {
+        return $this->isHidden() && !$this->deleted && $this->getLastSent() === null;
+    }
 
-	/**
-	 * If the subscriber is valid for opt in email
-	 *
-	 * @return boolean
-	 */
-	public function isValidForOptin() {
-		return ($this->isHidden() && !$this->deleted && $this->getLastSent() === NULL);
-	}
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return (bool) $this->hidden;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isHidden() {
-		return (bool) $this->hidden;
-	}
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = (bool) $hidden;
+    }
 
-	/**
-	 * @param boolean $hidden
-	 */
-	public function setHidden($hidden) {
-		$this->hidden = (bool) $hidden;
-	}
+    /**
+     * Returns the email.
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	/**
-	 * Returns the email
-	 *
-	 * @return string $email
-	 */
-	public function getEmail() {
-		return $this->email;
-	}
+    /**
+     * Sets the email.
+     *
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-	/**
-	 * Sets the email
-	 *
-	 * @param string $email
-	 *
-	 * @return void
-	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
+    /**
+     * Returns the lastSent.
+     *
+     * @return \DateTime $lastSent
+     */
+    public function getLastSent()
+    {
+        return $this->lastSent;
+    }
 
-	/**
-	 * Returns the lastSent
-	 *
-	 * @return \DateTime $lastSent
-	 */
-	public function getLastSent() {
-		return $this->lastSent;
-	}
+    /**
+     * Sets the lastSent.
+     *
+     * @param \DateTime $lastSent
+     */
+    public function setLastSent($lastSent)
+    {
+        $this->lastSent = $lastSent;
+    }
 
-	/**
-	 * Sets the lastSent
-	 *
-	 * @param \DateTime $lastSent
-	 *
-	 * @return void
-	 */
-	public function setLastSent($lastSent) {
-		$this->lastSent = $lastSent;
-	}
+    /**
+     * Returns the code.
+     *
+     * @return string $code
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
-	/**
-	 * Returns the code
-	 *
-	 * @return string $code
-	 */
-	public function getCode() {
-		return $this->code;
-	}
+    /**
+     * Sets the code.
+     *
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
-	/**
-	 * Sets the code
-	 *
-	 * @param string $code
-	 *
-	 * @return void
-	 */
-	public function setCode($code) {
-		$this->code = $code;
-	}
+    /**
+     * Creates a code.
+     */
+    protected function createCode()
+    {
+        $now = new \DateTime();
+        $input = $this->email.$now->getTimestamp().uniqid();
 
-	/**
-	 * Creates a code
-	 *
-	 * @return void
-	 */
-	protected function createCode() {
-		$now = new \DateTime();
-		$input = $this->email . $now->getTimestamp() . uniqid();
+        $this->code = substr(GeneralUtility::hmac($input), 0, 32);
+    }
 
-		$this->code = substr(GeneralUtility::hmac($input), 0, 32);
-	}
+    /**
+     * Update subscriber.
+     */
+    public function updateAuth()
+    {
+        $this->setLastSent(new \DateTime());
+        $this->createCode();
+    }
 
-	/**
-	 * Update subscriber
-	 *
-	 * @return void
-	 */
-	public function updateAuth() {
-		$this->setLastSent(new \DateTime());
-		$this->createCode();
-	}
+    /**
+     * Returns prepared mailto array.
+     *
+     * @return array
+     */
+    public function getMailTo()
+    {
+        $mail = array($this->getEmail() => '');
 
-	/**
-	 * Returns prepared mailto array
-	 *
-	 * @return array
-	 */
-	public function getMailTo() {
-		$mail = array($this->getEmail() => '');
+        if (method_exists($this, 'getName')) {
+            $mail = array($this->getEmail() => $this->getName());
+        }
 
-		if (method_exists($this, 'getName')) {
-			$mail = array($this->getEmail() => $this->getName());
-		}
+        return $mail;
+    }
 
-		return $mail;
-	}
+    /**
+     * Checks if the authCode is still valid.
+     *
+     * @param string $expireDate
+     *
+     * @return bool
+     */
+    public function isAuthCodeExpired($expireDate)
+    {
+        $now = new \DateTime();
+        $expire = clone $this->getLastSent();
 
-	/**
-	 * Checks if the authCode is still valid
-	 *
-	 * @param string $expireDate
-	 *
-	 * @return boolean
-	 */
-	public function isAuthCodeExpired($expireDate) {
-		$now = new \DateTime();
-		$expire = clone $this->getLastSent();
+        if ($now > $expire->modify($expireDate)) {
+            return true;
+        }
 
-		if ($now > $expire->modify($expireDate)) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
+        return false;
+    }
 }

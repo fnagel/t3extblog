@@ -34,51 +34,52 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Extbase\Domain\Model\BackendUser;
 
 /**
- * Views sprite icon for a record (object)
+ * Views sprite icon for a record (object).
  */
-class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper {
+class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
+{
+    /**
+     * Displays spriteIcon for database table and object.
+     *
+     * @param string $table
+     * @param object $object
+     *
+     * @return string
+     *
+     * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
+     */
+    public function render($table, $object)
+    {
+        if (!is_object($object) || !method_exists($object, 'getUid')) {
+            return '';
+        }
 
-	/**
-	 * Displays spriteIcon for database table and object
-	 *
-	 * @param string $table
-	 * @param object $object
-	 *
-	 * @return string
-	 * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
-	 */
-	public function render($table, $object) {
-		if (!is_object($object) || !method_exists($object, 'getUid')) {
-			return '';
-		}
+        $row = array(
+            'uid' => $object->getUid(),
+            'startTime' => false,
+            'endTime' => false,
+        );
 
-		$row = array(
-			'uid' => $object->getUid(),
-			'startTime' => FALSE,
-			'endTime' => FALSE,
-		);
+        if (method_exists($object, 'getIsDisabled')) {
+            $row['disable'] = $object->getIsDisabled();
+        }
 
-		if (method_exists($object, 'getIsDisabled')) {
-			$row['disable'] = $object->getIsDisabled();
-		}
+        if ($table === 'be_users' && $object instanceof BackendUser) {
+            $row['admin'] = $object->getIsAdministrator();
+        }
 
-		if ($table === 'be_users' && $object instanceof BackendUser) {
-			$row['admin'] = $object->getIsAdministrator();
-		}
+        if (method_exists($object, 'getStartDateAndTime')) {
+            $row['startTime'] = $object->getStartDateAndTime();
+        }
 
-		if (method_exists($object, 'getStartDateAndTime')) {
-			$row['startTime'] = $object->getStartDateAndTime();
-		}
+        if (method_exists($object, 'getEndDateAndTime')) {
+            $row['endTime'] = $object->getEndDateAndTime();
+        }
 
-		if (method_exists($object, 'getEndDateAndTime')) {
-			$row['endTime'] = $object->getEndDateAndTime();
-		}
+        /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+        $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+        $icon = $iconFactory->getIconForRecord($table, $row, Icon::SIZE_SMALL)->render();
 
-		/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
-		$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-		$icon = $iconFactory->getIconForRecord($table, $row, Icon::SIZE_SMALL)->render();
-
-		return $icon;
-	}
-
+        return $icon;
+    }
 }

@@ -26,84 +26,82 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Mvc\Exception as MvcException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 
 /**
- * SubscriberController
+ * SubscriberController.
  */
-class PostSubscriberController extends AbstractSubscriberController {
+class PostSubscriberController extends AbstractSubscriberController
+{
+    /**
+     * subscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @inject
+     */
+    protected $subscriberRepository;
 
-	/**
-	 * subscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
-	 * @inject
-	 */
-	protected $subscriberRepository;
+    /**
+     * blogSubscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @inject
+     */
+    protected $blogSubscriberRepository;
 
-	/**
-	 * blogSubscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $blogSubscriberRepository;
+    /**
+     * subscriber.
+     *
+     * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
+     */
+    protected $subscriber = null;
 
-	/**
-	 * subscriber
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
-	 */
-	protected $subscriber = NULL;
+    /**
+     * {@inheritdoc}
+     */
+    protected function initializeAction()
+    {
+        parent::initializeAction();
 
-	/**
-	 * @inheritdoc
-	 *
-	 * @return void
-	 */
-	protected function initializeAction() {
-		parent::initializeAction();
+        $this->subscriptionSettings = $this->settings['subscriptionManager']['comment']['subscriber'];
+    }
 
-		$this->subscriptionSettings = $this->settings['subscriptionManager']['comment']['subscriber'];
-	}
+    /**
+     * action list.
+     */
+    public function listAction()
+    {
+        $this->checkAuth();
 
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$this->checkAuth();
+        $this->redirect('list', 'Subscriber');
+    }
 
-		$this->redirect('list', 'Subscriber');
-	}
+    /**
+     * action delete.
+     *
+     * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriber
+     *
+     * @throws InvalidArgumentValueException
+     */
+    public function deleteAction($subscriber = null)
+    {
+        parent::deleteAction($subscriber);
+    }
 
-	/**
-	 * action delete
-	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriber
-	 *
-	 * @throws InvalidArgumentValueException
-	 * @return void
-	 */
-	public function deleteAction($subscriber = NULL) {
-		parent::deleteAction($subscriber);
-	}
-
-	/**
-	 * Finds existing subscriptions
-	 *
-	 * @param PostSubscriber $subscriber
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	protected function findExistingSubscriptions($subscriber) {
-		return $this->subscriberRepository->findExistingSubscriptions(
-			$subscriber->getPostUid(),
-			$subscriber->getEmail(),
-			$subscriber->getUid()
-		);
-	}
-
+    /**
+     * Finds existing subscriptions.
+     *
+     * @param PostSubscriber $subscriber
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    protected function findExistingSubscriptions($subscriber)
+    {
+        return $this->subscriberRepository->findExistingSubscriptions(
+            $subscriber->getPostUid(),
+            $subscriber->getEmail(),
+            $subscriber->getUid()
+        );
+    }
 }

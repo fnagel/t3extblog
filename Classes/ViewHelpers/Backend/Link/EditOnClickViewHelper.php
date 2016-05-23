@@ -28,48 +28,48 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend\Link;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
- * A view helper for creating edit on click links
+ * A view helper for creating edit on click links.
  */
-class EditOnClickViewHelper extends AbstractTagBasedViewHelper {
+class EditOnClickViewHelper extends AbstractTagBasedViewHelper
+{
+    /**
+     * @var string
+     */
+    protected $tagName = 'a';
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'a';
+    /**
+     * Arguments initialization.
+     */
+    public function initializeArguments()
+    {
+        $this->registerUniversalTagAttributes();
+    }
 
-	/**
-	 * Arguments initialization
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		$this->registerUniversalTagAttributes();
-	}
+    /**
+     * Returns a link with edit on click handler.
+     *
+     * @see BackendUtility::editOnClick
+     *
+     * @param string     $parameters
+     * @param string|int $redirectUrl
+     *
+     * @return string
+     */
+    public function render($parameters, $redirectUrl = '')
+    {
+        // Need to add id for TYPO3 8.x
+        $parameters = '&id='.intval(GeneralUtility::_GP('id')).'&'.$parameters;
+        $onClickAttribute = BackendUtility::editOnClick('&'.$parameters, '', $redirectUrl);
 
-	/**
-	 * Returns a link with edit on click handler
-	 *
-	 * @see BackendUtility::editOnClick
-	 *
-	 * @param string $parameters
-	 * @param string|int $redirectUrl
-	 * @return string
-	 */
-	public function render($parameters, $redirectUrl = '') {
-		// Need to add id for TYPO3 8.x
-		$parameters = '&id=' . intval(GeneralUtility::_GP('id')) . '&' . $parameters;
-		$onClickAttribute = BackendUtility::editOnClick('&' . $parameters, '', $redirectUrl);
+        $this->tag->addAttribute('href', '#');
+        $this->tag->addAttribute('onclick', $onClickAttribute);
+        $this->tag->setContent($this->renderChildren());
+        $this->tag->forceClosingTag(true);
 
-		$this->tag->addAttribute('href', '#');
-		$this->tag->addAttribute('onclick', $onClickAttribute);
-		$this->tag->setContent($this->renderChildren());
-		$this->tag->forceClosingTag(TRUE);
-
-		return $this->tag->render();
-	}
-
+        return $this->tag->render();
+    }
 }

@@ -30,37 +30,35 @@ use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * ViewHelper to render the page title
+ * ViewHelper to render the page title.
  */
-class TitleTagViewHelper extends AbstractViewHelper {
+class TitleTagViewHelper extends AbstractViewHelper
+{
+    /**
+     * Override the title tag.
+     *
+     * @param bool   $prepend
+     * @param string $searchTitle
+     */
+    public function render($prepend = true, $searchTitle = null)
+    {
+        if (TYPO3_MODE === 'BE') {
+            return;
+        }
 
-	/**
-	 * Override the title tag
-	 *
-	 * @param boolean $prepend
-	 * @param string $searchTitle
-	 *
-	 * @return void
-	 */
-	public function render($prepend = TRUE, $searchTitle = NULL) {
-		if (TYPO3_MODE === 'BE') {
-			return;
-		}
+        $content = $this->renderChildren();
 
-		$content = $this->renderChildren();
+        if (empty($content) !== true) {
+            if ($prepend === true) {
+                $content = $content.GeneralUtility::getTsFe()->page['title'];
+            }
 
-		if (empty($content) !== TRUE) {
+            if ($searchTitle === null) {
+                $searchTitle = $content;
+            }
 
-			if ($prepend === TRUE) {
-				$content = $content . GeneralUtility::getTsFe()->page['title'];
-			}
-
-			if ($searchTitle === NULL) {
-				$searchTitle = $content;
-			}
-
-			GeneralUtility::getTsFe()->indexedDocTitle = $searchTitle;
-			GeneralUtility::getTsFe()->page['title'] = $content;
-		}
-	}
+            GeneralUtility::getTsFe()->indexedDocTitle = $searchTitle;
+            GeneralUtility::getTsFe()->page['title'] = $content;
+        }
+    }
 }

@@ -29,76 +29,78 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Handles spam check
+ * Handles spam check.
  */
-class SpamCheckService implements SpamCheckServiceInterface {
+class SpamCheckService implements SpamCheckServiceInterface
+{
+    /**
+     * Checks GET / POST parameter for SPAM.
+     *
+     * @var array
+     *
+     * @return int
+     */
+    public function process($settings)
+    {
+        $arguments = GeneralUtility::_GPmerged('tx_t3extblog');
+        $spamPoints = 0;
 
-	/**
-	 * Checks GET / POST parameter for SPAM
-	 *
-	 * @var array $settings
-	 *
-	 * @return integer
-	 */
-	public function process($settings) {
-		$arguments = GeneralUtility::_GPmerged('tx_t3extblog');
-		$spamPoints = 0;
+        if (!$settings['enable']) {
+            return $spamPoints;
+        }
 
-		if (!$settings['enable']) {
-			return $spamPoints;
-		}
+        if ($settings['honeypot']) {
+            if (!$this->checkHoneyPotFields($arguments)) {
+                $spamPoints += intval($settings['honeypot']);
+            }
+        }
 
-		if ($settings['honeypot']) {
-			if (!$this->checkHoneyPotFields($arguments)) {
-				$spamPoints += intval($settings['honeypot']);
-			}
-		}
+        if ($settings['isHumanCheckbox']) {
+            if (!isset($arguments['human']) && empty($arguments['human'])) {
+                $spamPoints += intval($settings['isHumanCheckbox']);
+            }
+        }
 
-		if ($settings['isHumanCheckbox']) {
-			if (!isset($arguments['human']) && empty($arguments['human'])) {
-				$spamPoints += intval($settings['isHumanCheckbox']);
-			}
-		}
+        if ($settings['cookie']) {
+            if (!$_COOKIE['fe_typo_user']) {
+                $spamPoints += intval($settings['cookie']);
+            }
+        }
 
-		if ($settings['cookie']) {
-			if (!$_COOKIE['fe_typo_user']) {
-				$spamPoints += intval($settings['cookie']);
-			}
-		}
+        if ($settings['userAgent']) {
+            if (GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
+                $spamPoints += intval($settings['userAgent']);
+            }
+        }
 
-		if ($settings['userAgent']) {
-			if (GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
-				$spamPoints += intval($settings['userAgent']);
-			}
-		}
+        return $spamPoints;
+    }
 
-		return $spamPoints;
-	}
+    /**
+     * Checks honeypot fields.
+     *
+     * @param array $arguments
+     *
+     * @return bool
+     */
+    protected function checkHoneyPotFields($arguments)
+    {
+        if (!isset($arguments['author']) || strlen($arguments['author']) > 0) {
+            return false;
+        }
 
-	/**
-	 * Checks honeypot fields
-	 *
-	 * @param array $arguments
-	 *
-	 * @return boolean
-	 */
-	protected function checkHoneyPotFields($arguments) {
-		if (!isset($arguments['author']) || strlen($arguments['author']) > 0) {
-			return FALSE;
-		}
+        if (!isset($arguments['link']) || strlen($arguments['link']) > 0) {
+            return false;
+        }
 
-		if (!isset($arguments['link']) || strlen($arguments['link']) > 0) {
-			return FALSE;
-		}
+        if (!isset($arguments['text']) || strlen($arguments['text']) > 0) {
+            return false;
+        }
 
-		if (!isset($arguments['text']) || strlen($arguments['text']) > 0) {
-			return FALSE;
-		}
+        if (!isset($arguments['timestamp']) || $arguments['timestamp'] !== '1368283172') {
+            return false;
+        }
 
-		if (!isset($arguments['timestamp']) || $arguments['timestamp'] !== '1368283172') {
-			return FALSE;
-		}
-
-		return TRUE;
-	}
+        return true;
+    }
 }
