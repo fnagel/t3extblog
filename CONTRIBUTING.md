@@ -1,6 +1,6 @@
 # How to contribute
 
-Any help is appreciated. Please feel free to drop me a line, open issues or send pull requests.
+Any help is appreciated. Please feel free to open issues or send pull requests.
 
 It is possible to sponsor features and bugfixes!
 
@@ -15,7 +15,8 @@ It is possible to sponsor features and bugfixes!
 ## Making Changes / Send PR's
 
 * Make sure to follow the commit message style
-* Make sure to test with all supported TYPO3 CMS versions
+* Make sure to apply PSR-2 code style (see [.editorconfig](.editorconfig) file)
+* Make sure to test with all supported TYPO3 CMS versions (at least latest major versions)
 * Test your changes following the [testing guide](Documentation/DeveloperGuide/Index.rst)
 
 
