@@ -52,7 +52,7 @@ class BlogSubscriberFormController extends AbstractController {
 	/**
 	 * Spam Check Service
 	 *
-	 * @var \TYPO3\T3extblog\Service\SpamCheckService
+	 * @var \TYPO3\T3extblog\Service\SpamCheckServiceInterface
 	 * @inject
 	 */
 	protected $spamCheckService;
