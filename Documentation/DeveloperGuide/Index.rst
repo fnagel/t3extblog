@@ -21,6 +21,75 @@ Target group: **Developers**
 
 
 
+Extending T3extlog
+------------------
+.. _dev-guide-extending:
+
+Using interfaces
+^^^^^^^^^^^^^^^^
+
+Some internal services are implemented as interfaces. The actual class to use could be configured by TypoScript.
+This way it is possible to use custom implementations.
+
+See `config.tx_extbase.objects` configuration in [ext_typoscript_setup.txt](../../ext_typoscript_setup.txt).
+
+
+Signal / Slot
+^^^^^^^^^^^^^
+
+T3extblog provides a couple of hooks to extend or change the default behavior.
+This is done by using the signal / slot functionality provided by TYPO3.
+
+
+**Available signals**
+
+* `sendEmail` in `TYPO3\T3extblog\Service\EmailService`
+
+* `subscriberConfirmAction` in `TYPO3\T3extblog\Controller\CommentSubscriberController`
+* `subscriberDeleteAction` in `TYPO3\T3extblog\Controller\CommentSubscriberController`
+
+* `subscriberConfirmAction` in `TYPO3\T3extblog\Controller\PostSubscriberController`
+* `subscriberDeleteAction` in `TYPO3\T3extblog\Controller\PostSubscriberController`
+
+* `processNewComment` in `TYPO3\T3extblog\Service\CommentNotificationService`
+* `processChangedComment` in `TYPO3\T3extblog\Service\CommentNotificationService`
+* `notifySubscribers` in `TYPO3\T3extblog\Service\CommentNotificationService`
+
+* `processNewSubscriber` in `TYPO3\T3extblog\Service\BlogNotificationService`
+* `processChangedSubscriber` in `TYPO3\T3extblog\Service\BlogNotificationService`
+* `notifySubscribers` in `TYPO3\T3extblog\Service\BlogNotificationService`
+
+* `spamCheck` in `TYPO3\T3extblog\Service\SpamCheckService`
+
+* `prePersist` in `TYPO3\T3extblog\Controller\CommentController`
+
+
+**Example code**
+
+for using the EmailService sendEmail signal:
+
+.. code-block:: php
+
+	// typo3conf/ext/my_extension/ext_localconf.php
+	$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+	    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+	);
+	$signalSlotDispatcher->connect(
+	    TYPO3\T3extblog\Service\EmailService::class,
+	    'sendEmail',
+	    MyVendor\MyExtension\Slot\MyEmailServiceSlot::class,
+	    'mySendEmailMethod'
+	);
+
+
+**More info**
+
+on signal / slots in TYPO3:
+
+* https://somethingphp.com/extending-classes-typo3/
+* https://usetypo3.com/signals-and-hooks-in-typo3.html
+
+
 Code insights
 -------------
 
