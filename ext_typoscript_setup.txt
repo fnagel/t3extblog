@@ -1,13 +1,12 @@
-# table & field mapping
 config.tx_extbase {
+	# Configure interface implementations
 	objects {
 		TYPO3\T3extblog\Service\SessionServiceInterface.className = TYPO3\T3extblog\Service\SessionService
 		TYPO3\T3extblog\Service\AuthenticationServiceInterface.className = TYPO3\T3extblog\Service\AuthenticationService
-		TYPO3\T3extblog\Service\NotificationServiceInterface.className = TYPO3\T3extblog\Service\NotificationService
 		TYPO3\T3extblog\Service\SpamCheckServiceInterface.className = TYPO3\T3extblog\Service\SpamCheckService
 		TYPO3\T3extblog\Service\LoggingServiceInterface.className = TYPO3\T3extblog\Service\LoggingService
 	}
-
+	# table & field mapping
     persistence {
         classes {
 	        TYPO3\T3extblog\Domain\Model\Post {

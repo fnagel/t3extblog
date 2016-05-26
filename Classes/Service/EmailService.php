@@ -54,7 +54,7 @@ class EmailService implements SingletonInterface
     /**
      * Logging Service.
      *
-     * @var \TYPO3\T3extblog\Service\LoggingService
+     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
      * @inject
      */
     protected $log;
