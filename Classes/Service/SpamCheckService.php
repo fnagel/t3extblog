@@ -34,6 +34,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class SpamCheckService implements SpamCheckServiceInterface
 {
     /**
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher;
+
+    /**
      * Checks GET / POST parameter for SPAM.
      *
      * @var array
@@ -72,6 +78,12 @@ class SpamCheckService implements SpamCheckServiceInterface
                 $spamPoints += intval($settings['userAgent']);
             }
         }
+
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'spamCheck',
+            array($settings, $arguments, $spamPoints, $this)
+        );
 
         return $spamPoints;
     }

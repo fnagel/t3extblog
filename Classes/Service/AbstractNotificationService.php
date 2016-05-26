@@ -84,6 +84,12 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected $cacheService;
 
     /**
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher;
+
+    /**
      */
     public function initializeObject()
     {
@@ -107,13 +113,12 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
             'validUntil' => $this->getValidUntil(),
         );
 
-        $emailBody = $this->emailService->render(array_merge($defaultVariables, $variables), $template);
-
-        $this->emailService->send(
+        $this->emailService->sendEmail(
             $subscriber->getMailTo(),
             array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
             $subject,
-            $emailBody
+            array_merge($defaultVariables, $variables),
+            $template
         );
     }
 

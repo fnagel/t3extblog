@@ -84,6 +84,12 @@ abstract class AbstractSubscriberController extends AbstractController
             throw new \InvalidArgumentException('No authenticated subscriber given.');
         }
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'subscriberConfirmAction',
+            array(&$this->subscriber, $this)
+        );
+
         if ($this->subscriber->_getProperty('hidden') === true) {
             $this->subscriber->_setProperty('hidden', false);
             $this->addFlashMessageByKey('confirmed', FlashMessage::OK);
@@ -109,6 +115,12 @@ abstract class AbstractSubscriberController extends AbstractController
         if (!($subscriber instanceof BlogSubscriber || $subscriber instanceof PostSubscriber)) {
             throw new \InvalidArgumentException('No subscriber given.');
         }
+
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'subscriberDeleteAction',
+            array(&$this->subscriber, $this)
+        );
 
         // Check if the given subscriber is owned by authenticated user
         if ($subscriber->getEmail() !== $this->authentication->getEmail()) {

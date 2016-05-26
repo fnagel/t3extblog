@@ -142,6 +142,12 @@ class CommentController extends AbstractController
             $newComment->setApproved(true);
         }
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'prePersist',
+            array($post, &$newComment, $this)
+        );
+
         $post->addComment($newComment);
         $this->persistAllEntities();
 

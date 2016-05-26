@@ -60,6 +60,12 @@ class EmailService implements SingletonInterface
     protected $log;
 
     /**
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher;
+
+    /**
      * @var \TYPO3\T3extblog\Service\SettingsService
      * @inject
      */
@@ -75,6 +81,28 @@ class EmailService implements SingletonInterface
     public function initializeObject()
     {
         $this->settings = $this->settingsService->getTypoScriptSettings();
+    }
+
+    /**
+     * This is the main-function for sending Mails.
+     *
+     * @param array  $mailTo
+     * @param array  $mailFrom
+     * @param string $subject
+	 * @param array  $variables
+	 * @param string $templatePath
+     *
+     * @return int the number of recipients who were accepted for delivery
+     */
+    public function sendEmail($mailTo, $mailFrom, $subject, $variables, $templatePath)
+    {
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'sendEmail',
+            array(&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this)
+        );
+
+        return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
     }
 
     /**

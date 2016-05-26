@@ -62,6 +62,12 @@ class BlogNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'processNewSubscriber',
+            array(&$subscriber, $this)
+        );
+
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
             $this->persistToDatabase();
@@ -78,6 +84,12 @@ class BlogNotificationService extends AbstractNotificationService
         if (!($subscriber instanceof BlogSubscriber)) {
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
+
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'processChangedSubscriber',
+            array(&$subscriber, $this)
+        );
 
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
@@ -125,7 +137,14 @@ class BlogNotificationService extends AbstractNotificationService
 
         $subscribers = $this->subscriberRepository->findForNotification();
         $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
+        $variables = array('post' => $post);
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'notifySubscribers',
+            array($post, &$subscribers, &$subject, &$variables, $this)
+        );
+        
         $this->log->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 
         /* @var $subscriber BlogSubscriber */
@@ -133,7 +152,7 @@ class BlogNotificationService extends AbstractNotificationService
             $subscriber->updateAuth();
             $this->subscriberRepository->update($subscriber);
 
-            $this->sendEmail($subscriber, $subject, $settings['template']['notification'], array('post' => $post));
+            $this->sendEmail($subscriber, $subject, $settings['template']['notification'], $variables);
         }
 
         $post->setMailsSent(true);

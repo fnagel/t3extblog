@@ -64,6 +64,12 @@ class CommentNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'processNewComment',
+            array(&$comment, $this)
+        );
+
         $subscriber = null;
         if ($this->isNewSubscriptionValid($comment)) {
             $subscriber = $this->addSubscriber($comment);
@@ -92,6 +98,12 @@ class CommentNotificationService extends AbstractNotificationService
         if (!($comment instanceof Comment)) {
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
+
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'processChangedComment',
+            array(&$comment, $this)
+        );
 
         if ($comment->isValid()) {
             $subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
@@ -208,6 +220,12 @@ class CommentNotificationService extends AbstractNotificationService
             'comment' => $comment,
         );
 
+        $this->signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'notifySubscribers',
+            array($post, &$comment, &$subscribers, &$subject, &$variables, $this)
+        );
+
         $this->log->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
 
         /* @var $subscriber PostSubscriber */
@@ -258,13 +276,13 @@ class CommentNotificationService extends AbstractNotificationService
             'comment' => $comment,
             'subject' => $subject,
         );
-        $emailBody = $this->emailService->render($variables, $settings['template']);
 
-        $this->emailService->send(
+        $this->emailService->sendEmail(
             array($settings['mailTo']['email'] => $settings['mailTo']['name']),
             array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
             $subject,
-            $emailBody
+            $variables,
+            $settings['template']
         );
     }
 }
