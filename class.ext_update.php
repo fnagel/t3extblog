@@ -136,6 +136,35 @@ class ext_update {
 	/**
 	 * @return void
 	 */
+	protected function renderPostCreateUserSection() {
+		if (!$this->isFieldAvailable('tx_t3blog_post', 'cruser_id')) {
+			return;
+		}
+
+		$key = 'post_cruser_id';
+		if (GeneralUtility::_POST('migration') === $key) {
+			$this->updatePostRecordsForCreateUser();
+		}
+
+		$this->sectionArray[] = $this->renderForm(
+			$key, 'Add current post author to "cruser_id" field (use when updating to v2.2.3 or v3.0.0)'
+		);
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function updatePostRecordsForCreateUser() {
+		// Copying field values seems only possible with a raw query
+		$this->database->sql_query('UPDATE tx_t3blog_post SET cruser_id = author WHERE cruser_id = 0');
+
+		$message = $this->database->sql_affected_rows() . ' posts have been updated';
+		$this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
+	}
+
+	/**
+	 * @return void
+	 */
 	protected function renderCommentMailsSentSection() {
 		if (!$this->isFieldAvailable('tx_t3blog_com', 'mails_sent')) {
 			return;
