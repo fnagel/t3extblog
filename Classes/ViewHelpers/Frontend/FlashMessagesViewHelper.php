@@ -26,7 +26,6 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\ViewHelpers\FlashMessagesViewHelper as BaseFlashMessagesViewHelper;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * View helper which renders the flash messages.
@@ -35,27 +34,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper
 {
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObject;
-
-    /**
-     * Taken from TYPO3 6.2 to restore cache behaviour.
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
-    {
-        $this->contentObject = $configurationManager->getContentObject();
-    }
-
-    /**
-     * @todo Remove this when dropping TYPO3 7.6 support
-     *
-     * {@inheritdoc}
-     */
-
     /**
      * Renders FlashMessages and flushes the FlashMessage queue
      * Note: This disables the current page cache in order to prevent FlashMessage output
@@ -97,19 +75,13 @@ class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper
     /**
      * Prevent caching if a flash message is displayed.
      *
-     * Tested in 7.6.7 and 8.1.0
+     * Tested in 7.6.9 and 8.1.0
      *
      * @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
      */
     protected function preventCaching()
     {
-        if (isset($GLOBALS['TSFE']) &&
-            (
-                // @todo It seems that in TYPO3 8.1 (most likely in 8.0 too) getUserObjectType returns false
-                version_compare(TYPO3_branch, '8.0', '>=') ||
-                $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER
-            )
-        ) {
+        if (isset($GLOBALS['TSFE'])) {
             $GLOBALS['TSFE']->no_cache = true;
         }
     }
