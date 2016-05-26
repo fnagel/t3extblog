@@ -72,16 +72,30 @@ class ext_update
     }
 
     /**
+     * Update post records
      */
     protected function renderPostSection()
+    {
+        $this->updatePostMailsSent();
+        $this->updatePostCreateUser();
+    }
+
+    /**
+     */
+    protected function updatePostMailsSent()
     {
         if (!$this->isFieldAvailable('tx_t3blog_post', 'mails_sent')) {
             return;
         }
 
-        $key = 'post';
+        $key = 'post_mails_sent';
         if (GeneralUtility::_POST('migration') === $key) {
-            $this->updatePostRecords();
+            $this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', array('mails_sent' => 1));
+            $this->messageArray[] = [
+                FlashMessage::INFO,
+                'Posts updated',
+                $this->database->sql_affected_rows().' posts have been updated'
+            ];
         }
 
         $this->sectionArray[] = $this->renderForm(
@@ -91,15 +105,30 @@ class ext_update
 
     /**
      */
-    protected function updatePostRecords()
+    protected function updatePostCreateUser()
     {
-        $this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', array('mails_sent' => 1));
+        if (!$this->isFieldAvailable('tx_t3blog_post', 'cruser_id')) {
+            return;
+        }
 
-        $message = $this->database->sql_affected_rows().' posts have been updated';
-        $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
+        $key = 'post_cruser_id';
+        if (GeneralUtility::_POST('migration') === $key) {
+            // Copying field values seems only possible with a raw query
+            $this->database->sql_query('UPDATE tx_t3blog_post SET cruser_id = author WHERE cruser_id = 0');
+            $this->messageArray[] = [
+                FlashMessage::INFO,
+                'Posts updated',
+                $this->database->sql_affected_rows().' posts have been updated'
+            ];
+        }
+
+        $this->sectionArray[] = $this->renderForm(
+            $key, 'Add current post author to "cruser_id" field (use when updating to v3.0.0)'
+        );
     }
 
     /**
+     * Update comments records
      */
     protected function renderCommentSection()
     {

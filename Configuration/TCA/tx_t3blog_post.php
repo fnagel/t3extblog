@@ -6,7 +6,7 @@ return array(
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'author',
+        'cruser_id' => 'cruser_id',
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
@@ -30,7 +30,7 @@ return array(
     ),
     'interface' => array(
         'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
-			author,be_user,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
+			author,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
     ),
     'columns' => array(
         'sys_language_uid' => array(
@@ -368,7 +368,7 @@ return array(
         '0' => array(
             'showitem' => '
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.post;;;1-1-1,
-					sys_language_uid,l18n_parent,l18n_diffsource,date,author;;;;2-2-2,be_user, title;;;;3-3-3,content,
+					sys_language_uid,l18n_parent,l18n_diffsource,date,author;;;;2-2-2, title;;;;3-3-3,content,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.preview,
 					preview_mode, preview_image,preview_text,
 				--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.category,
