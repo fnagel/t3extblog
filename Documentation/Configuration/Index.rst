@@ -72,6 +72,40 @@ Like most other extensions, settings can be overwritten via TypoScript.
 Have a look at :code:`/Configuration/TypoScript/setup.txt`.
 
 
+SPAM checks
+-----------
+.. _configuration-spam:
+
+A comment has two additional visibility flags (besides TYPO3 default `hidden` and `deleted` flags):
+*is approved* and *is spam*. Comments not approved or marked as SPAM are not displayed.
+
+Admins configure if a comment should be approved by default or always needs manual approval.
+In addition multiple basic SPAM checks flag every new comment as SPAM or not SPAM:
+
+* Simple "I am human" checkbox (no real check for bots!)
+* Honeypot fields
+* Cookie support check
+* User agent check
+
+Each of these checks has a configurable spam point value. The sum of all spam points is compared to multiple
+configurable threshold values in order to trigger specific actions:
+
+* mark comment as spam but save it anyway
+* block comment and allow user to try again
+* redirect user to a configurable page
+
+
+See TypoScript for full configuration:
+
+* :code:`plugin.tx_t3extblog.settings.blogsystem.comments`
+* :code:`plugin.tx_t3extblog.settings.blogSubscription`
+
+
+.. important::
+
+	Built in SPAM protection may be insufficient to protect your blog from serious attacks and does not prevent brute force attacks.
+
+
 RealURL
 -------
 .. _configuration-realurl:
