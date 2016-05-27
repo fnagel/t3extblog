@@ -78,6 +78,9 @@ plugin.tx_t3extblog {
 				# example config: <em>, <strong>, <code>
 				# uses: http://www.php.net/manual/en/function.strip-tags.php
 				allowTags =
+				# Allow attributes for allowed tags
+				# Disable to force removing of all attributes (recommended)
+				allowSomeTagAttributes = 0
 
 				spamCheck {
 					enable = 1
