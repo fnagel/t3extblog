@@ -68,7 +68,7 @@ plugin.tx_t3extblog {
 				allowedUntil = +6 months
 
 				# comments are approved by default
-				approvedByDefault = 1
+				approvedByDefault = 0
 
 				# subscribe for new comment allowed
 				subscribeForComments = 1
@@ -87,11 +87,11 @@ plugin.tx_t3extblog {
 					# limit of spam points
 					threshold {
 						# saved but marked as spam
-						markAsSpam = 10
+						markAsSpam = 6
 						# to block comment (user could  try again), 0 = disable
-						block = 20
+						block = 10
 						# to block comment and redirect user, 0 = disable
-						redirect = 30
+						redirect = 16
 					}
 					redirect {
 						pid =
@@ -187,9 +187,9 @@ plugin.tx_t3extblog {
 				# limit of spam points
 				threshold {
 					# to block comment (user could  try again), 0 = disable
-					block = 10
+					block = 6
 					# to block comment and redirect user, 0 = disable
-					redirect = 30
+					redirect = 10
 				}
 				redirect {
 					pid =
