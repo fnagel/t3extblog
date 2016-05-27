@@ -48,7 +48,10 @@ class UrlValidator extends AbstractValidator {
 			return TRUE;
 		}
 
-		if (GeneralUtility::isValidUrl($value) === FALSE) {
+		if (
+			!in_array(parse_url($value, PHP_URL_SCHEME), array('http', 'https'), TRUE) ||
+			GeneralUtility::isValidUrl($value) === FALSE
+		) {
 			$this->addError('The given subject was not a valid URL.', 1392679659);
 
 			return FALSE;
