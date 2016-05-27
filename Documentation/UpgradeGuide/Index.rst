@@ -29,7 +29,7 @@ Upgrade from 2.x to 3.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/2.2.1...3.0.0
+https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 
 - Removed TYPO3 < 7.3 support - lots of legacy code has been removed!
 
@@ -56,9 +56,48 @@ https://github.com/fnagel/t3extblog/compare/2.2.1...3.0.0
 How to upgrade
 """"""""""""""
 
+#. Make sure to fix all version 2.2.2 related security issues!
+
 #. "Clear all cache" in Install Tool
 
 #. Adjust and update TypoScript configuration and template overwrites
+
+
+
+Upgrade from 2.2.x to 2.2.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.2.1...2.2.2
+
+- Important security fix!
+
+- Strengthen security
+
+- Improve default configuration
+
+- Document how :ref:`SPAM protection <configuration-spam>` works
+
+
+**Breaking changes**
+
+- Comment website url scheme is now limited to http and https only
+
+- Attributes for allowed tags in comments are now removed by default
+
+
+How to upgrade
+""""""""""""""
+
+#. Run update wizard in Extension Manager to search for now invalid comment website links
+
+#. Fix or remove all invalid, existing comment website links (!)
+
+#. Please check your TypoScript configuration (SPAM protection, allowed tags, ...)
+
+#. Clear all caches
 
 
 
