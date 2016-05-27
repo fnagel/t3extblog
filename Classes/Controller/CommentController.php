@@ -261,8 +261,22 @@ class CommentController extends AbstractController {
 	 * @return void
 	 */
 	protected function sanitizeComment(Comment $comment) {
-		$allowTags = $this->settings['blogsystem']['comments']['allowTags'];
-		$comment->setText(GeneralUtility::removeXSS(strip_tags($comment->getText(), trim($allowTags))));
+		// Remove non tag chars
+		$allowedTags = preg_replace('/[^\w<>]/i', '', $this->settings['blogsystem']['comments']['allowTags']);
+		// Remove bad tags
+		$allowedTags = preg_replace('/<(script|link|i?frame)>/i', '', $allowedTags);
+
+		// Remove unwanted tags from text
+		$text = strip_tags($comment->getText(), $allowedTags);
+
+		if ($this->settings['blogsystem']['comments']['allowSomeTagAttributes']) {
+			$text = GeneralUtility::removeXSS($text);
+		} else {
+			// Remove all attributes
+			$text = preg_replace('/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i','<$1$2>', $text);
+		}
+
+		$comment->setText($text);
 	}
 
 	/**

@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -169,7 +169,7 @@ class PostRepository extends AbstractRepository {
 		$query = $this->createQuery();
 
 		$query->matching(
-			$query->like('tagCloud', '%' . $tag . '%')
+			$query->like('tagCloud', '%'.$this->getDatabase()->escapeStrForLike($tag, 'tx_t3blog_post').'%')
 		);
 
 		return $query->execute();
