@@ -19,6 +19,43 @@ Upgrade Guide
 
 
 
+Upgrade from 2.2.x to 2.2.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.2.1...2.2.2
+
+- Important security fix!
+
+- Strengthen security
+
+- Improve default configuration
+
+- Document how :ref:`SPAM protection <configuration-spam>` works
+
+
+**Breaking changes**
+
+- Comment website url scheme is now limited to http and https only
+
+- Attributes for allowed tags in comments are now removed by default
+
+
+How to upgrade
+""""""""""""""
+
+#. Run update wizard in Extension Manager to search for now invalid comment website links
+
+#. Fix or remove all invalid, existing comment website links (!)
+
+#. Please check your TypoScript configuration (SPAM protection, allowed tags, ...)
+
+#. Clear all caches
+
+
+
 Upgrade from 2.2.0 to 2.2.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
