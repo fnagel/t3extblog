@@ -76,7 +76,7 @@ class ActionViewHelper extends BaseActionViewHelper
             return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
         }
 
-        if ($pageUid === null && is_int($pageUid)) {
+        if ($pageUid === null || !intval($pageUid)) {
             throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
         }
 
