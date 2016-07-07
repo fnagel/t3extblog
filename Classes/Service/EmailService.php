@@ -127,13 +127,11 @@ class EmailService implements SingletonInterface
             $mailFrom = MailUtility::getSystemFrom();
         }
 
-        /* @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $message = $this->createMailMessage();
         $message
-            ->setTo($mailTo)
-            ->setFrom($mailFrom)
             ->setSubject($subject)
-            ->setCharset(\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset);
+            ->setTo($mailTo)
+            ->setFrom($mailFrom);
 
         // Plain text only
         if (strip_tags($emailBody) == $emailBody) {
@@ -286,5 +284,23 @@ class EmailService implements SingletonInterface
         $output = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $output);
 
         return $output;
+    }
+
+    /**
+     * Create mail message
+     *
+     * @return \TYPO3\CMS\Core\Mail\MailMessage
+     */
+    protected function createMailMessage()
+    {
+        $message = $this->objectManager->get(
+            'TYPO3\\CMS\\Core\\Mail\\MailMessage',
+            null,
+            null,
+            null,
+            \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset
+        );
+
+        return $message;
     }
 }
