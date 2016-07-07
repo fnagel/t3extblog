@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -152,12 +152,13 @@ class Category extends AbstractLocalizedEntity
     public function getChildCategories()
     {
         if (!$this->isFirstLevel()) {
-            return;
+            return null;
         }
 
         if ($this->childCategories === null) {
-            $categories = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
-                ->findByParentId($this->getUid());
+            /* @var $categoryRepository \TYPO3\T3extblog\Domain\Repository\CategoryRepository */
+            $categoryRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository');
+            $categories = $categoryRepository->findChildren($this);
 
             $this->childCategories = new ObjectStorage();
             foreach ($categories as $category) {

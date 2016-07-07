@@ -177,6 +177,9 @@ class PostRepository extends AbstractRepository
     /**
      * Returns all objects of this repository with matching category.
      *
+     * @todo Rework this when extbase bug is fixed:
+     * https://forge.typo3.org/issues/57272
+     *
      * @param Category $category
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
@@ -184,6 +187,7 @@ class PostRepository extends AbstractRepository
     public function findByCategory($category)
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         $constraints = array();
         $constraints[] = $query->contains('categories', $category);

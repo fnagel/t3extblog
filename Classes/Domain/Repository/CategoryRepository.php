@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -37,4 +37,30 @@ class CategoryRepository extends AbstractRepository
         'sorting' => QueryInterface::ORDER_ASCENDING,
         'name' => QueryInterface::ORDER_ASCENDING,
     );
+
+    /**
+     * Returns all children of the given category
+     *
+     * @todo Rework this when extbase bug is fixed:
+     * https://forge.typo3.org/issues/57272
+     *
+     * @param \TYPO3\T3extblog\Domain\Model\Category $category
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findChildren($category)
+    {
+        if (!$category->isFirstLevel()) {
+            return null;
+        }
+
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+
+        $query->matching(
+            $query->equals('parent_id', $category->getUid())
+        );
+
+        return $query->execute();
+    }
 }
