@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2016 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -82,7 +82,7 @@ class SpamCheckService implements SpamCheckServiceInterface
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'spamCheck',
-            array($settings, $arguments, $spamPoints, $this)
+            array($settings, $arguments, &$spamPoints, $this)
         );
 
         return $spamPoints;
