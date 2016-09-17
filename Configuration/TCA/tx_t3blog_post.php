@@ -158,7 +158,7 @@ return array(
                     'ORDER BY be_users.username',
                 'showIconTable' => false,
                 'size' => 1,
-                'minitems' => 0,
+                'minitems' => 1,
                 'maxitems' => 1,
                 'prepend_tname' => false,
             ),
