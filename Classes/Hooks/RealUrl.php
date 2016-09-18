@@ -167,9 +167,6 @@ class RealUrl
                         array(
                             'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][currentPage]',
                         ),
-                        array(
-                            'GETvar' => 'tx_t3extblog_blogsystem[@widget_0][addQueryStringMethod]',
-                        ),
                     ),
 
                     'subscription' => array(
