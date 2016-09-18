@@ -37,6 +37,17 @@ use TYPO3\T3extblog\Domain\Model\Comment;
  */
 class PostController extends AbstractController
 {
+
+    /**
+     * @var array
+     */
+    protected $cHashActions = array(
+        'categoryAction',
+        'authorAction',
+        'tagAction',
+        'showAction',
+    );
+
     /**
      * postRepository.
      *

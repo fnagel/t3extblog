@@ -51,6 +51,13 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     protected $log;
 
     /**
+     * Actions which need a configured cHash
+     *
+     * @var array
+     */
+    protected $cHashActions = array();
+
+    /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
      * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration.
@@ -90,6 +97,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     {
         $this->validateTypoScriptConfiguration();
         $this->addDefaultCacheTags();
+        $this->configureCHash();
     }
 
     /**
@@ -237,6 +245,16 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 
             // We only want to set the tag once in one request
             $cacheTagsSet = true;
+        }
+    }
+
+    /**
+     * Add basic cache tag for all related pages.
+     */
+    protected function configureCHash()
+    {
+        if (count($this->cHashActions) > 0 && in_array($this->actionMethodName, $this->cHashActions)) {
+            \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
         }
     }
 }

@@ -34,6 +34,13 @@ use TYPO3\CMS\Extbase\Domain\Model\Category;
 class CategoryController extends AbstractController
 {
     /**
+     * @var array
+     */
+    protected $cHashActions = array(
+        'showAction',
+    );
+
+    /**
      * categoryRepository.
      *
      * @var \TYPO3\T3extblog\Domain\Repository\CategoryRepository
