@@ -19,7 +19,7 @@
 				</f:else>
 			</f:if>
 		</td>
-		<td>{subscriber.crdate -> f:format.date(format: 'd.m.y H:i')}</td>
+		<td>{subscriber.crdate -> f:format.date(format: '{dateFormat} {timeFormat}')}</td>
 		<td class="action">
 			<t3b:backend.link.editOnClick parameters="edit[{table}][{subscriber.uid}]=edit" title="{f:translate(key: 'module.subscriber.help.edit')}">
 				<t3b:backend.spriteManagerIcon iconName="actions-document-open" />

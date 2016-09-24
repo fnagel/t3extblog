@@ -7,7 +7,7 @@
 		</a>
 	</td>
 	<td>{subscriber.email}</td>
-	<td>{subscriber.crdate -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
+	<td>{subscriber.crdate -> f:format.date(format: '{dateFormat} {timeFormat}')}</td>
 	<td class="action">
 		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_blog_nl][{subscriber.uid}]=edit" title="{f:translate(key: 'module.subscriber.help.edit')}">
 			<t3extblog:spriteManagerIcon iconName="actions-document-open" />

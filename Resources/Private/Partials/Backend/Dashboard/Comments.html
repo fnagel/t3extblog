@@ -35,7 +35,7 @@
 							{comment.author -> f:format.crop(maxCharacters: 15, respectWordBoundaries: false)}
 						</span>
 					</td>
-					<td>{comment.date -> f:format.date(format: 'd.m.y H:i')}</td>
+					<td>{comment.date -> f:format.date(format: '{dateFormat} {timeFormat}')}</td>
 					<td class="action">
 						<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit" title="{f:translate(key: 'module.comment.help.edit')}">
 							<t3b:backend.spriteManagerIcon iconName="actions-document-open" />
