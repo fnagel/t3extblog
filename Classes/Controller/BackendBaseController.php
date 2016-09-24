@@ -127,13 +127,17 @@ class BackendBaseController extends ActionController
      */
     protected function initializeView(ViewInterface $view)
     {
+        $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
+        if (empty($dateTimeFormat)) {
+            $dateTimeFormat = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' .
+                $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
+        }
+
         $this->view->assignMultiple(array(
             'pageId' => $this->pageId,
-            'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-            'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+            'dateTimeFormat' => $dateTimeFormat,
+            'pageNotice' => $this->pageInfo,
         ));
-
-        $this->view->assign('pageNotice', $this->pageInfo);
     }
 
     /**
@@ -150,7 +154,6 @@ class BackendBaseController extends ActionController
             // Validate settings
             TypoScriptValidator::validateSettings($this->settings);
         } catch (InvalidConfigurationException $exception) {
-
             // On pages with blog records we need to make sure TS is configured so escalate!
             if ($this->pageInfo['show'] === false) {
                 throw $exception;

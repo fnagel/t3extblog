@@ -21,7 +21,7 @@
 						</thead>
 
 						<f:for each="{paginatedBlogSubscriber}" as="subscriber">
-							<f:render partial="Backend/Subscriber/BlogSubscriberRow" arguments="{subscriber: subscriber, dateFormat: dateFormat, timeFormat: timeFormat}" />
+							<f:render partial="Backend/Subscriber/BlogSubscriberRow" arguments="{subscriber: subscriber, dateTimeFormat: dateTimeFormat}" />
 						</f:for>
 
 						<tr>

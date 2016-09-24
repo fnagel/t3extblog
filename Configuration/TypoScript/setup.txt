@@ -258,6 +258,10 @@ plugin.tx_t3extblog {
 
 		# Backend
 		backend {
+			# Format for date time, see http://php.net/date
+			# Fallback to TYPO3_CONF_VARS -> SYS -> ddmmyy and hhmm configuration
+			dateTimeFormat =
+
 			dashboard {
 				postDrafts.paginate {
 					itemsPerPage = 5

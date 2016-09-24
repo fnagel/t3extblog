@@ -45,7 +45,7 @@
 					</div>
 
 					<f:render partial="Backend/Dashboard/Posts"
-						arguments="{posts: postDrafts, dateFormat: dateFormat, timeFormat: timeFormat}" />
+						arguments="{posts: postDrafts, dateTimeFormat: dateTimeFormat}" />
 				</div>
 			</f:if>
 
@@ -78,7 +78,7 @@
 			<f:if condition="{comments}">
 				<f:then>
 					<f:render partial="Backend/Dashboard/Comments"
-						arguments="{comments: comments,	dateFormat:	dateFormat, timeFormat: timeFormat}" />
+						arguments="{comments: comments,	dateTimeFormat:	dateTimeFormat}" />
 				</f:then>
 				<f:else>
 					<div class="panel-body">
@@ -116,7 +116,7 @@
 							<f:then>
 								<t3b:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
 									<f:render partial="Backend/Dashboard/Subscriber"
-											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
+											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateTimeFormat: dateTimeFormat}" />
 								</t3b:widget.paginate>
 							</f:then>
 							<f:else>
@@ -137,7 +137,7 @@
 							<f:then>
 								<t3b:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
 									<f:render partial="Backend/Dashboard/Subscriber"
-											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateFormat: dateFormat, timeFormat: timeFormat}" />
+											  arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateTimeFormat: dateTimeFormat}" />
 								</t3b:widget.paginate>
 							</f:then>
 							<f:else>

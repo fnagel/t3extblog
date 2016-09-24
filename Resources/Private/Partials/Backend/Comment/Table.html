@@ -27,7 +27,7 @@
 							</td>
 						</tr>
 						<f:for each="{paginatedCommentsByPost}" as="comment">
-							<f:render partial="Backend/Comment/Row" arguments="{comment: comment, dateFormat: dateFormat, timeFormat: timeFormat}" />
+							<f:render partial="Backend/Comment/Row" arguments="{comment: comment, dateTimeFormat: dateTimeFormat}" />
 						</f:for>
 					</f:groupedFor>
 					<tr>

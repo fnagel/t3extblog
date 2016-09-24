@@ -32,7 +32,7 @@
 										<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 									</a>
 								</td>
-								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateFormat: dateFormat, timeFormat: timeFormat}" />
+								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateTimeFormat: dateTimeFormat}" />
 								<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
 									<td>
 										<f:if condition="{post.mailSendingAllowed}">
@@ -52,7 +52,7 @@
 										<td class="col-icon">
 											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
 										</td>
-										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateFormat: dateFormat, timeFormat: timeFormat}" />
+										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateTimeFormat: dateTimeFormat}" />
 										<td></td>
 									</tr>
 								</f:for>
