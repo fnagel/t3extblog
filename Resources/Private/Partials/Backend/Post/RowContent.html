@@ -5,7 +5,7 @@
 		{post.title}
 	</t3extblog:link.editOnClick>
 </td>
-<td>{post.publishDate -> f:format.date(format: 'd.m.Y - H:i')}</td>
+<td>{post.publishDate -> f:format.date(format: '{dateFormat} {timeFormat}')}</td>
 <td>{post.author.name}</td>
 <td class="comment">
 	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post}">

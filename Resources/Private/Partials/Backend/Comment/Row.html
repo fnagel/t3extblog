@@ -17,7 +17,7 @@
 			{comment.title -> f:format.crop(maxCharacters: 30)}
 		</t3extblog:link.editOnClick>
 	</td>
-	<td>{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}</td>
+	<td>{comment.date -> f:format.date(format: '{dateFormat} {timeFormat}')}</td>
 	<td>{comment.author}</td>
 	<td><a href="mailto:{comment.email}">{comment.email}</a></td>
 	<td><a href="{comment.website}">{comment.website -> f:format.crop(maxCharacters: 30)}</a></td>
