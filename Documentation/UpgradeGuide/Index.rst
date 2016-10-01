@@ -55,7 +55,9 @@ https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 
 - Fix issues with new `cHashIncludePageId` config and EXT:realurl 2.0.15
 
-- Configure backend module date time format
+- Add prev / next meta tag for paginated views
+
+- Add option to configure backend module date time format
 
 - More minor bugfixes
 
