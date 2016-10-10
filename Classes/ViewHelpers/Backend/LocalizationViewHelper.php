@@ -36,12 +36,12 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class LocalizationViewHelper extends AbstractBackendViewHelper
 {
-    /**
-     * Needed for TYPO3 8.x.
-     *
-     * {@inheritdoc}
-     */
-    protected $escapeOutput = false;
+	/**
+	 * This view helper renders HTML, thus output must not be escaped
+	 *
+	 * @var bool
+	 */
+	protected $escapeOutput = false;
 
     /**
      * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider

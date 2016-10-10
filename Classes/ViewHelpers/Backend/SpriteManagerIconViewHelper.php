@@ -6,6 +6,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
  *  Copyright notice
  *
  *  (c) 2012 Felix Kopp <felix-source@phorax.com>
+ *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -37,6 +38,13 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
  */
 class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
 {
+	/**
+	 * This view helper renders HTML, thus output must not be escaped
+	 *
+	 * @var bool
+	 */
+	protected $escapeOutput = false;
+
     /**
      * Prints sprite icon html for $iconName key.
      *
