@@ -64,7 +64,10 @@ https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 
 **Breaking changes**
 
-- Introduced custom paginate ViewHelper
+- ViewHelper changes
+	- Introduced custom `paginate` VH
+	- Removed custom `flashMessages` VH (use default one instead)
+	- Add `flashMessagesClearCache` VH in `Comment/New.html` partial (before `flashMessages` VH!)
 
 - Changed email template configuration
 	- Old `plugin.tx_t3extblog.email` configuration has been removed

@@ -87,6 +87,18 @@ class GeneralUtility
     }
 
     /**
+     * CAUTION: disables whole FE cache!
+     *
+     * @return void
+     */
+    public static function disableFrontendCache()
+    {
+	    if (isset($GLOBALS['TSFE'])) {
+		    $GLOBALS['TSFE']->no_cache = true;
+	    }
+    }
+
+    /**
      * Get page renderer.
      *
      * @return \TYPO3\CMS\Core\Page\PageRenderer

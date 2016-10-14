@@ -1,6 +1,11 @@
 <div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Frontend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<t3b:flashMessages />
+<f:comment>
+	Make sure to always add flashMessagesClearCache BEFORE flashMessages VH
+	Not needed before TYPO3 CMS 7.3
+</f:comment>
+<t3b:flashMessagesClearCache />
+<f:flashMessages />
 
 <t3b:commentAllowed post="{post}">
 	<f:then>
