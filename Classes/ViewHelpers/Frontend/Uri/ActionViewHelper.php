@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as BaseActionViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -45,42 +45,84 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * (depending on the current page and your TS configuration)
  * </output>
  */
-class ActionViewHelper extends BaseActionViewHelper
+class ActionViewHelper extends AbstractViewHelper
 {
     /**
-     * @param string $action                               Target action
-     * @param array  $arguments                            Arguments
-     * @param string $controller                           Target controller. If NULL current controllerName is used
-     * @param string $extensionName                        Target Extension Name (without "tx_" prefix and no underscores). If NULL the current extension name is used
-     * @param string $pluginName                           Target plugin. If empty, the current plugin name is used
-     * @param int    $pageUid                              target page. See TypoLink destination
-     * @param int    $pageType                             type of the target page. See typolink.parameter
-     * @param bool   $noCache                              set this to disable caching for the target page. You should not need this.
-     * @param bool   $noCacheHash                          set this to supress the cHash query parameter created by TypoLink. You should not need this.
-     * @param string $section                              the anchor to be added to the URI
-     * @param string $format                               The requested format, e.g. ".html"
-     * @param bool   $linkAccessRestrictedPages            If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.
-     * @param array  $additionalParams                     additional query parameters that won't be prefixed like $arguments (overrule $arguments)
-     * @param bool   $absolute                             If set, an absolute URI is rendered
-     * @param bool   $addQueryString                       If set, the current query parameters will be kept in the URI
-     * @param array  $argumentsToBeExcludedFromQueryString arguments to be removed from the URI. Only active if $addQueryString = TRUE
-     * @param string $addQueryStringMethod                 Set which parameters will be kept. Only active if $addQueryString = TRUE
+     * Initialize arguments
      *
-     * @throws \Exception
-     *
+     * @return void
+     * @api
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('action', 'string', 'Target action');
+        $this->registerArgument('arguments', 'array', 'Arguments', false, array());
+        $this->registerArgument('controller', 'string', 'Target controller. If NULL current controllerName is used');
+        $this->registerArgument('extensionName', 'string', 'Target Extension Name (without "tx_" prefix and no underscores). If NULL the current extension name is used');
+        $this->registerArgument('pluginName', 'string', 'Target plugin. If empty, the current plugin name is used');
+        $this->registerArgument('pageUid', 'int', 'Target page. See TypoLink destination');
+        $this->registerArgument('pageType', 'int', 'Type of the target page. See typolink.parameter', false, 0);
+        $this->registerArgument('noCache', 'bool', 'Set this to disable caching for the target page. You should not need this.', false, false);
+        $this->registerArgument('noCacheHash', 'bool', 'Set this to suppress the cHash query parameter created by TypoLink. You should not need this.', false, false);
+        $this->registerArgument('section', 'string', 'The anchor to be added to the URI', false, '');
+        $this->registerArgument('format', 'string', 'The requested format, e.g. ".html', false, '');
+        $this->registerArgument('linkAccessRestrictedPages', 'bool', 'If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.', false, false);
+        $this->registerArgument('additionalParams', 'array', 'additional query parameters that won\'t be prefixed like $arguments (overrule $arguments)', false, array());
+        $this->registerArgument('absolute', 'bool', 'If set, an absolute URI is rendered', false, false);
+        $this->registerArgument('addQueryString', 'bool', 'If set, the current query parameters will be kept in the URI', false, false);
+        $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', 'arguments to be removed from the URI. Only active if $addQueryString = TRUE', false, array());
+        $this->registerArgument('addQueryStringMethod', 'string', 'Set which parameters will be kept. Only active if $addQueryString = TRUE');
+    }
+
+    /**
      * @return string Rendered link
      */
-    public function render($action = null, array $arguments = array(), $controller = null, $extensionName = null, $pluginName = null, $pageUid = null, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = array(), $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = null)
+    public function render()
     {
         if (TYPO3_MODE === 'FE') {
-            return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString);
+            return $uri = $this->controllerContext->getUriBuilder()
+                ->reset()
+                ->setTargetPageUid($this->arguments['pageUid'])
+                ->setTargetPageType($this->arguments['pageType'])
+                ->setNoCache($this->arguments['noCache'])
+                ->setUseCacheHash(!$this->arguments['noCacheHash'])
+                ->setSection($this->arguments['section'])
+                ->setFormat($this->arguments['format'])
+                ->setLinkAccessRestrictedPages($this->arguments['linkAccessRestrictedPages'])
+                ->setArguments($this->arguments['additionalParams'])
+                ->setCreateAbsoluteUri($this->arguments['absolute'])
+                ->setAddQueryString($this->arguments['addQueryString'])
+                ->setArgumentsToBeExcludedFromQueryString($this->arguments['argumentsToBeExcludedFromQueryString'])
+                ->setAddQueryStringMethod($this->arguments['addQueryStringMethod'])
+                ->uriFor(
+                    $this->arguments['action'],
+                    $this->arguments['arguments'],
+                    $this->arguments['controller'],
+                    $this->arguments['extensionName'],
+                    $this->arguments['pluginName']
+                );
         }
 
-        if ($pageUid === null || !intval($pageUid)) {
-            throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
-        }
-
-        return $this->renderFrontendLink($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType, $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute, $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+        return $this->renderFrontendLink(
+            $this->arguments['action'],
+            $this->arguments['arguments'],
+            $this->arguments['controller'],
+            $this->arguments['extensionName'],
+            $this->arguments['pluginName'],
+            $this->arguments['pageUid'],
+            $this->arguments['pageType'],
+            $this->arguments['noCache'],
+            $this->arguments['noCacheHash'],
+            $this->arguments['section'],
+            $this->arguments['format'],
+            $this->arguments['linkAccessRestrictedPages'],
+            $this->arguments['additionalParams'],
+            $this->arguments['absolute'],
+            $this->arguments['addQueryString'],
+            $this->arguments['argumentsToBeExcludedFromQueryString'],
+            $this->arguments['addQueryStringMethod']
+        );
     }
 
     /**
@@ -108,6 +150,10 @@ class ActionViewHelper extends BaseActionViewHelper
      */
     protected function renderFrontendLink($action = null, array $arguments = array(), $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = array(), $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = null)
     {
+        if ($pageUid === null || !intval($pageUid)) {
+            throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
+        }
+
         if ($controller === null || $extensionName === null || $pluginName === null) {
             throw new \Exception('Missing arguments for extbase link generation from BE context. Check your template!');
         }
