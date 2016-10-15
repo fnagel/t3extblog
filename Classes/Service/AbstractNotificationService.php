@@ -29,7 +29,10 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
+use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
 use TYPO3\T3extblog\Domain\Model\Comment;
+use TYPO3\T3extblog\Domain\Model\Post;
+use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * Handles all notification mails.
@@ -97,27 +100,53 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     }
 
     /**
-     * Send subscriber emails.
+     * Send subscriber notification emails.
      *
      * @param AbstractSubscriber $subscriber
      * @param string             $subject
      * @param string             $template
      * @param array              $variables
      */
-    protected function sendEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array())
+    protected function sendSubscriberEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array())
     {
-        $settings = $this->subscriptionSettings['subscriber'];
-        $defaultVariables = array(
+	    $defaultVariables = array(
             'subscriber' => $subscriber,
-            'subject' => $subject,
             'validUntil' => $this->getValidUntil(),
         );
 
-        $this->emailService->sendEmail(
+	    if ($subscriber instanceof BlogSubscriber) {
+		    $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
+	    }
+	    if ($subscriber instanceof PostSubscriber) {
+		    $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
+	    }
+
+        $this->sendEmail(
             $subscriber->getMailTo(),
+            $subject,
+            $template,
+	        $this->subscriptionSettings['subscriber'],
+            array_merge($defaultVariables, $variables)
+        );
+    }
+
+    /**
+     * Send notification emails.
+     *
+     * @param array $mailTo
+     * @param string $subject
+     * @param string $template
+     * @param array $settings
+     * @param array $variables
+     */
+    protected function sendEmail($mailTo, $subject, $template, $settings, $variables = array())
+    {
+        $this->emailService->sendEmail(
+            $mailTo,
             array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
             $subject,
-            array_merge($defaultVariables, $variables),
+            // General language uid: fallback to default
+	        array_merge(array('languageUid' => 0), $variables),
             $template
         );
     }

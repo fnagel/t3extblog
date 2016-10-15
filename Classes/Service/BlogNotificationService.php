@@ -109,7 +109,7 @@ class BlogNotificationService extends AbstractNotificationService
         $subscriber->updateAuth();
         $this->subscriberRepository->update($subscriber);
 
-        $this->sendEmail(
+        $this->sendSubscriberEmail(
             $subscriber,
             $this->translate('subject.subscriber.blog.new'),
             $this->subscriptionSettings['subscriber']['template']['confirm']
@@ -152,7 +152,7 @@ class BlogNotificationService extends AbstractNotificationService
             $subscriber->updateAuth();
             $this->subscriberRepository->update($subscriber);
 
-            $this->sendEmail($subscriber, $subject, $settings['template']['notification'], $variables);
+            $this->sendSubscriberEmail($subscriber, $subject, $settings['template']['notification'], $variables);
         }
 
         $post->setMailsSent(true);

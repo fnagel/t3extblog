@@ -159,7 +159,7 @@ class CommentNotificationService extends AbstractNotificationService
         $subscriber->updateAuth();
         $this->subscriberRepository->update($subscriber);
 
-        $this->sendEmail(
+        $this->sendSubscriberEmail(
             $subscriber,
             $this->translate('subject.subscriber.comment.new', $post->getTitle()),
             $this->subscriptionSettings['subscriber']['template']['confirm'],
@@ -238,7 +238,7 @@ class CommentNotificationService extends AbstractNotificationService
             $subscriber->updateAuth();
             $this->subscriberRepository->update($subscriber);
 
-            $this->sendEmail(
+            $this->sendSubscriberEmail(
                 $subscriber, $subject, $settings['template']['notification'], $variables
             );
         }
@@ -273,16 +273,16 @@ class CommentNotificationService extends AbstractNotificationService
         $subject = $this->translate('subject.comment.admin.new', $post->getTitle());
         $variables = array(
             'post' => $post,
+            'languageUid' => $post->getSysLanguageUid(),
             'comment' => $comment,
-            'subject' => $subject,
         );
 
-        $this->emailService->sendEmail(
+        $this->sendEmail(
             array($settings['mailTo']['email'] => $settings['mailTo']['name']),
-            array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
             $subject,
-            $variables,
-            $settings['template']
+            $settings['template'],
+            $settings,
+            $variables
         );
     }
 }
