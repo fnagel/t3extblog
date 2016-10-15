@@ -36,7 +36,14 @@ use TYPO3\T3extblog\Domain\Model\AbstractLocalizedEntity;
  */
 class RenderContentViewHelper extends AbstractViewHelper
 {
-    /**
+	/**
+	 * This view helper renders HTML, thus output must not be escaped
+	 *
+	 * @var bool
+	 */
+	protected $escapeOutput = false;
+
+	/**
      * {@inheritdoc}
      */
     public function initializeArguments()
