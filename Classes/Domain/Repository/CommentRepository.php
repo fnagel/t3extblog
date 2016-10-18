@@ -45,12 +45,12 @@ class CommentRepository extends AbstractRepository
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findValid($pid = null)
+    public function findValid($pid = null, $excludeHiddenPosts = false)
     {
         $query = $this->createQuery($pid);
 
         $query->matching(
-            $this->getValidConstraints($query)
+            $this->getValidConstraints($query, $excludeHiddenPosts)
         );
 
         return $query->execute();
@@ -97,7 +97,7 @@ class CommentRepository extends AbstractRepository
         $query->matching(
             $query->logicalAnd(
                 $this->getValidConstraints($query),
-                $query->equals('postId', $post->getLocalizedUid())
+                $query->equals('post', $post)
             )
         );
 
@@ -246,12 +246,23 @@ class CommentRepository extends AbstractRepository
      *
      * @return object
      */
-    protected function getValidConstraints(QueryInterface $query)
+    protected function getValidConstraints(QueryInterface $query, $excludeHiddenPosts = false)
     {
         $constraints = $query->logicalAnd(
             $query->equals('spam', 0),
             $query->equals('approved', 1)
         );
+        // By default, comments of hidden posts will be included in the result, because there is no relation / join from comments to posts
+        // To exclude these comments, we join w/ post (via post.uid constraint)
+        // XXX Is there another / better way to join, w/o a unneeded constraint?
+        // The generated query automatically excludes hidden posts via default enablefields handling
+        // (the generated SQL contains ... tx_t3blog_post.deleted = 0 ... AND tx_t3blog_post.hidden = 0 ...)
+        if ($excludeHiddenPosts) {
+            $constraints = $query->logicalAnd(
+                $constraints,
+                $query->greaterThan('post.uid', 0)
+            );
+        }
 
         return $constraints;
     }

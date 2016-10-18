@@ -114,16 +114,9 @@ class Comment extends AbstractEntity
     protected $spamPoints = null;
 
     /**
-     * postId.
-     *
-     * @var int
-     */
-    protected $postId;
-
-    /**
      * post.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\Post
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
      * @lazy
      */
     protected $post = null;
@@ -397,36 +390,12 @@ class Comment extends AbstractEntity
     }
 
     /**
-     * Sets the postId.
-     *
-     * @param int $postId
-     */
-    public function setPostId($postId)
-    {
-        $this->postId = $postId;
-    }
-
-    /**
-     * Returns the post id.
-     *
-     * @return int
-     */
-    public function getPostId()
-    {
-        return $this->postId;
-    }
-
-    /**
      * Returns the post.
      *
      * @return \TYPO3\T3extblog\Domain\Model\Post
      */
     public function getPost()
     {
-        if ($this->post === null) {
-            $this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
-        }
-
         return $this->post;
     }
 
