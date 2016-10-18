@@ -116,7 +116,7 @@ class Comment extends AbstractEntity
     /**
      * post.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
+     * @var \TYPO3\T3extblog\Domain\Model\Post
      * @lazy
      */
     protected $post = null;
