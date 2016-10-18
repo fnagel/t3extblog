@@ -72,7 +72,7 @@ config.tx_extbase {
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
 						title.mapOnProperty = title
-						fk_post.mapOnProperty = postId
+						fk_post.mapOnProperty = post
 						author.mapOnProperty = author
 						email.mapOnProperty = email
 						website.mapOnProperty = website

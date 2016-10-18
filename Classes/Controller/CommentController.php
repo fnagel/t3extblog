@@ -74,7 +74,7 @@ class CommentController extends AbstractController
     public function listAction(Post $post = null)
     {
         if ($post === null) {
-            $comments = $this->commentRepository->findValid();
+            $comments = $this->commentRepository->findValid(null, true);
         } else {
             $comments = $this->commentRepository->findValidByPost($post);
             $this->view->assign('post', $post);
