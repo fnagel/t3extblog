@@ -49,11 +49,30 @@ class CommentRepository extends AbstractRepository
     {
         $query = $this->createQuery($pid);
 
+        // generate a query over tx_t3blog_com joining w/ tx_t3blog_post
         $query->matching(
-            $this->getValidConstraints($query, $excludeHiddenPosts)
+            $this->getValidConstraints($query)
         );
 
-        return $query->execute();
+        // do special enable fields processing
+        // @see \TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::getVisibilityConstraintStatement
+        $ignoreEnableFieldsOrig = $query->getQuerySettings()->getIgnoreEnableFields();
+        $query->getQuerySettings()->setIgnoreEnableFields(false);
+        // getVisibilityConstraintStatement() does NOT use \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::$enableFieldsToBeIgnored
+        // but $GLOBALS['TCA'][$table]['ctrl']['enablecolumns']
+        $txT3blogPostEnablecolumnsOrig = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['enablecolumns'];
+        if (!$excludeHiddenPosts) {
+            // include comments of hidden posts
+            unset($GLOBALS['TCA']['tx_t3blog_post']['ctrl']['enablecolumns']['disabled']);
+        }
+
+        $result = $query->execute();
+
+        // restore original settings
+        $query->getQuerySettings()->setIgnoreEnableFields($ignoreEnableFieldsOrig);
+        $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['enablecolumns'] = $txT3blogPostEnablecolumnsOrig;
+
+        return $result;
     }
 
     /**
@@ -246,23 +265,14 @@ class CommentRepository extends AbstractRepository
      *
      * @return object
      */
-    protected function getValidConstraints(QueryInterface $query, $excludeHiddenPosts = false)
+    protected function getValidConstraints(QueryInterface $query)
     {
         $constraints = $query->logicalAnd(
             $query->equals('spam', 0),
-            $query->equals('approved', 1)
+            $query->equals('approved', 1),
+            // Always join w/ posts to be able to exclude comments of hidden posts
+            $query->greaterThan('post.uid', 0)
         );
-        // By default, comments of hidden posts will be included in the result, because there is no relation / join from comments to posts
-        // To exclude these comments, we join w/ post (via post.uid constraint)
-        // XXX Is there another / better way to join, w/o a unneeded constraint?
-        // The generated query automatically excludes hidden posts via default enablefields handling
-        // (the generated SQL contains ... tx_t3blog_post.deleted = 0 ... AND tx_t3blog_post.hidden = 0 ...)
-        if ($excludeHiddenPosts) {
-            $constraints = $query->logicalAnd(
-                $constraints,
-                $query->greaterThan('post.uid', 0)
-            );
-        }
 
         return $constraints;
     }
