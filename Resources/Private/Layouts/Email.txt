@@ -8,4 +8,4 @@
 	action="list"
 	pageUid="{settings.blogsystem.pid}"
 	absolute="true"
-	additionalParams="{L: post.sysLanguageUid}" />
+	additionalParams="{L: languageUid}" />
