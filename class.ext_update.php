@@ -59,8 +59,9 @@ class ext_update {
 		$message = 'These wizards will alter the database. Be careful in production environments!';
 		$this->messageArray[] = [FlashMessage::WARNING, 'Database update wizards', $message];
 
-		$this->renderPostSection();
-		$this->renderCommentSection();
+		$this->renderCommentUrlValidationSection();
+		$this->renderPostMailsSentSection();
+		$this->renderCommentMailsSentSection();
 
 		$output .= $this->generateMessages();
 		$output .= implode('<br>', $this->sectionArray);
@@ -71,14 +72,50 @@ class ext_update {
 	/**
 	 * @return void
 	 */
-	protected function renderPostSection() {
+	protected function renderCommentUrlValidationSection() {
+		$key = 'comment_url_validation';
+		if (GeneralUtility::_POST('migration') === $key) {
+			$this->findCommentRecordsForUrlValidation();
+		}
+
+		$this->sectionArray[] = $this->renderForm(
+			$key, 'Find existing comments with invalid website URLs'
+		);
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function findCommentRecordsForUrlValidation() {
+		$where = 'website != "" AND NOT (website LIKE "http%" OR website LIKE "https%")';
+		$rows = $this->database->exec_SELECTgetRows('*', 'tx_t3blog_com', $where);
+
+		$commentList = '';
+		foreach ($rows as $comment) {
+			$commentList .= '<li>';
+			$commentList .= 'uid=' . $comment['uid'] . ', pid=' . $comment['pid'];
+			$commentList .= ', post=' . $comment['fk_post'] . ', deleted=' . $comment['deleted'];
+			$commentList .= '</li>';
+		}
+
+		$this->sectionArray[] = '<ul>' . $commentList . '</ul>';
+
+		$message = count($rows) . ' comments with invalid website URLs have been found.';
+		$message .= ' Make sure to remove or fix those URLs!';
+		$this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function renderPostMailsSentSection() {
 		if (!$this->isFieldAvailable('tx_t3blog_post', 'mails_sent')) {
 			return;
 		}
 
-		$key = 'post';
+		$key = 'post_mails_sent';
 		if (GeneralUtility::_POST('migration') === $key) {
-			$this->updatePostRecords();
+			$this->updatePostRecordsForMailsSent();
 		}
 
 		$this->sectionArray[] = $this->renderForm(
@@ -89,7 +126,7 @@ class ext_update {
 	/**
 	 * @return void
 	 */
-	protected function updatePostRecords() {
+	protected function updatePostRecordsForMailsSent() {
 		$this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', array('mails_sent' => 1));
 
 		$message = $this->database->sql_affected_rows() . ' posts have been updated';
@@ -99,14 +136,14 @@ class ext_update {
 	/**
 	 * @return void
 	 */
-	protected function renderCommentSection() {
+	protected function renderCommentMailsSentSection() {
 		if (!$this->isFieldAvailable('tx_t3blog_com', 'mails_sent')) {
 			return;
 		}
 
-		$key = 'comment';
+		$key = 'comment_mails_sent';
 		if (GeneralUtility::_POST('migration') === $key) {
-			$this->updateCommentRecords();
+			$this->updateCommentRecordsForMailsSent();
 		}
 
 		$this->sectionArray[] = $this->renderForm(
@@ -117,7 +154,7 @@ class ext_update {
 	/**
 	 * @return void
 	 */
-	protected function updateCommentRecords() {
+	protected function updateCommentRecordsForMailsSent() {
 		$this->database->exec_UPDATEquery('tx_t3blog_com', 'mails_sent IS NULL', array('mails_sent' => 1));
 
 		$message = $this->database->sql_affected_rows() . ' comments have been updated';
