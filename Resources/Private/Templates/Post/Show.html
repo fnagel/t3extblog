@@ -20,7 +20,7 @@
 					<span class="author">{post.author.name}</span>
 				</f:link.action> -
 			</f:if>
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />
 			-
 			<f:render partial="Post/Categories" arguments="{post: post}" />
 		</p>

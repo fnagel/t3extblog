@@ -11,7 +11,7 @@
 				</f:link.action>
 			</h2>
 			<p class="top">
-				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U' date:'{post.publishDate}')}" />,
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
 				<f:if condition="{post.author.uid}">
 					<span class="author">{post.author.name}</span> -
 				</f:if>
