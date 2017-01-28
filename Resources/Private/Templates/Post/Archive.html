@@ -11,7 +11,7 @@
 			</h3>
 				<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
 					<strong>
-						<f:cObject typoscriptObjectPath="lib.tx_t3extblog.month" data="{f:format.date(format:'U' date:'1/1 -1 day +{month} months')}" />
+						<f:cObject typoscriptObjectPath="lib.tx_t3extblog.month" data="{f:format.date(format:'U', date:'1/1 -1 day +{month} months')}" />
 					</strong>
 					<small>({postsByMonth -> f:count()})</small>
 
