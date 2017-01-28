@@ -213,7 +213,7 @@ class ext_update
                 $messageItem[0]
             );
 
-            $output .= $flashMessage->render();
+            $output .= $flashMessage->getMessageAsMarkup();
         }
 
         return $output;
