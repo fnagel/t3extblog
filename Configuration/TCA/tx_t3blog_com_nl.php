@@ -66,7 +66,8 @@ return array(
             'config' => array(
                 'type' => 'input',
                 'eval' => 'datetime,required',
-                'size' => '12',
+	            'size' => 13,
+	            'max' => 25,
             ),
         ),
         'code' => array(

@@ -82,12 +82,10 @@ return array(
             'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
             'config' => array(
-                'type' => 'input',
-                'size' => '8',
-                'max' => '20',
-                'eval' => 'date',
-                'default' => '0',
-                'checkbox' => '0',
+	            'type' => 'input',
+	            'size' => 13,
+	            'eval' => 'datetime',
+	            'default' => 0,
             ),
         ),
         'endtime' => array(
@@ -95,16 +93,13 @@ return array(
             'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
             'config' => array(
-                'type' => 'input',
-                'size' => '8',
-                'max' => '20',
-                'eval' => 'date',
-                'checkbox' => '0',
-                'default' => '0',
-                'range' => array(
-                    'upper' => mktime(0, 0, 0, 12, 31, 2020),
-                    'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
-                ),
+	            'type' => 'input',
+	            'size' => 13,
+	            'eval' => 'datetime',
+	            'default' => 0,
+	            'range' => array(
+		            'upper' => mktime(0, 0, 0, 1, 1, 2038),
+	            ),
             ),
         ),
         'fe_group' => array(
