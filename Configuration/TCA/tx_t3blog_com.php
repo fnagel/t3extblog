@@ -152,6 +152,7 @@ return array(
                 ),
                 'softref' => 'typolink_tag,email[subst],url',
             ),
+            'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
         ),
         'approved' => array(
             'exclude' => 1,
