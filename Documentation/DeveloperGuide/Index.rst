@@ -176,7 +176,7 @@ Run unit tests
 
 	composer install
 
-	./vendor/bin/runtests
+	./vendor/bin/phpunit
 
 
 TER deployment

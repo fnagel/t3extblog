@@ -2,7 +2,7 @@
   "name": "typo3/t3extblog",
   "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
   "require-dev": {
-    "fluidtypo3/development": "1.5.3"
+    "fluidtypo3/development": "3.1.5"
   },
   "autoload": {
     "psr-4": {
@@ -19,7 +19,7 @@
   },
   "require": {
     "php": ">=5.5,<7.1",
-    "typo3/cms-core": ">=7.3.0,<=8.3"
+    "typo3/cms-core": ">=7.3.0,<=8.6"
   },
   "conflict": {
     "dmitryd/typo3-realurl": ">=2.0.0 <=2.0.10"
