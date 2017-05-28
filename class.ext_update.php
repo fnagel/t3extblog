@@ -203,6 +203,7 @@ class ext_update
     protected function generateMessages()
     {
         $output = '';
+        $flashMessages = [];
 
         foreach ($this->messageArray as $messageItem) {
             /** @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
@@ -212,8 +213,22 @@ class ext_update
                 $messageItem[1],
                 $messageItem[0]
             );
+            $flashMessages[] = $flashMessage;
 
-            $output .= $flashMessage->getMessageAsMarkup();
+            if (version_compare(TYPO3_branch, '8.0', '<')) {
+                $output .= $flashMessage->render();
+
+            } elseif (version_compare(TYPO3_branch, '8.6', '<')) {
+                $output .= $flashMessage->getMessageAsMarkup();
+            }
+        }
+
+        if (version_compare(TYPO3_branch, '8.6', '>=')) {
+            /** @var \TYPO3\CMS\Core\Messaging\Renderer\FlashMessageRendererInterface $renderer */
+            $renderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Core\Messaging\FlashMessageRendererResolver::class
+            )->resolve();
+            $output = $renderer->render($flashMessages);
         }
 
         return $output;
