@@ -143,6 +143,15 @@ $requiredParameters = array(
 );
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ','.implode(',', $requiredParameters);
 
+// Make sure post preview works, taken from EXT:tt_news
+$configuredCookieName = trim($GLOBALS['TYPO3_CONF_VARS']['BE']['cookieName']);
+if (empty($configuredCookieName)) {
+    $configuredCookieName = 'be_typo_user';
+}
+if ($_COOKIE[$configuredCookieName]) {
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = 0;
+}
+
 // Make default avatar provider available in FE
 // @todo Remove this when 7.5 is no longer relevant
 if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
