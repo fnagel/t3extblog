@@ -95,6 +95,12 @@ class ext_update
         $where = 'website != "" AND NOT (website LIKE "http%" OR website LIKE "https%")';
         $rows = $this->database->exec_SELECTgetRows('*', 'tx_t3blog_com', $where);
 
+        if (count($rows) === 0) {
+            $message = 'All comment URLs look valid. Good job!';
+            $this->messageArray[] = [FlashMessage::OK, 'All comments valid!', $message];
+            return;
+        }
+
         $commentList = '';
         foreach ($rows as $comment) {
             $commentList .= '<li>';
