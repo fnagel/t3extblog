@@ -40,6 +40,8 @@ Installation
 Please see [/Documentation/Installation/Index.rst](Documentation/Installation/Index.rst) for installation and 
 [/Documentation/ReplaceT3Blog/Index.rst](Documentation/ReplaceT3Blog/Index.rst) for migration from EXT:t3blog.
 
+For TYPO3 6.x use the [2.x branch](https://github.com/fnagel/t3extblog/tree/2.x).
+
 
 Todo & Known bugs
 -----------------
