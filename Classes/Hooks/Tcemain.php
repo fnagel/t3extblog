@@ -253,7 +253,6 @@ class Tcemain
 
     /**
      * @param int $id
-     * @param int $pid
      *
      * @internal param int $fields
      */
@@ -264,7 +263,6 @@ class Tcemain
 
     /**
      * @param int $id
-     * @param int $pid
      *
      * @internal param int $fields
      */
@@ -282,6 +280,7 @@ class Tcemain
      */
     protected function getComment($uid)
     {
+        /* @var $comment \TYPO3\T3extblog\Domain\Model\Comment */
         $comment = $this->getCommentRepository()->findByUid($uid);
 
         return $comment;
