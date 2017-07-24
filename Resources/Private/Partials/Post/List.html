@@ -13,7 +13,9 @@
 			<p class="top">
 				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
 				<f:if condition="{post.author.uid}">
-					<span class="author">{post.author.name}</span> -
+					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
+						<span class="author">{post.author.name}</span>
+					</f:link.action> -
 				</f:if>
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 			</p>
