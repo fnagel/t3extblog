@@ -219,40 +219,6 @@ class Tcemain
 
     /**
      * @param int $id
-     */
-    protected function processPreview($id)
-    {
-        $pagesTsConfig = BackendUtility::getPagesTSconfig($GLOBALS['_POST']['popViewId']);
-
-        if (intval($pagesTsConfig['tx_t3extblog.']['singlePid'])) {
-            $record = BackendUtility::getRecord('tx_t3blog_post', $id);
-            $previewPageId = (int) $pagesTsConfig['tx_t3extblog.']['singlePid'];
-
-            $parameters = array(
-                'tx_t3extblog_blogsystem[controller]' => 'Post',
-                'tx_t3extblog_blogsystem[action]' => 'preview',
-                'tx_t3extblog_blogsystem[previewPost]' => $record['uid'],
-                'no_cache' => 1,
-            );
-            if ($record['sys_language_uid'] > 0) {
-                if ($record['l18n_parent'] > 0) {
-                    $parameters['tx_t3extblog_blogsystem[previewPost]'] = $record['l18n_parent'];
-                }
-                $parameters['L'] = $record['sys_language_uid'];
-            }
-
-            $previewDomainRootline = BackendUtility::BEgetRootLine($previewPageId);
-            $previewDomain = BackendUtility::getViewDomain($previewPageId, $previewDomainRootline);
-            $queryString = GeneralUtility::implodeArrayForUrl('', $parameters, '', false, true);
-
-            $GLOBALS['_POST']['viewUrl'] = $previewDomain.'/index.php?id='.$previewPageId.$queryString;
-            $GLOBALS['_POST']['popViewId_addParams'] = $queryString;
-            $GLOBALS['_POST']['popViewId'] = $previewPageId;
-        }
-    }
-
-    /**
-     * @param int $id
      *
      * @internal param int $fields
      */
