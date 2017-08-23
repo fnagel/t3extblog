@@ -18,8 +18,8 @@
     "issues": "https://github.com/fnagel/t3extblog/issues"
   },
   "require": {
-    "php": ">=5.5,<7.1",
-    "typo3/cms-core": ">=7.3.0,<=8.7"
+    "php": ">=5.5,<7.2",
+    "typo3/cms-core": ">=7.3.0,<=8.7.99"
   },
   "conflict": {
     "dmitryd/typo3-realurl": ">=2.0.0 <=2.0.10"
