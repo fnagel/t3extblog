@@ -48,6 +48,32 @@ Use following TS config where `123` is the UID of yours RSS page:
 	}
 
 
+Add canonical tag to pae header
+-------------------------------
+
+Use following TS config:
+
+.. code-block:: typoscript
+
+	[globalVar = GP:tx_t3extblog_blogsystem|post > 0]
+		page.headerData.123 {
+		   wrap = <link rel="canonical" href="|">
+         htmlSpecialChars = 1
+
+         typolink {
+            parameter.data = TSFE:id
+            forceAbsoluteUrl = 1
+            returnLast = url
+            additionalParams.cObject = COA
+            additionalParams.cObject {
+               10 = TEXT
+               10.dataWrap = &tx_t3extblog_blogsystem[controller]=Post&tx_t3extblog_blogsystem[action]=show&tx_t3extblog_blogsystem[post]={GP:tx_t3extblog_blogsystem|post}&tx_t3extblog_blogsystem[year]={GP:tx_t3extblog_blogsystem|year}&tx_t3extblog_blogsystem[month]={GP:tx_t3extblog_blogsystem|month}&tx_t3extblog_blogsystem[day]={GP:tx_t3extblog_blogsystem|day}
+               10.if.isTrue.data = GP:tx_t3extblog_blogsystem|post
+            }
+         }
+		}
+	[global]
+
 
 Does it work together with "indexed search engine"?
 ---------------------------------------------------
