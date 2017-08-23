@@ -61,6 +61,10 @@ plugin.tx_t3extblog {
 						site = {$plugin.tx_t3extblog.settings.twitterName}
 					}
 				}
+
+				author {
+					avatar.size = 32
+				}
 			}
 			comments {
 				allowed = 1
