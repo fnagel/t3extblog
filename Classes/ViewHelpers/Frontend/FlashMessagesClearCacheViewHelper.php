@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2017 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,7 +29,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
- * View helper to fix flash message chaching issue
+ * View helper to fix flash message caching issue
  *
  * https://github.com/fnagel/t3extblog/issues/112
  *
