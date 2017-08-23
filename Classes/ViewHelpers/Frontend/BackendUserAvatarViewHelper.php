@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2017 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -38,8 +38,8 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     /**
      * Render the avatar image.
      *
-     * @param int    $uid
-     * @param int    $size
+     * @param int $uid
+     * @param int $size
      * @param string $default
      *
      * @return string The image URL
@@ -75,7 +75,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
             return $avatarImage->getUrl(true);
         }
 
-        return;
+        return null;
     }
 
     /**
