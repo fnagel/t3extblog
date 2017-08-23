@@ -3,7 +3,16 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<f:render partial="Post/List" arguments="{_all}" />
+	<f:if condition="{posts}">
+		<f:then>
+			<f:render partial="Post/List" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<div class="alert alert-info">
+				<f:translate key="post.no-result" />
+			</div>
+		</f:else>
+	</f:if>
 </f:section>
 
 </div>
