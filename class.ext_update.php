@@ -13,7 +13,7 @@ class ext_update
     /**
      * The TYPO3_DB database connection.
      *
-     * @var \TYPO3\CMS\Dbal\Database\DatabaseConnection
+     * @var \TYPO3\CMS\Dbal\Database\DatabaseConnection|\TYPO3\CMS\Core\Database\DatabaseConnection
      */
     protected $database;
 
