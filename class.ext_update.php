@@ -201,7 +201,7 @@ class ext_update
         return
             '<form action="'.GeneralUtility::getIndpEnv('REQUEST_URI').'" method="POST">
 				<input type="hidden" name="migration" value="'.$key.'" />
-				<button class="btn">'.$message.'</button>
+				<button class="btn btn-default">'.$message.'</button>
 			</form>';
     }
 
