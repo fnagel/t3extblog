@@ -15,6 +15,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -51,25 +52,25 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerTagAttribute('useCurrentDomain', 'bool', 'If set, current domain is used');
-        $this->registerTagAttribute('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced');
         $this->registerTagAttribute('property', 'string', 'Property of meta tag');
         $this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
         $this->registerTagAttribute('content', 'string', 'Content of meta tag');
     }
-
     /**
      * Renders a meta tag.
+     *
+     * @param bool $useCurrentDomain If set, current domain is used
+     * @param bool $forceAbsoluteUrl If set, absolute url is forced
      */
-    public function render()
+    public function render($useCurrentDomain = false, $forceAbsoluteUrl = false)
     {
         // set current domain
-        if ($this->arguments['useCurrentDomain']) {
+        if ($useCurrentDomain) {
             $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
         }
 
         // prepend current domain
-        if ($this->arguments['forceAbsoluteUrl']) {
+        if ($forceAbsoluteUrl) {
             $path = $this->arguments['content'];
             $siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 
@@ -81,10 +82,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
             }
         }
 
-        if (
-            $this->arguments['useCurrentDomain'] ||
-            (isset($this->arguments['content']) && !empty($this->arguments['content']))
-        ) {
+        if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
             \TYPO3\T3extblog\Utility\GeneralUtility::getPageRenderer()->addMetaTag($this->tag->render());
         }
     }
