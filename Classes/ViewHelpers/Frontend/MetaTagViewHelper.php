@@ -15,6 +15,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -55,7 +56,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         $this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
         $this->registerTagAttribute('content', 'string', 'Content of meta tag');
     }
-
     /**
      * Renders a meta tag.
      *
@@ -72,16 +72,18 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         // prepend current domain
         if ($forceAbsoluteUrl) {
             $path = $this->arguments['content'];
-            if (!GeneralUtility::isFirstPartOfStr($path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
+            $siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+
+            if (!GeneralUtility::isFirstPartOfStr($path, $siteUrl)) {
                 $this->tag->addAttribute(
                     'content',
-                    rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_URL'), '/').'/'.ltrim($this->arguments['content']), '/'
+                    rtrim($siteUrl, '/') . '/' . ltrim($this->arguments['content'], '/')
                 );
             }
         }
 
         if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-            \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->getPageRenderer()->addMetaTag($this->tag->render());
+            \TYPO3\T3extblog\Utility\GeneralUtility::getPageRenderer()->addMetaTag($this->tag->render());
         }
     }
 }
