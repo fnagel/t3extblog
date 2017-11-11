@@ -60,6 +60,10 @@ plugin.tx_t3extblog {
 						# Your Twitter username
 						site = {$plugin.tx_t3extblog.settings.twitterName}
 					}
+
+					openGraph {
+						enable = 1
+					}
 				}
 
 				author {
