@@ -2,12 +2,17 @@
   "name": "typo3/t3extblog",
   "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
   "require-dev": {
-    "fluidtypo3/development": "3.1.5"
+    "nimut/testing-framework": "^1.1"
   },
   "autoload": {
     "psr-4": {
-      "TYPO3\\T3extblog\\": "Classes/"
+      "TYPO3\\T3extblog\\": "Classes"
     }
+  },
+  "autoload-dev": {
+	"psr-4": {
+	   "TYPO3\\T3extblog\\Tests\\": "Tests"
+	}
   },
   "type": "typo3-cms-extension",
   "keywords": ["TYPO3 CMS", "blog"],

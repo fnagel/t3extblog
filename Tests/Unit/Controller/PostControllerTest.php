@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\Tests\Unit\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2017 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Tests\Unit\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\T3extblog\Domain\Model\Post;
 

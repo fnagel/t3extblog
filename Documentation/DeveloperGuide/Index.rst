@@ -170,13 +170,15 @@ It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 Run unit tests
 ^^^^^^^^^^^^^^
 
+This extension uses the `nimut/testing-framework` testing framework, see https://github.com/Nimut/testing-framework
+
 .. code-block:: bash
 
 	cd typo3conf/ext/t3extblog
 
 	composer install
 
-	./vendor/bin/phpunit
+   ./vendor/bin/phpunit -c vendor/nimut/testing-framework/res/Configuration/UnitTests.xml ./Tests/Unit
 
 
 TER deployment
