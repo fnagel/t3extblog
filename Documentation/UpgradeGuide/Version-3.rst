@@ -32,7 +32,7 @@ https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 
 - Removed TYPO3 < 7.3 support - lots of legacy code has been removed!
 
-- Added TYPO3 8.x support
+- Added TYPO3 8.x support and added PHP 7.1 compatibility
 
 - Added email layout and footer partial for easier customization
 
@@ -41,8 +41,6 @@ https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 - Improved info boxes in backend modules (using default VH)
 
 - Add proper create user field for post records
-
-- Fixed some minor bugs
 
 - Switch to PSR-2 CGL
 
@@ -58,7 +56,13 @@ https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
 
 - Add option to configure backend module date time format
 
-- More minor bugfixes
+- Add option to configure author avatar image size using TypoScript
+
+- Add open graph meta data to blog post detail view
+
+- Improved documentation
+
+- A bunch of bugfixes
 
 
 **Breaking changes**
