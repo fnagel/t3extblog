@@ -130,20 +130,6 @@ class SettingsService
     }
 
     /**
-     * Get full typoscript configuration.
-     *
-     * @return array
-     */
-    protected function getFullTypoScriptConfig()
-    {
-        $setup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-
-        return $this->typoScriptService->convertTypoScriptArrayToPlainArray($setup['plugin.']['tx_t3extblog.']);
-    }
-
-    /**
      * Returns the settings at path $path, which is separated by ".",
      * e.g. "pages.uid".
      * "pages.uid" would return $this->settings['pages']['uid'].
