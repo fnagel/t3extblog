@@ -6,7 +6,7 @@
 .. include:: ../Includes.txt
 
 
-.. _upgrade-guide:
+.. _upgrade-guide-v1:
 
 Version 1.x
 -----------
