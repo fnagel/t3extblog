@@ -84,6 +84,16 @@ class GeneralUtility
         return $GLOBALS['TSFE'];
     }
 
+	/**
+	 * Get page renderer.
+	 *
+	 * @return \TYPO3\CMS\Core\Page\PageRenderer
+	 */
+	public static function getPageRenderer()
+	{
+		return self::getTsFe()->getPageRenderer();
+	}
+
     /**
      * Check if a valid BE login exists.
      *
