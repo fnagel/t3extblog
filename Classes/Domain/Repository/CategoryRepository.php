@@ -29,13 +29,12 @@ namespace TYPO3\T3extblog\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * CategoryRepository
+ * CategoryRepository.
  */
-class CategoryRepository extends AbstractRepository {
-
-	protected $defaultOrderings = array(
-		'sorting' => QueryInterface::ORDER_ASCENDING,
-		'name' => QueryInterface::ORDER_ASCENDING,
-	);
-
+class CategoryRepository extends AbstractRepository
+{
+    protected $defaultOrderings = array(
+        'sorting' => QueryInterface::ORDER_ASCENDING,
+        'name' => QueryInterface::ORDER_ASCENDING,
+    );
 }

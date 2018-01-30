@@ -27,29 +27,30 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 /**
- * Checks a form or field and returns a given string if an error has been found
+ * Checks a form or field and returns a given string if an error has been found.
  */
-class FormErrorViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FormErrorViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+{
+    /**
+     * Iterates through selected errors of the request.
+     *
+     * @param string $for The name of the error name (e.g. argument name or property name). This can also be a property path (like blog.title), and will then only display the validation errors of that property.
+     * @param $error $as The string to return if the form or field has errors
+     *
+     * @return string Return variable or empty string
+     */
+    public function render($for = '', $error = 'has-error')
+    {
+        $validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
 
-	/**
-	 * Iterates through selected errors of the request.
-	 *
-	 * @param string $for The name of the error name (e.g. argument name or property name). This can also be a property path (like blog.title), and will then only display the validation errors of that property.
-	 * @param $error $as The string to return if the form or field has errors
-	 *
-	 * @return string Return variable or empty string
-	 */
-	public function render($for = '', $error = 'has-error') {
-		$validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
+        if ($validationResults !== null && $for !== '') {
+            $validationResults = $validationResults->forProperty($for);
+        }
 
-		if ($validationResults !== NULL && $for !== '') {
-			$validationResults = $validationResults->forProperty($for);
-		}
+        if ($validationResults->hasErrors()) {
+            return $error;
+        }
 
-		if ($validationResults->hasErrors()) {
-			return $error;
-		}
-
-		return '';
-	}
+        return '';
+    }
 }

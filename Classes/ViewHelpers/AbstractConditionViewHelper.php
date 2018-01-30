@@ -28,64 +28,67 @@ namespace TYPO3\T3extblog\ViewHelpers;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractConditionViewHelper;
 
 /**
- * Base for condition VH
+ * Base for condition VH.
  *
  * Includes caching fixes for 7.x while maintaining 6.x compaability
  */
-class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper {
+class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper
+{
+    /**
+     * Render children if version matches.
+     *
+     * Use then / else VH inside if needed.
+     *
+     * @todo Remove this when 6.2 is no longer needed
+     *
+     * See https://github.com/fnagel/t3extblog/pull/73 for more info
+     *
+     * @return string
+     */
+    public function render()
+    {
+        // TYPO3 7.x
+        if (is_callable('parent::render')) {
+            return parent::render();
+        }
 
-	/**
-	 * Render children if version matches
-	 *
-	 * Use then / else VH inside if needed.
-	 *
-	 * @todo Remove this when 6.2 is no longer needed
-	 *
-	 * See https://github.com/fnagel/t3extblog/pull/73 for more info
-	 *
-	 * @return string
-	 */
-	public function render() {
-		// TYPO3 7.x
-		if (is_callable('parent::render')) {
-			return parent::render();
-		}
+        // TYPO3 6.x
+        if (static::evaluateCondition($this->arguments)) {
+            return $this->renderThenChild();
+        } else {
+            return $this->renderElseChild();
+        }
+    }
 
-		// TYPO3 6.x
-		if (static::evaluateCondition($this->arguments)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
-	}
+    /**
+     * The compiled ViewHelper adds two new ViewHelper arguments: __thenClosure and __elseClosure.
+     * These contain closures which are be executed to render the then(), respectively else() case.
+     *
+     * @param string                                               $argumentsVariableName
+     * @param string                                               $renderChildrenClosureVariableName
+     * @param string                                               $initializationPhpCode
+     * @param \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode
+     * @param \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler      $templateCompiler
+     *
+     * @return string
+     *
+     * @internal
+     */
+    public function compile(
+        $argumentsVariableName,
+        $renderChildrenClosureVariableName,
+        &$initializationPhpCode,
+        \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode,
+        \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
+    ) {
+        parent::compile(
+            $argumentsVariableName,
+            $renderChildrenClosureVariableName,
+            $initializationPhpCode,
+            $syntaxTreeNode,
+            $templateCompiler
+        );
 
-	/**
-	 * The compiled ViewHelper adds two new ViewHelper arguments: __thenClosure and __elseClosure.
-	 * These contain closures which are be executed to render the then(), respectively else() case.
-	 *
-	 * @param string $argumentsVariableName
-	 * @param string $renderChildrenClosureVariableName
-	 * @param string $initializationPhpCode
-	 * @param \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode
-	 * @param \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-	 * @return string
-	 * @internal
-	 */
-	public function compile(
-		$argumentsVariableName,
-		$renderChildrenClosureVariableName,
-		&$initializationPhpCode,
-		\TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode,
-		\TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-	) {
-		parent::compile(
-			$argumentsVariableName,
-			$renderChildrenClosureVariableName,
-			$initializationPhpCode,
-			$syntaxTreeNode,
-			$templateCompiler
-		);
-
-		return \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
-	}
+        return \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
+    }
 }

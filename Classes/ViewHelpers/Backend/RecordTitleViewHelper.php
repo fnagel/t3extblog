@@ -29,19 +29,20 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
- * Get record title view helper
+ * Get record title view helper.
  */
-class RecordTitleViewHelper extends AbstractBackendViewHelper {
+class RecordTitleViewHelper extends AbstractBackendViewHelper
+{
+    /**
+     * @param string $table
+     * @param int    $uid
+     *
+     * @return string
+     */
+    public function render($table, $uid)
+    {
+        $row = BackendUtility::getRecord($table, (int) $uid);
 
-	/**
-	 * @param string $table
-	 * @param int $uid
-	 *
-	 * @return string
-	 */
-	public function render($table, $uid) {
-		$row = BackendUtility::getRecord($table, (int) $uid);
-
-		return BackendUtility::getRecordTitle($table, $row);
-	}
+        return BackendUtility::getRecordTitle($table, $row);
+    }
 }

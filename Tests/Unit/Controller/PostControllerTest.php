@@ -33,38 +33,39 @@ use TYPO3\T3extblog\Domain\Model\Post;
 /**
  * Test case for class PostController.
  */
-class PostControllerTest extends UnitTestCase {
+class PostControllerTest extends UnitTestCase
+{
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
 
-	/**
-	 * @var ObjectManagerInterface
-	 */
-	protected $objectManager;
+    /**
+     * @var Post
+     */
+    protected $fixture;
 
-	/**
-	 * @var Post
-	 */
-	protected $fixture;
+    /**
+     */
+    public function setUp()
+    {
+        $this->fixture = new Post();
+    }
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->fixture = new Post();
-	}
+    /**
+     */
+    public function tearDown()
+    {
+        unset($this->fixture);
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->fixture);
-	}
-
-	/**
-	 * @test
-	 *
-	 * @todo
-	 */
-	public function testFindByTagOrCategory() {
-		$this->markTestSkipped("to be written");
-	}
+    /**
+     * @test
+     *
+     * @todo
+     */
+    public function testFindByTagOrCategory()
+    {
+        $this->markTestSkipped('to be written');
+    }
 }

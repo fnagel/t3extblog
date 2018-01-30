@@ -27,88 +27,90 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * AuthenticationService
+ * AuthenticationService.
  */
-class AuthenticationService implements AuthenticationServiceInterface {
+class AuthenticationService implements AuthenticationServiceInterface
+{
+    /**
+     * Session data.
+     *
+     * @var array
+     */
+    protected $sessionData = null;
 
-	/**
-	 * Session data
-	 *
-	 * @var array
-	 */
-	protected $sessionData = NULL;
+    /**
+     * Session Service.
+     *
+     * @var \TYPO3\T3extblog\Service\SessionServiceInterface
+     * @inject
+     */
+    protected $session;
 
-	/**
-	 * Session Service
-	 *
-	 * @var \TYPO3\T3extblog\Service\SessionServiceInterface
-	 * @inject
-	 */
-	protected $session;
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        if ($this->getEmail()) {
+            return true;
+        }
 
-	/**
-	 *
-	 * @return boolean
-	 */
-	public function isValid() {
-		if ($this->getEmail()) {
-			return TRUE;
-		}
+        return false;
+    }
 
-		return FALSE;
-	}
+    /**
+     * @param string $email
+     *
+     * @return bool
+     */
+    public function login($email)
+    {
+        $this->session->setData(
+            array(
+                'email' => $email,
+            )
+        );
 
-	/**
-	 *
-	 * @param string $email
-	 *
-	 * @return boolean
-	 */
-	public function login($email) {
-		$this->session->setData(
-			array(
-				'email' => $email
-			)
-		);
+        return true;
+    }
 
-		return TRUE;
-	}
+    /**
+     *
+     */
+    public function logout()
+    {
+        $this->session->removeData();
+    }
 
-	/**
-	 *
-	 * @return void
-	 */
-	public function logout() {
-		$this->session->removeData();
-	}
+    /**
+     * Returns email of the subscriber object.
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        $data = $this->getData();
 
-	/**
-	 * Returns email of the subscriber object
-	 *
-	 * @return string
-	 */
-	public function getEmail() {
-		$data = $this->getData();
+        if (!(is_array($data) && array_key_exists('email', $data))) {
+            return false;
+        }
 
-		if (!(is_array($data) && array_key_exists('email', $data))) {
-			return FALSE;
-		}
+        if (empty($data['email'])) {
+            return false;
+        }
 
-		if (empty($data['email'])) {
-			return FALSE;
-		}
+        return $data['email'];
+    }
 
-		return $data['email'];
-	}
+    /**
+     * @return array
+     */
+    protected function getData()
+    {
+        if ($this->sessionData === null) {
+            $this->sessionData = $this->session->getData();
+        }
 
-	/**
-	 * @return array
-	 */
-	protected function getData() {
-		if ($this->sessionData === NULL) {
-			$this->sessionData = $this->session->getData();
-		}
-
-		return $this->sessionData;
-	}
+        return $this->sessionData;
+    }
 }

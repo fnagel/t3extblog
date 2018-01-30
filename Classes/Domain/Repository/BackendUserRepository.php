@@ -27,8 +27,8 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 /**
- * BackendUserRepository
+ * BackendUserRepository.
  */
-class BackendUserRepository extends AbstractRepository {
-
+class BackendUserRepository extends AbstractRepository
+{
 }

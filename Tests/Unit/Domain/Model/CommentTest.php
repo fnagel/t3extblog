@@ -29,120 +29,111 @@ namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
 use TYPO3\T3extblog\Domain\Model\Comment;
 
 /**
- * Test case for class Comment
+ * Test case for class Comment.
  */
-class CommentTest extends BaseTest {
+class CommentTest extends BaseTest
+{
+    /**
+     * @var Comment
+     */
+    protected $fixture;
 
-	/**
-	 * @var Comment
-	 */
-	protected $fixture;
+    /**
+     */
+    public function setUp()
+    {
+        parent::setUp();
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		parent::setUp();
+        $this->fixture = new Comment();
+        $this->fixture->_setProperty('uid', 123);
 
-		$this->fixture = new Comment();
-		$this->fixture->_setProperty('uid', 123);
+        $this->fixture->_setProperty('hidden', false);
+        $this->fixture->_setProperty('deleted', false);
+    }
 
-		$this->fixture->_setProperty('hidden', FALSE);
-		$this->fixture->_setProperty('deleted', FALSE);
-	}
+    /**
+     * @test
+     */
+    public function testIsValidAfterInit()
+    {
+        $this->assertFalse(
+            $this->fixture->isValid()
+        );
+    }
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValidAfterInit() {
-		$this->assertFalse(
-			$this->fixture->isValid()
-		);
-	}
+    /**
+     * @test
+     */
+    public function testIsValid()
+    {
+        $this->fixture->setApproved(true);
+        $this->fixture->setSpam(false);
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValid() {
-		$this->fixture->setApproved(TRUE);
-		$this->fixture->setSpam(FALSE);
+        $this->assertTrue(
+            $this->fixture->isValid()
+        );
+    }
 
-		$this->assertTrue(
-			$this->fixture->isValid()
-		);
-	}
+    /**
+     * @test
+     */
+    public function testIsValidHidden()
+    {
+        $this->fixture->setApproved(true);
+        $this->fixture->setSpam(false);
+        $this->fixture->_setProperty('hidden', true);
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValidHidden() {
-		$this->fixture->setApproved(TRUE);
-		$this->fixture->setSpam(FALSE);
-		$this->fixture->_setProperty('hidden', TRUE);
+        $this->assertFalse(
+            $this->fixture->isValid()
+        );
+    }
 
-		$this->assertFalse(
-			$this->fixture->isValid()
-		);
-	}
+    /**
+     * @test
+     */
+    public function testIsValidUnapproved()
+    {
+        $this->fixture->setApproved(false);
+        $this->fixture->setSpam(false);
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValidUnapproved() {
-		$this->fixture->setApproved(FALSE);
-		$this->fixture->setSpam(FALSE);
+        $this->assertFalse(
+            $this->fixture->isValid()
+        );
+    }
 
-		$this->assertFalse(
-			$this->fixture->isValid()
-		);
-	}
+    /**
+     * @test
+     */
+    public function testIsValidSpam()
+    {
+        $this->fixture->setApproved(true);
+        $this->fixture->setSpam(true);
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValidSpam() {
-		$this->fixture->setApproved(TRUE);
-		$this->fixture->setSpam(TRUE);
+        $this->assertFalse(
+            $this->fixture->isValid()
+        );
+    }
 
-		$this->assertFalse(
-			$this->fixture->isValid()
-		);
-	}
+    /**
+     * @test
+     */
+    public function testIsValidUnapprovedAndSpam()
+    {
+        $this->fixture->setApproved(false);
+        $this->fixture->setSpam(true);
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsValidUnapprovedAndSpam() {
-		$this->fixture->setApproved(FALSE);
-		$this->fixture->setSpam(TRUE);
+        $this->assertFalse(
+            $this->fixture->isValid()
+        );
+    }
 
-		$this->assertFalse(
-			$this->fixture->isValid()
-		);
-	}
-
-
-	/**
-	 * @test
-	 *
-	 * @todo
-	 *
-	 * @return void
-	 */
-	public function testCanGetPost() {
-		$this->markTestSkipped("to be written");
-	}
-
+    /**
+     * @test
+     *
+     * @todo
+     */
+    public function testCanGetPost()
+    {
+        $this->markTestSkipped('to be written');
+    }
 }

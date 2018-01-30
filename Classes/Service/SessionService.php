@@ -29,97 +29,97 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
- * SessionService
+ * SessionService.
  */
-class SessionService implements SessionServiceInterface {
+class SessionService implements SessionServiceInterface
+{
+    const SESSION_DATA_KEY = 'subscription_session';
 
-	const SESSION_DATA_KEY = 'subscription_session';
+    /**
+     * Logging Service.
+     *
+     * @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication
+     */
+    protected $frontendUser;
 
-	/**
-	 * Logging Service
-	 *
-	 * @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication
-	 */
-	protected $frontendUser;
+    /**
+     * Logging Service.
+     *
+     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
+     * @inject
+     */
+    protected $log;
 
-	/**
-	 * Logging Service
-	 *
-	 * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
-	 * @inject
-	 */
-	protected $log;
+    /**
+     * __construct.
+     */
+    public function __construct()
+    {
+        $this->frontendUser = GeneralUtility::getTsFe()->fe_user;
+    }
 
-	/**
-	 * __construct
-	 *
-	 */
-	public function __construct() {
-		$this->frontendUser = GeneralUtility::getTsFe()->fe_user;
-	}
+    /**
+     * @param array $data Data array to save
+     */
+    public function setData($data)
+    {
+        $oldData = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
-	/**
-	 *
-	 * @param array $data Data array to save
-	 *
-	 * @return void
-	 */
-	public function setData($data) {
-		$oldData = $this->restoreFromSession(self::SESSION_DATA_KEY);
+        if (is_array($oldData)) {
+            $this->writeToSession(self::SESSION_DATA_KEY, array_merge($oldData, $data));
+        } else {
+            $this->writeToSession(self::SESSION_DATA_KEY, $data);
+        }
+    }
 
-		if (is_array($oldData)) {
-			$this->writeToSession(self::SESSION_DATA_KEY, array_merge($oldData, $data));
-		} else {
-			$this->writeToSession(self::SESSION_DATA_KEY, $data);
-		}
-	}
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->restoreFromSession(self::SESSION_DATA_KEY);
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getData() {
-		return $this->restoreFromSession(self::SESSION_DATA_KEY);
-	}
+    /**
+     * @return array
+     */
+    public function removeData()
+    {
+        $this->writeToSession(self::SESSION_DATA_KEY, '');
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function removeData() {
-		$this->writeToSession(self::SESSION_DATA_KEY, '');
-	}
+    /**
+     * @param string $key
+     *
+     * @return array
+     */
+    public function getDataByKey($key)
+    {
+        $data = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
-	/**
-	 *
-	 * @param string $key
-	 *
-	 * @return array
-	 */
-	public function getDataByKey($key) {
-		$data = $this->restoreFromSession(self::SESSION_DATA_KEY);
+        if (is_array($data) && $data[$key]) {
+            return $data[$key];
+        }
 
-		if (is_array($data) && $data[$key]) {
-			return $data[$key];
-		}
+        return;
+    }
 
-		return NULL;
-	}
+    /**
+     * Return stored session data.
+     */
+    private function restoreFromSession($key)
+    {
+        return $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
+    }
 
-	/**
-	 * Return stored session data
-	 */
-	private function restoreFromSession($key) {
-		return $this->frontendUser->getKey('ses', 'tx_t3extblog_' . $key);
-	}
+    /**
+     * Write session data.
+     */
+    private function writeToSession($key, $data)
+    {
+        $this->log->dev('Write so FE session', $data);
 
-	/**
-	 * Write session data
-	 */
-	private function writeToSession($key, $data) {
-		$this->log->dev('Write so FE session', $data);
-
-		$this->frontendUser->setKey('ses', 'tx_t3extblog_' . $key, $data);
-		$this->frontendUser->storeSessionData();
-	}
+        $this->frontendUser->setKey('ses', 'tx_t3extblog_'.$key, $data);
+        $this->frontendUser->storeSessionData();
+    }
 }

@@ -27,50 +27,52 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 /**
- * BlogSubscriberRepository
+ * BlogSubscriberRepository.
  */
-class BlogSubscriberRepository extends AbstractSubscriberRepository {
+class BlogSubscriberRepository extends AbstractSubscriberRepository
+{
+    /**
+     * @param null $pageUid
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     */
+    public function createQuery($pageUid = null)
+    {
+        $query = parent::createQuery($pageUid);
 
-	/**
-	 * @param null $pageUid
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
-	 */
-	public function createQuery($pageUid = NULL) {
-		$query = parent::createQuery($pageUid);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+        return $query;
+    }
 
-		return $query;
-	}
+    /**
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findForNotification()
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findForNotification() {
-		$query = $this->createQuery();
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Search for already registered subscriptions.
+     *
+     * @param string $email
+     * @param int    $excludeUid
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findExistingSubscriptions($email, $excludeUid = null)
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Search for already registered subscriptions
-	 *
-	 * @param string $email
-	 * @param integer $excludeUid
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findExistingSubscriptions($email, $excludeUid = NULL) {
-		$query = $this->createQuery();
+        $constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
 
-		$constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
+        $query->matching(
+            $query->logicalAnd($constraints)
+        );
 
-		$query->matching(
-			$query->logicalAnd($constraints)
-		);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

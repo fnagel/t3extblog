@@ -37,204 +37,205 @@ use TYPO3\T3extblog\Exception\InvalidConfigurationException;
 use TYPO3\T3extblog\Utility\TypoScriptValidator;
 
 /**
- * BackendBaseController
+ * BackendBaseController.
  */
-class BackendBaseController extends ActionController {
+class BackendBaseController extends ActionController
+{
+    /**
+     * objectManager.
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager;
 
-	/**
-	 * objectManager
-	 *
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+    /**
+     * postRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @inject
+     */
+    protected $postRepository;
 
-	/**
-	 * postRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 * @inject
-	 */
-	protected $postRepository;
+    /**
+     * postRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @inject
+     */
+    protected $commentRepository;
 
-	/**
-	 * postRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
-	 * @inject
-	 */
-	protected $commentRepository;
+    /**
+     * postSubscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @inject
+     */
+    protected $postSubscriberRepository;
 
-	/**
-	 * postSubscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
-	 * @inject
-	 */
-	protected $postSubscriberRepository;
+    /**
+     * blogSubscriberRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @inject
+     */
+    protected $blogSubscriberRepository;
 
-	/**
-	 * blogSubscriberRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $blogSubscriberRepository;
+    /**
+     * The page id.
+     *
+     * @var int
+     */
+    protected $pageId;
 
-	/**
-	 * The page id
-	 *
-	 * @var integer
-	 */
-	protected $pageId;
+    /**
+     * Page info.
+     *
+     * @var array
+     */
+    protected $pageInfo;
 
-	/**
-	 * Page info
-	 *
-	 * @var array
-	 */
-	protected $pageInfo;
+    /**
+     * Load and persist module data.
+     *
+     * @param RequestInterface  $request
+     * @param ResponseInterface $response
+     *
+     * @throws StopActionException
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        /* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+        $persistenceManager = $this->objectManager->get(
+            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
+        );
 
-	/**
-	 * Load and persist module data
-	 *
-	 * @param RequestInterface $request
-	 * @param ResponseInterface $response
-	 *
-	 * @throws StopActionException
-	 * @return void
-	 */
-	public function processRequest(RequestInterface $request, ResponseInterface $response) {
-		/* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-		$persistenceManager = $this->objectManager->get(
-			'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-		);
+        // We "finally" persist the module data.
+        try {
+            parent::processRequest($request, $response);
+            $persistenceManager->persistAll();
+        } catch (StopActionException $exception) {
+            $persistenceManager->persistAll();
+            throw $exception;
+        }
+    }
 
-		// We "finally" persist the module data.
-		try {
-			parent::processRequest($request, $response);
-			$persistenceManager->persistAll();
+    /**
+     * Initializes the view before invoking an action method.
+     *
+     * @param ViewInterface $view The view to be initialized
+     */
+    protected function initializeView(ViewInterface $view)
+    {
+        $this->view->assignMultiple(array(
+            'pageId' => $this->pageId,
+            'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+            'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+        ));
 
-		} catch (StopActionException $exception) {
+        $this->view->assign('pageNotice', $this->pageInfo);
+    }
 
-			$persistenceManager->persistAll();
-			throw $exception;
-		}
-	}
+    /**
+     * Initialize actions.
+     *
+     * @throws InvalidConfigurationException
+     */
+    public function initializeAction()
+    {
+        $this->pageId = intval(GeneralUtility::_GP('id'));
+        $this->pageInfo = $this->getBlogRelatedPageInfo();
 
-	/**
-	 * Initializes the view before invoking an action method.
-	 *
-	 * @param ViewInterface $view The view to be initialized
-	 *
-	 * @return void
-	 */
-	protected function initializeView(ViewInterface $view) {
-		$this->view->assignMultiple(array(
-			'pageId' => $this->pageId,
-			'dateFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-			'timeFormat' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm']
-		));
+        try {
+            // Validate settings
+            TypoScriptValidator::validateSettings($this->settings);
+        } catch (InvalidConfigurationException $exception) {
 
-		$this->view->assign('pageNotice', $this->pageInfo);
-	}
+            // On pages with blog records we need to make sure TS is configured so escalate!
+            if ($this->pageInfo['show'] === false) {
+                throw $exception;
+            }
+        }
+    }
 
-	/**
-	 * Initialize actions
-	 *
-	 * @return void
-	 * @throws InvalidConfigurationException
-	 */
-	public function initializeAction() {
-		$this->pageId = intval(GeneralUtility::_GP('id'));
-		$this->pageInfo = $this->getBlogRelatedPageInfo();
+    /**
+     * Check blog related page info.
+     *
+     * @return array
+     */
+    protected function getBlogRelatedPageInfo()
+    {
+        $blogPages = $this->getBlogRelatedPages();
+        $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
 
-		try {
-			// Validate settings
-			TypoScriptValidator::validateSettings($this->settings);
+        if ($blogPagesCurrentPageKey !== false) {
+            unset($blogPages[$blogPagesCurrentPageKey]);
+        }
 
-		} catch (InvalidConfigurationException $exception) {
+        return array(
+            'show' => ($blogPagesCurrentPageKey === false),
+            'pages' => $blogPages,
+        );
+    }
 
-			// On pages with blog records we need to make sure TS is configured so escalate!
-			if ($this->pageInfo['show'] === FALSE) {
-				throw $exception;
-			}
-		}
-	}
+    /**
+     * Get database connection.
+     *
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected function getDatabase()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 
-	/**
-	 * Check blog related page info
-	 *
-	 * @return array
-	 */
-	protected function getBlogRelatedPageInfo() {
-		$blogPages = $this->getBlogRelatedPages();
-		$blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
+    /**
+     * @return array
+     */
+    protected function getBlogRelatedPages()
+    {
+        $pages = array_merge_recursive(
+            // Get pages with set module property
+            $this->execBlogPageRelatedQuery('pages', 'pages.module = "t3blog"'),
+            // Split the join queries because otherwise the query is awful slow
+            $this->getPagesWithBlogRecords(array('tx_t3blog_post', 'tx_t3blog_com')),
+            $this->getPagesWithBlogRecords(array('tx_t3blog_com_nl', 'tx_t3blog_blog_nl'))
+        );
 
-		if ($blogPagesCurrentPageKey !== FALSE) {
-			unset($blogPages[$blogPagesCurrentPageKey]);
-		}
+        return array_unique($pages, SORT_REGULAR);
+    }
 
-		return array(
-			'show' => ($blogPagesCurrentPageKey === FALSE),
-			'pages' => $blogPages
-		);
-	}
+    /**
+     * Run query for getting page info.
+     *
+     * @param string $table           Needs to be 'pages' or at least related (think of joins)
+     * @param string $additionalWhere
+     * @param string $groupBy
+     *
+     * @return array
+     */
+    protected function execBlogPageRelatedQuery($table, $additionalWhere = '', $groupBy = '')
+    {
+        $select = 'pages.uid, pages.title';
+        $where = 'pages.deleted = 0 AND '.$additionalWhere;
 
-	/**
-	 * Get database connection
-	 *
-	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected function getDatabase() {
-		return $GLOBALS['TYPO3_DB'];
-	}
+        return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where, $groupBy);
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getBlogRelatedPages() {
-		$pages = array_merge_recursive(
-			// Get pages with set module property
-			$this->execBlogPageRelatedQuery('pages', 'pages.module = "t3blog"'),
-			// Split the join queries because otherwise the query is awful slow
-			$this->getPagesWithBlogRecords(array('tx_t3blog_post', 'tx_t3blog_com')),
-			$this->getPagesWithBlogRecords(array('tx_t3blog_com_nl', 'tx_t3blog_blog_nl'))
-		);
+    /**
+     * @param $joinTables
+     *
+     * @return array
+     */
+    protected function getPagesWithBlogRecords($joinTables)
+    {
+        $table = 'pages';
+        $whereArray = array();
 
-		return array_unique($pages, SORT_REGULAR);
-	}
+        foreach ($joinTables as $joinTable) {
+            $table .= ' LEFT JOIN '.$joinTable.' ON pages.uid = '.$joinTable.'.pid';
+            $whereArray[] = $joinTable.'.deleted = 0';
+        }
 
-	/**
-	 * Run query for getting page info
-	 *
-	 * @param string $table Needs to be 'pages' or at least related (think of joins)
-	 * @param string $additionalWhere
-	 * @param string $groupBy
-	 *
-	 * @return array
-	 */
-	protected function execBlogPageRelatedQuery($table, $additionalWhere = '', $groupBy = '') {
-		$select = 'pages.uid, pages.title';
-		$where = 'pages.deleted = 0 AND ' . $additionalWhere;
-
-		return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where, $groupBy);
-	}
-
-	/**
-	 * @param $joinTables
-	 * @return array
-	 */
-	protected function getPagesWithBlogRecords($joinTables) {
-		$table = 'pages';
-		$whereArray = array();
-
-		foreach ($joinTables as $joinTable) {
-			$table .= ' LEFT JOIN ' . $joinTable . ' ON pages.uid = ' . $joinTable . '.pid';
-			$whereArray[] = $joinTable . '.deleted = 0';
-		}
-
-		return $this->execBlogPageRelatedQuery($table, '(' . join(' OR ', $whereArray) . ')', 'pages.uid');
-	}
-
+        return $this->execBlogPageRelatedQuery($table, '('.implode(' OR ', $whereArray).')', 'pages.uid');
+    }
 }

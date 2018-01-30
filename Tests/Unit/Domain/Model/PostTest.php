@@ -29,139 +29,130 @@ namespace TYPO3\T3extblog\Tests\Unit\Domain\Model;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * Test case for class Post
+ * Test case for class Post.
  */
-class PostTest extends BaseTest {
+class PostTest extends BaseTest
+{
+    /**
+     * @var Post
+     */
+    protected $fixture;
 
-	/**
-	 * @var Post
-	 */
-	protected $fixture;
+    /**
+     */
+    public function setUp()
+    {
+        parent::setUp();
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		parent::setUp();
+        $this->fixture = new Post();
+    }
 
-		$this->fixture = new Post();
-	}
+    /**
+     * @test
+     */
+    public function testPublishDateMethods()
+    {
+        $this->fixture->setPublishDate(new \DateTime('2014-01-14'));
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testPublishDateMethods() {
+        $this->assertSame(
+            '2014',
+            $this->fixture->getPublishYear()
+        );
 
-		$this->fixture->setPublishDate(new \DateTime('2014-01-14'));
+        $this->assertSame(
+            '01',
+            $this->fixture->getPublishMonth()
+        );
 
-		$this->assertSame(
-			'2014',
-			$this->fixture->getPublishYear()
-		);
+        $this->assertSame(
+            '14',
+            $this->fixture->getPublishDay()
+        );
+    }
 
-		$this->assertSame(
-			'01',
-			$this->fixture->getPublishMonth()
-		);
+    /**
+     * @test
+     */
+    public function testIsExpired()
+    {
+        $this->fixture->setPublishDate(new \DateTime('now'));
+        $this->fixture->getPublishDate()->modify('-6 months');
 
-		$this->assertSame(
-			'14',
-			$this->fixture->getPublishDay()
-		);
-	}
+        $this->assertTrue(
+            $this->fixture->isExpired('+5 months')
+        );
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testIsExpired() {
-		$this->fixture->setPublishDate(new \DateTime('now'));
-		$this->fixture->getPublishDate()->modify('-6 months');
+        $this->assertFalse(
+            $this->fixture->isExpired('+7 months')
+        );
+    }
 
-		$this->assertTrue(
-			$this->fixture->isExpired('+5 months')
-		);
+    /**
+     * @test
+     */
+    public function testTagCloudMethods()
+    {
+        $tagCloud = array('tag1', 'tag2', 'tag3');
 
-		$this->assertFalse(
-			$this->fixture->isExpired('+7 months')
-		);
-	}
+        $this->fixture->setTagCloud($tagCloud);
+        $this->assertEquals(
+            $this->fixture->getTagCloud(),
+            $tagCloud
+        );
 
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testTagCloudMethods() {
-		$tagCloud = array('tag1', 'tag2', 'tag3');
+        $this->fixture->setTagCloud(' tag1 ,tag2,tag3');
+        $this->assertEquals(
+            $this->fixture->getTagCloud(),
+            $tagCloud
+        );
+    }
 
-		$this->fixture->setTagCloud($tagCloud);
-		$this->assertEquals(
-			$this->fixture->getTagCloud(),
-			$tagCloud
-		);
+    /**
+     * @test
+     *
+     * @todo
+     */
+    public function testCanGetContentIdList()
+    {
+        $this->markTestSkipped('to be written');
+    }
 
-		$this->fixture->setTagCloud(' tag1 ,tag2,tag3');
-		$this->assertEquals(
-			$this->fixture->getTagCloud(),
-			$tagCloud
-		);
-	}
+    /**
+     * @test
+     *
+     * @todo
+     */
+    public function testCanGetPreview()
+    {
+        $this->markTestSkipped('to be written');
+    }
 
-	/**
-	 * @test
-	 *
-	 * @todo
-	 *
-	 * @return void
-	 */
-	public function testCanGetContentIdList() {
-		$this->markTestSkipped("to be written");
-	}
+    /**
+     * @test
+     *
+     * @todo
+     */
+    public function testCanGetComments()
+    {
+        $this->markTestSkipped('to be written');
+    }
 
-	/**
-	 * @test
-	 *
-	 * @todo
-	 *
-	 * @return void
-	 */
-	public function testCanGetPreview() {
-		$this->markTestSkipped("to be written");
-	}
+    /**
+     * @test
+     */
+    public function testCanGetLinkParameter()
+    {
+        $this->fixture->setPublishDate(new \DateTime('2014-01-14'));
+        $this->fixture->_setProperty('uid', 123);
 
-	/**
-	 * @test
-	 *
-	 * @todo
-	 *
-	 * @return void
-	 */
-	public function testCanGetComments() {
-		$this->markTestSkipped("to be written");
-	}
-
-	/**
-	 * @test
-	 *
-	 * @return void
-	 */
-	public function testCanGetLinkParameter() {
-		$this->fixture->setPublishDate(new \DateTime('2014-01-14'));
-		$this->fixture->_setProperty('uid', 123);
-
-		$this->assertEquals(
-			$this->fixture->getLinkParameter(),
-			array(
-				'post' => '123',
-				'day' => '14',
-				'month' => '01',
-				'year' => '2014'
-			)
-		);
-	}
-
+        $this->assertEquals(
+            $this->fixture->getLinkParameter(),
+            array(
+                'post' => '123',
+                'day' => '14',
+                'month' => '01',
+                'year' => '2014',
+            )
+        );
+    }
 }

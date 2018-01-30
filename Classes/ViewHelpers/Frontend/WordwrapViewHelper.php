@@ -29,20 +29,21 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * ViewHelper PHP wordwrap
+ * ViewHelper PHP wordwrap.
  */
-class WordwrapViewHelper extends AbstractViewHelper {
+class WordwrapViewHelper extends AbstractViewHelper
+{
+    /**
+     * PHP wordwrap function VH.
+     *
+     * @param int $width
+     *
+     * @return string
+     */
+    public function render($width = 75)
+    {
+        $content = $this->renderChildren();
 
-	/**
-	 * PHP wordwrap function VH
-	 *
-	 * @param int $width
-	 *
-	 * @return string
-	 */
-	public function render($width = 75) {
-		$content = $this->renderChildren();
-
-		return wordwrap($content, $width);
-	}
+        return wordwrap($content, $width);
+    }
 }

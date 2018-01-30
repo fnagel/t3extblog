@@ -29,95 +29,90 @@ namespace TYPO3\T3extblog\Controller;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
- * SubscriberController
+ * SubscriberController.
  */
-class SubscriberController extends AbstractController {
+class SubscriberController extends AbstractController
+{
+    /**
+     * feUserService.
+     *
+     * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
+     * @inject
+     */
+    protected $authentication;
 
-	/**
-	 * feUserService
-	 *
-	 * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
-	 * @inject
-	 */
-	protected $authentication;
+    /**
+     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @inject
+     */
+    protected $blogSubscriberRepository;
 
-	/**
-	 * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
-	 * @inject
-	 */
-	protected $blogSubscriberRepository;
+    /**
+     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @inject
+     */
+    protected $postSubscriberRepository;
 
-	/**
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
-	 * @inject
-	 */
-	protected $postSubscriberRepository;
+    /**
+     * Displays a list of all posts a user subscribed to.
+     */
+    public function listAction()
+    {
+        if (!$this->authentication->isValid()) {
+            $this->forward('list', 'PostSubscriber');
+        }
 
-	/**
-	 * Displays a list of all posts a user subscribed to
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		if (!$this->authentication->isValid()) {
-			$this->forward('list', 'PostSubscriber');
-		}
+        $email = $this->authentication->getEmail();
 
-		$email = $this->authentication->getEmail();
+        $postSubscriber = $this->postSubscriberRepository->findByEmail($email);
+        $blogSubscriber = $this->blogSubscriberRepository->findOneByEmail($email);
 
-		$postSubscriber = $this->postSubscriberRepository->findByEmail($email);
-		$blogSubscriber = $this->blogSubscriberRepository->findOneByEmail($email);
+        $this->view->assign('email', $email);
+        $this->view->assign('postSubscriber', $postSubscriber);
+        $this->view->assign('blogSubscriber', $blogSubscriber);
+    }
 
-		$this->view->assign('email', $email);
-		$this->view->assign('postSubscriber', $postSubscriber);
-		$this->view->assign('blogSubscriber', $blogSubscriber);
-	}
+    /**
+     * Error action.
+     */
+    public function errorAction()
+    {
+        if (!$this->hasFlashMessages()) {
+            $this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
+        }
+    }
 
-	/**
-	 * Error action
-	 *
-	 * @return void
-	 */
-	public function errorAction() {
-		if (!$this->hasFlashMessages()) {
-			$this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
-		}
-	}
+    /**
+     * Invalidates the auth and redirects user.
+     */
+    public function logoutAction()
+    {
+        $this->processErrorAction('logout', FlashMessage::INFO);
+    }
 
-	/**
-	 * Invalidates the auth and redirects user
-	 *
-	 * @return void
-	 */
-	public function logoutAction() {
-		$this->processErrorAction('logout', FlashMessage::INFO);
-	}
+    /**
+     * Redirects user when no auth was possible.
+     *
+     * @param string $message  Flash message key
+     * @param int    $severity Severity code. One of the FlashMessage constants
+     */
+    protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR)
+    {
+        $this->authentication->logout();
 
-	/**
-	 * Redirects user when no auth was possible
-	 *
-	 * @param string $message Flash message key
-	 * @param integer $severity Severity code. One of the FlashMessage constants
-	 *
-	 * @return void
-	 */
-	protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR) {
-		$this->authentication->logout();
+        $this->addFlashMessageByKey($message, $severity);
+        $this->redirect('error');
+    }
 
-		$this->addFlashMessageByKey($message, $severity);
-		$this->redirect('error');
-	}
-
-	/**
-	 * Fallback for old real url confirm configuration
-	 *
-	 * @todo Remove this with v3.0.0
-	 * @deprecated
-	 *
-	 * @return void
-	 */
-	public function confirmAction() {
-		$this->forward('confirm', 'PostSubscriber');
-	}
-
+    /**
+     * Fallback for old real url confirm configuration.
+     *
+     * @todo Remove this with v3.0.0
+     *
+     * @deprecated
+     */
+    public function confirmAction()
+    {
+        $this->forward('confirm', 'PostSubscriber');
+    }
 }

@@ -31,278 +31,288 @@ use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * FAL Update Wizard
+ * FAL Update Wizard.
  */
-class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate {
+class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
+{
+    /**
+     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected $databaseConnection;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected $databaseConnection;
+    /**
+     * @var array
+     */
+    protected $databaseQueries = array();
 
-	/**
-	 * @var array
-	 */
-	protected $databaseQueries = array();
+    /**
+     * @var string
+     */
+    protected $title = 'Migrate ###MORE### marker within T3extblog post content elements.';
 
-	/**
-	 * @var string
-	 */
-	protected $title = 'Migrate ###MORE### marker within T3extblog post content elements.';
+    /**
+     * @var \TYPO3\CMS\Core\Resource\FileRepository
+     */
+    protected $fileRepository = null;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Resource\FileRepository
-	 */
-	protected $fileRepository = NULL;
+    /**
+     * Construct class.
+     */
+    public function __construct()
+    {
+        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+    }
 
-	/**
-	 * Construct class
-	 */
-	public function __construct() {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-	}
+    /**
+     * Checks if an update is needed.
+     *
+     * @param string &$description : The description for the update
+     *
+     * @return bool TRUE if an update is needed, FALSE otherwise
+     */
+    public function checkForUpdate(&$description)
+    {
+        if ($this->isWizardDone() || !$this->checkIfTableExists('tx_t3blog_post')) {
+            return false;
+        }
 
-	/**
-	 * Checks if an update is needed
-	 *
-	 * @param string &$description : The description for the update
-	 * @return boolean TRUE if an update is needed, FALSE otherwise
-	 */
-	public function checkForUpdate(&$description) {
-		if ($this->isWizardDone() || !$this->checkIfTableExists('tx_t3blog_post')) {
-			return FALSE;
-		}
+        $updateNeeded = false;
+        $notMigratedRows = $this->getPostsWithContentElementsAndWithoutPreview();
 
-		$updateNeeded = FALSE;
-		$notMigratedRows = $this->getPostsWithContentElementsAndWithoutPreview();
+        foreach ($notMigratedRows as $key => $record) {
+            $contentElementsWithText = $this->getAllTextPicContentElementsByPost($record['uid']);
 
-		foreach ($notMigratedRows as $key => $record) {
-			$contentElementsWithText = $this->getAllTextPicContentElementsByPost($record['uid']);
+            // Remove posts with content elements without a MORE marker
+            $allBodyText = '';
+            foreach ($contentElementsWithText as $content) {
+                $allBodyText .= $content['bodytext'];
+            }
+            if (strpos($allBodyText, '###MORE###') === false) {
+                unset($notMigratedRows[$key]);
+            }
+        }
 
-			// Remove posts with content elements without a MORE marker
-			$allBodyText = '';
-			foreach ($contentElementsWithText as $content) {
-				$allBodyText .= $content['bodytext'];
-			}
-			if (strpos($allBodyText, '###MORE###') === FALSE) {
-				unset($notMigratedRows[$key]);
-			}
-		}
+        if (count($notMigratedRows) > 0) {
+            $updateNeeded = true;
+            $description = 'There are <strong>'.count($notMigratedRows).'</strong> post records with '.
+                'a ###MORE### marker within the related content elements. This Wizard will remove this marker and '.
+                'use the prefixing text as new preview text. When a <em>textpic</em> or <em>image</em> content element '.
+                'has been found before the marker, the first of its images will be used as new preview image.';
+        }
 
-		if (count($notMigratedRows) > 0) {
-			$updateNeeded = TRUE;
-			$description = 'There are <strong>' . count($notMigratedRows) . '</strong> post records with ' .
-				'a ###MORE### marker within the related content elements. This Wizard will remove this marker and ' .
-				'use the prefixing text as new preview text. When a <em>textpic</em> or <em>image</em> content element ' .
-				'has been found before the marker, the first of its images will be used as new preview image.';
-		}
+        return $updateNeeded;
+    }
 
-		return $updateNeeded;
-	}
+    /**
+     * Performs the database update.
+     *
+     * @param array &$dbQueries      Queries done in this update
+     * @param mixed &$customMessages Custom messages
+     *
+     * @return bool TRUE on success, FALSE on error
+     */
+    public function performUpdate(array &$dbQueries, &$customMessages)
+    {
+        $notMigratedRows = $this->getPostsWithContentElementsAndWithoutPreview();
 
-	/**
-	 * Performs the database update.
-	 *
-	 * @param array &$dbQueries Queries done in this update
-	 * @param mixed &$customMessages Custom messages
-	 * @return boolean TRUE on success, FALSE on error
-	 */
-	public function performUpdate(array &$dbQueries, &$customMessages) {
-		$notMigratedRows = $this->getPostsWithContentElementsAndWithoutPreview();
+        foreach ($notMigratedRows as $key => $record) {
+            $contentElementsWithText = $this->getAllTextPicContentElementsByPost($record['uid']);
 
-		foreach ($notMigratedRows as $key => $record) {
-			$contentElementsWithText = $this->getAllTextPicContentElementsByPost($record['uid']);
+            if (!$this->migrateRecord($record, $contentElementsWithText)) {
+                unset($notMigratedRows[$key]);
+            }
+        }
 
-			if (!$this->migrateRecord($record, $contentElementsWithText)) {
-				unset($notMigratedRows[$key]);
-			}
-		}
+        $customMessages = '<br /><strong>'.count($notMigratedRows).'</strong> posts with ###MORE### marker have been migrated.';
+        $dbQueries = $this->databaseQueries;
 
-		$customMessages = '<br /><strong>' . count($notMigratedRows) . '</strong> posts with ###MORE### marker have been migrated.';
-		$dbQueries = $this->databaseQueries;
+        $this->markWizardAsDone();
 
-		$this->markWizardAsDone();
+        return true;
+    }
 
-		return TRUE;
-	}
+    /**
+     * Migrate content elements and update post record.
+     *
+     * @param array $postRecord
+     * @param array $contentElements
+     *
+     * @return bool
+     */
+    public function migrateRecord($postRecord, $contentElements)
+    {
+        $textBeforeDivider = '';
+        $firstImageElementBeforeDivider = null;
+        $hasMarker = false;
 
-	/**
-	 * Migrate content elements and update post record
-	 *
-	 * @param array $postRecord
-	 * @param array $contentElements
-	 *
-	 * @return boolean
-	 */
-	public function migrateRecord($postRecord, $contentElements) {
-		$textBeforeDivider = '';
-		$firstImageElementBeforeDivider = NULL;
-		$hasMarker = FALSE;
+        foreach ($contentElements as $content) {
+            $dividerPosition = strpos($content['bodytext'], '###MORE###');
 
-		foreach ($contentElements as $content) {
-			$dividerPosition = strpos($content['bodytext'], '###MORE###');
+            // Determine first image before divider
+            if (
+                $firstImageElementBeforeDivider === null &&
+                ($content['CType'] !== 'text' && $content['image'] > 0)
+            ) {
+                $firstImageElementBeforeDivider = $content;
+            }
 
-			// Determine first image before divider
-			if (
-				$firstImageElementBeforeDivider === NULL &&
-				($content['CType'] !== 'text' && $content['image'] > 0)
-			) {
-				$firstImageElementBeforeDivider = $content;
-			}
+            if ($dividerPosition !== false) {
+                $hasMarker = true;
+                $textBeforeDivider .= strstr($content['bodytext'], '###MORE###', true);
 
-			if ($dividerPosition !== FALSE) {
-				$hasMarker = TRUE;
-				$textBeforeDivider .= strstr($content['bodytext'], '###MORE###', TRUE);
+                $this->updatePostRecord($postRecord, $textBeforeDivider, $firstImageElementBeforeDivider);
+                $this->updateContentRecord($content);
 
-				$this->updatePostRecord($postRecord, $textBeforeDivider, $firstImageElementBeforeDivider);
-				$this->updateContentRecord($content);
+                break;
+            }
 
-				break;
-			}
+            $textBeforeDivider .= $content['bodytext'];
+        }
 
-			$textBeforeDivider .= $content['bodytext'];
-		}
+        return $hasMarker;
+    }
 
-		return $hasMarker;
-	}
+    /**
+     * Update tt_content row.
+     *
+     * @param array $contentRecord
+     */
+    protected function updateContentRecord($contentRecord)
+    {
+        $this->databaseConnection->exec_UPDATEquery(
+            'tt_content',
+            'uid = '.(int) $contentRecord['uid'],
+            array('bodytext' => str_replace('###MORE###', '', $contentRecord['bodytext']))
+        );
+        $this->logDatabaseExec();
+    }
 
-	/**
-	 * Update tt_content row
-	 *
-	 * @param array $contentRecord
-	 */
-	protected function updateContentRecord($contentRecord) {
-		$this->databaseConnection->exec_UPDATEquery(
-			'tt_content',
-			'uid = ' . (int) $contentRecord['uid'],
-			array('bodytext' => str_replace('###MORE###', '', $contentRecord['bodytext']))
-		);
-		$this->logDatabaseExec();
-	}
+    /**
+     * Update records.
+     *
+     * @param array  $postRecord
+     * @param string $textBeforeDivider
+     * @param array  $firstImageRecord
+     */
+    protected function updatePostRecord($postRecord, $textBeforeDivider, $firstImageRecord)
+    {
+        $data = array('preview_text' => $textBeforeDivider);
 
+        if ($firstImageRecord !== null) {
+            $fileObjectArray = $this->getFileRepository()->findByRelation('tt_content', 'image', $firstImageRecord['uid']);
 
-	/**
-	 * Update records
-	 *
-	 * @param array $postRecord
-	 * @param string $textBeforeDivider
-	 * @param array $firstImageRecord
-	 */
-	protected function updatePostRecord($postRecord, $textBeforeDivider, $firstImageRecord) {
-		$data =	array( 'preview_text' => $textBeforeDivider );
+            if (is_array($fileObjectArray) && count($fileObjectArray) > 0) {
+                // Get the first file
+                $fileObject = reset($fileObjectArray);
+                $data['preview_image'] = 1;
 
-		if ($firstImageRecord !== NULL) {
-			$fileObjectArray = $this->getFileRepository()->findByRelation('tt_content', 'image', $firstImageRecord['uid']);
+                $this->createPostSysFileReference($fileObject, $postRecord);
+            }
+        }
 
-			if (is_array($fileObjectArray) && count($fileObjectArray) > 0) {
-				// Get the first file
-				$fileObject = reset($fileObjectArray);
-				$data['preview_image'] = 1;
+        // Update post
+        $this->databaseConnection->exec_UPDATEquery(
+            'tx_t3blog_post',
+            'uid='.(int) $postRecord['uid'].$this->getNonPreviewWhereClause(),
+            $data
+        );
+        $this->logDatabaseExec();
+    }
 
-				$this->createPostSysFileReference($fileObject, $postRecord);
-			}
-		}
+    /**
+     * Add new sys_file_reference for the preview image.
+     *
+     * @param FileReference $fileObject
+     * @param array         $postRecord
+     */
+    protected function createPostSysFileReference(FileReference $fileObject, $postRecord)
+    {
+        if (!$fileObject instanceof FileReference) {
+            return;
+        }
 
-		// Update post
-		$this->databaseConnection->exec_UPDATEquery(
-			'tx_t3blog_post',
-			'uid=' . (int) $postRecord['uid'] . $this->getNonPreviewWhereClause(),
-			$data
-		);
-		$this->logDatabaseExec();
-	}
+        $dataArray = array(
+            'uid_local' => $fileObject->getOriginalFile()->getUid(),
+            'tablenames' => 'tx_t3blog_post',
+            'fieldname' => 'preview_image',
+            'uid_foreign' => $postRecord['uid'],
+            'table_local' => 'sys_file',
+            'cruser_id' => 999,
+            // the sys_file_reference record should always placed on the same page
+            // as the record to link to, see issue #46497
+            'pid' => $postRecord['pid'],
+        );
 
-	/**
-	 * Add new sys_file_reference for the preview image
-	 *
-	 * @param FileReference $fileObject
-	 * @param array $postRecord
-	 *
-	 * @return void
-	 */
-	protected function createPostSysFileReference(FileReference $fileObject, $postRecord) {
-		if (!$fileObject instanceof FileReference) {
-			return;
-		}
+        $this->databaseConnection->exec_INSERTquery('sys_file_reference', $dataArray);
+        $this->logDatabaseExec();
+    }
 
-		$dataArray = array(
-			'uid_local' => $fileObject->getOriginalFile()->getUid(),
-			'tablenames' => 'tx_t3blog_post',
-			'fieldname' => 'preview_image',
-			'uid_foreign' => $postRecord['uid'],
-			'table_local' => 'sys_file',
-			'cruser_id' => 999,
-			// the sys_file_reference record should always placed on the same page
-			// as the record to link to, see issue #46497
-			'pid' => $postRecord['pid'],
-		);
+    /**
+     * Gets post content with text.
+     *
+     * @param int $postUid
+     *
+     * @return array
+     */
+    protected function getAllTextPicContentElementsByPost($postUid)
+    {
+        $select = 'uid, bodytext, CType, image';
+        $table = 'tt_content';
+        $where = 'irre_parentid = '.$postUid.' AND irre_parenttable = "tx_t3blog_post"';
+        $where .= ' AND ( CType = "text" OR CType = "textpic" OR CType = "image" )';
+        $data = $this->databaseConnection->exec_SELECTgetRows($select, $table, $where, '', 'sorting');
 
-		$this->databaseConnection->exec_INSERTquery('sys_file_reference', $dataArray);
-		$this->logDatabaseExec();
-	}
+        $this->logDatabaseExec();
 
-	/**
-	 * Gets post content with text
-	 *
-	 * @param integer $postUid
-	 * @return array
-	 */
-	protected function getAllTextPicContentElementsByPost($postUid) {
-		$select = 'uid, bodytext, CType, image';
-		$table = 'tt_content';
-		$where = 'irre_parentid = ' . $postUid . ' AND irre_parenttable = "tx_t3blog_post"';
-		$where .= ' AND ( CType = "text" OR CType = "textpic" OR CType = "image" )';
-		$data = $this->databaseConnection->exec_SELECTgetRows($select, $table, $where, '', 'sorting');
+        return $data;
+    }
 
-		$this->logDatabaseExec();
+    /**
+     * Gets all posts with content element.
+     *
+     * @return array
+     */
+    protected function getPostsWithContentElementsAndWithoutPreview()
+    {
+        $data = $this->databaseConnection->exec_SELECTgetRows(
+            'uid, pid, content',
+            'tx_t3blog_post',
+            'content > 0'.$this->getNonPreviewWhereClause()
+        );
+        $this->logDatabaseExec();
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * Gets all posts with content element
-	 *
-	 * @return array
-	 */
-	protected function getPostsWithContentElementsAndWithoutPreview() {
-		$data = $this->databaseConnection->exec_SELECTgetRows(
-			'uid, pid, content',
-			'tx_t3blog_post',
-			'content > 0' . $this->getNonPreviewWhereClause()
-		);
-		$this->logDatabaseExec();
+    /**
+     * Gets where clause for old posts (= without preview image or text).
+     *
+     * @return string
+     */
+    protected function getNonPreviewWhereClause()
+    {
+        return ' AND preview_text IS NULL AND preview_image = 0';
+    }
 
-		return $data;
-	}
+    /**
+     * Log DB usage.
+     *
+     * @return \TYPO3\CMS\Core\Resource\FileRepository
+     */
+    protected function getFileRepository()
+    {
+        if ($this->fileRepository === null) {
+            $this->fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
+        }
 
-	/**
-	 * Gets where clause for old posts (= without preview image or text)
-	 *
-	 * @return string
-	 */
-	protected function getNonPreviewWhereClause() {
-		return ' AND preview_text IS NULL AND preview_image = 0';
-	}
+        return $this->fileRepository;
+    }
 
-	/**
-	 * Log DB usage
-	 *
-	 * @return \TYPO3\CMS\Core\Resource\FileRepository
-	 */
-	protected function getFileRepository() {
-		if ($this->fileRepository === NULL) {
-			$this->fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
-		}
-
-		return $this->fileRepository;
-	}
-
-	/**
-	 * Log DB usage
-	 *
-	 * @return void
-	 */
-	protected function logDatabaseExec() {
-		$this->databaseQueries[] = str_replace(chr(10), ' ', $this->databaseConnection->debug_lastBuiltQuery);
-	}
+    /**
+     * Log DB usage.
+     */
+    protected function logDatabaseExec()
+    {
+        $this->databaseQueries[] = str_replace(chr(10), ' ', $this->databaseConnection->debug_lastBuiltQuery);
+    }
 }

@@ -34,32 +34,32 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /**
- * Displays sprite icon identified by iconName key
+ * Displays sprite icon identified by iconName key.
  */
-class SpriteManagerIconViewHelper extends AbstractBackendViewHelper {
+class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
+{
+    /**
+     * Prints sprite icon html for $iconName key.
+     *
+     * @todo Find a way to process $option['title'] for TYPO 7.x
+     * Probably move the title attribute to parent element
+     *
+     * @param string $iconName
+     * @param array  $options
+     *
+     * @return string
+     */
+    public function render($iconName, $options = array())
+    {
+        // @todo Remove this when 6.2 is no longer relevant
+        if (version_compare(TYPO3_branch, '7.0', '<')) {
+            $icon = IconUtility::getSpriteIcon($iconName, $options);
+        } else {
+            /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+            $icon = $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
+        }
 
-	/**
-	 * Prints sprite icon html for $iconName key
-	 *
-	 * @todo Find a way to process $option['title'] for TYPO 7.x
-	 * Probably move the title attribute to parent element
-	 *
-	 * @param string $iconName
-	 * @param array $options
-	 *
-	 * @return string
-	 */
-	public function render($iconName, $options = array()) {
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			$icon = IconUtility::getSpriteIcon($iconName, $options);
-		} else {
-			/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
-			$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-			$icon = $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
-		}
-
-		return $icon;
-	}
-
+        return $icon;
+    }
 }

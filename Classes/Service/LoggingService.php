@@ -31,150 +31,142 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Handles logging
- * Configured by TYPO3 core log level
+ * Configured by TYPO3 core log level.
  */
-class LoggingService implements LoggingServiceInterface, SingletonInterface {
+class LoggingService implements LoggingServiceInterface, SingletonInterface
+{
+    /**
+     * The extension key.
+     *
+     * @var bool
+     */
+    protected $extKey = 't3extblog';
 
-	/**
-	 * The extension key
-	 *
-	 * @var boolean
-	 */
-	protected $extKey = 't3extblog';
+    /**
+     * @var bool
+     */
+    protected $enableDLOG;
 
-	/**
-	 * @var boolean
-	 */
-	protected $enableDLOG;
+    /**
+     * @var bool
+     */
+    protected $logInDevlog;
 
-	/**
-	 * @var boolean
-	 */
-	protected $logInDevlog;
+    /**
+     * @var bool
+     */
+    protected $renderInFe;
 
-	/**
-	 * @var boolean
-	 */
-	protected $renderInFe;
+    /**
+     * @var \TYPO3\T3extblog\Service\SettingsService
+     * @inject
+     */
+    protected $settingsService;
 
-	/**
-	 * @var \TYPO3\T3extblog\Service\SettingsService
-	 * @inject
-	 */
-	protected $settingsService;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * Init object.
+     */
+    public function initializeObject()
+    {
+        $this->settings = $this->settingsService->getTypoScriptSettings();
+        $this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
 
-	/**
-	 * Init object
-	 *
-	 * @return void
-	 */
-	public function initializeObject() {
-		$this->settings = $this->settingsService->getTypoScriptSettings();
-		$this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
+        $this->logInDevlog = $this->settings['debug']['logInDevlog'];
+        $this->renderInFe = $this->settings['debug']['renderInFe'];
+    }
 
-		$this->logInDevlog = $this->settings['debug']['logInDevlog'];
-		$this->renderInFe = $this->settings['debug']['renderInFe'];
-	}
+    /**
+     * Error logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function error($msg, $data = array())
+    {
+        $this->writeToSysLog($msg, 3);
 
-	/**
-	 * Error logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function error($msg, $data = array()) {
-		$this->writeToSysLog($msg, 3);
+        if ($this->renderInFe) {
+            $this->outputDebug($msg, 3, $data);
+        }
 
-		if ($this->renderInFe) {
-			$this->outputDebug($msg, 3, $data);
-		}
+        if ($this->enableDLOG || $this->logInDevlog) {
+            $this->writeToDevLog($msg, 3, $data);
+        }
+    }
 
-		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->writeToDevLog($msg, 3, $data);
-		}
-	}
+    /**
+     * Notice logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function notice($msg, $data = array())
+    {
+        $this->writeToSysLog($msg, 1);
 
-	/**
-	 * Notice logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function notice($msg, $data = array()) {
-		$this->writeToSysLog($msg, 1);
+        if ($this->renderInFe) {
+            $this->outputDebug($msg, 1, $data);
+        }
 
-		if ($this->renderInFe) {
-			$this->outputDebug($msg, 1, $data);
-		}
+        if ($this->enableDLOG || $this->logInDevlog) {
+            $this->writeToDevLog($msg, 1, $data);
+        }
+    }
 
-		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->writeToDevLog($msg, 1, $data);
-		}
-	}
+    /**
+     * Development logging.
+     *
+     * @param string $msg  Message
+     * @param array  $data Data
+     */
+    public function dev($msg, $data = array())
+    {
+        if ($this->renderInFe) {
+            $this->outputDebug($msg, 1, $data);
+        }
 
-	/**
-	 * Development logging
-	 *
-	 * @param string $msg Message
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	public function dev($msg, $data = array()) {
-		if ($this->renderInFe) {
-			$this->outputDebug($msg, 1, $data);
-		}
+        if ($this->enableDLOG || $this->logInDevlog) {
+            $this->writeToDevLog($msg, 1, $data);
+        }
+    }
 
-		if ($this->enableDLOG || $this->logInDevlog) {
-			$this->writeToDevLog($msg, 1, $data);
-		}
-	}
+    /**
+     * Writes message to the FE.
+     *
+     * @param string $msg      Message (in English).
+     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
+     * @param array  $data     Data
+     */
+    protected function outputDebug($msg, $severity = 0, $data = array())
+    {
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
+    }
 
-	/**
-	 * Writes message to the FE
-	 *
-	 * @param string $msg Message (in English).
-	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
-	 * @param array $data Data
-	 *
-	 * @return void
-	 */
-	protected function outputDebug($msg, $severity = 0, $data = array()) {
-		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '[' . $severity . '] ' . $msg);
-	}
+    /**
+     * Logs message to the system log.
+     *
+     * @param string $msg      Message (in English).
+     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
+     */
+    protected function writeToSysLog($msg, $severity = 0)
+    {
+        GeneralUtility::sysLog($msg, $this->extKey, $severity);
+    }
 
-	/**
-	 * Logs message to the system log.
-	 *
-	 * @param string $msg Message (in English).
-	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
-	 *
-	 * @return void
-	 */
-	protected function writeToSysLog($msg, $severity = 0) {
-		GeneralUtility::sysLog($msg, $this->extKey, $severity);
-	}
-
-	/**
-	 * Logs message to the development log.
-	 *
-	 * @param string $msg Message (in english).
-	 * @param integer $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is fatal error, -1 is "OK" message
-	 * @param mixed $dataVar Additional data you want to pass to the logger.
-	 *
-	 * @return void
-	 */
-	protected function writeToDevLog($msg, $severity = 0, $dataVar = FALSE) {
-		GeneralUtility::devLog($msg, $this->extKey, $severity, $dataVar);
-	}
-
+    /**
+     * Logs message to the development log.
+     *
+     * @param string $msg      Message (in english).
+     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is fatal error, -1 is "OK" message
+     * @param mixed  $dataVar  Additional data you want to pass to the logger.
+     */
+    protected function writeToDevLog($msg, $severity = 0, $dataVar = false)
+    {
+        GeneralUtility::devLog($msg, $this->extKey, $severity, $dataVar);
+    }
 }

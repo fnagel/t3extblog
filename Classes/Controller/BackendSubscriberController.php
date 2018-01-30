@@ -27,30 +27,27 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 /**
- * BackendSubscriberController
+ * BackendSubscriberController.
  */
-class BackendSubscriberController extends BackendBaseController {
+class BackendSubscriberController extends BackendBaseController
+{
+    /**
+     * Show post subscribers.
+     */
+    public function indexPostSubscriberAction()
+    {
+        $this->view->assignMultiple(array(
+            'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, false),
+        ));
+    }
 
-	/**
-	 * Show post subscribers
-	 *
-	 * @return void
-	 */
-	public function indexPostSubscriberAction() {
-		$this->view->assignMultiple(array(
-			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, FALSE)
-		));
-	}
-
-	/**
-	 * Show blog subscribers
-	 *
-	 * @return void
-	 */
-	public function indexBlogSubscriberAction() {
-		$this->view->assignMultiple(array(
-			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, FALSE)
-		));
-	}
-
+    /**
+     * Show blog subscribers.
+     */
+    public function indexBlogSubscriberAction()
+    {
+        $this->view->assignMultiple(array(
+            'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, false),
+        ));
+    }
 }

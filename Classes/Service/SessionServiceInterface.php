@@ -27,40 +27,35 @@ namespace TYPO3\T3extblog\Service;
  ***************************************************************/
 
 /**
- * SessionServiceInterface
+ * SessionServiceInterface.
  */
-interface SessionServiceInterface {
+interface SessionServiceInterface
+{
+    /**
+     * Add data.
+     *
+     * @param array $data Data array to save
+     */
+    public function setData($data);
 
-	/**
-	 * Add data
-	 *
-	 * @param array $data Data array to save
-	 *
-	 * @return void
-	 */
-	public function setData($data);
+    /**
+     * Get data.
+     *
+     * @return array
+     */
+    public function getData();
 
-	/**
-	 * Get data
-	 *
-	 * @return array
-	 */
-	public function getData();
+    /**
+     * Remove data.
+     */
+    public function removeData();
 
-	/**
-	 * Remove data
-	 *
-	 * @return void
-	 */
-	public function removeData();
-
-	/**
-	 * Get single value from data by key
-	 *
-	 * @param string
-	 *
-	 * @return mixed
-	 */
-	public function getDataByKey($key);
-
+    /**
+     * Get single value from data by key.
+     *
+     * @param string
+     *
+     * @return mixed
+     */
+    public function getDataByKey($key);
 }

@@ -33,113 +33,115 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\Utility\IconUtility;
 
 /**
- * Show localized posts view helper
+ * Show localized posts view helper.
  */
-class LocalizationViewHelper extends AbstractBackendViewHelper {
+class LocalizationViewHelper extends AbstractBackendViewHelper
+{
+    /**
+     * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
+     */
+    protected $translateTools;
 
-	/**
-	 * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
-	 */
-	protected $translateTools;
+    /**
+     * Contains sys language icons and titles.
+     *
+     * @var array
+     */
+    public $systemLanguages = array();
 
-	/**
-	 * Contains sys language icons and titles
-	 *
-	 * @var array
-	 */
-	public $systemLanguages = array();
+    /**
+     * @param string $translations Name of the added variable
+     * @param string $table        Table to process
+     * @param object $object       Object to process
+     *
+     * @return string
+     */
+    public function render($translations, $table, $object)
+    {
+        $content = '';
+        $templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
 
-	/**
-	 * @param string $translations Name of the added variable
-	 * @param string $table Table to process
-	 * @param object $object Object to process
-	 *
-	 * @return string
-	 */
-	public function render($translations, $table, $object) {
-		$content = '';
-		$templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
+        $this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
+        if (count($this->systemLanguages) > 2) {
+            $records = $this->getLocalizedRecords($table, $object->toArray());
 
-		$this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
-		if (count($this->systemLanguages) > 2) {
-			$records = $this->getLocalizedRecords($table, $object->toArray());
+            $templateVariableContainer->add($translations, $records);
+            $content = $this->renderChildren();
+            $templateVariableContainer->remove($translations);
+        }
 
-			$templateVariableContainer->add($translations, $records);
-			$content = $this->renderChildren();
-			$templateVariableContainer->remove($translations);
-		}
+        return $content;
+    }
 
-		return $content;
-	}
+    /**
+     * Creates the localization panel.
+     *
+     * @param string $table The table
+     * @param array  $row   The record for which to make the localization panel.
+     *
+     * @return array
+     */
+    public function getLocalizedRecords($table, $row)
+    {
+        $records = array();
+        $translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
 
-	/**
-	 * Creates the localization panel
-	 *
-	 * @param string $table The table
-	 * @param array $row The record for which to make the localization panel.
-	 *
-	 * @return array
-	 */
-	public function getLocalizedRecords($table, $row) {
-		$records = array();
-		$translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
+        if (is_array($translations) && is_array($translations['translations'])) {
+            foreach ($translations['translations'] as $sysLanguageUid => $translationData) {
+                if (!$GLOBALS['BE_USER']->checkLanguageAccess($sysLanguageUid)) {
+                    continue;
+                }
 
-		if (is_array($translations) && is_array($translations['translations'])) {
+                if (isset($translations['translations'][$sysLanguageUid])) {
+                    $records[$sysLanguageUid] = array(
+                        'editIcon' => $this->getLanguageIconLink(
+                            $sysLanguageUid,
+                            BackendUtility::editOnClick('&edit['.$table.']['.$translationData['uid'].']=edit'),
+                            $translationData['uid']
+                        ),
+                        'uid' => $translations['translations'][$sysLanguageUid]['uid'],
+                    );
+                }
+            }
+        }
 
-			foreach ($translations['translations'] as $sysLanguageUid => $translationData) {
-				if (!$GLOBALS['BE_USER']->checkLanguageAccess($sysLanguageUid)) {
-					continue;
-				}
+        return $records;
+    }
 
-				if (isset($translations['translations'][$sysLanguageUid])) {
-					$records[$sysLanguageUid] = array(
-						'editIcon' => $this->getLanguageIconLink(
-							$sysLanguageUid,
-							BackendUtility::editOnClick('&edit[' . $table . '][' . $translationData['uid'] . ']=edit'),
-							$translationData['uid']
-						),
-						'uid' => $translations['translations'][$sysLanguageUid]['uid']
-					);
-				}
-			}
-		}
+    protected function getLanguageIconLink($sysLanguageUid, $onclick, $uid)
+    {
+        $language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
-		return $records;
-	}
+        if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
+            // @todo Remove this when 6.2 is no longer relevant
+            if (version_compare(TYPO3_branch, '7.0', '<')) {
+                $icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
+            } else {
+                /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+                $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+                $icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
+            }
+        } else {
+            $icon = $this->systemLanguages[$sysLanguageUid]['title'];
+        }
 
-	protected function getLanguageIconLink($sysLanguageUid, $onclick, $uid) {
-		$language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
+        return '<a href="" onclick="'.htmlspecialchars($onclick).'" title="'.$uid.', '.
+            htmlspecialchars($language['title']).'">'.$icon.'</a>';
+    }
 
-		if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
-			// @todo Remove this when 6.2 is no longer relevant
-			if (version_compare(TYPO3_branch, '7.0', '<')) {
-				$icon = IconUtility::getSpriteIcon($this->systemLanguages[$sysLanguageUid]['flagIcon']);
-			} else {
-				/* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
-				$iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-				$icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
-			}
-		} else {
-			$icon = $this->systemLanguages[$sysLanguageUid]['title'];
-		}
+    /**
+     * Gets an instance of TranslationConfigurationProvider.
+     *
+     * @return \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
+     */
+    protected function getTranslateTools()
+    {
+        if (!isset($this->translateTools)) {
+            $this->translateTools = GeneralUtility::makeInstance(
+                'TYPO3\\CMS\\Backend\\Configuration\\TranslationConfigurationProvider'
+            );
+        }
 
-		return '<a href="" onclick="' . htmlspecialchars($onclick) . '" title="' . $uid . ', ' .
-			htmlspecialchars($language['title']) . '">' . $icon . '</a>';
-	}
-
-	/**
-	 * Gets an instance of TranslationConfigurationProvider
-	 *
-	 * @return \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
-	 */
-	protected function getTranslateTools() {
-		if (!isset($this->translateTools)) {
-			$this->translateTools = GeneralUtility::makeInstance(
-				'TYPO3\\CMS\\Backend\\Configuration\\TranslationConfigurationProvider'
-			);
-		}
-
-		return $this->translateTools;
-	}
-
+        return $this->translateTools;
+    }
 }

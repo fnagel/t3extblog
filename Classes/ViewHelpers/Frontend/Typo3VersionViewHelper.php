@@ -28,37 +28,39 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 
 /**
- * ViewHelper to render children only for specific versions
+ * ViewHelper to render children only for specific versions.
  */
-class Typo3VersionViewHelper extends AbstractConditionViewHelper {
+class Typo3VersionViewHelper extends AbstractConditionViewHelper
+{
+    /**
+     * Render children if version matches.
+     *
+     * @param string $version
+     * @param string $operator
+     *
+     * @return string
+     */
+    public function render($version = '6.2', $operator = '>')
+    {
+        return parent::render();
+    }
 
-	/**
-	 * Render children if version matches
-	 *
-	 * @param string $version
-	 * @param string $operator
-	 *
-	 * @return string
-	 */
-	public function render($version = '6.2', $operator = '>') {
-		return parent::render();
-	}
+    /**
+     * This method decides if the condition is TRUE or FALSE.
+     *
+     * @param array $arguments ViewHelper arguments to evaluate the condition
+     *
+     * @return bool
+     */
+    protected static function evaluateCondition($arguments = null)
+    {
+        $version = $arguments['version'];
+        $operator = $arguments['operator'];
 
-	/**
-	 * This method decides if the condition is TRUE or FALSE
-	 *
-	 * @param array $arguments ViewHelper arguments to evaluate the condition
-	 * @return bool
-	 */
-	static protected function evaluateCondition($arguments = NULL) {
-		$version = $arguments['version'];
-		$operator = $arguments['operator'];
+        if (version_compare(TYPO3_branch, $version, $operator)) {
+            return true;
+        }
 
-		if (version_compare(TYPO3_branch, $version, $operator)) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
+        return false;
+    }
 }

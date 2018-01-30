@@ -32,47 +32,47 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * A view helper for creating edit on click links
+ * A view helper for creating edit on click links.
  */
-class IssueCommandViewHelper extends AbstractTagBasedViewHelper {
+class IssueCommandViewHelper extends AbstractTagBasedViewHelper
+{
+    /**
+     * @var string
+     */
+    protected $tagName = 'a';
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'a';
+    /**
+     * Arguments initialization.
+     */
+    public function initializeArguments()
+    {
+        $this->registerUniversalTagAttributes();
+    }
 
-	/**
-	 * Arguments initialization
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		$this->registerUniversalTagAttributes();
-	}
+    /**
+     * Returns a link with a command to TYPO3 Core Engine (tce_db.php).
+     *
+     * @see DocumentTemplate::issueCommand()
+     *
+     * @param string     $parameters
+     * @param string|int $redirectUrl
+     *
+     * @return string
+     */
+    public function render($parameters, $redirectUrl = '')
+    {
+        if (version_compare(TYPO3_branch, '7.0', '<')) {
+            /** @var $documentTemplate \TYPO3\CMS\Backend\Template\DocumentTemplate */
+            $documentTemplate = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
+            $href = $documentTemplate->issueCommand('&'.$parameters, $redirectUrl);
+        } else {
+            $href = BackendUtility::getLinkToDataHandlerAction('&'.$parameters, $redirectUrl);
+        }
 
-	/**
-	 * Returns a link with a command to TYPO3 Core Engine (tce_db.php)
-	 *
-	 * @see DocumentTemplate::issueCommand()
-	 *
-	 * @param string $parameters
-	 * @param string|int $redirectUrl
-	 * @return string
-	 */
-	public function render($parameters, $redirectUrl = '') {
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			/** @var $documentTemplate \TYPO3\CMS\Backend\Template\DocumentTemplate */
-			$documentTemplate = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
-			$href = $documentTemplate->issueCommand('&' . $parameters, $redirectUrl);
-		} else {
-			$href = BackendUtility::getLinkToDataHandlerAction('&' . $parameters, $redirectUrl);
-		}
+        $this->tag->addAttribute('href', $href);
+        $this->tag->setContent($this->renderChildren());
+        $this->tag->forceClosingTag(true);
 
-		$this->tag->addAttribute('href', $href);
-		$this->tag->setContent($this->renderChildren());
-		$this->tag->forceClosingTag(TRUE);
-
-		return $this->tag->render();
-	}
-
+        return $this->tag->render();
+    }
 }

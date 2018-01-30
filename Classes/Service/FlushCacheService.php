@@ -30,72 +30,70 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Handles email sending and templating
+ * Handles email sending and templating.
  */
-class FlushCacheService implements SingletonInterface {
+class FlushCacheService implements SingletonInterface
+{
+    /**
+     * @var array
+     */
+    protected $cacheTagsToFlush = array();
 
-	/**
-	 * @var array
-	 */
-	protected $cacheTagsToFlush = array();
+    /**
+     */
+    public function initializeObject()
+    {
+        // Clear cache on shutdown
+        register_shutdown_function(array($this, 'flushFrontendCache'));
+    }
 
-	/**
-	 * @return void
-	 */
-	public function initializeObject() {
-		// Clear cache on shutdown
-		register_shutdown_function(array($this, 'flushFrontendCache'));
-	}
+    /**
+     * Clear all added cache tags. Called on shutdown.
+     */
+    public function flushFrontendCache()
+    {
+        $this->flushFrontendCacheByTags($this->cacheTagsToFlush);
+    }
 
-	/**
-	 * Clear all added cache tags. Called on shutdown.
-	 *
-	 * @return void
-	 */
-	public function flushFrontendCache() {
-		$this->flushFrontendCacheByTags($this->cacheTagsToFlush);
-	}
+    /**
+     * Add a cache tag to flush.
+     *
+     * @param string|array $cacheTagsToFlush
+     *
+     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
+     */
+    public function addCacheTagsToFlush($cacheTagsToFlush)
+    {
+        if (!is_array($cacheTagsToFlush)) {
+            $cacheTagsToFlush = array($cacheTagsToFlush);
+        }
 
-	/**
-	 * Add a cache tag to flush
-	 *
-	 * @param string|array $cacheTagsToFlush
-	 *
-	 * @return void
-	 * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-	 */
-	public function addCacheTagsToFlush($cacheTagsToFlush) {
-		if (!is_array($cacheTagsToFlush)) {
-			$cacheTagsToFlush = array($cacheTagsToFlush);
-		}
+        if (count($cacheTagsToFlush) < 1) {
+            return;
+        }
 
-		if (count($cacheTagsToFlush) < 1) {
-			return;
-		}
+        $this->cacheTagsToFlush = array_merge($this->cacheTagsToFlush, $cacheTagsToFlush);
+    }
 
-		$this->cacheTagsToFlush = array_merge($this->cacheTagsToFlush, $cacheTagsToFlush);
-	}
+    /**
+     * Clear frontend page cache by tags.
+     *
+     * @param $cacheTagsToFlush
+     *
+     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
+     */
+    public static function flushFrontendCacheByTags($cacheTagsToFlush)
+    {
+        if (count($cacheTagsToFlush) < 1) {
+            return;
+        }
 
-	/**
-	 * Clear frontend page cache by tags
-	 *
-	 * @param $cacheTagsToFlush
-	 *
-	 * @return void
-	 * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
-	 */
-	public static function flushFrontendCacheByTags($cacheTagsToFlush) {
-		if (count($cacheTagsToFlush) < 1) {
-			return;
-		}
+        /** @var $cacheManager \TYPO3\CMS\Core\Cache\CacheManager */
+        $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
 
-		/** @var $cacheManager \TYPO3\CMS\Core\Cache\CacheManager */
-		$cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-
-		foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
-			$cacheManager->getCache('cache_pages')->flushByTag($cacheTag);
-			$cacheManager->getCache('cache_pagesection')->flushByTag($cacheTag);
-		}
-	}
-
+        foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
+            $cacheManager->getCache('cache_pages')->flushByTag($cacheTag);
+            $cacheManager->getCache('cache_pagesection')->flushByTag($cacheTag);
+        }
+    }
 }

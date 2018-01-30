@@ -26,42 +26,44 @@ namespace TYPO3\T3extblog\ViewHelpers\Backend;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
+use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 
 /**
- * Get a specific blog post record view helper
+ * Get a specific blog post record view helper.
  */
-class GetPostViewHelper extends AbstractBackendViewHelper {
+class GetPostViewHelper extends AbstractBackendViewHelper
+{
+    /**
+     * postRepository.
+     *
+     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     */
+    protected $postRepository = null;
 
-	/**
-	 * postRepository
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected $postRepository = NULL;
+    /**
+     * @param int  $uid
+     * @param bool $respectEnableFields if set to false, hidden records are shown
+     *
+     * @return string
+     */
+    public function render($uid = null, $respectEnableFields = true)
+    {
+        if ($uid === null) {
+            $uid = $this->renderChildren();
+        }
 
-	/**
-	 * @param int $uid
-	 * @param boolean $respectEnableFields if set to false, hidden records are shown
-	 *
-	 * @return string
-	 */
-	public function render($uid = NULL, $respectEnableFields = TRUE) {
-		if ($uid === NULL) {
-			$uid = $this->renderChildren();
-		}
+        return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
+    }
 
-		return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
-	}
+    /**
+     * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
+     */
+    protected function getPostRepository()
+    {
+        if ($this->postRepository === null) {
+            $this->postRepository = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
+        }
 
-	/**
-	 * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
-	 */
-	protected function getPostRepository() {
-		if ($this->postRepository === NULL) {
-			$this->postRepository = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
-		}
-
-		return $this->postRepository;
-	}
+        return $this->postRepository;
+    }
 }

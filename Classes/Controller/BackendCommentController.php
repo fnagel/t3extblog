@@ -30,42 +30,38 @@ namespace TYPO3\T3extblog\Controller;
 use TYPO3\T3extblog\Domain\Model\Post;
 
 /**
- * BackendCommentController
+ * BackendCommentController.
  */
-class BackendCommentController extends BackendBaseController {
+class BackendCommentController extends BackendBaseController
+{
+    /**
+     * Displays all comments.
+     */
+    public function indexAction()
+    {
+        $this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
+        $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+    }
 
-	/**
-	 * Displays all comments
-	 *
-	 * @return void
-	 */
-	public function indexAction() {
-		$this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
-		$this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
-	}
+    /**
+     * Displays all pending comments.
+     */
+    public function listPendingAction()
+    {
+        $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+    }
 
-	/**
-	 * Displays all pending comments
-	 *
-	 * @return void
-	 */
-	public function listPendingAction() {
-		$this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
-	}
-
-	/**
-	 * Displays all comments for a post
-	 *
-	 * @param Post $post The post
-	 *
-	 * @return void
-	 */
-	public function listByPostAction(Post $post) {
-		$this->view->assignMultiple(array(
-			'post' => $this->postRepository->findOneByUid($post),
-			'comments' => $this->commentRepository->findByPost($post, FALSE),
-			'pendingComments' => $this->commentRepository->findPendingByPost($post)
-		));
-	}
-
+    /**
+     * Displays all comments for a post.
+     *
+     * @param Post $post The post
+     */
+    public function listByPostAction(Post $post)
+    {
+        $this->view->assignMultiple(array(
+            'post' => $this->postRepository->findOneByUid($post),
+            'comments' => $this->commentRepository->findByPost($post, false),
+            'pendingComments' => $this->commentRepository->findPendingByPost($post),
+        ));
+    }
 }

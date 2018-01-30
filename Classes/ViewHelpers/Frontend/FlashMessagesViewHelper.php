@@ -30,118 +30,122 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * View helper which renders the flash messages
+ * View helper which renders the flash messages.
  *
  * Extended to use Twitter Bootstrap CSS classes
  */
-class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper {
+class FlashMessagesViewHelper extends BaseFlashMessagesViewHelper
+{
+    /**
+     * @var array
+     */
+    protected $severityMapping = array(
+        FlashMessage::NOTICE => 'alert-info',
+        FlashMessage::INFO => 'alert-info',
+        FlashMessage::OK => 'alert-success',
+        FlashMessage::WARNING => 'alert-warning',
+        FlashMessage::ERROR => 'alert-danger',
+    );
 
-	/**
-	 * @var array
-	 */
-	protected $severityMapping = array(
-		FlashMessage::NOTICE => 'alert-info',
-		FlashMessage::INFO => 'alert-info',
-		FlashMessage::OK => 'alert-success',
-		FlashMessage::WARNING => 'alert-warning',
-		FlashMessage::ERROR => 'alert-danger'
-	);
+    /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObject;
 
-	/**
-	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-	 */
-	protected $contentObject;
+    /**
+     * Taken from TYPO3 6.2 to restore cache behaviour.
+     *
+     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     */
+    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
+    {
+        $this->contentObject = $configurationManager->getContentObject();
+    }
 
-	/**
-	 * Taken from TYPO3 6.2 to restore cache behaviour
-	 *
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-	 * @return void
-	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
-		$this->contentObject = $configurationManager->getContentObject();
-	}
+    /**
+     * Initialize arguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
 
-	/**
-	 * Initialize arguments
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
+        // @todo Remove this when 6.2 is no longer relevant
+        if (version_compare(TYPO3_branch, '7.0', '<')) {
+            // Add default Bootstrap alert classes for older TYPO3
+            $this->overrideArgument('class', 'string', 'CSS class(es) for this element', false, 'alert alert-block');
+        }
 
-		// @todo Remove this when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '<')) {
-			// Add default Bootstrap alert classes for older TYPO3
-			$this->overrideArgument('class', 'string', 'CSS class(es) for this element', FALSE, 'alert alert-block');
-		}
+        // Register role attribute for better a11y
+        $this->registerArgument('role', 'string', 'ARIA role for this element', false, 'alert');
+    }
 
-		// Register role attribute for better a11y
-		$this->registerArgument('role', 'string', 'ARIA role for this element', FALSE, 'alert');
-	}
+    /**
+     * Renders FlashMessages and flushes the FlashMessage queue
+     * Note: This disables the current page cache in order to prevent FlashMessage output
+     * from being cached.
+     *
+     * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
+     *
+     * @param string $renderMode @deprecated since TYPO3 CMS 7.3. If you need custom output, use <f:flashMessages as="messages"><f:for each="messages" as="message">...</f:for></f:flashMessages>
+     * @param string $as         The name of the current flashMessage variable for rendering inside
+     *
+     * @return string rendered Flash Messages, if there are any.
+     *
+     * @api
+     */
+    public function render($renderMode = null, $as = null)
+    {
+        // Add defaults here as we need keep signature intact
+        // @todo Remove this when dropping 6.2 support
+        // @todo Test this in 6.2!
+        if ($renderMode === null) {
+            $renderMode = self::RENDER_MODE_DIV;
+        }
 
-	/**
-	 * Renders FlashMessages and flushes the FlashMessage queue
-	 * Note: This disables the current page cache in order to prevent FlashMessage output
-	 * from being cached.
-	 *
-	 * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::no_cache
-	 * @param string $renderMode @deprecated since TYPO3 CMS 7.3. If you need custom output, use <f:flashMessages as="messages"><f:for each="messages" as="message">...</f:for></f:flashMessages>
-	 * @param string $as The name of the current flashMessage variable for rendering inside
-	 * @return string rendered Flash Messages, if there are any.
-	 * @api
-	 */
-	public function render($renderMode = null, $as = null) {
-		// Add defaults here as we need keep signature intact
-		// @todo Remove this when dropping 6.2 support
-		// @todo Test this in 6.2!
-		if ($renderMode === NULL) {
-			$renderMode = self::RENDER_MODE_DIV;
-		}
+        // TYPO3 7.x
+        // @todo Use this only when 6.2 is no longer relevant
+        if (version_compare(TYPO3_branch, '7.0', '>=')) {
+            $result = parent::render($renderMode, $as);
 
-		// TYPO3 7.x
-		// @todo Use this only when 6.2 is no longer relevant
-		if (version_compare(TYPO3_branch, '7.0', '>=')) {
-			$result = parent::render($renderMode, $as);
+            // Prevent caching if a flash message is displayed
+            // @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
+            if ($result !== '') {
+                if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
+                    $GLOBALS['TSFE']->no_cache = 1;
+                }
+            }
 
-			// Prevent caching if a flash message is displayed
-			// @todo Remove this! See https://github.com/fnagel/t3extblog/issues/112
-			if ($result !== '') {
-				if (isset($GLOBALS['TSFE']) && $this->contentObject->getUserObjectType() === ContentObjectRenderer::OBJECTTYPE_USER) {
-					$GLOBALS['TSFE']->no_cache = 1;
-				}
-			}
+            return $result;
+        }
 
-			return $result;
-		}
+        // TYPO3 6.2
+        $flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
+        if ($flashMessages === null || count($flashMessages) === 0) {
+            return '';
+        }
 
-		// TYPO3 6.2
-		$flashMessages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
-		if ($flashMessages === NULL || count($flashMessages) === 0) {
-			return '';
-		}
+        // Add role attribute
+        $this->tag->addAttribute('role', $this->arguments['role']);
 
-		// Add role attribute
-		$this->tag->addAttribute('role', $this->arguments['role']);
+        /* @var $singleFlashMessage \TYPO3\CMS\Core\Messaging\FlashMessage */
+        foreach ($flashMessages as $singleFlashMessage) {
+            $this->arguments['class'] .= ' '.$this->getSeverityClass($singleFlashMessage->getSeverity());
+        }
 
-		/* @var $singleFlashMessage \TYPO3\CMS\Core\Messaging\FlashMessage */
-		foreach ($flashMessages as $singleFlashMessage) {
-			$this->arguments['class'] .= ' ' . $this->getSeverityClass($singleFlashMessage->getSeverity());
-		}
+        return parent::render($renderMode);
+    }
 
-		return parent::render($renderMode);
-	}
+    /**
+     * @param int $severity
+     *
+     * @return string
+     */
+    protected function getSeverityClass($severity)
+    {
+        if (array_key_exists($severity, $this->severityMapping)) {
+            return $this->severityMapping[$severity];
+        }
 
-	/**
-	 * @param integer $severity
-	 *
-	 * @return string
-	 */
-	protected function getSeverityClass($severity) {
-		if (array_key_exists($severity, $this->severityMapping)) {
-			return $this->severityMapping[$severity];
-		}
-
-		return '';
-	}
+        return '';
+    }
 }

@@ -26,59 +26,59 @@ namespace TYPO3\T3extblog\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
- * AbstractRepository
+ * AbstractRepository.
  */
-class AbstractRepository extends Repository {
+class AbstractRepository extends Repository
+{
+    /**
+     * @param null $pageUid
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     */
+    public function createQuery($pageUid = null)
+    {
+        $query = parent::createQuery();
 
-	/**
-	 * @param null $pageUid
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
-	 */
-	public function createQuery($pageUid = NULL) {
-		$query = parent::createQuery();
+        if ($pageUid !== null) {
+            $query->getQuerySettings()->setStoragePageIds(array((int) $pageUid));
+        }
 
-		if ($pageUid !== NULL) {
-			$query->getQuerySettings()->setStoragePageIds(array((int) $pageUid));
-		}
+        return $query;
+    }
 
-		return $query;
-	}
+    /**
+     * Returns all objects with specific PID.
+     *
+     * @param int  $pid
+     * @param bool $respectEnableFields
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByPage($pid = null, $respectEnableFields = true)
+    {
+        $query = $this->createQuery($pid);
 
-	/**
-	 * Returns all objects with specific PID
-	 *
-	 * @param integer $pid
-	 * @param boolean $respectEnableFields
-	 *
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByPage($pid = NULL, $respectEnableFields = TRUE) {
-		$query = $this->createQuery($pid);
+        if ($respectEnableFields === false) {
+            $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-		if ($respectEnableFields === FALSE) {
-			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+            $query->matching(
+                $query->equals('deleted', '0')
+            );
+        }
 
-			$query->matching(
-				$query->equals('deleted', '0')
-			);
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
-
-	/**
-	 * Get database connection
-	 *
-	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected function getDatabase() {
-		return $GLOBALS['TYPO3_DB'];
-	}
+    /**
+     * Get database connection.
+     *
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected function getDatabase()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 }
-

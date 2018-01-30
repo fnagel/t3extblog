@@ -27,28 +27,26 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 /**
- * BackendDashboardController
+ * BackendDashboardController.
  */
-class BackendDashboardController extends BackendBaseController {
-
-	/**
-	 * Blog dashboard
-	 *
-	 * @return void
-	 */
-	public function indexAction() {
-		$this->view->assignMultiple(array(
-			'postDrafts' => $this->postRepository->findDrafts($this->pageId),
-			'comments' => $this->commentRepository->findByPage($this->pageId),
-			'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
-			'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, FALSE),
-			'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, FALSE),
-			// For statistic
-			'postCount' => $this->postRepository->findByPage($this->pageId)->count(),
-			'validCommentsCount' => $this->commentRepository->findValid($this->pageId)->count(),
-			'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
-			'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count()
-		));
-	}
-
+class BackendDashboardController extends BackendBaseController
+{
+    /**
+     * Blog dashboard.
+     */
+    public function indexAction()
+    {
+        $this->view->assignMultiple(array(
+            'postDrafts' => $this->postRepository->findDrafts($this->pageId),
+            'comments' => $this->commentRepository->findByPage($this->pageId),
+            'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
+            'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, false),
+            'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, false),
+            // For statistic
+            'postCount' => $this->postRepository->findByPage($this->pageId)->count(),
+            'validCommentsCount' => $this->commentRepository->findValid($this->pageId)->count(),
+            'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
+            'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),
+        ));
+    }
 }

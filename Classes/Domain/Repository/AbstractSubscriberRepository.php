@@ -30,53 +30,54 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
 
 /**
- * AbstractSubscriberRepository
+ * AbstractSubscriberRepository.
  */
-abstract class AbstractSubscriberRepository extends AbstractRepository {
+abstract class AbstractSubscriberRepository extends AbstractRepository
+{
+    protected $defaultOrderings = array(
+        'crdate' => QueryInterface::ORDER_DESCENDING,
+    );
 
-	protected $defaultOrderings = array(
-		'crdate' => QueryInterface::ORDER_DESCENDING
-	);
+    /**
+     * Find by code.
+     *
+     * @param string $code
+     * @param bool   $enableFields
+     *
+     * @return AbstractSubscriber
+     */
+    public function findByCode($code, $enableFields = true)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
 
-	/**
-	 * Find by code
-	 *
-	 * @param string $code
-	 * @param boolean $enableFields
-	 *
-	 * @return AbstractSubscriber
-	 */
-	public function findByCode($code, $enableFields = TRUE) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('code', $code),
+                $query->equals('deleted', 0)
+            )
+        );
 
-		$query->matching(
-			$query->logicalAnd(
-				$query->equals('code', $code),
-				$query->equals('deleted', 0)
-			)
-		);
+        return $query->execute()->getFirst();
+    }
 
-		return $query->execute()->getFirst();
-	}
+    /**
+     * @param QueryInterface $query
+     * @param string         $email
+     * @param int            $excludeUid
+     *
+     * @return array
+     */
+    protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, $email, $excludeUid = null)
+    {
+        $constraints = array();
 
-	/**
-	 * @param QueryInterface $query
-	 * @param string $email
-	 * @param integer $excludeUid
-	 *
-	 * @return array
-	 */
-	protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, $email, $excludeUid = NULL) {
-		$constraints = array();
+        $constraints[] = $query->equals('email', $email);
 
-		$constraints[] = $query->equals('email', $email);
+        if ($excludeUid !== null) {
+            $constraints[] = $query->logicalNot($query->equals('uid', intval($excludeUid)));
+        }
 
-		if ($excludeUid !== NULL) {
-			$constraints[] = $query->logicalNot($query->equals('uid', intval($excludeUid)));
-		}
-
-		return $constraints;
-	}
-
+        return $constraints;
+    }
 }

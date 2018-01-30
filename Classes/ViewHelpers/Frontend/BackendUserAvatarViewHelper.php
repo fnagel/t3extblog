@@ -29,74 +29,78 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Get avatar for backend user
+ * Get avatar for backend user.
  *
  * This VH does work for TYPO3 >= 7.5 only
  */
-class BackendUserAvatarViewHelper extends AbstractViewHelper {
+class BackendUserAvatarViewHelper extends AbstractViewHelper
+{
+    /**
+     * Render the avatar image.
+     *
+     * @param int    $uid
+     * @param int    $size
+     * @param string $default
+     *
+     * @return string The image URL
+     */
+    public function render($uid, $size = 32, $default = null)
+    {
+        $url = $this->getAvatarUrl($uid, $size);
 
-	/**
-	 * Render the avatar image
-	 *
-	 * @param int $uid
-	 * @param int $size
-	 * @param string $default
-	 *
-	 * @return string The image URL
-	 */
-	public function render($uid, $size = 32, $default = NULL) {
-		$url = $this->getAvatarUrl($uid, $size);
+        if ($url !== null) {
+            return $url;
+        }
 
-		if ($url !== NULL) {
-			return $url;
-		}
+        return $this->noAvatarFound($default);
+    }
 
-		return $this->noAvatarFound($default);
-	}
+    /**
+     * Get avatar url using TYPO3 avatar provider.
+     *
+     * @param int $uid
+     * @param int $size
+     *
+     * @return string|null
+     */
+    protected function getAvatarUrl($uid, $size)
+    {
+        $backendUser = $this->getDatabase()->exec_SELECTgetSingleRow('*', 'be_users', 'uid='.(int) $uid);
 
-	/**
-	 * Get avatar url using TYPO3 avatar provider
-	 *
-	 * @param int $uid
-	 * @param int $size
-	 *
-	 * @return string|NULL
-	 */
-	protected function getAvatarUrl($uid, $size) {
-		$backendUser = $this->getDatabase()->exec_SELECTgetSingleRow('*', 'be_users', 'uid=' . (int) $uid);
+        /** @var \TYPO3\CMS\Backend\Backend\Avatar\Avatar $avatar */
+        $avatar = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Backend\\Avatar\\Avatar');
+        $avatarImage = $avatar->getImage($backendUser, $size);
 
-		/** @var \TYPO3\CMS\Backend\Backend\Avatar\Avatar $avatar */
-		$avatar = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Backend\\Avatar\\Avatar');
-		$avatarImage = $avatar->getImage($backendUser, $size);
+        if ($avatarImage !== null) {
+            return $avatarImage->getUrl(true);
+        }
 
-		if ($avatarImage !== NULL) {
-			return $avatarImage->getUrl(TRUE);
-		}
+        return;
+    }
 
-		return NULL;
-	}
+    /**
+     * Called when no user avatar has been found.
+     *
+     * @param string $default Blank gif als fallback
+     *
+     * @return string
+     */
+    protected function noAvatarFound($default = null)
+    {
+        if ($default === null || strlen(trim($default)) < 10) {
+            $default = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        }
 
-	/**
-	 * Called when no user avatar has been found
-	 *
-	 * @param string $default Blank gif als fallback
-	 *
-	 * @return string
-	 */
-	protected function noAvatarFound($default = NULL) {
-		if ($default === NULL || strlen(trim($default)) < 10) {
-			$default = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-		}
+        return $default;
+    }
 
-		return $default;
-	}
-
-	/**
-	 * Get database connection
-	 *
-	 * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected function getDatabase() {
-		return $GLOBALS['TYPO3_DB'];
-	}
+    /**
+     * Get database connection.
+     *
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected function getDatabase()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 }

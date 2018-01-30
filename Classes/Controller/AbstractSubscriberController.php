@@ -32,196 +32,196 @@ use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
 use TYPO3\T3extblog\Domain\Model\PostSubscriber;
 
 /**
- * SubscriberController
+ * SubscriberController.
  */
-abstract class AbstractSubscriberController extends AbstractController {
+abstract class AbstractSubscriberController extends AbstractController
+{
+    /**
+     * subscriberRepository.
+     */
+    protected $subscriberRepository;
 
-	/**
-	 * subscriberRepository
-	 */
-	protected $subscriberRepository;
+    /**
+     * subscriber.
+     *
+     * @var \TYPO3\T3extblog\Domain\Model\AbstractSubscriber
+     */
+    protected $subscriber = null;
 
-	/**
-	 * subscriber
-	 *
-	 * @var \TYPO3\T3extblog\Domain\Model\AbstractSubscriber
-	 */
-	protected $subscriber = NULL;
+    /**
+     * feUserService.
+     *
+     * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
+     * @inject
+     */
+    protected $authentication;
 
-	/**
-	 * feUserService
-	 *
-	 * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
-	 * @inject
-	 */
-	protected $authentication;
+    /**
+     * objectManager.
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager;
 
-	/**
-	 * objectManager
-	 *
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+    /**
+     * Contains the subscription settings.
+     *
+     * @var array
+     */
+    protected $subscriptionSettings;
 
-	/**
-	 * Contains the subscription settings
-	 *
-	 * @var array
-	 */
-	protected $subscriptionSettings;
+    /**
+     * action confirm.
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function confirmAction()
+    {
+        $this->checkAuth(true);
 
-	/**
-	 * action confirm
-	 *
-	 * @throws \InvalidArgumentException
-	 * @return void
-	 */
-	public function confirmAction() {
-		$this->checkAuth(TRUE);
+        if ($this->subscriber === null) {
+            throw new \InvalidArgumentException('No authenticated subscriber given.');
+        }
 
-		if ($this->subscriber === NULL) {
-			throw new \InvalidArgumentException('No authenticated subscriber given.');
-		}
+        if ($this->subscriber->_getProperty('hidden') === true) {
+            $this->subscriber->_setProperty('hidden', false);
+            $this->addFlashMessageByKey('confirmed', FlashMessage::OK);
 
-		if ($this->subscriber->_getProperty('hidden') === TRUE) {
-			$this->subscriber->_setProperty('hidden', FALSE);
-			$this->addFlashMessageByKey('confirmed', FlashMessage::OK);
+            $this->subscriberRepository->update($this->subscriber);
+            $this->persistAllEntities();
+        }
 
-			$this->subscriberRepository->update($this->subscriber);
-			$this->persistAllEntities();
-		}
+        $this->redirect('list', 'PostSubscriber');
+    }
 
-		$this->redirect('list', 'PostSubscriber');
-	}
+    /**
+     * action delete.
+     *
+     * @param \TYPO3\T3extblog\Domain\Model\AbstractSubscriber $subscriber
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function deleteAction($subscriber = null)
+    {
+        $this->checkAuth();
 
-	/**
-	 * action delete
-	 *
-	 * @param \TYPO3\T3extblog\Domain\Model\AbstractSubscriber $subscriber
-	 *
-	 * @throws \InvalidArgumentException
-	 * @return void
-	 */
-	public function deleteAction($subscriber = NULL) {
-		$this->checkAuth();
+        if (!($subscriber instanceof BlogSubscriber || $subscriber instanceof PostSubscriber)) {
+            throw new \InvalidArgumentException('No subscriber given.');
+        }
 
-		if (!($subscriber instanceof BlogSubscriber || $subscriber instanceof PostSubscriber)) {
-			throw new \InvalidArgumentException('No subscriber given.');
-		}
+        // Check if the given subscriber is owned by authenticated user
+        if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
+            throw new \InvalidArgumentException('Invalid subscriber given.');
+        }
 
-		// Check if the given subscriber is owned by authenticated user
-		if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
-			throw new \InvalidArgumentException('Invalid subscriber given.');
-		}
+        $this->subscriberRepository->remove($subscriber);
+        $this->persistAllEntities();
 
-		$this->subscriberRepository->remove($subscriber);
-		$this->persistAllEntities();
+        $this->addFlashMessageByKey('deleted', FlashMessage::INFO);
+        $this->redirect('list', 'PostSubscriber');
+    }
 
-		$this->addFlashMessageByKey('deleted', FlashMessage::INFO);
-		$this->redirect('list', 'PostSubscriber');
-	}
+    /**
+     * Check and get authentication.
+     *
+     * @param bool $isConfirmRequest
+     */
+    protected function checkAuth($isConfirmRequest = false)
+    {
+        if ($this->hasCodeArgument()) {
+            $this->authenticate($isConfirmRequest);
+        }
 
-	/**
-	 * Check and get authentication
-	 *
-	 * @param boolean $isConfirmRequest
-	 *
-	 * @return void
-	 */
-	protected function checkAuth($isConfirmRequest = FALSE) {
-		if ($this->hasCodeArgument()) {
-			$this->authenticate($isConfirmRequest);
-		}
+        if ($this->authentication->isValid()) {
+            return;
+        }
 
-		if ($this->authentication->isValid()) {
-			return;
-		}
+        $this->forward('processError', 'Subscriber');
+    }
 
-		$this->forward('processError', 'Subscriber');
-	}
+    /**
+     * Get authentication.
+     *
+     * @param bool $isConfirmRequest
+     */
+    protected function authenticate($isConfirmRequest = false)
+    {
+        $code = $this->getAuthCode();
 
-	/**
-	 * Get authentication
-	 *
-	 * @param boolean $isConfirmRequest
-	 *
-	 * @return void
-	 */
-	protected function authenticate($isConfirmRequest = FALSE) {
-		$code = $this->getAuthCode();
+        /* @var $subscriber AbstractSubscriber */
+        $subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
-		/* @var $subscriber AbstractSubscriber */
-		$subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
+        if ($subscriber === null) {
+            $this->forward('processError', 'Subscriber', null, array('message' => 'authFailed'));
+        }
 
-		if ($subscriber === NULL) {
-			$this->forward('processError', 'Subscriber', NULL, array('message' => 'authFailed'));
-		}
+        $modify = '+1 hour';
+        if (isset($this->subscriptionSettings['emailHashTimeout'])) {
+            $modify = trim($this->subscriptionSettings['emailHashTimeout']);
+        }
+        if ($subscriber->isAuthCodeExpired($modify)) {
+            $this->forward('processError', 'Subscriber', null, array('message' => 'linkOutdated'));
+        }
 
-		$modify = '+1 hour';
-		if (isset($this->subscriptionSettings['emailHashTimeout'])) {
-			$modify = trim($this->subscriptionSettings['emailHashTimeout']);
-		}
-		if ($subscriber->isAuthCodeExpired($modify)) {
-			$this->forward('processError', 'Subscriber', NULL, array('message' => 'linkOutdated'));
-		}
+        if ($isConfirmRequest === true) {
+            $confirmedSubscriptions = $this->findExistingSubscriptions($subscriber);
 
-		if ($isConfirmRequest === TRUE) {
-			$confirmedSubscriptions = $this->findExistingSubscriptions($subscriber);
+            if (count($confirmedSubscriptions) > 0) {
+                $subscriber->_setProperty('deleted', true);
 
-			if (count($confirmedSubscriptions) > 0) {
-				$subscriber->_setProperty('deleted', TRUE);
+                $this->subscriberRepository->update($subscriber);
+                $this->persistAllEntities();
 
-				$this->subscriberRepository->update($subscriber);
-				$this->persistAllEntities();
+                $this->forward(
+                    'processError',
+                    'Subscriber',
+                    null,
+                    array('message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE)
+                );
+            }
+        }
 
-				$this->forward(
-					'processError',
-					'Subscriber',
-					NULL,
-					array('message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE)
-				);
-			}
-		}
+        $this->authentication->login($subscriber->getEmail());
+        $this->subscriber = $subscriber;
+    }
 
-		$this->authentication->login($subscriber->getEmail());
-		$this->subscriber = $subscriber;
-	}
+    /**
+     * If the request has argument 'code'.
+     *
+     * @return string
+     */
+    protected function hasCodeArgument()
+    {
+        if ($this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0) {
+            return true;
+        }
 
-	/**
-	 * If the request has argument 'code'
-	 *
-	 * @return string
-	 */
-	protected function hasCodeArgument() {
-		if ($this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0) {
-			return TRUE;
-		}
+        return false;
+    }
 
-		return FALSE;
-	}
+    /**
+     * Checks the code.
+     *
+     * @return string
+     */
+    protected function getAuthCode()
+    {
+        $code = $this->request->getArgument('code');
 
-	/**
-	 * Checks the code
-	 *
-	 * @return string
-	 */
-	protected function getAuthCode() {
-		$code = $this->request->getArgument('code');
+        if (strlen($code) !== 32 || !ctype_alnum($code)) {
+            $this->forward('processError', 'Subscriber', null, array('message' => 'invalidLink'));
+        }
 
-		if (strlen($code) !== 32 || !ctype_alnum($code)) {
-			$this->forward('processError', 'Subscriber', NULL, array('message' => 'invalidLink'));
-		}
+        return $code;
+    }
 
-		return $code;
-	}
-
-	/**
-	 * Finds existing subscriptions
-	 *
-	 * @param $subscriber
-	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	abstract protected function findExistingSubscriptions($subscriber);
-
+    /**
+     * Finds existing subscriptions.
+     *
+     * @param $subscriber
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    abstract protected function findExistingSubscriptions($subscriber);
 }

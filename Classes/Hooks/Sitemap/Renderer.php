@@ -29,20 +29,21 @@ use DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer;
 use TYPO3\T3extblog\Utility\GeneralUtility;
 
 /**
- * This class contains a renderer for the 'news' sitemap
+ * This class contains a renderer for the 'news' sitemap.
  */
-class Renderer extends NewsSitemapRenderer {
+class Renderer extends NewsSitemapRenderer
+{
+    /**
+     * Creates an instance of this class.
+     */
+    public function __construct()
+    {
+        if (GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName']) {
+            $this->sitename = GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName'];
+        } else {
+            $this->sitename = GeneralUtility::getTsFe()->tmpl->setup['sitetitle'];
+        }
 
-	/**
-	 * Creates an instance of this class
-	 */
-	public function __construct() {
-		if (GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName']) {
-			$this->sitename = GeneralUtility::getTsFe()->tmpl->setup['plugin.']['tx_t3extblog.']['settings.']['blogName'];
-		} else {
-			$this->sitename = GeneralUtility::getTsFe()->tmpl->setup['sitetitle'];
-		}
-
-		$this->sitename = htmlspecialchars($this->sitename);
-	}
+        $this->sitename = htmlspecialchars($this->sitename);
+    }
 }

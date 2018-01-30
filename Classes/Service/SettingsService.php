@@ -34,140 +34,145 @@ use TYPO3\CMS\Extbase\Configuration\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
- * Provide a way to get the configuration just everywhere
+ * Provide a way to get the configuration just everywhere.
  */
-class SettingsService {
+class SettingsService
+{
+    /**
+     * Extension name.
+     *
+     * Needed as parameter for configurationManager->getConfiguration when used in BE context
+     * Otherwise generated TS will be incorrect or missing
+     *
+     * @var string
+     */
+    protected $extensionName = 't3extblog';
 
-	/**
-	 * Extension name
-	 *
-	 * Needed as parameter for configurationManager->getConfiguration when used in BE context
-	 * Otherwise generated TS will be incorrect or missing
-	 *
-	 * @var string
-	 */
-	protected $extensionName = 't3extblog';
+    /**
+     * Plugin name.
+     *
+     * Needed as parameter for configurationManager->getConfiguration when used in BE context
+     * Otherwise generated TS will be incorrect or missing when used in BE
+     *
+     * @var string
+     */
+    protected $pluginName = '';
 
-	/**
-	 * Plugin name
-	 *
-	 * Needed as parameter for configurationManager->getConfiguration when used in BE context
-	 * Otherwise generated TS will be incorrect or missing when used in BE
-	 *
-	 * @var string
-	 */
-	protected $pluginName = '';
+    /**
+     * @var mixed
+     */
+    protected $typoScriptSettings = null;
 
-	/**
-	 * @var mixed
-	 */
-	protected $typoScriptSettings = NULL;
+    /**
+     * @var mixed
+     */
+    protected $frameworkSettings = null;
 
-	/**
-	 * @var mixed
-	 */
-	protected $frameworkSettings = NULL;
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
-	 */
-	protected $configurationManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @inject
+     */
+    protected $typoScriptService;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService;
+    /**
+     * Returns all framework settings.
+     *
+     * @return array
+     *
+     * @throws Exception
+     */
+    public function getFrameworkSettings()
+    {
+        if ($this->frameworkSettings === null) {
+            $this->frameworkSettings = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                $this->extensionName,
+                $this->pluginName
+            );
+        }
 
-	/**
-	 * Returns all framework settings.
-	 *
-	 * @return array
-	 * @throws Exception
-	 */
-	public function getFrameworkSettings() {
-		if ($this->frameworkSettings === NULL) {
-			$this->frameworkSettings = $this->configurationManager->getConfiguration(
-				ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-				$this->extensionName,
-				$this->pluginName
-			);
-		}
+        if ($this->frameworkSettings === null) {
+            throw new Exception('No framework typoscript settings available.');
+        }
 
-		if ($this->frameworkSettings === NULL) {
-			throw new Exception('No framework typoscript settings available.');
-		}
+        return $this->frameworkSettings;
+    }
 
-		return $this->frameworkSettings;
-	}
+    /**
+     * Returns all TS settings.
+     *
+     * @return array
+     *
+     * @throws Exception
+     */
+    public function getTypoScriptSettings()
+    {
+        if ($this->typoScriptSettings === null) {
+            $this->typoScriptSettings = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                $this->extensionName,
+                $this->pluginName
+            );
+        }
 
-	/**
-	 * Returns all TS settings.
-	 *
-	 * @return array
-	 * @throws Exception
-	 */
-	public function getTypoScriptSettings() {
-		if ($this->typoScriptSettings === NULL) {
-			$this->typoScriptSettings = $this->configurationManager->getConfiguration(
-				ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-				$this->extensionName,
-				$this->pluginName
-			);
-		}
+        if ($this->typoScriptSettings === null) {
+            throw new Exception('No typoscript settings available.');
+        }
 
-		if ($this->typoScriptSettings === NULL) {
-			throw new Exception('No typoscript settings available.');
-		}
+        return $this->typoScriptSettings;
+    }
 
-		return $this->typoScriptSettings;
-	}
+    /**
+     * Get full typoscript configuration.
+     *
+     * @return array
+     */
+    protected function getFullTypoScriptConfig()
+    {
+        $setup = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
 
-	/**
-	 * Get full typoscript configuration
-	 *
-	 * @return array
-	 */
-	protected function getFullTypoScriptConfig() {
-		$setup = $this->configurationManager->getConfiguration(
-			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-		);
+        return $this->typoScriptService->convertTypoScriptArrayToPlainArray($setup['plugin.']['tx_t3extblog.']);
+    }
 
-		return $this->typoScriptService->convertTypoScriptArrayToPlainArray($setup['plugin.']['tx_t3extblog.']);
-	}
+    /**
+     * Returns the settings at path $path, which is separated by ".",
+     * e.g. "pages.uid".
+     * "pages.uid" would return $this->settings['pages']['uid'].
+     *
+     * If the path is invalid or no entry is found, false is returned.
+     *
+     * @param string $path
+     *
+     * @return mixed
+     */
+    public function getTypoScriptByPath($path)
+    {
+        return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
+    }
 
-	/**
-	 * Returns the settings at path $path, which is separated by ".",
-	 * e.g. "pages.uid".
-	 * "pages.uid" would return $this->settings['pages']['uid'].
-	 *
-	 * If the path is invalid or no entry is found, false is returned.
-	 *
-	 * @param string $path
-	 *
-	 * @return mixed
-	 */
-	public function getTypoScriptByPath($path) {
-		return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
-	}
-
-	/**
-	 * Set storage pid in BE
-	 *
-	 * Only needed when the class is called or injected in a BE context, e.g. a hook.
-	 * Without the generation of the TS is based upon the next root page (default
-	 * extbase behaviour) and repositories won't work as expected.
-	 *
-	 * @param $pageUid
-	 *
-	 * @return void
-	 */
-	public function setPageUid($pageUid) {
-		if (TYPO3_MODE === 'BE') {
-			$currentPid['persistence']['storagePid'] = (int) $pageUid;
-			$this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
-			GeneralUtility::_GETset((int) $pageUid, 'id');
-		}
-	}
+    /**
+     * Set storage pid in BE.
+     *
+     * Only needed when the class is called or injected in a BE context, e.g. a hook.
+     * Without the generation of the TS is based upon the next root page (default
+     * extbase behaviour) and repositories won't work as expected.
+     *
+     * @param $pageUid
+     */
+    public function setPageUid($pageUid)
+    {
+        if (TYPO3_MODE === 'BE') {
+            $currentPid['persistence']['storagePid'] = (int) $pageUid;
+            $this->configurationManager->setConfiguration(array_merge($this->getFrameworkSettings(), $currentPid));
+            GeneralUtility::_GETset((int) $pageUid, 'id');
+        }
+    }
 }
