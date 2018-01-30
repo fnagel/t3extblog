@@ -21,6 +21,14 @@
   "support": {
     "issues": "https://github.com/fnagel/t3extblog/issues"
   },
+  "authors": [
+	{
+	  "name": "Felix Nagel",
+	  "email": "info@felixnagel.com",
+	  "homepage": "http://www.felixnagel.com",
+	  "role": "Developer"
+	}
+  ],
   "require": {
     "php": ">=5.5,<7.2",
     "typo3/cms-core": ">=7.3.0,<=8.7.99"
