@@ -33,6 +33,8 @@ https://github.com/fnagel/t3extblog/compare/2.2.2...2.2.3
 
 - Add proper create user field for post records
 
+- Fixed absolute links in emails
+
 - Fixed meta tag rendering
 
 - Added `noindex, follow` meta tag in author, category and list view
@@ -48,15 +50,15 @@ https://github.com/fnagel/t3extblog/compare/2.2.2...2.2.3
 
 **Breaking changes**
 
-_none_
+* Some templates changed, make sure to adjust your overwrites!
 
 
 How to upgrade
 """"""""""""""
 
-#. "Clear all cache" in Install Tool
-
 #. Adjust and update TypoScript configuration and template overwrites
+
+#. "Clear all cache" in Install Tool
 
 
 
