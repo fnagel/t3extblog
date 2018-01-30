@@ -9,13 +9,12 @@ someone added a new comment!
 
 Blogname: 	{settings.blogName}
 Blogpost: 	{post.title}
-Link:		<t3b:uri.action
+Link:		{domain}<t3b:uri.action
 				extensionName="T3extblog"
 				pluginName="Blogsystem"
 				controller="Post"
 				action="show"
 				pageUid="{settings.blogsystem.pid}"
-				absolute="true"
 				arguments="{post.linkParameter}"
 				additionalParams="{L: post.sysLanguageUid}"
 				section="comment-{comment.uid}" />
@@ -38,4 +37,3 @@ You could manage comments in the TYPO3 backend of your installation:
 
 Regards
 {settings.blogName} 
- 

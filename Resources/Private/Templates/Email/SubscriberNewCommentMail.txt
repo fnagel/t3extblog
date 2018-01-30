@@ -4,25 +4,23 @@ Hello {subscriber.name},
 a new comment was posted on '{post.title}' at {settings.blogName}.
 
 
-See the comment: <t3b:uri.action
+See the comment: {domain}<t3b:uri.action
 					extensionName="T3extblog"
 					pluginName="Blogsystem"
 					controller="Post"
 					action="show"
 					pageUid="{settings.blogsystem.pid}"
-					absolute="true"
 					arguments="{post.linkParameter}"
 					additionalParams="{L: post.sysLanguageUid}"
 					section="comment-{comment.uid}" />
 
 You can manage your subscription by using this link:
-<t3b:uri.action
+{domain}<t3b:uri.action
 	extensionName="T3extblog"
 	pluginName="SubscriptionManager" 
 	controller="PostSubscriber"
 	action="list"
 	pageUid="{settings.subscriptionManager.pid}"
-	absolute="true"
 	arguments="{code : subscriber.code}"
 	additionalParams="{L: post.sysLanguageUid}" />
 
@@ -30,4 +28,3 @@ This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:
 
 Regards
 {settings.blogName} 
- 
