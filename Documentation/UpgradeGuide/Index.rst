@@ -19,6 +19,47 @@ Upgrade Guide
 
 
 
+
+Upgrade from 2.2.2 to 2.2.3
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/2.2.2...2.2.3
+
+- Switch to PSR-2 CGL
+
+- Add proper create user field for post records
+
+- Fixed meta tag rendering
+
+- Added `noindex, follow` meta tag in author, category and list view
+
+- Fix and clean-up interface configuration and implementation
+
+- Add message if no posts have been found
+
+- Improved documentation
+
+- A bunch of small bugfixes
+
+
+**Breaking changes**
+
+_none_
+
+
+How to upgrade
+""""""""""""""
+
+#. "Clear all cache" in Install Tool
+
+#. Adjust and update TypoScript configuration and template overwrites
+
+
+
 Upgrade from 2.2.x to 2.2.2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
