@@ -7,7 +7,7 @@ namespace TYPO3\T3extblog\Service;
  *
  *  (c) 2010 Sebastian Schreiber <me@schreibersebastian.de >
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -31,6 +31,9 @@ namespace TYPO3\T3extblog\Service;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * Provide a way to get the configuration just everywhere.
@@ -40,18 +43,19 @@ class SettingsService
     /**
      * Extension name.
      *
-     * Needed as parameter for configurationManager->getConfiguration when used in BE context
-     * Otherwise generated TS will be incorrect or missing
-     *
      * @var string
      */
     protected $extensionName = 'T3extblog';
 
     /**
-     * Plugin name.
+     * Extension key.
      *
-     * Needed as parameter for configurationManager->getConfiguration when used in BE context
-     * Otherwise generated TS will be incorrect or missing when used in BE
+     * @var string
+     */
+    protected $extensionKey = 'tx_t3extblog';
+
+    /**
+     * Plugin name.
      *
      * @var string
      */
@@ -74,9 +78,9 @@ class SettingsService
     protected $configurationManager;
 
     /**
-     * Legacy alias of \TYPO3\CMS\Core\TypoScript\TypoScriptService
+     * Legacy alias is \TYPO3\CMS\Extbase\Service\TypoScriptService
      *
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
      * @inject
      */
     protected $typoScriptService;
@@ -91,11 +95,15 @@ class SettingsService
     public function getFrameworkSettings()
     {
         if ($this->frameworkSettings === null) {
-            $this->frameworkSettings = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                $this->extensionName,
-                $this->pluginName
-            );
+            if (TYPO3_MODE === 'FE') {
+                $this->frameworkSettings = $this->configurationManager->getConfiguration(
+                    ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                    $this->extensionName,
+                    $this->pluginName
+                );
+            } else {
+                $this->frameworkSettings = $this->generateTypoScript(self::gePageIdFromGetPostData());
+            }
         }
 
         if ($this->frameworkSettings === null) {
@@ -115,11 +123,15 @@ class SettingsService
     public function getTypoScriptSettings()
     {
         if ($this->typoScriptSettings === null) {
-            $this->typoScriptSettings = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-                $this->extensionName,
-                $this->pluginName
-            );
+            if (TYPO3_MODE === 'FE') {
+                $this->typoScriptSettings = $this->configurationManager->getConfiguration(
+                    ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                    $this->extensionName,
+                    $this->pluginName
+                );
+            } else {
+                $this->typoScriptSettings = $this->generateTypoScript(self::gePageIdFromGetPostData())['settings'];
+            }
         }
 
         if ($this->typoScriptSettings === null) {
@@ -127,6 +139,52 @@ class SettingsService
         }
 
         return $this->typoScriptSettings;
+    }
+
+    /**
+     * @return int
+     */
+    public static function gePageIdFromGetPostData()
+    {
+        if (!empty($id = GeneralUtility::_GP('id'))) {
+            return (int) $id;
+        }
+
+        if (!empty($id = GeneralUtility::_GP('popViewId'))) {
+            return (int) $id;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Returns all TS settings.
+     *
+     * @param int $pid
+     * @return array
+     *
+     * @throws Exception
+     */
+    protected function generateTypoScript($pid)
+    {
+        /* @var $pageRepository PageRepository */
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+        $rootLine = $pageRepository->getRootLine($pid);
+
+        /* @var $templateService TemplateService */
+        $templateService = GeneralUtility::makeInstance(TemplateService::class);
+        $templateService->tt_track = 0;
+        $templateService->init();
+        $templateService->runThroughTemplates($rootLine);
+        $templateService->generateConfig();
+
+        if (!empty($templateService->setup['plugin.'][$this->extensionKey.'.'])) {
+            return $this->typoScriptService->convertTypoScriptArrayToPlainArray(
+                $templateService->setup['plugin.'][$this->extensionKey.'.']
+            );
+        }
+
+        return null;
     }
 
     /**

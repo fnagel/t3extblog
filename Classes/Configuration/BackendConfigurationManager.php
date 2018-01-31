@@ -14,7 +14,8 @@ namespace TYPO3\T3extblog\Configuration;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+use TYPO3\T3extblog\Service\SettingsService;
 
 /**
  * A general purpose configuration manager used in backend mode.
@@ -36,12 +37,6 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      */
     protected function getCurrentPageIdFromGetPostData()
     {
-        $id = parent::getCurrentPageIdFromGetPostData();
-
-        if (empty($id)) {
-            $id = (int) GeneralUtility::_GP('popViewId');
-        }
-
-        return $id;
+        return SettingsService::gePageIdFromGetPostData();
     }
 }
