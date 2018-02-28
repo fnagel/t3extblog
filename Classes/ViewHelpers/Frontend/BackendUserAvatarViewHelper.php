@@ -5,7 +5,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016-2017 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,6 +25,8 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Backend\Avatar\AvatarProviderInterface;
+use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -67,15 +69,36 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     {
         $backendUser = $this->getDatabase()->exec_SELECTgetSingleRow('*', 'be_users', 'uid='.(int) $uid);
 
-        /** @var \TYPO3\CMS\Backend\Backend\Avatar\Avatar $avatar */
-        $avatar = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Backend\\Avatar\\Avatar');
-        $avatarImage = $avatar->getImage($backendUser, $size);
+        foreach ($this->getAvatarProviders() as $provider) {
+            /* @var $provider AvatarProviderInterface */
+            $avatarImage = $provider->getImage($backendUser, $size);
 
-        if ($avatarImage !== null) {
-            return $avatarImage->getUrl(true);
+            if ($avatarImage !== null) {
+                return $avatarImage->getUrl(true);
+            }
         }
 
         return null;
+    }
+
+    /**
+     * Taken from \TYPO3\CMS\Backend\Backend\Avatar\Avatar::validateSortAndInitiateAvatarProviders
+     *
+     * @throws \RuntimeException
+     */
+    protected function getAvatarProviders()
+    {
+        $avatarProviders = [];
+        $providers = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders'];
+
+        $orderedProviders = GeneralUtility::makeInstance(DependencyOrderingService::class)
+            ->orderByDependencies($providers);
+
+        foreach ($orderedProviders as $configuration) {
+            $avatarProviders[] = GeneralUtility::makeInstance($configuration['provider']);
+        }
+
+        return $avatarProviders;
     }
 
     /**
