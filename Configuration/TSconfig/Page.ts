@@ -14,3 +14,4 @@ TCEFORM.tx_t3blog_post {
 
 # Includes
 <INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/LinkValidator.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/NewContentElementWizard.ts">

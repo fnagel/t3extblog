@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-02-06T16:10:22Z" product-name="t3extblog">
+		<header/>
+		<body>
+			<trans-unit id="tab.title" xml:space="preserve">
+				<source>Blog</source>
+			</trans-unit>
+
+			<trans-unit id="blogsystem.title" xml:space="preserve">
+				<source>T3Extblog: Blogsystem</source>
+			</trans-unit>
+			<trans-unit id="blogsystem.description" xml:space="preserve">
+				<source>Main plugin of the extension. Provides post list and detail view. Enables users to create comments.</source>
+			</trans-unit>
+
+			<trans-unit id="subscriptionmanager.title" xml:space="preserve">
+				<source>T3Extblog: Subscription Manager</source>
+			</trans-unit>
+			<trans-unit id="subscriptionmanager.description" xml:space="preserve">
+				<source>This plugin manages all blog related subscriptions.</source>
+			</trans-unit>
+
+			<trans-unit id="blogsubscription.title" xml:space="preserve">
+				<source>T3Extblog: Blog Subscription Form</source>
+			</trans-unit>
+			<trans-unit id="blogsubscription.description" xml:space="preserve">
+				<source>This plugin provides a simple form which enables users to subscribe for new blog posts.</source>
+			</trans-unit>
+
+			<trans-unit id="archive.title" xml:space="preserve">
+				<source>T3Extblog: Archive</source>
+			</trans-unit>
+			<trans-unit id="archive.description" xml:space="preserve">
+				<source>This plugin displays a list of your blog posts, nested by month and sorted by date.</source>
+			</trans-unit>
+
+			<trans-unit id="rss.title" xml:space="preserve">
+				<source>T3Extblog: RSS feed</source>
+			</trans-unit>
+			<trans-unit id="rss.description" xml:space="preserve">
+				<source>This plugin renders a RSS feed. Needs additional TypoScript!</source>
+			</trans-unit>
+
+			<trans-unit id="categories.title" xml:space="preserve">
+				<source>T3Extblog: Categories</source>
+			</trans-unit>
+			<trans-unit id="categories.description" xml:space="preserve">
+				<source>This plugin displays all blog categories including sub categories</source>
+			</trans-unit>
+
+			<trans-unit id="latestposts.title" xml:space="preserve">
+				<source>T3Extblog: Latest posts</source>
+			</trans-unit>
+			<trans-unit id="latestposts.description" xml:space="preserve">
+				<source>This plugin displays a list of the latest blog posts.</source>
+			</trans-unit>
+
+			<trans-unit id="latestcomments.title" xml:space="preserve">
+				<source>T3Extblog: Latest comments</source>
+			</trans-unit>
+			<trans-unit id="latestcomments.description" xml:space="preserve">
+				<source>This plugin displays a list of the latest comments.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

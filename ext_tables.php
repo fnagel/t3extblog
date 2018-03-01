@@ -28,55 +28,56 @@ call_user_func(function ($packageKey) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'Blogsystem',
-        'T3Blog Extbase: Blogsystem'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsystem.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'SubscriptionManager',
-        'T3Blog Extbase: Subscription Manager'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:subscriptionmanager.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'BlogSubscription',
-        'T3Blog Extbase: Blog Subscription Form'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsubscription.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'Archive',
-        'T3Blog Extbase: Archive'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:archive.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'Rss',
-        'T3Blog Extbase: RSS'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:rss.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'Categories',
-        'T3Blog Extbase: Categories'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:categories.title'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'LatestPosts',
-        'T3Blog Extbase: LatestPosts'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestposts.title'
     );
     $pluginSignature = strtolower($extensionName).'_latestposts';
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $pluginSignature, 'FILE:EXT:'.$packageKey.'/Configuration/FlexForms/LatestPosts.xml'
+        $pluginSignature,
+        'FILE:EXT:'.$packageKey.'/Configuration/FlexForms/LatestPosts.xml'
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'TYPO3.'.$packageKey,
         'LatestComments',
-        'T3Blog Extbase: LatestComments'
+        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestcomments.title'
     );
 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
@@ -106,27 +107,32 @@ call_user_func(function ($packageKey) {
         $iconRegistry->registerIcon(
             'extensions-t3extblog-post',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:t3extblog/Resources/Public/Icons/page.png']
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/page.png']
         );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-category',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:t3extblog/Resources/Public/Icons/category.png']
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/category.png']
         );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-comment',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:t3extblog/Resources/Public/Icons/comment.png']
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/comment.png']
         );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-subscriber',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:t3extblog/Resources/Public/Icons/subscriber.png']
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/subscriber.png']
         );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-trackback',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:t3extblog/Resources/Public/Icons/trackback.png']
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/trackback.png']
+        );
+        $iconRegistry->registerIcon(
+            'extensions-t3extblog-plugin',
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png']
         );
 
         // Add BE page icon
