@@ -1,6 +1,7 @@
-<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<f:for each="{subscribers}" as="subscriber">
+<f:for each="{subscribers}" as="subscriber">
 	<tr class="db_list_normal">
 		<td class="col-icon">
 			<a href="#" class="t3-js-clickmenutrigger" data-uid="{subscriber.uid}" data-table="{table}" title="{subscriber.uid}">
@@ -45,6 +46,6 @@
 			</t3b:backend.link.issueCommand>
 		</td>
 	</tr>
-	</f:for>
+</f:for>
 
-</div>
+</html>

@@ -1,4 +1,7 @@
-<div xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" class="table-fit">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="table-fit">
 
 <t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.dashboard.postDrafts.paginate}">
 	<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
@@ -30,3 +33,5 @@
 </t3b:widget.paginate>
 
 </div>
+
+</html>

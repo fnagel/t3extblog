@@ -1,4 +1,5 @@
-<div xmlns:t3extblog="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/TYPO3/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <f:layout name="Backend" />
 
@@ -19,10 +20,10 @@
 	<div class="buttongroup">
 		<span>{f:translate(key: 'module.buttons.new')}</span>
 
-		<t3extblog:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new&defVals[tx_t3blog_com][fk_post]={post.uid}" title="{f:translate(key: 'module.buttons.new.comment')}">
-			<t3extblog:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
-		</t3extblog:link.editOnClick>
-	<div>
+		<t3b:link.editOnClick parameters="edit[tx_t3blog_com][{pageId}]=new&defVals[tx_t3blog_com][fk_post]={post.uid}" title="{f:translate(key: 'module.buttons.new.comment')}">
+			<t3b:SpriteManagerIcon iconName="extensions-t3extblog-comment" />
+		</t3b:link.editOnClick>
+	</div>
 </f:section>
 
-</div>
+</html>
