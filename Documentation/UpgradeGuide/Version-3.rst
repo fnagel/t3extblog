@@ -19,6 +19,54 @@ Version 3.x
 
 
 
+Upgrade from 3.0.1 to 3.0.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/3.0.1...3.0.2
+
+- Migrate to use proper xml namespace declarations using html tags
+
+- Add new content element wizard configuration
+
+- Use localization for plugin titles and descriptions
+
+- Add :ref:`link handler documentation <faq-link-hander>` (TYPO3 8.7 only)
+
+- Some minor bugfixes
+
+
+**Breaking changes**
+
+- PHP 5.5 is no longer officially supported
+
+
+How to upgrade
+""""""""""""""
+
+#. Update overwritten templates
+
+
+
+Upgrade from 3.0.0 to 3.0.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/3.0.0...3.0.1
+
+- Fix documentation rendering
+
+
+**Breaking changes**
+
+*none*
+
+
+
 Upgrade from 2.x to 3.0.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -28,7 +76,7 @@ Upgrade from 2.x to 3.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/2.2.x...3.0.0
+https://github.com/fnagel/t3extblog/compare/2.2.0...3.0.0
 
 - Removed TYPO3 < 7.3 support - lots of legacy code has been removed!
 
