@@ -4,6 +4,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+// Plugins
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'TYPO3.'.$_EXTKEY,
     'Blogsystem',
@@ -107,7 +108,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 if (TYPO3_MODE == 'BE') {
-    // add BE hooks
+    // Add BE hooks
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
         'TYPO3\\T3extblog\\Hooks\\Tcemain';
 
@@ -123,11 +124,11 @@ if (TYPO3_MODE == 'BE') {
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
     'EXT:t3extblog/Classes/Hooks/RealUrl.php:TYPO3\\T3extblog\\Hooks\\RealUrl->extensionConfiguration';
 
-// support for dd_googlesitemap
+// Support for dd_googlesitemap
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
     'TYPO3\\T3extblog\\Hooks\\Sitemap\\Generator->main';
 
-// add cHash configuration
+// Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
 $requiredParameters = array(
     'tx_t3extblog_blogsystem[action]',
