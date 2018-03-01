@@ -107,10 +107,46 @@ Filtering tags doesn't work?
 To avoid filling the cache with not existing pages, the filter only works with tags => 3 letters.
 
 
+Link handler configuration
+--------------------------
+.. _faq-link-hander:
+
+Since TYPO3 8.7 a built in link handler is integrated into the core.
+See here for more info: https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Feature-79626-IntegrateRecordLinkHandler.html
+
+Example page TSconfig configuration:
+
+.. code-block:: typoscript
+
+   TCEMAIN.linkHandler {
+      tx_t3blog_post {
+          handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
+          label = Blog-Post
+          configuration {
+              table = tx_t3blog_post
+              storagePid = 123
+              hidePageTree = 1
+          }
+          scanAfter = page
+      }
+      tx_t3blog_cat {
+          handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
+          label = Blog-Category
+          configuration {
+              table = tx_t3blog_cat
+              storagePid = 123
+              hidePageTree = 1
+          }
+          scanAfter = page
+      }
+   }
+
+
+
 Set default post category
 -------------------------
 
-Add this to the page or user TS config:
+Add this to the page or user TSconfig:
 
 .. code-block:: typoscript
 
@@ -128,7 +164,7 @@ Add this to the page or user TS config:
 Disable post fields
 -------------------
 
-Add something similar to the page or user TS config:
+Add something similar to the page or user TSconfig:
 
 .. code-block:: typoscript
 
