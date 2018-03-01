@@ -40,24 +40,22 @@ Choose one or more of the plugins listed to build your blog. These can be distri
 Plugins
 -------
 
-Archive
-^^^^^^^
-
-Simple list of your blog posts, categorised by month, sorted by date.
-
-.. figure:: ../Images/AdministratorManual/archive.png
-	:alt: Archive
-
-
 Blogsystem
 ^^^^^^^^^^
 
-Main part of the extension (we´ve added this while installing this extension already).
-Lists all your blogposts and shows some additional information like date of publishing,
-name of author, categories, number of comments.
+Main plugin of the extension. Provides post list and detail view. Enables users to create comments.
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
 	:alt: Blogsystem
+
+
+Archive
+^^^^^^^
+
+This plugin displays a list of your blog posts, nested by month and sorted by date.
+
+.. figure:: ../Images/AdministratorManual/archive.png
+	:alt: Archive
 
 
 Categories
@@ -113,7 +111,7 @@ Blog Subscription Form
 
 .. _administration-blog-subscription-form:
 
-This plugin provides as simple form which enables users to subscribe for new blog posts. Uses opt-in emails for confirmation.
+This plugin provides a simple form which enables users to subscribe for new blog posts. Uses opt-in emails for confirmation.
 
 Configure the Subscription manager form with TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "blogSubscription"!
 
@@ -123,9 +121,9 @@ RSS Feed
 
 .. _administration-rss:
 
-The RSS-Module need some special treatment, but no need to worry.
+This plugin renders a RSS feed.
 
-Just create a single page for the RSS-output, then
+The RSS-Module need some special treatment, but no need to worry. Just create a single page for the RSS-output, then:
 
 1. Choose the RSS plugin and insert it to that page (see above how to do this)
 2. Create an extension template and include `T3Extblog: Rss setup (t3extblog)`
