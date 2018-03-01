@@ -83,7 +83,9 @@
 							</f:else>
 						</f:if>
 
-						<t3b:backend.link.issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1" title="{f:translate(key: 'module.comment.help.delete')}" onclick="return confirm(\"{f:translate(key: 'module.message.deleteRecord')}\");">
+						<t3b:backend.link.issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1"
+																					 title="{f:translate(key: 'module.comment.help.delete')}"
+																					 onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 							<t3b:backend.spriteManagerIcon iconName="actions-edit-delete" />
 						</t3b:backend.link.issueCommand>
 					</td>
