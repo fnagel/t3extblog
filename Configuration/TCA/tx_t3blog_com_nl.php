@@ -24,7 +24,7 @@ return array(
     'columns' => array(
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -65,9 +65,9 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.lastsent',
             'config' => array(
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime,required',
-	            'size' => 13,
-	            'max' => 25,
+                'size' => 13,
             ),
         ),
         'code' => array(
@@ -75,7 +75,7 @@ return array(
             'config' => array(
                 'type' => 'input',
                 'readOnly' => true,
-                'size' => '30',
+                'size' => 30,
             ),
         ),
     ),

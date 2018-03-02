@@ -25,7 +25,7 @@ return array(
     'columns' => array(
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -33,25 +33,27 @@ return array(
         ),
         'starttime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
             ),
         ),
         'endtime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
-	            'range' => array(
-		            'upper' => mktime(0, 0, 0, 1, 1, 2038),
-	            ),
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'range' => array(
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
+                ),
             ),
         ),
         'title' => array(
@@ -59,7 +61,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback.title',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
             ),
         ),
         'url' => array(
@@ -67,7 +69,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback.url',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
                 'softref' => 'url',
             ),
         ),
@@ -76,8 +78,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback.date',
             'config' => array(
                 'type' => 'input',
-	            'size' => 13,
-	            'max' => 25,
+                'renderType' => 'inputDateTime',
+                'size' => 13,
                 'eval' => 'datetime',
                 'checkbox' => '0',
                 'default' => '0',
@@ -88,13 +90,13 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_pingback.text',
             'config' => array(
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
+                'cols' => 30,
+                'rows' => 5,
             ),
         ),
     ),
     'types' => array(
-        '0' => array('showitem' => 'hidden;;1;;1-1-1, title;;;;2-2-2, url;;;;3-3-3, date, text'),
+        '0' => array('showitem' => 'hidden,--palette--;;1,title,url,date,text'),
     ),
     'palettes' => array(
         '1' => array('showitem' => 'starttime, endtime'),

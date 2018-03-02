@@ -23,24 +23,21 @@ return array(
     'columns' => array(
         'sys_language_uid' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
                 'items' => array(
-                    array(
-                        'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple',
-                    ),
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
                 ),
                 'default' => 0,
             ),
         ),
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -57,9 +54,9 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_blog_nl.lastsent',
             'config' => array(
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime,required',
-	            'size' => 13,
-	            'max' => 25,
+                'size' => 13,
             ),
         ),
         'code' => array(
@@ -67,7 +64,7 @@ return array(
             'config' => array(
                 'type' => 'input',
                 'readOnly' => true,
-                'size' => '30',
+                'size' => 30,
             ),
         ),
     ),

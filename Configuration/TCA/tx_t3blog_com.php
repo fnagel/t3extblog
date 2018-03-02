@@ -29,7 +29,7 @@ return array(
     'columns' => array(
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -37,44 +37,55 @@ return array(
         ),
         'starttime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
             ),
         ),
         'endtime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
-	            'range' => array(
-		            'upper' => mktime(0, 0, 0, 1, 1, 2038),
-	            ),
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'range' => array(
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
+                ),
             ),
         ),
         'fe_group' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.fe_group',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'size' => 7,
                 'maxitems' => 20,
-                'items' => array(
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.hide_at_login', -1),
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.any_login', -2),
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.usergroups', '--div--'),
-                ),
+                'items' => [
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login',
+                        -1
+                    ],
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.any_login',
+                        -2
+                    ],
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.usergroups',
+                        '--div--'
+                    ]
+                ],
                 'exclusiveKeys' => '-1,-2',
                 'foreign_table' => 'fe_groups',
                 'foreign_table_where' => 'ORDER BY fe_groups.title',
-                'showIconTable' => false,
+                'enableMultiSelectFilterTextfield' => true,
             ),
         ),
         'title' => array(
@@ -82,7 +93,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.title',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
             ),
         ),
         'author' => array(
@@ -90,7 +101,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.author',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
                 'eval' => 'required',
             ),
         ),
@@ -99,7 +110,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.email',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
                 'eval' => 'required,email',
                 'softref' => 'email',
             ),
@@ -109,7 +120,7 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.website',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
                 'softref' => 'typolink,url',
             ),
         ),
@@ -118,8 +129,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.date',
             'config' => array(
                 'type' => 'input',
-	            'size' => 13,
-	            'max' => 25,
+                'renderType' => 'inputDateTime',
+                'size' => 13,
                 'eval' => 'datetime',
                 'checkbox' => '0',
                 'default' => '0',
@@ -130,24 +141,12 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.text',
             'config' => array(
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
-                'wizards' => array(
-                    '_PADDING' => 2,
-                    'RTE' => array(
-                        'notNewRecords' => 1,
-                        'RTEonly' => 1,
-                        'type' => 'script',
-                        'title' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext.W.RTE',
-                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
-                        'module' => array(
-                            'name' => 'wizard_rte',
-                        ),
-                    ),
-                ),
+                'cols' => 30,
+                'rows' => 5,
+                'enableRichtext' => '1',
+                'richtextConfiguration' => 'default',
                 'softref' => 'typolink_tag,email[subst],url',
             ),
-            'defaultExtras' => 'richtext:rte_transform[mode=ts_css]',
         ),
         'approved' => array(
             'exclude' => 1,
@@ -171,7 +170,6 @@ return array(
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_t3blog_post',
                 'foreign_table_where' => ' AND tx_t3blog_post.deleted = 0 AND tx_t3blog_post.pid=###CURRENT_PID###',
-                'showIconTable' => false,
                 'minitems' => 1,
                 'maxitems' => 1,
                 'size' => 1,
@@ -192,11 +190,11 @@ return array(
     ),
     'types' => array(
         '0' => array('showitem' => '
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.general,
-				fk_post, title, author, email, website, date, text,
-			--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
-				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.general,
+                fk_post,title,author,email,website,date,text,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
         ),
     ),
     'palettes' => array(

@@ -23,7 +23,7 @@ return array(
     'columns' => array(
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -34,8 +34,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.fromurl',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
-                'max' => '100',
+                'size' => 30,
+                'max' => 100,
                 'eval' => 'trim',
                 'softref' => 'url',
             ),
@@ -45,8 +45,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.text',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
-                'max' => '255',
+                'size' => 30,
+                'max' => 255,
                 'eval' => 'trim',
             ),
         ),
@@ -55,8 +55,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.title',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
-                'max' => '50',
+                'size' => 30,
+                'max' => 50,
                 'eval' => 'trim',
             ),
         ),
@@ -65,8 +65,8 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.blogname',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
-                'max' => '50',
+                'size' => 30,
+                'max' => 50,
                 'eval' => 'trim',
             ),
         ),
@@ -85,7 +85,7 @@ return array(
         ),
     ),
     'types' => array(
-        '0' => array('showitem' => 'hidden;;1;;1-1-1, fromurl, text, title;;;;2-2-2, postid;;;;3-3-3, id'),
+        '0' => array('showitem' => 'hidden,--palette--;;1,fromurl,text,title,postid,id'),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),

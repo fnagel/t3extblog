@@ -12,7 +12,7 @@ return array(
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l18n_parent',
         'transOrigDiffSourceField' => 'l18n_diffsource',
-        'prependAtCopy' => 'LLL:EXT:lang/locallang_general.xlf:LGL.prependAtCopy',
+        'prependAtCopy' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.prependAtCopy',
         'hideAtCopy' => true,
         'treeParentField' => 'parent_id',
         'sortby' => 'sorting',
@@ -35,17 +35,14 @@ return array(
     'columns' => array(
         'sys_language_uid' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:cms/locallang_ttc.xlf:sys_language_uid_formlabel',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
                 'items' => array(
-                    array(
-                        'LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple',
-                    ),
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
                 ),
                 'default' => 0,
             ),
@@ -53,7 +50,7 @@ return array(
         'l18n_parent' => array(
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -71,7 +68,7 @@ return array(
         ),
         'hidden' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
@@ -79,46 +76,61 @@ return array(
         ),
         'starttime' => array(
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ),
         ),
         'endtime' => array(
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
-	            'type' => 'input',
-	            'size' => 13,
-	            'eval' => 'datetime',
-	            'default' => 0,
-	            'range' => array(
-		            'upper' => mktime(0, 0, 0, 1, 1, 2038),
-	            ),
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'default' => 0,
+                'range' => array(
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
+                ),
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ),
         ),
         'fe_group' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.fe_group',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'size' => 7,
                 'maxitems' => 20,
-                'items' => array(
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.hide_at_login', -1),
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.any_login', -2),
-                    array('LLL:EXT:lang/locallang_general.xlf:LGL.usergroups', '--div--'),
-                ),
+                'items' => [
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login',
+                        -1
+                    ],
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.any_login',
+                        -2
+                    ],
+                    [
+                        'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.usergroups',
+                        '--div--'
+                    ]
+                ],
                 'exclusiveKeys' => '-1,-2',
                 'foreign_table' => 'fe_groups',
                 'foreign_table_where' => 'ORDER BY fe_groups.title',
-                'showIconTable' => false,
+                'enableMultiSelectFilterTextfield' => true,
             ),
         ),
         'parent_id' => array(
@@ -140,7 +152,6 @@ return array(
                     ),
                 ),
                 'size' => 10,
-                'autoSizeMax' => 20,
                 'minitems' => 0,
                 'maxitems' => 1,
             ),
@@ -151,29 +162,31 @@ return array(
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.catname',
             'config' => array(
                 'type' => 'input',
-                'size' => '30',
+                'size' => 30,
                 'eval' => 'required',
             ),
         ),
 
         'description' => array(
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.description',
             'config' => array(
                 'type' => 'input',
-                'size' => '40',
+                'size' => 40,
                 'softref' => 'typolink_tag,email[subst],url',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
             ),
         ),
     ),
     'types' => array(
         '0' => array('showitem' => '
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general;;;;1-1-1,
-				l18n_parent,l18n_diffsource,catname,description,parent_id,
-			--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
-				--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
+			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general,
+			    l18n_parent,l18n_diffsource,catname,description,parent_id,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
         ),
     ),
     'palettes' => array(
