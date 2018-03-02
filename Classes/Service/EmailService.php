@@ -168,13 +168,7 @@ class EmailService implements SingletonInterface
      */
     public function render($variables, $templatePath = 'Default.txt')
     {
-        if (version_compare(TYPO3_branch, '8.0', '>=')) {
-            $emailView = $this->getEmailViewFor8x($templatePath);
-        } else {
-            // @todo Remove this when 7.x is no longer relevant
-            $emailView = $this->getEmailViewFor7x($templatePath);
-        }
-
+        $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
         $emailView->assignMultiple(array(
             'timestamp' => $GLOBALS['EXEC_TIME'],
@@ -192,26 +186,7 @@ class EmailService implements SingletonInterface
      *
      * @return StandaloneView
      */
-    public function getEmailViewFor7x($templateFile)
-    {
-        $emailView = $this->createStandaloneView();
-
-        $format = pathinfo($templateFile, PATHINFO_EXTENSION);
-        $emailView->setFormat($format);
-
-        $emailView->setTemplate(self::TEMPLATE_FOLDER.DIRECTORY_SEPARATOR.$templateFile);
-
-        return $emailView;
-    }
-
-    /**
-     * Create and configure the view.
-     *
-     * @param string $templateFile Choose a template
-     *
-     * @return StandaloneView
-     */
-    public function getEmailViewFor8x($templateFile)
+    public function getEmailView($templateFile)
     {
         $emailView = $this->createStandaloneView();
 
@@ -272,12 +247,6 @@ class EmailService implements SingletonInterface
 
         // Remove tags and extract url from link tags
         $output = strip_tags(preg_replace('/<a.* href=(?:"|\')(.*)(?:"|\').*>/', '$1', $output));
-
-        // Short URLs
-        // @todo Create standalone or remove when 7.x is no longer relevant
-        if (version_compare(TYPO3_branch, '8.0', '<')) {
-            $output = GeneralUtility::substUrlsInPlainText($output);
-        }
 
         // Break lines and clean up white spaces
         $output = MailUtility::breakLinesForEmail($output);

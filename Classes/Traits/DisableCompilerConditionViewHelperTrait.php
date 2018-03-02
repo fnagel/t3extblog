@@ -1,11 +1,11 @@
 <?php
 
-namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\Traits;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,12 +25,28 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use FelixNagel\T3extblog\Traits\ConditionViewHelper8xTrait;
+use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ViewHelperNode;
+use TYPO3Fluid\Fluid\Core\Compiler\TemplateCompiler;
 
 /**
- * ViewHelper with changed compile method signature (needed for PHP7).
+ * DisableCompilerConditionViewHelperTrait
  */
-class Typo3Version8xViewHelper extends Typo3VersionViewHelper
+trait DisableCompilerConditionViewHelperTrait
 {
-    use ConditionViewHelper8xTrait;
+    /**
+     * Disable caching
+     *
+     * {@inheritdoc}
+     */
+    public function compile(
+        $argumentsName,
+        $closureName,
+        &$initializationPhpCode,
+        ViewHelperNode $node,
+        TemplateCompiler $compiler
+    ) {
+        $compiler->disable();
+
+        return $compiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
+    }
 }

@@ -41,32 +41,32 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
  */
 class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
 {
-	/**
-	 * Initialize arguments
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function initializeArguments()
-	{
-		parent::initializeArguments();
-		$this->registerArgument('queueIdentifier', 'string', 'Flash-message queue to use');
-	}
+    /**
+     * Initialize arguments
+     *
+     * @return void
+     * @api
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('queueIdentifier', 'string', 'Flash-message queue to use');
+    }
 
-	/**
-	 * @return void
-	 */
-	public function render()
-	{
-		// Fix flash message caching
-		// @todo Fix this!
-		if (version_compare(TYPO3_branch, '7.3', '>=')) {
-			$queueIdentifier = isset($this->arguments['queueIdentifier']) ? $this->arguments['queueIdentifier'] : null;
-			$flashMessages = $this->controllerContext->getFlashMessageQueue($queueIdentifier)->getAllMessages();
+    /**
+     * Fix flash message caching
+     *
+     * @todo Fix this! See https://github.com/fnagel/t3extblog/issues/112
+     *
+     * @return void
+     */
+    public function render()
+    {
+        $queueIdentifier = isset($this->arguments['queueIdentifier']) ? $this->arguments['queueIdentifier'] : null;
+        $flashMessages = $this->controllerContext->getFlashMessageQueue($queueIdentifier)->getAllMessages();
 
-			if (count($flashMessages) > 0) {
-				GeneralUtility::disableFrontendCache();
-			}
-		}
-	}
+        if (count($flashMessages) > 0) {
+            GeneralUtility::disableFrontendCache();
+        }
+    }
 }

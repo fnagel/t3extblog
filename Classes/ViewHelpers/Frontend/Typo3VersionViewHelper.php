@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,6 +25,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Traits\DisableCompilerConditionViewHelperTrait;
 use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 
 /**
@@ -32,6 +33,8 @@ use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
  */
 class Typo3VersionViewHelper extends AbstractConditionViewHelper
 {
+    use DisableCompilerConditionViewHelperTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -39,8 +42,8 @@ class Typo3VersionViewHelper extends AbstractConditionViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('version', 'string', 'Version to match', true, '6.2');
-        $this->registerArgument('operator', 'string', 'Compare oprtator', true, '>');
+        $this->registerArgument('version', 'string', 'Version to match', true, '8.0');
+        $this->registerArgument('operator', 'string', 'Compare operator', true, '>');
     }
 
     /**

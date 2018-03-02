@@ -105,12 +105,7 @@ class GeneralUtility
      */
     public static function getPageRenderer()
     {
-        if (version_compare(TYPO3_branch, '8.0', '>=')) {
-            return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
-        } else {
-            // @todo Remove this when 7.x is no longer relevant
-            return self::getTsFe()->getPageRenderer();
-        }
+        return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
     }
 
     /**

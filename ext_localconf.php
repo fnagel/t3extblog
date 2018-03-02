@@ -154,26 +154,12 @@ if ($_COOKIE[$configuredCookieName]) {
 }
 
 // Make default avatar provider available in FE
-// @todo Remove this when 7.5 is no longer relevant
-if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
-        'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider',
-    );
-}
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
+    'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider',
+);
 
-if (version_compare(TYPO3_branch, '8.0', '>=')) {
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
-        'className' => 'FelixNagel\\T3extblog\\Configuration\\BackendConfigurationManager',
-    );
-}
+// Overwrite classes
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
+    'className' => 'FelixNagel\\T3extblog\\Configuration\\BackendConfigurationManager',
+);
 
-// Change classes due to method signature changes
-// @todo Remove this when TYPO3 7.x is no longer relevant
-if (version_compare(TYPO3_branch, '8.0', '>=')) {
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\Typo3VersionViewHelper'] = array(
-        'className' => 'FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\Typo3Version8xViewHelper',
-    );
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowedViewHelper'] = array(
-        'className' => 'FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowed8xViewHelper',
-    );
-}

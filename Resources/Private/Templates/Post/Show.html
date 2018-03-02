@@ -14,11 +14,8 @@
 		<p class="top">
 			<f:if condition="{post.author.uid}">
 				<f:link.action controller="Post" action="author" arguments="{author: post.author}">
-					<t3b:frontend.typo3Version version="7.5" operator=">=">
-						<f:comment>@todo Remove version condition when TYPO3 7.5 is no longer relevant</f:comment>
-						<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
-								 class="img-circle" alt="Avatar of {post.author.name}" />
-					</t3b:frontend.typo3Version>
+					<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
+							 class="img-circle" alt="Avatar of {post.author.name}" />
 					<span class="author">{post.author.name}</span>
 				</f:link.action> -
 			</f:if>

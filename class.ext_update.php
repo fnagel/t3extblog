@@ -221,10 +221,7 @@ class ext_update
             );
             $flashMessages[] = $flashMessage;
 
-            if (version_compare(TYPO3_branch, '8.0', '<')) {
-                $output .= $flashMessage->render();
-
-            } elseif (version_compare(TYPO3_branch, '8.6', '<')) {
+            if (version_compare(TYPO3_branch, '8.6', '<')) {
                 $output .= $flashMessage->getMessageAsMarkup();
             }
         }
