@@ -29,7 +29,7 @@ T3Blog Extbase
 		blog, blogsystem, t3blog
 
 	:Copyright:
-		2016
+		2018
 
 	:Author:
 		Christoph Werner, Felix Nagel
