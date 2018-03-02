@@ -1,13 +1,13 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2009 Jochen Rau <jochen.rau@typoplanet.de>
  *  (c) 2011 Bastian Waidelich <bastian@typo3.org>
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,11 +31,11 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\T3extblog\Domain\Model\AbstractEntity;
-use TYPO3\T3extblog\Domain\Model\Category;
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Post;
-use TYPO3\T3extblog\Utility\TypoScriptValidator;
+use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
+use FelixNagel\T3extblog\Domain\Model\Category;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 
 /**
  * Abstract base controller.
@@ -45,7 +45,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     /**
      * Logging Service.
      *
-     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
+     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
      * @inject
      */
     protected $log;
@@ -80,8 +80,8 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-            /** @var \TYPO3\T3extblog\Utility\TypoScript $typoScriptUtility */
-            $typoScriptUtility = GeneralUtility::makeInstance('TYPO3\\T3extblog\\Utility\\TypoScript');
+            /** @var \FelixNagel\T3extblog\Utility\TypoScript $typoScriptUtility */
+            $typoScriptUtility = GeneralUtility::makeInstance('FelixNagel\\T3extblog\\Utility\\TypoScript');
             $originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
         }
 
@@ -103,7 +103,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     /**
      * Validate TypoScript settings.
      *
-     * @throw  TYPO3\T3extblog\Exception\InvalidConfigurationException
+     * @throw  FelixNagel\T3extblog\Exception\InvalidConfigurationException
      */
     protected function validateTypoScriptConfiguration()
     {
@@ -230,7 +230,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }
 
-        \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tags);
+        \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tags);
     }
 
     /**
@@ -254,7 +254,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     protected function configureCHash()
     {
         if (count($this->cHashActions) > 0 && in_array($this->actionMethodName, $this->cHashActions)) {
-            \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
+            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
         }
     }
 }

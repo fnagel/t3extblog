@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

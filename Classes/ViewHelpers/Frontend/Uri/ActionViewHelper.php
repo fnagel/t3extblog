@@ -1,12 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend\Uri;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend\Uri;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2016 Felix Nagel <info@felixnagel.com>
- *
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -230,6 +229,6 @@ class ActionViewHelper extends AbstractViewHelper
      */
     protected function buildFrontend($pageUid)
     {
-        return \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe($pageUid);
+        return \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe($pageUid);
     }
 }

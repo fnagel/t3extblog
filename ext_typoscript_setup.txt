@@ -1,15 +1,15 @@
 config.tx_extbase {
 	# Configure interface implementations
 	objects {
-		TYPO3\T3extblog\Service\SessionServiceInterface.className = TYPO3\T3extblog\Service\SessionService
-		TYPO3\T3extblog\Service\AuthenticationServiceInterface.className = TYPO3\T3extblog\Service\AuthenticationService
-		TYPO3\T3extblog\Service\SpamCheckServiceInterface.className = TYPO3\T3extblog\Service\SpamCheckService
-		TYPO3\T3extblog\Service\LoggingServiceInterface.className = TYPO3\T3extblog\Service\LoggingService
+		FelixNagel\T3extblog\Service\SessionServiceInterface.className = FelixNagel\T3extblog\Service\SessionService
+		FelixNagel\T3extblog\Service\AuthenticationServiceInterface.className = FelixNagel\T3extblog\Service\AuthenticationService
+		FelixNagel\T3extblog\Service\SpamCheckServiceInterface.className = FelixNagel\T3extblog\Service\SpamCheckService
+		FelixNagel\T3extblog\Service\LoggingServiceInterface.className = FelixNagel\T3extblog\Service\LoggingService
 	}
 	# table & field mapping
     persistence {
         classes {
-	        TYPO3\T3extblog\Domain\Model\Post {
+	        FelixNagel\T3extblog\Domain\Model\Post {
                 mapping {
                     tableName = tx_t3blog_post
 					columns {
@@ -35,7 +35,7 @@ config.tx_extbase {
 					}
                 }
             }
-	        TYPO3\T3extblog\Domain\Model\Content {
+	        FelixNagel\T3extblog\Domain\Model\Content {
 		        mapping {
 			        tableName = tt_content
 			        columns {
@@ -46,7 +46,7 @@ config.tx_extbase {
 			        }
 		        }
 	        }
-	        TYPO3\T3extblog\Domain\Model\Category {
+	        FelixNagel\T3extblog\Domain\Model\Category {
                 mapping {
                     tableName = tx_t3blog_cat
 					columns {
@@ -61,7 +61,7 @@ config.tx_extbase {
 					}
                 }
             }
-	        TYPO3\T3extblog\Domain\Model\Comment {
+	        FelixNagel\T3extblog\Domain\Model\Comment {
                 mapping {
                     tableName = tx_t3blog_com
 					columns {
@@ -85,15 +85,15 @@ config.tx_extbase {
             }
 	        TYPO3\CMS\Extbase\Domain\Model\BackendUser {
 		        subclasses {
-			        BackendUser = TYPO3\T3extblog\Domain\Model\BackendUser
+			        BackendUser = FelixNagel\T3extblog\Domain\Model\BackendUser
 		        }
 	        }
-	        TYPO3\T3extblog\Domain\Model\BackendUser {
+	        FelixNagel\T3extblog\Domain\Model\BackendUser {
 		        mapping {
 			        tableName = be_users
 		        }
 	        }
-	        TYPO3\T3extblog\Domain\Model\PostSubscriber {
+	        FelixNagel\T3extblog\Domain\Model\PostSubscriber {
                 mapping {
                     tableName = tx_t3blog_com_nl
 					columns {
@@ -109,7 +109,7 @@ config.tx_extbase {
 					}
                 }
             }
-	        TYPO3\T3extblog\Domain\Model\BlogSubscriber {
+	        FelixNagel\T3extblog\Domain\Model\BlogSubscriber {
                 mapping {
                     tableName = tx_t3blog_blog_nl
 					columns {

@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Widget;
+namespace FelixNagel\T3extblog\ViewHelpers\Widget;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -36,14 +36,14 @@ use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper;
 class PaginateViewHelper extends AbstractWidgetViewHelper
 {
     /**
-     * @var \TYPO3\T3extblog\ViewHelpers\Widget\Controller\PaginateController
+     * @var \FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController
      */
     protected $controller;
 
     /**
-     * @param \TYPO3\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller
+     * @param \FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller
      */
-    public function injectPaginateController(\TYPO3\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller)
+    public function injectPaginateController(\FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller)
     {
         $this->controller = $controller;
     }

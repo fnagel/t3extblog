@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -54,7 +54,7 @@ class EmailService implements SingletonInterface
     /**
      * Logging Service.
      *
-     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
+     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
      * @inject
      */
     protected $log;
@@ -66,7 +66,7 @@ class EmailService implements SingletonInterface
     protected $signalSlotDispatcher;
 
     /**
-     * @var \TYPO3\T3extblog\Service\SettingsService
+     * @var \FelixNagel\T3extblog\Service\SettingsService
      * @inject
      */
     protected $settingsService;
@@ -298,7 +298,7 @@ class EmailService implements SingletonInterface
             null,
             null,
             null,
-            \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset
+            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset
         );
 
         return $message;

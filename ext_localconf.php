@@ -110,23 +110,23 @@ if (!defined('TYPO3_MODE')) {
 if (TYPO3_MODE == 'BE') {
     // Add BE hooks
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'TYPO3\\T3extblog\\Hooks\\Tcemain';
+        'FelixNagel\\T3extblog\\Hooks\\Tcemain';
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
-        'TYPO3\\T3extblog\\Hooks\\Tcemain';
+        'FelixNagel\\T3extblog\\Hooks\\Tcemain';
 
     // Install Tool Upgrade Wizard
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['t3extblog_preview'] =
-        'TYPO3\\T3extblog\\Updates\\PreviewUpdateWizard';
+        'FelixNagel\\T3extblog\\Updates\\PreviewUpdateWizard';
 }
 
 // add RealURL configuration
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
-    'EXT:t3extblog/Classes/Hooks/RealUrl.php:TYPO3\\T3extblog\\Hooks\\RealUrl->extensionConfiguration';
+    'EXT:t3extblog/Classes/Hooks/RealUrl.php:FelixNagel\\T3extblog\\Hooks\\RealUrl->extensionConfiguration';
 
 // Support for dd_googlesitemap
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
-    'TYPO3\\T3extblog\\Hooks\\Sitemap\\Generator->main';
+    'FelixNagel\\T3extblog\\Hooks\\Sitemap\\Generator->main';
 
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
@@ -163,17 +163,17 @@ if (version_compare(TYPO3_branch, '7.5', '>=') && TYPO3_MODE == 'FE') {
 
 if (version_compare(TYPO3_branch, '8.0', '>=')) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
-        'className' => 'TYPO3\\T3extblog\\Configuration\\BackendConfigurationManager',
+        'className' => 'FelixNagel\\T3extblog\\Configuration\\BackendConfigurationManager',
     );
 }
 
 // Change classes due to method signature changes
 // @todo Remove this when TYPO3 7.x is no longer relevant
 if (version_compare(TYPO3_branch, '8.0', '>=')) {
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3VersionViewHelper'] = array(
-        'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\Typo3Version8xViewHelper',
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\Typo3VersionViewHelper'] = array(
+        'className' => 'FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\Typo3Version8xViewHelper',
     );
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowedViewHelper'] = array(
-        'className' => 'TYPO3\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowed8xViewHelper',
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowedViewHelper'] = array(
+        'className' => 'FelixNagel\\T3extblog\\ViewHelpers\\Frontend\\CommentAllowed8xViewHelper',
     );
 }

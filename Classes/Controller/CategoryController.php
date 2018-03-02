@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -43,7 +43,7 @@ class CategoryController extends AbstractController
     /**
      * categoryRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\CategoryRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\CategoryRepository
      * @inject
      */
     protected $categoryRepository;

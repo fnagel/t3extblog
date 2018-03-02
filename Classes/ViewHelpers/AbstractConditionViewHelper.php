@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers;
+namespace FelixNagel\T3extblog\ViewHelpers;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2016-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

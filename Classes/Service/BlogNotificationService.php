@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,8 +26,8 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Post;
-use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
  * Handles all notification mails for new posts notification.
@@ -37,7 +37,7 @@ class BlogNotificationService extends AbstractNotificationService
     /**
      * subscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
      * @inject
      */
     protected $subscriberRepository;
@@ -156,7 +156,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $post->setMailsSent(true);
-        $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
+        $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
         $this->persistToDatabase();
 
         return count($subscribers);

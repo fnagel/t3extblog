@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 
 /**
  * SessionService.
@@ -45,7 +45,7 @@ class SessionService implements SessionServiceInterface
     /**
      * Logging Service.
      *
-     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
+     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
      * @inject
      */
     protected $log;

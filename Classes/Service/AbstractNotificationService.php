@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -28,11 +28,11 @@ namespace TYPO3\T3extblog\Service;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
-use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Post;
-use TYPO3\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * Handles all notification mails.
@@ -53,13 +53,13 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * Logging Service.
      *
-     * @var \TYPO3\T3extblog\Service\LoggingServiceInterface
+     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
      * @inject
      */
     protected $log;
 
     /**
-     * @var \TYPO3\T3extblog\Service\SettingsService
+     * @var \FelixNagel\T3extblog\Service\SettingsService
      * @inject
      */
     protected $settingsService;
@@ -75,13 +75,13 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected $subscriptionSettings;
 
     /**
-     * @var \TYPO3\T3extblog\Service\EmailService
+     * @var \FelixNagel\T3extblog\Service\EmailService
      * @inject
      */
     protected $emailService;
 
     /**
-     * @var \TYPO3\T3extblog\Service\FlushCacheService
+     * @var \FelixNagel\T3extblog\Service\FlushCacheService
      * @inject
      */
     protected $cacheService;

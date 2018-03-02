@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Repository;
+namespace FelixNagel\T3extblog\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,8 +26,8 @@ namespace TYPO3\T3extblog\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\Post;
 
 /**
  * PostSubscriberRepository.

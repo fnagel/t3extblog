@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Utility;
+namespace FelixNagel\T3extblog\Utility;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Utility;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\T3extblog\Exception\InvalidConfigurationException;
+use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 
 /**
  * TypoScript Settings Validator class.

@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -28,8 +28,8 @@ namespace TYPO3\T3extblog\Controller;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\Post;
 
 /**
  * CommentController.
@@ -48,7 +48,7 @@ class CommentController extends AbstractController
     /**
      * commentRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      * @inject
      */
     protected $commentRepository;
@@ -56,7 +56,7 @@ class CommentController extends AbstractController
     /**
      * Notification Service.
      *
-     * @var \TYPO3\T3extblog\Service\CommentNotificationService
+     * @var \FelixNagel\T3extblog\Service\CommentNotificationService
      * @inject
      */
     protected $notificationService;
@@ -64,13 +64,13 @@ class CommentController extends AbstractController
     /**
      * Spam Check Service.
      *
-     * @var \TYPO3\T3extblog\Service\SpamCheckServiceInterface
+     * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
      * @inject
      */
     protected $spamCheckService;
 
     /**
-     * @var \TYPO3\T3extblog\Service\FlushCacheService
+     * @var \FelixNagel\T3extblog\Service\FlushCacheService
      * @inject
      */
     protected $cacheService;
@@ -128,7 +128,7 @@ class CommentController extends AbstractController
     public function newAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
+            $newComment = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\Comment');
         }
 
         $this->view->assign('newComment', $newComment);
@@ -210,7 +210,7 @@ class CommentController extends AbstractController
             $this->errorAction();
         }
 
-        if ($post->getAllowComments() === 2 && empty(\TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->loginUser)) {
+        if ($post->getAllowComments() === 2 && empty(\FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->loginUser)) {
             $this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
             $this->errorAction();
         }

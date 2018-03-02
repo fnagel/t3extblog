@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Model;
+namespace FelixNagel\T3extblog\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -52,7 +52,7 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * post.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\Post
+     * @var \FelixNagel\T3extblog\Domain\Model\Post
      * @lazy
      */
     protected $post = null;
@@ -60,7 +60,7 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      * @lazy
      */
     protected $postComments = null;
@@ -68,7 +68,7 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      * @lazy
      */
     protected $postPendingComments = null;
@@ -130,7 +130,7 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Returns the post comments.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
     public function getPostComments()
     {
@@ -149,7 +149,7 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Returns the post pending comments.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
     public function getPostPendingComments()
     {

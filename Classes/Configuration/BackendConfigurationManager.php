@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\Configuration;
+namespace FelixNagel\T3extblog\Configuration;
 
 /*
  * This file is part of the TYPO3 CMS project.

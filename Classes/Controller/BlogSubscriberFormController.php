@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
  * BlogSubscriberFormController.
@@ -36,7 +36,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * blogSubscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
      * @inject
      */
     protected $blogSubscriberRepository;
@@ -44,7 +44,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Notification Service.
      *
-     * @var \TYPO3\T3extblog\Service\BlogNotificationService
+     * @var \FelixNagel\T3extblog\Service\BlogNotificationService
      * @inject
      */
     protected $notificationService;
@@ -52,7 +52,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Spam Check Service.
      *
-     * @var \TYPO3\T3extblog\Service\SpamCheckServiceInterface
+     * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
      * @inject
      */
     protected $spamCheckService;
@@ -60,14 +60,14 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * action new.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
      * @ignorevalidation $subscriber
      */
     public function newAction(BlogSubscriber $subscriber = null)
     {
-        /* @var $subscriber \TYPO3\T3extblog\Domain\Model\BlogSubscriber */
+        /* @var $subscriber \FelixNagel\T3extblog\Domain\Model\BlogSubscriber */
         if ($subscriber === null) {
-            $subscriber = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\BlogSubscriber');
+            $subscriber = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\BlogSubscriber');
         }
 
         $this->view->assign('subscriber', $subscriber);
@@ -76,7 +76,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Adds a subscriber.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
      */
     public function createAction(BlogSubscriber $subscriber = null)
     {

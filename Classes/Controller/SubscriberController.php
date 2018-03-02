@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -36,19 +36,19 @@ class SubscriberController extends AbstractController
     /**
      * feUserService.
      *
-     * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
+     * @var \FelixNagel\T3extblog\Service\AuthenticationServiceInterface
      * @inject
      */
     protected $authentication;
 
     /**
-     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
      * @inject
      */
     protected $blogSubscriberRepository;
 
     /**
-     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
      * @inject
      */
     protected $postSubscriberRepository;

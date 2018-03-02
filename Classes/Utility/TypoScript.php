@@ -1,11 +1,12 @@
 <?php
 
-namespace TYPO3\T3extblog\Utility;
+namespace FelixNagel\T3extblog\Utility;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Georg Ringer <typo3@ringerge.org>
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

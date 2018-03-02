@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,9 +27,9 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
-use TYPO3\T3extblog\Domain\Model\BlogSubscriber;
-use TYPO3\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * SubscriberController.
@@ -44,14 +44,14 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * subscriber.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\AbstractSubscriber
+     * @var \FelixNagel\T3extblog\Domain\Model\AbstractSubscriber
      */
     protected $subscriber = null;
 
     /**
      * feUserService.
      *
-     * @var \TYPO3\T3extblog\Service\AuthenticationServiceInterface
+     * @var \FelixNagel\T3extblog\Service\AuthenticationServiceInterface
      * @inject
      */
     protected $authentication;
@@ -104,7 +104,7 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * action delete.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\AbstractSubscriber $subscriber
+     * @param \FelixNagel\T3extblog\Domain\Model\AbstractSubscriber $subscriber
      *
      * @throws \InvalidArgumentException
      */

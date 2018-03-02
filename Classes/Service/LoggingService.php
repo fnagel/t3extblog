@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -58,7 +58,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
     protected $renderInFe;
 
     /**
-     * @var \TYPO3\T3extblog\Service\SettingsService
+     * @var \FelixNagel\T3extblog\Service\SettingsService
      * @inject
      */
     protected $settingsService;

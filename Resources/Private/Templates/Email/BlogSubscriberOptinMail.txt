@@ -1,4 +1,4 @@
-{namespace t3b = TYPO3\T3extblog\ViewHelpers\Frontend}
+{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
 
 <f:layout name="Email" />
 

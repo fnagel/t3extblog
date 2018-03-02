@@ -1,12 +1,12 @@
 <?php
 
-namespace TYPO3\T3extblog\Updates;
+namespace FelixNagel\T3extblog\Updates;
 
 /***************************************************************
  *
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

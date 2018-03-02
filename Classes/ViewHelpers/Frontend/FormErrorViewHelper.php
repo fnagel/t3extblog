@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

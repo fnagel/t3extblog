@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2017 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 
 /**
  * View helper to fix flash message caching issue

@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -83,7 +83,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         }
 
         if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-            \TYPO3\T3extblog\Utility\GeneralUtility::getPageRenderer()->addMetaTag($this->tag->render());
+            \FelixNagel\T3extblog\Utility\GeneralUtility::getPageRenderer()->addMetaTag($this->tag->render());
         }
     }
 }

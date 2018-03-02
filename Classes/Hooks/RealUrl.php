@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks;
+namespace FelixNagel\T3extblog\Hooks;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

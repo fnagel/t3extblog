@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Model;
+namespace FelixNagel\T3extblog\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -50,14 +50,14 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * commentRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      */
     protected $commentRepository = null;
 
     /**
      * postRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      */
     protected $postRepository = null;
 
@@ -88,12 +88,12 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get commentRepository.
      *
-     * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @return \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      */
     protected function getCommentRepository()
     {
         if ($this->commentRepository === null) {
-            $this->commentRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository');
+            $this->commentRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository');
         }
 
         return $this->commentRepository;
@@ -102,12 +102,12 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get postRepository.
      *
-     * @return \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @return \FelixNagel\T3extblog\Domain\Repository\PostRepository
      */
     protected function getPostRepository()
     {
         if ($this->postRepository === null) {
-            $this->postRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\PostRepository');
+            $this->postRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\PostRepository');
         }
 
         return $this->postRepository;

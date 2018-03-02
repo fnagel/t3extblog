@@ -1,17 +1,17 @@
 {
-  "name": "typo3/t3extblog",
+  "name": "felixnagel/t3extblog",
   "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
   "require-dev": {
     "nimut/testing-framework": "^1.1"
   },
   "autoload": {
     "psr-4": {
-      "TYPO3\\T3extblog\\": "Classes"
+      "FelixNagel\\T3extblog\\": "Classes"
     }
   },
   "autoload-dev": {
 	"psr-4": {
-	   "TYPO3\\T3extblog\\Tests\\": "Tests"
+	   "FelixNagel\\T3extblog\\Tests\\": "Tests"
 	}
   },
   "type": "typo3-cms-extension",

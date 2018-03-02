@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks\Sitemap;
+namespace FelixNagel\T3extblog\Hooks\Sitemap;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -54,7 +54,7 @@ class Generator extends TtNewsSitemapGenerator
      */
     public function __construct()
     {
-        $this->rendererClass = 'TYPO3\\T3extblog\\Hooks\\Sitemap\\Renderer';
+        $this->rendererClass = 'FelixNagel\\T3extblog\\Hooks\\Sitemap\\Renderer';
 
         $this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
         $this->cObj->start(array());
@@ -69,7 +69,7 @@ class Generator extends TtNewsSitemapGenerator
 
         $singlePid = intval(GeneralUtility::_GP('singlePid'));
         $this->singlePid = $singlePid && $this->isInRootline($singlePid) ?
-            $singlePid : \TYPO3\T3extblog\Utility\GeneralUtility::getTsFe()->id;
+            $singlePid : \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->id;
 
         $this->validateAndcreatePageList();
     }

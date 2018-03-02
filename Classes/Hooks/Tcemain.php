@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks;
+namespace FelixNagel\T3extblog\Hooks;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -30,7 +30,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Container\Container;
-use TYPO3\T3extblog\Service\FlushCacheService;
+use FelixNagel\T3extblog\Service\FlushCacheService;
 
 /**
  * Class being included by TCEmain using a hook.
@@ -50,7 +50,7 @@ class Tcemain
     /**
      * notificationService.
      *
-     * @var \TYPO3\T3extblog\Service\CommentNotificationService
+     * @var \FelixNagel\T3extblog\Service\CommentNotificationService
      */
     protected $notificationService = null;
 
@@ -64,7 +64,7 @@ class Tcemain
     /**
      * commentRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      */
     protected $commentRepository = null;
 
@@ -242,11 +242,11 @@ class Tcemain
      *
      * @param int $uid Page uid
      *
-     * @return \TYPO3\T3extblog\Domain\Model\Comment
+     * @return \FelixNagel\T3extblog\Domain\Model\Comment
      */
     protected function getComment($uid)
     {
-        /* @var $comment \TYPO3\T3extblog\Domain\Model\Comment */
+        /* @var $comment \FelixNagel\T3extblog\Domain\Model\Comment */
         $comment = $this->getCommentRepository()->findByUid($uid);
 
         return $comment;
@@ -255,13 +255,13 @@ class Tcemain
     /**
      * Get comment repository.
      *
-     * @return \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @return \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      */
     protected function getCommentRepository()
     {
         if ($this->commentRepository === null) {
             $this->commentRepository = $this->getObjectContainer()->getInstance(
-                'TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository'
+                'FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository'
             );
         }
 
@@ -285,13 +285,13 @@ class Tcemain
     /**
      * Get notification service.
      *
-     * @return \TYPO3\T3extblog\Service\CommentNotificationService
+     * @return \FelixNagel\T3extblog\Service\CommentNotificationService
      */
     protected function getNotificationService()
     {
         if ($this->notificationService === null) {
             $this->notificationService = $this->getObjectContainer()->getInstance(
-                'TYPO3\\T3extblog\\Service\\CommentNotificationService'
+                'FelixNagel\\T3extblog\\Service\\CommentNotificationService'
             );
         }
 

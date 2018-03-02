@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Model;
+namespace FelixNagel\T3extblog\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -29,7 +29,7 @@ namespace TYPO3\T3extblog\Domain\Model;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\T3extblog\Domain\Model\BackendUser;
+use FelixNagel\T3extblog\Domain\Model\BackendUser;
 
 /**
  * Post.
@@ -57,7 +57,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * author.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\BackendUser
+     * @var \FelixNagel\T3extblog\Domain\Model\BackendUser
      */
     protected $author;
 
@@ -136,7 +136,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * content.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Content>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content>
      * @lazy
      */
     protected $content;
@@ -144,7 +144,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * categories.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
      * @lazy
      */
     protected $categories;
@@ -152,7 +152,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      */
     protected $comments = null;
 
@@ -167,7 +167,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * subscriptions.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber>
      * @lazy
      */
     protected $subscriptions;
@@ -588,7 +588,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the content.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Content> $content
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content> $content
      */
     public function getContent()
     {
@@ -661,7 +661,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Adds a Category.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\Category $category
+     * @param \FelixNagel\T3extblog\Domain\Model\Category $category
      */
     public function addCategory(Category $category)
     {
@@ -671,7 +671,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Removes a Category.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\Category $categoryToRemove The Category to be removed
+     * @param \FelixNagel\T3extblog\Domain\Model\Category $categoryToRemove The Category to be removed
      */
     public function removeCategory(Category $categoryToRemove)
     {
@@ -681,7 +681,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the categories.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category> $categories
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category> $categories
      */
     public function getCategories()
     {
@@ -709,7 +709,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Adds a Comment.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\Comment $comment
+     * @param \FelixNagel\T3extblog\Domain\Model\Comment $comment
      */
     public function addComment(Comment $comment)
     {
@@ -724,7 +724,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Removes a Comment.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\Comment $commentToRemove The Comment to be removed
+     * @param \FelixNagel\T3extblog\Domain\Model\Comment $commentToRemove The Comment to be removed
      */
     public function removeComment(Comment $commentToRemove)
     {
@@ -763,7 +763,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the comments.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Comment> $comments
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
     public function setComments(ObjectStorage $comments)
     {
@@ -773,7 +773,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Adds a Subscriber.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscription
+     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscription
      */
     public function addSubscription(PostSubscriber $subscription)
     {
@@ -783,7 +783,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Removes a Subscriber.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriptionToRemove The Subscriber to be removed
+     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriptionToRemove The Subscriber to be removed
      */
     public function removeSubscription(PostSubscriber $subscriptionToRemove)
     {
@@ -793,7 +793,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the subscriptions.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber> $subscriptions
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber> $subscriptions
      */
     public function getSubscriptions()
     {
@@ -803,7 +803,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the subscriptions.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\PostSubscriber> $subscriptions
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber> $subscriptions
      */
     public function setSubscriptions(ObjectStorage $subscriptions)
     {

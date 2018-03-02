@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Repository;
+namespace FelixNagel\T3extblog\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,7 +27,7 @@ namespace TYPO3\T3extblog\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 
 /**
  * AbstractSubscriberRepository.

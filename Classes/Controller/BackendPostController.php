@@ -1,12 +1,12 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -28,7 +28,7 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Post;
 
 /**
  * BackendPostController.
@@ -48,12 +48,12 @@ class BackendPostController extends BackendBaseController
     /**
      * Send post notification mails.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\Post $post
+     * @param \FelixNagel\T3extblog\Domain\Model\Post $post
      */
     public function sendPostNotificationsAction(Post $post)
     {
-        /* @var $notificationService \TYPO3\T3extblog\Service\BlogNotificationService */
-        $notificationService = $this->objectManager->get('TYPO3\\T3extblog\\Service\\BlogNotificationService');
+        /* @var $notificationService \FelixNagel\T3extblog\Service\BlogNotificationService */
+        $notificationService = $this->objectManager->get('FelixNagel\\T3extblog\\Service\\BlogNotificationService');
         $amount = $notificationService->notifySubscribers($post);
 
         $this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', array($amount)));

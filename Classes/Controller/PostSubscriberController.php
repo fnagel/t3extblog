@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -27,7 +27,7 @@ namespace TYPO3\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
-use TYPO3\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * SubscriberController.
@@ -37,7 +37,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * subscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
      * @inject
      */
     protected $subscriberRepository;
@@ -45,7 +45,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * blogSubscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
      * @inject
      */
     protected $blogSubscriberRepository;
@@ -53,7 +53,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * subscriber.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\PostSubscriber
+     * @var \FelixNagel\T3extblog\Domain\Model\PostSubscriber
      */
     protected $subscriber = null;
 
@@ -80,7 +80,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * action delete.
      *
-     * @param \TYPO3\T3extblog\Domain\Model\PostSubscriber $subscriber
+     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriber
      *
      * @throws InvalidArgumentValueException
      */

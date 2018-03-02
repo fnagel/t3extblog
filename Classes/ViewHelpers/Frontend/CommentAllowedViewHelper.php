@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,9 +25,9 @@ namespace TYPO3\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Utility\GeneralUtility;
-use TYPO3\T3extblog\ViewHelpers\AbstractConditionViewHelper;
-use TYPO3\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
+use FelixNagel\T3extblog\Domain\Model\Post;
 
 /**
  * ViewHelper.
@@ -43,7 +43,7 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
 
         $this->registerArgument(
             'post',
-            'TYPO3\\T3extblog\\Domain\\Model\\Post', 'Post object to check if new comments are allowed.',
+            'FelixNagel\\T3extblog\\Domain\\Model\\Post', 'Post object to check if new comments are allowed.',
             true
         );
     }

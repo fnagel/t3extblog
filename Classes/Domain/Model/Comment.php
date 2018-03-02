@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Model;
+namespace FelixNagel\T3extblog\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -73,7 +73,7 @@ class Comment extends AbstractEntity
      * website.
      *
      * @var string
-     * @validate \TYPO3\T3extblog\Validation\Validator\UrlValidator
+     * @validate \FelixNagel\T3extblog\Validation\Validator\UrlValidator
      */
     protected $website;
 
@@ -123,7 +123,7 @@ class Comment extends AbstractEntity
     /**
      * post.
      *
-     * @var \TYPO3\T3extblog\Domain\Model\Post
+     * @var \FelixNagel\T3extblog\Domain\Model\Post
      * @lazy
      */
     protected $post = null;
@@ -419,7 +419,7 @@ class Comment extends AbstractEntity
     /**
      * Returns the post.
      *
-     * @return \TYPO3\T3extblog\Domain\Model\Post
+     * @return \FelixNagel\T3extblog\Domain\Model\Post
      */
     public function getPost()
     {

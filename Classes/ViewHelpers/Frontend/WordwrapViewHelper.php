@@ -1,12 +1,12 @@
 <?php
 
-namespace TYPO3\T3extblog\ViewHelpers\Frontend;
+namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

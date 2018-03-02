@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,11 +26,11 @@ namespace TYPO3\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\BackendUser;
-use TYPO3\T3extblog\Utility\GeneralUtility;
-use TYPO3\T3extblog\Domain\Model\Category;
-use TYPO3\T3extblog\Domain\Model\Post;
-use TYPO3\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Domain\Model\Category;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Comment;
 
 /**
  * PostController.
@@ -51,7 +51,7 @@ class PostController extends AbstractController
     /**
      * postRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      * @inject
      */
     protected $postRepository;
@@ -109,7 +109,7 @@ class PostController extends AbstractController
 
         if (isset($this->settings['latestPosts']['categoryUid'])) {
             $category = $this->objectManager
-                ->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository')
+                ->get('FelixNagel\\T3extblog\\Domain\\Repository\\CategoryRepository')
                 ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
         }
 
@@ -201,7 +201,7 @@ class PostController extends AbstractController
     public function showAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Model\\Comment');
+            $newComment = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\Comment');
         }
 
         // Add cache tags

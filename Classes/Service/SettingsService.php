@@ -1,13 +1,13 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2010 Sebastian Schreiber <me@schreibersebastian.de >
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *

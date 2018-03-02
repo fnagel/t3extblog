@@ -1,12 +1,12 @@
 <?php
 
-namespace TYPO3\T3extblog\Controller;
+namespace FelixNagel\T3extblog\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2012-2013 Felix Kopp <felix-source@phorax.com>
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -33,8 +33,8 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\T3extblog\Exception\InvalidConfigurationException;
-use TYPO3\T3extblog\Utility\TypoScriptValidator;
+use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
+use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 
 /**
  * BackendBaseController.
@@ -52,7 +52,7 @@ class BackendBaseController extends ActionController
     /**
      * postRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      * @inject
      */
     protected $postRepository;
@@ -60,7 +60,7 @@ class BackendBaseController extends ActionController
     /**
      * postRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\CommentRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      * @inject
      */
     protected $commentRepository;
@@ -68,7 +68,7 @@ class BackendBaseController extends ActionController
     /**
      * postSubscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
      * @inject
      */
     protected $postSubscriberRepository;
@@ -76,7 +76,7 @@ class BackendBaseController extends ActionController
     /**
      * blogSubscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
      * @inject
      */
     protected $blogSubscriberRepository;

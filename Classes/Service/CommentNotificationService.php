@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -26,9 +26,9 @@ namespace TYPO3\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\T3extblog\Domain\Model\Post;
-use TYPO3\T3extblog\Domain\Model\Comment;
-use TYPO3\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
  * Handles all notification mails for new or changed comments.
@@ -38,7 +38,7 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * subscriberRepository.
      *
-     * @var \TYPO3\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
      * @inject
      */
     protected $subscriberRepository;
@@ -181,7 +181,7 @@ class CommentNotificationService extends AbstractNotificationService
     {
         /* @var $newSubscriber PostSubscriber */
         $newSubscriber = $this->objectManager->get(
-            'TYPO3\\T3extblog\\Domain\\Model\\PostSubscriber', $comment->getPostId()
+            'FelixNagel\\T3extblog\\Domain\\Model\\PostSubscriber', $comment->getPostId()
         );
         $newSubscriber->setEmail($comment->getEmail());
         $newSubscriber->setName($comment->getAuthor());
@@ -244,7 +244,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         $comment->setMailsSent(true);
-        $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
+        $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
     }
 
     /**

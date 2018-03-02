@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Hooks\Sitemap;
+namespace FelixNagel\T3extblog\Hooks\Sitemap;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2014-2018 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,7 +26,7 @@ namespace TYPO3\T3extblog\Hooks\Sitemap;
  ***************************************************************/
 
 use DmitryDulepov\DdGooglesitemap\Renderers\NewsSitemapRenderer;
-use TYPO3\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 
 /**
  * This class contains a renderer for the 'news' sitemap.

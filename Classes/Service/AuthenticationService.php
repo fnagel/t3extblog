@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Service;
+namespace FelixNagel\T3extblog\Service;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -41,7 +41,7 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Session Service.
      *
-     * @var \TYPO3\T3extblog\Service\SessionServiceInterface
+     * @var \FelixNagel\T3extblog\Service\SessionServiceInterface
      * @inject
      */
     protected $session;

@@ -1,11 +1,11 @@
 <?php
 
-namespace TYPO3\T3extblog\Domain\Model;
+namespace FelixNagel\T3extblog\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2016 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -58,7 +58,7 @@ class Category extends AbstractLocalizedEntity
     /**
      * Posts.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Post>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Post>
      * @lazy
      */
     protected $posts = null;
@@ -66,7 +66,7 @@ class Category extends AbstractLocalizedEntity
     /**
      * child categories.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\T3extblog\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
      * @lazy
      */
     protected $childCategories = null;
@@ -156,8 +156,8 @@ class Category extends AbstractLocalizedEntity
         }
 
         if ($this->childCategories === null) {
-            /* @var $categoryRepository \TYPO3\T3extblog\Domain\Repository\CategoryRepository */
-            $categoryRepository = $this->objectManager->get('TYPO3\\T3extblog\\Domain\\Repository\\CategoryRepository');
+            /* @var $categoryRepository \FelixNagel\T3extblog\Domain\Repository\CategoryRepository */
+            $categoryRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CategoryRepository');
             $categories = $categoryRepository->findChildren($this);
 
             $this->childCategories = new ObjectStorage();
