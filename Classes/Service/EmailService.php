@@ -26,6 +26,7 @@ namespace FelixNagel\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
@@ -205,8 +206,8 @@ class EmailService implements SingletonInterface
      */
     protected function createStandaloneView()
     {
-        /* @var $emailView \TYPO3\CMS\Fluid\View\StandaloneView */
-        $emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        /* @var $emailView StandaloneView */
+        $emailView = $this->objectManager->get(StandaloneView::class);
         $emailView->getRequest()->setPluginName('');
         $emailView->getRequest()->setControllerExtensionName($this->extensionName);
 
@@ -258,12 +259,12 @@ class EmailService implements SingletonInterface
     /**
      * Create mail message
      *
-     * @return \TYPO3\CMS\Core\Mail\MailMessage
+     * @return MailMessage
      */
     protected function createMailMessage()
     {
         $message = $this->objectManager->get(
-            'TYPO3\\CMS\\Core\\Mail\\MailMessage',
+            MailMessage::class,
             null,
             null,
             null,

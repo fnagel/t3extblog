@@ -28,6 +28,7 @@ namespace FelixNagel\T3extblog\Service;
 
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 
 /**
  * Handles all notification mails for new posts notification.
@@ -156,7 +157,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $post->setMailsSent(true);
-        $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\PostRepository')->update($post);
+        $this->objectManager->get(PostRepository::class)->update($post);
         $this->persistToDatabase();
 
         return count($subscribers);

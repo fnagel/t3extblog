@@ -27,6 +27,7 @@ namespace FelixNagel\T3extblog\Controller;
  ***************************************************************/
 
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -109,7 +110,7 @@ class PostController extends AbstractController
 
         if (isset($this->settings['latestPosts']['categoryUid'])) {
             $category = $this->objectManager
-                ->get('FelixNagel\\T3extblog\\Domain\\Repository\\CategoryRepository')
+                ->get(CategoryRepository::class)
                 ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
         }
 
@@ -201,7 +202,7 @@ class PostController extends AbstractController
     public function showAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\Comment');
+            $newComment = $this->objectManager->get(Comment::class);
         }
 
         // Add cache tags
@@ -221,7 +222,7 @@ class PostController extends AbstractController
 
     /**
      * Preview a post.
-     * 
+     *
      * Testing does not work on local environment
      * Issues when baseUrl AND absRefPrefix are set
      *

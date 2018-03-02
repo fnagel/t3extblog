@@ -27,9 +27,11 @@ namespace FelixNagel\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Category;
@@ -80,8 +82,8 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-            /** @var \FelixNagel\T3extblog\Utility\TypoScript $typoScriptUtility */
-            $typoScriptUtility = GeneralUtility::makeInstance('FelixNagel\\T3extblog\\Utility\\TypoScript');
+            /** @var TypoScript $typoScriptUtility */
+            $typoScriptUtility = GeneralUtility::makeInstance(TypoScript::class);
             $originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
         }
 
@@ -171,10 +173,8 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
      */
     protected function persistAllEntities()
     {
-        /* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-        $persistenceManager = $this->objectManager->get(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-        );
+        /* @var $persistenceManager PersistenceManager */
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
     }
 

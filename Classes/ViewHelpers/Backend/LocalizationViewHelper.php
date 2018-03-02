@@ -25,6 +25,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -133,14 +134,12 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     /**
      * Gets an instance of TranslationConfigurationProvider.
      *
-     * @return \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
+     * @return TranslationConfigurationProvider
      */
     protected function getTranslateTools()
     {
         if (!isset($this->translateTools)) {
-            $this->translateTools = GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Backend\\Configuration\\TranslationConfigurationProvider'
-            );
+            $this->translateTools = GeneralUtility::makeInstance(TranslationConfigurationProvider::class);
         }
 
         return $this->translateTools;

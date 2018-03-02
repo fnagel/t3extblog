@@ -27,6 +27,7 @@ namespace FelixNagel\T3extblog\Service;
  ***************************************************************/
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
@@ -220,7 +221,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected function persistToDatabase($force = false)
     {
         if ($force === true || TYPO3_MODE === 'BE') {
-            $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+            $this->objectManager->get(PersistenceManager::class)->persistAll();
         }
     }
 }

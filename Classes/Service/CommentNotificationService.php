@@ -29,6 +29,7 @@ namespace FelixNagel\T3extblog\Service;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 
 /**
  * Handles all notification mails for new or changed comments.
@@ -180,9 +181,7 @@ class CommentNotificationService extends AbstractNotificationService
     protected function addSubscriber(Comment $comment)
     {
         /* @var $newSubscriber PostSubscriber */
-        $newSubscriber = $this->objectManager->get(
-            'FelixNagel\\T3extblog\\Domain\\Model\\PostSubscriber', $comment->getPostId()
-        );
+        $newSubscriber = $this->objectManager->get(PostSubscriber::class, $comment->getPostId());
         $newSubscriber->setEmail($comment->getEmail());
         $newSubscriber->setName($comment->getAuthor());
 
@@ -244,7 +243,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         $comment->setMailsSent(true);
-        $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository')->update($comment);
+        $this->objectManager->get(CommentRepository::class)->update($comment);
     }
 
     /**

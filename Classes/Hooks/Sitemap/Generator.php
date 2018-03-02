@@ -28,6 +28,7 @@ namespace FelixNagel\T3extblog\Hooks\Sitemap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DmitryDulepov\DdGooglesitemap\Generator\TtNewsSitemapGenerator;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * This class implements news sitemap
@@ -54,9 +55,9 @@ class Generator extends TtNewsSitemapGenerator
      */
     public function __construct()
     {
-        $this->rendererClass = 'FelixNagel\\T3extblog\\Hooks\\Sitemap\\Renderer';
+        $this->rendererClass = Renderer::class;
 
-        $this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        $this->cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $this->cObj->start(array());
 
         $this->offset = max(0, (int) GeneralUtility::_GET('offset'));
@@ -86,12 +87,17 @@ class Generator extends TtNewsSitemapGenerator
                 $languageCondition = ' AND sys_language_uid='.$language;
             }
 
-            /* @noinspection PhpUndefinedMethodInspection */
-            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',
-                'tx_t3blog_post', 'pid IN ('.implode(',', $this->pidList).')'.
-//				' AND date>=' . (time() - 48 * 60 * 60) .
+            $whereClause = 'pid IN ('.implode(',', $this->pidList).')'.
                 $languageCondition.
-                $this->cObj->enableFields('tx_t3blog_post'), '', 'date DESC',
+                $this->cObj->enableFields('tx_t3blog_post');
+
+            /* @noinspection PhpUndefinedMethodInspection */
+            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                '*',
+                'tx_t3blog_post',
+                $whereClause,
+                '',
+                'date DESC',
                 $this->offset.','.$this->limit
             );
             /* @noinspection PhpUndefinedMethodInspection */

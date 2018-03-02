@@ -26,6 +26,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -128,7 +129,7 @@ class Category extends AbstractLocalizedEntity
     /**
      * Returns all matching posts.
      *
-     * @return \Tx_Extbase_Persistence_ObjectStorage $posts
+     * @return ObjectStorage $posts
      */
     public function getPosts()
     {
@@ -156,8 +157,8 @@ class Category extends AbstractLocalizedEntity
         }
 
         if ($this->childCategories === null) {
-            /* @var $categoryRepository \FelixNagel\T3extblog\Domain\Repository\CategoryRepository */
-            $categoryRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CategoryRepository');
+            /* @var $categoryRepository CategoryRepository */
+            $categoryRepository = $this->objectManager->get(CategoryRepository::class);
             $categories = $categoryRepository->findChildren($this);
 
             $this->childCategories = new ObjectStorage();

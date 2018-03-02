@@ -128,7 +128,7 @@ class CommentController extends AbstractController
     public function newAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\Comment');
+            $newComment = $this->objectManager->get(Comment::class);
         }
 
         $this->view->assign('newComment', $newComment);

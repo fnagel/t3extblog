@@ -26,6 +26,8 @@ namespace FelixNagel\T3extblog\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
@@ -88,12 +90,12 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get commentRepository.
      *
-     * @return \FelixNagel\T3extblog\Domain\Repository\CommentRepository
+     * @return CommentRepository
      */
     protected function getCommentRepository()
     {
         if ($this->commentRepository === null) {
-            $this->commentRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository');
+            $this->commentRepository = $this->objectManager->get(CommentRepository::class);
         }
 
         return $this->commentRepository;
@@ -102,12 +104,12 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get postRepository.
      *
-     * @return \FelixNagel\T3extblog\Domain\Repository\PostRepository
+     * @return PostRepository
      */
     protected function getPostRepository()
     {
         if ($this->postRepository === null) {
-            $this->postRepository = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Repository\\PostRepository');
+            $this->postRepository = $this->objectManager->get(PostRepository::class);
         }
 
         return $this->postRepository;

@@ -25,6 +25,7 @@ namespace FelixNagel\T3extblog\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
@@ -60,14 +61,14 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * action new.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     * @param BlogSubscriber $subscriber
      * @ignorevalidation $subscriber
      */
     public function newAction(BlogSubscriber $subscriber = null)
     {
-        /* @var $subscriber \FelixNagel\T3extblog\Domain\Model\BlogSubscriber */
+        /* @var $subscriber BlogSubscriber */
         if ($subscriber === null) {
-            $subscriber = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\BlogSubscriber');
+            $subscriber = $this->objectManager->get(BlogSubscriber::class);
         }
 
         $this->view->assign('subscriber', $subscriber);
@@ -76,7 +77,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Adds a subscriber.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     * @param BlogSubscriber $subscriber
      */
     public function createAction(BlogSubscriber $subscriber = null)
     {

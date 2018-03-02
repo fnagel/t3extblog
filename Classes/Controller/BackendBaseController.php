@@ -35,6 +35,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Utility\TypoScriptValidator;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * BackendBaseController.
@@ -105,10 +106,8 @@ class BackendBaseController extends ActionController
      */
     public function processRequest(RequestInterface $request, ResponseInterface $response)
     {
-        /* @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-        $persistenceManager = $this->objectManager->get(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-        );
+        /* @var $persistenceManager PersistenceManager */
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
 
         // We "finally" persist the module data.
         try {

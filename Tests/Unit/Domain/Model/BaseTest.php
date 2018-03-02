@@ -28,7 +28,7 @@ namespace FelixNagel\T3extblog\Tests\Unit\Domain\Model;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * BaseTest.
@@ -36,7 +36,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 abstract class BaseTest extends UnitTestCase
 {
     /**
-     * @var ObjectManagerInterface
+     * @var ObjectManager
      */
     protected $objectManager;
 
@@ -46,7 +46,7 @@ abstract class BaseTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }
 
     /**

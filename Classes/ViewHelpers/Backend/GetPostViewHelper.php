@@ -25,6 +25,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 
@@ -36,7 +37,7 @@ class GetPostViewHelper extends AbstractBackendViewHelper
     /**
      * postRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
+     * @var PostRepository
      */
     protected $postRepository = null;
 
@@ -56,12 +57,12 @@ class GetPostViewHelper extends AbstractBackendViewHelper
     }
 
     /**
-     * @return \FelixNagel\T3extblog\Domain\Repository\PostRepository
+     * @return PostRepository
      */
     protected function getPostRepository()
     {
         if ($this->postRepository === null) {
-            $this->postRepository = GeneralUtility::makeInstance('FelixNagel\\T3extblog\\Domain\\Repository\\PostRepository');
+            $this->postRepository = GeneralUtility::makeInstance(PostRepository::class);
         }
 
         return $this->postRepository;

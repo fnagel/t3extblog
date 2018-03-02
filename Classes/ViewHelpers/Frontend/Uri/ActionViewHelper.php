@@ -25,6 +25,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend\Uri;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -198,8 +199,8 @@ class ActionViewHelper extends AbstractViewHelper
      */
     public function uriFor($actionName = null, $controllerArguments = array(), $controllerName = null, $extensionName = null, $pluginName = null, $format = '', array $additionalParams = array())
     {
-        /* @var $extensionService \TYPO3\CMS\Extbase\Service\ExtensionService */
-        $extensionService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\ExtensionService');
+        /* @var $extensionService ExtensionService */
+        $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
 
         if ($actionName !== null) {
             $controllerArguments['action'] = $actionName;

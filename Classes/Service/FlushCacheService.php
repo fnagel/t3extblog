@@ -26,6 +26,7 @@ namespace FelixNagel\T3extblog\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -88,8 +89,8 @@ class FlushCacheService implements SingletonInterface
             return;
         }
 
-        /** @var $cacheManager \TYPO3\CMS\Core\Cache\CacheManager */
-        $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+        /** @var $cacheManager CacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 
         foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
             $cacheManager->getCache('cache_pages')->flushByTag($cacheTag);

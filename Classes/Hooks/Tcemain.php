@@ -26,6 +26,9 @@ namespace FelixNagel\T3extblog\Hooks;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Service\CommentNotificationService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -64,7 +67,7 @@ class Tcemain
     /**
      * commentRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
+     * @var CommentRepository
      */
     protected $commentRepository = null;
 
@@ -189,8 +192,8 @@ class Tcemain
             'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid', ' AND irre_parenttable=\'tx_t3blog_post\''),
         );
 
-        /* @var $tce \TYPO3\CMS\Core\DataHandling\DataHandler */
-        $tceMain = $this->getObjectContainer()->getInstance('TYPO3\\CMS\\Core\\DataHandling\\DataHandler');
+        /* @var $tceMain DataHandler */
+        $tceMain = $this->getObjectContainer()->getInstance(DataHandler::class);
 
         $tceMain->start(array(), $command);
         $tceMain->process_cmdmap();
@@ -242,11 +245,11 @@ class Tcemain
      *
      * @param int $uid Page uid
      *
-     * @return \FelixNagel\T3extblog\Domain\Model\Comment
+     * @return Comment
      */
     protected function getComment($uid)
     {
-        /* @var $comment \FelixNagel\T3extblog\Domain\Model\Comment */
+        /* @var $comment Comment */
         $comment = $this->getCommentRepository()->findByUid($uid);
 
         return $comment;
@@ -255,14 +258,12 @@ class Tcemain
     /**
      * Get comment repository.
      *
-     * @return \FelixNagel\T3extblog\Domain\Repository\CommentRepository
+     * @return CommentRepository
      */
     protected function getCommentRepository()
     {
         if ($this->commentRepository === null) {
-            $this->commentRepository = $this->getObjectContainer()->getInstance(
-                'FelixNagel\\T3extblog\\Domain\\Repository\\CommentRepository'
-            );
+            $this->commentRepository = $this->getObjectContainer()->getInstance(CommentRepository::class);
         }
 
         return $this->commentRepository;
@@ -276,7 +277,7 @@ class Tcemain
     protected function getObjectContainer()
     {
         if ($this->objectContainer === null) {
-            $this->objectContainer = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\Container\\Container');
+            $this->objectContainer = GeneralUtility::makeInstance(Container::class);
         }
 
         return $this->objectContainer;
@@ -285,14 +286,12 @@ class Tcemain
     /**
      * Get notification service.
      *
-     * @return \FelixNagel\T3extblog\Service\CommentNotificationService
+     * @return CommentNotificationService
      */
     protected function getNotificationService()
     {
         if ($this->notificationService === null) {
-            $this->notificationService = $this->getObjectContainer()->getInstance(
-                'FelixNagel\\T3extblog\\Service\\CommentNotificationService'
-            );
+            $this->notificationService = $this->getObjectContainer()->getInstance(CommentNotificationService::class);
         }
 
         return $this->notificationService;

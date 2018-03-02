@@ -27,6 +27,7 @@ namespace FelixNagel\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Service\BlogNotificationService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\Post;
 
@@ -48,12 +49,12 @@ class BackendPostController extends BackendBaseController
     /**
      * Send post notification mails.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\Post $post
+     * @param Post $post
      */
     public function sendPostNotificationsAction(Post $post)
     {
-        /* @var $notificationService \FelixNagel\T3extblog\Service\BlogNotificationService */
-        $notificationService = $this->objectManager->get('FelixNagel\\T3extblog\\Service\\BlogNotificationService');
+        /* @var $notificationService BlogNotificationService */
+        $notificationService = $this->objectManager->get(BlogNotificationService::class);
         $amount = $notificationService->notifySubscribers($post);
 
         $this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', array($amount)));

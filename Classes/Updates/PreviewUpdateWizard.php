@@ -28,6 +28,7 @@ namespace FelixNagel\T3extblog\Updates;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -297,12 +298,12 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
     /**
      * Log DB usage.
      *
-     * @return \TYPO3\CMS\Core\Resource\FileRepository
+     * @return FileRepository
      */
     protected function getFileRepository()
     {
         if ($this->fileRepository === null) {
-            $this->fileRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\FileRepository');
+            $this->fileRepository = GeneralUtility::makeInstance(FileRepository::class);
         }
 
         return $this->fileRepository;

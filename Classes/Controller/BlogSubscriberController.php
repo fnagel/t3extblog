@@ -98,8 +98,8 @@ class BlogSubscriberController extends AbstractSubscriberController
             $this->redirect('list', 'PostSubscriber');
         }
 
-        /* @var $subscriber \FelixNagel\T3extblog\Domain\Model\BlogSubscriber */
-        $subscriber = $this->objectManager->get('FelixNagel\\T3extblog\\Domain\\Model\\BlogSubscriber');
+        /* @var $subscriber BlogSubscriber */
+        $subscriber = $this->objectManager->get(BlogSubscriber::class);
         $subscriber->setEmail($email);
         $subscriber->setHidden(false);
         $subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
@@ -118,8 +118,6 @@ class BlogSubscriberController extends AbstractSubscriberController
      * action delete.
      *
      * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
-     *
-     * @throws InvalidArgumentValueException
      */
     public function deleteAction($subscriber = null)
     {

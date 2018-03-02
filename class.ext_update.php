@@ -212,9 +212,9 @@ class ext_update
         $flashMessages = [];
 
         foreach ($this->messageArray as $messageItem) {
-            /** @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
+            /** @var FlashMessage $flashMessage */
             $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+                FlashMessage::class,
                 $messageItem[2],
                 $messageItem[1],
                 $messageItem[0]

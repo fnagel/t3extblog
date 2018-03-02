@@ -110,23 +110,27 @@ if (!defined('TYPO3_MODE')) {
 if (TYPO3_MODE == 'BE') {
     // Add BE hooks
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'FelixNagel\\T3extblog\\Hooks\\Tcemain';
+        \FelixNagel\T3extblog\Hooks\Tcemain::class;
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
-        'FelixNagel\\T3extblog\\Hooks\\Tcemain';
+        \FelixNagel\T3extblog\Hooks\Tcemain::class;
 
     // Install Tool Upgrade Wizard
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['t3extblog_preview'] =
-        'FelixNagel\\T3extblog\\Updates\\PreviewUpdateWizard';
+        \FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class;
 }
 
-// add RealURL configuration
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
-    'EXT:t3extblog/Classes/Hooks/RealUrl.php:FelixNagel\\T3extblog\\Hooks\\RealUrl->extensionConfiguration';
+// Add RealURL configuration
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl')) {
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
+        \FelixNagel\T3extblog\Hooks\RealUrl::class . '->extensionConfiguration';
+}
 
 // Support for dd_googlesitemap
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
-    'FelixNagel\\T3extblog\\Hooks\\Sitemap\\Generator->main';
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dd_googlesitemap')) {
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
+        \FelixNagel\T3extblog\Hooks\Sitemap\Generator::class . '->main';
+}
 
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
@@ -155,11 +159,10 @@ if ($_COOKIE[$configuredCookieName]) {
 
 // Make default avatar provider available in FE
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
-    'provider' => 'TYPO3\\CMS\\Backend\\Backend\\Avatar\\DefaultAvatarProvider',
+    'provider' => \TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider::class,
 );
 
 // Overwrite classes
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
-    'className' => 'FelixNagel\\T3extblog\\Configuration\\BackendConfigurationManager',
+    'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
 );
-

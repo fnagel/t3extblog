@@ -26,6 +26,7 @@ namespace FelixNagel\T3extblog\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
@@ -101,11 +102,11 @@ class GeneralUtility
     /**
      * Get page renderer.
      *
-     * @return \TYPO3\CMS\Core\Page\PageRenderer
+     * @return PageRenderer
      */
     public static function getPageRenderer()
     {
-        return CoreGeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+        return CoreGeneralUtility::makeInstance(PageRenderer::class);
     }
 
     /**
