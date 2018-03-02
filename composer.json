@@ -1,19 +1,6 @@
 {
   "name": "felixnagel/t3extblog",
   "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
-  "require-dev": {
-    "nimut/testing-framework": "^1.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "FelixNagel\\T3extblog\\": "Classes"
-    }
-  },
-  "autoload-dev": {
-	"psr-4": {
-	   "FelixNagel\\T3extblog\\Tests\\": "Tests"
-	}
-  },
   "type": "typo3-cms-extension",
   "keywords": ["TYPO3 CMS", "blog"],
   "homepage": "https://github.com/fnagel/t3extblog",
@@ -33,8 +20,30 @@
     "php": ">=5.6,<7.2",
     "typo3/cms-core": ">=7.3.0,<=8.7.99"
   },
+  "require-dev": {
+    "nimut/testing-framework": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "FelixNagel\\T3extblog\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+	"psr-4": {
+	   "FelixNagel\\T3extblog\\Tests\\": "Tests"
+	}
+  },	
   "conflict": {
-    "dmitryd/typo3-realurl": ">=2.0.0 <=2.0.10"
+    "typo3-ter/t3blog": ">=0.0.1",
+    "dmitryd/typo3-realurl": ">=2.0.0,<=2.0.10"
+  },
+  "suggest": {
+    "dmitryd/typo3-dd-googlesitemap": "~2.0",
+    "dmitryd/typo3-realurl": "~2.0"
+  },
+  "replace": {
+    "t3extblog": "self.version",
+    "typo3-ter/t3extblog": "self.version"
   },
   "repositories": [
     {
