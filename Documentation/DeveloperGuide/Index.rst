@@ -43,25 +43,25 @@ This is done by using the signal / slot functionality provided by TYPO3.
 
 **Available signals**
 
-* `sendEmail` in `TYPO3\T3extblog\Service\EmailService`
+* `sendEmail` in `FelixNagel\T3extblog\Service\EmailService`
 
-* `subscriberConfirmAction` in `TYPO3\T3extblog\Controller\CommentSubscriberController`
-* `subscriberDeleteAction` in `TYPO3\T3extblog\Controller\CommentSubscriberController`
+* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\CommentSubscriberController`
+* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\CommentSubscriberController`
 
-* `subscriberConfirmAction` in `TYPO3\T3extblog\Controller\PostSubscriberController`
-* `subscriberDeleteAction` in `TYPO3\T3extblog\Controller\PostSubscriberController`
+* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
+* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
 
-* `processNewComment` in `TYPO3\T3extblog\Service\CommentNotificationService`
-* `processChangedComment` in `TYPO3\T3extblog\Service\CommentNotificationService`
-* `notifySubscribers` in `TYPO3\T3extblog\Service\CommentNotificationService`
+* `processNewComment` in `FelixNagel\T3extblog\Service\CommentNotificationService`
+* `processChangedComment` in `FelixNagel\T3extblog\Service\CommentNotificationService`
+* `notifySubscribers` in `FelixNagel\T3extblog\Service\CommentNotificationService`
 
-* `processNewSubscriber` in `TYPO3\T3extblog\Service\BlogNotificationService`
-* `processChangedSubscriber` in `TYPO3\T3extblog\Service\BlogNotificationService`
-* `notifySubscribers` in `TYPO3\T3extblog\Service\BlogNotificationService`
+* `processNewSubscriber` in `FelixNagel\T3extblog\Service\BlogNotificationService`
+* `processChangedSubscriber` in `FelixNagel\T3extblog\Service\BlogNotificationService`
+* `notifySubscribers` in `FelixNagel\T3extblog\Service\BlogNotificationService`
 
-* `spamCheck` in `TYPO3\T3extblog\Service\SpamCheckService`
+* `spamCheck` in `FelixNagel\T3extblog\Service\SpamCheckService`
 
-* `prePersist` in `TYPO3\T3extblog\Controller\CommentController`
+* `prePersist` in `FelixNagel\T3extblog\Controller\CommentController`
 
 
 **Example code**
@@ -75,7 +75,7 @@ for using the EmailService sendEmail signal:
 	    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
 	);
 	$signalSlotDispatcher->connect(
-	    TYPO3\T3extblog\Service\EmailService::class,
+	    FelixNagel\T3extblog\Service\EmailService::class,
 	    'sendEmail',
 	    MyVendor\MyExtension\Slot\MyEmailServiceSlot::class,
 	    'mySendEmailMethod'
