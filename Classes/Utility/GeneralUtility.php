@@ -34,7 +34,7 @@ use TYPO3\CMS\Frontend\Utility\EidUtility;
 /**
  * General utility class.
  *
- * @todo Rename ro FrontendUtility
+ * @todo Rename to FrontendUtility
  */
 class GeneralUtility
 {
@@ -115,7 +115,7 @@ class GeneralUtility
      * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.
      * See https://forge.typo3.org/issues/23625
      *
-     * @todo Fixme! Workaround for bug in TYPO3
+     * @todo Workaround for bug in TYPO3
      *
      * @return bool
      */

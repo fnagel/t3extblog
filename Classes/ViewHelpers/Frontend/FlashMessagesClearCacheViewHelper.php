@@ -56,7 +56,7 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
     /**
      * Fix flash message caching
      *
-     * @todo Fix this! See https://github.com/fnagel/t3extblog/issues/112
+     * @todo Core bug, see https://github.com/fnagel/t3extblog/issues/112
      *
      * @return void
      */

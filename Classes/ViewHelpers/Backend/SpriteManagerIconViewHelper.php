@@ -48,9 +48,6 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
     /**
      * Prints sprite icon html for $iconName key.
      *
-     * @todo Find a way to process $option['title'] for TYPO 7.x
-     * Probably move the title attribute to parent element
-     *
      * @param string $iconName
      * @param array  $options
      *
