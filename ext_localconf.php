@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 
 // Plugins
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'Blogsystem',
     array(
         'Post' => 'list, tag, category, author, show, permalink, preview',
@@ -20,7 +20,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'Archive',
     array(
         'Post' => 'archive',
@@ -32,7 +32,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'Rss',
     array(
         'Post' => 'rss',
@@ -44,7 +44,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'SubscriptionManager',
     array(
         'Subscriber' => 'list, error, logout, confirm',
@@ -60,7 +60,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'BlogSubscription',
     array(
         'BlogSubscriberForm' => 'new, create, success',
@@ -72,7 +72,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'Categories',
     array(
         'Category' => 'list, show',
@@ -84,7 +84,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'LatestPosts',
     array(
         'Post' => 'latest',
@@ -96,7 +96,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TYPO3.'.$_EXTKEY,
+    'FelixNagel.'.$_EXTKEY,
     'LatestComments',
     array(
         'Comment' => 'latest',
