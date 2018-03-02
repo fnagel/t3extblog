@@ -5,79 +5,26 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function ($packageKey) {
-    $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($packageKey);
-    $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey);
-
     // Add static TS
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey, 'Configuration/TypoScript', 'T3Extblog: Default setup (needed)'
+        $packageKey,
+        'Configuration/TypoScript',
+        'T3Extblog: Default setup (needed)'
     );
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey, 'Configuration/TypoScript/Rss', 'T3Extblog: Rss setup'
+        $packageKey,
+        'Configuration/TypoScript/Rss',
+        'T3Extblog: Rss setup'
     );
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey, 'Configuration/TypoScript/RealUrl', 'T3Extblog: additional RealUrl config'
+        $packageKey,
+        'Configuration/TypoScript/RealUrl',
+        'T3Extblog: additional RealUrl config'
     );
 
     // Add page TS config
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/Page.ts">'
-    );
-
-    // Add Plugins and Flexforms
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'Blogsystem',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsystem.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'SubscriptionManager',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:subscriptionmanager.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'BlogSubscription',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsubscription.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'Archive',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:archive.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'Rss',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:rss.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'Categories',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:categories.title'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'LatestPosts',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestposts.title'
-    );
-    $pluginSignature = strtolower($extensionName).'_latestposts';
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform,recursive';
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-        $pluginSignature,
-        'FILE:EXT:'.$packageKey.'/Configuration/FlexForms/LatestPosts.xml'
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'TYPO3.'.$packageKey,
-        'LatestComments',
-        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestcomments.title'
     );
 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
@@ -95,15 +42,11 @@ call_user_func(function ($packageKey) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_trackback');
 
     if (TYPO3_MODE === 'BE') {
-        $pageModuleConfig = array(
-            0 => 'T3extblog',
-            1 => 't3blog',
-            2 => 'tcarecords-pages-contains-t3blog',
-        );
-
         // Add icons to registry
         /* @var $iconRegistry \TYPO3\CMS\Core\Imaging\IconRegistry */
-        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Imaging\IconRegistry::class
+        );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-post',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
@@ -134,15 +77,11 @@ call_user_func(function ($packageKey) {
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
             ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png']
         );
-
-        // Add BE page icon
         $iconRegistry->registerIcon(
             'tcarecords-pages-contains-t3blog',
             \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
             ['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
         );
-        $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = $pageModuleConfig;
-        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-t3blog'] = 'tcarecords-pages-contains-t3blog';
 
         // Register  Backend Module
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
@@ -164,5 +103,4 @@ call_user_func(function ($packageKey) {
             )
         );
     }
-
 }, $_EXTKEY);
