@@ -146,7 +146,7 @@ call_user_func(function ($packageKey) {
 
         // Register  Backend Module
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'TYPO3.'.$packageKey,
+            'FelixNagel.'.$packageKey,
             'web',
             'Tx_T3extblog',
             '',
