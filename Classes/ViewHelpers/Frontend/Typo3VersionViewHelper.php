@@ -25,7 +25,6 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use FelixNagel\T3extblog\Traits\DisableCompilerConditionViewHelperTrait;
 use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 
 /**
@@ -33,8 +32,6 @@ use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
  */
 class Typo3VersionViewHelper extends AbstractConditionViewHelper
 {
-    use DisableCompilerConditionViewHelperTrait;
-
     /**
      * {@inheritdoc}
      */

@@ -25,46 +25,15 @@ namespace FelixNagel\T3extblog\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use FelixNagel\T3extblog\Traits\DisableCompilerConditionViewHelperTrait;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractConditionViewHelper;
 
 /**
  * Base for condition VH.
  *
- * Includes caching fixes for 7.x & 8.x
+ * Includes caching fixes for 8.x
  */
 class AbstractConditionViewHelper extends BaseAbstractConditionViewHelper
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct()
-    {
-        // @todo Remove parent call when 7.x is no longer relevant
-        if (is_callable('parent::__construct')) {
-            parent::__construct();
-        }
-    }
-
-    /**
-     * Disable caching for 7.x.
-     *
-     * {@inheritdoc}
-     */
-    public function compile(
-        $argumentsVariableName,
-        $renderChildrenClosureVariableName,
-        &$initializationPhpCode,
-        \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode $syntaxTreeNode,
-        \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler $templateCompiler
-    ) {
-        parent::compile(
-            $argumentsVariableName,
-            $renderChildrenClosureVariableName,
-            $initializationPhpCode,
-            $syntaxTreeNode,
-            $templateCompiler
-        );
-
-        return \TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
-    }
+    use DisableCompilerConditionViewHelperTrait;
 }

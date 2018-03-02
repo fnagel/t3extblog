@@ -25,7 +25,6 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use FelixNagel\T3extblog\Traits\DisableCompilerConditionViewHelperTrait;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -35,8 +34,6 @@ use FelixNagel\T3extblog\Domain\Model\Post;
  */
 class CommentAllowedViewHelper extends AbstractConditionViewHelper
 {
-    use DisableCompilerConditionViewHelperTrait;
-
     /**
      * {@inheritdoc}
      */
