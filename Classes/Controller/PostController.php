@@ -58,6 +58,18 @@ class PostController extends AbstractController
     protected $postRepository;
 
     /**
+     * @inheritdoc
+     */
+    protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
+    {
+        if ($exception instanceof  \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) {
+            GeneralUtility::getTsFe()->pageNotFoundAndExit('Entity not found.');
+        }
+
+        parent::handleKnownExceptionsElseThrowAgain($exception);
+    }
+
+    /**
      * Displays a list of posts.
      */
     public function listAction()

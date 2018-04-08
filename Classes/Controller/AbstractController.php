@@ -31,6 +31,8 @@ use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
@@ -88,6 +90,27 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
         }
 
         $this->settings = $originalSettings;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        try {
+            parent::processRequest($request, $response);
+        } catch (\Exception $exception) {
+            $this->handleKnownExceptionsElseThrowAgain($exception);
+        }
+    }
+
+    /**
+     * @param \Exception $exception
+     * @throws \Exception
+     */
+    protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
+    {
+        throw $exception;
     }
 
     /**
