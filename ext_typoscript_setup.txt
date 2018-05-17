@@ -120,6 +120,7 @@ config.tx_extbase {
 						email.mapOnProperty = email
 						lastsent.mapOnProperty = lastSent
 						code.mapOnProperty = code
+						privacy_policy_accepted.mapOnProperty = privacyPolicyAccepted
 					}
                 }
             }

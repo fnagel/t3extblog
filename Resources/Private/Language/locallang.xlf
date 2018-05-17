@@ -103,6 +103,15 @@
 			<trans-unit id="subscriber.email">
 				<source>Email address</source>
 			</trans-unit>
+			<trans-unit id="subscriber.privacyPolicyAccepted">
+				<source>Accept the privacy policy</source>
+			</trans-unit>
+			<trans-unit id="subscriber.privacyPolicyAccepted.text">
+				<source>Accept the %s</source>
+			</trans-unit>
+			<trans-unit id="subscriber.privacyPolicyAccepted.link">
+				<source>privacy policy</source>
+			</trans-unit>
 			<trans-unit id="subscriber.form.new">
 				<source>Subscribe for new blog posts</source>
 			</trans-unit>

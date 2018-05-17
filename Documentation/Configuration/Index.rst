@@ -61,6 +61,8 @@ settings.latestComments                     Some settings for the latest comment
 settings.rss                                Basis rss-settings (see :code:`/Configuration/TypoScript/RSS/setup.txt` for page config)
 settings.backend                            Configure the backend output
 settings.debug                              Some debug configs
+settings.privacyPolicy.enabled              Enable the privacy policy checkbox in the subscription forms
+settings.privacyPolicy.typolink             Set a typolink as the privacy policy link
 lib.tx_t3extblog.date                       Localize date format, used within the fluid templates
 lib.tx_t3extblog.month                      Localize month format, used within the fluid templates
 lib.tx_t3extblog.responsiveImage            TypoScript lib for rendering responsive images

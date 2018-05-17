@@ -216,6 +216,11 @@ plugin.tx_t3extblog {
 				# checks if client accepts cookies
 				cookie = 2
 			}
+
+            privacyPolicy {
+                enabled = {$plugin.tx_t3extblog.settings.privacyPolicy.enabled}
+                typolink = {$plugin.tx_t3extblog.settings.privacyPolicy.typolink}
+            }
 		}
 
 		categories {

@@ -40,5 +40,12 @@ plugin.tx_t3extblog {
 
 		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)
 		twitterName =
+
+        privacyPolicy {
+            # cat=plugin.tx_t3extblog//6; type=boolean; label=Enable the privacyPolicy checkbox
+            enabled = 1
+            # cat=plugin.tx_t3extblog//7; type=string; label=Typolink that links to the privacy policy page
+            typolink =
+        }
 	}
 }

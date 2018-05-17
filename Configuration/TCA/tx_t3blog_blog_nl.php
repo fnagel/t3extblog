@@ -18,7 +18,7 @@ return array(
         'searchFields' => 'email',
     ),
     'interface' => array(
-        'showRecordFieldList' => 'sys_language_uid,hidden,email,lastsent,code',
+        'showRecordFieldList' => 'sys_language_uid,hidden,email,lastsent,code,privacy_policy_accepted',
     ),
     'columns' => array(
         'sys_language_uid' => array(
@@ -70,11 +70,18 @@ return array(
                 'size' => '30',
             ),
         ),
+        'privacy_policy_accepted' => array(
+            'label' => '...',
+            'config' => array(
+                'type' => 'check',
+                'default' => 0,
+            ),
+        ),
     ),
     'types' => array(
         '0' => array('showitem' => '
 			sys_language_uid, email, hidden,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_blog_nl.tabs.meta,
-				lastsent, code'),
+				lastsent, code, privacy_policy_accepted'),
     ),
 );
