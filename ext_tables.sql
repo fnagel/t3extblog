@@ -219,6 +219,7 @@ CREATE TABLE tx_t3blog_blog_nl (
 	email tinytext NOT NULL,
 	lastsent int(11) DEFAULT '0' NOT NULL,
 	code tinytext NOT NULL,
+	privacy_policy_accepted tinyint(4) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
