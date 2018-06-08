@@ -17,13 +17,18 @@ page {
 
 config {
 	disableAllHeaderCode = 1
-	xhtml_cleaning = 0
+	xhtml_cleaning = none
 	admPanel = 0
-	metaCharset = utf-8
-	additionalHeaders = Content-Type:text/xml;charset=utf-8
+	debug = 0
 	disablePrefixComment = 1
+
+	disableCharsetHeader = 1
+	metaCharset = utf-8
+	additionalHeaders.10.header = Content-Type:application/rss+xml;charset=utf-8
+
 	# define http://www.yourdomain.tld/ to produce absolute urls for links and images
-    # absRefPrefix =
+	# absRefPrefix =
+
 	# language related
 	locale_all = de_DE
 	language = de
