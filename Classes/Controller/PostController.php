@@ -235,9 +235,6 @@ class PostController extends AbstractController
     /**
      * Preview a post.
      *
-     * Testing does not work on local environment
-     * Issues when baseUrl AND absRefPrefix are set
-     *
      * @param int $previewPost The post to display
      *
      * @throws \Exception
