@@ -65,6 +65,7 @@ class ext_update
         $this->renderCommentUrlValidationSection();
         $this->renderPostMailsSentSection();
         $this->renderCommentMailsSentSection();
+        $this->renderCommentAuthorOrEmailInvalidSection();
 
         $output .= $this->generateMessages();
         $output .= implode('<br>', $this->sectionArray);
@@ -174,6 +175,50 @@ class ext_update
 
         $message = $this->database->sql_affected_rows().' comments have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Comments updated', $message];
+    }
+
+    /**
+     * @return void
+     */
+    protected function renderCommentAuthorOrEmailInvalidSection()
+    {
+        $key = 'comment_author_email_invalid';
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->findCommentAuthorOrEmailInvalid();
+        }
+
+        $this->sectionArray[] = $this->renderForm(
+            $key, 'Find existing comments with invalid author or email (use when migrating from EXT:t3blog)'
+        );
+    }
+
+    /**
+     * @return void
+     */
+    protected function findCommentAuthorOrEmailInvalid()
+    {
+        $where = 'author = "" OR email = ""';
+        $rows = $this->database->exec_SELECTgetRows('*', 'tx_t3blog_com', $where);
+
+        if (count($rows) === 0) {
+            $message = 'All comment records look valid. Good job!';
+            $this->messageArray[] = [FlashMessage::OK, 'All comments valid!', $message];
+            return;
+        }
+
+        $commentList = '';
+        foreach ($rows as $comment) {
+            $commentList .= '<li>';
+            $commentList .= 'uid=' . $comment['uid'] . ', pid=' . $comment['pid'];
+            $commentList .= ', post=' . $comment['fk_post'] . ', deleted=' . $comment['deleted'];
+            $commentList .= '</li>';
+        }
+
+        $this->sectionArray[] = '<ul>' . $commentList . '</ul>';
+
+        $message = count($rows) . ' comments with invalid author or email have been found.';
+        $message .= ' Make sure to fix those records!';
+        $this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
     }
 
     /**

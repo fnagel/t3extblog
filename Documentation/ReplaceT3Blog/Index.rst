@@ -24,7 +24,8 @@ You have a TYPO3 4.5. with T3Blog (EXT:t3blog) installed. Goal is to get your bl
 #.	When used deinstall dam/dam index. Otherwise go on to 4.
 #.	Deinstall t3blog if not done before (Don't remove any t3blog tables!)
 #.	Install t3extblog! Make sure to create / modify database fields.
-#.	Run the update-script (in Extensions-Manager)
+#.	Run the "Find existing comments with invalid author or email" update-script (in Extensions-Manager) and update invalid comments (empty author or email)
+#.	Run the "Set mails_sent flag for existing comments" update-script (in Extensions-Manager)
 #.	Run the Install Tool Wizard (in Install Tool)
 #.	Clean up (deleting deinstalled extensions, run the database analyser)
 
