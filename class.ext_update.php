@@ -79,13 +79,12 @@ class ext_update
     protected function renderCommentUrlValidationSection()
     {
         $key = 'comment_url_validation';
-        if (GeneralUtility::_POST('migration') === $key) {
-            $this->findCommentRecordsForUrlValidation();
-        }
-
         $this->sectionArray[] = $this->renderForm(
             $key, 'Find existing comments with invalid website URLs'
         );
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->findCommentRecordsForUrlValidation();
+        }
     }
 
     /**
@@ -127,13 +126,12 @@ class ext_update
         }
 
         $key = 'post_mails_sent';
-        if (GeneralUtility::_POST('migration') === $key) {
-            $this->updatePostRecordsForMailsSent();
-        }
-
         $this->sectionArray[] = $this->renderForm(
             $key, 'Set "mails_sent" flag for existing posts (use when updating to v2.1.0)'
         );
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->updatePostRecordsForMailsSent();
+        }
     }
 
     /**
@@ -157,13 +155,12 @@ class ext_update
         }
 
         $key = 'comment_mails_sent';
+                $this->sectionArray[] = $this->renderForm(
+            $key, 'Set "mails_sent" flag for existing comments (use when migrating from EXT:t3blog)'
+        );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->updateCommentRecordsForMailsSent();
         }
-
-        $this->sectionArray[] = $this->renderForm(
-            $key, 'Set "mails_sent" flag for existing comments (use when migrating from EXT:t3blog)'
-        );
     }
 
     /**
@@ -183,13 +180,12 @@ class ext_update
     protected function renderCommentAuthorOrEmailInvalidSection()
     {
         $key = 'comment_author_email_invalid';
-        if (GeneralUtility::_POST('migration') === $key) {
-            $this->findCommentAuthorOrEmailInvalid();
-        }
-
         $this->sectionArray[] = $this->renderForm(
             $key, 'Find existing comments with invalid author or email (use when migrating from EXT:t3blog)'
         );
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->findCommentAuthorOrEmailInvalid();
+        }
     }
 
     /**
