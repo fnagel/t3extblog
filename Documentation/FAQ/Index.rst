@@ -142,6 +142,53 @@ Example page TSconfig configuration:
    }
 
 
+Corresponding TypoScript configuration:
+
+.. code-block:: typoscript
+
+   config.recordLinks {
+      tx_t3blog_post {
+         typolink {
+            parameter = 456
+            additionalParams.cObject = COA
+            additionalParams.cObject {
+               10 = TEXT
+               10 {
+                  date = d
+                  field = date
+                  wrap = &tx_t3extblog_blogsystem[day]=|
+               }
+               20 = TEXT
+               20 {
+                  date = m
+                  field = date
+                  wrap = &tx_t3extblog_blogsystem[month]=|
+               }
+               30 = TEXT
+               30 {
+                  date = Y
+                  field = date
+                  wrap = &tx_t3extblog_blogsystem[year]=|
+               }
+               40 = TEXT
+               40.dataWrap = &tx_t3extblog_blogsystem[post]={field:uid}
+            }
+            title.field = title
+            useCacheHash = 1
+         }
+      }
+      tx_t3blog_cat {
+         typolink {
+            parameter = 456
+            additionalParams = &tx_t3extblog_blogsystem[category]={field:uid}
+            additionalParams.insertData = 1
+            useCacheHash = 1
+         }
+      }
+   }
+
+Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin page.
+
 
 Set default post category
 -------------------------
