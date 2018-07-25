@@ -36,7 +36,7 @@ $EM_CONF[$_EXTKEY] = array(
         ),
         'suggests' => array(
             'dd_googlesitemap' => '2.0.0-2.1.99',
-            'realurl' => '2.0.10-2.99.99',
+            'realurl' => '2.0.11-2.99.99',
         ),
     ),
 );
