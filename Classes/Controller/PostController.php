@@ -53,7 +53,7 @@ class PostController extends AbstractController
      * postRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postRepository;
 
@@ -204,6 +204,9 @@ class PostController extends AbstractController
 
     /**
      * Displays one single post.
+     *
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $newComment
+     * @dontvalidate $newComment
      *
      * @param Post    $post       The post to display
      * @param Comment $newComment A new comment

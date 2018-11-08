@@ -49,7 +49,7 @@ class CommentController extends AbstractController
      * commentRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $commentRepository;
 
@@ -57,7 +57,7 @@ class CommentController extends AbstractController
      * Notification Service.
      *
      * @var \FelixNagel\T3extblog\Service\CommentNotificationService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
 
@@ -65,13 +65,13 @@ class CommentController extends AbstractController
      * Spam Check Service.
      *
      * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
 
     /**
      * @var \FelixNagel\T3extblog\Service\FlushCacheService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $cacheService;
 
@@ -122,7 +122,7 @@ class CommentController extends AbstractController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment
-     * @ignorevalidation $newComment
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $newComment
      */
     public function newAction(Post $post, Comment $newComment = null)
     {

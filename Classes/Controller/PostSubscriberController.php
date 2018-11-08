@@ -38,7 +38,7 @@ class PostSubscriberController extends AbstractSubscriberController
      * subscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
 
@@ -46,7 +46,7 @@ class PostSubscriberController extends AbstractSubscriberController
      * blogSubscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 

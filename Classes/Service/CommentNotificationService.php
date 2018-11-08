@@ -40,7 +40,7 @@ class CommentNotificationService extends AbstractNotificationService
      * subscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
 

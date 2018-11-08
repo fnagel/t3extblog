@@ -42,7 +42,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      * Session Service.
      *
      * @var \FelixNagel\T3extblog\Service\SessionServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $session;
 

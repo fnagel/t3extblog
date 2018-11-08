@@ -46,7 +46,7 @@ class SessionService implements SessionServiceInterface
      * Logging Service.
      *
      * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $log;
 

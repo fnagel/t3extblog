@@ -44,7 +44,7 @@ class Comment extends AbstractEntity
     /**
      * title.
      *
-     * @validate Text
+     * @TYPO3\CMS\Extbase\Annotation\Validate Text
      *
      * @var string
      */
@@ -53,8 +53,8 @@ class Comment extends AbstractEntity
     /**
      * author.
      *
-     * @validate Text
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate Text
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      *
      * @var string
      */
@@ -64,8 +64,8 @@ class Comment extends AbstractEntity
      * email.
      *
      * @var string
-     * @validate NotEmpty
-     * @validate EmailAddress
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate EmailAddress
      */
     protected $email;
 
@@ -73,7 +73,7 @@ class Comment extends AbstractEntity
      * website.
      *
      * @var string
-     * @validate \FelixNagel\T3extblog\Validation\Validator\UrlValidator
+     * @TYPO3\CMS\Extbase\Annotation\Validate \FelixNagel\T3extblog\Validation\Validator\UrlValidator
      */
     protected $website;
 
@@ -88,7 +88,7 @@ class Comment extends AbstractEntity
      * text.
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $text;
 
@@ -124,7 +124,7 @@ class Comment extends AbstractEntity
      * post.
      *
      * @var \FelixNagel\T3extblog\Domain\Model\Post
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $post = null;
 

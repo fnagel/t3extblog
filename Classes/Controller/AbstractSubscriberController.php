@@ -52,7 +52,7 @@ abstract class AbstractSubscriberController extends AbstractController
      * feUserService.
      *
      * @var \FelixNagel\T3extblog\Service\AuthenticationServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $authentication;
 
@@ -60,7 +60,7 @@ abstract class AbstractSubscriberController extends AbstractController
      * objectManager.
      *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
 

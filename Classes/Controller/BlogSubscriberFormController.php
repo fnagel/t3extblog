@@ -38,7 +38,7 @@ class BlogSubscriberFormController extends AbstractController
      * blogSubscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 
@@ -46,7 +46,7 @@ class BlogSubscriberFormController extends AbstractController
      * Notification Service.
      *
      * @var \FelixNagel\T3extblog\Service\BlogNotificationService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
 
@@ -54,7 +54,7 @@ class BlogSubscriberFormController extends AbstractController
      * Spam Check Service.
      *
      * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
 
@@ -62,7 +62,7 @@ class BlogSubscriberFormController extends AbstractController
      * action new.
      *
      * @param BlogSubscriber $subscriber
-     * @ignorevalidation $subscriber
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $subscriber
      */
     public function newAction(BlogSubscriber $subscriber = null)
     {

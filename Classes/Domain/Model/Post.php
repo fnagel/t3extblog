@@ -50,7 +50,7 @@ class Post extends AbstractLocalizedEntity
      * title.
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title;
 
@@ -65,7 +65,7 @@ class Post extends AbstractLocalizedEntity
      * publishDate.
      *
      * @var \DateTime
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $publishDate;
 
@@ -129,7 +129,7 @@ class Post extends AbstractLocalizedEntity
      * previewImage.
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $previewImage;
 
@@ -137,7 +137,7 @@ class Post extends AbstractLocalizedEntity
      * content.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $content;
 
@@ -145,7 +145,7 @@ class Post extends AbstractLocalizedEntity
      * categories.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $categories;
 
@@ -160,7 +160,7 @@ class Post extends AbstractLocalizedEntity
      * raw comments.
      *
      * @var QueryResultInterface
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $rawComments = null;
 
@@ -168,7 +168,7 @@ class Post extends AbstractLocalizedEntity
      * subscriptions.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $subscriptions;
 

@@ -44,7 +44,7 @@ class CategoryController extends AbstractController
      * categoryRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\CategoryRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $categoryRepository;
 

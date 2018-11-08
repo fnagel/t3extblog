@@ -59,7 +59,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
 
     /**
      * @var \FelixNagel\T3extblog\Service\SettingsService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $settingsService;
 

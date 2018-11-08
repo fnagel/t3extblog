@@ -39,7 +39,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      * subscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
 
@@ -47,7 +47,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      * Notification Service.
      *
      * @var \FelixNagel\T3extblog\Service\BlogNotificationService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
 

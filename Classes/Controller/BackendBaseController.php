@@ -46,7 +46,7 @@ class BackendBaseController extends ActionController
      * objectManager.
      *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
 
@@ -54,7 +54,7 @@ class BackendBaseController extends ActionController
      * postRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postRepository;
 
@@ -62,7 +62,7 @@ class BackendBaseController extends ActionController
      * postRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $commentRepository;
 
@@ -70,7 +70,7 @@ class BackendBaseController extends ActionController
      * postSubscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postSubscriberRepository;
 
@@ -78,7 +78,7 @@ class BackendBaseController extends ActionController
      * blogSubscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 

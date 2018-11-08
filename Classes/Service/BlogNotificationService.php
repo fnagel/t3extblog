@@ -39,7 +39,7 @@ class BlogNotificationService extends AbstractNotificationService
      * subscriberRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
 

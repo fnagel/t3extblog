@@ -50,7 +50,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
      * Logging Service.
      *
      * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $log;
 

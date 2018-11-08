@@ -38,7 +38,7 @@ class Category extends AbstractLocalizedEntity
      * name.
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $name;
 
@@ -60,7 +60,7 @@ class Category extends AbstractLocalizedEntity
      * Posts.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Post>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $posts = null;
 
@@ -68,7 +68,7 @@ class Category extends AbstractLocalizedEntity
      * child categories.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $childCategories = null;
 
