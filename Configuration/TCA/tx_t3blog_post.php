@@ -158,7 +158,7 @@ return array(
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'be_users',
                 'foreign_table_where' => ' AND be_users.disable = 0 '.
-                    'AND (be_users.username != "_cli_lowlevel" AND be_users.username != "_cli_scheduler") '.
+                    'AND (be_users.username != "_cli_lowlevel" AND be_users.username != "_cli_scheduler" AND be_users.username != "_cli_") '.
                     'ORDER BY be_users.username',
                 'size' => 1,
                 'minitems' => 1,
