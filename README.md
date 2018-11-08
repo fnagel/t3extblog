@@ -1,25 +1,30 @@
-TYPO3 t3extblog
-===============
+# TYPO3 CMS extension `t3extblog`
 
-A flexible blog extension for TYPO3 CMS powered by Extbase / Fluid which aims to replace t3blog.
-
-
-Current state
--------------
-Stable - in production use but missing some features from the original extension.
+A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
 
 
-Idea & goals
-------------
-This extension aims to be an improved replacement for `EXT:t3blog`. It's based upon Extbase and Fluid.
+![Frontend: list view](./Documentation/Images/AdministratorManual/blogsystem.png)
+
+![Frontend: post detail -> comment setion](./Documentation/Images/Screenshots/comment.png)
+
+![Frontend: subscription manager](./Documentation/Images/AdministratorManual/subscription-manager.png)
+
+![Backend module: dashboard](./Documentation/Images/Screenshots/dashboard.png)
+
+
+## Idea & goals
+
+This extension is a (almost) fully featured, record based blog extension for TYPO3 CMS. 
+It's based upon Extbase and Fluid.
+
+This extension works as an improved replacement for the legacy extension `EXT:t3blog`.
 Easy data migration as a slightly modified SQL and TCA is used.
 
 This extension could (but should probably not) be used for starting a new blog with TYPO3.
 Keep in mind: TYPO3 is not a dedicated blogging platform.
 
 
-Features
---------
+## Features
 
 Please see [/Documentation/Introduction/Index.rst](Documentation/Introduction/Index.rst) for currently implemented features.
 Make sure to check out GitHub issues for bugs and missing features:
@@ -28,41 +33,38 @@ Make sure to check out GitHub issues for bugs and missing features:
 
 
 
-Documentation
--------------
+## Documentation
 
 See [/Documentation](Documentation) (latest) directory or [online](http://docs.typo3.org/typo3cms/extensions/t3extblog/) (latest TER)
 
 
-Installation
-------------
+## Installation
 
-Please see [/Documentation/Installation/Index.rst](Documentation/Installation/Index.rst) for installation and 
-[/Documentation/ReplaceT3Blog/Index.rst](Documentation/ReplaceT3Blog/Index.rst) for migration from EXT:t3blog.
+Please see [/Documentation/Installation/Index.rst](Documentation/Installation/Index.rst) for installation.
 
-For TYPO3 7.x use the [3.x branch](https://github.com/fnagel/t3extblog/tree/3.x).
-For TYPO3 6.x use the [2.x branch](https://github.com/fnagel/t3extblog/tree/2.x).
+The extension is available within the [TYPO3 TER](https://extensions.typo3.org/extension/t3extblog/) 
+or using [composer with packagist](https://packagist.org/packages/felixnagel/t3extblog).
 
-
-Todo & Known bugs
------------------
-
-Please see Github Issues: [github.com/fnagel/t3extblog/issues](https://github.com/fnagel/t3extblog/issues)
+* For TYPO3 7.x use the [3.x branch](https://github.com/fnagel/t3extblog/tree/3.x).
+* For TYPO3 6.x use the [2.x branch](https://github.com/fnagel/t3extblog/tree/2.x).
+* For migration from EXT:t3blog See migration [migration guide](Documentation/ReplaceT3Blog/Index.rst).
 
 
-Changelog
----------
+## Todo & Known bugs
+
+Please see Github: [github.com/fnagel/t3extblog/issues](https://github.com/fnagel/t3extblog/issues)
+
+
+## Changelog
 
 Please see Github: [github.com/fnagel/t3extblog/commits](https://github.com/fnagel/t3extblog/commits)
 
 
-Contribution
-------------
+## Contribution
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 
-Donation
---------
+## Donation
 
 Please consider a donation: [www.felixnagel.com/donate/](http://www.felixnagel.com/donate/)
