@@ -1,6 +1,6 @@
 {
   "name": "felixnagel/t3extblog",
-  "description": "A flexible blog extension powered by Extbase / Fluid which aims to replace t3blog.",
+  "description": "A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!",
   "type": "typo3-cms-extension",
   "keywords": ["TYPO3 CMS", "blog"],
   "homepage": "https://github.com/fnagel/t3extblog",

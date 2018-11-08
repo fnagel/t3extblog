@@ -9,7 +9,7 @@
 What does it do?
 ================
 
-A flexible blog extension for TYPO3 CMS powered by Extbase / Fluid which aims to replace t3blog.
+A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
 
 
 Currently implemented features:
@@ -37,6 +37,7 @@ Currently implemented features:
 * Link validator support
 * Using Pootle translation server (translation.typo3.org)
 * A few unit tests
+* Using interfaces and signal / slot for easy extending
 
 .. tip::
 
