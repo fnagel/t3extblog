@@ -352,6 +352,11 @@ Link the previous / next article in the detais-view of a post. The following lin
 TYPO3 CMS legacy support
 ------------------------
 
+Version 7.x
+^^^^^^^^^^^
+
+Version 3.0.0 of this extension supports TYPO3 7 LTS. See this branch: https://github.com/fnagel/t3extblog/tree/3.x
+
 Version 6.0 - 6.2
 ^^^^^^^^^^^^^^^^^
 
