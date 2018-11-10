@@ -5,37 +5,9 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function ($packageKey) {
-    // Add static TS
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey,
-        'Configuration/TypoScript',
-        'T3Extblog: Default setup (needed)'
-    );
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey,
-        'Configuration/TypoScript/Rss',
-        'T3Extblog: Rss setup'
-    );
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $packageKey,
-        'Configuration/TypoScript/RealUrl',
-        'T3Extblog: additional RealUrl config'
-    );
-
-    // Add page TS config
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/Page.ts">'
-    );
-
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_post');
-
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_cat');
-
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('tx_t3blog_com');
-
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com_nl');
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_blog_nl');
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_pingback');

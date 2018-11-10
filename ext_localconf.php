@@ -4,6 +4,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+// Add page TS config
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/Page.ts">'
+);
+
 // Plugins
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
