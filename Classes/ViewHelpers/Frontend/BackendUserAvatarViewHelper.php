@@ -26,35 +26,50 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use TYPO3\CMS\Backend\Backend\Avatar\AvatarProviderInterface;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Get avatar for backend user.
- *
- * This VH does work for TYPO3 >= 7.5 only
  */
 class BackendUserAvatarViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
+
+    /**
+     * Arguments initialization.
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('uid', 'string', 'Uid of the backend user');
+        $this->registerArgument('size', 'int', 'Width of the avatar image');
+        $this->registerArgument('default', 'string', 'Default image');
+    }
+
     /**
      * Render the avatar image.
      *
-     * @param int $uid
-     * @param int $size
-     * @param string $default
-     *
-     * @return string The image URL
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return string
      */
-    public function render($uid, $size = 32, $default = null)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $url = $this->getAvatarUrl($uid, $size);
+        $uid = $arguments['uid'];
+        $size = $arguments['size'];
+        $default = $arguments['default'];
+        $url = self::getAvatarUrl($uid, $size);
 
         if ($url !== null) {
             return $url;
         }
 
-        return $this->noAvatarFound($default);
+        return self::noAvatarFound($default);
     }
 
     /**
@@ -65,11 +80,11 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
      *
      * @return string|null
      */
-    protected function getAvatarUrl($uid, $size)
+    protected static function getAvatarUrl($uid, $size)
     {
-        $backendUser = $this->getDatabase()->exec_SELECTgetSingleRow('*', 'be_users', 'uid='.(int) $uid);
+        $backendUser = BackendUtility::getRecord('be_users', (int) $uid);
 
-        foreach ($this->getAvatarProviders() as $provider) {
+        foreach (self::getAvatarProviders() as $provider) {
             /* @var $provider AvatarProviderInterface */
             $avatarImage = $provider->getImage($backendUser, $size);
 
@@ -83,10 +98,8 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 
     /**
      * Taken from \TYPO3\CMS\Backend\Backend\Avatar\Avatar::validateSortAndInitiateAvatarProviders
-     *
-     * @throws \RuntimeException
      */
-    protected function getAvatarProviders()
+    protected static function getAvatarProviders()
     {
         $avatarProviders = [];
         $providers = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders'];
@@ -108,22 +121,12 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    protected function noAvatarFound($default = null)
+    protected static function noAvatarFound($default = null)
     {
         if ($default === null || strlen(trim($default)) < 10) {
             $default = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         }
 
         return $default;
-    }
-
-    /**
-     * Get database connection.
-     *
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected function getDatabase()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }
