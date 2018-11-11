@@ -27,6 +27,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  ***************************************************************/
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * PostSubscriber.
@@ -37,7 +38,7 @@ class PostSubscriber extends AbstractSubscriber
      * name.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
      */
     protected $name;
 
@@ -45,7 +46,7 @@ class PostSubscriber extends AbstractSubscriber
      * postUid.
      *
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
      */
     protected $postUid;
 

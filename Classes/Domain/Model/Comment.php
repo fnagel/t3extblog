@@ -26,6 +26,8 @@ namespace FelixNagel\T3extblog\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+
 /**
  * Comment.
  */
@@ -44,7 +46,7 @@ class Comment extends AbstractEntity
     /**
      * title.
      *
-     * @TYPO3\CMS\Extbase\Annotation\Validate Text
+     * @Extbase\Validate("Text")
      *
      * @var string
      */
@@ -53,8 +55,8 @@ class Comment extends AbstractEntity
     /**
      * author.
      *
-     * @TYPO3\CMS\Extbase\Annotation\Validate Text
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("Text")
      *
      * @var string
      */
@@ -64,8 +66,8 @@ class Comment extends AbstractEntity
      * email.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
-     * @TYPO3\CMS\Extbase\Annotation\Validate EmailAddress
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("EmailAddress")
      */
     protected $email;
 
@@ -73,7 +75,7 @@ class Comment extends AbstractEntity
      * website.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate \FelixNagel\T3extblog\Validation\Validator\UrlValidator
+     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\UrlValidator")
      */
     protected $website;
 
@@ -88,7 +90,7 @@ class Comment extends AbstractEntity
      * text.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
      */
     protected $text;
 

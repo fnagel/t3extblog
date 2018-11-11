@@ -27,6 +27,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * AbstractSubscriber.
@@ -47,8 +48,8 @@ abstract class AbstractSubscriber extends AbstractEntity
      * email.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
-     * @TYPO3\CMS\Extbase\Annotation\Validate EmailAddress
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("EmailAddress")
      */
     protected $email;
 

@@ -29,7 +29,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * Post.
@@ -50,7 +50,7 @@ class Post extends AbstractLocalizedEntity
      * title.
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
      */
     protected $title;
 
@@ -65,7 +65,7 @@ class Post extends AbstractLocalizedEntity
      * publishDate.
      *
      * @var \DateTime
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @Extbase\Validate("NotEmpty")
      */
     protected $publishDate;
 
