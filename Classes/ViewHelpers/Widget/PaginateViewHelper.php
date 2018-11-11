@@ -26,43 +26,12 @@ namespace FelixNagel\T3extblog\ViewHelpers\Widget;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper;
+use TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper as BasePaginateViewHelper;
 
 /**
  * PaginateViewHelper.
  */
-class PaginateViewHelper extends AbstractWidgetViewHelper
+class PaginateViewHelper extends BasePaginateViewHelper
 {
-    /**
-     * @var \FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController
-     */
-    protected $controller;
 
-    /**
-     * @param \FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller
-     */
-    public function injectPaginateController(\FelixNagel\T3extblog\ViewHelpers\Widget\Controller\PaginateController $controller)
-    {
-        $this->controller = $controller;
-    }
-
-    /**
-     * @param mixed  $objects
-     * @param string $as
-     * @param array  $configuration
-     *
-     * @return string
-     *
-     * @throws \UnexpectedValueException
-     */
-    public function render($objects, $as, array $configuration = ['itemsPerPage' => 10, 'insertAbove' => false, 'insertBelow' => true, 'maximumNumberOfLinks' => 99])
-    {
-        if (!($objects instanceof QueryResultInterface || $objects instanceof ObjectStorage || is_array($objects))) {
-            throw new \UnexpectedValueException('Supplied file object type '.get_class($objects).' must be QueryResultInterface or ObjectStorage or be an array.', 1454510731);
-        }
-
-        return $this->initiateSubRequest();
-    }
 }
