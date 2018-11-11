@@ -62,7 +62,7 @@ class BlogSubscriberFormController extends AbstractController
      * action new.
      *
      * @param BlogSubscriber $subscriber
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $subscriber
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
      */
     public function newAction(BlogSubscriber $subscriber = null)
     {
