@@ -11,11 +11,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ext_update
 {
     /**
-     * The TYPO3_DB database connection.
+     * The database connection.
      *
-     * @var \TYPO3\CMS\Dbal\Database\DatabaseConnection|\TYPO3\CMS\Core\Database\DatabaseConnection
+     * @var \TYPO3\CMS\Core\Database\ConnectionPool
      */
-    protected $database;
+    protected $connectionPool;
 
     /**
      * Array of flash messages (params) array[][status,title,message].
@@ -47,7 +47,9 @@ class ext_update
      */
     public function __construct()
     {
-        $this->database = $GLOBALS['TYPO3_DB'];
+        $this->connectionPool =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Database\ConnectionPool::class
+        );
     }
 
     /**
@@ -93,8 +95,25 @@ class ext_update
      */
     protected function findCommentRecordsForUrlValidation()
     {
-        $where = 'website != "" AND NOT (website LIKE "http%" OR website LIKE "https%")';
-        $rows = $this->database->exec_SELECTgetRows('*', 'tx_t3blog_com', $where);
+        $table = 'tx_t3blog_com';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->neq('website', $queryBuilder->createNamedParameter('')),
+                $queryBuilder->expr()->notLike(
+                    'website',
+                    $queryBuilder->createNamedParameter('http%')
+                ),
+                $queryBuilder->expr()->notLike(
+                    'website',
+                    $queryBuilder->createNamedParameter('https%')
+                )
+            );
+
+        $rows = $queryBuilder->execute()->fetchAll();
 
         if (count($rows) === 0) {
             $message = 'All comment URLs look valid. Good job!';
@@ -141,9 +160,17 @@ class ext_update
      */
     protected function updatePostRecordsForMailsSent()
     {
-        $this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', ['mails_sent' => 1]);
+        $table = 'tx_t3blog_post';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $count = $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->isNull('mails_sent')
+            )
+            ->set('mails_sent', 1)
+            ->execute();
 
-        $message = $this->database->sql_affected_rows() . ' posts have been updated';
+        $message = $count . ' posts have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
     }
 
@@ -171,9 +198,17 @@ class ext_update
      */
     protected function updateCommentRecordsForMailsSent()
     {
-        $this->database->exec_UPDATEquery('tx_t3blog_com', 'mails_sent IS NULL', ['mails_sent' => 1]);
+        $table = 'tx_t3blog_com';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $count = $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->isNull('mails_sent')
+            )
+            ->set('mails_sent', 1)
+            ->execute();
 
-        $message = $this->database->sql_affected_rows().' comments have been updated';
+        $message = $count.' comments have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Comments updated', $message];
     }
 
@@ -197,8 +232,20 @@ class ext_update
      */
     protected function findCommentAuthorOrEmailInvalid()
     {
-        $where = 'author = "" OR email = ""';
-        $rows = $this->database->exec_SELECTgetRows('*', 'tx_t3blog_com', $where);
+        $table = 'tx_t3blog_com';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('author', $queryBuilder->createNamedParameter('')),
+                    $queryBuilder->expr()->eq('email', $queryBuilder->createNamedParameter(''))
+                )
+            );
+
+        $rows = $queryBuilder->execute()->fetchAll();
 
         if (count($rows) === 0) {
             $message = 'All comment records look valid. Good job!';
@@ -243,7 +290,10 @@ class ext_update
      */
     protected function isFieldAvailable($table, $field)
     {
-        return array_key_exists($field, $this->database->admin_get_fields($table));
+        return array_key_exists(
+            $field,
+            $this->connectionPool->getConnectionForTable($table)->getSchemaManager()->listTableColumns($table)
+        );
     }
 
     /**
@@ -253,7 +303,6 @@ class ext_update
      */
     protected function generateMessages()
     {
-        $output = '';
         $flashMessages = [];
 
         foreach ($this->messageArray as $messageItem) {
