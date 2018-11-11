@@ -168,7 +168,7 @@ class PostRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->like('tagCloud', '%'.$this->getDatabase()->escapeStrForLike($tag, 'tx_t3blog_post').'%')
+            $query->like('tagCloud', '%'.$this->escapeStrForLike($tag).'%')
         );
 
         return $query->execute();

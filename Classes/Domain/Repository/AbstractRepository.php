@@ -26,6 +26,8 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -73,12 +75,43 @@ class AbstractRepository extends Repository
     }
 
     /**
-     * Get database connection
-     *
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @param QueryInterface|null $query
+     * @return string
      */
-    protected function getDatabase()
+    protected function getTableName(QueryInterface $query = null)
     {
-        return $GLOBALS['TYPO3_DB'];
+        if (empty($query)) {
+            $query = $this->createQuery();
+        }
+
+        return $this->getTableNameByClass($query->getType());
+    }
+
+    /**
+     * @param string $object
+     * @return string
+     */
+    protected function getTableNameByClass($object)
+    {
+        return $this->objectManager->get(DataMapper::class)->convertClassNameToTableName($object);
+    }
+
+    /**
+     * @param string $value
+     * @param string $table
+     * @return string
+     */
+    protected function escapeStrForLike($value, $table = null)
+    {
+        if ($table === null) {
+            $table = $this->getTableName();
+        }
+
+        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Database\ConnectionPool::class
+            )
+            ->getQueryBuilderForTable($table);
+
+        return $queryBuilder->escapeLikeWildcards($value);
     }
 }
