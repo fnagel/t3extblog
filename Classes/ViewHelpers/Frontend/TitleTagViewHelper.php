@@ -27,26 +27,43 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use FelixNagel\T3extblog\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ViewHelper to render the page title.
  */
 class TitleTagViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
+
+    /**
+     * @inheritdoc
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('prepend', 'string', 'Uid of the backend user');
+        $this->registerArgument('searchTitle', 'int', 'Width of the avatar image');
+    }
+
     /**
      * Override the title tag.
      *
-     * @param bool   $prepend
-     * @param string $searchTitle
+     * @todo Make use of new SEO API
+     *
+     * @inheritdoc
      */
-    public function render($prepend = true, $searchTitle = null)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        $prepend = $arguments['prepend'];
+        $searchTitle = $arguments['searchTitle'];
+
         if (TYPO3_MODE === 'BE') {
             return;
         }
 
-        $content = $this->renderChildren();
+        $content = $renderChildrenClosure();
 
         if (empty($content) !== true) {
             if ($prepend === true) {

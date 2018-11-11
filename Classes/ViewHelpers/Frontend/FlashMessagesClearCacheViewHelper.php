@@ -25,7 +25,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 
 /**
@@ -42,10 +42,7 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
 class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
 {
     /**
-     * Initialize arguments
-     *
-     * @return void
-     * @api
+     * @inheritdoc
      */
     public function initializeArguments()
     {
@@ -63,7 +60,7 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
     public function render()
     {
         $queueIdentifier = isset($this->arguments['queueIdentifier']) ? $this->arguments['queueIdentifier'] : null;
-        $flashMessages = $this->controllerContext->getFlashMessageQueue($queueIdentifier)->getAllMessages();
+        $flashMessages = $this->renderingContext->getControllerContext()->getFlashMessageQueue($queueIdentifier)->getAllMessages();
 
         if (count($flashMessages) > 0) {
             GeneralUtility::disableFrontendCache();

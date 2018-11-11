@@ -27,7 +27,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use FelixNagel\T3extblog\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper to render <head> data

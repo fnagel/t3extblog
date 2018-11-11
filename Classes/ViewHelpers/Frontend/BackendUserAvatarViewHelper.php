@@ -41,7 +41,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     use CompileWithRenderStatic;
 
     /**
-     * Arguments initialization.
+     * @inheritdoc
      */
     public function initializeArguments()
     {
@@ -53,10 +53,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     /**
      * Render the avatar image.
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
+     * @inheritdoc
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {

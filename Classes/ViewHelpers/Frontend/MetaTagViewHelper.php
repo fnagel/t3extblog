@@ -15,9 +15,9 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper to render meta tags.
@@ -55,15 +55,22 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         $this->registerTagAttribute('property', 'string', 'Property of meta tag');
         $this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
         $this->registerTagAttribute('content', 'string', 'Content of meta tag');
+        $this->registerTagAttribute('useCurrentDomain', 'bool', 'If set, current domain is used');
+        $this->registerTagAttribute('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced');
     }
+
     /**
      * Renders a meta tag.
      *
-     * @param bool $useCurrentDomain If set, current domain is used
-     * @param bool $forceAbsoluteUrl If set, absolute url is forced
+     * @todo Make use of new SEO API
+     *
+     * @inheritdoc
      */
-    public function render($useCurrentDomain = false, $forceAbsoluteUrl = false)
+    public function render()
     {
+        $useCurrentDomain = $this->arguments['useCurrentDomain'];
+        $forceAbsoluteUrl = $this->arguments['forceAbsoluteUrl'];
+
         // set current domain
         if ($useCurrentDomain) {
             $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));

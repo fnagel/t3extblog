@@ -28,7 +28,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use FelixNagel\T3extblog\Domain\Model\AbstractLocalizedEntity;
 
 /**

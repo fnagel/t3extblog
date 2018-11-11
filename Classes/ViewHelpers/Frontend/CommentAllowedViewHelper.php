@@ -26,8 +26,9 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  ***************************************************************/
 
 use FelixNagel\T3extblog\Utility\GeneralUtility;
-use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * ViewHelper.
@@ -52,21 +53,17 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
     /**
      * Check if a new comment is allowed.
      *
-     * @return string
+     * @inheritdoc
      */
-    public function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $this->arguments['settings'] = $this->templateVariableContainer->get('settings');
+        $arguments['settings'] = $renderingContext->getVariableProvider()->get('settings');
 
-        return parent::render();
+        return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
     }
 
     /**
-     * This method decides if the condition is TRUE or FALSE.
-     *
-     * @param array $arguments ViewHelper arguments to evaluate the condition
-     *
-     * @return bool
+     * @inheritdoc
      */
     protected static function evaluateCondition($arguments = null)
     {

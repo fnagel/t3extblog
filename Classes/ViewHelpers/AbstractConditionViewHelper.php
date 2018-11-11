@@ -26,7 +26,7 @@ namespace FelixNagel\T3extblog\ViewHelpers;
  ***************************************************************/
 
 use FelixNagel\T3extblog\Traits\DisableCompilerConditionViewHelperTrait;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractConditionViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper as BaseAbstractConditionViewHelper;
 
 /**
  * Base for condition VH.
