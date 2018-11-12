@@ -30,6 +30,9 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Container\Container;
@@ -189,7 +192,7 @@ class Tcemain
             'tx_t3blog_com' => $this->getDeleteArrayForTable($id, 'tx_t3blog_com', 'fk_post'),
             'tx_t3blog_com_nl' => $this->getDeleteArrayForTable($id, 'tx_t3blog_com_nl', 'post_uid'),
             'tx_t3blog_trackback' => $this->getDeleteArrayForTable($id, 'tx_t3blog_trackback', 'postid'),
-            'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid', ' AND irre_parenttable=\'tx_t3blog_post\''),
+            'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid'),
         ];
 
         /* @var $tceMain DataHandler */
@@ -200,20 +203,42 @@ class Tcemain
     }
 
     /**
-     * @param int    $postId
+     * @param int $postId
      * @param string $tableName
      * @param string $fieldName
-     * @param string $extraWhere
      *
      * @return array
      */
-    protected function getDeleteArrayForTable($postId, $tableName, $fieldName, $extraWhere = '')
+    protected function getDeleteArrayForTable($postId, $tableName, $fieldName)
     {
         $command = [];
-        $where = $fieldName.'='.$postId.BackendUtility::deleteClause($tableName).$extraWhere;
 
-        $data = $this->getDatabase()->exec_SELECTgetRows('uid', $tableName, $where);
-        foreach ($data as $record) {
+        $connectionPool =  GeneralUtility::makeInstance(ConnectionPool::class);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
+        $queryBuilder
+            ->getRestrictions()
+            ->removeAll()
+            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+
+        $constraints = [
+            $queryBuilder->expr()->eq($fieldName, $queryBuilder->createNamedParameter($postId, \PDO::PARAM_INT))
+        ];
+
+        if ($tableName = 'tt_content') {
+            $constraints[] = $queryBuilder->expr()->eq(
+                'irre_parenttable',
+                $queryBuilder->createNamedParameter('tx_t3blog_post')
+            );
+        }
+
+        $queryBuilder
+            ->select('uid')
+            ->from($tableName)
+            ->where(new CompositeExpression(CompositeExpression::TYPE_AND, $constraints));
+
+        $rows = $queryBuilder->execute()->fetchAll();
+
+        foreach ($rows as $record) {
             $command[$record['uid']]['delete'] = 1;
         }
 
@@ -369,15 +394,5 @@ class Tcemain
         }
 
         return false;
-    }
-
-    /**
-     * Get database connection.
-     *
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected function getDatabase()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }
