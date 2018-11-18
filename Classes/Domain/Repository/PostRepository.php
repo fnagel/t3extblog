@@ -194,7 +194,7 @@ class PostRepository extends AbstractRepository
 
         $categories = $category->getChildCategories();
 
-        if (count($categories) > 0) {
+        if (!is_null($categories) && count($categories) > 0) {
             foreach ($categories as $childCategory) {
                 $constraints[] = $query->contains('categories', $childCategory);
             }
