@@ -27,19 +27,24 @@ namespace FelixNagel\T3extblog\Updates;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
 /**
  * FAL Update Wizard.
  */
-class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
+class PreviewUpdateWizard extends AbstractUpdate
 {
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     * The database connection.
+     *
+     * @var ConnectionPool
      */
-    protected $databaseConnection;
+    protected $connectionPool;
 
     /**
      * @var array
@@ -61,7 +66,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     public function __construct()
     {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->connectionPool =  GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     /**
@@ -95,9 +100,9 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
 
         if (count($notMigratedRows) > 0) {
             $updateNeeded = true;
-            $description = 'There are <strong>'.count($notMigratedRows).'</strong> post records with '.
+            $description = 'There are '.count($notMigratedRows).' post records with '.
                 'a ###MORE### marker within the related content elements. This Wizard will remove this marker and '.
-                'use the prefixing text as new preview text. When a <em>textpic</em> or <em>image</em> content element '.
+                'use the prefixing text as new preview text. When a textpic or image content element '.
                 'has been found before the marker, the first of its images will be used as new preview image.';
         }
 
@@ -124,7 +129,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
             }
         }
 
-        $customMessages = '<br /><strong>'.count($notMigratedRows).'</strong> posts with ###MORE### marker have been migrated.';
+        $customMessages = count($notMigratedRows).' posts with ###MORE### marker have been migrated.';
         $dbQueries = $this->databaseQueries;
 
         $this->markWizardAsDone();
@@ -180,12 +185,20 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     protected function updateContentRecord($contentRecord)
     {
-        $this->databaseConnection->exec_UPDATEquery(
-            'tt_content',
-            'uid = '.(int) $contentRecord['uid'],
-            ['bodytext' => str_replace('###MORE###', '', $contentRecord['bodytext'])]
-        );
-        $this->logDatabaseExec();
+        $table = 'tt_content';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter((int) $contentRecord['uid'], \PDO::PARAM_INT)
+                )
+            )
+            ->set('bodytext', str_replace('###MORE###', '', $contentRecord['bodytext']))
+            ->execute();
+
+        $this->logDatabaseExec($queryBuilder->getSql());
     }
 
     /**
@@ -197,27 +210,40 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     protected function updatePostRecord($postRecord, $textBeforeDivider, $firstImageRecord)
     {
-        $data = ['preview_text' => $textBeforeDivider];
-
+        $hasPreviewImage = false;
         if ($firstImageRecord !== null) {
             $fileObjectArray = $this->getFileRepository()->findByRelation('tt_content', 'image', $firstImageRecord['uid']);
 
             if (is_array($fileObjectArray) && count($fileObjectArray) > 0) {
                 // Get the first file
                 $fileObject = reset($fileObjectArray);
-                $data['preview_image'] = 1;
+                $hasPreviewImage = true;
 
                 $this->createPostSysFileReference($fileObject, $postRecord);
             }
         }
 
         // Update post
-        $this->databaseConnection->exec_UPDATEquery(
-            'tx_t3blog_post',
-            'uid='.(int) $postRecord['uid'].$this->getNonPreviewWhereClause(),
-            $data
-        );
-        $this->logDatabaseExec();
+        $table = 'tx_t3blog_post';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter((int) $postRecord['uid'], \PDO::PARAM_INT)
+                ),
+                $this->getNonPreviewWhereClause($queryBuilder)
+            );
+
+        $queryBuilder->set('preview_text', $textBeforeDivider);
+        if ($hasPreviewImage === true) {
+            $queryBuilder->set('preview_image', 1);
+        }
+
+        $queryBuilder->execute();
+
+        $this->logDatabaseExec($queryBuilder->getSql());
     }
 
     /**
@@ -244,8 +270,14 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
             'pid' => $postRecord['pid'],
         ];
 
-        $this->databaseConnection->exec_INSERTquery('sys_file_reference', $dataArray);
-        $this->logDatabaseExec();
+        $table = 'sys_file_reference';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder
+            ->insert($table)
+            ->values($dataArray)
+            ->execute();
+
+        $this->logDatabaseExec($queryBuilder->getSql());
     }
 
     /**
@@ -257,15 +289,34 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     protected function getAllTextPicContentElementsByPost($postUid)
     {
-        $select = 'uid, bodytext, CType, image';
         $table = 'tt_content';
-        $where = 'irre_parentid = '.$postUid.' AND irre_parenttable = "tx_t3blog_post"';
-        $where .= ' AND ( CType = "text" OR CType = "textpic" OR CType = "image" )';
-        $data = $this->databaseConnection->exec_SELECTgetRows($select, $table, $where, '', 'sorting');
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder
+            ->select('uid', 'bodytext', 'CType', 'image')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'irre_parentid',
+                    $queryBuilder->createNamedParameter((int) $postUid, \PDO::PARAM_INT)
+                ),
+                $queryBuilder->expr()->eq(
+                    'irre_parenttable',
+                    $queryBuilder->createNamedParameter('tx_t3blog_post')
+                ),
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('text')),
+                    $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('textpic')),
+                    $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('image'))
+                )
+            )
+            ->orderBy('sorting');
 
-        $this->logDatabaseExec();
+        $rows = $queryBuilder->execute()->fetchAll();
 
-        return $data;
+        $this->logDatabaseExec($queryBuilder->getSql());
+
+        return $rows;
     }
 
     /**
@@ -275,24 +326,40 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     protected function getPostsWithContentElementsAndWithoutPreview()
     {
-        $data = $this->databaseConnection->exec_SELECTgetRows(
-            'uid, pid, content',
-            'tx_t3blog_post',
-            'content > 0'.$this->getNonPreviewWhereClause()
-        );
-        $this->logDatabaseExec();
+        $table = 'tx_t3blog_post';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder
+            ->select('uid', 'pid', 'content')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->gt('content', 0),
+                $this->getNonPreviewWhereClause($queryBuilder)
+            );
 
-        return $data;
+        $rows = $queryBuilder->execute()->fetchAll();
+
+        $this->logDatabaseExec($queryBuilder->getSql());
+
+        return $rows;
     }
 
     /**
      * Gets where clause for old posts (= without preview image or text).
      *
+     * @param QueryBuilder $queryBuilder
+     *
      * @return string
      */
-    protected function getNonPreviewWhereClause()
+    protected function getNonPreviewWhereClause(QueryBuilder $queryBuilder)
     {
-        return ' AND preview_text IS NULL AND preview_image = 0';
+        return $queryBuilder->expr()->andX(
+            $queryBuilder->expr()->isNull('preview_text'),
+            $queryBuilder->expr()->eq(
+                'preview_image',
+                $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)
+            )
+        );
     }
 
     /**
@@ -311,9 +378,11 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
 
     /**
      * Log DB usage.
+     *
+     * @param $string
      */
-    protected function logDatabaseExec()
+    protected function logDatabaseExec($string)
     {
-        $this->databaseQueries[] = str_replace(chr(10), ' ', $this->databaseConnection->debug_lastBuiltQuery);
+        $this->databaseQueries[] = $string;
     }
 }
