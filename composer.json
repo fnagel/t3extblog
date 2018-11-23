@@ -38,7 +38,6 @@
     "dmitryd/typo3-realurl": ">=2.0.0,<=2.0.10"
   },
   "suggest": {
-    "dmitryd/typo3-dd-googlesitemap": "~2.0",
     "dmitryd/typo3-realurl": "~2.0"
   },
   "replace": {

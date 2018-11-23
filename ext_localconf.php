@@ -131,12 +131,6 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl')) {
         \FelixNagel\T3extblog\Hooks\RealUrl::class . '->extensionConfiguration';
 }
 
-// Support for dd_googlesitemap
-if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dd_googlesitemap')) {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['dd_googlesitemap']['sitemap']['t3extblog'] =
-        \FelixNagel\T3extblog\Hooks\Sitemap\Generator::class . '->main';
-}
-
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
 $requiredParameters = [
