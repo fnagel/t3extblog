@@ -27,6 +27,8 @@ namespace FelixNagel\T3extblog\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -95,6 +97,13 @@ class BackendBaseController extends ActionController
      * @var array
      */
     protected $pageInfo;
+
+    /**
+     * The database connection.
+     *
+     * @var ConnectionPool
+     */
+    protected $connectionPool;
 
     /**
      * Load and persist module data.
@@ -183,11 +192,15 @@ class BackendBaseController extends ActionController
     /**
      * Get database connection.
      *
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @return ConnectionPool
      */
-    protected function getDatabase()
+    protected function getDatabaseConnection()
     {
-        return $GLOBALS['TYPO3_DB'];
+        if ($this->connectionPool === null) {
+            $this->connectionPool =  GeneralUtility::makeInstance(ConnectionPool::class);
+        }
+
+        return $this->connectionPool;
     }
 
     /**
@@ -197,7 +210,7 @@ class BackendBaseController extends ActionController
     {
         $pages = array_merge_recursive(
             // Get pages with set module property
-            $this->execBlogPageRelatedQuery('pages', 'pages.module = "t3blog"'),
+            $this->getBlogModulePages(),
             // Split the join queries because otherwise the query is awful slow
             $this->getPagesWithBlogRecords(['tx_t3blog_post', 'tx_t3blog_com']),
             $this->getPagesWithBlogRecords(['tx_t3blog_com_nl', 'tx_t3blog_blog_nl'])
@@ -209,18 +222,23 @@ class BackendBaseController extends ActionController
     /**
      * Run query for getting page info.
      *
-     * @param string $table           Needs to be 'pages' or at least related (think of joins)
-     * @param string $additionalWhere
-     * @param string $groupBy
-     *
      * @return array
      */
-    protected function execBlogPageRelatedQuery($table, $additionalWhere = '', $groupBy = '')
+    protected function getBlogModulePages()
     {
-        $select = 'pages.uid, pages.title';
-        $where = 'pages.deleted = 0 AND '.$additionalWhere;
+        $table = 'pages';
+        $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()
+            ->removeAll()
+            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        $queryBuilder
+            ->select('uid', 'title')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog'))
+            );
 
-        return $this->getDatabase()->exec_SELECTgetRows($select, $table, $where, $groupBy);
+        return $queryBuilder->execute()->fetchAll();
     }
 
     /**
@@ -231,13 +249,30 @@ class BackendBaseController extends ActionController
     protected function getPagesWithBlogRecords($joinTables)
     {
         $table = 'pages';
-        $whereArray = [];
+        $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()
+            ->removeAll()
+            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        $queryBuilder
+            ->select($table . '.uid', $table . '.title')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog'))
+            )
+            ->groupBy($table.'.uid');
 
         foreach ($joinTables as $joinTable) {
-            $table .= ' LEFT JOIN '.$joinTable.' ON pages.uid = '.$joinTable.'.pid';
-            $whereArray[] = $joinTable.'.deleted = 0';
+            $queryBuilder->leftJoin(
+                $table,
+                $joinTable,
+                $joinTable,
+                $queryBuilder->expr()->eq(
+                    $table . '.uid',
+                    $queryBuilder->quoteIdentifier($joinTable . '.pid')
+                )
+            );
         }
 
-        return $this->execBlogPageRelatedQuery($table, '('.implode(' OR ', $whereArray).')', 'pages.uid');
+        return $queryBuilder->execute()->fetchAll();
     }
 }
