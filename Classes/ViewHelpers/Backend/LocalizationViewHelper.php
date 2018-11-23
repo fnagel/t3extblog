@@ -31,12 +31,16 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Show localized posts view helper.
  */
 class LocalizationViewHelper extends AbstractBackendViewHelper
 {
+    use CompileWithRenderStatic;
+
     /**
      * This view helper renders HTML, thus output must not be escaped
      *
@@ -47,33 +51,48 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     /**
      * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
      */
-    protected $translateTools;
+    protected static $translateTools;
 
     /**
      * Contains sys language icons and titles.
      *
      * @var array
      */
-    public $systemLanguages = [];
+    public static $systemLanguages = [];
 
     /**
-     * @param string $translations Name of the added variable
-     * @param string $table        Table to process
-     * @param object $object       Object to process
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function render($translations, $table, $object)
+    public function initializeArguments()
     {
-        $content = '';
-        $templateVariableContainer = $this->renderingContext->getTemplateVariableContainer();
+        parent::initializeArguments();
 
-        $this->systemLanguages = $this->getTranslateTools()->getSystemLanguages($object->getPid());
-        if (count($this->systemLanguages) > 2) {
-            $records = $this->getLocalizedRecords($table, $object->toArray());
+        $this->registerArgument('translations', 'string', 'Name of the added variable', true);
+        $this->registerArgument('table', 'string', 'Table to process', true);
+        $this->registerArgument('object', 'object', 'Object to process', true);
+    }
+
+    /**
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return mixed
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        $translations = $arguments['translations'];
+        $table = $arguments['table'];
+        $object = $arguments['object'];
+
+        $content = '';
+        $templateVariableContainer = $renderingContext->getVariableProvider();
+
+        self::$systemLanguages = self::getTranslateTools()->getSystemLanguages($object->getPid());
+        if (count(self::$systemLanguages) > 2) {
+            $records = self::getLocalizedRecords($table, $object->toArray());
 
             $templateVariableContainer->add($translations, $records);
-            $content = $this->renderChildren();
+            $content = $renderChildrenClosure();
             $templateVariableContainer->remove($translations);
         }
 
@@ -88,10 +107,10 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      *
      * @return array
      */
-    public function getLocalizedRecords($table, $row)
+    public static function getLocalizedRecords($table, $row)
     {
         $records = [];
-        $translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
+        $translations = self::$translateTools->translationInfo($table, $row['uid'], 0, $row);
 
         if (is_array($translations) && is_array($translations['translations'])) {
             foreach ($translations['translations'] as $sysLanguageUid => $translationData) {
@@ -101,7 +120,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
 
                 if (isset($translations['translations'][$sysLanguageUid])) {
                     $records[$sysLanguageUid] = [
-                        'editIcon' => $this->getLanguageIconLink(
+                        'editIcon' => self::getLanguageIconLink(
                             $sysLanguageUid,
                             BackendUtility::editOnClick('&edit['.$table.']['.$translationData['uid'].']=edit'),
                             $translationData['uid']
@@ -115,16 +134,16 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         return $records;
     }
 
-    protected function getLanguageIconLink($sysLanguageUid, $onclick, $uid)
+    protected static function getLanguageIconLink($sysLanguageUid, $onclick, $uid)
     {
         $language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
-        if ($this->systemLanguages[$sysLanguageUid]['flagIcon']) {
+        if (self::$systemLanguages[$sysLanguageUid]['flagIcon']) {
             /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-            $icon = $iconFactory->getIcon($this->systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
+            $icon = $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
         } else {
-            $icon = $this->systemLanguages[$sysLanguageUid]['title'];
+            $icon = self::$systemLanguages[$sysLanguageUid]['title'];
         }
 
         return '<a href="" onclick="'.htmlspecialchars($onclick).'" title="'.$uid.', '.
@@ -136,12 +155,12 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      *
      * @return TranslationConfigurationProvider
      */
-    protected function getTranslateTools()
+    protected static function getTranslateTools()
     {
-        if (!isset($this->translateTools)) {
-            $this->translateTools = GeneralUtility::makeInstance(TranslationConfigurationProvider::class);
+        if (!isset(self::$translateTools)) {
+            self::$translateTools = GeneralUtility::makeInstance(TranslationConfigurationProvider::class);
         }
 
-        return $this->translateTools;
+        return self::$translateTools;
     }
 }

@@ -47,17 +47,28 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
     protected $escapeOutput = false;
 
     /**
+     * @inheritdoc
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('table', 'string', 'Database table', true);
+        $this->registerArgument('object', 'object', 'Object', true);
+    }
+
+    /**
      * Displays spriteIcon for database table and object.
-     *
-     * @param string $table
-     * @param object $object
      *
      * @return string
      *
      * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
      */
-    public function render($table, $object)
+    public function render()
     {
+        $table = $this->arguments['table'];
+        $object = $this->arguments['object'];
+
         if (!is_object($object) || !method_exists($object, 'getUid')) {
             return '';
         }

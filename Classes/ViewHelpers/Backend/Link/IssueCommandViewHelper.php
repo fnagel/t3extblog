@@ -28,7 +28,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend\Link;
  ***************************************************************/
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -46,7 +46,11 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
      */
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerUniversalTagAttributes();
+
+        $this->registerArgument('parameters', 'string', 'Link parameters', true);
+        $this->registerArgument('redirectUrl', 'string', 'Redirect URL', false, '');
     }
 
     /**
@@ -54,13 +58,13 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
      *
      * @see DocumentTemplate::issueCommand()
      *
-     * @param string     $parameters
-     * @param string|int $redirectUrl
-     *
      * @return string
      */
-    public function render($parameters, $redirectUrl = '')
+    public function render()
     {
+        $parameters = $this->arguments['parameters'];
+        $redirectUrl = $this->arguments['redirectUrl'];
+
         // Needed in 7.x and 8.x
         $parameters = '&id='.intval(GeneralUtility::_GP('id')).'&'.$parameters;
         $href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);

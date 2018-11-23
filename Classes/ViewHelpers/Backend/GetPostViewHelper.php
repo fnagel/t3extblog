@@ -42,13 +42,24 @@ class GetPostViewHelper extends AbstractBackendViewHelper
     protected $postRepository = null;
 
     /**
-     * @param int  $uid
-     * @param bool $respectEnableFields if set to false, hidden records are shown
-     *
+     * @inheritdoc
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('uid', 'int', 'UID of the post', false, null);
+        $this->registerArgument('respectEnableFields', 'bool', 'If set to false, hidden records are shown', false, true);
+    }
+
+    /**
      * @return string
      */
-    public function render($uid = null, $respectEnableFields = true)
+    public function render()
     {
+        $uid = $this->arguments['uid'];
+        $respectEnableFields = $this->arguments['respectEnableFields'];
+
         if ($uid === null) {
             $uid = $this->renderChildren();
         }

@@ -34,13 +34,24 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 class RecordTitleViewHelper extends AbstractBackendViewHelper
 {
     /**
-     * @param string $table
-     * @param int    $uid
-     *
+     * Arguments initialization.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('table', 'string', 'Table name', true);
+        $this->registerArgument('uid', 'int', 'Record UID', true);
+    }
+
+    /**
      * @return string
      */
-    public function render($table, $uid)
+    public function render()
     {
+        $table = $this->arguments['table'];
+        $uid = $this->arguments['uid'];
+
         $row = BackendUtility::getRecord($table, (int) $uid);
 
         return BackendUtility::getRecordTitle($table, $row);

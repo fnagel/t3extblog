@@ -21,12 +21,12 @@
 	<f:if condition="{post.hidden}">
 		<f:then>
 			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0" title="{f:translate(key: 'module.post.help.hide.0')}">
-				<t3b:spriteManagerIcon iconName="actions-edit-unhide" options="{title: 'Unhide'}" />
+				<t3b:spriteManagerIcon iconName="actions-edit-unhide" />
 			</t3b:link.issueCommand>
 		</f:then>
 		<f:else>
 			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1" title="{f:translate(key: 'module.post.help.hide.1')}">
-				<t3b:spriteManagerIcon iconName="actions-edit-hide" options="{title: 'Hide'}" />
+				<t3b:spriteManagerIcon iconName="actions-edit-hide" />
 			</t3b:link.issueCommand>
 		</f:else>
 	</f:if>
@@ -34,7 +34,7 @@
 	<t3b:link.issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1"
 		title="{f:translate(key: 'module.post.help.delete')}"
 	 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
-		<t3b:spriteManagerIcon iconName="actions-edit-delete" options="{title: 'Delete'}" />
+		<t3b:spriteManagerIcon iconName="actions-edit-delete" />
 	</t3b:link.issueCommand>
 </td>
 

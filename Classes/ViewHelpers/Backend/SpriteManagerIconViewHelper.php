@@ -46,15 +46,24 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
     protected $escapeOutput = false;
 
     /**
+     * @inheritdoc
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('iconName', 'string', 'Name of the icon', true);
+    }
+
+    /**
      * Prints sprite icon html for $iconName key.
-     *
-     * @param string $iconName
-     * @param array  $options
      *
      * @return string
      */
-    public function render($iconName, $options = [])
+    public function render()
     {
+        $iconName = $this->arguments['iconName'];
+
         /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
         $icon = $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
