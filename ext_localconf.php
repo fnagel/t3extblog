@@ -121,7 +121,7 @@ if (TYPO3_MODE == 'BE') {
         \FelixNagel\T3extblog\Hooks\Tcemain::class;
 
     // Install Tool Upgrade Wizard
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['t3extblog_preview'] =
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class] =
         \FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class;
 }
 
