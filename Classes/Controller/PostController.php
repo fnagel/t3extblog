@@ -205,11 +205,9 @@ class PostController extends AbstractController
     /**
      * Displays one single post.
      *
-     * @ignorevalidation $newComment
-     * @dontvalidate $newComment
-     *
      * @param Post    $post       The post to display
      * @param Comment $newComment A new comment
+     * @ignorevalidation $newComment
      */
     public function showAction(Post $post, Comment $newComment = null)
     {

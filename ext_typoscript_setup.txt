@@ -80,6 +80,7 @@ config.tx_extbase {
 						approved.mapOnProperty = approved
 						spam.mapOnProperty = spam
 						mails_sent.mapOnProperty = mailsSent
+						privacy_policy_accepted.mapOnProperty = privacyPolicyAccepted
 					}
                 }
             }
@@ -106,6 +107,7 @@ config.tx_extbase {
 						post_uid.mapOnProperty = postUid
 						lastsent.mapOnProperty = lastSent
 						code.mapOnProperty = code
+						privacy_policy_accepted.mapOnProperty = privacyPolicyAccepted
 					}
                 }
             }

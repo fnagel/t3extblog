@@ -123,7 +123,6 @@ class CommentController extends AbstractController
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment
      * @ignorevalidation $newComment
-     * @dontvalidate $newComment
      */
     public function newAction(Post $post, Comment $newComment = null)
     {
@@ -140,6 +139,7 @@ class CommentController extends AbstractController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment The comment to create
+     * @validate $newComment \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='comment', property='privacyPolicyAccepted')
      */
     public function createAction(Post $post, Comment $newComment)
     {

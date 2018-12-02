@@ -32,30 +32,6 @@ namespace FelixNagel\T3extblog\Domain\Model;
 class BlogSubscriber extends AbstractSubscriber
 {
     /**
-     * privacyPolicyAccepted.
-     *
-     * @var bool
-     * @validate FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator
-     */
-    protected $privacyPolicyAccepted = false;
-
-    /**
-     * @return bool
-     */
-    public function hasPrivacyPolicyAccepted()
-    {
-        return $this->privacyPolicyAccepted;
-    }
-
-    /**
-     * @param bool $privacyPolicyAccepted
-     */
-    public function setPrivacyPolicyAccepted($privacyPolicyAccepted)
-    {
-        $this->privacyPolicyAccepted = $privacyPolicyAccepted;
-    }
-
-    /**
      * @return int
      */
     public function getSysLanguageUid()

@@ -67,6 +67,14 @@ abstract class AbstractSubscriber extends AbstractEntity
     protected $code;
 
     /**
+     * privacy policy accepted.
+     *
+     * @var bool
+     * @validate \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='blog')
+     */
+    protected $privacyPolicyAccepted = false;
+
+    /**
      * If the subscriber is valid for opt in email.
      *
      * @return bool
@@ -161,6 +169,22 @@ abstract class AbstractSubscriber extends AbstractEntity
         $input = $this->email.$now->getTimestamp().uniqid();
 
         $this->code = substr(GeneralUtility::hmac($input), 0, 32);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPrivacyPolicyAccepted()
+    {
+        return $this->privacyPolicyAccepted;
+    }
+
+    /**
+     * @param bool $privacyPolicyAccepted
+     */
+    public function setPrivacyPolicyAccepted($privacyPolicyAccepted)
+    {
+        $this->privacyPolicyAccepted = $privacyPolicyAccepted;
     }
 
     /**

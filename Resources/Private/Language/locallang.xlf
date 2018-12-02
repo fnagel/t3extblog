@@ -65,6 +65,15 @@
 			<trans-unit id="comment.optional">
 				<source>optional</source>
 			</trans-unit>
+			<trans-unit id="comment.privacyPolicyAccepted">
+				<source>Accept the privacy policy</source>
+			</trans-unit>
+			<trans-unit id="comment.privacyPolicyAccepted.text">
+				<source>Accept the %s</source>
+			</trans-unit>
+			<trans-unit id="comment.privacyPolicyAccepted.link">
+				<source>privacy policy</source>
+			</trans-unit>
 
 			<trans-unit id="subscriber.headline">
 				<source>Listing of subscriptions</source>

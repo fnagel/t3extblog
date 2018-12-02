@@ -176,6 +176,7 @@ CREATE TABLE tx_t3blog_com (
 	spam tinyint(3) DEFAULT '0' NOT NULL,
 	fk_post int(11) DEFAULT '0' NOT NULL,
 	mails_sent tinyint(3) DEFAULT NULL,
+	privacy_policy_accepted tinyint(4) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY sel01 (pid,deleted,hidden,crdate),
@@ -199,6 +200,7 @@ CREATE TABLE tx_t3blog_com_nl (
 	post_uid int(11) DEFAULT '0' NOT NULL,
 	lastsent int(11) DEFAULT '0' NOT NULL,
 	code tinytext NOT NULL,
+	privacy_policy_accepted tinyint(4) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)

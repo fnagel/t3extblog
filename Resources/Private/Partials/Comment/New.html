@@ -34,15 +34,23 @@
 
 			<f:render partial="Comment/FormFields" />
 		</fieldset>
+
 		<fieldset class="row">
 			<div class="col-md-3">
 				<div class="form-group">
 					<f:form.submit class="btn btn-primary btn-block" value="{f:translate(key: 'comment.submit')}" />
 				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-9">
 				<div class="form-group">
 					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogsystem.comments.spamCheck}" />
+				</div>
+				<div class="form-group {t3b:formError(for: 'newComment.privacyPolicyAccepted')}">
+					<f:render partial="PrivacyPolicy" arguments="{
+						privacyPolicySettings: settings.blogsystem.comments.privacyPolicy,
+						id: 'newComment.privacyPolicyAccepted',
+						localizationKey: 'comment.privacyPolicyAccepted'
+					}" />
 				</div>
 			</div>
 		</fieldset>

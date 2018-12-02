@@ -143,6 +143,13 @@ class Comment extends AbstractEntity
     protected $mailsSent = false;
 
     /**
+     * privacy policy accepted.
+     *
+     * @var bool
+     */
+    protected $privacyPolicyAccepted = false;
+
+    /**
      * __construct.
      */
     public function __construct()
@@ -464,6 +471,22 @@ class Comment extends AbstractEntity
     public function getMailsSent()
     {
         return (boolean) $this->mailsSent;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPrivacyPolicyAccepted()
+    {
+        return $this->privacyPolicyAccepted;
+    }
+
+    /**
+     * @param bool $privacyPolicyAccepted
+     */
+    public function setPrivacyPolicyAccepted($privacyPolicyAccepted)
+    {
+        $this->privacyPolicyAccepted = $privacyPolicyAccepted;
     }
 
     /**

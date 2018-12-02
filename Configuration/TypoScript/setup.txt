@@ -119,6 +119,11 @@ plugin.tx_t3extblog {
 					cookie = 2
 				}
 
+				privacyPolicy {
+					enabled = {$plugin.tx_t3extblog.settings.privacyPolicy.enabled}
+					typolink = {$plugin.tx_t3extblog.settings.privacyPolicy.typolink}
+				}
+
 				paginate {
 					itemsPerPage = 500
 					insertAbove = 0

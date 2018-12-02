@@ -27,9 +27,13 @@
 					<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="subscriber.email" property="email" />
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group {t3b:formError(for: 'subscriber.privacyPolicyAccepted')}">
 				<div class="col-sm-9 col-sm-offset-3">
-					<f:render partial="PrivacyPolicy" arguments="{privacyPolicySettings: settings.blogSubscription.privacyPolicy}" />
+					<f:render partial="PrivacyPolicy" arguments="{
+						privacyPolicySettings: settings.blogSubscription.privacyPolicy,
+						id: 'subscriber.privacyPolicyAccepted',
+						localizationKey: 'subscriber.privacyPolicyAccepted'
+					}" />
 				</div>
 			</div>
 			<div class="form-group">

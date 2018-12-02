@@ -184,6 +184,7 @@ class CommentNotificationService extends AbstractNotificationService
         $newSubscriber = $this->objectManager->get(PostSubscriber::class, $comment->getPostId());
         $newSubscriber->setEmail($comment->getEmail());
         $newSubscriber->setName($comment->getAuthor());
+        $newSubscriber->setPrivacyPolicyAccepted($comment->hasPrivacyPolicyAccepted());
 
         $this->subscriberRepository->add($newSubscriber);
         $this->persistToDatabase(true);

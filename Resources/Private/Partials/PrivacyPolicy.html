@@ -1,17 +1,17 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:if condition="privacyPolicySettings.enabled">
+<f:if condition="{privacyPolicySettings.enabled}">
     <div class="checkbox">
-        <label for="subscriber.privacyPolicyAccepted">
-            <f:form.checkbox id="subscriber.privacyPolicyAccepted" property="privacyPolicyAccepted" value="1" additionalAttributes="{autocomplete: 'off'}" />
+        <label for="{id}">
+            <f:form.checkbox id="{id}" property="privacyPolicyAccepted" value="1" additionalAttributes="{autocomplete: 'off'}" />
             <f:if condition="{privacyPolicySettings.typolink}">
                 <f:then>
                     <f:format.raw>
-                        <f:translate key="subscriber.privacyPolicyAccepted.text" arguments="{0: '{f:render(section:\'link\',arguments:\'{privacyPolicySettings: privacyPolicySettings}\')}'}" />
+                        <f:translate key="{localizationKey}.text" arguments="{0: '{f:render(section:\'link\',arguments:\'{_all}\')}'}" />
                     </f:format.raw>
                 </f:then>
                 <f:else>
-                    <f:translate key="subscriber.privacyPolicyAccepted" />
+                    <f:translate key="{localizationKey}" />
                 </f:else>
             </f:if>
         </label>
@@ -19,8 +19,8 @@
 </f:if>
 
 <f:section name="link">
-    <f:link.typolink parameter="{privacyPolicySettings.typolink}">
-        <f:translate key="subscriber.privacyPolicyAccepted.link" />
+    <f:link.typolink parameter="{privacyPolicySettings.typolink}" target="_blank">
+        <f:translate key="{localizationKey}.link" />
     </f:link.typolink>
 </f:section>
 </html>
