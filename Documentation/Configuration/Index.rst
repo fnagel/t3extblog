@@ -105,14 +105,27 @@ See TypoScript for full configuration:
 	Built in SPAM protection may be insufficient to protect your blog from serious attacks and does not prevent brute force attacks.
 
 
+Speaking URLs
+-------
+.. _configuration-speaking-url:
+
+This extension include a predefined setup for the TYPO3 CMS core feature speaking URL,
+see :code:`typo3conf/ext/t3extblog/Configuration/Routes/Default.yaml` for details.
+
+
 RealURL
 -------
 .. _configuration-realurl:
 
 This extension include a predefined setup for RealURL auto configuration, see :code:`typo3conf/ext/t3extblog/Classes/Hooks/RealUrl.php` for details.
 
-When using EXT:realurl or similar extension you will need to add additional staticTS template
+When using EXT:realurl or similar extension you will need to add additional StaticTS template
 `T3Extblog: additional RealUrl config (t3extblog)` (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
+
+When using RSS, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
+
+.. important::
+	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature
 
 .. important::
 	Add this static TS to the blogsystem plugin page only to preserve cache!
@@ -128,7 +141,7 @@ Responsive image rendering
 T3extblog is able to make use of TYPO3's RWD image rendering (sourceCollection feature).
 
 This works by using a cObject ViewHelper within the templates which processes a TypoScript Lib:
-:code:`lib.tx_t3extblog.responsiveImage` (defined in :code:`/Configuration/TypoScript/RealUrl/setup.txt`)
+:code:`lib.tx_t3extblog.responsiveImage` (defined in :code:`/Configuration/TypoScript/setup.txt`)
 
 This feature is configured via TypoScript as described here:
 https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Image/Index.html

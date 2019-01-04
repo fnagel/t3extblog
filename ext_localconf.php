@@ -125,12 +125,6 @@ if (TYPO3_MODE == 'BE') {
         \FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class;
 }
 
-// Add RealURL configuration
-if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl')) {
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/realurl/class.tx_realurl_autoconfgen.php']['extensionConfiguration']['t3extblog'] =
-        \FelixNagel\T3extblog\Hooks\RealUrl::class . '->extensionConfiguration';
-}
-
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
 $requiredParameters = [

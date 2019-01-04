@@ -32,8 +32,6 @@ $EM_CONF[$_EXTKEY] = [
             't3blog' => '',
             'realurl' => '2.0.0-2.0.10',
         ],
-        'suggests' => [
-            'realurl' => '2.0.11-2.99.99',
-        ],
+        'suggests' => [],
     ],
 ];

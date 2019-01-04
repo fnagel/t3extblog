@@ -37,9 +37,6 @@
     "typo3-ter/t3blog": ">=0.0.1",
     "dmitryd/typo3-realurl": ">=2.0.0,<=2.0.10"
   },
-  "suggest": {
-    "dmitryd/typo3-realurl": "~2.0"
-  },
   "replace": {
     "t3extblog": "self.version",
     "typo3-ter/t3extblog": "self.version"

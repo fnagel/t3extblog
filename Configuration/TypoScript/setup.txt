@@ -19,10 +19,6 @@ plugin.tx_t3extblog {
 		enableAutomaticCacheClearing = 1
 	}
 
-	features {
-		skipDefaultArguments = 1
-	}
-
 	settings {
 		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid
 

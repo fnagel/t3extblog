@@ -99,7 +99,7 @@ Next Steps
 
 #. Setup the RSS page TypoScript: :ref:`RSS setup <administration-rss>`
 
-#. Configure RealURL: :ref:`RealUrl configuration <configuration-realurl>`
+#. Configure RealURL (optional): :ref:`RealUrl configuration <configuration-realurl>`
 
 #. Copy all templates, configure the paths in TS and start adjusting the HTML markup to your needs
 

@@ -17,8 +17,3 @@ $packageKey = 't3extblog';
     'Configuration/TypoScript/Rss',
     'T3Extblog: Rss setup'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $packageKey,
-    'Configuration/TypoScript/RealUrl',
-    'T3Extblog: additional RealUrl config'
-);

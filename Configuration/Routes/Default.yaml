@@ -1,0 +1,86 @@
+# Include this route enhancer config:
+# imports:
+#  - { resource: "EXT:t3extblog/Configuration/Routes/Default.yaml" }
+routeEnhancers:
+  T3extblogBlogsystemPlugin:
+    type: Extbase
+    # Use this to limit routing for specific pages
+    # limitToPages: [123, 456]
+    extension: t3extblog
+    plugin: Blogsystem
+    defaultController: 'Post::list'
+    routes:
+      -
+        routePath: '/{post_prefix_localized}/{_year}/{_month}/{_day}/{post_title}'
+        _controller: 'Post::show'
+        _arguments:
+          'post_title': 'post'
+          '_year': 'year'
+          '_month': 'month'
+          '_day': 'day'
+      -
+        routePath: '/permalink/{permalink_uid}'
+        _controller: 'Post::permalink'
+        _arguments:
+          'permalink_uid': 'permalinkPost'
+      -
+        routePath: '/{author_prefix_localized}/{author_title}'
+        _controller: 'Post::author'
+        _arguments:
+          'author_title': 'author'
+      -
+        routePath: '/{tag_prefix_localized}/{tag_title}'
+        _controller: 'Post::tag'
+        _arguments:
+          'tag_title': 'tag'
+      -
+        routePath: '/{category_prefix_localized}/{category_title}'
+        _controller: 'Post::category'
+        _arguments:
+          'category_title': 'category'
+    requirements:
+      post_title: '\d+'
+      _year: '[0-9]{4}'
+      _month: '[0-9]{1,2}'
+      _day: '[0-9]{1,2}'
+      permalink_uid: '\d+'
+      author_title: '\d+'
+      category_title: '\d+'
+    aspects:
+      post_title:
+        type: PersistedAliasMapper
+        tableName: 'tx_t3blog_post'
+        routeFieldName: 'url_segment'
+      post_prefix_localized:
+        type: LocaleModifier
+        default: 'article'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'artikel'
+      author_title:
+        type: PersistedPatternMapper
+        tableName: 'be_users'
+        routeFieldPattern: '^(?P<username>.+)$'
+        routeFieldResult: '{username}'
+      author_prefix_localized:
+        type: LocaleModifier
+        default: 'author'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'autor'
+      tag_prefix_localized:
+        type: LocaleModifier
+        default: 'tags'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'tags'
+      category_title:
+        type: PersistedAliasMapper
+        tableName: 'tx_t3blog_cat'
+        routeFieldName: 'url_segment'
+      category_prefix_localized:
+        type: LocaleModifier
+        default: 'category'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'kategorie'

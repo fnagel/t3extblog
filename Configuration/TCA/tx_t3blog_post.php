@@ -12,6 +12,7 @@ return [
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l18n_parent',
         'transOrigDiffSourceField' => 'l18n_diffsource',
+        'translationSource' => 'l10n_source',
         'prependAtCopy' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.prependAtCopy',
         'hideAtCopy' => true,
         'default_sortby' => 'ORDER BY date DESC',
@@ -30,7 +31,7 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
-			author,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
+			url_segment,author,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -134,6 +135,20 @@ return [
             'config' => [
                 'type' => 'input',
                 'eval' => 'required',
+            ],
+        ],
+        'url_segment' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.url_segment',
+            'config' => [
+                'type' => 'slug',
+                'size' => 30,
+                'max' => 255,
+                'eval' => 'uniqueInSite',
+                'fallbackCharacter' => '-',
+                'generatorOptions' => [
+                    'fields' => ['title'],
+                ],
             ],
         ],
         'tagClouds' => [
@@ -398,7 +413,7 @@ return [
         '0' => [
             'showitem' => '
                 --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.post,
-                    sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,content,
+                    sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,url_segment,content,
                 --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.preview,
                     preview_mode,preview_image,preview_text,
                 --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.category,

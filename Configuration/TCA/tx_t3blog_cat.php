@@ -12,6 +12,7 @@ return [
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l18n_parent',
         'transOrigDiffSourceField' => 'l18n_diffsource',
+        'translationSource' => 'l10n_source',
         'prependAtCopy' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.prependAtCopy',
         'hideAtCopy' => true,
         'treeParentField' => 'parent_id',
@@ -30,7 +31,7 @@ return [
         'searchFields' => 'catname,description',
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,parent_id,catname,description',
+        'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,parent_id,catname,url_segment,description',
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -166,7 +167,20 @@ return [
                 'eval' => 'required',
             ],
         ],
-
+        'url_segment' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.url_segment',
+            'config' => [
+                'type' => 'slug',
+                'size' => 30,
+                'max' => 255,
+                'eval' => 'uniqueInSite',
+                'fallbackCharacter' => '-',
+                'generatorOptions' => [
+                    'fields' => ['catname'],
+                ],
+            ],
+        ],
         'description' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.description',
@@ -183,7 +197,7 @@ return [
     'types' => [
         '0' => ['showitem' => '
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general,
-			    l18n_parent,l18n_diffsource,catname,description,parent_id,
+			    l18n_parent,l18n_diffsource,catname,url_segment,description,parent_id,
             --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',

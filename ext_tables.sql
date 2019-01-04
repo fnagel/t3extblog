@@ -53,6 +53,7 @@ CREATE TABLE tx_t3blog_post (
 	endtime int(11) DEFAULT '0' NOT NULL,
 	fe_group varchar(100) DEFAULT '0' NOT NULL,
 	title tinytext NOT NULL,
+	url_segment varchar(255) DEFAULT '' NOT NULL,
 	author int(11) DEFAULT '0' NOT NULL,
 	date int(11) DEFAULT '0' NOT NULL,
 	content text NOT NULL,
@@ -144,6 +145,7 @@ CREATE TABLE tx_t3blog_cat (
 	fe_group varchar(100) DEFAULT '0' NOT NULL,
 	parent_id int(11) DEFAULT '0' NOT NULL,
 	catname tinytext NOT NULL,
+	url_segment varchar(255) DEFAULT '' NOT NULL,
 	description tinytext NOT NULL,
 
 	PRIMARY KEY (uid),

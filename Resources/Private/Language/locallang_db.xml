@@ -8,6 +8,7 @@
 		<languageKey index="default" type="array">
 			<label index="tx_t3blog_post">Post</label>
 			<label index="tx_t3blog_post.title">Title</label>
+			<label index="tx_t3blog_post.url_segment">URL segment</label>
 			<label index="tx_t3blog_post.tagClouds">Tag Cloud (comma separated list)</label>
 			<label index="tx_t3blog_post.tagClouds.placeholder">tag1, tag2, tag3</label>
 			<label index="tx_t3blog_post.author">Author</label>
@@ -37,6 +38,7 @@
 			<label index="tx_t3blog_cat.parent_id">Category tree</label>
 			<label index="tx_t3blog_cat.page_shortcut">Single PID</label>
 			<label index="tx_t3blog_cat.catname">Category name</label>
+			<label index="tx_t3blog_cat.url_segment">URL segment</label>
 			<label index="tx_t3blog_cat.nav_title">Navigation title</label>
 			<label index="tx_t3blog_cat.subtitle">Subtitle</label>
 			<label index="tx_t3blog_cat.keywords">Keywords (comma separated list)</label>

@@ -137,11 +137,8 @@ When you open the page, the output should look like this:
 Have a look at :code:`/Configuration/TypoScript/RSS/setup.txt`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
 
-When you want to use RealURL add the static template `T3Extblog: additional RealUrl config (t3extblog)` too.
-When overriding the TS-values, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
-
 .. important::
-	Please note: Default RSS template depends on using RealUrl.
+	Please note: Default RSS template depends on using speaking URLs.
 	You will need to escape links when using plain TYPO3 links.
 
 
