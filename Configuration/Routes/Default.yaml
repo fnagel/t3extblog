@@ -18,6 +18,11 @@ routeEnhancers:
           'post_day': 'day'
           'post_title': 'post'
       -
+        routePath: '/{post_page_localized}/{post_page}'
+        _controller: 'Post::list'
+        _arguments:
+          'post_page': '@widget_0/currentPage'
+      -
         routePath: '/permalink/{post_permalink_uid}'
         _controller: 'Post::permalink'
         _arguments:
@@ -37,7 +42,9 @@ routeEnhancers:
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
+    defaultController: 'Post::list'
     requirements:
+      post_page: '\d+'
       post_title: '\d+'
       post_year: '[0-9]{4}'
       post_month: '[0-9]{1,2}'
@@ -45,7 +52,19 @@ routeEnhancers:
       post_permalink_uid: '\d+'
       author_title: '\d+'
       category_title: '\d+'
+    defaults:
+      post_page: '1'
     aspects:
+      post_page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '99'
+      post_page_localized:
+        type: LocaleModifier
+        default: 'page'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'seite'
       post_title:
         type: PersistedAliasMapper
         tableName: 'tx_t3blog_post'
