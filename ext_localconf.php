@@ -128,8 +128,8 @@ if (TYPO3_MODE == 'BE') {
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
 $requiredParameters = [
-    'tx_t3extblog_blogsystem[action]',
     'tx_t3extblog_blogsystem[controller]',
+    'tx_t3extblog_blogsystem[action]',
     'tx_t3extblog_blogsystem[post]',
     'tx_t3extblog_blogsystem[permalinkPost]',
     'tx_t3extblog_blogsystem[previewPost]',
@@ -158,4 +158,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAva
 // Overwrite classes
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = [
     'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
+];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Core\\Routing\\PageRouter'] = [
+    'className' => \FelixNagel\T3extblog\Routing\PageRouter::class,
 ];

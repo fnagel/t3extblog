@@ -8,21 +8,20 @@ routeEnhancers:
     # limitToPages: [123, 456]
     extension: t3extblog
     plugin: Blogsystem
-    defaultController: 'Post::list'
     routes:
       -
-        routePath: '/{post_prefix_localized}/{_year}/{_month}/{_day}/{post_title}'
+        routePath: '/{post_prefix_localized}/{post_year}/{post_month}/{post_day}/{post_title}'
         _controller: 'Post::show'
         _arguments:
+          'post_year': 'year'
+          'post_month': 'month'
+          'post_day': 'day'
           'post_title': 'post'
-          '_year': 'year'
-          '_month': 'month'
-          '_day': 'day'
       -
-        routePath: '/permalink/{permalink_uid}'
+        routePath: '/permalink/{post_permalink_uid}'
         _controller: 'Post::permalink'
         _arguments:
-          'permalink_uid': 'permalinkPost'
+          'post_permalink_uid': 'permalinkPost'
       -
         routePath: '/{author_prefix_localized}/{author_title}'
         _controller: 'Post::author'
@@ -40,10 +39,10 @@ routeEnhancers:
           'category_title': 'category'
     requirements:
       post_title: '\d+'
-      _year: '[0-9]{4}'
-      _month: '[0-9]{1,2}'
-      _day: '[0-9]{1,2}'
-      permalink_uid: '\d+'
+      post_year: '[0-9]{4}'
+      post_month: '[0-9]{1,2}'
+      post_day: '[0-9]{1,2}'
+      post_permalink_uid: '\d+'
       author_title: '\d+'
       category_title: '\d+'
     aspects:
@@ -57,6 +56,64 @@ routeEnhancers:
         localeMap:
           - locale: 'de_DE.*'
             value: 'artikel'
+      post_year:
+        type: StaticRangeMapper
+        start: '1970'
+        end: '2099'
+      post_month:
+        type: StaticValueMapper
+        map:
+          '01': '01'
+          '02': '02'
+          '03': '03'
+          '04': '04'
+          '05': '05'
+          '06': '06'
+          '07': '07'
+          '08': '08'
+          '09': '09'
+          '10': '10'
+          '11': '11'
+          '12': '12'
+      post_day:
+        type: StaticValueMapper
+        map:
+          '01': '01'
+          '02': '02'
+          '03': '03'
+          '04': '04'
+          '05': '05'
+          '06': '06'
+          '07': '07'
+          '08': '08'
+          '09': '09'
+          '10': '10'
+          '11': '11'
+          '12': '12'
+          '13': '13'
+          '14': '14'
+          '15': '15'
+          '16': '16'
+          '17': '17'
+          '18': '18'
+          '19': '19'
+          '20': '20'
+          '21': '21'
+          '22': '22'
+          '23': '23'
+          '24': '24'
+          '25': '25'
+          '26': '26'
+          '27': '27'
+          '28': '28'
+          '29': '29'
+          '30': '30'
+          '31': '31'
+      post_permalink_uid:
+        type: PersistedPatternMapper
+        tableName: 'tx_t3blog_post'
+        routeFieldPattern: '^(?P<uid>.+)$'
+        routeFieldResult: '{uid}'
       author_title:
         type: PersistedPatternMapper
         tableName: 'be_users'
