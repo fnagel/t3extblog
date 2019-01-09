@@ -94,6 +94,10 @@ Does it work with dd_googlesitemap?
 Yes! Use this syntax: :code:`?eID=dd_googlesitemap&sitemap=t3extblog&pidList=123` (where 123 is your storage folder page id).
 Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=100`.
 
+.. important::
+
+	No longer support since version 5.x!
+
 .. tip::
 
 	Since google supports RSS-Feeds, we recommend to use this solution!

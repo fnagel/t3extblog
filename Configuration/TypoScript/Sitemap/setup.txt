@@ -1,0 +1,29 @@
+plugin.tx_seo {
+	config {
+		xmlSitemap {
+			sitemaps {
+				t3extblog {
+					provider = FelixNagel\T3extblog\XmlSitemap\PostXmlSitemapDataProvider
+					config {
+						table = tx_t3blog_post
+						sortField = date
+						lastModifiedField = tstamp
+						pid = {$plugin.tx_t3extblog.persistence.storagePid}
+						url {
+							pageId = {$plugin.tx_t3extblog.settings.blogsystem.pid}
+							addDateFieldsToParameterMap = 1
+							fieldToParameterMap {
+								uid = tx_t3extblog_blogsystem[post]
+							}
+							additionalGetParameters {
+								tx_t3extblog_blogsystem.controller = Post
+								tx_t3extblog_blogsystem.action = show
+							}
+							useCacheHash = 1
+						}
+					}
+				}
+			}
+		}
+	}
+}

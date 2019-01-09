@@ -41,6 +41,9 @@
     "t3extblog": "self.version",
     "typo3-ter/t3extblog": "self.version"
   },
+  "suggest": {
+	  "typo3/cms-seo": "^9.5"
+  },
   "repositories": [
     {
       "type": "vcs",
