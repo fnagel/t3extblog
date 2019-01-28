@@ -55,8 +55,8 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         $this->registerTagAttribute('property', 'string', 'Property of meta tag');
         $this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
         $this->registerTagAttribute('content', 'string', 'Content of meta tag');
-        $this->registerTagAttribute('useCurrentDomain', 'bool', 'If set, current domain is used');
-        $this->registerTagAttribute('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced');
+        $this->registerArgument('useCurrentDomain', 'bool', 'If set, current domain is used');
+        $this->registerArgument('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced');
     }
 
     /**
@@ -71,12 +71,12 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         $useCurrentDomain = $this->arguments['useCurrentDomain'];
         $forceAbsoluteUrl = $this->arguments['forceAbsoluteUrl'];
 
-        // set current domain
+        // Set current domain
         if ($useCurrentDomain) {
             $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
         }
 
-        // prepend current domain
+        // Prepend current domain
         if ($forceAbsoluteUrl) {
             $path = $this->arguments['content'];
             $siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
