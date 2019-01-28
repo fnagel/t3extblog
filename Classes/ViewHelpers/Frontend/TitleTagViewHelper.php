@@ -6,7 +6,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  *  Copyright notice
  *
  *  (c) 2010 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2019 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -43,14 +43,12 @@ class TitleTagViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('prepend', 'string', 'Uid of the backend user');
-        $this->registerArgument('searchTitle', 'int', 'Width of the avatar image');
+        $this->registerArgument('prepend', 'string', 'Prepend to the existing page path title', false, true);
+        $this->registerArgument('searchTitle', 'string', 'Title for search index', false, null);
     }
 
     /**
      * Override the title tag.
-     *
-     * @todo Make use of new SEO API
      *
      * @inheritdoc
      */
