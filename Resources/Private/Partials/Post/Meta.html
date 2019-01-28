@@ -24,10 +24,10 @@
 </f:if>
 
 <f:if condition="{settings.blogsystem.posts.metadata.twitterCards.enable}">
+	<t3b:metaTag property="og:url" useCurrentDomain="1" />
+	<t3b:metaTag property="og:title" content="{post.title}" />
+	<t3b:metaTag property="og:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
 	<t3b:metaTag name="twitter:card" content="summary" />
-	<t3b:metaTag name="twitter:title" content="{post.title}" />
-	<t3b:metaTag name="twitter:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
-	<t3b:metaTag name="twitter:url" useCurrentDomain="1" />
 	<f:if condition="{settings.blogsystem.posts.metadata.twitterCards.site}">
 		<t3b:metaTag name="twitter:site" content="@{settings.blogsystem.posts.metadata.twitterCards.site}" />
 	</f:if>
@@ -38,9 +38,9 @@
 </f:if>
 
 <f:if condition="{settings.blogsystem.posts.metadata.openGraph.enable}">
+	<t3b:metaTag property="og:url" useCurrentDomain="1" />
 	<t3b:metaTag property="og:title" content="{post.title}" />
 	<t3b:metaTag property="og:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
-	<t3b:metaTag property="og:url" useCurrentDomain="1" />
 	<f:if condition="{post.previewImage}">
 		<t3b:metaTag property="og:image" forceAbsoluteUrl="1"
 								 content="{f:uri.image(src: '{post.previewImage.uid}', treatIdAsReference: 1, maxWidth: '500')}" />
