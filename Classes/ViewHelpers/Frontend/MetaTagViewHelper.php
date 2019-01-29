@@ -40,7 +40,7 @@ class MetaTagViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('property', 'string', 'Property of meta tag');
-        $this->registerArgument('name', 'string', 'Content of meta tag using the name attribute');
+        $this->registerArgument('name', 'string', 'DEPRECATED: Content of meta tag using the name attribute');
         $this->registerArgument('content', 'string', 'Content of meta tag');
         $this->registerArgument('useCurrentDomain', 'bool', 'If set, current domain is used');
         $this->registerArgument('forceAbsoluteUrl', 'bool', 'If set, absolute url is forced');
@@ -57,6 +57,11 @@ class MetaTagViewHelper extends AbstractViewHelper
         $content = $this->arguments['content'];
         $useCurrentDomain = $this->arguments['useCurrentDomain'];
         $forceAbsoluteUrl = $this->arguments['forceAbsoluteUrl'];
+
+        // @todo Remove name argument with next major version (should be v 6.0)
+        if (!empty($this->arguments['name'])) {
+            trigger_error('Argument "name" will be removed with T3extblog v6.0.', E_USER_DEPRECATED);
+        }
 
         // Set current domain
         if ($useCurrentDomain) {
