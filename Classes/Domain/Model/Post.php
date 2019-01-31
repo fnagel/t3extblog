@@ -564,12 +564,12 @@ class Post extends AbstractLocalizedEntity
      */
     public function getPreviewImage()
     {
-        if (!is_object($this->previewImage)) {
-            return;
-        }
-
         if ($this->previewImage instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
             $this->previewImage->_loadRealInstance();
+        }
+
+        if (!is_object($this->previewImage)) {
+            return;
         }
 
         return $this->previewImage->getOriginalResource();
