@@ -35,20 +35,14 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class UrlValidator extends AbstractValidator
 {
     /**
-     * Returns TRUE, if the given property ($propertyValue) is a valid URL / URI.
-     *
-     * If at least one error occurred, the result is FALSE.
+     * Returns TRUE, if the given value is a valid URL / URI.
      *
      * @param mixed $value The value that should be validated
      *
-     * @return bool TRUE if the value is valid, FALSE if an error occured
+     * @return bool TRUE if the value is valid, FALSE if an error occurred
      */
     public function isValid($value)
     {
-        if (empty($value)) {
-            return true;
-        }
-
         if (!in_array(parse_url($value, PHP_URL_SCHEME), array('http', 'https'), true) ||
             GeneralUtility::isValidUrl($value) === false
         ) {
