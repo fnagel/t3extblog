@@ -152,19 +152,22 @@ Use the constants or change the TS setup:
 
 	plugin.tx_t3extblog {
         view {
-			# "Email/" is appended to the final template path when rendering emails
+			   # "Email/" is appended to the final template path when rendering emails
             templateRootPaths {
-                0 = {$plugin.tx_t3extblog.view.templateRootPath}
-                1 = EXT:my_theme/Resources/Private/T3extblog/Templates/
-                2 = fileadmin/templates/ext/t3extblog/Templates/
+                0 = EXT:t3extblog/Resources/Private/Templates/
+                10 = {$plugin.tx_t3extblog.view.templateRootPath}
+                20 = EXT:my_theme/Resources/Private/T3extblog/Templates/
+                30 = fileadmin/templates/ext/t3extblog/Templates/
             }
             partialRootPaths {
-                0 = {$plugin.tx_t3extblog.view.partialRootPath}
-                1 = EXT:my_theme/Resources/Private/T3extblog/Layouts/
+                0 = EXT:t3extblog/Resources/Private/Partials/
+                10 = {$plugin.tx_t3extblog.view.partialRootPath}
+                20 = EXT:my_theme/Resources/Private/T3extblog/Partials/
             }
             layoutRootPaths {
-                0 = {$plugin.tx_t3extblog.view.layoutRootPath}
-                1 = EXT:my_theme/Resources/Private/T3extblog/Partials/
+                0 = EXT:t3extblog/Resources/Private/Layouts/
+                10 = {$plugin.tx_t3extblog.view.layoutRootPath}
+                20 = EXT:my_theme/Resources/Private/T3extblog/Layouts/
             }
         }
 	}
