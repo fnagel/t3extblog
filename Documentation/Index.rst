@@ -11,44 +11,42 @@
 T3Blog Extbase
 =============================================================
 
-.. only:: html
+:Classification:
+	t3extblog
 
-	:Classification:
-		t3extblog
+:Version:
+	|release|
 
-	:Version:
-		|release|
+:Language:
+	en
 
-	:Language:
-		en
+:Description:
+	This is a TYPO3 Extbase / Fluid blog extension which aims to replace t3blog.
 
-	:Description:
-		This is a TYPO3 Extbase / Fluid blog extension which aims to replace t3blog.
+:Keywords:
+	blog, blogsystem, t3blog
 
-	:Keywords:
-		blog, blogsystem, t3blog
-
-	:Copyright:
+:Copyright:
 		2018
 
-	:Author:
-		Christoph Werner, Felix Nagel
+:Author:
+	Christoph Werner, Felix Nagel
 
-	:Email:
-		info@felixnagel.com
+:Email:
+	info@felixnagel.com
 
-	:License:
-		This document is published under the Open Content License
-		available from http://www.opencontent.org/opl.shtml
+:License:
+	This document is published under the Open Content License
+	available from http://www.opencontent.org/opl.shtml
 
-	:Rendered:
-		|today|
+:Rendered:
+	|today|
 
-	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+The content of this document is related to TYPO3,
+a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
 
-	**Table of Contents**
+**Table of Contents**
 
 .. toctree::
 	:maxdepth: 5
