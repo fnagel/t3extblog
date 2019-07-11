@@ -50,5 +50,10 @@
       "type": "vcs",
       "url": "https://github.com/TYPO3/TYPO3.CMS"
     }
-  ]
+  ],
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "t3extblog"
+    }
+  }
 }
