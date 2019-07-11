@@ -11,11 +11,9 @@
 Version 4.x
 -----------
 
-.. only:: html
-
-	.. contents:: Within this page
-		:local:
-		:depth: 3
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 
 

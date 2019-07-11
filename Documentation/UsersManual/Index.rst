@@ -13,12 +13,9 @@ Users manual
 
 Target group: **Editors**
 
-
-.. only:: html
-
-	.. contents:: Within this page
-		:local:
-		:depth: 3
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 
 General information

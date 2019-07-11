@@ -11,11 +11,9 @@
 Version 1.x
 -----------
 
-.. only:: html
-
-	.. contents:: Within this page
-		:local:
-		:depth: 3
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 
 Upgrade from 1.1.x to 1.2.x
