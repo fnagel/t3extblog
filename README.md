@@ -40,11 +40,13 @@ See [/Documentation](Documentation) (latest) directory or [online](http://docs.t
 
 ## Installation
 
-Please see [/Documentation/Installation/Index.rst](Documentation/Installation/Index.rst) for installation.
+Please see [/Documentation/Installation/Full.rst](Documentation/Installation/Full.rst) for installation.
 
 The extension is available within the [TYPO3 TER](https://extensions.typo3.org/extension/t3extblog/) 
 or using [composer with packagist](https://packagist.org/packages/felixnagel/t3extblog).
 
+* For TYPO3 9.x use the [typo3-9 branch](https://github.com/fnagel/t3extblog/tree/typo3-9) (WIP).
+* For TYPO3 8.x use the [master branch](https://github.com/fnagel/t3extblog/tree/master).
 * For TYPO3 7.x use the [3.x branch](https://github.com/fnagel/t3extblog/tree/3.x).
 * For TYPO3 6.x use the [2.x branch](https://github.com/fnagel/t3extblog/tree/2.x).
 * For migration from EXT:t3blog See migration [migration guide](Documentation/ReplaceT3Blog/Index.rst).
