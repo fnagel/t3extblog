@@ -108,25 +108,25 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      * @param string             $template
      * @param array              $variables
      */
-    protected function sendSubscriberEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = array())
+    protected function sendSubscriberEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = [])
     {
-	    $defaultVariables = array(
+        $defaultVariables = [
             'subscriber' => $subscriber,
             'validUntil' => $this->getValidUntil(),
-        );
+        ];
 
-	    if ($subscriber instanceof BlogSubscriber) {
-		    $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
-	    }
-	    if ($subscriber instanceof PostSubscriber) {
-		    $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
-	    }
+        if ($subscriber instanceof BlogSubscriber) {
+            $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
+        }
+        if ($subscriber instanceof PostSubscriber) {
+            $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
+        }
 
         $this->sendEmail(
             $subscriber->getMailTo(),
             $subject,
             $template,
-	        $this->subscriptionSettings['subscriber'],
+            $this->subscriptionSettings['subscriber'],
             array_merge($defaultVariables, $variables)
         );
     }
@@ -140,14 +140,14 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      * @param array $settings
      * @param array $variables
      */
-    protected function sendEmail($mailTo, $subject, $template, $settings, $variables = array())
+    protected function sendEmail($mailTo, $subject, $template, $settings, $variables = [])
     {
         $this->emailService->sendEmail(
             $mailTo,
-            array($settings['mailFrom']['email'] => $settings['mailFrom']['name']),
+            [$settings['mailFrom']['email'] => $settings['mailFrom']['name']],
             $subject,
             // General language uid: fallback to default
-	        array_merge(array('languageUid' => 0), $variables),
+            array_merge(['languageUid' => 0], $variables),
             $template
         );
     }
@@ -187,10 +187,10 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         return LocalizationUtility::translate(
             $key,
             'T3extblog',
-            array(
+            [
                 $this->settings['blogName'],
                 $variable,
-            )
+            ]
         );
     }
 
@@ -204,10 +204,10 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     public function flushFrontendCache($comment)
     {
-        $this->cacheService->addCacheTagsToFlush(array(
+        $this->cacheService->addCacheTagsToFlush([
             'tx_t3blog_post_uid_'.$comment->getPost()->getLocalizedUid(),
             'tx_t3blog_com_pid_'.$comment->getPid(),
-        ));
+        ]);
     }
 
     /**

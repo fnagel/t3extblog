@@ -111,9 +111,9 @@ class PostSubscriberTest extends BaseTest
     {
         $this->assertEquals(
             $this->fixture->getMailTo(),
-            array(
+            [
                 'test@domain.com' => 'John Doe',
-            )
+            ]
         );
     }
 }

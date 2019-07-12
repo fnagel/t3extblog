@@ -203,10 +203,10 @@ abstract class AbstractSubscriber extends AbstractEntity
      */
     public function getMailTo()
     {
-        $mail = array($this->getEmail() => '');
+        $mail = [$this->getEmail() => ''];
 
         if (method_exists($this, 'getName')) {
-            $mail = array($this->getEmail() => $this->getName());
+            $mail = [$this->getEmail() => $this->getName()];
         }
 
         return $mail;

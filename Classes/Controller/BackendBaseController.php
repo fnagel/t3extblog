@@ -132,11 +132,11 @@ class BackendBaseController extends ActionController
                 $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
         }
 
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'pageId' => $this->pageId,
             'dateTimeFormat' => $dateTimeFormat,
             'pageNotice' => $this->pageInfo,
-        ));
+        ]);
     }
 
     /**
@@ -174,10 +174,10 @@ class BackendBaseController extends ActionController
             unset($blogPages[$blogPagesCurrentPageKey]);
         }
 
-        return array(
+        return [
             'show' => ($blogPagesCurrentPageKey === false),
             'pages' => $blogPages,
-        );
+        ];
     }
 
     /**
@@ -199,8 +199,8 @@ class BackendBaseController extends ActionController
             // Get pages with set module property
             $this->execBlogPageRelatedQuery('pages', 'pages.module = "t3blog"'),
             // Split the join queries because otherwise the query is awful slow
-            $this->getPagesWithBlogRecords(array('tx_t3blog_post', 'tx_t3blog_com')),
-            $this->getPagesWithBlogRecords(array('tx_t3blog_com_nl', 'tx_t3blog_blog_nl'))
+            $this->getPagesWithBlogRecords(['tx_t3blog_post', 'tx_t3blog_com']),
+            $this->getPagesWithBlogRecords(['tx_t3blog_com_nl', 'tx_t3blog_blog_nl'])
         );
 
         return array_unique($pages, SORT_REGULAR);
@@ -231,7 +231,7 @@ class BackendBaseController extends ActionController
     protected function getPagesWithBlogRecords($joinTables)
     {
         $table = 'pages';
-        $whereArray = array();
+        $whereArray = [];
 
         foreach ($joinTables as $joinTable) {
             $table .= ' LEFT JOIN '.$joinTable.' ON pages.uid = '.$joinTable.'.pid';

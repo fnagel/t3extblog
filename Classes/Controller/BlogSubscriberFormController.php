@@ -120,7 +120,7 @@ class BlogSubscriberFormController extends AbstractController
         $threshold = $settings['threshold'];
 
         $spamPoints = $this->spamCheckService->process($settings);
-        $logData = array('spamPoints' => $spamPoints);
+        $logData = ['spamPoints' => $spamPoints];
 
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {

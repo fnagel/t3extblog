@@ -37,7 +37,7 @@ interface LoggingServiceInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function error($msg, $data = array());
+    public function error($msg, $data = []);
 
     /**
      * Notice logging.
@@ -45,7 +45,7 @@ interface LoggingServiceInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function notice($msg, $data = array());
+    public function notice($msg, $data = []);
 
     /**
      * Development logging.
@@ -53,5 +53,5 @@ interface LoggingServiceInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function dev($msg, $data = array());
+    public function dev($msg, $data = []);
 }

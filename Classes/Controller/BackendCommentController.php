@@ -58,10 +58,10 @@ class BackendCommentController extends BackendBaseController
      */
     public function listByPostAction(Post $post)
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'post' => $this->postRepository->findOneByUid($post),
             'comments' => $this->commentRepository->findByPost($post, false),
             'pendingComments' => $this->commentRepository->findPendingByPost($post),
-        ));
+        ]);
     }
 }

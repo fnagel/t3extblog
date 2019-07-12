@@ -39,11 +39,11 @@ class CommentController extends AbstractController
     /**
      * @var array
      */
-    protected $cHashActions = array(
+    protected $cHashActions = [
         'listAction',
         'latestAction',
         'showAction',
-    );
+    ];
 
     /**
      * commentRepository.
@@ -154,7 +154,7 @@ class CommentController extends AbstractController
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'prePersist',
-            array($post, &$newComment, $this)
+            [$post, &$newComment, $this]
         );
 
         $post->addComment($newComment);
@@ -183,9 +183,9 @@ class CommentController extends AbstractController
     {
         if ($this->arguments->hasArgument('post')) {
             $post = $this->arguments->getArgument('post')->getValue();
-            $this->cacheService->addCacheTagsToFlush(array(
+            $this->cacheService->addCacheTagsToFlush([
                 'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
-            ));
+            ]);
         } else {
             parent::clearCacheOnError();
         }
@@ -234,10 +234,10 @@ class CommentController extends AbstractController
         $comment->setSpamPoints($this->spamCheckService->process($settings));
 
         $threshold = $settings['threshold'];
-        $logData = array(
+        $logData = [
             'commentUid' => $comment->getUid(),
             'spamPoints' => $comment->getSpamPoints(),
-        );
+        ];
 
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= intval($threshold['redirect'])) {

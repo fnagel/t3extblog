@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'ctrl' => array(
+return [
+    'ctrl' => [
         'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl',
         'label' => 'email',
         'label_alt' => 'post_uid',
@@ -10,43 +10,43 @@ return array(
         'crdate' => 'crdate',
         'default_sortby' => 'ORDER BY crdate DESC',
         'delete' => 'deleted',
-        'enablecolumns' => array(
+        'enablecolumns' => [
             'disabled' => 'hidden',
-        ),
+        ],
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-subscriber',
         ],
         'searchFields' => 'email,name',
-    ),
-    'interface' => array(
+    ],
+    'interface' => [
         'showRecordFieldList' => 'hidden,email,name,lastsent,post_uid,code',
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            ),
-        ),
-        'email' => array(
+            ],
+        ],
+        'email' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.email',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'eval' => 'required',
-            ),
-        ),
-        'name' => array(
+            ],
+        ],
+        'name' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.name',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'eval' => 'required',
-            ),
-        ),
-        'post_uid' => array(
+            ],
+        ],
+        'post_uid' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.post_uid',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_t3blog_post',
@@ -54,35 +54,35 @@ return array(
                 'minitems' => 1,
                 'maxitems' => 1,
                 'size' => 1,
-                'wizards' => array(
-                    'add' => array(
+                'wizards' => [
+                    'add' => [
                         'type' => 'suggest',
-                    ),
-                ),
-            ),
-        ),
-        'lastsent' => array(
+                    ],
+                ],
+            ],
+        ],
+        'lastsent' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.lastsent',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,required',
                 'size' => 13,
-            ),
-        ),
-        'code' => array(
+            ],
+        ],
+        'code' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.code',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'readOnly' => true,
                 'size' => 30,
-            ),
-        ),
-    ),
-    'types' => array(
-        '0' => array('showitem' => '
+            ],
+        ],
+    ],
+    'types' => [
+        '0' => ['showitem' => '
 			name, email, hidden,
 			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com_nl.tabs.meta,
-				post_uid, lastsent, code'),
-    ),
-);
+				post_uid, lastsent, code'],
+    ],
+];

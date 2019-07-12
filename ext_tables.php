@@ -89,18 +89,18 @@ call_user_func(function ($packageKey) {
             'web',
             'Tx_T3extblog',
             '',
-            array(
+            [
                 'BackendDashboard' => 'index',
                 'BackendPost' => 'index, sendPostNotifications',
                 'BackendComment' => 'index, listPending, listByPost',
                 'BackendSubscriber' => 'indexPostSubscriber, indexBlogSubscriber',
-            ),
-            array(
+            ],
+            [
                 'access' => 'user,group',
                 'icon' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png',
                 'labels' => 'LLL:EXT:'.$packageKey.'/Resources/Private/Language/locallang_mod.xml',
                 'navigationComponentId' => 'typo3-pagetree',
-            )
+            ]
         );
     }
 }, $_EXTKEY);

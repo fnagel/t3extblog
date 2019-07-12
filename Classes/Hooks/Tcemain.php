@@ -45,10 +45,10 @@ class Tcemain
      *
      * @var array
      */
-    protected $watchedFields = array(
+    protected $watchedFields = [
         'approved',
         'spam',
-    );
+    ];
 
     /**
      * notificationService.
@@ -83,13 +83,13 @@ class Tcemain
      */
     public function processCmdmap($command, $table, $id, $relativeTo, $commandIsProcessed, $tceMain)
     {
-        if (!in_array($table, array('tx_t3blog_post', 'tx_t3blog_com'))) {
+        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com'])) {
             return;
         }
 
         if ($command === 'delete') {
             $pid = $this->resolveRecordPid($table, $id, $tceMain);
-            $tagsToFlush = array();
+            $tagsToFlush = [];
 
             // Cache tags
             if ($table === 'tx_t3blog_post') {
@@ -134,14 +134,14 @@ class Tcemain
      */
     public function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain)
     {
-        if (!in_array($table, array('tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'))) {
+        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'])) {
             return;
         }
 
         $pid = $this->resolveRecordPid($table, $id, $tceMain, $fields);
         $id = $this->resolveRecordUid($id, $tceMain);
 
-        $tagsToFlush = array();
+        $tagsToFlush = [];
 
         if ($table === 'tx_t3blog_post') {
             // Cache tags for posts
@@ -185,17 +185,17 @@ class Tcemain
      */
     protected function deletePostRelations($id)
     {
-        $command = array(
+        $command = [
             'tx_t3blog_com' => $this->getDeleteArrayForTable($id, 'tx_t3blog_com', 'fk_post'),
             'tx_t3blog_com_nl' => $this->getDeleteArrayForTable($id, 'tx_t3blog_com_nl', 'post_uid'),
             'tx_t3blog_trackback' => $this->getDeleteArrayForTable($id, 'tx_t3blog_trackback', 'postid'),
             'tt_content' => $this->getDeleteArrayForTable($id, 'tt_content', 'irre_parentid', ' AND irre_parenttable=\'tx_t3blog_post\''),
-        );
+        ];
 
         /* @var $tceMain DataHandler */
         $tceMain = $this->getObjectContainer()->getInstance(DataHandler::class);
 
-        $tceMain->start(array(), $command);
+        $tceMain->start([], $command);
         $tceMain->process_cmdmap();
     }
 
@@ -209,7 +209,7 @@ class Tcemain
      */
     protected function getDeleteArrayForTable($postId, $tableName, $fieldName, $extraWhere = '')
     {
-        $command = array();
+        $command = [];
         $where = $fieldName.'='.$postId.BackendUtility::deleteClause($tableName).$extraWhere;
 
         $data = $this->getDatabase()->exec_SELECTgetRows('uid', $tableName, $where);

@@ -130,7 +130,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
             return $camelCaseProperties;
         }
 
-        $data = array();
+        $data = [];
         foreach ($camelCaseProperties as $camelCaseFieldKey => $value) {
             $fieldKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseFieldKey));
 

@@ -34,9 +34,9 @@ use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
  */
 abstract class AbstractSubscriberRepository extends AbstractRepository
 {
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'crdate' => QueryInterface::ORDER_DESCENDING,
-    );
+    ];
 
     /**
      * Find by code.
@@ -70,7 +70,7 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
      */
     protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, $email, $excludeUid = null)
     {
-        $constraints = array();
+        $constraints = [];
 
         $constraints[] = $query->equals('email', $email);
 

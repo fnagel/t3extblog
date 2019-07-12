@@ -38,12 +38,12 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
  */
 class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
 {
-	/**
-	 * This view helper renders HTML, thus output must not be escaped
-	 *
-	 * @var bool
-	 */
-	protected $escapeOutput = false;
+    /**
+     * This view helper renders HTML, thus output must not be escaped
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * Prints sprite icon html for $iconName key.
@@ -53,7 +53,7 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
      *
      * @return string
      */
-    public function render($iconName, $options = array())
+    public function render($iconName, $options = [])
     {
         /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);

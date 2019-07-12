@@ -36,7 +36,7 @@ class BackendDashboardController extends BackendBaseController
      */
     public function indexAction()
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'postDrafts' => $this->postRepository->findDrafts($this->pageId),
             'comments' => $this->commentRepository->findByPage($this->pageId),
             'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
@@ -47,6 +47,6 @@ class BackendDashboardController extends BackendBaseController
             'validCommentsCount' => $this->commentRepository->findValid($this->pageId)->count(),
             'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
             'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),
-        ));
+        ]);
     }
 }

@@ -38,14 +38,14 @@ class FlushCacheService implements SingletonInterface
     /**
      * @var array
      */
-    protected $cacheTagsToFlush = array();
+    protected $cacheTagsToFlush = [];
 
     /**
      */
     public function initializeObject()
     {
         // Clear cache on shutdown
-        register_shutdown_function(array($this, 'flushFrontendCache'));
+        register_shutdown_function([$this, 'flushFrontendCache']);
     }
 
     /**
@@ -66,7 +66,7 @@ class FlushCacheService implements SingletonInterface
     public function addCacheTagsToFlush($cacheTagsToFlush)
     {
         if (!is_array($cacheTagsToFlush)) {
-            $cacheTagsToFlush = array($cacheTagsToFlush);
+            $cacheTagsToFlush = [$cacheTagsToFlush];
         }
 
         if (count($cacheTagsToFlush) < 1) {

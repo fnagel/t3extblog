@@ -90,8 +90,8 @@ class EmailService implements SingletonInterface
      * @param array  $mailTo
      * @param array  $mailFrom
      * @param string $subject
-	 * @param array  $variables
-	 * @param string $templatePath
+     * @param array  $variables
+     * @param string $templatePath
      *
      * @return int the number of recipients who were accepted for delivery
      */
@@ -100,7 +100,7 @@ class EmailService implements SingletonInterface
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'sendEmail',
-            array(&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this)
+            [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
         );
 
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
@@ -147,13 +147,13 @@ class EmailService implements SingletonInterface
             $message->send();
         }
 
-        $logData = array(
+        $logData = [
             'mailTo' => $mailTo,
             'mailFrom' => $mailFrom,
             'subject' => $subject,
             'emailBody' => $emailBody,
             'isSent' => $message->isSent(),
-        );
+        ];
         $this->log->dev('Email sent.', $logData);
 
         return $logData['isSent'];
@@ -171,11 +171,11 @@ class EmailService implements SingletonInterface
     {
         $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
-        $emailView->assignMultiple(array(
+        $emailView->assignMultiple([
             'timestamp' => $GLOBALS['EXEC_TIME'],
             'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
             'settings' => $this->settings,
-        ));
+        ]);
 
         return $emailView->render();
     }

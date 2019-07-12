@@ -625,7 +625,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function getContentIdList()
     {
-        $idList = array();
+        $idList = [];
 
         foreach ($this->getContent() as $contentElement) {
             $idList[] = $contentElement->getUid();
@@ -648,7 +648,7 @@ class Post extends AbstractLocalizedEntity
             return strip_tags($this->getPreviewText());
         }
 
-        $text = array();
+        $text = [];
         foreach ($this->getContent() as $contentElement) {
             if (strlen($contentElement->getBodytext()) > 0) {
                 $text[] = $contentElement->getBodytext();
@@ -817,11 +817,11 @@ class Post extends AbstractLocalizedEntity
      */
     public function getLinkParameter()
     {
-        return array(
+        return [
             'post' => $this->getUid(),
             'day' => $this->getPublishDay(),
             'month' => $this->getPublishMonth(),
             'year' => $this->getPublishYear(),
-        );
+        ];
     }
 }

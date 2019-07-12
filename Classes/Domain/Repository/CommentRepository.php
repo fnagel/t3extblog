@@ -34,9 +34,9 @@ use FelixNagel\T3extblog\Domain\Model\Post;
  */
 class CommentRepository extends AbstractRepository
 {
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'date' => QueryInterface::ORDER_DESCENDING,
-    );
+    ];
 
     /**
      * Finds all valid comments.
@@ -68,7 +68,7 @@ class CommentRepository extends AbstractRepository
     {
         $query = $this->createQuery();
 
-        $constraints = array();
+        $constraints = [];
         $constraints[] = $query->equals('postId', $post->getUid());
 
         if ($respectEnableFields === false) {

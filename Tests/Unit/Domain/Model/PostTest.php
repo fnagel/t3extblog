@@ -92,7 +92,7 @@ class PostTest extends BaseTest
      */
     public function testTagCloudMethods()
     {
-        $tagCloud = array('tag1', 'tag2', 'tag3');
+        $tagCloud = ['tag1', 'tag2', 'tag3'];
 
         $this->fixture->setTagCloud($tagCloud);
         $this->assertEquals(
@@ -147,12 +147,12 @@ class PostTest extends BaseTest
 
         $this->assertEquals(
             $this->fixture->getLinkParameter(),
-            array(
+            [
                 'post' => '123',
                 'day' => '14',
                 'month' => '01',
                 'year' => '2014',
-            )
+            ]
         );
     }
 }

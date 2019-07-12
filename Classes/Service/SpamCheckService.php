@@ -82,7 +82,7 @@ class SpamCheckService implements SpamCheckServiceInterface
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'spamCheck',
-            array($settings, $arguments, &$spamPoints, $this)
+            [$settings, $arguments, &$spamPoints, $this]
         );
 
         return $spamPoints;

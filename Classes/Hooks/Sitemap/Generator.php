@@ -58,7 +58,7 @@ class Generator extends TtNewsSitemapGenerator
         $this->rendererClass = Renderer::class;
 
         $this->cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $this->cObj->start(array());
+        $this->cObj->start([]);
 
         $this->offset = max(0, (int) GeneralUtility::_GET('offset'));
         $this->limit = max(0, (int) GeneralUtility::_GET('limit'));
@@ -134,20 +134,20 @@ class Generator extends TtNewsSitemapGenerator
         $date = new \DateTime();
         $date->setTimestamp($row['date']);
 
-        $linkParameters = GeneralUtility::implodeArrayForUrl('tx_t3extblog_blogsystem', array(
+        $linkParameters = GeneralUtility::implodeArrayForUrl('tx_t3extblog_blogsystem', [
             'post' => $row['uid'],
             'day' => $date->format('d'),
             'month' => $date->format('m'),
             'year' => $date->format('Y'),
-        ));
+        ]);
 
-        $conf = array(
+        $conf = [
             'additionalParams' => $linkParameters,
             'forceAbsoluteUrl' => 1,
             'parameter' => $this->singlePid,
             'returnLast' => 'url',
             'useCacheHash' => true,
-        );
+        ];
         $link = htmlspecialchars($this->cObj->typoLink('', $conf));
 
         return $link;

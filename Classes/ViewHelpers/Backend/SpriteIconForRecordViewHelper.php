@@ -39,12 +39,12 @@ use TYPO3\CMS\Extbase\Domain\Model\BackendUser;
  */
 class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
 {
-	/**
-	 * This view helper renders HTML, thus output must not be escaped
-	 *
-	 * @var bool
-	 */
-	protected $escapeOutput = false;
+    /**
+     * This view helper renders HTML, thus output must not be escaped
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * Displays spriteIcon for database table and object.
@@ -62,11 +62,11 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
             return '';
         }
 
-        $row = array(
+        $row = [
             'uid' => $object->getUid(),
             'startTime' => false,
             'endTime' => false,
-        );
+        ];
 
         if (method_exists($object, 'getIsDisabled')) {
             $row['disable'] = $object->getIsDisabled();

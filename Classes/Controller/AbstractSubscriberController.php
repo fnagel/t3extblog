@@ -87,7 +87,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'subscriberConfirmAction',
-            array(&$this->subscriber, $this)
+            [&$this->subscriber, $this]
         );
 
         if ($this->subscriber->_getProperty('hidden') === true) {
@@ -119,7 +119,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'subscriberDeleteAction',
-            array(&$this->subscriber, $this)
+            [&$this->subscriber, $this]
         );
 
         // Check if the given subscriber is owned by authenticated user
@@ -165,7 +165,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
         if ($subscriber === null) {
-            $this->forward('processError', 'Subscriber', null, array('message' => 'authFailed'));
+            $this->forward('processError', 'Subscriber', null, ['message' => 'authFailed']);
         }
 
         $modify = '+1 hour';
@@ -173,7 +173,7 @@ abstract class AbstractSubscriberController extends AbstractController
             $modify = trim($this->subscriptionSettings['emailHashTimeout']);
         }
         if ($subscriber->isAuthCodeExpired($modify)) {
-            $this->forward('processError', 'Subscriber', null, array('message' => 'linkOutdated'));
+            $this->forward('processError', 'Subscriber', null, ['message' => 'linkOutdated']);
         }
 
         if ($isConfirmRequest === true) {
@@ -189,7 +189,7 @@ abstract class AbstractSubscriberController extends AbstractController
                     'processError',
                     'Subscriber',
                     null,
-                    array('message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE)
+                    ['message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE]
                 );
             }
         }
@@ -222,7 +222,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $code = $this->request->getArgument('code');
 
         if (strlen($code) !== 32 || !ctype_alnum($code)) {
-            $this->forward('processError', 'Subscriber', null, array('message' => 'invalidLink'));
+            $this->forward('processError', 'Subscriber', null, ['message' => 'invalidLink']);
         }
 
         return $code;

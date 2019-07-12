@@ -68,7 +68,7 @@ class CommentNotificationService extends AbstractNotificationService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'processNewComment',
-            array(&$comment, $this)
+            [&$comment, $this]
         );
 
         $subscriber = null;
@@ -103,7 +103,7 @@ class CommentNotificationService extends AbstractNotificationService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'processChangedComment',
-            array(&$comment, $this)
+            [&$comment, $this]
         );
 
         if ($comment->isValid()) {
@@ -134,7 +134,8 @@ class CommentNotificationService extends AbstractNotificationService
 
         // check if user already registered
         $subscribers = $this->subscriberRepository->findExistingSubscriptions(
-            $comment->getPostId(), $comment->getEmail()
+            $comment->getPostId(),
+            $comment->getEmail()
         );
         if (count($subscribers) > 0) {
             $this->log->notice('Subscriber ['.$comment->getEmail().'] already registered.');
@@ -164,10 +165,10 @@ class CommentNotificationService extends AbstractNotificationService
             $subscriber,
             $this->translate('subject.subscriber.comment.new', $post->getTitle()),
             $this->subscriptionSettings['subscriber']['template']['confirm'],
-            array(
+            [
                 'post' => $post,
                 'comment' => $comment,
-            )
+            ]
         );
     }
 
@@ -215,15 +216,15 @@ class CommentNotificationService extends AbstractNotificationService
         $post = $comment->getPost();
         $subscribers = $this->subscriberRepository->findForNotification($post);
         $subject = $this->translate('subject.subscriber.comment.notify', $post->getTitle());
-        $variables = array(
+        $variables = [
             'post' => $post,
             'comment' => $comment,
-        );
+        ];
 
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'notifySubscribers',
-            array($post, &$comment, &$subscribers, &$subject, &$variables, $this)
+            [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
         );
 
         $this->log->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
@@ -239,7 +240,10 @@ class CommentNotificationService extends AbstractNotificationService
             $this->subscriberRepository->update($subscriber);
 
             $this->sendSubscriberEmail(
-                $subscriber, $subject, $settings['template']['notification'], $variables
+                $subscriber,
+                $subject,
+                $settings['template']['notification'],
+                $variables
             );
         }
 
@@ -271,14 +275,14 @@ class CommentNotificationService extends AbstractNotificationService
         /* @var $post Post */
         $post = $comment->getPost();
         $subject = $this->translate('subject.comment.admin.new', $post->getTitle());
-        $variables = array(
+        $variables = [
             'post' => $post,
             'languageUid' => $post->getSysLanguageUid(),
             'comment' => $comment,
-        );
+        ];
 
         $this->sendEmail(
-            array($settings['mailTo']['email'] => $settings['mailTo']['name']),
+            [$settings['mailTo']['email'] => $settings['mailTo']['name']],
             $subject,
             $settings['template'],
             $settings,

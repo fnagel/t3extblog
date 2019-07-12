@@ -36,9 +36,9 @@ class BackendSubscriberController extends BackendBaseController
      */
     public function indexPostSubscriberAction()
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, false),
-        ));
+        ]);
     }
 
     /**
@@ -46,8 +46,8 @@ class BackendSubscriberController extends BackendBaseController
      */
     public function indexBlogSubscriberAction()
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, false),
-        ));
+        ]);
     }
 }

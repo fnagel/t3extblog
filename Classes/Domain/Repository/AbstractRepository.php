@@ -43,7 +43,7 @@ class AbstractRepository extends Repository
         $query = parent::createQuery();
 
         if ($pageUid !== null) {
-            $query->getQuerySettings()->setStoragePageIds(array((int) $pageUid));
+            $query->getQuerySettings()->setStoragePageIds([(int) $pageUid]);
         }
 
         return $query;

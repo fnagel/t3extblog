@@ -44,7 +44,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
     /**
      * @var array
      */
-    protected $databaseQueries = array();
+    protected $databaseQueries = [];
 
     /**
      * @var string
@@ -183,7 +183,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
         $this->databaseConnection->exec_UPDATEquery(
             'tt_content',
             'uid = '.(int) $contentRecord['uid'],
-            array('bodytext' => str_replace('###MORE###', '', $contentRecord['bodytext']))
+            ['bodytext' => str_replace('###MORE###', '', $contentRecord['bodytext'])]
         );
         $this->logDatabaseExec();
     }
@@ -197,7 +197,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
      */
     protected function updatePostRecord($postRecord, $textBeforeDivider, $firstImageRecord)
     {
-        $data = array('preview_text' => $textBeforeDivider);
+        $data = ['preview_text' => $textBeforeDivider];
 
         if ($firstImageRecord !== null) {
             $fileObjectArray = $this->getFileRepository()->findByRelation('tt_content', 'image', $firstImageRecord['uid']);
@@ -232,7 +232,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
             return;
         }
 
-        $dataArray = array(
+        $dataArray = [
             'uid_local' => $fileObject->getOriginalFile()->getUid(),
             'tablenames' => 'tx_t3blog_post',
             'fieldname' => 'preview_image',
@@ -242,7 +242,7 @@ class PreviewUpdateWizard extends \TYPO3\CMS\Install\Updates\AbstractUpdate
             // the sys_file_reference record should always placed on the same page
             // as the record to link to, see issue #46497
             'pid' => $postRecord['pid'],
-        );
+        ];
 
         $this->databaseConnection->exec_INSERTquery('sys_file_reference', $dataArray);
         $this->logDatabaseExec();

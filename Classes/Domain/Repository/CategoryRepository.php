@@ -33,10 +33,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  */
 class CategoryRepository extends AbstractRepository
 {
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'sorting' => QueryInterface::ORDER_ASCENDING,
         'name' => QueryInterface::ORDER_ASCENDING,
-    );
+    ];
 
     /**
      * Returns all children of the given category

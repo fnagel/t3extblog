@@ -57,7 +57,7 @@ class PaginateViewHelper extends AbstractWidgetViewHelper
      *
      * @throws \UnexpectedValueException
      */
-    public function render($objects, $as, array $configuration = array('itemsPerPage' => 10, 'insertAbove' => false, 'insertBelow' => true, 'maximumNumberOfLinks' => 99))
+    public function render($objects, $as, array $configuration = ['itemsPerPage' => 10, 'insertAbove' => false, 'insertBelow' => true, 'maximumNumberOfLinks' => 99])
     {
         if (!($objects instanceof QueryResultInterface || $objects instanceof ObjectStorage || is_array($objects))) {
             throw new \UnexpectedValueException('Supplied file object type '.get_class($objects).' must be QueryResultInterface or ObjectStorage or be an array.', 1454510731);

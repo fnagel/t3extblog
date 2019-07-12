@@ -66,7 +66,7 @@ class BlogNotificationService extends AbstractNotificationService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'processNewSubscriber',
-            array(&$subscriber, $this)
+            [&$subscriber, $this]
         );
 
         if ($subscriber->isValidForOptin()) {
@@ -89,7 +89,7 @@ class BlogNotificationService extends AbstractNotificationService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'processChangedSubscriber',
-            array(&$subscriber, $this)
+            [&$subscriber, $this]
         );
 
         if ($subscriber->isValidForOptin()) {
@@ -138,12 +138,12 @@ class BlogNotificationService extends AbstractNotificationService
 
         $subscribers = $this->subscriberRepository->findForNotification();
         $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
-        $variables = array('post' => $post);
+        $variables = ['post' => $post];
 
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             'notifySubscribers',
-            array($post, &$subscribers, &$subject, &$variables, $this)
+            [$post, &$subscribers, &$subject, &$variables, $this]
         );
         
         $this->log->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');

@@ -57,7 +57,7 @@ class ActionViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
         $this->registerArgument('action', 'string', 'Target action');
-        $this->registerArgument('arguments', 'array', 'Arguments', false, array());
+        $this->registerArgument('arguments', 'array', 'Arguments', false, []);
         $this->registerArgument('controller', 'string', 'Target controller. If NULL current controllerName is used');
         $this->registerArgument('extensionName', 'string', 'Target Extension Name (without "tx_" prefix and no underscores). If NULL the current extension name is used');
         $this->registerArgument('pluginName', 'string', 'Target plugin. If empty, the current plugin name is used');
@@ -68,10 +68,10 @@ class ActionViewHelper extends AbstractViewHelper
         $this->registerArgument('section', 'string', 'The anchor to be added to the URI', false, '');
         $this->registerArgument('format', 'string', 'The requested format, e.g. ".html', false, '');
         $this->registerArgument('linkAccessRestrictedPages', 'bool', 'If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.', false, false);
-        $this->registerArgument('additionalParams', 'array', 'additional query parameters that won\'t be prefixed like $arguments (overrule $arguments)', false, array());
+        $this->registerArgument('additionalParams', 'array', 'additional query parameters that won\'t be prefixed like $arguments (overrule $arguments)', false, []);
         $this->registerArgument('absolute', 'bool', 'If set, an absolute URI is rendered', false, false);
         $this->registerArgument('addQueryString', 'bool', 'If set, the current query parameters will be kept in the URI', false, false);
-        $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', 'arguments to be removed from the URI. Only active if $addQueryString = TRUE', false, array());
+        $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', 'arguments to be removed from the URI. Only active if $addQueryString = TRUE', false, []);
         $this->registerArgument('addQueryStringMethod', 'string', 'Set which parameters will be kept. Only active if $addQueryString = TRUE');
     }
 
@@ -148,7 +148,7 @@ class ActionViewHelper extends AbstractViewHelper
      *
      * @throws \Exception
      */
-    protected function renderFrontendLink($action = null, array $arguments = array(), $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = array(), $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = array(), $addQueryStringMethod = null)
+    protected function renderFrontendLink($action = null, array $arguments = [], $controller, $extensionName, $pluginName, $pageUid, $pageType = 0, $noCache = false, $noCacheHash = false, $section = '', $format = '', $linkAccessRestrictedPages = false, array $additionalParams = [], $absolute = false, $addQueryString = false, array $argumentsToBeExcludedFromQueryString = [], $addQueryStringMethod = null)
     {
         if ($pageUid === null || !intval($pageUid)) {
             throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
@@ -197,7 +197,7 @@ class ActionViewHelper extends AbstractViewHelper
      *
      * @see build()
      */
-    public function uriFor($actionName = null, $controllerArguments = array(), $controllerName = null, $extensionName = null, $pluginName = null, $format = '', array $additionalParams = array())
+    public function uriFor($actionName = null, $controllerArguments = [], $controllerName = null, $extensionName = null, $pluginName = null, $format = '', array $additionalParams = [])
     {
         /* @var $extensionService ExtensionService */
         $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
@@ -210,7 +210,9 @@ class ActionViewHelper extends AbstractViewHelper
         }
         if ($pluginName === null) {
             $pluginName = $extensionService->getPluginNameByAction(
-                $extensionName, $controllerArguments['controller'], $controllerArguments['action']
+                $extensionName,
+                $controllerArguments['controller'],
+                $controllerArguments['action']
             );
         }
         if ($format !== '') {
@@ -218,7 +220,7 @@ class ActionViewHelper extends AbstractViewHelper
         }
 
         $pluginNamespace = $extensionService->getPluginNamespace($extensionName, $pluginName);
-        $prefixedControllerArguments = array($pluginNamespace => $controllerArguments);
+        $prefixedControllerArguments = [$pluginNamespace => $controllerArguments];
 
         return array_merge_recursive($additionalParams, $prefixedControllerArguments);
     }

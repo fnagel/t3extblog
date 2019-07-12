@@ -36,9 +36,9 @@ use FelixNagel\T3extblog\Domain\Model\Post;
  */
 class PostRepository extends AbstractRepository
 {
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'publishDate' => QueryInterface::ORDER_DESCENDING,
-    );
+    ];
 
     /**
      * Override default findByUid function to enable also the option to turn of
@@ -104,7 +104,7 @@ class PostRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->setOrderings(
-            array('publishDate' => QueryInterface::ORDER_ASCENDING)
+            ['publishDate' => QueryInterface::ORDER_ASCENDING]
         );
 
         $query->matching($query->greaterThan('publishDate', $post->getPublishDate()));
@@ -189,7 +189,7 @@ class PostRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectSysLanguage(false);
 
-        $constraints = array();
+        $constraints = [];
         $constraints[] = $query->contains('categories', $category);
 
         $categories = $category->getChildCategories();

@@ -36,14 +36,14 @@ use FelixNagel\T3extblog\Domain\Model\AbstractLocalizedEntity;
  */
 class RenderContentViewHelper extends AbstractViewHelper
 {
-	/**
-	 * This view helper renders HTML, thus output must not be escaped
-	 *
-	 * @var bool
-	 */
-	protected $escapeOutput = false;
+    /**
+     * This view helper renders HTML, thus output must not be escaped
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function initializeArguments()
@@ -97,11 +97,11 @@ class RenderContentViewHelper extends AbstractViewHelper
             return '';
         }
 
-        $configuration = array(
+        $configuration = [
             'tables' => $table,
             'source' => $uid,
             'dontCheckPid' => 1,
-        );
+        ];
 
         $parent = GeneralUtility::getTsFe()->currentRecord;
         if (false === empty($parent)) {

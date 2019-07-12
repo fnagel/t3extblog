@@ -59,7 +59,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
      *
      * @var array
      */
-    protected $cHashActions = array();
+    protected $cHashActions = [];
 
     /**
      * Injects the Configuration Manager and is initializing the framework settings
@@ -231,7 +231,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
             return;
         }
 
-        $tags = is_array($object) ? $object : array();
+        $tags = is_array($object) ? $object : [];
 
         if (is_string($object)) {
             $tags[] = $object;
@@ -264,7 +264,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
         static $cacheTagsSet = false;
 
         if ($cacheTagsSet === false) {
-            $this->addCacheTags(array('tx_t3extblog'));
+            $this->addCacheTags(['tx_t3extblog']);
 
             // We only want to set the tag once in one request
             $cacheTagsSet = true;

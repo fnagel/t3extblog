@@ -36,9 +36,9 @@ class CategoryController extends AbstractController
     /**
      * @var array
      */
-    protected $cHashActions = array(
+    protected $cHashActions = [
         'showAction',
-    );
+    ];
 
     /**
      * categoryRepository.

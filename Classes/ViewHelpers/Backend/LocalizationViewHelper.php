@@ -37,12 +37,12 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class LocalizationViewHelper extends AbstractBackendViewHelper
 {
-	/**
-	 * This view helper renders HTML, thus output must not be escaped
-	 *
-	 * @var bool
-	 */
-	protected $escapeOutput = false;
+    /**
+     * This view helper renders HTML, thus output must not be escaped
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
@@ -54,7 +54,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      *
      * @var array
      */
-    public $systemLanguages = array();
+    public $systemLanguages = [];
 
     /**
      * @param string $translations Name of the added variable
@@ -90,7 +90,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      */
     public function getLocalizedRecords($table, $row)
     {
-        $records = array();
+        $records = [];
         $translations = $this->translateTools->translationInfo($table, $row['uid'], 0, $row);
 
         if (is_array($translations) && is_array($translations['translations'])) {
@@ -100,14 +100,14 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
                 }
 
                 if (isset($translations['translations'][$sysLanguageUid])) {
-                    $records[$sysLanguageUid] = array(
+                    $records[$sysLanguageUid] = [
                         'editIcon' => $this->getLanguageIconLink(
                             $sysLanguageUid,
                             BackendUtility::editOnClick('&edit['.$table.']['.$translationData['uid'].']=edit'),
                             $translationData['uid']
                         ),
                         'uid' => $translations['translations'][$sysLanguageUid]['uid'],
-                    );
+                    ];
                 }
             }
         }

@@ -80,7 +80,8 @@ class ext_update
     {
         $key = 'comment_url_validation';
         $this->sectionArray[] = $this->renderForm(
-            $key, 'Find existing comments with invalid website URLs'
+            $key,
+            'Find existing comments with invalid website URLs'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->findCommentRecordsForUrlValidation();
@@ -127,7 +128,8 @@ class ext_update
 
         $key = 'post_mails_sent';
         $this->sectionArray[] = $this->renderForm(
-            $key, 'Set "mails_sent" flag for existing posts (use when updating to v2.1.0)'
+            $key,
+            'Set "mails_sent" flag for existing posts (use when updating to v2.1.0)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->updatePostRecordsForMailsSent();
@@ -139,7 +141,7 @@ class ext_update
      */
     protected function updatePostRecordsForMailsSent()
     {
-        $this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', array('mails_sent' => 1));
+        $this->database->exec_UPDATEquery('tx_t3blog_post', 'mails_sent IS NULL', ['mails_sent' => 1]);
 
         $message = $this->database->sql_affected_rows() . ' posts have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
@@ -155,8 +157,9 @@ class ext_update
         }
 
         $key = 'comment_mails_sent';
-                $this->sectionArray[] = $this->renderForm(
-            $key, 'Set "mails_sent" flag for existing comments (use when migrating from EXT:t3blog)'
+        $this->sectionArray[] = $this->renderForm(
+            $key,
+            'Set "mails_sent" flag for existing comments (use when migrating from EXT:t3blog)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->updateCommentRecordsForMailsSent();
@@ -168,7 +171,7 @@ class ext_update
      */
     protected function updateCommentRecordsForMailsSent()
     {
-        $this->database->exec_UPDATEquery('tx_t3blog_com', 'mails_sent IS NULL', array('mails_sent' => 1));
+        $this->database->exec_UPDATEquery('tx_t3blog_com', 'mails_sent IS NULL', ['mails_sent' => 1]);
 
         $message = $this->database->sql_affected_rows().' comments have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Comments updated', $message];
@@ -181,7 +184,8 @@ class ext_update
     {
         $key = 'comment_author_email_invalid';
         $this->sectionArray[] = $this->renderForm(
-            $key, 'Find existing comments with invalid author or email (use when migrating from EXT:t3blog)'
+            $key,
+            'Find existing comments with invalid author or email (use when migrating from EXT:t3blog)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->findCommentAuthorOrEmailInvalid();

@@ -73,7 +73,9 @@ class GeneralUtility
 
         $GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
             'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-            $GLOBALS['TYPO3_CONF_VARS'], (int) $pageUid, $pageType
+            $GLOBALS['TYPO3_CONF_VARS'],
+            (int) $pageUid,
+            $pageType
         );
 
         $GLOBALS['TSFE']->connectToDB();
@@ -94,9 +96,9 @@ class GeneralUtility
      */
     public static function disableFrontendCache()
     {
-	    if (isset($GLOBALS['TSFE'])) {
-		    $GLOBALS['TSFE']->no_cache = true;
-	    }
+        if (isset($GLOBALS['TSFE'])) {
+            $GLOBALS['TSFE']->no_cache = true;
+        }
     }
 
     /**

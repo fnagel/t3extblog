@@ -42,12 +42,12 @@ class PostController extends AbstractController
     /**
      * @var array
      */
-    protected $cHashActions = array(
+    protected $cHashActions = [
         'categoryAction',
         'authorAction',
         'tagAction',
         'showAction',
-    );
+    ];
 
     /**
      * postRepository.
@@ -245,7 +245,7 @@ class PostController extends AbstractController
 
         if (is_int($previewPost)) {
             $post = $this->postRepository->findByUid($previewPost, false);
-            $this->forward('show', null, null, array('post' => $post));
+            $this->forward('show', null, null, ['post' => $post]);
         }
 
         $this->errorAction();

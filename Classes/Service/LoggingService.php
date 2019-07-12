@@ -86,7 +86,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function error($msg, $data = array())
+    public function error($msg, $data = [])
     {
         $this->writeToSysLog($msg, 3);
 
@@ -105,7 +105,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function notice($msg, $data = array())
+    public function notice($msg, $data = [])
     {
         $this->writeToSysLog($msg, 1);
 
@@ -124,7 +124,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
      * @param string $msg  Message
      * @param array  $data Data
      */
-    public function dev($msg, $data = array())
+    public function dev($msg, $data = [])
     {
         if ($this->renderInFe) {
             $this->outputDebug($msg, 1, $data);
@@ -142,7 +142,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
      * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
      * @param array  $data     Data
      */
-    protected function outputDebug($msg, $severity = 0, $data = array())
+    protected function outputDebug($msg, $severity = 0, $data = [])
     {
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
     }

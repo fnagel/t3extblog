@@ -41,9 +41,9 @@ class BackendPostController extends BackendBaseController
      */
     public function indexAction()
     {
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple([
             'posts' => $this->postRepository->findByPage($this->pageId, false),
-        ));
+        ]);
     }
 
     /**
@@ -57,7 +57,7 @@ class BackendPostController extends BackendBaseController
         $notificationService = $this->objectManager->get(BlogNotificationService::class);
         $amount = $notificationService->notifySubscribers($post);
 
-        $this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', array($amount)));
+        $this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', [$amount]));
 
         $this->redirect('index');
     }

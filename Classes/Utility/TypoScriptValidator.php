@@ -55,19 +55,22 @@ class TypoScriptValidator
 
         if (empty($settings) || !is_array($settings)) {
             throw new InvalidConfigurationException(
-                'No valid TypoScript settings detected. Make sure '.$key.' is set.', 1344375015
+                'No valid TypoScript settings detected. Make sure '.$key.' is set.',
+                1344375015
             );
         }
 
         if (empty($settings['blogName'])) {
             throw new InvalidConfigurationException(
-                'No blog name detected. Make sure '.$key.'.blogName is set.', 1344375016
+                'No blog name detected. Make sure '.$key.'.blogName is set.',
+                1344375016
             );
         }
 
         if (empty($settings['blogsystem']['pid']) || !MathUtility::canBeInterpretedAsInteger($settings['blogsystem']['pid'])) {
             throw new InvalidConfigurationException(
-                'No blogsystem pid detected. Make sure '.$key.'.blogsystem.pid is set.', 1344375017
+                'No blogsystem pid detected. Make sure '.$key.'.blogsystem.pid is set.',
+                1344375017
             );
         }
 
@@ -104,7 +107,8 @@ class TypoScriptValidator
         ) {
             throw new InvalidConfigurationException(
                 'No valid persistence storage pid setting detected.
-				Make sure plugin.tx_t3extblog.persistence.storagePid is a valid page uid.', 1344375015
+				Make sure plugin.tx_t3extblog.persistence.storagePid is a valid page uid.',
+                1344375015
             );
         }
     }

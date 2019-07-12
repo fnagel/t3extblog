@@ -8,103 +8,103 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'Blogsystem',
-    array(
+    [
         'Post' => 'list, tag, category, author, show, permalink, preview',
         'Comment' => 'create, show',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Post' => 'permalink, preview',
         'Comment' => 'create',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'Archive',
-    array(
+    [
         'Post' => 'archive',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Post' => '',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'Rss',
-    array(
+    [
         'Post' => 'rss',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Post' => '',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'SubscriptionManager',
-    array(
+    [
         'Subscriber' => 'list, error, logout, confirm',
         'PostSubscriber' => 'list, delete, confirm',
         'BlogSubscriber' => 'list, delete, confirm, create',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Subscriber' => 'list, error, logout, confirm',
         'PostSubscriber' => 'list, delete, confirm',
         'BlogSubscriber' => 'list, delete, confirm, create',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'BlogSubscription',
-    array(
+    [
         'BlogSubscriberForm' => 'new, create, success',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'BlogSubscriberForm' => 'new, create, success',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'Categories',
-    array(
+    [
         'Category' => 'list, show',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Category' => '',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'LatestPosts',
-    array(
+    [
         'Post' => 'latest',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Post' => '',
-    )
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'FelixNagel.'.$_EXTKEY,
     'LatestComments',
-    array(
+    [
         'Comment' => 'latest',
-    ),
+    ],
     // non-cacheable actions
-    array(
+    [
         'Comment' => '',
-    )
+    ]
 );
 
 if (TYPO3_MODE == 'BE') {
@@ -134,7 +134,7 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dd_googlesitem
 
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
-$requiredParameters = array(
+$requiredParameters = [
     'tx_t3extblog_blogsystem[action]',
     'tx_t3extblog_blogsystem[controller]',
     'tx_t3extblog_blogsystem[post]',
@@ -145,7 +145,7 @@ $requiredParameters = array(
     'tx_t3extblog_blogsystem[author]',
     'tx_t3extblog_blogsystem[@widget_0][currentPage]',
     'tx_t3extblog_subscriptionmanager[subscriber]',
-);
+];
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ','.implode(',', $requiredParameters);
 
 // Make sure post preview works, taken from EXT:tt_news
@@ -158,11 +158,11 @@ if ($_COOKIE[$configuredCookieName]) {
 }
 
 // Make default avatar provider available in FE
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = [
     'provider' => \TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider::class,
-);
+];
 
 // Overwrite classes
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = [
     'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
-);
+];

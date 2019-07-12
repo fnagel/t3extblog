@@ -66,9 +66,9 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function login($email)
     {
         $this->session->setData(
-            array(
+            [
                 'email' => $email,
-            )
+            ]
         );
 
         return true;

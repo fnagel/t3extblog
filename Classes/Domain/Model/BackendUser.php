@@ -56,6 +56,6 @@ class BackendUser extends BaseBackendUser
      */
     public function getMailTo()
     {
-        return array($this->getEmail() => $this->getName());
+        return [$this->getEmail() => $this->getName()];
     }
 }

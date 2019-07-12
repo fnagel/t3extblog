@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'ctrl' => array(
+return [
+    'ctrl' => [
         'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post',
         'label' => 'title',
         'tstamp' => 'tstamp',
@@ -16,93 +16,93 @@ return array(
         'hideAtCopy' => true,
         'default_sortby' => 'ORDER BY date DESC',
         'delete' => 'deleted',
-        'enablecolumns' => array(
+        'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
             'fe_group' => 'fe_group',
-        ),
+        ],
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-post',
         ],
         'dividers2tabs' => true,
         'searchFields' => 'title',
-    ),
-    'interface' => array(
+    ],
+    'interface' => [
         'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
 			author,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
-    ),
-    'columns' => array(
-        'sys_language_uid' => array(
+    ],
+    'columns' => [
+        'sys_language_uid' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
-                'items' => array(
+                'items' => [
                     ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
                     ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-                ),
+                ],
                 'default' => 0,
-            ),
-        ),
-        'l18n_parent' => array(
+            ],
+        ],
+        'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => array(
-                    array('', 0),
-                ),
+                'items' => [
+                    ['', 0],
+                ],
                 'foreign_table' => 'tx_t3blog_post',
                 'foreign_table_where' => 'AND tx_t3blog_post.pid=###CURRENT_PID### AND tx_t3blog_post.sys_language_uid IN (-1,0)',
-            ),
-        ),
-        'l18n_diffsource' => array(
-            'config' => array(
+            ],
+        ],
+        'l18n_diffsource' => [
+            'config' => [
                 'type' => 'passthrough',
-            ),
-        ),
-        'hidden' => array(
+            ],
+        ],
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check',
                 'default' => '1',
-            ),
-        ),
-        'starttime' => array(
+            ],
+        ],
+        'starttime' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
-            ),
-        ),
-        'endtime' => array(
+            ],
+        ],
+        'endtime' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
-                'range' => array(
+                'range' => [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038),
-                ),
-            ),
-        ),
-        'fe_group' => array(
+                ],
+            ],
+        ],
+        'fe_group' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'size' => 7,
@@ -125,21 +125,21 @@ return array(
                 'foreign_table' => 'fe_groups',
                 'foreign_table_where' => 'ORDER BY fe_groups.title',
                 'enableMultiSelectFilterTextfield' => true,
-            ),
-        ),
-        'title' => array(
+            ],
+        ],
+        'title' => [
             'exclude' => 1,
             'l10n_mode' => 'prefixLangTitle',
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.title',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'eval' => 'required',
-            ),
-        ),
-        'tagClouds' => array(
+            ],
+        ],
+        'tagClouds' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tagClouds',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tagClouds.placeholder',
                 'type' => 'input',
                 'size' => 150,
@@ -148,12 +148,12 @@ return array(
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
-            ),
-        ),
-        'author' => array(
+            ],
+        ],
+        'author' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.author',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'be_users',
@@ -164,24 +164,24 @@ return array(
                 'minitems' => 1,
                 'maxitems' => 1,
                 'prepend_tname' => false,
-            ),
-        ),
-        'date' => array(
+            ],
+        ],
+        'date' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.date',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'checkbox' => '0',
                 'default' => mktime(date('H'), date('i'), 0, date('m'), date('d'), date('Y')),
-            ),
-        ),
-        'content' => array(
+            ],
+        ],
+        'content' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.content',
-            'config' => array(
+            'config' => [
                 'type' => 'inline',
                 'allowed' => 'tt_content',
                 'foreign_table' => 'tt_content',
@@ -189,7 +189,7 @@ return array(
                 'foreign_field' => 'irre_parentid',
                 'minitems' => 0,
                 'maxitems' => 99,
-                'appearance' => array(
+                'appearance' => [
                     'collapseAll' => 1,
                     'expandSingle' => 1,
                     'levelLinksPosition' => 'bottom',
@@ -198,111 +198,111 @@ return array(
                     'showRemovedLocalizationRecords' => 1,
                     'showAllLocalizationLink' => 1,
                     'showSynchronizationLink' => 1,
-                    'enabledControls' => array(
+                    'enabledControls' => [
                         'info' => false,
-                    ),
-                ),
-                'behaviour' => array(
+                    ],
+                ],
+                'behaviour' => [
                     'enableCascadingDelete' => true,
                     'allowLanguageSynchronization' => true,
-                ),
-                'foreign_selector_fieldTcaOverride' => array(
+                ],
+                'foreign_selector_fieldTcaOverride' => [
                     'l10n_mode' => 'prefixLangTitle',
-                ),
-            ),
-        ),
-        'allow_comments' => array(
+                ],
+            ],
+        ],
+        'allow_comments' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments',
-            'config' => array(
+            'config' => [
                 'type' => 'radio',
                 'default' => 0,
-                'items' => array(
-                    array(
+                'items' => [
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.0',
                         '0'
-                    ),
-                    array(
+                    ],
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.1',
                         '1'
-                    ),
-                    array(
+                    ],
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.2',
                         '2'
-                    ),
-                ),
+                    ],
+                ],
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
-            ),
-        ),
-        'cat' => array(
+            ],
+        ],
+        'cat' => [
             'exclude' => 1,
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.cat',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectTree',
-                'treeConfig' => array(
+                'treeConfig' => [
                     'parentField' => 'parent_id',
-                    'appearance' => array(
+                    'appearance' => [
                         'expandAll' => true,
                         'showHeader' => true,
-                    ),
-                ),
+                    ],
+                ],
                 'MM' => 'tx_t3blog_post_cat_mm',
                 'foreign_table' => 'tx_t3blog_cat',
                 'foreign_table_where' => ' AND tx_t3blog_cat.pid = ###CURRENT_PID### AND tx_t3blog_cat.hidden = 0 AND tx_t3blog_cat.deleted = 0 AND (tx_t3blog_cat.sys_language_uid = 0 OR tx_t3blog_cat.l18n_parent = 0) ORDER BY tx_t3blog_cat.sorting',
                 'size' => 10,
                 'minitems' => 1,
                 'maxitems' => 20,
-            ),
-        ),
-        'trackback' => array(
+            ],
+        ],
+        'trackback' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.trackback',
-            'config' => array(
+            'config' => [
                 'type' => 'text',
                 'cols' => 45,
                 'rows' => 3,
                 'wrap' => 'off',
                 'softref' => 'url',
-            ),
-        ),
-        'trackback_hash' => array(
+            ],
+        ],
+        'trackback_hash' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.trackback_hash',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 130,
                 'eval' => 'trim',
-            ),
-        ),
-        'number_views' => array(
+            ],
+        ],
+        'number_views' => [
             'exclude' => 1,
             'l10n_mode' => 'prefixLangTitle',
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.number_views',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 8,
                 'max' => 15,
                 'eval' => 'int',
-            ),
-        ),
-        'meta_description' => array(
+            ],
+        ],
+        'meta_description' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_description',
-            'config' => array(
+            'config' => [
                 'type' => 'text',
                 'cols' => 45,
                 'rows' => 3,
-            ),
-        ),
-        'meta_keywords' => array(
+            ],
+        ],
+        'meta_keywords' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_keywords',
-            'config' => array(
+            'config' => [
                 'placeholder' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.meta_keywords.placeholder',
                 'type' => 'text',
                 'cols' => 45,
@@ -310,56 +310,56 @@ return array(
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
-            ),
-        ),
-        'preview_mode' => array(
+            ],
+        ],
+        'preview_mode' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'default' => 0,
-                'items' => array(
-                    array(
+                'items' => [
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.0',
                         '0'
-                    ),
-                    array(
+                    ],
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.1',
                         '1'
-                    ),
-                    array(
+                    ],
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.2',
                         '2'
-                    ),
-                    array(
+                    ],
+                    [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_mode.3',
                         '3'
-                    ),
-                ),
+                    ],
+                ],
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
-            ),
-        ),
-        'preview_text' => array(
+            ],
+        ],
+        'preview_text' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_text',
-            'config' => array(
+            'config' => [
                 'type' => 'text',
                 'cols' => 45,
                 'rows' => 10,
                 'enableRichtext' => '1',
                 'richtextConfiguration' => 'default',
                 'softref' => 'typolink_tag,email[subst],url',
-            ),
-        ),
-        'preview_image' => array(
+            ],
+        ],
+        'preview_image' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.preview_image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'preview_image',
-                array(
+                [
                     'maxitems' => 1,
                     'overrideChildTca' => [
                         'types' => [
@@ -370,32 +370,32 @@ return array(
                             ],
                         ],
                     ],
-                    'appearance' => array(
+                    'appearance' => [
                         'collapseAll' => 1,
                         'showPossibleLocalizationRecords' => 1,
                         'showRemovedLocalizationRecords' => 1,
                         'showAllLocalizationLink' => 1,
                         'showSynchronizationLink' => 1,
-                    ),
+                    ],
                     'behaviour' => [
                         'allowLanguageSynchronization' => true,
                     ],
-                ),
+                ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),
-        ),
-        'mails_sent' => array(
+        ],
+        'mails_sent' => [
             'displayCond' => 'HIDE_FOR_NON_ADMINS',
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.mails_sent',
-            'config' => array(
+            'config' => [
                 'type' => 'check',
-            ),
-        ),
-    ),
-    'types' => array(
-        '0' => array(
+            ],
+        ],
+    ],
+    'types' => [
+        '0' => [
             'showitem' => '
                 --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.tabs.post,
                     sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,content,
@@ -410,17 +410,17 @@ return array(
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                     --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
-        ),
-    ),
-    'palettes' => array(
-        'visibility' => array(
+        ],
+    ],
+    'palettes' => [
+        'visibility' => [
             'showitem' => 'hidden',
-        ),
-        'access' => array(
+        ],
+        'access' => [
             'showitem' => '
 				starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.starttime_formlabel,
 				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
 				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel',
-        ),
-    ),
-);
+        ],
+    ],
+];

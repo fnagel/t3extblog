@@ -85,13 +85,13 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-        $constraints = array(
+        $constraints = [
             $query->equals('postUid', $comment->getPostId()),
             $query->equals('email', $comment->getEmail()),
             $query->equals('lastSent', 0),
             $query->equals('hidden', 1),
             $query->equals('deleted', 0),
-        );
+        ];
 
         $query->matching(
             $query->logicalAnd($constraints)
