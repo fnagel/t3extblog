@@ -1,0 +1,159 @@
+routeEnhancers:
+  T3extblogBlogsystemPlugin:
+    type: Extbase
+    # Use this to limit routing for specific pages
+    # limitToPages: [123, 456]
+    extension: t3extblog
+    plugin: Blogsystem
+    defaultController: 'Post::list'
+    routes:
+      -
+        routePath: '/{post_prefix_localized}/{post_year}/{post_month}/{post_day}/{post_title}'
+        _controller: 'Post::show'
+        _arguments:
+          'post_year': 'year'
+          'post_month': 'month'
+          'post_day': 'day'
+          'post_title': 'post'
+      -
+        routePath: '/{post_page_localized}/{post_page}'
+        _controller: 'Post::list'
+        _arguments:
+          'post_page': '@widget_0/currentPage'
+      -
+        routePath: '/permalink/{post_permalink_uid}'
+        _controller: 'Post::permalink'
+        _arguments:
+          'post_permalink_uid': 'permalinkPost'
+      -
+        routePath: '/{author_prefix_localized}/{author_title}'
+        _controller: 'Post::author'
+        _arguments:
+          'author_title': 'author'
+      -
+        routePath: '/{tag_prefix_localized}/{tag_title}'
+        _controller: 'Post::tag'
+        _arguments:
+          'tag_title': 'tag'
+      -
+        routePath: '/{category_prefix_localized}/{category_title}'
+        _controller: 'Post::category'
+        _arguments:
+          'category_title': 'category'
+    requirements:
+      post_page: '\d+'
+      post_title: '\d+'
+      post_year: '[0-9]{4}'
+      post_month: '[0-9]{1,2}'
+      post_day: '[0-9]{1,2}'
+      post_permalink_uid: '\d+'
+      author_title: '\d+'
+      category_title: '\d+'
+    defaults:
+      post_page: '1'
+    aspects:
+      post_page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '99'
+      post_page_localized:
+        type: LocaleModifier
+        default: 'page'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'seite'
+      post_title:
+        type: PersistedAliasMapper
+        tableName: 'tx_t3blog_post'
+        routeFieldName: 'url_segment'
+      post_prefix_localized:
+        type: LocaleModifier
+        default: 'article'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'artikel'
+      post_year:
+        type: StaticRangeMapper
+        start: '1970'
+        end: '2099'
+      post_month:
+        type: StaticValueMapper
+        map:
+          '01': '01'
+          '02': '02'
+          '03': '03'
+          '04': '04'
+          '05': '05'
+          '06': '06'
+          '07': '07'
+          '08': '08'
+          '09': '09'
+          '10': '10'
+          '11': '11'
+          '12': '12'
+      post_day:
+        type: StaticValueMapper
+        map:
+          '01': '01'
+          '02': '02'
+          '03': '03'
+          '04': '04'
+          '05': '05'
+          '06': '06'
+          '07': '07'
+          '08': '08'
+          '09': '09'
+          '10': '10'
+          '11': '11'
+          '12': '12'
+          '13': '13'
+          '14': '14'
+          '15': '15'
+          '16': '16'
+          '17': '17'
+          '18': '18'
+          '19': '19'
+          '20': '20'
+          '21': '21'
+          '22': '22'
+          '23': '23'
+          '24': '24'
+          '25': '25'
+          '26': '26'
+          '27': '27'
+          '28': '28'
+          '29': '29'
+          '30': '30'
+          '31': '31'
+      post_permalink_uid:
+        type: PersistedPatternMapper
+        tableName: 'tx_t3blog_post'
+        routeFieldPattern: '^(?P<uid>.+)$'
+        routeFieldResult: '{uid}'
+      author_title:
+        type: PersistedPatternMapper
+        tableName: 'be_users'
+        routeFieldPattern: '^(?P<username>.+)$'
+        routeFieldResult: '{username}'
+      author_prefix_localized:
+        type: LocaleModifier
+        default: 'author'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'autor'
+      tag_prefix_localized:
+        type: LocaleModifier
+        default: 'tags'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'tags'
+      category_title:
+        type: PersistedAliasMapper
+        tableName: 'tx_t3blog_cat'
+        routeFieldName: 'url_segment'
+      category_prefix_localized:
+        type: LocaleModifier
+        default: 'category'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'kategorie'
