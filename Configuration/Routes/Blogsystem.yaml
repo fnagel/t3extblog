@@ -30,15 +30,34 @@ routeEnhancers:
         _arguments:
           'author_title': 'author'
       -
+        routePath: '/{author_prefix_localized}/{author_title}/{post_page_localized}/{post_page}'
+        _controller: 'Post::author'
+        _arguments:
+          'author_title': 'author'
+          'post_page': '@widget_0/currentPage'
+      -
         routePath: '/{tag_prefix_localized}/{tag_title}'
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
+          'post_page': '@widget_0/currentPage'
+      -
+        routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}/{post_page}'
+        _controller: 'Post::tag'
+        _arguments:
+          'tag_title': 'tag'
+          'post_page': '@widget_0/currentPage'
       -
         routePath: '/{category_prefix_localized}/{category_title}'
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
+      -
+        routePath: '/{category_prefix_localized}/{category_title}/{post_page_localized}/{post_page}'
+        _controller: 'Post::category'
+        _arguments:
+          'category_title': 'category'
+          'post_page': '@widget_0/currentPage'
     requirements:
       post_page: '\d+'
       post_title: '\d+'
