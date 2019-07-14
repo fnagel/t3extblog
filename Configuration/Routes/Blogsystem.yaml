@@ -88,6 +88,8 @@ routeEnhancers:
         localeMap:
           - locale: 'de_DE.*'
             value: 'tags'
+      tag_title:
+        type: T3extblogPostTagMapper
       category_title:
         type: PersistedAliasMapper
         tableName: 'tx_t3blog_cat'

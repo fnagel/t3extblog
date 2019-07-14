@@ -162,3 +162,5 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuratio
 // Routing
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostMapper'] =
     \FelixNagel\T3extblog\Routing\Aspect\PostMapper::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostTagMapper'] =
+    \FelixNagel\T3extblog\Routing\Aspect\PostTagMapper::class;
