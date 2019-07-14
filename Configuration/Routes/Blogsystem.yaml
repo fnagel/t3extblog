@@ -7,16 +7,18 @@ routeEnhancers:
     plugin: Blogsystem
     defaultController: 'Post::list'
     routes:
-      -
-        routePath: '/{post_prefix_localized}/{post_title}'
-        _controller: 'Post::show'
-        _arguments:
-          'post_title': 'post'
+      - routePath: '/'
+        _controller: 'Post::list'
       -
         routePath: '/{post_page_localized}/{post_page}'
         _controller: 'Post::list'
         _arguments:
           'post_page': '@widget_0/currentPage'
+      -
+        routePath: '/{post_prefix_localized}/{post_title}'
+        _controller: 'Post::show'
+        _arguments:
+          'post_title': 'post'
       -
         routePath: '/permalink/{post_permalink_uid}'
         _controller: 'Post::permalink'
