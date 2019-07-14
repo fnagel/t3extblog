@@ -20,6 +20,11 @@ routeEnhancers:
         _arguments:
           'post_title': 'post'
       -
+        routePath: '/{post_prefix_localized}/{post_title}/comment'
+        _controller: 'Comment::create'
+        _arguments:
+          'post_title': 'post'
+      -
         routePath: '/permalink/{post_permalink_uid}'
         _controller: 'Post::permalink'
         _arguments:
