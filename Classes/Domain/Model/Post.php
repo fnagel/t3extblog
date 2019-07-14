@@ -305,7 +305,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return string
      */
-    public function getPublishYear()
+    public function  getPublishYear()
     {
         return $this->publishDate->format('Y');
     }
@@ -739,7 +739,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the comments.
      *
-     * @return QueryResultInterface
+     * @return ObjectStorage
      */
     public function getComments()
     {
@@ -819,9 +819,6 @@ class Post extends AbstractLocalizedEntity
     {
         return [
             'post' => $this->getUid(),
-            'day' => $this->getPublishDay(),
-            'month' => $this->getPublishMonth(),
-            'year' => $this->getPublishYear(),
         ];
     }
 }

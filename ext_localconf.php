@@ -154,11 +154,11 @@ if ($_COOKIE[$configuredCookieName]) {
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = [
     'provider' => \TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider::class,
 ];
-
 // Overwrite classes
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = [
     'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
 ];
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Core\\Routing\\PageRouter'] = [
-    'className' => \FelixNagel\T3extblog\Routing\PageRouter::class,
-];
+
+// Routing
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostMapper'] =
+    \FelixNagel\T3extblog\Routing\Aspect\PostMapper::class;
