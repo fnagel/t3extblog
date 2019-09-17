@@ -1,0 +1,15 @@
+routeEnhancers:
+  T3extblogBlogSubscriberPlugin:
+    type: Extbase
+    # Use this to limit routing for specific pages
+    # limitToPages: [123, 456]
+    extension: t3extblog
+    plugin: BlogSubscription
+    defaultController: 'BlogSubscriberForm::new'
+    routes:
+      - routePath: '/'
+        _controller: 'BlogSubscriberForm::new'
+      - routePath: '/create'
+        _controller: 'BlogSubscriberForm::create'
+      - routePath: '/success'
+        _controller: 'Subscriber::success'
