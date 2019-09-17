@@ -139,7 +139,7 @@ class CommentController extends AbstractController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment The comment to create
-     * @validate $newComment \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='comment', property='privacyPolicyAccepted')
+     * @TYPO3\CMS\Extbase\Annotation\Validate $newComment \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='comment', property='privacyPolicyAccepted')
      */
     public function createAction(Post $post, Comment $newComment)
     {

@@ -71,7 +71,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      * privacy policy accepted.
      *
      * @var bool
-     * @validate \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='blog')
+     * @TYPO3\CMS\Extbase\Annotation\Validate \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='blog')
      */
     protected $privacyPolicyAccepted = false;
 
