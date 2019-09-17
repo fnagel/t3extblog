@@ -119,10 +119,6 @@ if (TYPO3_MODE == 'BE') {
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
         \FelixNagel\T3extblog\Hooks\Tcemain::class;
-
-    // Install Tool Upgrade Wizard
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class] =
-        \FelixNagel\T3extblog\Updates\PreviewUpdateWizard::class;
 }
 
 // Add cHash configuration
