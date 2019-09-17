@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2019 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -32,7 +32,7 @@ use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
- * SubscriberController.
+ * AbstractSubscriberController.
  */
 abstract class AbstractSubscriberController extends AbstractController
 {
@@ -131,7 +131,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->persistAllEntities();
 
         $this->addFlashMessageByKey('deleted', FlashMessage::INFO);
-        $this->redirect('list', 'PostSubscriber');
+        $this->redirect('list', 'Subscriber');
     }
 
     /**

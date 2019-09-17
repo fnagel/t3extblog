@@ -52,13 +52,13 @@ if (!defined('TYPO3_MODE')) {
     'FelixNagel.'.$_EXTKEY,
     'SubscriptionManager',
     [
-        'Subscriber' => 'list, error, logout, confirm',
+        'Subscriber' => 'list, error, logout',
         'PostSubscriber' => 'list, delete, confirm',
         'BlogSubscriber' => 'list, delete, confirm, create',
     ],
     // non-cacheable actions
     [
-        'Subscriber' => 'list, error, logout, confirm',
+        'Subscriber' => 'list, error, logout',
         'PostSubscriber' => 'list, delete, confirm',
         'BlogSubscriber' => 'list, delete, confirm, create',
     ]
@@ -137,7 +137,11 @@ $requiredParameters = [
     'tx_t3extblog_blogsystem[category]',
     'tx_t3extblog_blogsystem[author]',
     'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+
+    'tx_t3extblog_subscriptionmanager[controller]',
+    'tx_t3extblog_subscriptionmanager[action]',
     'tx_t3extblog_subscriptionmanager[subscriber]',
+    'tx_t3extblog_subscriptionmanager[code]',
 ];
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ','.implode(',', $requiredParameters);
 

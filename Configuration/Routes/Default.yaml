@@ -4,3 +4,4 @@
 
 imports:
   - { resource: "EXT:t3extblog/Configuration/Routes/Blogsystem.yaml" }
+  - { resource: "EXT:t3extblog/Configuration/Routes/SubscriptionManager.yaml" }

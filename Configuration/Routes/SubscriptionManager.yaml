@@ -1,0 +1,43 @@
+routeEnhancers:
+  T3extblogSubscriptionManagerPlugin:
+    type: Extbase
+    # Use this to limit routing for specific pages
+    # limitToPages: [123, 456]
+    extension: t3extblog
+    plugin: SubscriptionManager
+    defaultController: 'Subscriber::list'
+    routes:
+      - routePath: '/'
+        _controller: 'Subscriber::list'
+      - routePath: '/logout'
+        _controller: 'Subscriber::logout'
+      - routePath: '/error'
+        _controller: 'Subscriber::error'
+      - routePath: '/post/confirm/{subscription_code}'
+        _controller: 'PostSubscriber::confirm'
+        _arguments:
+          'subscription_code': 'code'
+      - routePath: '/post/list/{subscription_code}'
+        _controller: 'PostSubscriber::list'
+        _arguments:
+          'subscription_code': 'code'
+      - routePath: '/post/delete/{subscription_uid}'
+        _controller: 'PostSubscriber::delete'
+        _arguments:
+          'subscription_uid': 'subscriber'
+      - routePath: '/blog/confirm/{subscription_code}'
+        _controller: 'BlogSubscriber::confirm'
+        _arguments:
+          'subscription_code': 'code'
+      - routePath: '/blog/list/{subscription_code}'
+        _controller: 'BlogSubscriber::list'
+        _arguments:
+          'subscription_code': 'code'
+      - routePath: '/blog/subscribe'
+        _controller: 'BlogSubscriber::create'
+        _arguments:
+          'subscription_uid': 'subscriber'
+      - routePath: '/blog/delete'
+        _controller: 'BlogSubscriber::delete'
+    requirements:
+      subscription_uid: '\d+'
