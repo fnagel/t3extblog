@@ -64,8 +64,6 @@ class GeneralUtility
      */
     protected static function generateTypoScriptFrontendController($pageUid, $pageType = 0)
     {
-        EidUtility::initTCA();
-
         if (!is_object($GLOBALS['TT'])) {
             $GLOBALS['TT'] = new TimeTracker();
             $GLOBALS['TT']->start();
@@ -118,6 +116,7 @@ class GeneralUtility
      * See https://forge.typo3.org/issues/23625
      *
      * @todo Workaround for bug in TYPO3
+     * @todo Since v5: Check if this is still needed
      *
      * @return bool
      */
@@ -125,8 +124,7 @@ class GeneralUtility
     {
         // Init if needed
         if (!isset($GLOBALS['BE_USER'])) {
-            $bootstrap = \TYPO3\CMS\Core\Core\Bootstrap::getInstance();
-            $bootstrap->initializeBackendUser();
+            \TYPO3\CMS\Core\Core\Bootstrap::initializeBackendUser();
         }
 
         // Check for valid user
