@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2019 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -45,11 +45,6 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
     /**
      * @var bool
      */
-    protected $enableDLOG;
-
-    /**
-     * @var bool
-     */
     protected $logInDevlog;
 
     /**
@@ -74,7 +69,6 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
     public function initializeObject()
     {
         $this->settings = $this->settingsService->getTypoScriptSettings();
-        $this->enableDLOG = $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'];
 
         $this->logInDevlog = $this->settings['debug']['logInDevlog'];
         $this->renderInFe = $this->settings['debug']['renderInFe'];
@@ -94,7 +88,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
             $this->outputDebug($msg, 3, $data);
         }
 
-        if ($this->enableDLOG || $this->logInDevlog) {
+        if ($this->logInDevlog) {
             $this->writeToDevLog($msg, 3, $data);
         }
     }
@@ -113,7 +107,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
             $this->outputDebug($msg, 1, $data);
         }
 
-        if ($this->enableDLOG || $this->logInDevlog) {
+        if ($this->logInDevlog) {
             $this->writeToDevLog($msg, 1, $data);
         }
     }
@@ -130,7 +124,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
             $this->outputDebug($msg, 1, $data);
         }
 
-        if ($this->enableDLOG || $this->logInDevlog) {
+        if ($this->logInDevlog) {
             $this->writeToDevLog($msg, 1, $data);
         }
     }
