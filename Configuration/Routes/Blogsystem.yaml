@@ -9,56 +9,46 @@ routeEnhancers:
     routes:
       - routePath: '/'
         _controller: 'Post::list'
-      -
-        routePath: '/{post_page_localized}/{post_page}'
+      - routePath: '/{post_page_localized}/{post_page}'
         _controller: 'Post::list'
         _arguments:
           'post_page': '@widget_0/currentPage'
-      -
-        routePath: '/{post_prefix_localized}/{post_title}'
+      - routePath: '/{post_prefix_localized}/{post_title}'
         _controller: 'Post::show'
         _arguments:
           'post_title': 'post'
-      -
-        routePath: '/{post_prefix_localized}/{post_title}/comment'
+      - routePath: '/{post_prefix_localized}/{post_title}/comment'
         _controller: 'Comment::create'
         _arguments:
           'post_title': 'post'
-      -
-        routePath: '/permalink/{post_permalink_uid}'
+      - routePath: '/permalink/{post_permalink_uid}'
         _controller: 'Post::permalink'
         _arguments:
           'post_permalink_uid': 'permalinkPost'
-      -
-        routePath: '/{author_prefix_localized}/{author_title}'
+      - routePath: '/{author_prefix_localized}/{author_title}'
         _controller: 'Post::author'
         _arguments:
           'author_title': 'author'
-      -
-        routePath: '/{author_prefix_localized}/{author_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{author_prefix_localized}/{author_title}/{post_page_localized}/{post_page}'
         _controller: 'Post::author'
         _arguments:
           'author_title': 'author'
           'post_page': '@widget_0/currentPage'
-      -
-        routePath: '/{tag_prefix_localized}/{tag_title}'
+      - routePath: '/{tag_prefix_localized}/{tag_title}'
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
           'post_page': '@widget_0/currentPage'
-      -
-        routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}/{post_page}'
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
           'post_page': '@widget_0/currentPage'
-      -
-        routePath: '/{category_prefix_localized}/{category_title}'
+      - routePath: '/{category_prefix_localized}/{category_title}'
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
-      -
-        routePath: '/{category_prefix_localized}/{category_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{category_prefix_localized}/{category_title}/{post_page_localized}/{post_page}'
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
