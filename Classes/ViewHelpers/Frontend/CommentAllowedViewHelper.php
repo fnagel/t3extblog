@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2019 Felix Nagel <info@felixnagel.com>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,7 +31,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
- * ViewHelper.
+ * CommentAllowedViewHelper.
  */
 class CommentAllowedViewHelper extends AbstractConditionViewHelper
 {
@@ -51,15 +51,13 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
     }
 
     /**
-     * Check if a new comment is allowed.
-     *
-     * @inheritdoc
+     * @inheritDoc
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext)
     {
         $arguments['settings'] = $renderingContext->getVariableProvider()->get('settings');
 
-        return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
+        return parent::verdict($arguments, $renderingContext);
     }
 
     /**
