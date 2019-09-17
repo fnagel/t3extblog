@@ -275,12 +275,8 @@ class CommentController extends AbstractController
         // Remove unwanted tags from text
         $text = strip_tags($comment->getText(), $allowedTags);
 
-        if ($this->settings['blogsystem']['comments']['allowSomeTagAttributes']) {
-            $text = GeneralUtility::removeXSS($text);
-        } else {
-            // Remove all attributes
-            $text = preg_replace('/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i', '<$1$2>', $text);
-        }
+        // Remove all attributes
+        $text = preg_replace('/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i', '<$1$2>', $text);
 
         $comment->setText($text);
     }
