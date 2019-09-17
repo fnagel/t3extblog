@@ -27,9 +27,9 @@ namespace FelixNagel\T3extblog\Controller;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * CommentController.
@@ -139,7 +139,7 @@ class CommentController extends AbstractController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment The comment to create
-     * @TYPO3\CMS\Extbase\Annotation\Validate $newComment \FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator(key='comment', property='privacyPolicyAccepted')
+     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", param="newComment", options={"key": "comment", "property": "privacyPolicyAccepted"})
      */
     public function createAction(Post $post, Comment $newComment)
     {
