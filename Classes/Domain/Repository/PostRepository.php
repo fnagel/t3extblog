@@ -68,12 +68,7 @@ class PostRepository extends AbstractRepository
     }
 
     /**
-     * Gets post by uid.
-     *
-     * Workaround as long as setRespectStoragePage does not work
-     * See related bug: https://forge.typo3.org/issues/47192
-     *
-     * @todo This should be changed to a default findByUid when above bug is fixed
+     * Gets localized post by uid. No overlay.
      *
      * @param int  $uid                 id of record
      * @param bool $respectEnableFields if set to false, hidden records are shown
@@ -82,14 +77,7 @@ class PostRepository extends AbstractRepository
      */
     public function findByLocalizedUid($uid, $respectEnableFields = true)
     {
-        $temp = $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'];
-        $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = null;
-
-        $post = $this->findByUid($uid, $respectEnableFields);
-
-        $GLOBALS['TCA']['tx_t3blog_post']['ctrl']['languageField'] = $temp;
-
-        return $post;
+        return  $this->findByUid($uid, $respectEnableFields);
     }
 
     /**
