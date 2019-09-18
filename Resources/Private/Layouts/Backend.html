@@ -2,7 +2,10 @@
 
 <f:be.container
 	pageTitle="T3extblog Management"
-	includeCssFiles="{0: '{f:uri.resource(path: \'Css/Backend/Style.css\')}'}">
+	includeCssFiles="{0: '{f:uri.resource(path: \'Css/Backend/Style.css\')}'}"
+	includeRequireJsModules="{
+			0:'TYPO3/CMS/Backend/ContextMenu'
+		}">
 	<div class="typo3-fullDoc t3extblog">
 		<div id="typo3-docheader">
 			<div id="typo3-docheader-row1" class="typo3-docheader-functions">
