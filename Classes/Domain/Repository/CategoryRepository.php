@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2019 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -41,9 +41,6 @@ class CategoryRepository extends AbstractRepository
     /**
      * Returns all children of the given category
      *
-     * @todo Rework this when extbase bug is fixed:
-     * https://forge.typo3.org/issues/57272
-     *
      * @param \FelixNagel\T3extblog\Domain\Model\Category $category
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
@@ -55,8 +52,6 @@ class CategoryRepository extends AbstractRepository
         }
 
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectSysLanguage(false);
-
         $query->matching(
             $query->equals('parent_id', $category->getUid())
         );

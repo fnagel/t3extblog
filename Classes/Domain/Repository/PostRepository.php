@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2013-2019 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -177,9 +177,6 @@ class PostRepository extends AbstractRepository
     /**
      * Returns all objects of this repository with matching category.
      *
-     * @todo Rework this when extbase bug is fixed:
-     * https://forge.typo3.org/issues/57272
-     *
      * @param Category $category
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
@@ -187,7 +184,6 @@ class PostRepository extends AbstractRepository
     public function findByCategory($category)
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         $constraints = [];
         $constraints[] = $query->contains('categories', $category);
