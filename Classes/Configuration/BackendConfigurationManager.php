@@ -26,7 +26,9 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      *
      * Needed basically to make extbase work. Without PID is set to 0 (which is root)
      * and persistence, TS generation, etc. will fail. This is the case in TYPO3 8.x
-     * when editing a record using the context menu (t3-js-clickmenutrigger CSS class).
+     * and 9.x when editing a record using the context menu (t3js-clickmenutrigger CSS
+     * class). Example: right click on a record in the BE module, click edit, change
+     * visibility which should trigger emails but does not.
      *
      * Using a issueCommand VH link works as expected. Not needed for TYPO3 7.x.
      *

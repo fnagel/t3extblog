@@ -116,7 +116,7 @@ class GeneralUtility
      * See https://forge.typo3.org/issues/23625
      *
      * @todo Workaround for bug in TYPO3
-     * @todo Since v5: Check if this is still needed
+     * @todo Since t3extblog v5: Check if this is still needed
      *
      * @return bool
      */
