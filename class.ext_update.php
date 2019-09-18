@@ -1,5 +1,6 @@
 <?php
 
+use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -64,6 +65,7 @@ class ext_update
         $message = 'These wizards will alter the database. Be careful in production environments!';
         $this->messageArray[] = [FlashMessage::WARNING, 'Database update wizards', $message];
 
+        $this->renderCreateMissingPostSlugsSection();
         $this->renderCommentUrlValidationSection();
         $this->renderPostMailsSentSection();
         $this->renderCommentMailsSentSection();
@@ -73,6 +75,65 @@ class ext_update
         $output .= implode('<br>', $this->sectionArray);
 
         return $output;
+    }
+
+    /**
+     * @return void
+     */
+    protected function renderCreateMissingPostSlugsSection()
+    {
+        if (!$this->isFieldAvailable('tx_t3blog_post', 'url_segment')) {
+            return;
+        }
+
+        $key = 'create_missing_post_slugs';
+        $this->sectionArray[] = $this->renderForm(
+            $key,
+            'Create missing post URL slugs (use when updating to version 5.0)'
+        );
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->createMissingPostSlugs();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function createMissingPostSlugs()
+    {
+        $table = 'tx_t3blog_post';
+        $field = 'url_segment';
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $constraint = $queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter(''));
+
+        $rows = $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where($constraint)
+            ->setMaxResults(100)
+            ->execute()
+            ->fetchAll();
+
+        if (count($rows) === 0) {
+            $message = 'All post records have an valid URL slug!';
+            $this->messageArray[] = [FlashMessage::OK, 'All posts valid!', $message];
+            return;
+        }
+
+        $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$field]['config'];
+        $slugService = GeneralUtility::makeInstance(SlugHelper::class, $table, $field, $fieldConfig);
+
+        foreach ($rows as $row) {
+            $queryBuilder
+                ->update($table)
+                ->where($constraint)
+                ->set($field, $slugService->sanitize($row['title']))
+                ->execute();
+        }
+
+        $message = count($rows).' posts have been updated';
+        $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
     }
 
     /**
