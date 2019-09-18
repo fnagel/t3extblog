@@ -32,6 +32,10 @@ https://github.com/fnagel/t3extblog/compare/4.0.1...5.0.0
 
 - Support new TYPO3 core routing functionality
 
+- Fixed all "strong" issues in the "Scan Extension Files"
+
+- Code clean-up (removed quite a lot legacy code and workarounds)
+
 - Some minor bugfixes and improvements
 
 
@@ -39,17 +43,19 @@ https://github.com/fnagel/t3extblog/compare/4.0.1...5.0.0
 
 - Removed support for TYPO3 8.x
 
-- Post URL structure has changed
+- Post URL structure has changed (yyyy-mm-dd-my-post-title instead of yyyy/mm/dd/my-post-title)
 
 - Removed support for EXT:realurl
 
 - Removed support for EXT:dd_googlesitemap
 
+- Removed `blogsystem.comments.allowSomeTagAttributes` setting
+
 
 How to upgrade
 """"""""""""""
 
-#. Add and adjust routing configuration to your site configuration
+#. Add extension routing configuration to your site configuration
 
 #. Make sure your site configuration has an absolute URL as "Entry Point" (or base) configured (so no `/` but
    something like `https://domain.com/`. Otherwise TYPO3 will NOT RENDER ABSOLUTE URLs in email templates!
@@ -65,5 +71,7 @@ How to upgrade
 #. Add "Sitemap setup" static TS to your template in order to enable SEO sitemap support
 
 #. Use "Compare database" in install tool to adjust changed DB fields
+
+#. Run "Create missing post URL slugs" update wizard in extension manager
 
 #. Clear all caches
