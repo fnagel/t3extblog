@@ -16,21 +16,23 @@ Version 4.x
    :depth: 3
 
 
-Upgrade from 4.0.x to 4.0.1
+Upgrade from 4.0.x to 4.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+*"GDPR"*
 
 Changelog
 """""""""
 
 https://github.com/fnagel/t3extblog/compare/4.0.1...4.1.0
 
-- GDPR checkboxes for comment and blog post subscription form (disabled by default, see `privacyPolicy` constants and TS setup options)
+- GDPR checkboxes for comment and blog post subscription form (disabled by default, see `privacyPolicy` constants and TS setup options) - THANKS to Kevin Ditscheid
 
-- Improve documentation content and configuration
+- Improve documentation content and configuration - THANKS to Sybille Peters and @christophbee
+
+- Some minor bugfixes - THANKS to Franz Kugelmann
 
 - Apply PHP CS Fixer
-
-- Some minor bugfixes
 
 
 **Breaking changes**
