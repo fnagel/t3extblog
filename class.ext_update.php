@@ -127,7 +127,10 @@ class ext_update
         foreach ($rows as $row) {
             $queryBuilder
                 ->update($table)
-                ->where($constraint)
+                ->where(
+                    $constraint,
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))
+                )
                 ->set($field, $slugService->sanitize($row['title']))
                 ->execute();
         }
