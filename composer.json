@@ -42,7 +42,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-	  "typo3/cms-seo": "^9.5"
+	  "typo3/cms-seo": ">=9.0.0,<=9.5.99"
   },
   "repositories": [
     {
