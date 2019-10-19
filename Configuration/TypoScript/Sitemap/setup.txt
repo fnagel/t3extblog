@@ -11,7 +11,7 @@ plugin.tx_seo {
 						pid = {$plugin.tx_t3extblog.persistence.storagePid}
 						url {
 							pageId = {$plugin.tx_t3extblog.settings.blogsystem.pid}
-							addDateFieldsToParameterMap = 1
+							addDateFieldsToParameterMap = 0
 							fieldToParameterMap {
 								uid = tx_t3extblog_blogsystem[post]
 							}
