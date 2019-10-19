@@ -24,7 +24,7 @@ Upgrade from 4.x to 5.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/4.0.1...5.0.0
+https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 
 - Support TYPO3 9.x
 
@@ -55,7 +55,7 @@ https://github.com/fnagel/t3extblog/compare/4.0.1...5.0.0
 How to upgrade
 """"""""""""""
 
-#. Add extension routing configuration to your site configuration
+#. Add extension :ref:`routing configuration <configuration-speaking-url>` to your site configuration
 
 #. Make sure your site configuration has an absolute URL as "Entry Point" (or base) configured (so no `/` but
    something like `https://domain.com/`. Otherwise TYPO3 will NOT RENDER ABSOLUTE URLs in email templates!
@@ -68,7 +68,7 @@ How to upgrade
 
       RewriteRule ^blog/article/(\d{4})/(\d{2})/(\d{2})/(.+)$ /blog/article/$1-$2-$3-$4 [R=301,NC,L]
 
-#. Add "Sitemap setup" static TS to your template in order to enable SEO sitemap support
+#. Add "Sitemap setup" static TS to your template in order to enable :ref:`SEO sitemap support <faq-sitemap>`
 
 #. Use "Compare database" in install tool to adjust changed DB fields
 

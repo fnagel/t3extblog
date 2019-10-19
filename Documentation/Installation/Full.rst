@@ -99,7 +99,7 @@ Next Steps
 
 #. Setup the RSS page TypoScript: :ref:`RSS setup <administration-rss>`
 
-#. Configure RealURL (optional): :ref:`RealUrl configuration <configuration-realurl>`
+#. Configure speaking URLs (optional): :ref:`Speaking URL configuration <configuration-speaking-url>`
 
 #. Copy all templates, configure the paths in TS and start adjusting the HTML markup to your needs
 

@@ -59,7 +59,7 @@ Upgrade from 3.x to 4.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/3.0.2...4.0.0
+https://github.com/fnagel/t3extblog/compare/3.0.0...4.0.0
 
 - Extension is now available on Packagist
 

@@ -88,6 +88,26 @@ in your fileadmin or custom extension and set the path via TS or constant editor
 
 See :ref:`Configuration <configuration-overwrite-templates>` for code snippets!
 
+
+Sitemap
+-------
+.. _faq-sitemap:
+
+.. important::
+
+	Make sure to install EXT:seo (package name `typo3/cms-seo`)!
+
+This extension include a preconfigured setup for the TYPO3 CMS core feature sitemap
+which could be included as a static template.
+See :code:`t3extblog/Configuration/TypoScript/Sitemap/setup.txt` for details.
+
+.. tip::
+
+	See here for more info on core sitemaps:
+   https://usetypo3.com/xml-sitemap-in-typo3.html
+   https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Feature-84525-XMLSitemap.html
+
+
 Does it work with dd_googlesitemap?
 -----------------------------------
 
@@ -96,7 +116,7 @@ Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=1
 
 .. important::
 
-	No longer support since version 5.x!
+	No longer support since version 5.x! Use the new core feature instead: :ref:`SEO sitemap support <faq-sitemap>`
 
 .. tip::
 
@@ -111,7 +131,7 @@ To avoid filling the cache with not existing pages, the filter only works with t
 
 Link handler configuration
 --------------------------
-.. _faq-link-hander:
+.. _faq-link-handler:
 
 Since TYPO3 8.7 a built in link handler is integrated into the core.
 See here for more info: https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Feature-79626-IntegrateRecordLinkHandler.html

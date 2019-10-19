@@ -236,7 +236,7 @@ Upgrade from 1.2.x to 2.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/1.2.1...2.0.0
+https://github.com/fnagel/t3extblog/compare/1.0.0...2.0.0
 
 - A bunch of bugfixes
 

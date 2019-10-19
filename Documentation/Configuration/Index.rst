@@ -106,11 +106,17 @@ See TypoScript for full configuration:
 
 
 Speaking URLs
--------
+-------------
 .. _configuration-speaking-url:
 
 This extension include a predefined setup for the TYPO3 CMS core feature speaking URL,
-see :code:`typo3conf/ext/t3extblog/Configuration/Routes/Default.yaml` for details.
+see :code:`t3extblog/Configuration/Routes/Default.yaml` for details.
+
+
+.. tip::
+	See here for more info on site configuration and speaking URLs:
+   https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/SiteHandling/Basics.html
+   https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Routing/Examples.html#usage-with-imports
 
 
 RealURL
@@ -125,7 +131,7 @@ When using EXT:realurl or similar extension you will need to add additional Stat
 When using RSS, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
 
 .. important::
-	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature
+	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature (see above)
 
 .. important::
 	Add this static TS to the blogsystem plugin page only to preserve cache!
