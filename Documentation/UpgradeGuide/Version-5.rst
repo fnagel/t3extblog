@@ -74,4 +74,6 @@ How to upgrade
 
 #. Run "Create missing post URL slugs" update wizard in extension manager
 
+#. Run "Create missing category URL slugs" update wizard in extension manager
+
 #. Clear all caches

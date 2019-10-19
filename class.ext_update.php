@@ -66,6 +66,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::WARNING, 'Database update wizards', $message];
 
         $this->renderCreateMissingPostSlugsSection();
+        $this->renderCreateMissingCategorySlugsSection();
         $this->renderCommentUrlValidationSection();
         $this->renderPostMailsSentSection();
         $this->renderCommentMailsSentSection();
@@ -101,28 +102,72 @@ class ext_update
      */
     protected function createMissingPostSlugs()
     {
-        $table = 'tx_t3blog_post';
-        $field = 'url_segment';
+        $this->createMissingSlugs('tx_t3blog_post', 'title', 'url_segment', 'post records', 100);
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function renderCreateMissingCategorySlugsSection()
+    {
+        if (!$this->isFieldAvailable('tx_t3blog_cat', 'url_segment')) {
+            return;
+        }
+
+        $key = 'create_missing_category_slugs';
+        $this->sectionArray[] = $this->renderForm(
+            $key,
+            'Create missing category URL slugs (use when updating to version 5.0)'
+        );
+        if (GeneralUtility::_POST('migration') === $key) {
+            $this->createMissingCategorySlugs();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function createMissingCategorySlugs()
+    {
+        $this->createMissingSlugs('tx_t3blog_cat', 'catname', 'url_segment', 'category records');
+    }
+    
+    /**
+     * @param string $table
+     * @param string $field
+     * @param string $slug
+     * @param string $name
+     * @param int $limit
+     * @return void
+     */
+    protected function createMissingSlugs(
+        $table = 'tx_t3blog_cat',
+        $field = 'title',
+        $slug = 'url_segment',
+        $name = 'records',
+        $limit = 50
+    ) {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
         $queryBuilder->getRestrictions()->removeAll();
-        $constraint = $queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter(''));
+        $constraint = $queryBuilder->expr()->eq($slug, $queryBuilder->createNamedParameter(''));
 
         $rows = $queryBuilder
             ->select('*')
             ->from($table)
             ->where($constraint)
-            ->setMaxResults(100)
+            ->setMaxResults($limit)
             ->execute()
             ->fetchAll();
 
         if (count($rows) === 0) {
-            $message = 'All post records have an valid URL slug!';
-            $this->messageArray[] = [FlashMessage::OK, 'All posts valid!', $message];
+            $message = 'All '.$name.' have an valid URL slug!';
+            $this->messageArray[] = [FlashMessage::OK, 'All '.$name.' valid!', $message];
             return;
         }
 
-        $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$field]['config'];
-        $slugService = GeneralUtility::makeInstance(SlugHelper::class, $table, $field, $fieldConfig);
+        $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$slug]['config'];
+        $slugService = GeneralUtility::makeInstance(SlugHelper::class, $table, $slug, $fieldConfig);
 
         foreach ($rows as $row) {
             $queryBuilder
@@ -131,12 +176,12 @@ class ext_update
                     $constraint,
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))
                 )
-                ->set($field, $slugService->sanitize($row['title']))
+                ->set($slug, $slugService->sanitize($row[$field]))
                 ->execute();
         }
 
-        $message = count($rows).' posts have been updated';
-        $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
+        $message = count($rows).' '.$name.' have been updated';
+        $this->messageArray[] = [FlashMessage::INFO, 'Records updated', $message];
     }
 
     /**
