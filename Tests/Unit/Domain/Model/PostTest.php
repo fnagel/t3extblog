@@ -148,10 +148,7 @@ class PostTest extends BaseTest
         $this->assertEquals(
             $this->fixture->getLinkParameter(),
             [
-                'post' => '123',
-                'day' => '14',
-                'month' => '01',
-                'year' => '2014',
+                'post' => 123,
             ]
         );
     }
