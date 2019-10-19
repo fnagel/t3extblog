@@ -228,14 +228,12 @@ class BackendBaseController extends ActionController
     {
         $table = 'pages';
         $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
-        $queryBuilder->getRestrictions()
-            ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $queryBuilder
             ->select('uid', 'title')
             ->from($table)
             ->where(
-                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog'))
+                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog')),
+                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
             );
 
         return $queryBuilder->execute()->fetchAll();
@@ -250,15 +248,9 @@ class BackendBaseController extends ActionController
     {
         $table = 'pages';
         $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
-        $queryBuilder->getRestrictions()
-            ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $queryBuilder
             ->select($table . '.uid', $table . '.title')
             ->from($table)
-            ->where(
-                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog'))
-            )
             ->groupBy($table.'.uid');
 
         foreach ($joinTables as $joinTable) {
