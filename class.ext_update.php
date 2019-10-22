@@ -175,8 +175,11 @@ class ext_update
                 ->where(
                     $constraint,
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))
-                )
-                ->set($slug, $slugService->sanitize($row[$field]))
+                )			
+                // @todo Consider replacing usage of SlugHelper::sanitize()
+                // SlugHelper::sanitize() will not remove slashes, but SlugHelper::generate() will if TCA is configured
+                // See https://github.com/georgringer/news/issues/1088
+                ->set($slug, str_replace('/', '', $slugService->sanitize($row['title'])))
                 ->execute();
         }
 
