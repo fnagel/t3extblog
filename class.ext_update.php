@@ -93,18 +93,9 @@ class ext_update
             'Create missing post URL slugs (use when updating to version 5.0)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
-            $this->createMissingPostSlugs();
+            $this->createMissingSlugs('tx_t3blog_post', 'title', 'url_segment', 'post records', 100);
         }
     }
-
-    /**
-     * @return void
-     */
-    protected function createMissingPostSlugs()
-    {
-        $this->createMissingSlugs('tx_t3blog_post', 'title', 'url_segment', 'post records', 100);
-    }
-
 
     /**
      * @return void
@@ -121,16 +112,8 @@ class ext_update
             'Create missing category URL slugs (use when updating to version 5.0)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
-            $this->createMissingCategorySlugs();
+            $this->createMissingSlugs('tx_t3blog_cat', 'catname', 'url_segment', 'category records');
         }
-    }
-
-    /**
-     * @return void
-     */
-    protected function createMissingCategorySlugs()
-    {
-        $this->createMissingSlugs('tx_t3blog_cat', 'catname', 'url_segment', 'category records');
     }
     
     /**
@@ -175,11 +158,8 @@ class ext_update
                 ->where(
                     $constraint,
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))
-                )			
-                // @todo Consider replacing usage of SlugHelper::sanitize()
-                // SlugHelper::sanitize() will not remove slashes, but SlugHelper::generate() will if TCA is configured
-                // See https://github.com/georgringer/news/issues/1088
-                ->set($slug, str_replace('/', '', $slugService->sanitize($row['title'])))
+                )
+                ->set($slug, $slugService->generate($row, $row['pid']))
                 ->execute();
         }
 
