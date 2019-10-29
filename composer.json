@@ -4,7 +4,7 @@
   "type": "typo3-cms-extension",
   "keywords": ["TYPO3 CMS", "blog"],
   "homepage": "https://github.com/fnagel/t3extblog",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "support": {
     "issues": "https://github.com/fnagel/t3extblog/issues"
   },
