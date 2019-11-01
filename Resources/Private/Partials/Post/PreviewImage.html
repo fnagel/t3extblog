@@ -3,7 +3,10 @@
 <f:if condition="{post.previewImage}">
 	<figure class="thumbnail preview">
 		<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.responsiveImage" data="{post.previewImage.properties}" currentValueKey="uid" />
+			<f:media class="image-embed-item" file="{post.previewImage}"
+							 width="{settings.blogsystem.posts.previewImage.width}"
+							 height="{settings.blogsystem.posts.previewImage.height}"
+							 alt="{file.alternative}" title="{file.title}" />
 		</f:link.action>
 
 		<figcaption>

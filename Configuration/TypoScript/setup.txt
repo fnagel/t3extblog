@@ -37,6 +37,11 @@ plugin.tx_t3extblog {
 					# countBackendUsers = 1
 				}
 
+				previewImage {
+					width = {$plugin.tx_t3extblog.settings.previewImage.width}
+					height = {$plugin.tx_t3extblog.settings.previewImage.height}
+				}
+
 				# Post list pagination
 				paginate {
 					itemsPerPage = 10
@@ -353,30 +358,6 @@ lib.tx_t3extblog.date {
 }
 lib.tx_t3extblog.month < lib.tx_t3extblog.date
 lib.tx_t3extblog.month.strftime = %B
-
-# Post list preview: render images like CSC does
-lib.tx_t3extblog.responsiveImage = IMAGE
-lib.tx_t3extblog.responsiveImage {
-	file.import.current = 1
-	file.treatIdAsReference = 1
-
-	file.width = {$plugin.tx_t3extblog.settings.previewImage.width}
-	file.height = {$plugin.tx_t3extblog.settings.previewImage.height}
-
-	params < tt_content.image.20.1.params
-	layoutKey = {$styles.content.imgtext.layoutKey}
-	layout < tt_content.image.20.1.layout
-	sourceCollection < tt_content.image.20.1.sourceCollection
-
-	altText = TEXT
-	altText {
-		field = alternative
-		htmlSpecialChars = 1
-	}
-
-	titleText < .altText
-	titleText.field = title
-}
 
 # Configure BE module
 # Make sure to update the backend TS every time you change the TS!

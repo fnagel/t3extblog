@@ -26,11 +26,11 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 
-- Support TYPO3 9.x
+- Support for TYPO3 9.x
 
-- Support new TYPO3 core SEO sitemap functionality
+- Support of new TYPO3 core SEO sitemap functionality
 
-- Support new TYPO3 core routing functionality
+- Support of new TYPO3 core routing functionality
 
 - Fixed all "strong" issues in the "Scan Extension Files"
 
@@ -50,6 +50,8 @@ https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 - Removed support for EXT:dd_googlesitemap
 
 - Removed `blogsystem.comments.allowSomeTagAttributes` setting
+
+- Replaced RWD image TypoScript lib (whose functionality is no longer available) with default image VH
 
 
 How to upgrade

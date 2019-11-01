@@ -62,7 +62,6 @@ settings.privacyPolicy.enabled              Enable the privacy policy checkbox i
 settings.privacyPolicy.typolink             Set a typolink as the privacy policy link
 lib.tx_t3extblog.date                       Localize date format, used within the fluid templates
 lib.tx_t3extblog.month                      Localize month format, used within the fluid templates
-lib.tx_t3extblog.responsiveImage            TypoScript lib for rendering responsive images
 =========================================   =========================================================================================================
 
 
@@ -131,7 +130,7 @@ When using EXT:realurl or similar extension you will need to add additional Stat
 When using RSS, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
 
 .. important::
-	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature (see above)
+	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature (see above).
 
 .. important::
 	Add this static TS to the blogsystem plugin page only to preserve cache!
@@ -154,6 +153,9 @@ https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Image/Index.h
 
 By default, T3extblog makes uses of the tt_content image rendering configuration. It's possible to adjust the
 rendering for t3extblog by modifying this TypoScript lib or by using a custom (i.e. Fluid) rendering.
+
+.. important::
+	Since version 5.x (and therefor TYPO3 9.x) this feature has been removed as no longer provided by the TYPO3 core.
 
 
 Overwrite templates
