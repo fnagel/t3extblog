@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Utility;
  */
 
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
@@ -19,8 +20,13 @@ use TYPO3\CMS\Frontend\Utility\EidUtility;
  *
  * @todo Rename to FrontendUtility
  */
-class GeneralUtility
+class GeneralUtility implements SingletonInterface
 {
+    /**
+     * @var array
+     */
+    protected static $tsFeCache = [];
+
     /**
      * Get TypoScript frontend controller.
      *
@@ -31,7 +37,13 @@ class GeneralUtility
     public static function getTsFe($pageUid = 0)
     {
         if (TYPO3_MODE === 'BE') {
-            return self::generateTypoScriptFrontendController($pageUid);
+            $pageUid = (int) $pageUid;
+
+            if (array_key_exists($pageUid, self::$tsFeCache)) {
+                $GLOBALS['TSFE'] = self::$tsFeCache[$pageUid];
+            } else {
+                self::$tsFeCache[$pageUid] = self::generateTypoScriptFrontendController($pageUid);
+            }
         }
 
         return $GLOBALS['TSFE'];
