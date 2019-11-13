@@ -2,15 +2,13 @@
 
 # top-most EditorConfig file
 root = true
-charset = utf-8
-
-# Get rid of whitespace to avoid diffs with a bunch of EOL changes
-trim_trailing_whitespace = true
 
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
 
 # CSS-Files
 [*.css]
@@ -63,7 +61,7 @@ indent_style = space
 indent_size = 2
 
 # TypoScript
-[*.ts]
+[{*.txt,*.ts,*.typoscript,*.tsconfig}]
 indent_style = tab
 indent_size = 4
 
