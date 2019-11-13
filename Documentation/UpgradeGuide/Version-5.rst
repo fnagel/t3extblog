@@ -28,15 +28,15 @@ https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 
 - Support for TYPO3 9.x
 
-- Support of new TYPO3 core SEO sitemap functionality
-
 - Support of new TYPO3 core routing functionality
+
+- Support of new TYPO3 core SEO sitemap functionality
 
 - Fixed all "strong" issues in the "Scan Extension Files"
 
 - Code clean-up (removed quite a lot legacy code and workarounds)
 
-- Some minor bugfixes and improvements
+- Lots of minor bugfixes and improvements
 
 
 **Breaking changes**
@@ -53,24 +53,13 @@ https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 
 - Replaced RWD image TypoScript lib (whose functionality is no longer available) with default image VH
 
+- Rename TS and TSconfig files to newer file extensions
+
+- Split TS configuration into multiple files
+
 
 How to upgrade
 """"""""""""""
-
-#. Add extension :ref:`routing configuration <configuration-speaking-url>` to your site configuration
-
-#. Make sure your site configuration has an absolute URL as "Entry Point" (or base) configured (so no `/` but
-   something like `https://domain.com/`. Otherwise TYPO3 will NOT RENDER ABSOLUTE URLs in email templates!
-
-#. Add a htaccess rule for redirecting old post URLs to the new one
-
-   This will work for the default routing:
-
-   .. code-block::
-
-      RewriteRule ^blog/article/(\d{4})/(\d{2})/(\d{2})/(.+)$ /blog/article/$1-$2-$3-$4 [R=301,NC,L]
-
-#. Add "Sitemap setup" static TS to your template in order to enable :ref:`SEO sitemap support <faq-sitemap>`
 
 #. Use "Compare database" in install tool to adjust changed DB fields
 
@@ -78,4 +67,26 @@ How to upgrade
 
 #. Run "Create missing category URL slugs" update wizard in extension manager
 
+#. Add extension :ref:`routing configuration <configuration-speaking-url>` to your site configuration
+
+#. Make sure your site configuration has an absolute URL as "Entry Point" (or base) configured (so no `/` but
+   something like `https://domain.com/`. Otherwise TYPO3 will NOT RENDER ABSOLUTE URLs in email templates!
+
+#. Add a htaccess rule for redirecting old post URLs to the new one (see "URL redirect" below)
+
+#. Update your TS and TSconfig includes if needed
+
+#. Add "Sitemap setup" static TS to your template in order to enable :ref:`SEO sitemap support <faq-sitemap>`
+
 #. Clear all caches
+
+
+**URL redirect**
+
+This will work for the default routing:
+
+.. code-block::
+
+   RewriteRule ^blog/article/(\d{4})/(\d{2})/(\d{2})/(.+)$ /blog/article/$1-$2-$3-$4 [R=301,NC,L]
+
+Please note that it is now possible to configure the URLs as you wish, even without a date!
