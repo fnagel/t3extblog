@@ -6,6 +6,7 @@
 
 A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
 
+## Screenshots
 
 ![Frontend: list view](./Documentation/Images/AdministratorManual/blogsystem.png)
 
@@ -36,10 +37,9 @@ Make sure to check out GitHub issues for bugs and missing features:
 [github.com/fnagel/t3extblog/issues](https://github.com/fnagel/t3extblog/issues)
 
 
-
 ## Documentation
 
-See [/Documentation](Documentation) (latest) directory or [online](http://docs.typo3.org/typo3cms/extensions/t3extblog/) (latest TER)
+See [/Documentation](Documentation) directory or [online](https://docs.typo3.org/p/felixnagel/t3extblog/master/en-us/)
 
 
 ## Installation
