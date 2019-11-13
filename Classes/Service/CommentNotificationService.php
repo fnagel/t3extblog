@@ -130,7 +130,7 @@ class CommentNotificationService extends AbstractNotificationService
     }
 
     /**
-     * Send optin mail for subscirber.
+     * Send opt-in mail for subscriber.
      *
      * @param PostSubscriber $subscriber
      * @param Comment        $comment    Comment
