@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 
 // Add page TS config
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/Page.ts">'
+    '<INCLUDE_TYPOSCRIPT: source="DIR:EXT:t3extblog/Configuration/TSconfig/" extensions="tsconfig">'
 );
 
 // Plugins

@@ -11,7 +11,3 @@ TCEFORM.tx_t3blog_post {
 [page|module = t3blog]
 	mod.web_list.table.tt_content.hideTable = 1
 [global]
-
-# Includes
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/LinkValidator.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TSconfig/NewContentElementWizard.ts">
