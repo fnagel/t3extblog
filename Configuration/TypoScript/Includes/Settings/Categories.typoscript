@@ -1,0 +1,11 @@
+plugin.tx_t3extblog.settings {
+	categories {
+		paginate {
+			itemsPerPage = 10
+			insertAbove = 0
+			insertBelow = 0
+			maximumNumberOfLinks = 0
+			addQueryStringMethod = GET
+		}
+	}
+}

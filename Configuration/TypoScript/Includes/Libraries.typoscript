@@ -1,0 +1,9 @@
+# Localize date format, used within the fluid templates
+lib.tx_t3extblog.date = TEXT
+lib.tx_t3extblog.date {
+	current = 1
+	strftime = %d. %B %Y
+}
+
+lib.tx_t3extblog.month < lib.tx_t3extblog.date
+lib.tx_t3extblog.month.strftime = %B

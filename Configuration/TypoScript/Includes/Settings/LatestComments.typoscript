@@ -1,0 +1,10 @@
+plugin.tx_t3extblog.settings {
+	latestComments {
+		paginate {
+			itemsPerPage = 5
+			insertAbove = 0
+			insertBelow = 0
+			maximumNumberOfLinks = 0
+		}
+	}
+}

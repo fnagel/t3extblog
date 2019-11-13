@@ -1,0 +1,59 @@
+plugin.tx_t3extblog.settings {
+	subscriptionManager {
+		pid = {$plugin.tx_t3extblog.settings.subscriptionManager.pid}
+
+		# Subscription for new comments
+		comment {
+			admin {
+				enableNotifications = 1
+
+				# Configure email template file (txt or html)
+				# Path is controlled by plugin.tx_t3extblog.view.email[]
+				template = AdminNewCommentMail.txt
+
+				mailTo {
+					email = {$plugin.tx_t3extblog.settings.emailTo}
+					name =
+				}
+				mailFrom {
+					email = {$plugin.tx_t3extblog.settings.emailFrom}
+					name = {$plugin.tx_t3extblog.settings.blogName}
+				}
+			}
+			subscriber {
+				enableNotifications = 1
+
+				template {
+					confirm = SubscriberOptinMail.txt
+					notification = SubscriberNewCommentMail.txt
+				}
+
+				# Email link invalid after
+				emailHashTimeout = +48 hours
+				mailFrom {
+					email = {$plugin.tx_t3extblog.settings.emailFrom}
+					name = {$plugin.tx_t3extblog.settings.blogName}
+				}
+			}
+		}
+
+		# Subscription for new posts
+		blog {
+			subscriber {
+				enableNotifications = 1
+
+				template {
+					confirm = BlogSubscriberOptinMail.txt
+					notification = SubscriberNewPostMail.txt
+				}
+
+				# Email link invalid after
+				emailHashTimeout = +48 hours
+				mailFrom {
+					email = {$plugin.tx_t3extblog.settings.emailFrom}
+					name = {$plugin.tx_t3extblog.settings.blogName}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,110 @@
+plugin.tx_t3extblog {
+	settings {
+		blogsystem {
+			pid = {$plugin.tx_t3extblog.settings.blogsystem.pid}
+
+			posts {
+				viewCount {
+					# NOT IMPLEMENTED YET
+					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
+					# if you want to have counted each view just put a negative number.
+					# timePeriod = 10000
+					# countBackendUsers = 1
+				}
+
+				previewImage {
+					width = {$plugin.tx_t3extblog.settings.previewImage.width}
+					height = {$plugin.tx_t3extblog.settings.previewImage.height}
+				}
+
+				# Post list pagination
+				paginate {
+					itemsPerPage = 10
+					insertAbove = 0
+					insertBelow = 1
+					maximumNumberOfLinks = 100
+					addQueryStringMethod = GET
+				}
+
+				metadata {
+					# Add description and keyword meta tags
+					enable = 1
+
+					twitterCards {
+						enable = 1
+
+						# Your Twitter username
+						site = {$plugin.tx_t3extblog.settings.twitterName}
+					}
+
+					openGraph {
+						enable = 1
+					}
+				}
+
+				author {
+					avatar.size = 32
+				}
+			}
+
+			comments {
+				allowed = 1
+				# auto close comments, 0 = disabled
+				# use http://www.php.net/manual/en/datetime.formats.relative.php
+				allowedUntil = +6 months
+
+				# comments are approved by default
+				approvedByDefault = 0
+
+				# subscribe for new comment allowed
+				subscribeForComments = 1
+
+				# Allow tags in comment text
+				# example config: <em>, <strong>, <code>
+				# uses: http://www.php.net/manual/en/function.strip-tags.php
+				allowTags =
+
+				spamCheck {
+					enable = 1
+
+					# limit of spam points
+					threshold {
+						# saved but marked as spam
+						markAsSpam = 6
+						# to block comment (user could  try again), 0 = disable
+						block = 10
+						# to block comment and redirect user, 0 = disable
+						redirect = 16
+					}
+					redirect {
+						pid =
+						arguments {
+						}
+					}
+
+					### spam points by check, 0 = disabled
+					# simple checkbox which needs to be enabled
+					isHumanCheckbox = 10
+					# hidden honeypot fields
+					honeypot = 3
+					# checks for useragent
+					userAgent = 5
+					# checks if client accepts cookies
+					cookie = 2
+				}
+
+				privacyPolicy {
+					enabled = {$plugin.tx_t3extblog.settings.privacyPolicy.enabled}
+					typolink = {$plugin.tx_t3extblog.settings.privacyPolicy.typolink}
+				}
+
+				paginate {
+					itemsPerPage = 500
+					insertAbove = 0
+					insertBelow = 0
+					maximumNumberOfLinks = 100
+				}
+			}
+		}
+	}
+}
