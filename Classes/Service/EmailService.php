@@ -246,12 +246,13 @@ class EmailService implements SingletonInterface
      */
     protected function createMailMessage()
     {
+        $pid = $this->settings['blogsystem']['pid'] ?: 0;
         $message = $this->objectManager->get(
             MailMessage::class,
             null,
             null,
             null,
-            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->metaCharset
+            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe((int) $pid)->metaCharset
         );
 
         return $message;
