@@ -10,12 +10,12 @@
 		</li>
 		<f:for each="{post.tagCloud}" as="tag">
 			<li>
-                <f:link.action controller="Post" action="tag" arguments="{tag : '{tag}'}">
-                    <span class="label label-primary">
-                        {tag}
-                    </span>
-                </f:link.action>
-            </li>
+				<f:link.action controller="Post" action="tag" arguments="{tag : '{tag}'}">
+					<span class="label label-primary">
+						{tag}
+					</span>
+				</f:link.action>
+			</li>
 		</f:for>
 	</ul>
 </f:if>
