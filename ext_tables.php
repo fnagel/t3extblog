@@ -75,4 +75,4 @@ call_user_func(function ($packageKey) {
             ]
         );
     }
-}, $_EXTKEY);
+}, 't3extblog');
