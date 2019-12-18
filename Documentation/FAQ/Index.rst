@@ -136,7 +136,9 @@ Link handler configuration
 Since TYPO3 8.7 a built in link handler is integrated into the core.
 See here for more info: https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Feature-79626-IntegrateRecordLinkHandler.html
 
-Example page TSconfig configuration:
+Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin page.
+
+**Example page TSconfig configuration:**
 
 .. code-block:: typoscript
 
@@ -164,7 +166,43 @@ Example page TSconfig configuration:
    }
 
 
-Corresponding TypoScript configuration:
+**TypoScript configuration**
+
+Since T3extblog 5.x and TYPO3 9.x:
+
+.. code-block:: typoscript
+
+   config.recordLinks {
+      tx_t3blog_post {
+         typolink {
+            parameter = 456
+            additionalParams.cObject = COA
+            additionalParams.cObject {
+               10 = TEXT
+               10.value = &tx_t3extblog_blogsystem[controller]=Post
+
+               20 = TEXT
+               20.value = &tx_t3extblog_blogsystem[action]=show
+
+               30 = TEXT
+               30.dataWrap = &tx_t3extblog_blogsystem[post]={field:uid}
+            }
+            title.field = title
+            useCacheHash = 1
+         }
+      }
+      tx_t3blog_cat {
+         typolink {
+            parameter = 456
+            additionalParams = &tx_t3extblog_blogsystem[category]={field:uid}
+            additionalParams.insertData = 1
+            useCacheHash = 1
+         }
+      }
+   }
+
+
+Older version of T3extblog and TYPO3 <= 8.x:
 
 .. code-block:: typoscript
 
@@ -208,8 +246,6 @@ Corresponding TypoScript configuration:
          }
       }
    }
-
-Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin page.
 
 
 Set default post category

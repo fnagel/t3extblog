@@ -76,6 +76,8 @@ How to upgrade
 
 #. Update your TS and TSconfig includes if needed
 
+#. Update your TS linkhandler configuration if needed
+
 #. Add "Sitemap setup" static TS to your template in order to enable :ref:`SEO sitemap support <faq-sitemap>`
 
 #. Clear all caches
