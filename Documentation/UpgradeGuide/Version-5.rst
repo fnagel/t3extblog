@@ -63,9 +63,9 @@ How to upgrade
 
 #. Use "Compare database" in install tool to adjust changed DB fields
 
-#. Run "Create missing post URL slugs" update wizard in extension manager
+#. Run "Create missing post URL slugs" update wizard in extension manager (you might need to do this multiple times!)
 
-#. Run "Create missing category URL slugs" update wizard in extension manager
+#. Run "Create missing category URL slugs" update wizard in extension manager (you might need to do this multiple times!)
 
 #. Add extension :ref:`routing configuration <configuration-speaking-url>` to your site configuration
 

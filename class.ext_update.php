@@ -7,6 +7,7 @@
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -97,10 +98,10 @@ class ext_update
         $key = 'create_missing_post_slugs';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Create missing post URL slugs (use when updating to version 5.0)'
+            'Create '.$this->countMissingSlugs().' missing post URL slugs (use when updating to version 5.0)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
-            $this->createMissingSlugs('tx_t3blog_post', 'title', 'url_segment', 'post records', 100);
+            $this->createMissingSlugs('tx_t3blog_post', 'url_segment', 'post records', 100);
         }
     }
 
@@ -116,32 +117,47 @@ class ext_update
         $key = 'create_missing_category_slugs';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Create missing category URL slugs (use when updating to version 5.0)'
+            'Create '.$this->countMissingSlugs('tx_t3blog_cat').
+            ' missing category URL slugs (use when updating to version 5.0)'
         );
         if (GeneralUtility::_POST('migration') === $key) {
-            $this->createMissingSlugs('tx_t3blog_cat', 'catname', 'url_segment', 'category records');
+            $this->createMissingSlugs('tx_t3blog_cat', 'url_segment', 'category records');
         }
     }
-    
+
     /**
      * @param string $table
-     * @param string $field
+     * @param string $slug
+     * @return int
+     */
+    protected function countMissingSlugs($table = 'tx_t3blog_post', $slug = 'url_segment')
+    {
+        $queryBuilder = $this->getSlugQueryBuilder($table);
+        $constraint = $queryBuilder->expr()->eq($slug, $queryBuilder->createNamedParameter(''));
+
+        return $queryBuilder
+            ->select('*')
+            ->from($table)
+            ->where($constraint)
+            ->execute()
+            ->rowCount();
+    }
+
+    /**
+     * @param string $table
      * @param string $slug
      * @param string $name
      * @param int $limit
      * @return void
      */
     protected function createMissingSlugs(
-        $table = 'tx_t3blog_cat',
-        $field = 'title',
+        $table = 'tx_t3blog_post',
         $slug = 'url_segment',
         $name = 'records',
         $limit = 50
     ) {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
-        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder = $this->getSlugQueryBuilder($table);
         $constraint = $queryBuilder->expr()->eq($slug, $queryBuilder->createNamedParameter(''));
-
         $rows = $queryBuilder
             ->select('*')
             ->from($table)
@@ -172,6 +188,18 @@ class ext_update
 
         $message = count($rows).' '.$name.' have been updated';
         $this->messageArray[] = [FlashMessage::INFO, 'Records updated', $message];
+    }
+
+    /**
+     * @param string $table
+     * @return QueryBuilder
+     */
+    protected function getSlugQueryBuilder($table = 'tx_t3blog_post')
+    {
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+
+        return $queryBuilder;
     }
 
     /**
