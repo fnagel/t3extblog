@@ -6,7 +6,9 @@ config.tx_extbase {
 		FelixNagel\T3extblog\Service\SpamCheckServiceInterface.className = FelixNagel\T3extblog\Service\SpamCheckService
 		FelixNagel\T3extblog\Service\LoggingServiceInterface.className = FelixNagel\T3extblog\Service\LoggingService
 	}
-	# table & field mapping
+
+	# Table & field mapping
+	# @todo Remove this when TYPO3 9.x is no longer supported!
     persistence {
         classes {
 	        FelixNagel\T3extblog\Domain\Model\Post {
@@ -18,6 +20,7 @@ config.tx_extbase {
 						sorting.mapOnProperty = sorting
 						deleted.mapOnProperty = deleted
 						hidden.mapOnProperty = hidden
+
 						title.mapOnProperty = title
 						author.mapOnProperty = author
 						date.mapOnProperty = publishDate
@@ -39,8 +42,6 @@ config.tx_extbase {
 		        mapping {
 			        tableName = tt_content
 			        columns {
-				        altText.mapOnProperty = altText
-				        titleText.mapOnProperty = titleText
 				        colPos.mapOnProperty = colPos
 				        CType.mapOnProperty = CType
 			        }
