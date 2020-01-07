@@ -98,7 +98,7 @@ class ext_update
         $key = 'create_missing_post_slugs';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Create '.$this->countMissingSlugs().' missing post URL slugs (use when updating to version 5.0)'
+            'Create '.$this->countMissingSlugs().' missing post URL slugs'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->createMissingSlugs('tx_t3blog_post', 'url_segment', 'post records', 100);
@@ -117,8 +117,7 @@ class ext_update
         $key = 'create_missing_category_slugs';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Create '.$this->countMissingSlugs('tx_t3blog_cat').
-            ' missing category URL slugs (use when updating to version 5.0)'
+            'Create '.$this->countMissingSlugs('tx_t3blog_cat').' missing category URL slugs'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->createMissingSlugs('tx_t3blog_cat', 'url_segment', 'category records');
@@ -275,7 +274,7 @@ class ext_update
         $key = 'post_mails_sent';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Set "mails_sent" flag for existing posts (use when updating to v2.1.0)'
+            'Set "mails_sent" flag for existing posts'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->updatePostRecordsForMailsSent();
@@ -313,7 +312,7 @@ class ext_update
         $key = 'comment_mails_sent';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Set "mails_sent" flag for existing comments (use when migrating from EXT:t3blog)'
+            'Set "mails_sent" flag for existing comments'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->updateCommentRecordsForMailsSent();
@@ -347,7 +346,7 @@ class ext_update
         $key = 'comment_author_email_invalid';
         $this->sectionArray[] = $this->renderForm(
             $key,
-            'Find existing comments with invalid author or email (use when migrating from EXT:t3blog)'
+            'Find existing comments with invalid author or email'
         );
         if (GeneralUtility::_POST('migration') === $key) {
             $this->findCommentAuthorOrEmailInvalid();
