@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="col-xs-1 text-right">
-			<f:link.action arguments="{post.linkParameter}" section="comment-{comment.uid}">
+			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-{comment.uid}">
 				<span class="icon icon-comment glyphicon glyphicon-comment" aria-hidden="true"></span>
 			</f:link.action>
 		</div>
