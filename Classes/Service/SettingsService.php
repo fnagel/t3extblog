@@ -55,9 +55,7 @@ class SettingsService
     protected $configurationManager;
 
     /**
-     * Legacy alias of \TYPO3\CMS\Core\TypoScript\TypoScriptService
-     *
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $typoScriptService;
