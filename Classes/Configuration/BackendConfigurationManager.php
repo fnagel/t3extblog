@@ -31,7 +31,7 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      *
      * {@inheritdoc}
      */
-    protected function getCurrentPageIdFromGetPostData()
+    protected function getCurrentPageIdFromGetPostData(): int
     {
         $id = parent::getCurrentPageIdFromGetPostData();
 
