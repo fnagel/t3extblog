@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\GeneralUtility as T3extblogGeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -117,14 +118,7 @@ class EmailService implements SingletonInterface
             ->setTo($mailTo)
             ->setFrom($mailFrom);
 
-        // Plain text only
-        if (strip_tags($emailBody) == $emailBody) {
-            $message->setBody($emailBody, 'text/plain');
-        } else {
-            // Send as HTML and plain text
-            $message->setBody($emailBody, 'text/html');
-            $message->addPart($this->preparePlainTextBody($emailBody), 'text/plain');
-        }
+        $this->setMessageContent($message, $emailBody);
 
         if (!$this->settings['debug']['disableEmailTransmission']) {
             $message->send();
@@ -240,21 +234,61 @@ class EmailService implements SingletonInterface
     }
 
     /**
+     * @param MailMessage $message
+     * @param string $emailBody
+     */
+    protected function setMessageContent(MailMessage $message, $emailBody)
+    {
+        if (version_compare(TYPO3_version, '10.0', '>=')) {
+            $metaCharset = $this->getCharset();
+
+            // Plain text only
+            if (strip_tags($emailBody) == $emailBody) {
+                $message->text($emailBody, $metaCharset);
+            } else {
+                // Send as HTML and plain text
+                $message->html($emailBody, $metaCharset);
+                $message->text($this->preparePlainTextBody($emailBody), $metaCharset);
+            }	
+		// @todo Remove this when TYPO3 9.x is no longer supported!
+        } else {
+            // Plain text only
+            if (strip_tags($emailBody) == $emailBody) {
+                $message->setBody($emailBody, 'text/plain');
+            } else {
+                // Send as HTML and plain text
+                $message->setBody($emailBody, 'text/html');
+                $message->addPart($this->preparePlainTextBody($emailBody), 'text/plain');
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCharset()
+    {
+        return T3extblogGeneralUtility::getCharset((int) ($this->settings['blogsystem']['pid'] ?: 0));
+    }
+
+    /**
      * Create mail message
      *
      * @return MailMessage
      */
     protected function createMailMessage()
     {
-        $pid = $this->settings['blogsystem']['pid'] ?: 0;
-        $message = $this->objectManager->get(
-            MailMessage::class,
-            null,
-            null,
-            null,
-            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe((int) $pid)->metaCharset
-        );
-
-        return $message;
+        if (version_compare(TYPO3_version, '10.0', '>=')) {
+            return $this->objectManager->get(MailMessage::class);
+        } else {
+            // @todo Remove this when TYPO3 9.x is no longer supported!
+            return $this->objectManager->get(
+                MailMessage::class,
+                null,
+                null,
+                null,
+                $this->getCharset()
+            );
+        }
     }
 }

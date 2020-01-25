@@ -50,6 +50,18 @@ class GeneralUtility implements SingletonInterface
     }
 
     /**
+     * Get FE meta charset.
+     *
+     * @param int $pageUid
+     *
+     * @return string
+     */
+    public static function getCharset($pageUid = 0)
+    {
+        return self::getTsFe($pageUid)->metaCharset;
+    }
+
+    /**
      * Generate TypoScriptFrontendController (use in BE context).
      *
      * @param int $pageUid
