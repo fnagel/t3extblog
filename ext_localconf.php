@@ -154,8 +154,9 @@ if ($_COOKIE[$configuredCookieName]) {
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = [
     'provider' => \TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider::class,
 ];
+
 // Overwrite classes
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Extbase\\Configuration\\BackendConfigurationManager'] = [
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager::class] = [
     'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
 ];
 
