@@ -15,7 +15,7 @@
 		<ul>
 		<f:for each="{paginatedPosts}" as="post">
 			<li>
-				<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{post.linkParameter}">{post.title}</f:link.action>
+				<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{post.linkParameter}">{post.title}</f:link.action>
 			</li>
 		</f:for>
 		</ul>

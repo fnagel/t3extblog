@@ -12,7 +12,7 @@
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
 				<li>
-					<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category: category}">
+					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}">
 						{category.name}
 					</f:link.action>
 					<f:if condition="{category.childCategories}">
@@ -29,7 +29,7 @@
 	<ul>
 	<f:for each="{categories}" as="category">
 		<li>
-			<f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="category" arguments="{category: category}">
+			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}">
 				{category.name}
 			</f:link.action>
 			<f:if condition="{category.childCategories}">
