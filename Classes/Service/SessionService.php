@@ -19,7 +19,7 @@ class SessionService implements SessionServiceInterface
     const SESSION_DATA_KEY = 'subscription_session';
 
     /**
-     * Logging Service.
+     * Frontend user authentication.
      *
      * @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication
      */
@@ -28,16 +28,19 @@ class SessionService implements SessionServiceInterface
     /**
      * Logging Service.
      *
-     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
+     * @var LoggingServiceInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $log;
 
     /**
-     * __construct.
+     * SessionService constructor.
+     *
+     * @param LoggingServiceInterface $log
      */
-    public function __construct()
+    public function __construct(LoggingServiceInterface $log)
     {
+        $this->log = $log;
         $this->frontendUser = GeneralUtility::getTsFe()->fe_user;
     }
 

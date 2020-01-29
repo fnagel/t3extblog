@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 
 /**
@@ -26,10 +27,20 @@ class CategoryController extends AbstractController
     /**
      * categoryRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\CategoryRepository
+     * @var CategoryRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $categoryRepository;
+
+    /**
+     * CategoryController constructor.
+     *
+     * @param CategoryRepository $categoryRepository
+     */
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
 
     /**
      * action list.

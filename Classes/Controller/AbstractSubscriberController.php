@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
@@ -32,27 +33,26 @@ abstract class AbstractSubscriberController extends AbstractController
     protected $subscriber = null;
 
     /**
-     * feUserService.
-     *
-     * @var \FelixNagel\T3extblog\Service\AuthenticationServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $authentication;
-
-    /**
-     * objectManager.
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $objectManager;
-
-    /**
      * Contains the subscription settings.
      *
      * @var array
      */
     protected $subscriptionSettings;
+
+    /**
+     * feUserService.
+     *
+     * @var AuthenticationServiceInterface
+     */
+    protected $authentication;
+
+    /**
+     * @param AuthenticationServiceInterface $authentication
+     */
+    public function injectAuthentication(AuthenticationServiceInterface $authentication)
+    {
+        $this->authentication = $authentication;
+    }
 
     /**
      * action confirm.

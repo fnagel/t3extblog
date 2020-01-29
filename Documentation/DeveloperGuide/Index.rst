@@ -26,10 +26,17 @@ Extending T3extlog
 Using interfaces
 ^^^^^^^^^^^^^^^^
 
-Some internal services are implemented as interfaces. The actual class to use could be configured by TypoScript.
+Some internal services are implemented as interfaces. The actual class to use could be configured.
 This way it is possible to use custom implementations.
 
+**Before TYPO3 10**
 See `config.tx_extbase.objects` configuration in [ext_typoscript_setup.txt](../../ext_typoscript_setup.txt).
+
+**TYPO3 10 and later**
+See interface registration configuration in [Services.yml](../../Configuration/Services.yml).
+
+More info on the topic:
+https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/DependencyInjection/Index.html
 
 
 Signal / Slot

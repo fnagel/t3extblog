@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 
 /**
  * Handles all notification mails for new or changed comments.
@@ -22,8 +23,7 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * subscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var PostSubscriberRepository
      */
     protected $subscriberRepository;
 
@@ -33,6 +33,7 @@ class CommentNotificationService extends AbstractNotificationService
     {
         parent::initializeObject();
 
+        $this->subscriberRepository = $this->objectManager->get(PostSubscriberRepository::class);
         $this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.comment');
     }
 

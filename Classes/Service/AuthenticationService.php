@@ -24,10 +24,20 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Session Service.
      *
-     * @var \FelixNagel\T3extblog\Service\SessionServiceInterface
+     * @var SessionServiceInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $session;
+
+    /**
+     * AuthenticationService constructor.
+     *
+     * @param SessionServiceInterface $session
+     */
+    public function __construct(SessionServiceInterface $session)
+    {
+        $this->session = $session;
+    }
 
     /**
      * @return bool

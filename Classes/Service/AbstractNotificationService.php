@@ -10,12 +10,13 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\Comment;
-use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
 /**
@@ -24,10 +25,16 @@ use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 abstract class AbstractNotificationService implements NotificationServiceInterface, SingletonInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
+
+    /**
+     * @var Dispatcher
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected $signalSlotDispatcher;
 
     /**
      * subscriberRepository.
@@ -71,12 +78,33 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected $cacheService;
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * AbstractNotificationService constructor.
+     *
+     * @param ObjectManagerInterface $objectManager
+     * @param Dispatcher $signalSlotDispatcher
+     * @param LoggingServiceInterface $log
+     * @param SettingsService $settingsService
+     * @param EmailService $emailService
+     * @param FlushCacheService $cacheService
      */
-    protected $signalSlotDispatcher;
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        Dispatcher $signalSlotDispatcher,
+        LoggingServiceInterface $log,
+        SettingsService $settingsService,
+        EmailService $emailService,
+        FlushCacheService $cacheService
+    ) {
+        $this->objectManager = $objectManager;
+        $this->signalSlotDispatcher = $signalSlotDispatcher;
+        $this->log = $log;
+        $this->settingsService = $settingsService;
+        $this->emailService = $emailService;
+        $this->cacheService = $cacheService;
+    }
 
     /**
+     * @inheritDoc
      */
     public function initializeObject()
     {

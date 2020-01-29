@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 
@@ -20,7 +22,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * subscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var PostSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
@@ -28,7 +30,7 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * blogSubscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var BlogSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
@@ -39,6 +41,18 @@ class PostSubscriberController extends AbstractSubscriberController
      * @var \FelixNagel\T3extblog\Domain\Model\PostSubscriber
      */
     protected $subscriber = null;
+
+    /**
+     * PostSubscriberController constructor.
+     *
+     * @param PostSubscriberRepository $subscriberRepository
+     * @param BlogSubscriberRepository $blogSubscriberRepository
+     */
+    public function __construct(PostSubscriberRepository $subscriberRepository, BlogSubscriberRepository $blogSubscriberRepository)
+    {
+        $this->subscriberRepository = $subscriberRepository;
+        $this->blogSubscriberRepository = $blogSubscriberRepository;
+    }
 
     /**
      * {@inheritdoc}

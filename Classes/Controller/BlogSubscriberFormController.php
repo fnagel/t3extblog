@@ -9,6 +9,9 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Service\BlogNotificationService;
+use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
@@ -20,7 +23,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * blogSubscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var BlogSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
@@ -28,7 +31,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Notification Service.
      *
-     * @var \FelixNagel\T3extblog\Service\BlogNotificationService
+     * @var BlogNotificationService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
@@ -36,10 +39,27 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Spam Check Service.
      *
-     * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
+     * @var SpamCheckServiceInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
+
+    /**
+     * BlogSubscriberFormController constructor.
+     *
+     * @param BlogSubscriberRepository $blogSubscriberRepository
+     * @param BlogNotificationService $notificationService
+     * @param SpamCheckServiceInterface $spamCheckService
+     */
+    public function __construct(
+        BlogSubscriberRepository $blogSubscriberRepository,
+        BlogNotificationService $notificationService,
+        SpamCheckServiceInterface $spamCheckService
+    ) {
+        $this->blogSubscriberRepository = $blogSubscriberRepository;
+        $this->notificationService = $notificationService;
+        $this->spamCheckService = $spamCheckService;
+    }
 
     /**
      * action new.
@@ -86,7 +106,7 @@ class BlogSubscriberFormController extends AbstractController
 
         $this->blogSubscriberRepository->add($subscriber);
         $this->persistAllEntities();
-        $this->log->dev('Added blog subscriber uid='.$subscriber->getUid());
+        $this->getLog()->dev('Added blog subscriber uid='.$subscriber->getUid());
 
         $this->notificationService->processNewEntity($subscriber);
 
@@ -107,13 +127,13 @@ class BlogSubscriberFormController extends AbstractController
 
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
-            $this->log->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
+            $this->getLog()->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
             $this->redirect('', null, null, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
         }
 
         // block comment and show message
         if ($threshold['block'] > 0 && $spamPoints >= intval($threshold['block'])) {
-            $this->log->notice('New blog subscriber blocked because of SPAM.', $logData);
+            $this->getLog()->notice('New blog subscriber blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
             $this->errorAction();
         }

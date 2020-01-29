@@ -9,6 +9,10 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Service\CommentNotificationService;
+use FelixNagel\T3extblog\Service\FlushCacheService;
+use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -31,7 +35,7 @@ class CommentController extends AbstractController
     /**
      * commentRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
+     * @var CommentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $commentRepository;
@@ -39,7 +43,7 @@ class CommentController extends AbstractController
     /**
      * Notification Service.
      *
-     * @var \FelixNagel\T3extblog\Service\CommentNotificationService
+     * @var CommentNotificationService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
@@ -47,16 +51,36 @@ class CommentController extends AbstractController
     /**
      * Spam Check Service.
      *
-     * @var \FelixNagel\T3extblog\Service\SpamCheckServiceInterface
+     * @var SpamCheckServiceInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\FlushCacheService
+     * @var FlushCacheService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $cacheService;
+    protected $flushCacheService;
+
+    /**
+     * CommentController constructor.
+     *
+     * @param CommentRepository $commentRepository
+     * @param CommentNotificationService $notificationService
+     * @param SpamCheckServiceInterface $spamCheckService
+     * @param FlushCacheService $flushCacheService
+     */
+    public function __construct(
+        CommentRepository $commentRepository,
+        CommentNotificationService $notificationService,
+        SpamCheckServiceInterface $spamCheckService,
+        FlushCacheService $flushCacheService
+    ) {
+        $this->commentRepository = $commentRepository;
+        $this->notificationService = $notificationService;
+        $this->spamCheckService = $spamCheckService;
+        $this->flushCacheService = $flushCacheService;
+    }
 
     /**
      * action list.
@@ -166,7 +190,7 @@ class CommentController extends AbstractController
     {
         if ($this->arguments->hasArgument('post')) {
             $post = $this->arguments->getArgument('post')->getValue();
-            $this->cacheService->addCacheTagsToFlush([
+            $this->flushCacheService->addCacheTagsToFlush([
                 'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
             ]);
         } else {
@@ -224,20 +248,20 @@ class CommentController extends AbstractController
 
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= intval($threshold['redirect'])) {
-            $this->log->notice('New comment blocked and user redirected because of SPAM.', $logData);
+            $this->getLog()->notice('New comment blocked and user redirected because of SPAM.', $logData);
             $this->redirect('', null, null, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
         }
 
         // block comment and show message
         if ($threshold['block'] > 0 && $comment->getSpamPoints() >= intval($threshold['block'])) {
-            $this->log->notice('New comment blocked because of SPAM.', $logData);
+            $this->getLog()->notice('New comment blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
             $this->errorAction();
         }
 
         // mark as spam
         if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
-            $this->log->notice('New comment marked as SPAM.', $logData);
+            $this->getLog()->notice('New comment marked as SPAM.', $logData);
             $comment->markAsSpam();
             $this->addFlashMessageByKey('markedAsSpam', FlashMessage::NOTICE);
         }

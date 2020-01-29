@@ -9,8 +9,9 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Service\BlogNotificationService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
@@ -21,7 +22,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * subscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var BlogSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
@@ -29,7 +30,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * Notification Service.
      *
-     * @var \FelixNagel\T3extblog\Service\BlogNotificationService
+     * @var BlogNotificationService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
@@ -40,6 +41,18 @@ class BlogSubscriberController extends AbstractSubscriberController
      * @var \FelixNagel\T3extblog\Domain\Model\PostSubscriber
      */
     protected $subscriber = null;
+
+    /**
+     * BlogSubscriberController constructor.
+     *
+     * @param BlogSubscriberRepository $subscriberRepository
+     * @param BlogNotificationService $notificationService
+     */
+    public function __construct(BlogSubscriberRepository $subscriberRepository, BlogNotificationService $notificationService)
+    {
+        $this->subscriberRepository = $subscriberRepository;
+        $this->notificationService = $notificationService;
+    }
 
     /**
      * {@inheritdoc}
@@ -89,7 +102,7 @@ class BlogSubscriberController extends AbstractSubscriberController
 
         $this->subscriberRepository->add($subscriber);
         $this->persistAllEntities();
-        $this->log->dev('Added blog subscriber uid='.$subscriber->getUid());
+        $this->getLog()->dev('Added blog subscriber uid='.$subscriber->getUid());
 
         $this->notificationService->processNewEntity($subscriber);
 

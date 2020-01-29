@@ -9,6 +9,9 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
@@ -19,22 +22,39 @@ class SubscriberController extends AbstractController
     /**
      * feUserService.
      *
-     * @var \FelixNagel\T3extblog\Service\AuthenticationServiceInterface
+     * @var AuthenticationServiceInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $authentication;
 
     /**
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var BlogSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 
     /**
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var PostSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postSubscriberRepository;
+
+    /**
+     * SubscriberController constructor.
+     *
+     * @param AuthenticationServiceInterface $authentication
+     * @param BlogSubscriberRepository $blogSubscriberRepository
+     * @param PostSubscriberRepository $postSubscriberRepository
+     */
+    public function __construct(
+        AuthenticationServiceInterface $authentication,
+        BlogSubscriberRepository $blogSubscriberRepository,
+        PostSubscriberRepository $postSubscriberRepository
+    ) {
+        $this->authentication = $authentication;
+        $this->blogSubscriberRepository = $blogSubscriberRepository;
+        $this->postSubscriberRepository = $postSubscriberRepository;
+    }
 
     /**
      * Displays a list of all posts a user subscribed to.

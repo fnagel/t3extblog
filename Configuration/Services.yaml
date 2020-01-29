@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  FelixNagel\T3extblog\:
+    resource: '../Classes/*'
+
+  # Interface implementations
+  FelixNagel\T3extblog\Service\SessionServiceInterface:
+    alias: FelixNagel\T3extblog\Service\SessionService
+    public: true
+
+  FelixNagel\T3extblog\Service\AuthenticationServiceInterface:
+    alias: FelixNagel\T3extblog\Service\AuthenticationService
+    public: true
+
+  FelixNagel\T3extblog\Service\SpamCheckServiceInterface:
+    alias: FelixNagel\T3extblog\Service\SpamCheckService
+    public: true
+
+  FelixNagel\T3extblog\Service\LoggingServiceInterface:
+    alias: FelixNagel\T3extblog\Service\LoggingService
+    public: true

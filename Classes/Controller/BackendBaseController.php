@@ -9,8 +9,11 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -27,25 +30,17 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class BackendBaseController extends ActionController
 {
     /**
-     * objectManager.
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $objectManager;
-
-    /**
      * postRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
+     * @var PostRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postRepository;
 
     /**
-     * postRepository.
+     * commentRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
+     * @var CommentRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $commentRepository;
@@ -53,7 +48,7 @@ class BackendBaseController extends ActionController
     /**
      * postSubscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository
+     * @var PostSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postSubscriberRepository;
@@ -61,7 +56,7 @@ class BackendBaseController extends ActionController
     /**
      * blogSubscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
+     * @var BlogSubscriberRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
@@ -86,6 +81,25 @@ class BackendBaseController extends ActionController
      * @var ConnectionPool
      */
     protected $connectionPool;
+
+    /**
+     * BackendBaseController constructor.
+     * @param PostRepository $postRepository
+     * @param CommentRepository $commentRepository
+     * @param PostSubscriberRepository $postSubscriberRepository
+     * @param BlogSubscriberRepository $blogSubscriberRepository
+     */
+    public function __construct(
+        PostRepository $postRepository,
+        CommentRepository $commentRepository,
+        PostSubscriberRepository $postSubscriberRepository,
+        BlogSubscriberRepository $blogSubscriberRepository
+    ) {
+        $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
+        $this->postSubscriberRepository = $postSubscriberRepository;
+        $this->blogSubscriberRepository = $blogSubscriberRepository;
+    }
 
     /**
      * Load and persist module data.

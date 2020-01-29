@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
@@ -27,12 +28,6 @@ abstract class AbstractEntity extends CoreAbstractEntity
     protected $crdate;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $objectManager = null;
-
-    /**
      * commentRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
@@ -45,6 +40,20 @@ abstract class AbstractEntity extends CoreAbstractEntity
      * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      */
     protected $postRepository = null;
+
+    /**
+     * @var ObjectManagerInterface
+     *
+     */
+    protected $objectManager = null;
+
+    /**
+     * @param ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
     /**
      * @return \DateTime

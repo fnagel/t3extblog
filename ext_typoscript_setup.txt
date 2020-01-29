@@ -1,5 +1,6 @@
 config.tx_extbase {
 	# Configure interface implementations
+	# @todo Remove this when TYPO3 9.x is no longer supported!
 	objects {
 		FelixNagel\T3extblog\Service\SessionServiceInterface.className = FelixNagel\T3extblog\Service\SessionService
 		FelixNagel\T3extblog\Service\AuthenticationServiceInterface.className = FelixNagel\T3extblog\Service\AuthenticationService

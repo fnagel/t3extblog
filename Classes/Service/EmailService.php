@@ -14,6 +14,8 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -31,7 +33,7 @@ class EmailService implements SingletonInterface
     protected $extensionName = 't3extblog';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
@@ -45,7 +47,7 @@ class EmailService implements SingletonInterface
     protected $log;
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var Dispatcher
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $signalSlotDispatcher;
@@ -60,6 +62,25 @@ class EmailService implements SingletonInterface
      * @var array
      */
     protected $settings;
+
+    /**
+     * EmailService constructor.
+     * @param ObjectManagerInterface $objectManager
+     * @param LoggingServiceInterface $log
+     * @param Dispatcher $signalSlotDispatcher
+     * @param SettingsService $settingsService
+     */
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        LoggingServiceInterface $log,
+        Dispatcher $signalSlotDispatcher,
+        SettingsService $settingsService
+    ) {
+        $this->objectManager = $objectManager;
+        $this->log = $log;
+        $this->signalSlotDispatcher = $signalSlotDispatcher;
+        $this->settingsService = $settingsService;
+    }
 
     /**
      */
@@ -249,7 +270,7 @@ class EmailService implements SingletonInterface
                 // Send as HTML and plain text
                 $message->html($emailBody, $metaCharset);
                 $message->text($this->preparePlainTextBody($emailBody), $metaCharset);
-            }	
+            }
 		// @todo Remove this when TYPO3 9.x is no longer supported!
         } else {
             // Plain text only

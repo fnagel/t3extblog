@@ -47,6 +47,16 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
     protected $settings;
 
     /**
+     * LoggingService constructor.
+     *
+     * @param SettingsService $settingsService
+     */
+    public function __construct(SettingsService $settingsService)
+    {
+        $this->settingsService = $settingsService;
+    }
+
+    /**
      * Init object.
      */
     public function initializeObject()

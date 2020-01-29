@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Service\LoggingServiceInterface;
 use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -31,10 +32,9 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     /**
      * Logging Service.
      *
-     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var LoggingServiceInterface
      */
-    protected $log;
+    private $log = null;
 
     /**
      * Actions which need a configured cHash
@@ -261,5 +261,17 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
         if (count($this->cHashActions) > 0 && in_array($this->actionMethodName, $this->cHashActions)) {
             \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
         }
+    }
+
+    /**
+     * @return LoggingServiceInterface
+     */
+    protected function getLog()
+    {
+        if ($this->log === null) {
+            $this->log = $this->objectManager->get(LoggingServiceInterface::class);
+        }
+
+        return $this->log;
     }
 }

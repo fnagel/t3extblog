@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -21,7 +22,6 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
  */
 class PostController extends AbstractController
 {
-
     /**
      * @var array
      */
@@ -33,12 +33,20 @@ class PostController extends AbstractController
     ];
 
     /**
-     * postRepository.
-     *
-     * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
+     * @var PostRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postRepository;
+
+    /**
+     * PostController constructor.
+     *
+     * @param PostRepository $postRepository
+     */
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
 
     /**
      * @inheritdoc

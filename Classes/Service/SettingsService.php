@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -55,10 +56,22 @@ class SettingsService
     protected $configurationManager;
 
     /**
-     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
+     * @var TypoScriptService
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $typoScriptService;
+
+    /**
+     * SettingsService constructor.
+     *
+     * @param ConfigurationManagerInterface $configurationManager
+     * @param TypoScriptService $typoScriptService
+     */
+    public function __construct(ConfigurationManagerInterface $configurationManager, TypoScriptService $typoScriptService)
+    {
+        $this->configurationManager = $configurationManager;
+        $this->typoScriptService = $typoScriptService;
+    }
 
     /**
      * Returns all framework settings.

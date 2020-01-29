@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Service;
 
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 
 /**
@@ -21,8 +22,7 @@ class BlogNotificationService extends AbstractNotificationService
     /**
      * subscriberRepository.
      *
-     * @var \FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var BlogSubscriberRepository
      */
     protected $subscriberRepository;
 
@@ -32,6 +32,7 @@ class BlogNotificationService extends AbstractNotificationService
     {
         parent::initializeObject();
 
+        $this->subscriberRepository = $this->objectManager->get(BlogSubscriberRepository::class);
         $this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.blog');
     }
 
@@ -128,7 +129,7 @@ class BlogNotificationService extends AbstractNotificationService
             'notifySubscribers',
             [$post, &$subscribers, &$subject, &$variables, $this]
         );
-        
+
         $this->log->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 
         /* @var $subscriber BlogSubscriber */
