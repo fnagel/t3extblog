@@ -28,6 +28,30 @@ RSS Output instead of page
 Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a seperate rss-page.
 
 
+Logging
+-------
+
+Versions later than 5.0.0 of this extension use the TYPO3 PSR-3 logging:
+https://docs.typo3.org/m/typo3/reference-coreapi/9.5/en-us/ApiOverview/Logging/Configuration/Index.html
+
+By default, all errors are logged into `var/logs/typo3_t3extblog_xyz.log`.
+When in `Development` application context all debug and notice messages will be logged too.
+
+Feel free to adjust this as you wish. For example configure the log to include messages
+about blocked comments and subscriptions:
+
+.. code-block:: php
+
+   $GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfiguration'] = [
+       \TYPO3\CMS\Core\Log\LogLevel::NOTICE => [
+           \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+               'logFileInfix' => 't3extblog',
+           ],
+       ]
+   ];
+
+
+
 Link RSS in page header
 -----------------------
 
@@ -46,7 +70,7 @@ Use following TS config where `123` is the UID of yours RSS page:
 	}
 
 
-Add canonical tag to pae header
+Add canonical tag to page header
 -------------------------------
 
 Use following TS config:

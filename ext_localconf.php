@@ -165,3 +165,14 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostMapper'] 
     \FelixNagel\T3extblog\Routing\Aspect\PostMapper::class;
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostTagMapper'] =
     \FelixNagel\T3extblog\Routing\Aspect\PostTagMapper::class;
+
+// Logging
+$logLevel = \TYPO3\CMS\Core\Core\Environment::getContext()->isDevelopment() ?
+    \TYPO3\CMS\Core\Log\LogLevel::DEBUG : \TYPO3\CMS\Core\Log\LogLevel::ERROR;
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfiguration'] = [
+    $logLevel => [
+        \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+            'logFileInfix' => 't3extblog',
+        ],
+    ],
+];

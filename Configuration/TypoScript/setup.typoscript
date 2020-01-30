@@ -25,10 +25,10 @@ plugin.tx_t3extblog {
 		# Used for all emails
 		blogName = {$plugin.tx_t3extblog.settings.blogName}
 
-		# Some debug configs
+		# Debug settings: Do not enable in production context
 		debug {
 			disableEmailTransmission = 0
-			logInDevlog = 0
+			# Render log message in FE
 			renderInFe = 0
 		}
 	}

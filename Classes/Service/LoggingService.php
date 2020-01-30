@@ -9,26 +9,16 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Handles logging
- * Configured by TYPO3 core log level.
  */
-class LoggingService implements LoggingServiceInterface, SingletonInterface
+class LoggingService implements LoggingServiceInterface, SingletonInterface, LoggerAwareInterface
 {
-    /**
-     * The extension key.
-     *
-     * @var bool
-     */
-    protected $extKey = 't3extblog';
-
-    /**
-     * @var bool
-     */
-    protected $logInDevlog;
+    use LoggerAwareTrait;
 
     /**
      * @var bool
@@ -61,99 +51,60 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface
      */
     public function initializeObject()
     {
-        $this->settings = $this->settingsService->getTypoScriptSettings();
-
-        $this->logInDevlog = $this->settings['debug']['logInDevlog'];
-        $this->renderInFe = $this->settings['debug']['renderInFe'];
+        $this->renderInFe = $this->settingsService->getTypoScriptByPath('debug.renderInFe');
     }
 
     /**
-     * Error logging.
-     *
-     * @param string $msg  Message
-     * @param array  $data Data
+     * @inheritDoc
      */
-    public function error($msg, $data = [])
+    public function error($msg, array $data = [])
     {
-        $this->writeToSysLog($msg, 3);
-
-        if ($this->renderInFe) {
-            $this->outputDebug($msg, 3, $data);
-        }
-
-        if ($this->logInDevlog) {
-            $this->writeToDevLog($msg, 3, $data);
-        }
+        $this->logger->critical($msg, $data);
+        $this->outputDebug($msg, 'error', $data);
     }
 
     /**
-     * Notice logging.
-     *
-     * @param string $msg  Message
-     * @param array  $data Data
+     * @inheritDoc
      */
-    public function notice($msg, $data = [])
+    public function exception(\Exception $exception, array $data = [])
     {
-        $this->writeToSysLog($msg, 1);
-
-        if ($this->renderInFe) {
-            $this->outputDebug($msg, 1, $data);
-        }
-
-        if ($this->logInDevlog) {
-            $this->writeToDevLog($msg, 1, $data);
-        }
+        $this->logger->alert($exception->getMessage(), array_merge(
+            [
+                'code' => $exception->getCode(),
+            ],
+            $data
+        ));
     }
 
     /**
-     * Development logging.
-     *
-     * @param string $msg  Message
-     * @param array  $data Data
+     * @inheritDoc
      */
-    public function dev($msg, $data = [])
+    public function notice($msg, array $data = [])
     {
-        if ($this->renderInFe) {
-            $this->outputDebug($msg, 1, $data);
-        }
+        $this->logger->notice($msg, $data);
+        $this->outputDebug($msg, 'notice', $data);
+    }
 
-        if ($this->logInDevlog) {
-            $this->writeToDevLog($msg, 1, $data);
-        }
+    /**
+     * @inheritDoc
+     */
+    public function dev($msg, array $data = [])
+    {
+        $this->logger->debug($msg, $data);
+        $this->outputDebug($msg, 'debug', $data);
     }
 
     /**
      * Writes message to the FE.
      *
-     * @param string $msg      Message (in English).
-     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
+     * @param string $msg      Message (in English)
+     * @param string $severity Severity
      * @param array  $data     Data
      */
-    protected function outputDebug($msg, $severity = 0, $data = [])
+    protected function outputDebug($msg, $severity = 'debug', $data = [])
     {
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
-    }
-
-    /**
-     * Logs message to the system log.
-     *
-     * @param string $msg      Message (in English).
-     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is error, 4 is fatal error
-     */
-    protected function writeToSysLog($msg, $severity = 0)
-    {
-        GeneralUtility::sysLog($msg, $this->extKey, $severity);
-    }
-
-    /**
-     * Logs message to the development log.
-     *
-     * @param string $msg      Message (in english).
-     * @param int    $severity Severity: 0 is info, 1 is notice, 2 is warning, 3 is fatal error, -1 is "OK" message
-     * @param mixed  $dataVar  Additional data you want to pass to the logger.
-     */
-    protected function writeToDevLog($msg, $severity = 0, $dataVar = false)
-    {
-        GeneralUtility::devLog($msg, $this->extKey, $severity, $dataVar);
+        if ($this->renderInFe) {
+            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
+        }
     }
 }
