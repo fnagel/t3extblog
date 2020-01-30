@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -29,6 +30,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class BackendBaseController extends ActionController
 {
+    use LoggingTrait;
+
     /**
      * postRepository.
      *
@@ -84,6 +87,7 @@ class BackendBaseController extends ActionController
 
     /**
      * BackendBaseController constructor.
+     *
      * @param PostRepository $postRepository
      * @param CommentRepository $commentRepository
      * @param PostSubscriberRepository $postSubscriberRepository

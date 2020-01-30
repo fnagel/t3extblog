@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\GeneralUtility as T3extblogGeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -23,6 +24,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class EmailService implements SingletonInterface
 {
+    use LoggingTrait;
+
     const TEMPLATE_FOLDER = 'Email';
 
     /**
@@ -37,14 +40,6 @@ class EmailService implements SingletonInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
-
-    /**
-     * Logging Service.
-     *
-     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $log;
 
     /**
      * @var Dispatcher
@@ -66,18 +61,15 @@ class EmailService implements SingletonInterface
     /**
      * EmailService constructor.
      * @param ObjectManagerInterface $objectManager
-     * @param LoggingServiceInterface $log
      * @param Dispatcher $signalSlotDispatcher
      * @param SettingsService $settingsService
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        LoggingServiceInterface $log,
         Dispatcher $signalSlotDispatcher,
         SettingsService $settingsService
     ) {
         $this->objectManager = $objectManager;
-        $this->log = $log;
         $this->signalSlotDispatcher = $signalSlotDispatcher;
         $this->settingsService = $settingsService;
     }
@@ -124,7 +116,7 @@ class EmailService implements SingletonInterface
     public function send($mailTo, $mailFrom, $subject, $emailBody)
     {
         if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
-            $this->log->error('Given mailto email address is invalid.', $mailTo);
+            $this->getLog()->error('Given mailto email address is invalid.', $mailTo);
 
             return false;
         }
@@ -152,7 +144,7 @@ class EmailService implements SingletonInterface
             'emailBody' => $emailBody,
             'isSent' => $message->isSent(),
         ];
-        $this->log->dev('Email sent.', $logData);
+        $this->getLog()->dev('Email sent.', $logData);
 
         return $logData['isSent'];
     }

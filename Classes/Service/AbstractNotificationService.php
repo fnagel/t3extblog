@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -24,6 +25,8 @@ use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
  */
 abstract class AbstractNotificationService implements NotificationServiceInterface, SingletonInterface
 {
+    use LoggingTrait;
+
     /**
      * @var ObjectManagerInterface
      * @TYPO3\CMS\Extbase\Annotation\Inject
@@ -40,14 +43,6 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      * subscriberRepository.
      */
     protected $subscriberRepository;
-
-    /**
-     * Logging Service.
-     *
-     * @var \FelixNagel\T3extblog\Service\LoggingServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $log;
 
     /**
      * @var \FelixNagel\T3extblog\Service\SettingsService
@@ -82,7 +77,6 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      *
      * @param ObjectManagerInterface $objectManager
      * @param Dispatcher $signalSlotDispatcher
-     * @param LoggingServiceInterface $log
      * @param SettingsService $settingsService
      * @param EmailService $emailService
      * @param FlushCacheService $cacheService
@@ -90,14 +84,12 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     public function __construct(
         ObjectManagerInterface $objectManager,
         Dispatcher $signalSlotDispatcher,
-        LoggingServiceInterface $log,
         SettingsService $settingsService,
         EmailService $emailService,
         FlushCacheService $cacheService
     ) {
         $this->objectManager = $objectManager;
         $this->signalSlotDispatcher = $signalSlotDispatcher;
-        $this->log = $log;
         $this->settingsService = $settingsService;
         $this->emailService = $emailService;
         $this->cacheService = $cacheService;

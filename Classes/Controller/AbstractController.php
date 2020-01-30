@@ -9,11 +9,12 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Service\LoggingServiceInterface;
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -27,14 +28,9 @@ use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 /**
  * Abstract base controller.
  */
-abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+abstract class AbstractController extends ActionController
 {
-    /**
-     * Logging Service.
-     *
-     * @var LoggingServiceInterface
-     */
-    private $log = null;
+    use LoggingTrait;
 
     /**
      * Actions which need a configured cHash
@@ -261,17 +257,5 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
         if (count($this->cHashActions) > 0 && in_array($this->actionMethodName, $this->cHashActions)) {
             \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
         }
-    }
-
-    /**
-     * @return LoggingServiceInterface
-     */
-    protected function getLog()
-    {
-        if ($this->log === null) {
-            $this->log = $this->objectManager->get(LoggingServiceInterface::class);
-        }
-
-        return $this->log;
     }
 }

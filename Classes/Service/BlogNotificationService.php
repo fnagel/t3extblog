@@ -89,7 +89,7 @@ class BlogNotificationService extends AbstractNotificationService
      */
     protected function sendOptInMail(BlogSubscriber $subscriber)
     {
-        $this->log->dev('Send blog subscriber opt-in mail.');
+        $this->getLog()->dev('Send blog subscriber opt-in mail.');
 
         $subscriber->updateAuth();
         $this->subscriberRepository->update($subscriber);
@@ -130,7 +130,7 @@ class BlogNotificationService extends AbstractNotificationService
             [$post, &$subscribers, &$subject, &$variables, $this]
         );
 
-        $this->log->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
+        $this->getLog()->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 
         /* @var $subscriber BlogSubscriber */
         foreach ($subscribers as $subscriber) {

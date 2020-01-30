@@ -122,7 +122,7 @@ class CommentNotificationService extends AbstractNotificationService
             $comment->getEmail()
         );
         if (count($subscribers) > 0) {
-            $this->log->notice('Subscriber ['.$comment->getEmail().'] already registered.');
+            $this->getLog()->notice('Subscriber ['.$comment->getEmail().'] already registered.');
 
             return false;
         }
@@ -138,7 +138,7 @@ class CommentNotificationService extends AbstractNotificationService
      */
     protected function sendOptInMail(PostSubscriber $subscriber, Comment $comment)
     {
-        $this->log->dev('Send subscriber opt-in mail.');
+        $this->getLog()->dev('Send subscriber opt-in mail.');
 
         $post = $subscriber->getPost();
 
@@ -174,7 +174,7 @@ class CommentNotificationService extends AbstractNotificationService
         $this->subscriberRepository->add($newSubscriber);
         $this->persistToDatabase(true);
 
-        $this->log->dev('Added comment subscriber uid='.$newSubscriber->getUid());
+        $this->getLog()->dev('Added comment subscriber uid='.$newSubscriber->getUid());
 
         return $newSubscriber;
     }
@@ -211,7 +211,7 @@ class CommentNotificationService extends AbstractNotificationService
             [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
         );
 
-        $this->log->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
+        $this->getLog()->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
 
         /* @var $subscriber PostSubscriber */
         foreach ($subscribers as $subscriber) {
@@ -249,12 +249,12 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         if (!(is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0)) {
-            $this->log->error('No admin email configured.', $settings['mailTo']);
+            $this->getLog()->error('No admin email configured.', $settings['mailTo']);
 
             return;
         }
 
-        $this->log->dev('Send admin new comment notification mail.');
+        $this->getLog()->dev('Send admin new comment notification mail.');
 
         /* @var $post Post */
         $post = $comment->getPost();

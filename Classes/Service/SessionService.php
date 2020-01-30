@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 
 /**
@@ -16,6 +17,8 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
  */
 class SessionService implements SessionServiceInterface
 {
+    use LoggingTrait;
+
     const SESSION_DATA_KEY = 'subscription_session';
 
     /**
@@ -26,21 +29,10 @@ class SessionService implements SessionServiceInterface
     protected $frontendUser;
 
     /**
-     * Logging Service.
-     *
-     * @var LoggingServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $log;
-
-    /**
      * SessionService constructor.
-     *
-     * @param LoggingServiceInterface $log
      */
-    public function __construct(LoggingServiceInterface $log)
+    public function __construct()
     {
-        $this->log = $log;
         $this->frontendUser = GeneralUtility::getTsFe()->fe_user;
     }
 
@@ -67,7 +59,7 @@ class SessionService implements SessionServiceInterface
     }
 
     /**
-     * @return array
+     * @return void
      */
     public function removeData()
     {
@@ -77,7 +69,7 @@ class SessionService implements SessionServiceInterface
     /**
      * @param string $key
      *
-     * @return array
+     * @return array|null
      */
     public function getDataByKey($key)
     {
@@ -87,7 +79,7 @@ class SessionService implements SessionServiceInterface
             return $data[$key];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -95,7 +87,11 @@ class SessionService implements SessionServiceInterface
      */
     private function restoreFromSession($key)
     {
-        return $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
+        $data = $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
+
+        $this->getLog()->dev('Get from FE session', $data);
+
+        return $data;
     }
 
     /**
@@ -103,7 +99,7 @@ class SessionService implements SessionServiceInterface
      */
     private function writeToSession($key, $data)
     {
-        $this->log->dev('Write so FE session', $data);
+        $this->getLog()->dev('Write to FE session', $data);
 
         $this->frontendUser->setKey('ses', 'tx_t3extblog_'.$key, $data);
         $this->frontendUser->storeSessionData();
