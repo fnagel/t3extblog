@@ -164,6 +164,10 @@ class BackendBaseController extends ActionController
         } catch (InvalidConfigurationException $exception) {
             // On pages with blog records we need to make sure TS is configured so escalate!
             if ($this->pageInfo['show'] === false) {
+                $this->getLog()->exception($exception, [
+                    'pid' => $this->pageId,
+                    'context' => 'backend',
+                ]);
                 throw $exception;
             }
         }

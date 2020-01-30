@@ -98,7 +98,16 @@ abstract class AbstractController extends ActionController
      */
     protected function initializeAction()
     {
-        $this->validateTypoScriptConfiguration();
+        try {
+            $this->validateTypoScriptConfiguration();
+        } catch (\Exception $exception) {
+            $this->getLog()->exception($exception, [
+                'pid' => \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->id,
+                'context' => 'frontend',
+            ]);
+            throw $exception;
+        }
+
         $this->addDefaultCacheTags();
         $this->configureCHash();
     }
