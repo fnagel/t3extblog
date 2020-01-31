@@ -19,7 +19,7 @@ interface SessionServiceInterface
      *
      * @param array $data Data array to save
      */
-    public function setData($data);
+    public function setData(array $data);
 
     /**
      * Get data.
@@ -36,9 +36,9 @@ interface SessionServiceInterface
     /**
      * Get single value from data by key.
      *
-     * @param string
+     * @param string $key
      *
-     * @return mixed
+     * @return array|string
      */
     public function getDataByKey($key);
 }

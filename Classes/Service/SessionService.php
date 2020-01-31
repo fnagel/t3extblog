@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Service;
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 /**
  * SessionService.
@@ -24,7 +25,7 @@ class SessionService implements SessionServiceInterface
     /**
      * Frontend user authentication.
      *
-     * @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication
+     * @var FrontendUserAuthentication
      */
     protected $frontendUser;
 
@@ -37,9 +38,9 @@ class SessionService implements SessionServiceInterface
     }
 
     /**
-     * @param array $data Data array to save
+     * @inheritDoc
      */
-    public function setData($data)
+    public function setData(array $data)
     {
         $oldData = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
@@ -51,7 +52,7 @@ class SessionService implements SessionServiceInterface
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public function getData()
     {
@@ -59,7 +60,7 @@ class SessionService implements SessionServiceInterface
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     public function removeData()
     {
@@ -67,9 +68,7 @@ class SessionService implements SessionServiceInterface
     }
 
     /**
-     * @param string $key
-     *
-     * @return array|null
+     * @inheritDoc
      */
     public function getDataByKey($key)
     {
@@ -84,22 +83,28 @@ class SessionService implements SessionServiceInterface
 
     /**
      * Return stored session data.
+     *
+     * @param string $key
+     * @return array|string
      */
     private function restoreFromSession($key)
     {
         $data = $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
 
-        $this->getLog()->dev('Get from FE session', $data);
+        $this->getLog()->dev('Get from FE session', $data ?: []);
 
         return $data;
     }
 
     /**
      * Write session data.
+     *
+     * @param string $key
+     * @param array|string $data
      */
     private function writeToSession($key, $data)
     {
-        $this->getLog()->dev('Write to FE session', $data);
+        $this->getLog()->dev('Write to FE session', $data ?: []);
 
         $this->frontendUser->setKey('ses', 'tx_t3extblog_'.$key, $data);
         $this->frontendUser->storeSessionData();
