@@ -5,7 +5,7 @@
 
 <f:section name="main">
 	<h2>
-		<f:translate key="module.comment.title.byPost" arguments="{0: '{post.title}'}" />
+		{f:translate(key: 'module.comment.title.byPost', arguments: {0: post.title}) -> f:format.raw()}
 	</h2>
 
 	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 0}" />
