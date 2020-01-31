@@ -26,8 +26,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
     protected $renderInFe;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\SettingsService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var SettingsService
      */
     protected $settingsService;
 

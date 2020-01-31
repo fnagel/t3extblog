@@ -37,19 +37,16 @@ class EmailService implements SingletonInterface
 
     /**
      * @var ObjectManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
 
     /**
      * @var Dispatcher
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $signalSlotDispatcher;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\SettingsService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var SettingsService
      */
     protected $settingsService;
 

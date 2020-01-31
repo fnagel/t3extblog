@@ -19,7 +19,6 @@ class SpamCheckService implements SpamCheckServiceInterface
 {
     /**
      * @var Dispatcher
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $signalSlotDispatcher;
 

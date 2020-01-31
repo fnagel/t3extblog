@@ -29,13 +29,11 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 
     /**
      * @var ObjectManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager;
 
     /**
      * @var Dispatcher
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $signalSlotDispatcher;
 
@@ -45,8 +43,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected $subscriberRepository;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\SettingsService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var SettingsService
      */
     protected $settingsService;
 
@@ -61,14 +58,12 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected $subscriptionSettings;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\EmailService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var EmailService
      */
     protected $emailService;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\FlushCacheService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var FlushCacheService
      */
     protected $cacheService;
 

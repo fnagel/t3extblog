@@ -36,7 +36,6 @@ class CommentController extends AbstractController
      * commentRepository.
      *
      * @var CommentRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $commentRepository;
 
@@ -44,7 +43,6 @@ class CommentController extends AbstractController
      * Notification Service.
      *
      * @var CommentNotificationService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
 
@@ -52,13 +50,11 @@ class CommentController extends AbstractController
      * Spam Check Service.
      *
      * @var SpamCheckServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
 
     /**
      * @var FlushCacheService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $flushCacheService;
 

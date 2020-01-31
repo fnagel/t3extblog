@@ -24,7 +24,6 @@ class BlogSubscriberFormController extends AbstractController
      * blogSubscriberRepository.
      *
      * @var BlogSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 
@@ -32,7 +31,6 @@ class BlogSubscriberFormController extends AbstractController
      * Notification Service.
      *
      * @var BlogNotificationService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $notificationService;
 
@@ -40,7 +38,6 @@ class BlogSubscriberFormController extends AbstractController
      * Spam Check Service.
      *
      * @var SpamCheckServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $spamCheckService;
 

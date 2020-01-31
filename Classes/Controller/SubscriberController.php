@@ -23,19 +23,16 @@ class SubscriberController extends AbstractController
      * feUserService.
      *
      * @var AuthenticationServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $authentication;
 
     /**
      * @var BlogSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 
     /**
      * @var PostSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postSubscriberRepository;
 

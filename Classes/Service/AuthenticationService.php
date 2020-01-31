@@ -25,7 +25,6 @@ class AuthenticationService implements AuthenticationServiceInterface
      * Session Service.
      *
      * @var SessionServiceInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $session;
 

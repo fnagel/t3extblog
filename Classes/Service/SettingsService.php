@@ -50,14 +50,12 @@ class SettingsService
     protected $frameworkSettings = null;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
 
     /**
      * @var TypoScriptService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $typoScriptService;
 
@@ -67,8 +65,10 @@ class SettingsService
      * @param ConfigurationManagerInterface $configurationManager
      * @param TypoScriptService $typoScriptService
      */
-    public function __construct(ConfigurationManagerInterface $configurationManager, TypoScriptService $typoScriptService)
-    {
+    public function __construct(
+        ConfigurationManagerInterface $configurationManager,
+        TypoScriptService $typoScriptService
+    ) {
         $this->configurationManager = $configurationManager;
         $this->typoScriptService = $typoScriptService;
     }

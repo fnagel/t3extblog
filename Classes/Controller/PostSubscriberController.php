@@ -23,7 +23,6 @@ class PostSubscriberController extends AbstractSubscriberController
      * subscriberRepository.
      *
      * @var PostSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $subscriberRepository;
 
@@ -31,7 +30,6 @@ class PostSubscriberController extends AbstractSubscriberController
      * blogSubscriberRepository.
      *
      * @var BlogSubscriberRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $blogSubscriberRepository;
 

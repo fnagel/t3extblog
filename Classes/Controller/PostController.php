@@ -34,7 +34,6 @@ class PostController extends AbstractController
 
     /**
      * @var PostRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $postRepository;
 
