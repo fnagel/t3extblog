@@ -31,7 +31,7 @@ Author: 	{comment.author}
 Date: 		<f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date>
 Website: 	{comment.website}
 Approved: 	<f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</f:else></f:if>
-Spam: 	    <f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
+Spam:		<f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if>
 
 Text:
 <t3b:wordwrap><f:format.stripTags>{comment.text}</f:format.stripTags></t3b:wordwrap>
