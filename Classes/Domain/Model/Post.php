@@ -19,6 +19,10 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class Post extends AbstractLocalizedEntity
 {
+    const ALLOW_COMMENTS_EVERYONE = 0;
+    const ALLOW_COMMENTS_NOBODY = 1;
+    const ALLOW_COMMENTS_LOGIN = 2;
+
     /**
      * @var bool
      */
@@ -269,7 +273,7 @@ class Post extends AbstractLocalizedEntity
         if ($author instanceof BackendUser) {
             $this->author = $author->getUid();
         } elseif (intval($author)) {
-            $this->author = (int) $author;
+            $this->author = (int)$author;
         }
     }
 
@@ -288,7 +292,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return string
      */
-    public function  getPublishYear()
+    public function getPublishYear()
     {
         return $this->publishDate->format('Y');
     }
@@ -360,16 +364,6 @@ class Post extends AbstractLocalizedEntity
     public function setAllowComments($allowComments)
     {
         $this->allowComments = $allowComments;
-    }
-
-    /**
-     * Returns the boolean state of allowComments.
-     *
-     * @return bool
-     */
-    public function isAllowComments()
-    {
-        return $this->getAllowComments();
     }
 
     /**

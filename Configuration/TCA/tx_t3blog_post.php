@@ -238,15 +238,15 @@ return [
                 'items' => [
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.0',
-                        '0'
+                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_EVERYONE,
                     ],
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.1',
-                        '1'
+                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_NOBODY,
                     ],
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_post.allow_comments.I.2',
-                        '2'
+                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_LOGIN,
                     ],
                 ],
                 'behaviour' => [
