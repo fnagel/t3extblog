@@ -53,11 +53,12 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
         $post = $arguments['post'];
         $settings = $arguments['settings'];
 
-        if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === 1) {
+        if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
             return false;
         }
 
-        if ($post->getAllowComments() === 2 && empty(GeneralUtility::getTsFe()->loginUser)) {
+        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()
+        ) {
             return false;
         }
 

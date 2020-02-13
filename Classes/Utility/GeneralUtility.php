@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Utility;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
@@ -114,6 +115,18 @@ class GeneralUtility implements SingletonInterface
     public static function getPageRenderer()
     {
         return CoreGeneralUtility::makeInstance(PageRenderer::class);
+    }
+
+    /**
+     * Check if FE user is logged in
+     *
+     * @return bool
+     */
+    public static function isUserLoggedIn()
+    {
+        $context = CoreGeneralUtility::makeInstance(Context::class);
+
+        return (bool)$context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
     /**

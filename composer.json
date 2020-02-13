@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": ">=7.0,<7.3",
-    "typo3/cms-core": ">=9.0.0,<=9.5.99"
+    "typo3/cms-core": ">=9.4.0,<=9.5.99"
   },
   "require-dev": {
     "nimut/testing-framework": "^4.1"
@@ -34,7 +34,7 @@
 	"psr-4": {
 	   "FelixNagel\\T3extblog\\Tests\\": "Tests"
 	}
-  },	
+  },
   "conflict": {
     "typo3-ter/t3blog": ">=0.0.1",
     "dmitryd/typo3-realurl": ">=2.0.0,<=2.0.10"

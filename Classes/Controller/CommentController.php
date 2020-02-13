@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
 use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -208,12 +209,13 @@ class CommentController extends AbstractController
     {
         $settings = $this->settings['blogsystem']['comments'];
 
-        if (!$settings['allowed'] || $post->getAllowComments() === 1) {
+        if (!$settings['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
             $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
             $this->errorAction();
         }
 
-        if ($post->getAllowComments() === 2 && empty(\FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->loginUser)) {
+        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()
+        ) {
             $this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
             $this->errorAction();
         }
