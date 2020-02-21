@@ -5,12 +5,13 @@
 
 <f:section name="main">
 	<f:render partial="Post/Meta" arguments="{post: post, settings: settings}" />
+
 	<article class="well">
-		<h2>
+		<h1>
 			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
 				{post.title}
 			</f:link.action>
-		</h2>
+		</h1>
 		<p class="top">
 			<f:if condition="{post.author.uid}">
 				<f:link.action controller="Post" action="author" arguments="{author: post.author}">
@@ -49,6 +50,7 @@
 				<f:render partial="Post/TagCloud" arguments="{post: post}" />
 			</div>
 		</div>
+
 	</article>
 
 	<f:if condition="{newComment}">
@@ -63,7 +65,7 @@
 				<div id="comment-list">
 					<t3b:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
 						<f:for each="{paginatedComments}" as="comment">
-							<f:render partial="Post/Comment" arguments="{post: post, comment: comment}" />
+							<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
 							<hr>
 						</f:for>
 					</t3b:widget.paginate>

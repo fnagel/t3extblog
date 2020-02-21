@@ -75,6 +75,10 @@
 				<source>privacy policy</source>
 			</trans-unit>
 
+			<trans-unit id="category.button">
+				<source>Show categories</source>
+			</trans-unit>
+
 			<trans-unit id="subscriber.headline">
 				<source>Listing of subscriptions</source>
 			</trans-unit>

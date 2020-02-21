@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
+
+<f:render section="title" arguments="{pagination: pagination}" />
+<f:render section="seoMetaTags" arguments="{pagination: pagination}" />
+
+<f:section name="title">
+	<f:for each="{pagination.pages}" as="page">
+		<f:if condition="{page.isCurrent}">
+			<f:if condition="{page.number} > 1">
+				<t3b:titleTag><f:translate key="widget.pagination.page" /> {page.number} / </t3b:titleTag>
+			</f:if>
+		</f:if>
+	</f:for>
+</f:section>
+
+<f:section name="seoMetaTags">
+	<f:if condition="{pagination.numberOfPages} > 1">
+		<f:if condition="{pagination.previousPage}">
+			<f:if condition="{pagination.previousPage} > 1">
+				<f:then>
+					<t3b:headerData>
+						<link rel="prev" href="{f:widget.uri(arguments: {currentPage: pagination.previousPage}) -> f:format.htmlentities()}" />
+					</t3b:headerData>
+				</f:then>
+				<f:else>
+					<t3b:headerData>
+						<link rel="prev" href="{f:widget.uri() -> f:format.htmlentities()}" />
+					</t3b:headerData>
+				</f:else>
+			</f:if>
+		</f:if>
+		<f:if condition="{pagination.nextPage}">
+			<t3b:headerData>
+				<link rel="next" href="{f:widget.uri(arguments: {currentPage: pagination.nextPage}) -> f:format.htmlentities()}" />
+			</t3b:headerData>
+		</f:if>
+	</f:if>
+</f:section>
+
+</html>

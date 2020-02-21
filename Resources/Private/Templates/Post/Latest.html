@@ -5,8 +5,6 @@
 
 <f:section name="main">
 
-	<f:render partial="Post/Filter" arguments="{category: category, tag: tag}" />
-
 	<f:if condition="{posts}">
 		<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.latestPosts.paginate}">
 			<ul>

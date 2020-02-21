@@ -1,31 +1,4 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-
-<div id="comment-{comment.uid}" class="comment{f:if(condition: '{comment.email} == {post.author.email}', then: ' well')}">
-	<div class="row">
-		<div class="col-xs-3 text-right">
-			<strong>
-				<f:if condition="{comment.website}">
-					<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
-					<f:else>{comment.author}</f:else>
-				</f:if>
-			</strong>
-			<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
-				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{comment.date}')}" />
-			</p>
-		</div>
-		<div class="col-xs-8">
-			<f:if condition="{comment.title}">
-				<strong>{comment.title}</strong>
-			</f:if>
-			<f:format.html>{comment.text}</f:format.html>
-		</div>
-
-		<div class="col-xs-1 text-right">
-			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-{comment.uid}">
-				<span class="icon icon-comment glyphicon glyphicon-comment" aria-hidden="true"></span>
-			</f:link.action>
-		</div>
-	</div>
-</div>
-
+<f:comment>@todo Remove this fallback with version 7.0</f:comment>
+<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
 </html>

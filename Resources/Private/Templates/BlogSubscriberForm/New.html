@@ -13,7 +13,7 @@
 		name="subscriber"
 		object="{subscriber}">
 
-		<f:flashMessages />
+		<f:render partial="FlashMessages" arguments="{_all}" />
 		<f:render partial="FormErrors" arguments="{object: Subscriber, anchorLink: '{f:uri.action(action: \'create\', controller: \'BlogSubscriberForm\')}'}" />
 
 		<fieldset>

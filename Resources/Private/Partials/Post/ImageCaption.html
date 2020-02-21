@@ -1,0 +1,25 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{image.properties.caption}">
+	<f:then>{image.properties.caption}</f:then>
+	<f:else>
+		<f:if condition="{image.properties.description}">{image.properties.description}</f:if>
+	</f:else>
+</f:if>
+
+<p class="small muted">
+	<f:if condition="{image.properties.copyright_notice}">
+		<f:then>&copy; {image.properties.author}</f:then>
+		<f:else>
+			<f:if condition="{image.properties.creator}">&copy; {image.properties.creator}</f:if>
+		</f:else>
+	</f:if>
+	<f:if condition="{image.properties.source}">
+		<f:then>, {image.properties.source}</f:then>
+		<f:else>
+			<f:if condition="{image.properties.publisher}">, {image.properties.publisher}</f:if>
+		</f:else>
+	</f:if>
+</p>
+
+</html>

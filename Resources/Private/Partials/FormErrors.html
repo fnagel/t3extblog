@@ -1,30 +1,23 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:comment>@todo Needed as validation result encoding seems changed in TYPO3 8.x (caused no issues in 7.6)</f:comment>
-<f:format.htmlentitiesDecode>
-	<f:render section="Errors" arguments="{_all}" />
-</f:format.htmlentitiesDecode>
+<f:form.validationResults for="{object}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<div class="alert alert-danger" role="alert">
+			<div class="typo3-message message-error">
+				<div class="message-header"><f:translate key="error.headline" /></div>
 
-<f:section name="Errors">
-	<f:form.validationResults for="{object}">
-		<f:if condition="{validationResults.flattenedErrors}">
-			<div class="alert alert-danger" role="alert">
-				<div class="typo3-message message-error">
-					<div class="message-header"><f:translate key="error.headline" /></div>
-
-					<ul class="message-body">
-						<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
-							<li>
-								<a href="{anchorLink}#{propertyPath}">
-									<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
-								</a>
-							</li>
-						</f:for>
-					</ul>
-				</div>
+				<ul class="message-body">
+					<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+						<li>
+							<a href="{anchorLink}#{propertyPath}">
+								<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
+							</a>
+						</li>
+					</f:for>
+				</ul>
 			</div>
-		</f:if>
-	</f:form.validationResults>
-</f:section>
+		</div>
+	</f:if>
+</f:form.validationResults>
 
 </html>

@@ -9,7 +9,7 @@
 		<em class="small">{email}</em>
 	</h2>
 
-	<f:flashMessages />
+	<f:render partial="FlashMessages" arguments="{_all}" />
 
 	<br>
 
@@ -38,46 +38,46 @@
 	</div>
 
 	<f:if condition="{postSubscriber}">
-	<br>
-	<table class="table table-bordered table-striped" >
-		<caption><f:translate key="subscriber.table.caption" /></caption>
-		<thead>
+		<br>
+		<table class="table table-bordered table-striped" >
+			<caption><f:translate key="subscriber.table.caption" /></caption>
+			<thead>
 			<tr>
 				<th style="width: 50%;"><f:translate key="subscriber.table.header.post" /></th>
 				<th style="width: 25%;"><f:translate key="subscriber.table.header.name" /></th>
 				<th style="width: 10%;"><f:translate key="subscriber.table.header.comments" /></th>
 				<th style="width: 15%;"></th>
 			</tr>
-		</thead>
+			</thead>
 
-		<tbody>
-		<f:for each="{postSubscriber}" as="subscriber">
-			<tr>
-				<td>
-					<f:link.action
+			<tbody>
+			<f:for each="{postSubscriber}" as="subscriber">
+				<tr>
+					<td>
+						<f:link.action
 							pageUid="{settings.blogsystem.pid}"
 							controller="Post"
 							action="show"
 							additionalParams="{L: subscriber.post.sysLanguageUid}"
 							arguments="{subscriber.post.linkParameter}">
-						{subscriber.post.title}
-					</f:link.action>
-				</td>
-				<td>{subscriber.name}</td>
-				<td>
-					<f:count>{subscriber.postComments}</f:count> <f:translate key="subscriber.table.approved" /><br />
-					<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
-				</td>
-				<td>
+							{subscriber.post.title}
+						</f:link.action>
+					</td>
+					<td>{subscriber.name}</td>
+					<td>
+						<f:count>{subscriber.postComments}</f:count> <f:translate key="subscriber.table.approved" /><br />
+						<f:count>{subscriber.postPendingComments}</f:count> <f:translate key="subscriber.table.moderation" />
+					</td>
+					<td>
 					<f:link.action class="btn btn-danger pull-right" controller="PostSubscriber" action="delete" arguments="{subscriber: subscriber}">
 						<span class="icon icon-trash glyphicon glyphicon-trash"></span>
-						<f:translate key="subscriber.table.delete" />
-					</f:link.action>
-				</td>
-			</tr>
-		</f:for>
-		</tbody>
-	</table>
+							<f:translate key="subscriber.table.delete" />
+						</f:link.action>
+					</td>
+				</tr>
+			</f:for>
+			</tbody>
+		</table>
 	</f:if>
 
 </f:section>

@@ -6,7 +6,7 @@
 	Not needed before TYPO3 CMS 7.3
 </f:comment>
 <t3b:flashMessagesClearCache />
-<f:flashMessages />
+<f:render partial="FlashMessages" arguments="{_all}" />
 
 <t3b:commentAllowed post="{post}">
 	<f:then>
@@ -43,6 +43,7 @@
 			</div>
 			<div class="col-md-9">
 				<div class="form-group">
+					<f:render partial="IsHuman" arguments="{spamSettings: settings.blogsystem.comments.spamCheck}" />
 					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogsystem.comments.spamCheck}" />
 				</div>
 				<div class="form-group {t3b:formError(for: 'newComment.privacyPolicyAccepted')}">
