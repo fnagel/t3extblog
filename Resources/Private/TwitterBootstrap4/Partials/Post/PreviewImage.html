@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{post.previewImage}">
+	<figure class="figure preview">
+		<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
+			<f:media class="figure-img img-fluid" file="{post.previewImage}"
+							 width="{settings.blogsystem.posts.previewImage.width}"
+							 height="{settings.blogsystem.posts.previewImage.height}"
+							 alt="{post.previewImage.alternative}" title="{post.previewImage.title}" />
+		</f:link.action>
+
+		<figcaption class="figure-caption mb-4">
+			<f:render partial="Post/ImageCaption" arguments="{image: post.previewImage, settings: settings}" />
+		</figcaption>
+	</figure>
+</f:if>
+
+</html>

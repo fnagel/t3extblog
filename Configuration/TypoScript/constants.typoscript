@@ -1,13 +1,13 @@
 plugin.tx_t3extblog {
 	view {
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template root
-		templateRootPath = EXT:t3extblog/Resources/Private/Templates/
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom template root
+		templateRootPath =
 
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template partials
-		partialRootPath = EXT:t3extblog/Resources/Private/Partials/
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom  template partials
+		partialRootPath =
 
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to template layouts
-		layoutRootPath = EXT:t3extblog/Resources/Private/Layouts/
+		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom  template layouts
+		layoutRootPath =
 	}
 
 	persistence {

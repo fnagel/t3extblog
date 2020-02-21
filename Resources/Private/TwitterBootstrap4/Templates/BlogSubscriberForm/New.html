@@ -1,0 +1,57 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<f:form
+		controller="BlogSubscriberForm"
+		action="create"
+		section="subscriber-form"
+		id="subscriber-form"
+		name="subscriber"
+		object="{subscriber}">
+
+		<f:render partial="FlashMessages" arguments="{_all}" />
+		<f:render partial="FormErrors" arguments="{object: Subscriber, anchorLink: '{f:uri.action(action: \'create\', controller: \'BlogSubscriberForm\')}'}" />
+
+		<fieldset>
+			<legend><f:translate key="subscriber.form.new" /></legend>
+
+			<div class="form-group row {t3b:formError(for: 'subscriber.email')}">
+				<label class="col-sm-3 col-form-label" for="subscriber.email">
+					<f:translate key="subscriber.email" />
+				</label>
+				<div class="col-sm-9">
+					<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="subscriber.email" property="email" errorClass="is-invalid" />
+				</div>
+			</div>
+			<div class="form-group row {t3b:formError(for: 'subscriber.privacyPolicyAccepted')}">
+				<div class="col-sm-9 offset-sm-3">
+					<f:render partial="PrivacyPolicy" arguments="{
+						privacyPolicySettings: settings.blogSubscription.privacyPolicy,
+						id: 'subscriber.privacyPolicyAccepted',
+						localizationKey: 'subscriber.privacyPolicyAccepted'
+					}" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
+					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
+					<f:form.submit class="btn btn-primary"
+						value="{f:translate(key: 'subscriber.form.submit')}" />
+				</div>
+			</div>
+		</fieldset>
+	</f:form>
+
+</f:section>
+
+</html>

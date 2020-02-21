@@ -1,0 +1,100 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
+
+<f:render partial="ViewHelpers/Widget/Paginate/Meta" arguments="{pagination: pagination}" />
+
+<f:if condition="{configuration.insertAbove}">
+	<f:render section="paginator" arguments="{pagination: pagination, configuration: configuration}" />
+</f:if>
+
+<f:renderChildren arguments="{contentArguments}" />
+
+<f:if condition="{configuration.insertBelow}">
+	<f:render section="paginator" arguments="{pagination: pagination, configuration: configuration}" />
+</f:if>
+
+
+<f:section name="paginator">
+	<nav>
+		<ul class="pagination">
+			<f:if condition="{pagination.previousPage}">
+				<li class="page-item previous">
+					<f:if condition="{pagination.previousPage} > 1">
+						<f:then>
+							<f:widget.link arguments="{currentPage: pagination.previousPage}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" additionalAttributes="{aria-label: '{f:translate(key: \'widget.pagination.previous\')}'}" class="page-link">
+								<span aria-hidden="true">&laquo;</span>
+							</f:widget.link>
+						</f:then>
+						<f:else>
+							<f:widget.link addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" additionalAttributes="{aria-label: '{f:translate(key: \'widget.pagination.previous\')}'}" class="page-link">
+								<span aria-hidden="true">&laquo;</span>
+							</f:widget.link>
+						</f:else>
+					</f:if>
+				</li>
+			</f:if>
+			<f:if condition="{pagination.displayRangeStart} > 1">
+				<li class="page-item first">
+					<f:widget.link addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" class="page-link">1</f:widget.link>
+				</li>
+			</f:if>
+			<f:if condition="{pagination.hasLessPages}">
+				<li class="page-item">
+					<span class="page-link">
+						...
+					</span>
+				</li>
+			</f:if>
+			<f:for each="{pagination.pages}" as="page">
+				<f:if condition="{page.isCurrent}">
+					<f:then>
+						<li class="page-item active">
+							<f:widget.link arguments="{currentPage: page.number}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" class="page-link">
+								{page.number}
+							</f:widget.link>
+						</li>
+					</f:then>
+					<f:else>
+						<li class="page-item">
+							<f:if condition="{page.number} > 1">
+								<f:then>
+									<f:widget.link arguments="{currentPage: page.number}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" class="page-link">
+										{page.number}
+									</f:widget.link>
+								</f:then>
+								<f:else>
+									<f:widget.link addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" class="page-link">
+										{page.number}
+									</f:widget.link>
+								</f:else>
+							</f:if>
+						</li>
+					</f:else>
+				</f:if>
+			</f:for>
+			<f:if condition="{pagination.hasMorePages}">
+				<li class="page-item">
+					<span class="page-link">
+						...
+					</span>
+				</li>
+			</f:if>
+			<f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
+				<li class="page-item last">
+					<f:widget.link arguments="{currentPage: pagination.numberOfPages}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" class="page-link">
+						{pagination.numberOfPages}
+					</f:widget.link>
+				</li>
+			</f:if>
+			<f:if condition="{pagination.nextPage}">
+				<li class="page-item next">
+					<f:widget.link arguments="{currentPage: pagination.nextPage}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" additionalAttributes="{aria-label: '{f:translate(key: \'widget.pagination.next\')}'}" class="page-link">
+						<span aria-hidden="true">&raquo;</span>
+					</f:widget.link>
+				</li>
+			</f:if>
+		</ul>
+	</nav>
+</f:section>
+
+</html>

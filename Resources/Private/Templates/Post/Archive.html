@@ -4,33 +4,32 @@
 
 <f:section name="main">
 	<f:groupedFor each="{posts}" as="postsByYear" groupBy="publishYear" groupKey="year">
-		<div class="well">
-			<h3>
+		<div class="well mb-5">
+			<h3 class="mb-3">
 				{year}
 				<small>({postsByYear -> f:count()})</small>
 			</h3>
-				<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
-					<strong>
-						<f:cObject typoscriptObjectPath="lib.tx_t3extblog.month" data="{f:format.date(format:'U', date:'1/1 -1 day +{month} months')}" />
-					</strong>
+			<f:groupedFor each="{postsByYear}" as="postsByMonth" groupBy="publishMonth" groupKey="month">
+				<h4>
+					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.month" data="{f:format.date(format:'U', date:'1/1 -1 day +{month} months')}" />
 					<small>({postsByMonth -> f:count()})</small>
+				</h4>
 
-					<ul class="unstyled">
-						<f:for each="{postsByMonth}" as="post">
-							<li>
-								<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
-								<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
-									{post.title}
-								</f:link.action>
+				<ul class="unstyled list-unstyled">
+					<f:for each="{postsByMonth}" as="post">
+						<li>
+							<span class="date"><f:format.date format="d.m.Y">{post.publishDate}</f:format.date></span>&nbsp;
+							<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" pageUid="{settings.blogsystem.pid}">
+								{post.title}
+							</f:link.action>
 
-								<f:link.action controller="Post" action="permalink" pageUid="{settings.blogsystem.pid}" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
-									<span class="glyphicon glyphicon-link"></span>
-								</f:link.action>
-							</li>
-						</f:for>
-					</ul>
-				</f:groupedFor>
-			</ul>
+							<f:link.action controller="Post" action="permalink" pageUid="{settings.blogsystem.pid}" arguments="{permalinkPost: post.uid}" title="<f:translate key='post.permalink' />" class="permalink">
+								<span class="icon icon-link glyphicon glyphicon-link"></span>
+							</f:link.action>
+						</li>
+					</f:for>
+				</ul>
+			</f:groupedFor>
 		</div>
 	</f:groupedFor>
 </f:section>

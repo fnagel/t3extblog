@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{post.tagCloud}">
+	<ul class="list-inline mb-0">
+		<li class="list-inline-item">
+			<span class="label label-default">
+				<span class="icon icon-tags small" aria-hidden="true"></span>
+				Tags:
+			</span>
+		</li>
+		<f:for each="{post.tagCloud}" as="tag">
+			<li class="list-inline-item">
+				<f:link.action controller="Post" action="tag" arguments="{tag : '{tag}'}">
+					<span class="label label-primary">
+						{tag}
+					</span>
+				</f:link.action>
+			</li>
+		</f:for>
+	</ul>
+</f:if>
+
+</html>

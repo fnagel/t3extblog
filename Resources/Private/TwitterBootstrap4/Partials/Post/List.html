@@ -1,0 +1,53 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:render partial="Post/Filter" arguments="{category: category, tag: tag, author: author}" />
+
+<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
+	<f:for each="{paginatedPosts}" as="post">
+		<article class="card mb-5">
+
+			<h2 class="card-header">
+				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+					{post.title}
+				</f:link.action>
+			</h2>
+
+			<div class="card-body">
+				<h6 class="card-subtitle">
+					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
+					<f:if condition="{post.author.uid}">
+						<f:link.action controller="Post" action="author" arguments="{author: post.author}">
+							<span class="author">{post.author.name}</span>
+						</f:link.action> -
+					</f:if>
+					<f:render partial="Post/Categories" arguments="{post: post}" />
+				</h6>
+
+				<f:if condition="{post.content}">
+					<div class="card-text mt-4">
+						<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
+					</div>
+				</f:if>
+			</div>
+
+			<div class="card-footer text-muted">
+				<div class="row">
+					<div class="col-4">
+						<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
+							<span class="icon icon-comments" aria-hidden="true"></span>
+							<f:count subject="{post.comments}" />
+							<f:translate key="post.comments" />
+						</f:link.action>
+					</div>
+					<div class="col-8 text-right small">
+						<f:render partial="Post/TagCloud" arguments="{post: post}" />
+					</div>
+				</div>
+			</div>
+
+		</article>
+	</f:for>
+</t3b:widget.paginate>
+
+</html>

@@ -1,0 +1,43 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<a href="#/" class="btn btn-primary btn-block d-block d-sm-none mb-3" data-target=".blog-category-collapse" data-toggle="collapse">
+		<span class="icon icon-caret-down" aria-hidden="true"></span> <f:translate key="category.button" />
+	</a>
+
+	<div class="navbar-collapse blog-category-collapse collapse show">
+		<ul class="nav nav-list flex-column">
+			<f:for each="{categories}" as="category">
+				<f:if condition="{category.firstLevel}">
+				<li class="nav-item">
+					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
+						{category.name}
+					</f:link.action>
+					<f:if condition="{category.childCategories}">
+						<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
+					</f:if>
+				</li>
+				</f:if>
+			</f:for>
+		</ul>
+	</div>
+</f:section>
+
+<f:section name="categoryTree">
+	<ul class="mb-3">
+	<f:for each="{categories}" as="category">
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
+				{category.name}
+			</f:link.action>
+			<f:if condition="{category.childCategories}">
+				<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
+			</f:if>
+		</li>
+	</f:for>
+	</ul>
+</f:section>
+
+</html>

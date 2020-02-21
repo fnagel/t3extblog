@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{privacyPolicySettings.enabled}">
+    <div class="form-check">
+			<f:form.checkbox id="{id}" property="privacyPolicyAccepted" value="1" additionalAttributes="{autocomplete: 'off'}" class="form-check-input" errorClass="is-invalid" />
+			<label for="{id}" class="form-check-label">
+				<f:if condition="{privacyPolicySettings.typolink}">
+					<f:then>
+						<f:format.raw>
+							<f:translate key="{localizationKey}.text" arguments="{0: '{f:render(section:\'link\',arguments:\'{_all}\')}'}" />
+						</f:format.raw>
+					</f:then>
+					<f:else>
+						<f:translate key="{localizationKey}" />
+					</f:else>
+				</f:if>
+			</label>
+    </div>
+</f:if>
+
+<f:section name="link">
+    <f:link.typolink parameter="{privacyPolicySettings.typolink}" target="_blank">
+        <f:translate key="{localizationKey}.link" />
+    </f:link.typolink>
+</f:section>
+</html>

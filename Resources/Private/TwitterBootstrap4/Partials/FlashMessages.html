@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+	<f:flashMessages as="flashMessages">
+		<ul class="list-unstyled" role="alert">
+
+			<f:for each="{flashMessages}" as="flashMessage">
+				<f:variable name="alertClass"><f:spaceless>
+					<f:switch expression="{flashMessage.severity}">
+						<f:case value="-2">primary</f:case>
+						<f:case value="-1">info</f:case>
+						<f:case value="0">success</f:case>
+						<f:case value="1">warning</f:case>
+						<f:case value="2">danger</f:case>
+						<f:defaultCase>light</f:defaultCase>
+					</f:switch>
+				</f:spaceless></f:variable>
+
+				<li class="alert alert-{alertClass}">
+					<f:if condition="{flashMessage.title}">
+						<h4 class="alert-heading">
+							{flashMessage.title}
+						</h4>
+					</f:if>
+					<p>{flashMessage.message}</p>
+				</li>
+
+			</f:for>
+
+		</ul>
+	</f:flashMessages>
+
+</html>

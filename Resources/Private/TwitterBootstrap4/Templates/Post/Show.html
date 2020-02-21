@@ -1,0 +1,80 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<f:render partial="Post/Meta" arguments="{post: post, settings: settings}" />
+
+	<article class="card">
+		<h1 class="card-header">
+			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+				{post.title}
+			</f:link.action>
+		</h1>
+
+		<div class="card-body">
+			<h6 class="card-subtitle">
+				<f:if condition="{post.author.uid}">
+					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
+						<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
+								 class="rounded-circle mr-2" alt="Avatar of {post.author.name}" />
+						<span class="author">{post.author.name}</span>
+					</f:link.action> -
+				</f:if>
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />
+				-
+				<f:render partial="Post/Categories" arguments="{post: post}" />
+			</h6>
+
+			<f:if condition="{post.content}">
+				<div class="card-text mt-5">
+					<t3b:frontend.renderContent contentElements="{post.content}" />
+				</div>
+			</f:if>
+		</div>
+
+		<div class="card-footer text-muted">
+			<div class="row">
+				<div class="col-4">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
+						<span class="icon icon-comments" aria-hidden="true"></span>
+						<f:count subject="{post.comments}" />
+						<f:translate key="post.comments" />
+					</f:link.action>
+					&nbsp;
+					<f:link.action controller="Post" action="permalink" arguments="{permalinkPost: post.uid}" class="permalink">
+						<span class="icon icon-link" aria-hidden="true"></span>
+						<f:translate key="post.permalink" />
+					</f:link.action>
+				</div>
+				<div class="col-8 text-right">
+					<f:render partial="Post/TagCloud" arguments="{post: post}" />
+				</div>
+			</div>
+		</div>
+
+	</article>
+
+	<f:if condition="{newComment}">
+		<div id="comment-section" class="mt-5">
+			<div id="comment-form">
+				<f:render partial="Comment/New" arguments="{post: post, newComment: newComment, settings: settings}" />
+			</div>
+
+			<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
+
+			<f:if condition="{post.comments}">
+				<div id="comment-list">
+					<t3b:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
+						<f:for each="{paginatedComments}" as="comment">
+							<f:render partial="Post/Comment" arguments="{post: post, comment: comment}" />
+						</f:for>
+					</t3b:widget.paginate>
+				</div>
+			</f:if>
+		</div>
+	</f:if>
+</f:section>
+
+</html>

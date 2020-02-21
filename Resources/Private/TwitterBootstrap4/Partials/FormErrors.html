@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:form.validationResults for="{object}">
+	<f:if condition="{validationResults.flattenedErrors}">
+		<div class="alert alert-danger" role="alert">
+			<h4 class="alert-heading"><f:translate key="error.headline" /></h4>
+
+			<ul class="list-unstyled">
+				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+					<li>
+						<a href="{anchorLink}#{propertyPath}" class="alert-link">
+							<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
+						</a>
+					</li>
+				</f:for>
+			</ul>
+		</div>
+	</f:if>
+</f:form.validationResults>
+
+</html>

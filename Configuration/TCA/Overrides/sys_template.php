@@ -26,3 +26,10 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('seo')) {
         'T3Extblog: Sitemap setup'
     );
 }
+
+// Twitter Bootstrap 4
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+    $packageKey,
+    'Configuration/TypoScript/TwitterBootstrap4',
+    'T3Extblog: Twitter Bootstrap 4 templates'
+);
