@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
@@ -96,7 +97,7 @@ class BlogSubscriberController extends AbstractSubscriberController
         $subscriber = $this->objectManager->get(BlogSubscriber::class);
         $subscriber->setEmail($email);
         $subscriber->setHidden(false);
-        $subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
+        $subscriber->setSysLanguageUid((int) GeneralUtility::getLanguageUid());
 
         $this->subscriberRepository->add($subscriber);
         $this->persistAllEntities();

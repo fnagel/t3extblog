@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
+use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
@@ -99,7 +100,7 @@ class BlogSubscriberFormController extends AbstractController
             $this->errorAction();
         }
 
-        $subscriber->setSysLanguageUid((int) $GLOBALS['TSFE']->sys_language_uid);
+        $subscriber->setSysLanguageUid((int) GeneralUtility::getLanguageUid());
 
         $this->blogSubscriberRepository->add($subscriber);
         $this->persistAllEntities();

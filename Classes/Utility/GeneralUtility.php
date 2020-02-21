@@ -31,7 +31,7 @@ class GeneralUtility implements SingletonInterface
     /**
      * Get TypoScript frontend controller.
      *
-     * @param int $pageUid
+     * @param int $pageUid Parameter will be ignored in FE mode
      *
      * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
      */
@@ -48,6 +48,18 @@ class GeneralUtility implements SingletonInterface
         }
 
         return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * Get FE language UID.
+     *
+     * @param int $pageUid
+     *
+     * @return int
+     */
+    public static function getLanguageUid($pageUid = 0)
+    {
+        return (int) self::getTsFe($pageUid)->sys_language_uid;
     }
 
     /**
