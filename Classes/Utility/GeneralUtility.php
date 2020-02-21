@@ -52,13 +52,13 @@ class GeneralUtility implements SingletonInterface
     /**
      * Get FE language UID.
      *
-     * @param int $pageUid
-     *
      * @return int
      */
-    public static function getLanguageUid($pageUid = 0)
+    public static function getLanguageUid()
     {
-        return (int) self::getTsFe($pageUid)->sys_language_uid;
+        $languageAspect = CoreGeneralUtility::makeInstance(Context::class)->getAspect('language');
+
+        return $languageAspect->getId();
     }
 
     /**
