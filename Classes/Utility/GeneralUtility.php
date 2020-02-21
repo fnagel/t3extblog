@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
-use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
  * General utility class.
