@@ -249,27 +249,15 @@ class EmailService implements SingletonInterface
      */
     protected function setMessageContent(MailMessage $message, $emailBody)
     {
-        if (version_compare(TYPO3_version, '10.0', '>=')) {
-            $metaCharset = $this->getCharset();
+        $metaCharset = $this->getCharset();
 
-            // Plain text only
-            if (strip_tags($emailBody) == $emailBody) {
-                $message->text($emailBody, $metaCharset);
-            } else {
-                // Send as HTML and plain text
-                $message->html($emailBody, $metaCharset);
-                $message->text($this->preparePlainTextBody($emailBody), $metaCharset);
-            }
-		// @todo Remove this when TYPO3 9.x is no longer supported!
+        // Plain text only
+        if (strip_tags($emailBody) == $emailBody) {
+            $message->text($emailBody, $metaCharset);
         } else {
-            // Plain text only
-            if (strip_tags($emailBody) == $emailBody) {
-                $message->setBody($emailBody, 'text/plain');
-            } else {
-                // Send as HTML and plain text
-                $message->setBody($emailBody, 'text/html');
-                $message->addPart($this->preparePlainTextBody($emailBody), 'text/plain');
-            }
+            // Send as HTML and plain text
+            $message->html($emailBody, $metaCharset);
+            $message->text($this->preparePlainTextBody($emailBody), $metaCharset);
         }
     }
 
@@ -288,17 +276,6 @@ class EmailService implements SingletonInterface
      */
     protected function createMailMessage()
     {
-        if (version_compare(TYPO3_version, '10.0', '>=')) {
-            return $this->objectManager->get(MailMessage::class);
-        } else {
-            // @todo Remove this when TYPO3 9.x is no longer supported!
-            return $this->objectManager->get(
-                MailMessage::class,
-                null,
-                null,
-                null,
-                $this->getCharset()
-            );
-        }
+        return $this->objectManager->get(MailMessage::class);
     }
 }
