@@ -53,7 +53,7 @@ class PostController extends AbstractController
     protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
     {
         if ($exception instanceof  \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) {
-            GeneralUtility::getTsFe()->pageNotFoundAndExit('Entity not found.');
+            $this->pageNotFoundAndExit('Entity not found.');
         }
 
         parent::handleKnownExceptionsElseThrowAgain($exception);
@@ -97,7 +97,7 @@ class PostController extends AbstractController
         $posts = $this->findPosts($tag);
 
         if (count($posts) === 0) {
-            GeneralUtility::getTsFe()->pageNotFoundAndExit('Tag not found!');
+            $this->pageNotFoundAndExit('Tag not found!');
         }
 
         $this->view->assign('posts', $posts);
@@ -186,7 +186,7 @@ class PostController extends AbstractController
         $post = $this->postRepository->findByUid((int) $permalinkPost);
 
         if ($post === null) {
-            GeneralUtility::getTsFe()->pageNotFoundAndExit('Post not found!');
+            $this->pageNotFoundAndExit('Post not found!');
         }
 
         $this->redirect('show', 'Post', null, $post->getLinkParameter(), null, 0, 303);

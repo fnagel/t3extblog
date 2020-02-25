@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -24,6 +25,7 @@ use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Utility\TypoScriptValidator;
+use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 /**
  * Abstract base controller.
@@ -177,6 +179,19 @@ abstract class AbstractController extends ActionController
     }
 
     /**
+     * @param string $message
+     */
+    protected function pageNotFoundAndExit($message = 'Entity not found.')
+    {
+        $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
+            $GLOBALS['TYPO3_REQUEST'],
+            $message
+        );
+
+        throw new ImmediateResponseException($response, 1576748646637);
+    }
+
+    /**
      * Persist all records to database.
      *
      * @return string
@@ -260,6 +275,9 @@ abstract class AbstractController extends ActionController
 
     /**
      * Add basic cache tag for all related pages.
+     *
+     * @deprecated
+     * @todo Seems to be no longer needed in TYPO3 10
      */
     protected function configureCHash()
     {
