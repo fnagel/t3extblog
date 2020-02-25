@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": ">=7.0,<7.4",
-    "typo3/cms-core": ">=9.4.0,<=9.5.99"
+    "typo3/cms-core": ">=10.3.0,<=10.3.99"
   },
   "require-dev": {
     "nimut/testing-framework": "^4.1"
@@ -43,7 +43,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-	  "typo3/cms-seo": ">=9.0.0,<=9.5.99"
+	  "typo3/cms-seo": ">=9.0.0,<=10.3.99"
   },
   "repositories": [
     {
