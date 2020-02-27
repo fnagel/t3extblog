@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="card">
+	<f:if condition="{post.previewImage}">
+		<div class="card-img-top">
+			<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
+		</div>
+	</f:if>
+	<div class="card-body text-center">
+		<h4 class="card-title">{post.title}</h4>
+		<h6 class="card-subtitle mb-3 text-muted">
+			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />
+		</h6>
+		<div class="card-text mb-4">
+			{post.preview -> f:format.crop(maxCharacters: '150')}
+		</div>
+		<f:link.action  class="btn btn-primary" pluginName="Blogsystem" controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
+			{post.title}
+		</f:link.action>
+	</div>
+</div>
+
+</html>
