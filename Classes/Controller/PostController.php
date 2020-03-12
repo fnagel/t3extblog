@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Exception\AccessDeniedException;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -226,12 +227,12 @@ class PostController extends AbstractController
      *
      * @param int $previewPost The post to display
      *
-     * @throws \Exception
+     * @throws AccessDeniedException
      */
     public function previewAction($previewPost)
     {
         if (!GeneralUtility::isValidBackendUser()) {
-            throw new \Exception('Preview not allowed.');
+            throw new AccessDeniedException('Preview not allowed.');
         }
 
         if (is_int($previewPost)) {

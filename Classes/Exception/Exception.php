@@ -9,9 +9,9 @@ namespace FelixNagel\T3extblog\Exception;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-class InvalidConfigurationException extends Exception
+/**
+ * Base Exception for this extension
+ */
+class Exception extends \Exception
 {
-    protected $code = 1583972288;
-
-    protected $message = 'Invalid configuration!';
 }

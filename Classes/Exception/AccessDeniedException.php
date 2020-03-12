@@ -9,9 +9,9 @@ namespace FelixNagel\T3extblog\Exception;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-class InvalidConfigurationException extends Exception
+class AccessDeniedException extends Exception
 {
-    protected $code = 1583972288;
+    protected $code = 1583972224;
 
-    protected $message = 'Invalid configuration!';
+    protected $message = 'Access denied!';
 }
