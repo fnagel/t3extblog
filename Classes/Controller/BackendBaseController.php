@@ -13,8 +13,11 @@ use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use FelixNagel\T3extblog\Service\BackendModuleService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -31,6 +34,16 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class BackendBaseController extends ActionController
 {
     use LoggingTrait;
+
+    /**
+     * @var BackendTemplateView
+     */
+    protected $view;
+
+    /**
+     * @var BackendTemplateView
+     */
+    protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
      * postRepository.
@@ -131,17 +144,113 @@ class BackendBaseController extends ActionController
      */
     protected function initializeView(ViewInterface $view)
     {
+        /** @var BackendTemplateView $view */
+        parent::initializeView($view);
+
         $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
         if (empty($dateTimeFormat)) {
             $dateTimeFormat = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' .
                 $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
         }
 
+        // Configure module header
+        $moduleService = $this->objectManager->get(
+            BackendModuleService::class,
+            $this->objectManager,
+            $this->view,
+            $this->pageId
+        );
+        $moduleService->addMetaInformation();
+        $moduleService->addViewAssets(
+            ['TYPO3/CMS/Backend/ContextMenu'],
+            ['EXT:t3extblog/Resources/Public/Css/Backend/Style.css']
+        );
+        $moduleService->addViewHeaderMenu(
+            $this->request,
+            $this->getViewHeaderMenuItems(),
+            'T3ExtblogModuleMenu'
+        );
+        $moduleService->addViewHeaderButtons(
+            $this->getViewHeaderButtonItems(),
+            'web_T3extblogTxT3extblog'
+        );
+
         $this->view->assignMultiple([
             'pageId' => $this->pageId,
             'dateTimeFormat' => $dateTimeFormat,
             'pageNotice' => $this->pageInfo,
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getViewHeaderMenuItems()
+    {
+        return [
+            'backendDashboardIndex' => [
+                'controller' => 'BackendDashboard',
+                'action' => 'index',
+                'label' => $this->translate('module.dashboard.title'),
+            ],
+            'backendPostIndex' => [
+                'controller' => 'BackendPost',
+                'action' => 'index',
+                'label' => $this->translate('module.post.title'),
+            ],
+
+            // Comment
+            'backendCommentIndex' => [
+                'controller' => 'BackendComment',
+                'action' => 'index',
+                'label' => $this->translate('module.comment.group') . ': ' .
+                    $this->translate('module.comment.title.all'),
+            ],
+            'backendCommentListPending' => [
+                'controller' => 'BackendComment',
+                'action' => 'listPending',
+                'label' => $this->translate('module.comment.group') . ': ' .
+                    $this->translate('module.comment.title.pending'),
+            ],
+
+            // Subscriber
+            'backendSubscriberIndexPostSubscriber' => [
+                'controller' => 'BackendSubscriber',
+                'action' => 'indexPostSubscriber',
+                'label' => $this->translate('module.subscriber.group') . ': ' .
+                    $this->translate('module.subscriber.post.title'),
+            ],
+            'backendSubscriberIndexBlogSubscriber' => [
+                'controller' => 'BackendSubscriber',
+                'action' => 'indexBlogSubscriber',
+                'label' => $this->translate('module.subscriber.group') . ': ' .
+                    $this->translate('module.subscriber.blog.title'),
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getViewHeaderButtonItems()
+    {
+        return [
+            'post' => [
+                'table' => 'tx_t3blog_post',
+                'label' => $this->translate('module.buttons.new.post'),
+                'icon' => 'extensions-t3extblog-post'
+            ],
+            'comment' => [
+                'table' => 'tx_t3blog_com',
+                'label' => $this->translate('module.buttons.new.comment'),
+                'icon' => 'extensions-t3extblog-comment'
+            ],
+            'category' => [
+                'table' => 'tx_t3blog_cat',
+                'label' => $this->translate('module.buttons.new.category'),
+                'icon' => 'extensions-t3extblog-category'
+            ],
+        ];
     }
 
     /**
@@ -266,5 +375,22 @@ class BackendBaseController extends ActionController
         }
 
         return $queryBuilder->execute()->fetchAll();
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    protected function translate($key)
+    {
+        return $this->getLanguageService()->sL('LLL:EXT:t3extblog/Resources/Private/Language/locallang.xlf:' . $key);
+    }
+
+    /**
+     * @return LanguageService
+     */
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
     }
 }

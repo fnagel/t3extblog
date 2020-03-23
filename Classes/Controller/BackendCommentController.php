@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * BackendCommentController.
@@ -31,6 +32,25 @@ class BackendCommentController extends BackendBaseController
     public function listPendingAction()
     {
         $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+    }
+
+    /**
+     * @return array
+     */
+    protected function getViewHeaderButtonItems()
+    {
+        $items = parent::getViewHeaderButtonItems();
+        $arguments = GeneralUtility::_GET('tx_t3extblog_web_t3extblogtxt3extblog');
+
+        if (!empty($arguments['post'])) {
+            $items['comment']['defaults'] = [
+                'tx_t3blog_com' => [
+                    'fk_post' => (int) $arguments['post'],
+                ],
+            ];
+        }
+
+        return $items;
     }
 
     /**

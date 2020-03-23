@@ -301,9 +301,6 @@
 				<source>Blog-Administration</source>
 			</trans-unit>
 
-			<trans-unit id="module.buttons.new">
-			   <source>Create new:</source>
-		 	</trans-unit>
 			<trans-unit id="module.buttons.new.post">
 			   <source>Create new post</source>
 		 	</trans-unit>
