@@ -9,10 +9,10 @@ namespace FelixNagel\T3extblog\Utility;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 
 /**
@@ -23,27 +23,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 class GeneralUtility implements SingletonInterface
 {
     /**
-     * @var array
-     */
-    protected static $tsFeCache = [];
-
-    /**
      * Get TypoScript frontend controller.
-     *
-     * @param int $pageUid Parameter will be ignored in FE mode
      *
      * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
      */
-    public static function getTsFe($pageUid = 0)
+    public static function getTsFe()
     {
         if (TYPO3_MODE === 'BE') {
-            $pageUid = (int) $pageUid;
-
-            if (array_key_exists($pageUid, self::$tsFeCache)) {
-                $GLOBALS['TSFE'] = self::$tsFeCache[$pageUid];
-            } else {
-                self::$tsFeCache[$pageUid] = self::generateTypoScriptFrontendController($pageUid);
-            }
+            throw new Exception('TSFE is not available in backend context!', 1582672848);
         }
 
         return $GLOBALS['TSFE'];
@@ -59,51 +46,6 @@ class GeneralUtility implements SingletonInterface
         $languageAspect = CoreGeneralUtility::makeInstance(Context::class)->getAspect('language');
 
         return $languageAspect->getId();
-    }
-
-    /**
-     * Get FE meta charset.
-     *
-     * @param int $pageUid
-     *
-     * @return string
-     */
-    public static function getCharset($pageUid = 0)
-    {
-        return self::getTsFe($pageUid)->metaCharset;
-    }
-
-    /**
-     * Generate TypoScriptFrontendController (use in BE context).
-     *
-     * @param int $pageUid
-     * @param int $pageType
-     *
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-     */
-    protected static function generateTypoScriptFrontendController($pageUid, $pageType = 0)
-    {
-        if (!is_object($GLOBALS['TT'])) {
-            $GLOBALS['TT'] = new TimeTracker();
-            $GLOBALS['TT']->start();
-        }
-
-        $GLOBALS['TSFE'] = CoreGeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-            $GLOBALS['TYPO3_CONF_VARS'],
-            (int) $pageUid,
-            $pageType
-        );
-
-        $GLOBALS['TSFE']->connectToDB();
-        $GLOBALS['TSFE']->initFEuser();
-        $GLOBALS['TSFE']->determineId();
-        $GLOBALS['TSFE']->initTemplate();
-        $GLOBALS['TSFE']->getConfigArray();
-        $GLOBALS['TSFE']->settingLanguage();
-        $GLOBALS['TSFE']->settingLocale();
-
-        return $GLOBALS['TSFE'];
     }
 
     /**

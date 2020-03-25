@@ -10,7 +10,6 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
-use FelixNagel\T3extblog\Utility\GeneralUtility as T3extblogGeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -249,24 +248,14 @@ class EmailService implements SingletonInterface
      */
     protected function setMessageContent(MailMessage $message, $emailBody)
     {
-        $metaCharset = $this->getCharset();
-
         // Plain text only
         if (strip_tags($emailBody) == $emailBody) {
-            $message->text($emailBody, $metaCharset);
+            $message->text($emailBody);
         } else {
             // Send as HTML and plain text
-            $message->html($emailBody, $metaCharset);
-            $message->text($this->preparePlainTextBody($emailBody), $metaCharset);
+            $message->html($emailBody);
+            $message->text($this->preparePlainTextBody($emailBody));
         }
-    }
-
-    /**
-     * @return string
-     */
-    protected function getCharset()
-    {
-        return T3extblogGeneralUtility::getCharset((int) ($this->settings['blogsystem']['pid'] ?: 0));
     }
 
     /**

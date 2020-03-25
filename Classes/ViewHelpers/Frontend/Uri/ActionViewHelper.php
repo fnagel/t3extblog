@@ -53,13 +53,10 @@ class ActionViewHelper extends CoreActionViewHelper
             throw new \Exception('Missing arguments for extbase link generation from BE context. Check your template!');
         }
 
-       self::buildFrontend($arguments['pageUid']);
-
         $uri = $uriBuilder->reset()
             ->setTargetPageUid($arguments['pageUid'])
             ->setTargetPageType($arguments['pageType'])
             ->setNoCache((bool) $arguments['noCache'])
-            ->setUseCacheHash(!$arguments['noCacheHash'])
             ->setSection($arguments['section'])
             ->setFormat($arguments['format'])
             ->setLinkAccessRestrictedPages((bool) $arguments['linkAccessRestrictedPages'])
@@ -75,7 +72,7 @@ class ActionViewHelper extends CoreActionViewHelper
             ->setCreateAbsoluteUri((bool) $arguments['absolute'])
             ->setAddQueryString((bool) $arguments['addQueryString'])
             ->setArgumentsToBeExcludedFromQueryString($arguments['argumentsToBeExcludedFromQueryString'])
-            ->setAddQueryStringMethod($arguments['addQueryStringMethod'])
+            ->setAddQueryStringMethod($arguments['addQueryStringMethod'] ?: '')
             ->buildFrontendUri();
 
         return $uri;
@@ -128,15 +125,5 @@ class ActionViewHelper extends CoreActionViewHelper
         $prefixedControllerArguments = [$pluginNamespace => $controllerArguments];
 
         return array_merge_recursive($additionalParams, $prefixedControllerArguments);
-    }
-
-    /**
-     * @param int $pageUid
-     *
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-     */
-    protected static function buildFrontend($pageUid)
-    {
-        return \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe($pageUid);
     }
 }
