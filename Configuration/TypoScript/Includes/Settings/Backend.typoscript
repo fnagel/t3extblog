@@ -13,7 +13,7 @@ plugin.tx_t3extblog.settings {
 			}
 
 			comments.paginate {
-				itemsPerPage = 10
+				itemsPerPage = 5
 				insertAbove = 0
 				insertBelow = 0
 				maximumNumberOfLinks = 0

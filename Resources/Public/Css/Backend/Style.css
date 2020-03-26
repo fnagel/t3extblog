@@ -9,7 +9,7 @@ table tr.localized td.col-icon {
 
 /* Dashboard */
 #dashboard .grid {
-	margin: 0 0.75%;
+	margin: 0;
 	float: left;
 }
 #dashboard-comments td.action {
@@ -36,4 +36,9 @@ table tr.localized td.col-icon {
 	padding: 6px 12px;
 	margin-left: -1px;
 	text-decoration: none;
+}
+
+/* Callout */
+.t3extblog .callout {
+	margin-top: 0;
 }

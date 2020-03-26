@@ -12,11 +12,11 @@
 			<f:if condition="{subscriber.post.uid}">
 				<f:then>
 					<span title="{subscriber.post.title -> f:format.crop(maxCharacters: 100)}">
-						{subscriber.email -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
+						{subscriber.email -> f:format.crop(maxCharacters: 30, respectWordBoundaries: false)}
 					</span>
 				</f:then>
 				<f:else>
-					{subscriber.email -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
+					{subscriber.email -> f:format.crop(maxCharacters: 30, respectWordBoundaries: false)}
 				</f:else>
 			</f:if>
 		</td>
