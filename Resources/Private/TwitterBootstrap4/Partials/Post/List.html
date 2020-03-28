@@ -5,7 +5,7 @@
 
 <t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
 	<f:for each="{paginatedPosts}" as="post">
-		<article class="card mb-5">
+		<article class="card mb-3 mb-md-4 mb-lg-5">
 
 			<h2 class="card-header">
 				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
@@ -31,16 +31,16 @@
 				</f:if>
 			</div>
 
-			<div class="card-footer text-muted">
+			<div class="card-footer text-muted small">
 				<div class="row">
-					<div class="col-4">
+					<div class="col-sm-4">
 						<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
 							<span class="icon icon-comments" aria-hidden="true"></span>
 							<f:count subject="{post.comments}" />
 							<f:translate key="post.comments" />
 						</f:link.action>
 					</div>
-					<div class="col-8 text-right small">
+					<div class="col-sm-8 text-sm-right">
 						<f:render partial="Post/TagCloud" arguments="{post: post}" />
 					</div>
 				</div>
