@@ -12,7 +12,7 @@
 				<f:render partial="Post/Button" arguments="{post: post, settings: settings}" />
 			</f:then>
 			<f:else>
-				<t3b:frontend.renderContent contentElements="{post.content}" />
+				<f:render partial="Post/Content" arguments="{post: post}" />
 			</f:else>
 		</f:if>
 	</f:then>

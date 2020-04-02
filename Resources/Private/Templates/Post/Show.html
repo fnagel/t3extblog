@@ -27,7 +27,7 @@
 
 		<f:if condition="{post.content}">
 			<div class="content clearfix">
-				<t3b:frontend.renderContent contentElements="{post.content}" />
+				<f:render partial="Post/Content" arguments="{post: post}" />
 			</div>
 		</f:if>
 

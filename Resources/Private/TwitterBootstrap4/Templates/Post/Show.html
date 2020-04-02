@@ -29,7 +29,7 @@
 
 			<f:if condition="{post.content}">
 				<div class="card-text mt-4">
-					<t3b:frontend.renderContent contentElements="{post.content}" />
+					<f:render partial="Post/Content" arguments="{post: post}" />
 				</div>
 			</f:if>
 		</div>
