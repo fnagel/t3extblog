@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:if condition="{post.previewMode} == 0">
+	<f:then>
+		<f:if condition="{post.previewText}">
+			<f:then>
+				<f:format.html>{post.previewText}</f:format.html>
+				<f:render partial="Post/Button" arguments="{post: post, settings: settings}" />
+			</f:then>
+			<f:else>
+				<f:render partial="Post/Content" arguments="{post: post}" />
+			</f:else>
+		</f:if>
+	</f:then>
+	<f:else>
+		<f:for each="{post.content}" as="content" iteration="iterator">
+			<f:if condition="{iterator.index} < {post.previewMode}">
+				<t3b:frontend.renderContent contentElements="{0: content}" />
+			</f:if>
+		</f:for>
+		<f:render partial="Post/Button" arguments="{post: post, settings: settings}" />
+	</f:else>
+</f:if>
+
+</html>

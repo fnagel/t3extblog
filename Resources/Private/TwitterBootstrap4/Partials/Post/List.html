@@ -7,14 +7,13 @@
 	<f:for each="{paginatedPosts}" as="post">
 		<article class="card mb-3 mb-md-4 mb-lg-5">
 
-			<h2 class="card-header">
-				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-					{post.title}
-				</f:link.action>
-			</h2>
-
-			<div class="card-body">
-				<h6 class="card-subtitle">
+			<div class="card-header">
+				<h2>
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+						{post.title}
+					</f:link.action>
+				</h2>
+				<h6 class="mb-0">
 					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
 					<f:if condition="{post.author.uid}">
 						<f:link.action controller="Post" action="author" arguments="{author: post.author}">
@@ -23,9 +22,17 @@
 					</f:if>
 					<f:render partial="Post/Categories" arguments="{post: post}" />
 				</h6>
+			</div>
 
+			<f:if condition="{post.previewMode} == 0 && {post.previewText} && {post.previewImage}">
+				<div class="card-img-top">
+					<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
+				</div>
+			</f:if>
+
+			<div class="card-body">
 				<f:if condition="{post.content}">
-					<div class="card-text mt-4">
+					<div class="card-text">
 						<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
 					</div>
 				</f:if>

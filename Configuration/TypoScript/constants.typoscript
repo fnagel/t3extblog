@@ -35,7 +35,7 @@ plugin.tx_t3extblog {
 			# cat=plugin.tx_t3extblog//3; type=string; label=Preview image width: Width of the preview image
 			width = 960c
 			# cat=plugin.tx_t3extblog//4; type=string; label=Preview image height: Height of the preview image
-			height =
+			height = 540c
 		}
 
 		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)

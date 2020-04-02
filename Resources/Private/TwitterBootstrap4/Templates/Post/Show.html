@@ -7,14 +7,13 @@
 	<f:render partial="Post/Meta" arguments="{post: post, settings: settings}" />
 
 	<article class="card">
-		<h1 class="card-header">
-			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-				{post.title}
-			</f:link.action>
-		</h1>
-
-		<div class="card-body">
-			<h6 class="card-subtitle">
+		<div class="card-header">
+			<h1>
+				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+					{post.title}
+				</f:link.action>
+			</h1>
+			<h6 class="mb-0">
 				<f:if condition="{post.author.uid}">
 					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
 						<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
@@ -26,9 +25,17 @@
 				-
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 			</h6>
+		</div>
 
+		<f:if condition="{post.previewImage}">
+			<div class="card-img-top">
+				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
+			</div>
+		</f:if>
+
+		<div class="card-body">
 			<f:if condition="{post.content}">
-				<div class="card-text mt-4">
+				<div class="card-text">
 					<f:render partial="Post/Content" arguments="{post: post}" />
 				</div>
 			</f:if>
@@ -36,7 +43,7 @@
 
 		<div class="card-footer text-muted small">
 			<div class="row">
-				<div class="col-4">
+				<div class="col-md-4">
 					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
 						<span class="icon icon-comments" aria-hidden="true"></span>
 						<f:count subject="{post.comments}" />
@@ -48,7 +55,7 @@
 						<f:translate key="post.permalink" />
 					</f:link.action>
 				</div>
-				<div class="col-8 text-right">
+				<div class="col-md-8 text-md-right">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
 				</div>
 			</div>
