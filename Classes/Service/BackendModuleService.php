@@ -44,7 +44,7 @@ class BackendModuleService
     protected $pid;
 
     /**
-     * BackendModuleUtility constructor.
+     * BackendModuleService constructor.
      *
      * @param ObjectManagerInterface $objectManager
      * @param BackendTemplateView $view
