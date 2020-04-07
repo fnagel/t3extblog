@@ -4,22 +4,6 @@ return [
     \FelixNagel\T3extblog\Domain\Model\Post::class => [
         'tableName' => 'tx_t3blog_post',
         'properties' => [
-            'crdate' => [
-                'fieldName' => 'crdate'
-            ],
-            'tstamp' => [
-                'fieldName' => 'tstamp'
-            ],
-            'sorting' => [
-                'fieldName' => 'sorting'
-            ],
-            'deleted' => [
-                'fieldName' => 'deleted'
-            ],
-            'hidden' => [
-                'fieldName' => 'hidden'
-            ],
-
             'title' => [
                 'fieldName' => 'title'
             ],
@@ -80,22 +64,9 @@ return [
     \FelixNagel\T3extblog\Domain\Model\Category::class => [
         'tableName' => 'tx_t3blog_cat',
         'properties' => [
-            'crdate' => [
-                'fieldName' => 'crdate'
-            ],
-            'tstamp' => [
-                'fieldName' => 'tstamp'
-            ],
             'sorting' => [
                 'fieldName' => 'sorting'
             ],
-            'deleted' => [
-                'fieldName' => 'deleted'
-            ],
-            'hidden' => [
-                'fieldName' => 'hidden'
-            ],
-
             'name' => [
                 'fieldName' => 'catname'
             ],
@@ -111,22 +82,6 @@ return [
     \FelixNagel\T3extblog\Domain\Model\Comment::class => [
         'tableName' => 'tx_t3blog_com',
         'properties' => [
-            'crdate' => [
-                'fieldName' => 'crdate'
-            ],
-            'tstamp' => [
-                'fieldName' => 'tstamp'
-            ],
-            'sorting' => [
-                'fieldName' => 'sorting'
-            ],
-            'deleted' => [
-                'fieldName' => 'deleted'
-            ],
-            'hidden' => [
-                'fieldName' => 'hidden'
-            ],
-
             'title' => [
                 'fieldName' => 'title'
             ],
@@ -170,19 +125,6 @@ return [
     \FelixNagel\T3extblog\Domain\Model\PostSubscriber::class => [
         'tableName' => 'tx_t3blog_com_nl',
         'properties' => [
-            'crdate' => [
-                'fieldName' => 'crdate'
-            ],
-            'tstamp' => [
-                'fieldName' => 'tstamp'
-            ],
-            'deleted' => [
-                'fieldName' => 'deleted'
-            ],
-            'hidden' => [
-                'fieldName' => 'hidden'
-            ],
-
             'name' => [
                 'fieldName' => 'name'
             ],
@@ -207,19 +149,6 @@ return [
     \FelixNagel\T3extblog\Domain\Model\BlogSubscriber::class => [
         'tableName' => 'tx_t3blog_blog_nl',
         'properties' => [
-            'crdate' => [
-                'fieldName' => 'crdate'
-            ],
-            'tstamp' => [
-                'fieldName' => 'tstamp'
-            ],
-            'deleted' => [
-                'fieldName' => 'deleted'
-            ],
-            'hidden' => [
-                'fieldName' => 'hidden'
-            ],
-
             'email' => [
                 'fieldName' => 'email'
             ],

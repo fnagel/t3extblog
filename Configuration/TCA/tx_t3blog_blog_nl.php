@@ -35,6 +35,21 @@ return [
                 'default' => 0,
             ],
         ],
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'deleted' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
         'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
