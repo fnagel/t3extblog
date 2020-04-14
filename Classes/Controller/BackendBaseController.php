@@ -15,6 +15,7 @@ use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\BackendModuleService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use FelixNagel\T3extblog\Utility\BlogPageSearchUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -285,7 +286,7 @@ class BackendBaseController extends ActionController
      */
     protected function getBlogRelatedPageInfo()
     {
-        $blogPages = $this->getBlogRelatedPages();
+        $blogPages = BlogPageSearchUtility::getBlogRelatedPages();
         $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
 
         if ($blogPagesCurrentPageKey !== false) {
@@ -296,85 +297,6 @@ class BackendBaseController extends ActionController
             'show' => ($blogPagesCurrentPageKey === false),
             'pages' => $blogPages,
         ];
-    }
-
-    /**
-     * Get database connection.
-     *
-     * @return ConnectionPool
-     */
-    protected function getDatabaseConnection()
-    {
-        if ($this->connectionPool === null) {
-            $this->connectionPool =  GeneralUtility::makeInstance(ConnectionPool::class);
-        }
-
-        return $this->connectionPool;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getBlogRelatedPages()
-    {
-        $pages = array_merge_recursive(
-            // Get pages with set module property
-            $this->getBlogModulePages(),
-            // Split the join queries because otherwise the query is awful slow
-            $this->getPagesWithBlogRecords(['tx_t3blog_post', 'tx_t3blog_com']),
-            $this->getPagesWithBlogRecords(['tx_t3blog_com_nl', 'tx_t3blog_blog_nl'])
-        );
-
-        return array_unique($pages, SORT_REGULAR);
-    }
-
-    /**
-     * Run query for getting page info.
-     *
-     * @return array
-     */
-    protected function getBlogModulePages()
-    {
-        $table = 'pages';
-        $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
-        $queryBuilder
-            ->select('uid', 'title')
-            ->from($table)
-            ->where(
-                $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog')),
-                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
-            );
-
-        return $queryBuilder->execute()->fetchAll();
-    }
-
-    /**
-     * @param $joinTables
-     *
-     * @return array
-     */
-    protected function getPagesWithBlogRecords($joinTables)
-    {
-        $table = 'pages';
-        $queryBuilder = $this->getDatabaseConnection()->getQueryBuilderForTable($table);
-        $queryBuilder
-            ->select($table . '.uid', $table . '.title')
-            ->from($table)
-            ->groupBy($table.'.uid');
-
-        foreach ($joinTables as $joinTable) {
-            $queryBuilder->leftJoin(
-                $table,
-                $joinTable,
-                $joinTable,
-                $queryBuilder->expr()->eq(
-                    $table . '.uid',
-                    $queryBuilder->quoteIdentifier($joinTable . '.pid')
-                )
-            );
-        }
-
-        return $queryBuilder->execute()->fetchAll();
     }
 
     /**
