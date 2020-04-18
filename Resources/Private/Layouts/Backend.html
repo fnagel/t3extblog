@@ -1,7 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 	<div class="t3extblog">
-		<h1><f:translate key="module.title" /></h1>
+		<h1>
+			<f:translate key="module.title" />
+			<small>
+				<f:render section="headline" optional="1" />
+			</small>
+		</h1>
 
 		<f:flashMessages />
 		<f:render partial="Backend/PageNotice" arguments="{data: pageNotice}" />

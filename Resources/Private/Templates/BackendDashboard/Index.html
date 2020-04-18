@@ -3,10 +3,12 @@
 
 <f:layout name="Backend" />
 
+<f:section name="headline">
+	<f:translate key="module.dashboard.title" />
+</f:section>
+
 <f:section name="main">
 	<div id="dashboard">
-		<h2><f:translate key="module.dashboard.title" /></h2>
-
 		<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
 
 		<div class="grid" style="width: 25%;">

@@ -3,9 +3,11 @@
 
 <f:layout name="Backend" />
 
-<f:section name="main">
-	<h2><f:translate key="module.comment.title.all" /></h2>
+<f:section name="headline">
+	<f:translate key="module.comment.title.all" />
+</f:section>
 
+<f:section name="main">
 	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
 
 	<f:render

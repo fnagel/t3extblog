@@ -3,9 +3,11 @@
 
 <f:layout name="Backend" />
 
-<f:section name="main">
-	<h2><f:translate key="module.comment.title.pending" /></h2>
+<f:section name="headline">
+	<f:translate key="module.comment.title.pending" />
+</f:section>
 
+<f:section name="main">
 	<div id="pending-comments-list">
 		<f:render
 			partial="Backend/Comment/Table"
