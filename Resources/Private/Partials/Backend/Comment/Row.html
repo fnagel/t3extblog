@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <tr class="db_list_normal{f:if(condition: '{comment.valid}', else: ' warning')}">
@@ -8,9 +9,9 @@
 		</a>
 	</td>
 	<td>
-		<t3b:link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit" title="{comment.plainText -> f:format.crop(maxCharacters: 300)}">
+		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" title="{comment.plainText -> f:format.crop(maxCharacters: 300)}">
 			{comment.title -> f:format.crop(maxCharacters: 30)}
-		</t3b:link.editOnClick>
+		</be:link.editRecord>
 	</td>
 	<td>{comment.date -> f:format.date(format: '{dateTimeFormat}')}</td>
 	<td>{comment.author}</td>
@@ -45,9 +46,9 @@
 		</f:if>
 	</td>
 	<td class="action">
-		<t3b:link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit" title="{f:translate(key: 'module.comment.help.edit')}">
+		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" title="{f:translate(key: 'module.comment.help.edit')}">
 			<t3b:spriteManagerIcon iconName="actions-document-open" />
-		</t3b:link.editOnClick>
+		</be:link.editRecord>
 
 		<f:if condition="{comment.hidden}">
 			<f:then>

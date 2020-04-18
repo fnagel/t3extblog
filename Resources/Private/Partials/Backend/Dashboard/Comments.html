@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <div class="table-fit">
@@ -40,9 +41,9 @@
 					</td>
 					<td>{comment.date -> f:format.date(format: '{dateTimeFormat}')}</td>
 					<td class="action">
-						<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_com][{comment.uid}]=edit" title="{f:translate(key: 'module.comment.help.edit')}">
+						<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" title="{f:translate(key: 'module.comment.help.edit')}">
 							<t3b:backend.spriteManagerIcon iconName="actions-document-open" />
-						</t3b:backend.link.editOnClick>
+						</be:link.editRecord>
 
 						<f:if condition="{comment.approved}">
 							<f:then>

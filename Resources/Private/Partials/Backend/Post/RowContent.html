@@ -1,10 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <td class="title">
-	<t3b:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
+	<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post">
 		{post.title}
-	</t3b:link.editOnClick>
+	</be:link.editRecord>
 </td>
 <td>{post.publishDate -> f:format.date(format: '{dateTimeFormat}')}</td>
 <td>{post.author.name}</td>
@@ -14,9 +15,9 @@
 	</f:link.action>
 </td>
 <td class="action">
-	<t3b:link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit" title="{f:translate(key: 'module.post.help.edit')}">
+	<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post" title="{f:translate(key: 'module.post.help.edit')}">
 		<t3b:spriteManagerIcon iconName="actions-document-open" />
-	</t3b:link.editOnClick>
+	</be:link.editRecord>
 
 	<f:if condition="{post.hidden}">
 		<f:then>

@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:for each="{subscribers}" as="subscriber">
@@ -22,9 +23,9 @@
 		</td>
 		<td>{subscriber.crdate -> f:format.date(format: '{dateTimeFormat}')}</td>
 		<td class="action">
-			<t3b:backend.link.editOnClick parameters="edit[{table}][{subscriber.uid}]=edit" title="{f:translate(key: 'module.subscriber.help.edit')}">
+			<be:link.editRecord uid="{subscriber.uid}" table="{table}" title="{f:translate(key: 'module.subscriber.help.edit')}">
 				<t3b:backend.spriteManagerIcon iconName="actions-document-open" />
-			</t3b:backend.link.editOnClick>
+			</be:link.editRecord>
 
 			<f:if condition="{subscriber.hidden}">
 				<f:then>

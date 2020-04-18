@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <div class="table-fit">
@@ -22,9 +23,9 @@
 				</td>
 
 				<td class="title">
-					<t3b:backend.link.editOnClick parameters="edit[tx_t3blog_post][{post.uid}]=edit">
+					<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post">
 						{post.title -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
-					</t3b:backend.link.editOnClick>
+					</be:link.editRecord>
 				</td>
 				<td>{post.author.username}</td>
 			</tr>
