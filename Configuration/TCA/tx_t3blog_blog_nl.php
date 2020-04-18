@@ -70,7 +70,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime,required',
+                'eval' => 'datetime',
                 'size' => 13,
             ],
         ],
