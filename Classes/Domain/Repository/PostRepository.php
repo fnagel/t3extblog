@@ -180,7 +180,7 @@ class PostRepository extends AbstractRepository
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findDrafts($pid = 0, $until = '- 3 months')
+    public function findDrafts($pid = 0, $until = '-12 months')
     {
         $query = $this->createQuery((int) $pid);
         $query->getQuerySettings()->setIgnoreEnableFields(true);
