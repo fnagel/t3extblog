@@ -34,7 +34,7 @@
             <label index="tx_t3blog_post.preview_image">Image</label>
 			<label index="tx_t3blog_post.mails_sent">Notification mails already sent</label>
 
-			<label index="tx_t3blog_cat">Categories</label>
+			<label index="tx_t3blog_cat">Category</label>
 			<label index="tx_t3blog_cat.parent_id">Category tree</label>
 			<label index="tx_t3blog_cat.page_shortcut">Single PID</label>
 			<label index="tx_t3blog_cat.catname">Category name</label>
