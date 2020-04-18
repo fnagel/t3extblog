@@ -15,7 +15,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 class BlogSubscriberRepository extends AbstractSubscriberRepository
 {
     /**
-     * @param null $pageUid
+     * @param int $pageUid
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      */

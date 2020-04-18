@@ -10,25 +10,43 @@ namespace FelixNagel\T3extblog\Utility;
  */
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * BlogPageSearchUtility.
  */
-class BlogPageSearchUtility
+class BlogPageSearchUtility implements SingletonInterface
 {
+    /**
+     * @var array
+     */
+    protected static $cache = null;
+
     /**
      * The database connection.
      *
      * @var ConnectionPool
      */
-    protected static $connectionPool;
+    protected static $connectionPool = null;
+
+    /**
+     * @return array
+     */
+    public static function getBlogPageUids()
+    {
+        return array_column(self::getBlogRelatedPages(), 'uid');
+    }
 
     /**
      * @return array
      */
     public static function getBlogRelatedPages()
     {
+        if (self::$cache !== null) {
+            return self::$cache;
+        }
+
         $pages = array_merge_recursive(
             // Get pages with set module property
             self::getBlogModulePages(),
@@ -37,7 +55,9 @@ class BlogPageSearchUtility
             self::getPagesWithBlogRecords(['tx_t3blog_com_nl', 'tx_t3blog_blog_nl'])
         );
 
-        return array_unique($pages, SORT_REGULAR);
+        self::$cache = array_unique($pages, SORT_REGULAR);
+
+        return self::$cache;
     }
 
     /**

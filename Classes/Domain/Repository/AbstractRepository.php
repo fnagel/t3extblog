@@ -16,10 +16,10 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * AbstractRepository.
  */
-class AbstractRepository extends Repository
+abstract class AbstractRepository extends Repository
 {
     /**
-     * @param null $pageUid
+     * @param int $pageUid
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      */
@@ -28,7 +28,13 @@ class AbstractRepository extends Repository
         $query = parent::createQuery();
 
         if ($pageUid !== null) {
-            $query->getQuerySettings()->setStoragePageIds([(int) $pageUid]);
+            $pageUid = (int) $pageUid;
+
+            if ($pageUid >= 0) {
+                $query->getQuerySettings()->setStoragePageIds([$pageUid]);
+            } else {
+                $query->getQuerySettings()->setRespectStoragePage(false);
+            }
         }
 
         return $query;

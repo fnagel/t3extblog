@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-02-06T16:10:22Z" product-name="t3extblog">
+		<header/>
+		<body>
+			<trans-unit id="widgetGroup.title" xml:space="preserve">
+				<source>Blog</source>
+			</trans-unit>
+
+			<trans-unit id="dashboardPreset.title" xml:space="preserve">
+				<source>Blog dashboard</source>
+			</trans-unit>
+			<trans-unit id="dashboardPreset.description" xml:space="preserve">
+				<source>Create a new dashboard with a set of blog related widgets.</source>
+			</trans-unit>
+
+			<trans-unit id="widget.latestComments.title" xml:space="preserve">
+				<source>Latest blog comments</source>
+			</trans-unit>
+			<trans-unit id="widget.latestComments.description" xml:space="preserve">
+				<source>Add a list of the latest blog comments.</source>
+			</trans-unit>
+			<trans-unit id="widget.latestComments.moreItems" xml:space="preserve">
+				<source>All comments</source>
+			</trans-unit>
+
+			<trans-unit id="widget.latestPosts.title" xml:space="preserve">
+				<source>Latest blog posts</source>
+			</trans-unit>
+			<trans-unit id="widget.latestPosts.description" xml:space="preserve">
+				<source>Add a list of the latest blog posts.</source>
+			</trans-unit>
+			<trans-unit id="widget.latestPosts.moreItems" xml:space="preserve">
+				<source>All posts</source>
+			</trans-unit>
+
+			<trans-unit id="widget.draftPosts.title" xml:space="preserve">
+				<source>Blog post drafts</source>
+			</trans-unit>
+			<trans-unit id="widget.draftPosts.description" xml:space="preserve">
+				<source>Add a list of the blog posts draft.</source>
+			</trans-unit>
+
+			<trans-unit id="widget.pendingComments.title" xml:space="preserve">
+				<source>Pending blog comments</source>
+			</trans-unit>
+			<trans-unit id="widget.pendingComments.description" xml:space="preserve">
+				<source>Add a list of the pending blog comments.</source>
+			</trans-unit>
+			<trans-unit id="widget.pendingComments.moreItems" xml:space="preserve">
+				<source>All pending comments</source>
+			</trans-unit>
+
+			<trans-unit id="widget.pendingCommentsNumberWithIcon.title" xml:space="preserve">
+				<source>Pending blog comments</source>
+			</trans-unit>
+			<trans-unit id="widget.pendingCommentsNumberWithIcon.description" xml:space="preserve">
+				<source>Add an overview of the pending blog comments.</source>
+			</trans-unit>
+			<trans-unit id="widget.pendingCommentsNumberWithIcon.subtitle" xml:space="preserve">
+				<source>Comments awaiting moderation</source>
+			</trans-unit>
+
+			<trans-unit id="widget.blogSubscriber.title" xml:space="preserve">
+				<source>New blog post subscriptions</source>
+			</trans-unit>
+			<trans-unit id="widget.blogSubscriber.description" xml:space="preserve">
+				<source>Add a list of new post subscriptions.</source>
+			</trans-unit>
+			<trans-unit id="widget.blogSubscriber.moreItems" xml:space="preserve">
+				<source>All post subscriptions</source>
+			</trans-unit>
+
+			<trans-unit id="widget.postSubscriber.title" xml:space="preserve">
+				<source>New blog comment subscriptions</source>
+			</trans-unit>
+			<trans-unit id="widget.postSubscriber.description" xml:space="preserve">
+				<source>Add a list of new comment subscriptions.</source>
+			</trans-unit>
+			<trans-unit id="widget.postSubscriber.moreItems" xml:space="preserve">
+				<source>All comment subscriptions</source>
+			</trans-unit>
+
+			<trans-unit id="widget.statisticChart.title" xml:space="preserve">
+				<source>Blog statistic</source>
+			</trans-unit>
+			<trans-unit id="widget.statisticChart.description" xml:space="preserve">
+				<source>Add a blog statistic doughnut chart.</source>
+			</trans-unit>
+			<trans-unit id="widget.statisticChart.chart.posts" xml:space="preserve">
+				<source>posts</source>
+			</trans-unit>
+			<trans-unit id="widget.statisticChart.chart.comments" xml:space="preserve">
+				<source>comments</source>
+			</trans-unit>
+			<trans-unit id="widget.statisticChart.chart.blogSubscribers" xml:space="preserve">
+				<source>post subscribers</source>
+			</trans-unit>
+			<trans-unit id="widget.statisticChart.chart.postSubscribers" xml:space="preserve">
+				<source>comment subscribers</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

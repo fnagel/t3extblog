@@ -23,3 +23,60 @@ services:
   FelixNagel\T3extblog\Service\LoggingServiceInterface:
     alias: FelixNagel\T3extblog\Service\LoggingService
     public: true
+
+  # Dashboard widgets
+  FelixNagel\T3extblog\Dashboard\LatestPostsWidget:
+    arguments: ['t3extblogLatestPosts']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogLatestPosts
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\DraftPostsWidget:
+    arguments: ['t3extblogDraftPosts']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogDraftPosts
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\LatestCommentsWidget:
+    arguments: ['t3extblogLatestComments']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogLatestComments
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\PendingCommentsWidget:
+    arguments: ['t3extblogPendingComments']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogPendingComments
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\PendingCommentsNumberWithIconWidget:
+    arguments: ['t3extblogPendingCommentsNumberWithIconWidget']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogPendingCommentsNumberWithIconWidget
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\PostSubscriberWidget:
+    arguments: ['t3extblogPostSubscriber']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogPostSubscriber
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\BlogSubscriberWidget:
+    arguments: ['t3extblogBlogSubscriber']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogBlogSubscriber
+        widgetGroups: 't3extblog'
+
+  FelixNagel\T3extblog\Dashboard\StatisticChartWidget:
+    arguments: ['t3extblogStatisticChart']
+    tags:
+      - name: dashboard.widget
+        identifier: t3extblogStatisticChart
+        widgetGroups: 't3extblog'

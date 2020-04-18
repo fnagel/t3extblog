@@ -1,0 +1,34 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Widget/Widget"/>
+
+<f:section name="main">
+	<div class="widget-number">
+		<f:if condition="{icon}">
+			<div class="widget-number-icon">
+				<core:icon identifier="{icon}" size="large" alternativeMarkupIdentifier="inline"/>
+			</div>
+		</f:if>
+		<f:if condition="{link}">
+			<f:then>
+				<f:link.typolink parameter="{link}">
+					<f:render section="content" arguments="{_all}" />
+				</f:link.typolink>
+ 			</f:then>
+			<f:else>
+				<f:render section="content" arguments="{_all}" />
+ 			</f:else>
+		</f:if>
+	</div>
+</f:section>
+
+<f:section name="content">
+	<div class="widget-number-content">
+		<div class="widget-number-title">{title}</div>
+		<f:if condition="{subtitle}">
+			<div class="widget-number-subtitle"><small>{subtitle}</small></div>
+		</f:if>
+		<div class="widget-number-number">{number}</div>
+	</div>
+</f:section>

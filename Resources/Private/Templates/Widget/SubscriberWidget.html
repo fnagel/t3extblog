@@ -1,0 +1,65 @@
+<html data-namespace-typo3-fluid="true"
+			xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers">
+
+<f:layout name="Widget/Widget"/>
+
+<f:section name="main">
+	<div class="widget-table-wrapper">
+		<table class="widget-table">
+			<t3b:widget.paginate as="paginatedSubscribers" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 0}" objects="{items}">
+
+				<f:if condition="{table} == 'tx_t3blog_com_nl'">
+					<f:then>
+						<f:groupedFor each="{paginatedSubscribers}" as="paginatedSubscribersByPost" groupBy="postUid" groupKey="currentPostUid">
+							<tr style="background-color: lightgrey">
+								<th>
+									<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
+										<f:format.crop maxCharacters="50" respectWordBoundaries="0">
+											<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+										</f:format.crop>
+									</be:link.editRecord>
+								</th>
+							</tr>
+							<f:render section="renderRow" arguments="{subscribers: paginatedSubscribersByPost, table: table}" />
+						</f:groupedFor>
+					</f:then>
+					<f:else>
+						<f:render section="renderRow" arguments="{subscribers: paginatedSubscribers, table: table}" />
+					</f:else>
+				</f:if>
+
+			</t3b:widget.paginate>
+		</table>
+	</div>
+</f:section>
+
+<f:section name="renderRow">
+	<f:for as="subscriber" each="{subscribers}">
+		<tr>
+			<td>
+				<be:link.editRecord uid="{subscriber.uid}" table="{table}" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.subscriber.help.edit')}">
+					<strong>{subscriber.email}</strong>
+				</be:link.editRecord>
+				<small>
+					<time datetime="{subscriber.crdate -> f:format.date(format: '%Y-%m-%d')}">
+						{subscriber.crdate -> f:format.date()}
+					</time>
+				</small>
+				<p>
+					{subscriber.email}
+				</p>
+			</td>
+		</tr>
+	</f:for>
+</f:section>
+
+<f:section name="footer">
+	<f:if condition="{moreItemsLink}">
+		<f:link.typolink class="widget-cta" parameter="{moreItemsLink}">
+			<f:translate default="{moreItemsText}" key="{moreItemsText}"/>
+		</f:link.typolink>
+	</f:if>
+</f:section>
+</html>

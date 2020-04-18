@@ -32,6 +32,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
             'seo' => '',
+            'dashboard' => '',
         ],
     ],
 ];

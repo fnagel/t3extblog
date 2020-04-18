@@ -9,7 +9,7 @@
 <f:section name="content">
 	<f:translate key="module.message.pageNotice" />
 	<f:for each="{data.pages}" as="page" iteration="iterator">
-		<f:link.page additionalParams="{id: page.uid}">
+		<f:link.page additionalParams="{id: page.uid}" addQueryString="1" argumentsToBeExcludedFromQueryString="{0: 'id'}">
 			{page.title}
 		</f:link.page>
 		<f:if condition="{iterator.cycle} < {iterator.total}">,</f:if>
