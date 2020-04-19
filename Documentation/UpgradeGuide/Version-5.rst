@@ -16,6 +16,45 @@ Version 5.x
    :depth: 3
 
 
+Upgrade from 5.0.0 to 5.1.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/5.0.0...5.1.0
+
+- Support for Twitter Bootstrap 4.x
+
+- Support of latest TYPO3 logging functionality (PSR-3 based, see FAQ)
+
+- Make use of latest TYPO3 BE module menu API
+
+- Rework dependency injection
+
+- Improve documentation
+
+- Code clean-up (removed and replaced deprecated code usage)
+
+- Lots of minor bugfixes and improvements
+
+
+**Breaking changes**
+
+- Removed support for TYPO3 < 9.4
+
+- Restructured some templates and partials due to TWBS4 implementation
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust your templates to structure change if needed
+
+#. Clear all caches
+
+
+
 Upgrade from 4.x to 5.0.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
