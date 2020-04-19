@@ -97,8 +97,19 @@ class PostMapper extends PersistedAliasMapper
         }
 
         $valueBackup = $value;
+
+        // Remove date prefix if existing
         $date = new \DateTime();
         $value = substr($value, strlen($date->format($this->datePrefix)));
+
+        // Remove possible appended route string (e.g. "/comment")
+        // Needed since TYPO3 9.5.15 and https://forge.typo3.org/issues/88291
+        if (version_compare(TYPO3_version, '9.5.15', '>=')) {
+            $valueSplit = preg_split('#/#', $value);
+            if ($valueSplit > 0) {
+                $value =  $valueSplit[0];
+            }
+        }
 
         $value = $this->routeValuePrefix . $this->purgeRouteValuePrefix($value);
         $result = $this->getPersistenceDelegate()->resolve([
