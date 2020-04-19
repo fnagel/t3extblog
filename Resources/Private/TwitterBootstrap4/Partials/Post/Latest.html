@@ -8,14 +8,18 @@
 		</div>
 	</f:if>
 	<div class="card-body text-center">
-		<h4 class="card-title">{post.title}</h4>
+		<h4 class="card-title">
+			<f:link.action pluginName="Blogsystem" controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
+				{post.title}
+			</f:link.action>
+		</h4>
 		<h6 class="card-subtitle mb-3 text-muted">
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />
 		</h6>
 		<div class="card-text mb-4">
-			{post.preview -> f:format.crop(maxCharacters: '150')}
+			{post.preview -> f:format.crop(maxCharacters: '150') -> f:format.html()}
 		</div>
-		<f:link.action  class="btn btn-primary" pluginName="Blogsystem" controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
+		<f:link.action class="btn btn-primary" pluginName="Blogsystem" controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
 			{post.title}
 		</f:link.action>
 	</div>
