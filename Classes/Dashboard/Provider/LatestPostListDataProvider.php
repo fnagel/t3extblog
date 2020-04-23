@@ -13,6 +13,10 @@ class LatestPostListDataProvider extends AbstractPostListDataProvider
 {
     public function getItems(): array
     {
-        return $this->postRepository->findByPage($this->getStoragePids())->toArray();
+        return $this->postRepository->findByPage(
+            $this->getStoragePids(),
+            true,
+            $this->options['limit']
+        )->toArray();
     }
 }

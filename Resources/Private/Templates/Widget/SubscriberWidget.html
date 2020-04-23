@@ -8,29 +8,25 @@
 <f:section name="main">
 	<div class="widget-table-wrapper">
 		<table class="widget-table">
-			<t3b:widget.paginate as="paginatedSubscribers" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 0}" objects="{items}">
-
-				<f:if condition="{options.table} == 'tx_t3blog_com_nl'">
-					<f:then>
-						<f:groupedFor each="{paginatedSubscribers}" as="paginatedSubscribersByPost" groupBy="postUid" groupKey="currentPostUid">
-							<tr style="background-color: lightgrey">
-								<th>
-									<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
-										<f:format.crop maxCharacters="50" respectWordBoundaries="0">
-											<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
-										</f:format.crop>
-									</be:link.editRecord>
-								</th>
-							</tr>
-							<f:render section="renderRow" arguments="{subscribers: paginatedSubscribersByPost, options: options}" />
-						</f:groupedFor>
-					</f:then>
-					<f:else>
-						<f:render section="renderRow" arguments="{subscribers: paginatedSubscribers, options: options}" />
-					</f:else>
-				</f:if>
-
-			</t3b:widget.paginate>
+			<f:if condition="{options.table} == 'tx_t3blog_com_nl'">
+				<f:then>
+					<f:groupedFor each="{items}" as="subscribersByPost" groupBy="postUid" groupKey="currentPostUid">
+						<tr style="background-color: lightgrey">
+							<th>
+								<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
+									<f:format.crop maxCharacters="50" respectWordBoundaries="0">
+										<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+									</f:format.crop>
+								</be:link.editRecord>
+							</th>
+						</tr>
+						<f:render section="renderRow" arguments="{subscribers: subscribersByPost, options: options}" />
+					</f:groupedFor>
+				</f:then>
+				<f:else>
+					<f:render section="renderRow" arguments="{subscribers: items, options: options}" />
+				</f:else>
+			</f:if>
 		</table>
 	</div>
 </f:section>

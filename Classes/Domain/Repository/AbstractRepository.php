@@ -45,12 +45,17 @@ abstract class AbstractRepository extends Repository
      *
      * @param int  $pid
      * @param bool $respectEnableFields
+     * @param int  $limit
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByPage($pid = null, $respectEnableFields = true)
+    public function findByPage($pid = null, $respectEnableFields = true, $limit = null)
     {
         $query = $this->createQuery($pid);
+
+        if (is_int($limit)) {
+            $query->setLimit($limit);
+        }
 
         if ($respectEnableFields === false) {
             $query->getQuerySettings()->setIgnoreEnableFields(true);

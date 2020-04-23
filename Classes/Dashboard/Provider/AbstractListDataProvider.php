@@ -13,8 +13,6 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 /**
  * AbstractListDataProvider
- *
- * @todo Add limit as we need to pass an array and our pagination will not limit the query any more
  */
 abstract class AbstractListDataProvider extends AbstractDataProvider implements ListDataProviderInterface
 {

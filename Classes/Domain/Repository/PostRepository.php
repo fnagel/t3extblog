@@ -176,14 +176,19 @@ class PostRepository extends AbstractRepository
      * Returns all hidden posts of a time frame from now.
      *
      * @param int    $pid
+     * @param int    $limit
      * @param string $until
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findDrafts($pid = 0, $until = '-12 months')
+    public function findDrafts($pid = 0, $limit = null, $until = '-12 months')
     {
         $query = $this->createQuery((int) $pid);
         $query->getQuerySettings()->setIgnoreEnableFields(true);
+
+        if (is_int($limit)) {
+            $query->setLimit($limit);
+        }
 
         $date = new \DateTime();
         $date->modify($until);

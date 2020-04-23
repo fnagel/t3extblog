@@ -8,57 +8,53 @@
 <f:section name="main">
 	<div class="widget-table-wrapper">
 		<table class="widget-table">
-			<t3b:widget.paginate as="paginatedComments" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 0}" objects="{items}">
-
-				<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
-					<tr style="background-color: lightgrey">
-						<th>
-							<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
-								<f:format.crop maxCharacters="50" respectWordBoundaries="0">
-									<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
-								</f:format.crop>
+			<f:groupedFor each="{items}" as="commentsByPost" groupBy="postId" groupKey="currentPostUid">
+				<tr style="background-color: lightgrey">
+					<th>
+						<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
+							<f:format.crop maxCharacters="50" respectWordBoundaries="0">
+								<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
+							</f:format.crop>
+						</be:link.editRecord>
+					</th>
+				</tr>
+				<f:for as="comment" each="{commentsByPost}">
+					<tr>
+						<td>
+							<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.comment.help.edit')}">
+								<strong>
+									<f:if condition="{comment.author}">
+										<f:then>
+											<em>{comment.author}:</em>
+										</f:then>
+										<f:else>
+											<f:if condition="{comment.email}">
+												<em>{comment.email}:</em>
+											</f:if>
+										</f:else>
+									</f:if>
+									<f:if condition="{comment.title}">
+										{comment.title}
+									</f:if>
+								</strong>
+								<small>
+									<time datetime="{comment.date -> f:format.date(format: '%Y-%m-%d')}">{comment.date ->
+										f:format.date()}
+									</time>
+								</small>
 							</be:link.editRecord>
-						</th>
+							<f:if condition="{comment.valid} == 0">
+								<span class="label label-warning small" style="float: right;">!</span>
+							</f:if>
+							<p>
+								<q>
+									{comment.plainText -> f:format.crop(maxCharacters: 125)}
+								</q>
+							</p>
+						</td>
 					</tr>
-					<f:for as="comment" each="{paginatedCommentsByPost}">
-						<tr>
-							<td>
-								<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.comment.help.edit')}">
-									<strong>
-										<f:if condition="{comment.author}">
-											<f:then>
-												<em>{comment.author}:</em>
-											</f:then>
-											<f:else>
-												<f:if condition="{comment.email}">
-													<em>{comment.email}:</em>
-												</f:if>
-											</f:else>
-										</f:if>
-										<f:if condition="{comment.title}">
-											{comment.title}
-										</f:if>
-									</strong>
-									<small>
-										<time datetime="{comment.date -> f:format.date(format: '%Y-%m-%d')}">{comment.date ->
-											f:format.date()}
-										</time>
-									</small>
-								</be:link.editRecord>
-								<f:if condition="{comment.valid} == 0">
-									<span class="label label-warning small" style="float: right;">!</span>
-								</f:if>
-								<p>
-									<q>
-										{comment.plainText -> f:format.crop(maxCharacters: 125)}
-									</q>
-								</p>
-							</td>
-						</tr>
-					</f:for>
-				</f:groupedFor>
-
-			</t3b:widget.paginate>
+				</f:for>
+			</f:groupedFor>
 		</table>
 	</div>
 </f:section>

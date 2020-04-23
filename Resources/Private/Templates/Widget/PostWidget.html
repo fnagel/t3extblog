@@ -8,37 +8,35 @@
 <f:section name="main">
 	<div class="widget-table-wrapper">
 		<table class="widget-table">
-			<t3b:widget.paginate as="paginatedPosts" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 0}" objects="{items}">
-				<f:for as="post" each="{paginatedPosts}">
-					<tr>
-						<td>
-							<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
-								<strong>
-									{post.title -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
-								</strong>
-								<small>
-									<time datetime="{post.publishDate -> f:format.date(format: '%Y-%m-%d')}">
-										{post.publishDate -> f:format.date()}
-									</time>
-								</small>
-							</be:link.editRecord>
-							<f:if condition="{post.hidden}">
-								<span class="label label-warning small" style="float: right;">!</span>
+			<f:for as="post" each="{items}">
+				<tr>
+					<td>
+						<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit')}">
+							<strong>
+								{post.title -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
+							</strong>
+							<small>
+								<time datetime="{post.publishDate -> f:format.date(format: '%Y-%m-%d')}">
+									{post.publishDate -> f:format.date()}
+								</time>
+							</small>
+						</be:link.editRecord>
+						<f:if condition="{post.hidden}">
+							<span class="label label-warning small" style="float: right;">!</span>
+						</f:if>
+						<p>
+							<f:if condition="{post.author.name}">
+								<f:then>
+									{post.author.name} ({post.author.username})
+								</f:then>
+								<f:then>
+									{post.author.username}
+								</f:then>
 							</f:if>
-							<p>
-								<f:if condition="{post.author.name}">
-									<f:then>
-										{post.author.name} ({post.author.username})
-									</f:then>
-									<f:then>
-										{post.author.username}
-									</f:then>
-								</f:if>
-							</p>
-						</td>
-					</tr>
-				</f:for>
-			</t3b:widget.paginate>
+						</p>
+					</td>
+				</tr>
+			</f:for>
 		</table>
 	</div>
 </f:section>

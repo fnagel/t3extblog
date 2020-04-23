@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use FelixNagel\T3extblog\Domain\Model\Post;
 
@@ -189,12 +190,17 @@ class CommentRepository extends AbstractRepository
      * Finds all pending comments by page.
      *
      * @param int $pid
+     * @param int $limit
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findPendingByPage($pid = 0)
+    public function findPendingByPage($pid = 0, $limit = null)
     {
         $query = $this->createQuery((int) $pid);
+
+        if (is_int($limit)) {
+            $query->setLimit($limit);
+        }
 
         $query->matching(
             $this->getPendingConstraints($query)
@@ -225,7 +231,7 @@ class CommentRepository extends AbstractRepository
     /**
      * Create constraints for valid comments.
      *
-     * @param Tx_Extbase_Persistence_QueryInterface $query
+     * @param QueryInterface $query
      *
      * @return object
      */
@@ -242,7 +248,9 @@ class CommentRepository extends AbstractRepository
     /**
      * Create constraints for pending comments.
      *
-     * @return object
+     * @param QueryInterface $query
+     *
+     * @return OrInterface
      */
     protected function getPendingConstraints(QueryInterface $query)
     {

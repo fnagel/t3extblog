@@ -13,6 +13,10 @@ class LatestCommentListDataProvider extends AbstractCommentListDataProvider
 {
     public function getItems(): array
     {
-        return $this->commentRepository->findByPage($this->getStoragePids())->toArray();
+        return $this->commentRepository->findByPage(
+            $this->getStoragePids(),
+            true,
+            $this->options['limit']
+        )->toArray();
     }
 }

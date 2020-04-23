@@ -19,15 +19,31 @@ class SubscriberListDataProvider extends AbstractListDataProvider
     protected $subscriberRepository;
 
     /**
-     * @param AbstractSubscriberRepository $subscriberRepository
+     * @var array
      */
-    public function __construct(AbstractSubscriberRepository $subscriberRepository)
+    protected $options = [
+        'limit' => 10,
+    ];
+
+    /**
+     * @param AbstractSubscriberRepository $subscriberRepository
+     * @param array $options
+     */
+    public function __construct(AbstractSubscriberRepository $subscriberRepository, array $options = [])
     {
         $this->subscriberRepository = $subscriberRepository;
+        $this->options = array_merge(
+            $this->options,
+            $options
+        );
     }
 
     public function getItems(): array
     {
-        return $this->subscriberRepository->findByPage($this->getStoragePids(), false)->toArray();
+        return $this->subscriberRepository->findByPage(
+            $this->getStoragePids(),
+            false,
+            $this->options['limit']
+        )->toArray();
     }
 }

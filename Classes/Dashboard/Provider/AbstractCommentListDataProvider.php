@@ -19,10 +19,22 @@ abstract class AbstractCommentListDataProvider extends AbstractListDataProvider
     protected $commentRepository;
 
     /**
-     * @param CommentRepository $commentRepository
+     * @var array
      */
-    public function __construct(CommentRepository $commentRepository)
+    protected $options = [
+        'limit' => 10,
+    ];
+
+    /**
+     * @param CommentRepository $commentRepository
+     * @param array $options
+     */
+    public function __construct(CommentRepository $commentRepository, array $options = [])
     {
         $this->commentRepository = $commentRepository;
+        $this->options = array_merge(
+            $this->options,
+            $options
+        );
     }
 }

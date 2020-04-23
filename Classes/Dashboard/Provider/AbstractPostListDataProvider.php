@@ -19,10 +19,22 @@ abstract class AbstractPostListDataProvider extends AbstractListDataProvider
     protected $postRepository;
 
     /**
-     * @param PostRepository $postRepository
+     * @var array
      */
-    public function __construct(PostRepository $postRepository)
+    protected $options = [
+        'limit' => 10,
+    ];
+
+    /**
+     * @param PostRepository $postRepository
+     * @param array $options
+     */
+    public function __construct(PostRepository $postRepository, array $options = [])
     {
         $this->postRepository = $postRepository;
+        $this->options = array_merge(
+            $this->options,
+            $options
+        );
     }
 }

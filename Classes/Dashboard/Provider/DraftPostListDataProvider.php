@@ -11,8 +11,15 @@ namespace FelixNagel\T3extblog\Dashboard\Provider;
 
 class DraftPostListDataProvider extends AbstractPostListDataProvider
 {
+    /**
+     * @var array
+     */
+    protected $options = [
+        'limit' => 4,
+    ];
+
     public function getItems(): array
     {
-        return $this->postRepository->findDrafts($this->getStoragePids())->toArray();
+        return $this->postRepository->findDrafts($this->getStoragePids(), $this->options['limit'])->toArray();
     }
 }
