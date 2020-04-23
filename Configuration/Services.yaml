@@ -25,58 +25,210 @@ services:
     public: true
 
   # Dashboard widgets
-  FelixNagel\T3extblog\Dashboard\LatestPostsWidget:
-    arguments: ['t3extblogLatestPosts']
-    tags:
-      - name: dashboard.widget
-        identifier: t3extblogLatestPosts
-        widgetGroups: 't3extblog'
+  dashboard.views.t3extblog.postWidget:
+    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
+    public: true
+    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
+    arguments: ['PostWidget']
 
-  FelixNagel\T3extblog\Dashboard\DraftPostsWidget:
-    arguments: ['t3extblogDraftPosts']
-    tags:
-      - name: dashboard.widget
-        identifier: t3extblogDraftPosts
-        widgetGroups: 't3extblog'
+  dashboard.buttons.t3extblog.latestPosts:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestPosts.moreItems'
+      $linkArguments:
+        controller: 'BackendPost'
+        action: 'index'
 
-  FelixNagel\T3extblog\Dashboard\LatestCommentsWidget:
-    arguments: ['t3extblogLatestComments']
+  dashboard.widget.t3extblog.latestPosts:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.postWidget'
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\LatestPostListDataProvider'
+      $buttonProvider: '@dashboard.buttons.t3extblog.latestPosts'
     tags:
       - name: dashboard.widget
-        identifier: t3extblogLatestComments
-        widgetGroups: 't3extblog'
+        identifier: 't3extblogLatestPosts'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestPosts.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestPosts.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
 
-  FelixNagel\T3extblog\Dashboard\PendingCommentsWidget:
-    arguments: ['t3extblogPendingComments']
-    tags:
-      - name: dashboard.widget
-        identifier: t3extblogPendingComments
-        widgetGroups: 't3extblog'
+  dashboard.buttons.t3extblog.draftPosts:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.draftPosts.moreItems'
+      $linkArguments:
+        controller: 'BackendPost'
+        action: 'index'
 
-  FelixNagel\T3extblog\Dashboard\PendingCommentsNumberWithIconWidget:
-    arguments: ['t3extblogPendingCommentsNumberWithIconWidget']
+  dashboard.widget.t3extblog.draftPosts:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.postWidget'
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\DraftPostListDataProvider'
+      $buttonProvider: '@dashboard.buttons.t3extblog.draftPosts'
     tags:
       - name: dashboard.widget
-        identifier: t3extblogPendingCommentsNumberWithIconWidget
-        widgetGroups: 't3extblog'
+        identifier: 't3extblogDraftPosts'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.draftPosts.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.draftPosts.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
 
-  FelixNagel\T3extblog\Dashboard\PostSubscriberWidget:
-    arguments: ['t3extblogPostSubscriber']
-    tags:
-      - name: dashboard.widget
-        identifier: t3extblogPostSubscriber
-        widgetGroups: 't3extblog'
+  dashboard.views.t3extblog.commentWidget:
+    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
+    public: true
+    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
+    arguments: ['CommentWidget']
 
-  FelixNagel\T3extblog\Dashboard\BlogSubscriberWidget:
-    arguments: ['t3extblogBlogSubscriber']
-    tags:
-      - name: dashboard.widget
-        identifier: t3extblogBlogSubscriber
-        widgetGroups: 't3extblog'
+  dashboard.buttons.t3extblog.latestComments:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestComments.moreItems'
+      $linkArguments:
+        controller: 'BackendComment'
+        action: 'index'
 
-  FelixNagel\T3extblog\Dashboard\StatisticChartWidget:
-    arguments: ['t3extblogStatisticChart']
+  dashboard.widget.t3extblog.latestComments:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.commentWidget'
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\LatestCommentListDataProvider'
+      $buttonProvider: '@dashboard.buttons.t3extblog.latestComments'
     tags:
       - name: dashboard.widget
-        identifier: t3extblogStatisticChart
-        widgetGroups: 't3extblog'
+        identifier: 't3extblogLatestComments'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestComments.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.latestComments.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+
+  dashboard.buttons.t3extblog.pendingComments:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingComments.moreItems'
+      $linkArguments:
+        controller: 'BackendComment'
+        action: 'index'
+
+  dashboard.widget.t3extblog.pendingComments:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.commentWidget'
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\PendingCommentListDataProvider'
+      $buttonProvider: '@dashboard.buttons.t3extblog.pendingComments'
+    tags:
+      - name: dashboard.widget
+        identifier: 't3extblogPendingComments'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingComments.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingComments.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+
+  dashboard.views.t3extblog.numberWithIconWidget:
+    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
+    public: true
+    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
+    arguments: ['NumberWithIconWidget']
+
+  dashboard.widget.t3extblog.pendingCommentsNumberWithIcon:
+    class: 'FelixNagel\T3extblog\Dashboard\NumberWithIconWidget'
+    arguments:
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\PendingCommentNumberWithIconDataProvider'
+      $view: '@dashboard.views.t3extblog.numberWithIconWidget'
+      $options:
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.title'
+        subtitle: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.subtitle'
+        icon: 'extensions-t3extblog-plugin'
+      $buttonProvider: '@dashboard.buttons.t3extblog.pendingComments'
+    tags:
+      - name: dashboard.widget
+        identifier: 't3extblogPendingCommentsNumberWithIconWidget'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.description'
+        iconIdentifier: 'content-widget-number'
+
+  dashboard.views.t3extblog.subscriberWidget:
+    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
+    public: true
+    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
+    arguments: ['SubscriberWidget']
+
+  dashboard.buttons.t3extblog.postSubscriber:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.postSubscriber.moreItems'
+      $linkArguments:
+        controller: 'BackendSubscriber'
+        action: 'indexPostSubscriber'
+
+  dashboard.provider.t3extblog.postSubscriber:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\SubscriberListDataProvider'
+    arguments:
+      $subscriberRepository: '@FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository'
+
+  dashboard.widget.t3extblog.postSubscriber:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.subscriberWidget'
+      $dataProvider: '@dashboard.provider.t3extblog.postSubscriber'
+      $buttonProvider: '@dashboard.buttons.t3extblog.postSubscriber'
+      $options:
+        table: 'tx_t3blog_com_nl'
+    tags:
+      - name: dashboard.widget
+        identifier: 't3extblogPostSubscriber'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.postSubscriber.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.postSubscriber.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+
+  dashboard.buttons.t3extblog.blogSubscriber:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
+    arguments:
+      $title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.postSubscriber.moreItems'
+      $linkArguments:
+        controller: 'BackendSubscriber'
+        action: 'indexBlogSubscriber'
+
+  dashboard.provider.t3extblog.blogSubscriber:
+    class: 'FelixNagel\T3extblog\Dashboard\Provider\SubscriberListDataProvider'
+    arguments:
+      $subscriberRepository: '@FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository'
+
+  dashboard.widget.t3extblog.blogSubscriber:
+    class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
+    arguments:
+      $view: '@dashboard.views.t3extblog.subscriberWidget'
+      $dataProvider: '@dashboard.provider.t3extblog.blogSubscriber'
+      $buttonProvider: '@dashboard.buttons.t3extblog.blogSubscriber'
+      $options:
+        table: 'tx_t3blog_blog_nl'
+    tags:
+      - name: dashboard.widget
+        identifier: 't3extblogBlogSubscriber'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.blogSubscriber.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.blogSubscriber.description'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+
+  dashboard.widget.t3extblog.statisticChart:
+    class: 'TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+      $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\StatisticChartDataProvider'
+    tags:
+      - name: dashboard.widget
+        identifier: 't3extblogStatisticChart'
+        groupNames: 't3extblog'
+        title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.statisticChart.title'
+        description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.statisticChart.description'
+        iconIdentifier: 'content-widget-chart-pie'
+        height: 'medium'

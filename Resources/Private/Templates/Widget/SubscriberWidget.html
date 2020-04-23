@@ -10,7 +10,7 @@
 		<table class="widget-table">
 			<t3b:widget.paginate as="paginatedSubscribers" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 0}" objects="{items}">
 
-				<f:if condition="{table} == 'tx_t3blog_com_nl'">
+				<f:if condition="{options.table} == 'tx_t3blog_com_nl'">
 					<f:then>
 						<f:groupedFor each="{paginatedSubscribers}" as="paginatedSubscribersByPost" groupBy="postUid" groupKey="currentPostUid">
 							<tr style="background-color: lightgrey">
@@ -22,11 +22,11 @@
 									</be:link.editRecord>
 								</th>
 							</tr>
-							<f:render section="renderRow" arguments="{subscribers: paginatedSubscribersByPost, table: table}" />
+							<f:render section="renderRow" arguments="{subscribers: paginatedSubscribersByPost, options: options}" />
 						</f:groupedFor>
 					</f:then>
 					<f:else>
-						<f:render section="renderRow" arguments="{subscribers: paginatedSubscribers, table: table}" />
+						<f:render section="renderRow" arguments="{subscribers: paginatedSubscribers, options: options}" />
 					</f:else>
 				</f:if>
 
@@ -39,7 +39,7 @@
 	<f:for as="subscriber" each="{subscribers}">
 		<tr>
 			<td>
-				<be:link.editRecord uid="{subscriber.uid}" table="{table}" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.subscriber.help.edit')}">
+				<be:link.editRecord uid="{subscriber.uid}" table="{options.table}" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.subscriber.help.edit')}">
 					<strong>{subscriber.email}</strong>
 				</be:link.editRecord>
 				<small>
@@ -56,10 +56,8 @@
 </f:section>
 
 <f:section name="footer">
-	<f:if condition="{moreItemsLink}">
-		<f:link.typolink class="widget-cta" parameter="{moreItemsLink}">
-			<f:translate default="{moreItemsText}" key="{moreItemsText}"/>
-		</f:link.typolink>
+	<f:if condition="{button}">
+		<a href="{button.link}" target="{button.target}" class="widget-cta">{f:translate(id: button.title, default: button.title)}</a>
 	</f:if>
 </f:section>
 </html>

@@ -2,8 +2,8 @@
 
 return [
     'blog' => [
-        'title' => \FelixNagel\T3extblog\Dashboard\AbstractListWidget::LOCALLANG_FILE . 'dashboardPreset.title',
-        'description' => \FelixNagel\T3extblog\Dashboard\AbstractListWidget::LOCALLANG_FILE . 'dashboardPreset.description',
+        'title' => \FelixNagel\T3extblog\Dashboard\Provider\AbstractDataProvider::LOCALLANG_FILE . 'dashboardPreset.title',
+        'description' => \FelixNagel\T3extblog\Dashboard\Provider\AbstractDataProvider::LOCALLANG_FILE . 'dashboardPreset.description',
         'iconIdentifier' => 'extensions-t3extblog-plugin',
         'defaultWidgets' => [
             't3extblogPendingCommentsNumberWithIconWidget',

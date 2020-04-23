@@ -7,14 +7,14 @@
 	<div class="widget-number">
 		<f:if condition="{icon}">
 			<div class="widget-number-icon">
-				<core:icon identifier="{icon}" size="large" alternativeMarkupIdentifier="inline"/>
+				<core:icon identifier="{icon}" size="large" alternativeMarkupIdentifier="inline" />
 			</div>
 		</f:if>
-		<f:if condition="{link}">
+		<f:if condition="{button}">
 			<f:then>
-				<f:link.typolink parameter="{link}">
+				<a href="{button.link}" target="{button.target}" title="{f:translate(id: button.title, default: button.title)}">
 					<f:render section="content" arguments="{_all}" />
-				</f:link.typolink>
+				</a>
  			</f:then>
 			<f:else>
 				<f:render section="content" arguments="{_all}" />
@@ -25,9 +25,9 @@
 
 <f:section name="content">
 	<div class="widget-number-content">
-		<div class="widget-number-title">{title}</div>
+		<div class="widget-number-title"><f:translate key="{title}" default="{title}" /></div>
 		<f:if condition="{subtitle}">
-			<div class="widget-number-subtitle"><small>{subtitle}</small></div>
+			<div class="widget-number-subtitle"><small><f:translate key="{subtitle}" default="{subtitle}" /></small></div>
 		</f:if>
 		<div class="widget-number-number">{number}</div>
 	</div>

@@ -40,6 +40,9 @@
 			<trans-unit id="widget.draftPosts.description" xml:space="preserve">
 				<source>Add a list of the blog posts draft.</source>
 			</trans-unit>
+			<trans-unit id="widget.draftPosts.moreItems" xml:space="preserve">
+				<source>All posts</source>
+			</trans-unit>
 
 			<trans-unit id="widget.pendingComments.title" xml:space="preserve">
 				<source>Pending blog comments</source>

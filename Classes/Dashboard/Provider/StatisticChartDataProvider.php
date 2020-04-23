@@ -1,11 +1,6 @@
 <?php
 
-namespace FelixNagel\T3extblog\Dashboard;
-
-use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
-use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
-use FelixNagel\T3extblog\Domain\Repository\PostRepository;
-use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+namespace FelixNagel\T3extblog\Dashboard\Provider;
 
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
@@ -14,11 +9,15 @@ use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-class StatisticChartWidget extends AbstractDoughnutChartWidget
-{
-    protected $title = self::LOCALLANG_FILE . 'widget.statisticChart.title';
-    protected $description = self::LOCALLANG_FILE . 'widget.statisticChart.description';
+use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
+use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use TYPO3\CMS\Dashboard\WidgetApi;
+use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
+class StatisticChartDataProvider extends AbstractDataProvider implements ChartDataProviderInterface
+{
     /**
      * @var PostRepository
      */
@@ -40,22 +39,27 @@ class StatisticChartWidget extends AbstractDoughnutChartWidget
     protected $postSubscriberRepository;
 
     /**
-     * @inheritDoc
+     * @param PostRepository $postRepository
+     * @param CommentRepository $commentRepository
+     * @param BlogSubscriberRepository $blogSubscriberRepository
+     * @param PostSubscriberRepository $postSubscriberRepository
      */
-    protected function initialize()
-    {
-        parent::initialize();
-
-        $this->postRepository = $this->objectManager->get(PostRepository::class);
-        $this->commentRepository = $this->objectManager->get(CommentRepository::class);
-        $this->blogSubscriberRepository = $this->objectManager->get(BlogSubscriberRepository::class);
-        $this->postSubscriberRepository = $this->objectManager->get(PostSubscriberRepository::class);
+    public function __construct(
+        PostRepository $postRepository,
+        CommentRepository $commentRepository,
+        BlogSubscriberRepository $blogSubscriberRepository,
+        PostSubscriberRepository $postSubscriberRepository
+    ) {
+        $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
+        $this->blogSubscriberRepository = $blogSubscriberRepository;
+        $this->postSubscriberRepository = $postSubscriberRepository;
     }
 
     /**
      * @inheritDoc
      */
-    protected function prepareChartData(): void
+    public function getChartData(): array
     {
         $pids = $this->getStoragePids();
 
@@ -64,7 +68,9 @@ class StatisticChartWidget extends AbstractDoughnutChartWidget
         $blogSubscribersCount = $this->blogSubscriberRepository->findByPage($pids)->count();
         $postSubscribersCount = $this->postSubscriberRepository->findByPage($pids)->count();
 
-        $this->chartData = [
+        $chartColors = WidgetApi::getDefaultChartColors();
+
+        return [
             'labels' => [
                 $this->translate('widget.statisticChart.chart.posts'),
                 $this->translate('widget.statisticChart.chart.comments'),
@@ -75,17 +81,17 @@ class StatisticChartWidget extends AbstractDoughnutChartWidget
                 [
                     'backgroundColor' => [
                         'lightgrey',
-                        $this->chartColors[0],
-                        $this->chartColors[1],
-                        $this->chartColors[2],
+                        $chartColors[0],
+                        $chartColors[1],
+                        $chartColors[2],
                     ],
-                    'data' => [
+                    'data' =>[
                         $postsCount,
                         $commentsCount,
                         $blogSubscribersCount,
                         $postSubscribersCount,
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
     }
