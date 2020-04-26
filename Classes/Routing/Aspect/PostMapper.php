@@ -102,6 +102,13 @@ class PostMapper extends PersistedAliasMapper
         $date = new \DateTime();
         $value = substr($value, strlen($date->format($this->datePrefix)));
 
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException(
+                'Value to resolve is invalid!',
+                1587931928
+            );
+        }
+
         // Remove possible appended route string (e.g. "/comment")
         // Needed since TYPO3 9.5.15 and https://forge.typo3.org/issues/88291
         if (version_compare(TYPO3_version, '9.5.15', '>=')) {
