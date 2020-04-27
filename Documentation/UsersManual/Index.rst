@@ -42,8 +42,8 @@ Create a blogpost
 
 **Post:**
 
-- Author: is determined by the current BE user
-- Title: title of your blog post, you need to fill this field
+- Author: choose the author of your blog post in a list of BE users, required
+- Title: title of your blog post, required
 
 **Preview:**
 
