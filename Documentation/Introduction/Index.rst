@@ -25,6 +25,7 @@ Currently implemented features:
 * Blog system with posts, categories, tags, comments and subscriptions
 * Use all TYPO3 content elements within your blog posts
 * BE Module with dashboard and lists for posts, comments and subscriptions
+* Multiple core dashboard widgets
 * Views: list, detail, latest, categories, archive, latest posts and comments (each is a FE plugin)
 * Filter posts by category, tag or author
 * Fields for preview text and image in list view
@@ -52,10 +53,10 @@ Currently implemented features:
 **Developer related**
 
 * Reasonable cache handling (using cache tags)
-* Default HTML markup matches Twitter Bootstrap 3.x
+* Default HTML markup matches Twitter Bootstrap 3.x or 4.x
 * Using Pootle translation server (translation.typo3.org)
 * Using interfaces and signal / slot for easy extending
-* Supports migration (of EXT:t3blog) and is tested in TYPO3 6-9
+* Supports migration (of EXT:t3blog) and is tested in TYPO3 6-10
 * A few unit tests
 
 

@@ -151,7 +151,9 @@ It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 * Using the subscription manager (confirm and delete for new comment and post subscription)
 * New comment subscription
 	* admin, subscriber opt-in and notification emails
-	* triggered by: frontend & backend (confirm and un-spam a comment)
+	* triggered by:
+      * frontend & backend (confirm and un-spam a comment)
+      * edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
 	* make sure mails are sent with localized links for multi language setups
 * New post subscription
 	* subscriber opt-in (frontend) and notification emails (button in BE module)
@@ -181,7 +183,7 @@ This extension uses the `nimut/testing-framework` testing framework, see https:/
 
 .. code-block:: bash
 
-	cd typo3conf/ext/t3extblog
+	cd web/typo3conf/ext/t3extblog
 
 	composer install
 
@@ -197,6 +199,7 @@ See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the 
 
 **How to release**
 
+* Create upgrade guide!
 * Change version information in :code:`/ext_emconf.php`
 * Change version information in :code:`/Documentation/Settings.yml` and :code:`/Documentation/Settings.cfg`
 * Commit changes: No [XYZ] prefix, this commit message will be the TYPO3 TER release notice
