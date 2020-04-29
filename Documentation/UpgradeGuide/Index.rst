@@ -21,3 +21,4 @@ Upgrade Guide
 	Version-3
 	Version-4
 	Version-5
+	Version-6
