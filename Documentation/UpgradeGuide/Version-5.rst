@@ -16,6 +16,75 @@ Version 5.x
    :depth: 3
 
 
+Upgrade from 5.0.0 to 5.1.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/5.0.0...5.1.0
+
+- Support for Twitter Bootstrap 4.x
+
+- Support for PHP 7.3
+
+- Support of latest TYPO3 logging functionality (PSR-3 based, see FAQ)
+
+- Make use of latest TYPO3 BE module menu API
+
+- Rework dependency injection
+
+- Improve documentation
+
+- Code clean-up (removed and replaced deprecated code usage)
+
+- Some minor bugfixes and improvements
+
+
+**Breaking changes**
+
+- Removed support for TYPO3 < 9.4
+
+- Restructured some templates and partials due to TWBS4 implementation
+
+- Logging has changed
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust your templates to structure change if needed
+
+#. Clear all caches
+
+
+Please note
+"""""""""""
+
+Since TYPO3 9.5.15 the old post URL structure (`yyyy/mm/dd/my-post-title`) is possible again.
+
+**Override the routing**
+
+.. code-block::
+
+   routeEnhancers:
+     T3extblogBlogsystemPlugin:
+       aspects:
+         post_title:
+           datePrefix: 'Y/m/d/'
+
+
+**htaccess redirect**
+
+This will work for the default routing:
+
+.. code-block::
+
+   RewriteRule ^blog/article/(\d{4})-(\d{2})-(\d{2})-(.+)$ /blog/article/$1/$2/$3/$4 [R=301,NC,L]
+
+
+
+
 Upgrade from 4.x to 5.0.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -43,7 +112,7 @@ https://github.com/fnagel/t3extblog/compare/4.0.0...5.0.0
 
 - Removed support for TYPO3 8.x
 
-- Post URL structure has changed (yyyy-mm-dd-my-post-title instead of yyyy/mm/dd/my-post-title)
+- Post URL structure has changed (`yyyy-mm-dd-my-post-title` instead of `yyyy/mm/dd/my-post-title`)
 
 - Removed support for EXT:realurl
 
