@@ -73,6 +73,7 @@ routeEnhancers:
       post_title:
         type: T3extblogPostMapper
         # Remove to disable date segment in the URL
+        # Since TYPO3 9.5.15 / 10.4.0 it's possible to use "/" instead of "-"
         datePrefix: 'Y-m-d-'
       post_prefix_localized:
         type: LocaleModifier
