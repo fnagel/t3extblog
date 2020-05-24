@@ -109,21 +109,6 @@ CREATE TABLE tt_content (
     irre_parenttable tinytext NOT NULL
 );
 
-
-#
-# Table structure for table 'tx_t3blog_post_content_mm'
-#
-CREATE TABLE tx_t3blog_post_content_mm (
-    uid_local int(11) DEFAULT '0' NOT NULL,
-    uid_foreign int(11) DEFAULT '0' NOT NULL,
-    tablenames varchar(30) DEFAULT '' NOT NULL,
-    sorting int(11) DEFAULT '0' NOT NULL,
-
-    KEY uid_local (uid_local),
-    KEY uid_foreign (uid_foreign)
-);
-
-
 #
 # Table structure for table 'tx_t3blog_post_cat_mm'
 #
