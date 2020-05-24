@@ -17,9 +17,6 @@ return [
         ],
         'searchFields' => 'email',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid,hidden,email,lastsent,code,privacy_policy_accepted',
-    ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => 1,

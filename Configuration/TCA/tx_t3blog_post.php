@@ -29,10 +29,6 @@ return [
         'dividers2tabs' => true,
         'searchFields' => 'title',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,title,
-			url_segment,author,date,content,allow_comments,cat,tagClouds,trackback,number_views,mails_sent',
-    ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => 1,

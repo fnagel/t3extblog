@@ -18,9 +18,6 @@ return [
         ],
         'searchFields' => 'email,name',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden,email,name,lastsent,post_uid,code',
-    ],
     'columns' => [
         'crdate' => [
             'config' => [

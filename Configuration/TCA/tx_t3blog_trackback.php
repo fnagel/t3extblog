@@ -17,9 +17,6 @@ return [
         ],
         'searchFields' => 'title,fromurl,text,blogname',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden,fromurl,text,title,postid,id',
-    ],
     'columns' => [
         'hidden' => [
             'exclude' => 1,

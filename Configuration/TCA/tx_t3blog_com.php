@@ -23,9 +23,6 @@ return [
         'dividers2tabs' => true,
         'searchFields' => 'title,author,email,website,text',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,title,author,email,website,date,text,approved,spam,fk_post',
-    ],
     'columns' => [
         'crdate' => [
             'config' => [

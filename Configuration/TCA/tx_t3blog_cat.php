@@ -30,9 +30,6 @@ return [
         'dividers2tabs' => true,
         'searchFields' => 'catname,description',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid,l18n_parent,l18n_diffsource,hidden,starttime,endtime,fe_group,parent_id,catname,url_segment,description',
-    ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => 1,

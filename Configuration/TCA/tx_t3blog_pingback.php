@@ -19,9 +19,6 @@ return [
         ],
         'searchFields' => 'title,url,text,',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden,starttime,endtime,title,url,date,text',
-    ],
     'columns' => [
         'hidden' => [
             'exclude' => 1,
