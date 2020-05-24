@@ -212,6 +212,7 @@ return [
                 'foreign_table' => 'tt_content',
                 'foreign_table_field' => 'irre_parenttable',
                 'foreign_field' => 'irre_parentid',
+                'foreign_sortby' => 'sorting',
                 'minitems' => 0,
                 'maxitems' => 99,
                 'appearance' => [
