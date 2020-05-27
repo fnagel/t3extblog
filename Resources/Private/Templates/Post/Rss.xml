@@ -24,59 +24,7 @@
             <f:if condition="{posts}">
                 <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
                     <f:for each="{paginatedPosts}" as="post">
-                        <item>
-                            <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
-                            <pubDate><f:format.date format="D, d M Y H:i:s O">{post.publishDate}</f:format.date></pubDate>
-                            <link>
-                                <f:format.htmlspecialchars>
-                                    <f:uri.action
-                                        controller="Post"
-                                        action="show"
-                                        pageUid="{settings.blogsystem.pid}"
-                                        absolute="true"
-                                        arguments="{post.linkParameter}"
-                                    />
-                                </f:format.htmlspecialchars>
-                            </link>
-                            <guid isPermaLink="false">post-{post.uid}</guid>
-                            <source url="{f:uri.action(controller: 'Post', action: 'show', pageUid: '{settings.blogsystem.pid}', absolute: 1, arguments: '{post.linkParameter}')}">
-                                <f:format.htmlspecialchars>
-                                    <f:uri.action
-                                        controller="Post"
-                                        action="show"
-                                        pageUid="{settings.blogsystem.pid}"
-                                        absolute="true"
-                                        arguments="{post.linkParameter}"
-                                    />
-                                </f:format.htmlspecialchars>
-                            </source>
-                            <author><f:format.htmlspecialchars>{post.author.name}</f:format.htmlspecialchars></author>
-                            <f:for each="{post.categories}" as="category">
-                                <category domain="{f:uri.action(controller: 'Post', action: 'category', pageUid: '{settings.blogsystem.pid}', absolute: 1, arguments: '{category : category}')}">
-                                    <f:format.htmlspecialchars>
-                                        {category.name}
-                                    </f:format.htmlspecialchars>
-                                </category>
-                            </f:for>
-                            <description>
-                                <f:format.htmlspecialchars>
-                                    <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
-                                </f:format.htmlspecialchars>
-                            </description>
-                            <f:if condition="{post.previewImage}">
-                                <enclosure url="{f:uri.image(image: post.previewImage, absolute:1, maxWidth: '{settings.blogsystem.posts.previewImage.width}', maxHeight: '{settings.blogsystem.posts.previewImage.height}')}" type="{post.previewImage.mimeType}"/>
-                            </f:if>
-                            <f:if condition="{post.content}">
-                                <content:encoded>
-                                    <f:format.cdata>
-                                        <div class="content">
-                                            <t3b:renderContent contentElements="{post.content}" />
-                                        </div>
-                                        <div style="clear: both;"></div>
-                                    </f:format.cdata>
-                                </content:encoded>
-                            </f:if>
-                        </item>
+                        <f:render partial="Post/RssItem.xml" arguments="{_all}" />
                     </f:for>
                 </f:widget.paginate>
             </f:if>
