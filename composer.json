@@ -31,9 +31,9 @@
     }
   },
   "autoload-dev": {
-	"psr-4": {
-	   "FelixNagel\\T3extblog\\Tests\\": "Tests"
-	}
+    "psr-4": {
+       "FelixNagel\\T3extblog\\Tests\\": "Tests"
+    }
   },
   "conflict": {
     "typo3-ter/t3blog": ">=0.0.1",
