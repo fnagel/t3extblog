@@ -103,10 +103,7 @@ class PostMapper extends PersistedAliasMapper
         $value = substr($value, strlen($date->format($this->datePrefix)));
 
         if (!is_string($value)) {
-            throw new \InvalidArgumentException(
-                'Value to resolve is invalid!',
-                1587931928
-            );
+            return null;
         }
 
         // Remove possible appended route string (e.g. "/comment")
@@ -123,6 +120,11 @@ class PostMapper extends PersistedAliasMapper
             $this->routeFieldName => $value
         ]);
 
+        if ($result === null) {
+            return null;
+        }
+
+        // Comment submitted?
         $value = $this->getRouteValueFromResult($result, $value);
         if ($valueBackup !== $value) {
             return null;
