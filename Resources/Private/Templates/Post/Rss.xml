@@ -1,87 +1,93 @@
-{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>{settings.blogName}</title>
-		<link><f:uri.action pageUid="{settings.blogsystem.pid}" absolute="true" /></link>
-		<description></description>
-		<language></language>
-		<copyright></copyright>
-		<pubDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
-		<lastBuildDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
-		<category></category>
-		<generator>t3extblog extension for TYPO3</generator>
-		<image>
-			<url></url>
-			<title></title>
-			<link></link>
-		</image>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:content="http://purl.org/rss/1.0/modules/content/"
+      xmlns:atom="http://www.w3.org/2005/Atom"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend"
+      data-namespace-typo3-fluid="true">
+    <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+            <title>{settings.blogName}</title>
+            <link><f:uri.action pageUid="{settings.blogsystem.pid}" absolute="true" /></link>
+            <description></description>
+            <language></language>
+            <copyright></copyright>
+            <pubDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
+            <lastBuildDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
+            <category></category>
+            <generator>t3extblog extension for TYPO3</generator>
+            <image>
+                <url></url>
+                <title></title>
+                <link></link>
+            </image>
 
-		<f:if condition="{posts}">
-            <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
-				<f:for each="{paginatedPosts}" as="post">
-					<item>
-                        <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
-                        <pubDate><f:format.date format="D, d M Y H:i:s O">{post.publishDate}</f:format.date></pubDate>
-                        <link>
-                            <f:format.htmlspecialchars>
-                                <f:uri.action
-                                    controller="Post"
-                                    action="show"
-                                    pageUid="{settings.blogsystem.pid}"
-                                    absolute="true"
-                                    arguments="{post.linkParameter}"
-                                />
-                            </f:format.htmlspecialchars>
-                        </link>
-                        <guid isPermaLink="false">post-{post.uid}</guid>
-                        <source url="<f:uri.action controller="Post" action="show" pageUid="{settings.blogsystem.pid}" absolute="true" arguments="{post.linkParameter}" />">
-                            <f:format.htmlspecialchars>
-                                <f:uri.action
-                                    controller="Post"
-                                    action="show"
-                                    pageUid="{settings.blogsystem.pid}"
-                                    absolute="true"
-                                    arguments="{post.linkParameter}"
-                                />
-                            </f:format.htmlspecialchars>
-                        </source>
-                        <author><f:format.htmlspecialchars>{post.author.name}</f:format.htmlspecialchars></author>
-                        <category></category>
-                        <description>
-                            <f:format.htmlspecialchars>
-                                <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
-                            </f:format.htmlspecialchars>
-                        </description>
-                        <content:encoded>
-                            <f:format.cdata>
-                                <h2><f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post.linkParameter}" absolute="true">{post.title}</f:link.action></h2>
-                                <em class="author">by {post.author.name}</em>
-                                <span class="date">{post.publishDate -> f:format.date()}</span>
-                                <br /><br />
-								Categories:
-								<f:for each="{post.categories}" as="category">
-									<span class="category">
-										<f:link.action
-											controller="Post"
-											action="list"
-											pageUid="{settings.blogsystem.pid}"
-											absolute="true"
-											arguments="{category : category}"
-										>{category.name}</f:link.action>
-									</span>
-								</f:for>
-                                <br /><br />
-                                <f:if condition="{post.content}">
-                                    <div class="content">
-                                        <t3b:renderContent contentElements="{post.content}" />
-								    </div>
-                                    <div style="clear: both;"></div>
-                                </f:if>
-                            </f:format.cdata>
-                        </content:encoded>
-                    </item>
-				</f:for>
-			</f:widget.paginate>
-		</f:if>
-	</channel>
-</rss>
+            <f:if condition="{posts}">
+                <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
+                    <f:for each="{paginatedPosts}" as="post">
+                        <item>
+                            <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
+                            <pubDate><f:format.date format="D, d M Y H:i:s O">{post.publishDate}</f:format.date></pubDate>
+                            <link>
+                                <f:format.htmlspecialchars>
+                                    <f:uri.action
+                                        controller="Post"
+                                        action="show"
+                                        pageUid="{settings.blogsystem.pid}"
+                                        absolute="true"
+                                        arguments="{post.linkParameter}"
+                                    />
+                                </f:format.htmlspecialchars>
+                            </link>
+                            <guid isPermaLink="false">post-{post.uid}</guid>
+                            <source url="{f:uri.action(controller: 'Post', action: 'show', pageUid: '{settings.blogsystem.pid}', absolute: 1, arguments: '{post.linkParameter}')}">
+                                <f:format.htmlspecialchars>
+                                    <f:uri.action
+                                        controller="Post"
+                                        action="show"
+                                        pageUid="{settings.blogsystem.pid}"
+                                        absolute="true"
+                                        arguments="{post.linkParameter}"
+                                    />
+                                </f:format.htmlspecialchars>
+                            </source>
+                            <author><f:format.htmlspecialchars>{post.author.name}</f:format.htmlspecialchars></author>
+                            <category></category>
+                            <description>
+                                <f:format.htmlspecialchars>
+                                    <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
+                                </f:format.htmlspecialchars>
+                            </description>
+                            <content:encoded>
+                                <f:format.cdata>
+                                    <h2><f:link.action pageUid="{settings.blogsystem.pid}" controller="Post" action="show" arguments="{post.linkParameter}" absolute="true">{post.title}</f:link.action></h2>
+                                    <em class="author">by {post.author.name}</em>
+                                    <span class="date">{post.publishDate -> f:format.date()}</span>
+                                    <br /><br />
+                                    Categories:
+                                    <f:for each="{post.categories}" as="category">
+                                        <span class="category">
+                                            <f:link.action
+                                                controller="Post"
+                                                action="list"
+                                                pageUid="{settings.blogsystem.pid}"
+                                                absolute="true"
+                                                arguments="{category : category}"
+                                            >{category.name}</f:link.action>
+                                        </span>
+                                    </f:for>
+                                    <br /><br />
+                                    <f:if condition="{post.content}">
+                                        <div class="content">
+                                            <t3b:renderContent contentElements="{post.content}" />
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                    </f:if>
+                                </f:format.cdata>
+                            </content:encoded>
+                        </item>
+                    </f:for>
+                </f:widget.paginate>
+            </f:if>
+        </channel>
+    </rss>
+</html>
