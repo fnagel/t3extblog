@@ -51,7 +51,13 @@
                                 </f:format.htmlspecialchars>
                             </source>
                             <author><f:format.htmlspecialchars>{post.author.name}</f:format.htmlspecialchars></author>
-                            <category></category>
+                            <f:for each="{post.categories}" as="category">
+                                <category domain="{f:uri.action(controller: 'Post', action: 'category', pageUid: '{settings.blogsystem.pid}', absolute: 1, arguments: '{category : category}')}">
+                                    <f:format.htmlspecialchars>
+                                        {category.name}
+                                    </f:format.htmlspecialchars>
+                                </category>
+                            </f:for>
                             <description>
                                 <f:format.htmlspecialchars>
                                     <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
