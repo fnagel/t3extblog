@@ -63,6 +63,9 @@
                                     <f:format.crop maxCharacters="200" respectWordBoundaries="true">{post.preview}</f:format.crop>
                                 </f:format.htmlspecialchars>
                             </description>
+                            <f:if condition="{post.previewImage}">
+                                <enclosure url="{f:uri.image(image: post.previewImage, absolute:1, maxWidth: '{settings.blogsystem.posts.previewImage.width}', maxHeight: '{settings.blogsystem.posts.previewImage.height}')}" type="{post.previewImage.mimeType}"/>
+                            </f:if>
                             <f:if condition="{post.content}">
                                 <content:encoded>
                                     <f:format.cdata>
