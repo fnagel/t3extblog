@@ -17,10 +17,8 @@ use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 /**
  * PostTagMapper
  */
-class PostTagMapper extends PersistedAliasMapper
+class PostTagMapper extends AbstractPersistedAliasMapper
 {
-    use SiteLanguageAwareTrait;
-
     /**
      * @var bool
      */

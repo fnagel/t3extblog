@@ -10,16 +10,14 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Routing\Aspect\PersistedAliasMapper;
+use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 
 /**
  * PostMapper
  */
-class PostMapper extends PersistedAliasMapper
+class PostMapper extends AbstractPersistedAliasMapper
 {
-    use SiteLanguageAwareTrait;
-
     /**
      * @var string
      */
@@ -103,6 +101,7 @@ class PostMapper extends PersistedAliasMapper
         $value = substr($value, strlen($date->format($this->datePrefix)));
 
         if (!is_string($value)) {
+            $this->logNotFound('Invalid blog post date given!');
             return null;
         }
 
@@ -121,6 +120,7 @@ class PostMapper extends PersistedAliasMapper
         ]);
 
         if ($result === null) {
+            $this->logNotFound('Invalid blog post slug given!');
             return null;
         }
 

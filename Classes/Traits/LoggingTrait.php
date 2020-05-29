@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Traits;
  */
 
 use FelixNagel\T3extblog\Service\LoggingServiceInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * LoggingTrait
@@ -36,6 +37,10 @@ trait LoggingTrait
      */
     protected function getLog()
     {
+        if ($this->log === null) {
+            $this->log = GeneralUtility::makeInstance(LoggingServiceInterface::class);
+        }
+
         return $this->log;
     }
 }
