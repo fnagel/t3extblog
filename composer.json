@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": ">=7.0,<7.4",
-    "typo3/cms-core": ">=10.4.0,<=10.4.99"
+    "typo3/cms-core": ">=10.4.1,<=10.4.99"
   },
   "require-dev": {
     "nimut/testing-framework": "^5.0"

@@ -46,8 +46,8 @@ call_user_func(function ($packageKey) {
         );
         $iconRegistry->registerIcon(
             'extensions-t3extblog-plugin',
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.svg']
+            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+            ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png']
         );
         $iconRegistry->registerIcon(
             'tcarecords-pages-contains-t3blog',
@@ -69,7 +69,7 @@ call_user_func(function ($packageKey) {
             ],
             [
                 'access' => 'user,group',
-                'icon' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.svg',
+                'icon' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png',
                 'labels' => 'LLL:EXT:'.$packageKey.'/Resources/Private/Language/locallang_mod.xml',
                 'navigationComponentId' => 'typo3-pagetree',
             ]
