@@ -16,6 +16,34 @@ Version 6.x
    :depth: 3
 
 
+Upgrade from 6.0.0 to 6.0.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/6.0.0...6.0.1
+
+- RSS template improvements (CGL, added item categories and image closure tags, introduce item partial)
+
+- Improve routing error logging
+
+- Some SQL and TCA clean-up
+
+- Some minor bugfixes and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Remove obsolete table in DB using "Analyze Database" in Install tool / Maintenance module
+
+#. Adjust your RSS templates if needed
+
+#. Clear caches
+
+
+
 Upgrade from 5.1.0 to 6.0.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
