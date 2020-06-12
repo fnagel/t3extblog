@@ -55,10 +55,11 @@ routeEnhancers:
           'post_page': '@widget_0/currentPage'
     requirements:
       post_page: '\d+'
-      post_title: '\d+'
       post_permalink_uid: '\d+'
-      author_title: '\d+'
-      category_title: '\d+'
+      post_title: '^[\d\-\/]{0,11}[\p{Ll}\d\-\_]+$'
+      author_title: '^[\p{Ll}\d\-\_]+$'
+      category_title: '^[\p{Ll}\d\-\_]+$'
+      tag_title: '^[\p{Ll}\p{P}\d\-\_ ]+$'
     aspects:
       post_page:
         type: StaticRangeMapper
