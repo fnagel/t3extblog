@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -108,6 +109,10 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     protected function sendSubscriberEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = [])
     {
+        if (empty($subscriber->getEmail())) {
+            throw new Exception('Email address is a required property!', 1592248953);
+        }
+
         $defaultVariables = [
             'subscriber' => $subscriber,
             'validUntil' => $this->getValidUntil(),
