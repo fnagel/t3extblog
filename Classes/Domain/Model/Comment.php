@@ -51,7 +51,6 @@ class Comment extends AbstractEntity
      * email.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      * @Extbase\Validate("EmailAddress")
      */
     protected $email;
