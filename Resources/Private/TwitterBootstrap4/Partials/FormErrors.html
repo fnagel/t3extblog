@@ -8,7 +8,7 @@
 			<ul class="list-unstyled">
 				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
 					<li>
-						<a href="{anchorLink}#{propertyPath}" class="alert-link">
+						<a href="{anchorLink}#{propertyPath}" class="alert-link" data-key="error.{propertyPath}.{errors.0.code}">
 							<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
 						</a>
 					</li>
