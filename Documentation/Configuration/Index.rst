@@ -43,7 +43,7 @@ Make sure to setup at least the following settings (see :code:`/Configuration/Ty
 General configuration
 ---------------------
 
-*plugin.tx_t3extblog.*
+Key prefix is *plugin.tx_t3extblog.*
 
 =========================================   =========================================================================================================
 Property                                    Description
@@ -55,11 +55,11 @@ settings.blogSubscription                   Configure blog (new post) subscripti
 settings.categories                         Some settings for the categorie-module
 settings.latestPosts                        Some settings for the latest posts module
 settings.latestComments                     Some settings for the latest comments module
-settings.rss                                Basis rss-settings (see :code:`/Configuration/TypoScript/RSS/setup.txt` for page config)
+settings.rss                                Basis rss-settings (see :code:`/Configuration/TypoScript/RSS/setup.typoscript` for page config)
 settings.backend                            Configure the backend output
 settings.debug                              Some debug configs
-settings.privacyPolicy.enabled              Enable the privacy policy checkbox in the subscription forms
-settings.privacyPolicy.typolink             Set a typolink as the privacy policy link
+settings.*.privacyPolicy.enabled            Enable the privacy policy checkbox in the subscription forms
+settings.*.privacyPolicy.typolink           Set a typolink as the privacy policy link
 lib.tx_t3extblog.date                       Localize date format, used within the fluid templates
 lib.tx_t3extblog.month                      Localize month format, used within the fluid templates
 =========================================   =========================================================================================================
@@ -67,7 +67,7 @@ lib.tx_t3extblog.month                      Localize month format, used within t
 
 Like most other extensions, settings can be overwritten via TypoScript.
 
-Have a look at :code:`/Configuration/TypoScript/setup.txt`.
+Have a look at :code:`/Configuration/TypoScript/setup.typoscript` and its includes (see `/Configuration/TypoScript/Includes/Settings`).
 
 
 SPAM checks

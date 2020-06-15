@@ -92,7 +92,7 @@ Depending on your configuration users can confirm, add and remove subscriptions 
 
 We've already did some basic settings for this plugin in the installation process, but you should do so some more configuration.
 
-Configure the Subscription manager via with (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "subscriptionManager"!
+Configure the Subscription manager via with (see :code:`/Configuration/TypoScript/Includes/Settings/SubscriptionManager.typoscript`).
 
 .. important::
 
@@ -110,7 +110,7 @@ Blog Subscription Form
 
 This plugin provides a simple form which enables users to subscribe for new blog posts. Uses opt-in emails for confirmation.
 
-Configure the Subscription manager form with TS (see :code:`t3extblog\Configuration\TypoScript\setup.txt`, look for "blogSubscription"!
+Configure the Subscription manager form with TS (see :code:`/Configuration/TypoScript/Includes/Settings/BlogSubscription.typoscript`).
 
 
 RSS Feed
@@ -134,7 +134,7 @@ When you open the page, the output should look like this:
 .. figure:: ../Images/AdministratorManual/rssoutput.png
 	:alt: RSS output
 
-Have a look at :code:`/Configuration/TypoScript/RSS/setup.txt`
+Have a look at :code:`/Configuration/TypoScript/RSS/setup.typoscript`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.
 
 .. important::
@@ -166,8 +166,7 @@ the page where the blogsystem plugin is included).
 	}
 
 
-By default, hidden posts are only visible to authenticated backend users. This is done by TypoScript
-(:code:`settings.previewHiddenRecords`), please see :code:`/Configuration/TypoScript/setup.txt`.
+By default, hidden posts are only visible to authenticated backend users.
 
 
 

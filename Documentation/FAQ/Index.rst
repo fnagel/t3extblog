@@ -123,7 +123,7 @@ Sitemap
 
 This extension include a preconfigured setup for the TYPO3 CMS core feature sitemap
 which could be included as a static template.
-See :code:`t3extblog/Configuration/TypoScript/Sitemap/setup.txt` for details.
+See :code:`t3extblog/Configuration/TypoScript/Sitemap/setup.typoscript` for details.
 
 .. tip::
 

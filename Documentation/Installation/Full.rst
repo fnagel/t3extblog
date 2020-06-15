@@ -75,7 +75,7 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 		}
 		module.tx_t3extblog < plugin.tx_t3extblog
 
-For more configuration-options and the associated explanations see :code:`/Configuration/TypoScript/setup.txt`.
+See :ref:`Configuration <configuration>` for all possible settings.
 
 
 .. important::
@@ -90,8 +90,8 @@ For more configuration-options and the associated explanations see :code:`/Confi
 .. tip::
 
 	It is recommended to use the constants in conjunction with custom TypoScript. Copy both configuration files
-	(constants.txt and setup.txt located in `typo3conf/ext/t3extblog/Configuration/TypoScript`) and include
-	(using :code:`<INCLUDE_TYPOSCRIPT: source="FILE:EXT:my_extension/.../setup.txt">` them in your root template.
+	(`constants.typoscript` and `setup.typoscript` located in `EXT:t3extblog/Configuration/TypoScript`) and include
+	(using :code:`<INCLUDE_TYPOSCRIPT: source="FILE:EXT:my_extension/.../setup.typoscript">` them in your root template.
 
 
 Next Steps
