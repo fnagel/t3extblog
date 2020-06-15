@@ -91,7 +91,7 @@ class SettingsService
         }
 
         if ($this->frameworkSettings === null) {
-            throw new Exception('No framework typoscript settings available.');
+            throw new Exception('No framework TypoScript configuration available!', 1592249266);
         }
 
         return $this->frameworkSettings;
@@ -115,7 +115,7 @@ class SettingsService
         }
 
         if ($this->typoScriptSettings === null) {
-            throw new Exception('No typoscript settings available.');
+            throw new Exception('No settings TypoScript configuration available!', 1592249324);
         }
 
         return $this->typoScriptSettings;
