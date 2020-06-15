@@ -11,10 +11,8 @@ namespace FelixNagel\T3extblog\Validation\Validator;
 
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Comment;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
  * Validator for the privacy policy checkbox that respects,
@@ -31,23 +29,6 @@ class PrivacyPolicyValidator extends AbstractValidator
     ];
 
     /**
-     * The ConfigurationManager
-     *
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
-
-    /**
-     * Inject the ConfigurationManager
-     *
-     * @param ConfigurationManager $configurationManager
-     */
-    public function injectConfigurationManager(ConfigurationManager $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-    }
-
-    /**
      * Check if $value is valid. If it is not valid, needs to add an error
      * to result.
      *
@@ -58,7 +39,7 @@ class PrivacyPolicyValidator extends AbstractValidator
         if ($this->options['property'] !== null &&
             ($value instanceof AbstractEntity && !$value->_hasProperty($this->options['property']))
         ) {
-            throw new \TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException(
+            throw new InvalidValidationOptionsException(
                 'Invalid model property!',
                 1543775154
             );
@@ -68,7 +49,7 @@ class PrivacyPolicyValidator extends AbstractValidator
             $value = $value->_getProperty($this->options['property']);
         }
 
-        $configuration = $this->getConfiguration($this->options['key']);
+        $configuration = $this->getPrivacyPolicyConfiguration($this->options['key']);
 
         if ($configuration['privacyPolicy']['enabled'] && !$value) {
             $error = new Error('Please accept the privacy policy.', 1526564974);
@@ -85,20 +66,17 @@ class PrivacyPolicyValidator extends AbstractValidator
      * @param string $key
      * @return array
      */
-    protected function getConfiguration($key)
+    protected function getPrivacyPolicyConfiguration($key)
     {
-        $settings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            't3extblog'
-        );
+        $settings = $this->getConfiguration();
         $configuration = [
             'blog' => $settings['blogSubscription'],
             'comment' => $settings['blogsystem']['comments'],
         ];
 
         if (!array_key_exists($key, $configuration)) {
-            throw new \TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException(
-                'Invalid TypoScript settings key!',
+            throw new InvalidValidationOptionsException(
+                'Invalid privacy policy TypoScript settings key!',
                 1543528851
             );
         }
