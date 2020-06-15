@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Exception\Exception;
 
 /**
  * PostSubscriberRepository.
@@ -65,6 +66,10 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
      */
     public function findForSubscriptionMail(Comment $comment)
     {
+        if (empty($comment->getEmail())) {
+            throw new Exception('Email address is a required property!', 1592248975);
+        }
+
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
