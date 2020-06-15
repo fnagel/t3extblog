@@ -135,6 +135,7 @@ class CommentController extends AbstractCommentController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment The comment to create
+     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator", param="newComment")
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", param="newComment", options={"key": "comment", "property": "privacyPolicyAccepted"})
      */
     public function createAction(Post $post, Comment $newComment)

@@ -91,9 +91,11 @@ class CommentNotificationService extends AbstractNotificationService
         );
 
         if ($comment->isValid()) {
-            $subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
-            if ($subscriber instanceof PostSubscriber) {
-                $this->sendOptInMail($subscriber, $comment);
+            if (!empty($comment->getEmail())) {
+                $subscriber = $this->subscriberRepository->findForSubscriptionMail($comment);
+                if ($subscriber instanceof PostSubscriber) {
+                    $this->sendOptInMail($subscriber, $comment);
+                }
             }
 
             $this->notifySubscribers($comment);
@@ -112,6 +114,10 @@ class CommentNotificationService extends AbstractNotificationService
      */
     protected function isNewSubscriptionValid(Comment $comment)
     {
+        if (empty($comment->getEmail())) {
+            return false;
+        }
+
         if (!$this->settings['blogsystem']['comments']['subscribeForComments'] || !$comment->getSubscribe()) {
             return false;
         }
@@ -196,7 +202,6 @@ class CommentNotificationService extends AbstractNotificationService
             return;
         }
 
-        /* @var $post Post */
         $post = $comment->getPost();
         $subscribers = $this->subscriberRepository->findForNotification($post);
         $subject = $this->translate('subject.subscriber.comment.notify', $post->getTitle());
@@ -215,7 +220,11 @@ class CommentNotificationService extends AbstractNotificationService
 
         /* @var $subscriber PostSubscriber */
         foreach ($subscribers as $subscriber) {
-            // make sure we do not notify the author of the triggering comment
+            if (empty($subscriber->getEmail())) {
+                continue;
+            }
+
+            // Make sure we do not notify the author of the triggering comment
             if ($comment->getEmail() === $subscriber->getEmail()) {
                 continue;
             }

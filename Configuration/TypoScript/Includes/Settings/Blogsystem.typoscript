@@ -49,7 +49,7 @@ plugin.tx_t3extblog {
 
 			comments {
 				allowed = 1
-				# auto close comments, 0 = disabled
+				# Auto close comments, 0 = disabled
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				allowedUntil = +6 months
 
@@ -62,11 +62,14 @@ plugin.tx_t3extblog {
 					authorField = fullName
 				}
 
-				# comments are approved by default
+				# Comments are approved by default
 				approvedByDefault = 0
 
-				# subscribe for new comment allowed
+				# Subscribe for new comment allowed
 				subscribeForComments = 1
+
+				# Is email required for new comments?
+				requireEmail = 1
 
 				# Allow tags in comment text
 				# example config: <em>, <strong>, <code>

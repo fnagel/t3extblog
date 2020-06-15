@@ -43,6 +43,7 @@ Currently implemented features:
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
 * Opt-In mails for subscriptions with configurable expiration date
 * Configurable spam check: "I am human" checkbox, honeypot, cookie and user agent
+* Email address for comments is optional (but will be enforced if subscription checkbox is enabled)
 * Auto close comments functionality
 * Allow some HTML tags in comment message
 * GDPR / DSGVO checkboxes
