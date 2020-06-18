@@ -93,7 +93,6 @@ class PostTagMapper extends AbstractPersistedAliasMapper
                     \PDO::PARAM_STR
                 )
             );
-
         }
 
         return $constraints;

@@ -180,9 +180,9 @@ return [
                 'fallbackCharacter' => '-',
                 'generatorOptions' => [
                     'fields' => ['catname'],
-					'replacements' => [
-						'/' => '-'
-					],
+                    'replacements' => [
+                        '/' => '-'
+                    ],
                 ],
             ],
         ],

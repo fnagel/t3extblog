@@ -103,7 +103,7 @@ abstract class AbstractRepository extends Repository
 
         $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             \TYPO3\CMS\Core\Database\ConnectionPool::class
-            )
+        )
             ->getQueryBuilderForTable($table);
 
         return $queryBuilder->escapeLikeWildcards($value);

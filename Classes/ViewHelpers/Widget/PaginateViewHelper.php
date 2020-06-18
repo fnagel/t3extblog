@@ -16,5 +16,4 @@ use TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper as BasePaginateViewHel
  */
 class PaginateViewHelper extends BasePaginateViewHelper
 {
-
 }

@@ -16,5 +16,4 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
  */
 abstract class AbstractListDataProvider extends AbstractDataProvider implements ListDataProviderInterface
 {
-
 }

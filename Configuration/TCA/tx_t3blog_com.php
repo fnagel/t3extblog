@@ -114,7 +114,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,email',
+                'eval' => 'email',
                 'softref' => 'email',
             ],
         ],

@@ -45,5 +45,4 @@ interface LoggingServiceInterface
      * @param array  $data Data
      */
     public function dev($msg, array $data = []);
-
 }
