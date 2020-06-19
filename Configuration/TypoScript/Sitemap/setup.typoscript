@@ -15,10 +15,12 @@ plugin.tx_seo {
 							fieldToParameterMap {
 								uid = tx_t3extblog_blogsystem[post]
 							}
+
 							additionalGetParameters {
 								tx_t3extblog_blogsystem.controller = Post
 								tx_t3extblog_blogsystem.action = show
 							}
+
 							useCacheHash = 1
 						}
 					}

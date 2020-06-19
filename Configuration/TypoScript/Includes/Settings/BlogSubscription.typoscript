@@ -13,10 +13,11 @@ plugin.tx_t3extblog.settings {
 				# To block comment and redirect user, 0 = disable
 				redirect = 10
 			}
+
 			redirect {
 				pid =
-				arguments {
-				}
+				# arguments {
+				# }
 			}
 
 			### Spam points by check, 0 = disabled

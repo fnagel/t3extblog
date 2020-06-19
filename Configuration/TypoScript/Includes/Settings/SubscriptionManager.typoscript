@@ -15,11 +15,13 @@ plugin.tx_t3extblog.settings {
 					email = {$plugin.tx_t3extblog.settings.emailTo}
 					name =
 				}
+
 				mailFrom {
 					email = {$plugin.tx_t3extblog.settings.emailFrom}
 					name = {$plugin.tx_t3extblog.settings.blogName}
 				}
 			}
+
 			subscriber {
 				enableNotifications = 1
 

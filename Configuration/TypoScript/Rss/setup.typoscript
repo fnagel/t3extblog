@@ -3,16 +3,17 @@ page >
 page = PAGE
 page {
 	# define typeNum for RealUrl
-    # typeNum = 9818
-    10 < tt_content.list.20.t3extblog_rss
-    10 {
+	# typeNum = 9818
+	10 < tt_content.list.20.t3extblog_rss
+	10 {
 		switchableControllerActions {
 			Post {
 				1 = rss
 			}
 		}
+
 		settings < plugin.tx_t3extblog.settings
-    }
+	}
 }
 
 config {

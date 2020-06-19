@@ -4,13 +4,13 @@ plugin.tx_t3extblog {
 			pid = {$plugin.tx_t3extblog.settings.blogsystem.pid}
 
 			posts {
-				viewCount {
-					# NOT IMPLEMENTED YET
-					# views: Amount of seconds which have to pass by until an returning visitor is recounted.
-					# if you want to have counted each view just put a negative number.
-					# timePeriod = 10000
-					# countBackendUsers = 1
-				}
+				# viewCount {
+				# NOT IMPLEMENTED YET
+				# views: Amount of seconds which have to pass by until an returning visitor is recounted.
+				# if you want to have counted each view just put a negative number.
+				# timePeriod = 10000
+				# countBackendUsers = 1
+				# }
 
 				previewImage {
 					width = {$plugin.tx_t3extblog.settings.previewImage.width}
@@ -76,10 +76,11 @@ plugin.tx_t3extblog {
 						# to block comment and redirect user, 0 = disable
 						redirect = 16
 					}
+
 					redirect {
 						pid =
-						arguments {
-						}
+						# arguments {
+						# }
 					}
 
 					### spam points by check, 0 = disabled

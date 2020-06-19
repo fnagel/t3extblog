@@ -1,7 +1,7 @@
 mod.wizards.newContentElement.wizardItems.blog {
-    header = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:tab.title
+	header = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:tab.title
 
-    elements {
+	elements {
 		t3extblog_blogsystem {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsystem.title
@@ -10,7 +10,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_blogsystem
 			}
-        }
+		}
+
 		t3extblog_subscriptionmanager {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:subscriptionmanager.title
@@ -19,7 +20,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_subscriptionmanager
 			}
-        }
+		}
+
 		t3extblog_blogsubscription {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:blogsubscription.title
@@ -28,7 +30,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_blogsubscription
 			}
-        }
+		}
+
 		t3extblog_archive {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:archive.title
@@ -37,7 +40,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_archive
 			}
-        }
+		}
+
 		t3extblog_rss {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:rss.title
@@ -46,7 +50,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_rss
 			}
-        }
+		}
+
 		t3extblog_categories {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:categories.title
@@ -55,7 +60,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_categories
 			}
-        }
+		}
+
 		t3extblog_latestposts {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestposts.title
@@ -64,7 +70,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_latestposts
 			}
-        }
+		}
+
 		t3extblog_latestcomments {
 			iconIdentifier = extensions-t3extblog-plugin
 			title = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:latestcomments.title
@@ -73,8 +80,8 @@ mod.wizards.newContentElement.wizardItems.blog {
 				CType = list
 				list_type = t3extblog_latestcomments
 			}
-        }
-    }
+		}
+	}
 
-    show = *
+	show = *
 }
