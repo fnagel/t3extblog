@@ -193,8 +193,8 @@ This extension uses the `nimut/testing-framework` testing framework, see https:/
 TER deployment
 --------------
 
-TYPO3 TER deployment is done automated via GitHub hooks. Just add a version tag and push to GitHub.
-See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the topic.
+TYPO3 TER deployment is done automated via GitHub action workflow. Just add a version tag and push to GitHub.
+See `/.github/workflows/release.yml` for more information.
 
 
 **How to release**
@@ -205,7 +205,7 @@ See https://github.com/FluidTYPO3/fluidtypo3-gizzle for more information on the 
 * Commit changes: No [XYZ] prefix, this commit message will be the TYPO3 TER release notice
 * Add tag to release commit (format: "1.2.3")
 * Change version information in :code:`/ext_emconf.php` to next bugfix version + "dev" (example: "1.2.4dev")
-* Push changes to GitHub (:code:`git push --tags`)
+* Push GIT tag
 
 
 **After a release**
