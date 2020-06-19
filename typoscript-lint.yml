@@ -1,0 +1,15 @@
+paths:
+  - Configuration/TypoScript
+  - Configuration/TSconfig
+
+sniffs:
+  - class: Indentation
+    parameters:
+      useSpaces: false
+      indentPerLevel: 1
+  - class: DeadCode
+    disabled: true
+  - class: RepeatingRValue
+    disabled: true
+  - class: NestingConsistency
+    disabled: true

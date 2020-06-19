@@ -23,7 +23,12 @@
     "typo3/cms-core": ">=10.4.1,<=10.4.99"
   },
   "require-dev": {
-    "nimut/testing-framework": "^5.0"
+    "nimut/testing-framework": "^5.0",
+    "squizlabs/php_codesniffer": "^3.5",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpmd/phpmd": "^2.8",
+    "php-parallel-lint/php-parallel-lint": "^0.4",
+    "helmich/typo3-typoscript-lint": "^2.1"
   },
   "autoload": {
     "psr-4": {
@@ -46,15 +51,41 @@
 	  "typo3/cms-seo": "^10",
 	  "typo3/cms-dashboard": "^10"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/TYPO3/TYPO3.CMS"
-    }
-  ],
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
   "extra": {
     "typo3/cms": {
-      "extension-key": "t3extblog"
+      "extension-key": "t3extblog",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
     }
+  },
+  "scripts": {
+    "test": [
+      "@test-php-lint",
+      "@test-php-cs-fixer",
+      "@test-php-md",
+      "@test-typoscript-lint"
+    ],
+    "test-php-lint": [
+      ".Build/bin/parallel-lint ./Classes/",
+      ".Build/bin/parallel-lint ./Configuration/TCA/",
+      ".Build/bin/parallel-lint ./Tests/"
+    ],
+    "test-php-cs-fixer": [
+      ".Build/bin/php-cs-fixer fix --config=.php_cs.dist --verbose --dry-run ./Classes/",
+      ".Build/bin/php-cs-fixer fix --config=.php_cs.dist --verbose --dry-run ./Configuration/",
+      ".Build/bin/php-cs-fixer fix --config=.php_cs.dist --verbose --dry-run ./Tests/"
+    ],
+    "test-php-md": [
+      ".Build/bin/phpmd ./Classes/ ansi codesize,design,unusedcode",
+      ".Build/bin/phpmd ./Configuration/ ansi codesize,design,unusedcode",
+      ".Build/bin/phpmd ./Tests/ ansi codesize,design,unusedcode"
+    ],
+    "test-typoscript-lint": [
+      ".Build/bin/typoscript-lint"
+    ]
   }
 }

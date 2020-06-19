@@ -1,0 +1,49 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 2
+      matrix:
+        # Using multiple PHP version is not useful atm, as we do not have actual unit or functional tests
+        # For now, use latest supported PHP version
+        php-versions: [7.3]
+        typo3-versions: [10.4]
+
+    name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: intl, mbstring, pdo_sqlite
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache
+          key: php-${{ matrix.php-versions }}-typo3-${{ matrix.typo3-versions }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            php-${{ matrix.php-versions }}-typo3-${{ matrix.typo3-versions }}-composer-
+            php-${{ matrix.php-versions }}-typo3-
+
+      - name: Install composer dependencies
+        run: composer require typo3/minimal "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress --no-suggest
+
+      - name: Run PHP lint
+        run: composer run-script test-php-lint
+
+      - name: Run PHPCS
+        run: composer run-script test-php-cs-fixer
+
+      - name: Run PHPMD
+        run: composer run-script test-php-md
+
+      - name: Run TypoScript linter
+        run: composer run-script test-typoscript-lint
