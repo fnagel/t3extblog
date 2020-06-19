@@ -1,5 +1,15 @@
-vendor
-build
+# OS
+Thumbs.db
+.DS_Store
 
-# ignore generated documentation
+# Vendors
+node_modules
+bower_components
+vendor
+
+# Ignore generated documentation (TYPO3)
 *GENERATED*
+
+# Project specific
+composer.lock
+.Build
