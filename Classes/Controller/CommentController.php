@@ -17,6 +17,7 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
@@ -247,7 +248,15 @@ class CommentController extends AbstractController
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= intval($threshold['redirect'])) {
             $this->getLog()->notice('New comment blocked and user redirected because of SPAM.', $logData);
-            $this->redirect('', null, null, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
+            $this->redirect(
+                '',
+                null,
+                null,
+                $settings['redirect']['arguments'],
+                (int)$settings['redirect']['pid'],
+                0,
+                HttpUtility::HTTP_STATUS_403
+            );
         }
 
         // block comment and show message
