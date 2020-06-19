@@ -20,6 +20,9 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
 
 /**
  * PostController.
+ *
+ * @SuppressWarnings("PHPMD.ExcessivePublicCount")
+ * @SuppressWarnings("PHPMD.TooManyPublicMethods")
  */
 class PostController extends AbstractController
 {

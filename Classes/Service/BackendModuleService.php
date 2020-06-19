@@ -25,6 +25,8 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * BackendModuleService.
+ *
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 class BackendModuleService
 {

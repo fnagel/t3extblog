@@ -35,6 +35,9 @@ class SpamCheckService implements SpamCheckServiceInterface
     /**
      * Checks GET / POST parameter for SPAM.
      *
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
+     *
      * @var array
      *
      * @return int

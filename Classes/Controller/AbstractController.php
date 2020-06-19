@@ -29,6 +29,8 @@ use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 /**
  * Abstract base controller.
+ *
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 abstract class AbstractController extends ActionController
 {

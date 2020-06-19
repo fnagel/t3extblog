@@ -16,6 +16,10 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * Post.
+ *
+ * @SuppressWarnings("PHPMD.ExcessiveClassComplexity")
+ * @SuppressWarnings("PHPMD.ExcessivePublicCount")
+ * @SuppressWarnings("PHPMD.TooManyFields")
  */
 class Post extends AbstractLocalizedEntity
 {

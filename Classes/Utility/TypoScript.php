@@ -57,6 +57,8 @@ class TypoScript
     /**
      * Get value from array by path.
      *
+     * @SuppressWarnings("PHPMD.CountInLoopExpression")
+     *
      * @param array $data
      * @param array $path
      *
@@ -103,6 +105,8 @@ class TypoScript
 
     /**
      * Set value by reference.
+     *
+     * @SuppressWarnings("PHPMD.CountInLoopExpression")
      *
      * @param array $array
      * @param array $path

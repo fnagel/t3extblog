@@ -10,7 +10,10 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 
 /**
- * Content.
+ * Content (tt_content).
+ *
+ * @SuppressWarnings("PHPMD.ExcessivePublicCount")
+ * @SuppressWarnings("PHPMD.TooManyFields")
  */
 class Content extends AbstractLocalizedEntity
 {

@@ -13,6 +13,8 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * Comment.
+ *
+ * @SuppressWarnings("PHPMD.TooManyFields")
  */
 class Comment extends AbstractEntity
 {

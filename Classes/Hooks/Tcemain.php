@@ -60,6 +60,8 @@ class Tcemain
     /**
      * Before processing: clear cache.
      *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
      * @param string      $command            The TCEmain operation status, fx. 'update'
      * @param string      $table              The table TCEmain is currently processing
      * @param string      $id                 The records id (if any)
@@ -93,6 +95,8 @@ class Tcemain
     /**
      * After processing: delete related objects.
      *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     *
      * @param string      $command    The TCEmain operation status, fx. 'update'
      * @param string      $table      The table TCEmain is currently processing
      * @param string      $id         The records id (if any)
@@ -111,6 +115,9 @@ class Tcemain
     /**
      * TCEmain hook function for on-the-fly email sending
      * Hook: processDatamap_afterDatabaseOperations.
+     *
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
      *
      * @param string      $status  The command which has been sent to processDatamap
      * @param string      $table   The table we're dealing with

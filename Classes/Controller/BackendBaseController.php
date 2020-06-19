@@ -31,6 +31,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * BackendBaseController.
+ *
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 class BackendBaseController extends ActionController
 {

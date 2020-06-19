@@ -24,6 +24,9 @@ class TypoScriptValidator
      *
      * We do not check mailFrom email here as there is a TYPO3 CMS default fallback.
      *
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
+     *
      * @param array $settings
      *
      * @throws InvalidConfigurationException
