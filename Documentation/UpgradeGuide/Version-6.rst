@@ -16,6 +16,28 @@ Version 6.x
    :depth: 3
 
 
+Upgrade from 6.0.1 to 6.0.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/6.0.1...6.0.2
+
+- Fix issues with routing in latest TYPO3 versions
+
+- Add Github action based code quality tests
+
+- Some minor bugfixes and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Clear caches
+
+
+
 Upgrade from 6.0.0 to 6.0.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
