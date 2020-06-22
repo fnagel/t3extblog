@@ -67,8 +67,8 @@ Latest Comments
 List of the latest comments. Configurable via :code:`paginate` settings.
 
 
-Lastest Posts
-^^^^^^^^^^^^^
+Latest Posts
+^^^^^^^^^^^^
 
 List of the latest blog posts. Configurable via :code:`paginate` settings.
 
