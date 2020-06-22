@@ -172,21 +172,17 @@ class Post extends AbstractLocalizedEntity
     }
 
     /**
-     * Serialization (sleep) helper.
-     *
-     * @return array Names of the properties to be serialized
+     * @inheritDoc
      */
-    public function __sleep()
+    public function getPropertiesForSerialization()
     {
-        parent::__sleep();
+        $properties = parent::getPropertiesForSerialization();
 
-        $properties = get_object_vars($this);
+        // Remove previewImage due to broken post preview
+        // @todo Fix this!
+        unset($properties['previewImage']);
 
-        // fix to make sure we are able to use forward in controller
-        unset($properties['categories']);
-        unset($properties['subscriptions']);
-
-        return array_keys($properties);
+        return $properties;
     }
 
     /**
@@ -541,16 +537,14 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the previewImage.
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Core\Resource\FileReference|null
      */
     public function getPreviewImage()
     {
-        if ($this->previewImage instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-            $this->previewImage->_loadRealInstance();
-        }
+        $this->loadLazyRelation($this->previewImage);
 
         if (!is_object($this->previewImage)) {
-            return;
+            return null;
         }
 
         return $this->previewImage->getOriginalResource();
@@ -559,7 +553,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the previewImage.
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $previewImage
+     * @param \TYPO3\CMS\Core\Resource\FileReference $previewImage
      */
     public function setPreviewImage($previewImage)
     {

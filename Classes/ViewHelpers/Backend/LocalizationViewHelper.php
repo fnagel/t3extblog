@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -67,6 +68,10 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $translations = $arguments['translations'];
         $table = $arguments['table'];
         $object = $arguments['object'];
+
+        if (!$object instanceof AbstractEntity) {
+            throw new \Exception('Invalid object given!', 1592862844);
+        }
 
         $content = '';
         $templateVariableContainer = $renderingContext->getVariableProvider();

@@ -138,18 +138,45 @@ abstract class AbstractEntity extends CoreAbstractEntity
     }
 
     /**
+     * @param mixed $relation
+     */
+    protected function loadLazyRelation($relation)
+    {
+        if ($relation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+            $relation->_loadRealInstance();
+        }
+    }
+
+    /**
      * Serialization (sleep) helper.
      *
      * @return array Names of the properties to be serialized
      */
     public function __sleep()
     {
+        return array_keys($this->getPropertiesForSerialization());
+    }
+
+    /**
+     * @return array Names of the properties to be serialized
+     */
+    protected function getPropertiesForSerialization()
+    {
         $properties = get_object_vars($this);
 
-        // fix to make sure we are able to use forward in controller
+        // Remove properties not required if fully populated
+        unset($properties['objectManager']);
         unset($properties['postRepository']);
         unset($properties['commentRepository']);
 
-        return array_keys($properties);
+        // Remove lazy object storage as this will break post preview when serializing the post in form VH
+        // @todo Fix this!
+        foreach ($properties as $key => $property) {
+            if ($property instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage) {
+                unset($properties[$key]);
+            }
+        }
+
+        return $properties;
     }
 }
