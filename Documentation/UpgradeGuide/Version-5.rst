@@ -16,6 +16,28 @@ Version 5.x
    :depth: 3
 
 
+Upgrade from 5.1.0 to 5.1.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/5.1.0...5.1.1
+
+- Fix issues with routing in latest TYPO3 versions
+
+- Improve post routing error handling
+
+- Some minor bugfixes and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Clear all caches
+
+
+
 Upgrade from 5.0.0 to 5.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -56,6 +78,7 @@ How to upgrade
 #. Adjust your templates to structure change if needed
 
 #. Clear all caches
+
 
 
 Please note
