@@ -58,7 +58,7 @@ routeEnhancers:
       post_permalink_uid: '\d+'
       post_title: '^[\d\-\/]{0,11}[\p{Ll}\d\-\_]+$'
       author_title: '^[\p{Ll}\d\-\_]+$'
-      category_title: '^[\p{Ll}\d\-\_]+$'
+      category_title: '^[\p{Ll}\d\-\_\/]+$'
       tag_title: '^[\p{Ll}\p{P}\d\-\_ ]+$'
     aspects:
       post_page:
