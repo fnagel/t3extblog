@@ -1,3 +1,10 @@
+# customsubcategory=basic=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.basic
+# customsubcategory=pid=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.pid
+# customsubcategory=persistence=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.persistence
+# customsubcategory=email=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.email
+# customsubcategory=preview=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.preview
+# customsubcategory=privacy=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.privacy
+
 plugin.tx_t3extblog {
 	view {
 		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom template root
@@ -16,35 +23,35 @@ plugin.tx_t3extblog {
 	}
 
 	settings {
-		# cat=plugin.tx_t3extblog/settings/1; type=string; label=Blogname: Used within email and RSS templates
+		# cat=plugin.tx_t3extblog/basic/1; type=string; label=Blogname: Used within email and RSS templates
 		blogName = Testblog
 
-		# cat=plugin.tx_t3extblog/settings/2; type=int+; label=Blogsystem Plugin PID: Page containing the Blogsystem plugin
+		# cat=plugin.tx_t3extblog/pid/1; type=int+; label=Blogsystem Plugin PID: Page containing the Blogsystem plugin
 		blogsystem.pid =
-		# cat=plugin.tx_t3extblog/settings/3; type=int+; label=Subscription Manager Plugin PID: Page containing the Subscription Manager plugin
+		# cat=plugin.tx_t3extblog/pid/3; type=int+; label=Subscription Manager Plugin PID: Page containing the Subscription Manager plugin
 		subscriptionManager.pid =
 
 		## The following constants are shortcuts and DO NOT MATCH any TS setup
 
-		# cat=plugin.tx_t3extblog//1; type=string; label=Sender address: All emails are sent from this address
+		# cat=plugin.tx_t3extblog/email/1; type=string; label=Sender address: All emails are sent from this address
 		emailFrom =
-		# cat=plugin.tx_t3extblog//2; type=string; label=Admin notification: Email address for sending admin notifications
+		# cat=plugin.tx_t3extblog/email/2; type=string; label=Admin notification: Email address for sending admin notifications
 		emailTo =
 
 		previewImage {
-			# cat=plugin.tx_t3extblog//3; type=string; label=Preview image width: Width of the preview image
+			# cat=plugin.tx_t3extblog/preview/image/1; type=string; label=Preview image width: Width of the preview image
 			width = 960c
-			# cat=plugin.tx_t3extblog//4; type=string; label=Preview image height: Height of the preview image
+			# cat=plugin.tx_t3extblog/preview/image/2; type=string; label=Preview image height: Height of the preview image
 			height = 540c
 		}
 
-		# cat=plugin.tx_t3extblog//5; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)
+		# cat=plugin.tx_t3extblog/advanced/1; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)
 		twitterName =
 
 		privacyPolicy {
-			# cat=plugin.tx_t3extblog//6; type=boolean; label=Enable the privacyPolicy checkbox
+			# cat=plugin.tx_t3extblog/privacy/1; type=boolean; label=Enable the privacyPolicy checkbox
 			enabled = 0
-			# cat=plugin.tx_t3extblog//7; type=string; label=Typolink that links to the privacy policy page
+			# cat=plugin.tx_t3extblog/privacy/2; type=string; label=Typolink that links to the privacy policy page
 			typolink =
 		}
 	}
