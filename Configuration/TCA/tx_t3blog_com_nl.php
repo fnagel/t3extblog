@@ -80,6 +80,7 @@ return [
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
                 'size' => 13,
+                'default' => 0,
             ],
         ],
         'code' => [

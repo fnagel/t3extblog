@@ -229,6 +229,7 @@ return [
                 'foreign_selector_fieldTcaOverride' => [
                     'l10n_mode' => 'prefixLangTitle',
                 ],
+                'default' => '',
             ],
         ],
         'allow_comments' => [

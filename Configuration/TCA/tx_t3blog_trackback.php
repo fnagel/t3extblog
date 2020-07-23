@@ -78,6 +78,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'prepend_tname' => false,
+                'default' => 0,
             ],
         ],
     ],
