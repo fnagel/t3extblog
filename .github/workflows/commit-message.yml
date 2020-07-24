@@ -1,0 +1,21 @@
+name: GIT commit message check
+
+on: [push, pull_request]
+
+jobs:
+  check-commit-message:
+    name: Check commit message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check type prefix
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '\[(TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE){1}\] .+$'
+          flags: 'gm'
+          error: 'The first line has to contain a commit type like "[BUGFIX]".'
+      - name: Check line length
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '^.{10,72}$'
+          flags: 'gm'
+          error: 'The maximum line length of 72 characters is exceeded.'

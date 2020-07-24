@@ -18,7 +18,9 @@ When submitting a ticket, the following information should be included:
 
 ## Making Changes / Send PR's
 
-* Make sure to follow the commit message style (`[TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP] What has been fixed`)
+* Make sure to follow the commit message style:
+    * Example: `[TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE] What has been fixed`
+    * 72 chars max line length
 * Make sure to follow our CGL, see:
     * [.editorconfig](.editorconfig)
     * [.php_cs.dist (PSR-2)](.php_cs.dist)
