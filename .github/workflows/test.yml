@@ -12,7 +12,7 @@ jobs:
       matrix:
         # Using multiple PHP version is not useful atm, as we do not have actual unit or functional tests
         # For now, use latest supported PHP version
-        php-versions: [7.3]
+        php-versions: [7.4]
         typo3-versions: [10.4]
 
     name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
