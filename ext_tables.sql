@@ -1,4 +1,13 @@
 #
+# Table structure for table 'tt_content'
+#
+CREATE TABLE tt_content (
+    irre_parentid int(11) DEFAULT '0' NOT NULL,
+    irre_parenttable varchar(20) DEFAULT '' NOT NULL
+);
+
+
+#
 # Table structure for table 'tx_t3blog_post'
 #
 CREATE TABLE tx_t3blog_post (
@@ -59,7 +68,7 @@ CREATE TABLE tx_t3blog_com_nl (
     name tinytext NOT NULL,
     post_uid int(11) DEFAULT '0' NOT NULL,
     lastsent int(11) DEFAULT '0' NOT NULL,
-    code tinytext NOT NULL,
+    code varchar(32) DEFAULT '' NOT NULL,
     privacy_policy_accepted tinyint(4) DEFAULT '0' NOT NULL
 );
 
@@ -70,7 +79,7 @@ CREATE TABLE tx_t3blog_com_nl (
 CREATE TABLE tx_t3blog_blog_nl (
     email tinytext NOT NULL,
     lastsent int(11) DEFAULT '0' NOT NULL,
-    code tinytext NOT NULL,
+    code varchar(32) DEFAULT '' NOT NULL,
     privacy_policy_accepted tinyint(4) DEFAULT '0' NOT NULL
 );
 
@@ -101,13 +110,6 @@ CREATE TABLE tx_t3blog_trackback (
     postid int(11) DEFAULT '0' NOT NULL
 );
 
-#
-# Table structure for table 'tt_content'
-#
-CREATE TABLE tt_content (
-    irre_parentid int(11) DEFAULT '0' NOT NULL,
-    irre_parenttable tinytext NOT NULL
-);
 
 #
 # Table structure for table 'tx_t3blog_post_cat_mm'
