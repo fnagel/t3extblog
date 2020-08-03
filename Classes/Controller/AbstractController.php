@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -174,6 +175,27 @@ abstract class AbstractController extends ActionController
         }
 
         return false;
+    }
+
+    /**
+     * Clear cache of current page and sends correct header.
+     */
+    protected function clearPageCache()
+    {
+        if ($this->arguments->hasArgument('post')) {
+            $flushCacheService = $this->objectManager->get(FlushCacheService::class);
+            $post = $this->arguments->getArgument('post')->getValue();
+            $flushCacheService->addCacheTagsToFlush([
+                'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
+            ]);
+        } else {
+            parent::clearCacheOnError();
+        }
+
+        $this->response->setHeader('Cache-Control', 'private', true);
+        $this->response->setHeader('Expires', '0', true);
+        $this->response->setHeader('Pragma', 'no-cache', true);
+        $this->response->sendHeaders();
     }
 
     /**

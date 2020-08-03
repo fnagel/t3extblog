@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Service\AuthenticationService;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -45,6 +46,8 @@ class PostController extends AbstractController
     public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
+
+        parent::__construct();
     }
 
     /**
@@ -203,7 +206,7 @@ class PostController extends AbstractController
     public function showAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get(Comment::class);
+            $newComment = $this->getNewComment();
         }
 
         // Add cache tags
@@ -219,6 +222,45 @@ class PostController extends AbstractController
 
         $this->view->assign('nextPost', $this->postRepository->nextPost($post));
         $this->view->assign('previousPost', $this->postRepository->previousPost($post));
+    }
+
+    /**
+     * @return Comment
+     */
+    protected function getNewComment()
+    {
+        /* @var $comment Comment */
+        $comment = $this->objectManager->get(Comment::class);
+
+        if (!$this->settings['blogsystem']['comments']['prefillFields']) {
+            return $comment;
+        }
+
+        // Check for a user session
+
+        // In this case, the page needs to be uncached
+        // @todo Change this when post and comment are separate plugins
+        $this->clearPageCache();
+
+        if (GeneralUtility::isUserLoggedIn()) {
+            $user = GeneralUtility::getTsFe()->fe_user->user;
+            $comment->setEmail($user['email']);
+            $comment->setAuthor(
+                $user['name'] ?: ($user['first_name'] . ' ' . $user['middle_name']. ' ' . $user['last_name'])
+            );
+
+            return $comment;
+        }
+
+        /* @var $authentication AuthenticationService */
+        $authentication = $this->objectManager->get(AuthenticationService::class);
+        if ($authentication->isValid()) {
+            $comment->setEmail($authentication->getEmail());
+
+            return $comment;
+        }
+
+        return $comment;
     }
 
     /**
