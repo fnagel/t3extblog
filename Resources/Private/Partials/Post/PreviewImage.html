@@ -15,7 +15,7 @@
 			</f:if>
 
 			<p class="small muted">
-				<f:if condition="{post.previewImage.properties.copyright_notice}">
+				<f:if condition="{post.previewImage.properties.author}">
 					<f:then>&copy; {post.previewImage.properties.author}</f:then>
 					<f:else>
 						<f:if condition="{post.previewImage.properties.creator}">&copy; {post.previewImage.properties.creator}</f:if>
