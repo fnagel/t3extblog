@@ -11,7 +11,6 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
-use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -56,28 +55,20 @@ class CommentController extends AbstractController
     protected $spamCheckService;
 
     /**
-     * @var FlushCacheService
-     */
-    protected $flushCacheService;
-
-    /**
      * CommentController constructor.
      *
      * @param CommentRepository $commentRepository
      * @param CommentNotificationService $notificationService
      * @param SpamCheckServiceInterface $spamCheckService
-     * @param FlushCacheService $flushCacheService
      */
     public function __construct(
         CommentRepository $commentRepository,
         CommentNotificationService $notificationService,
-        SpamCheckServiceInterface $spamCheckService,
-        FlushCacheService $flushCacheService
+        SpamCheckServiceInterface $spamCheckService
     ) {
         $this->commentRepository = $commentRepository;
         $this->notificationService = $notificationService;
         $this->spamCheckService = $spamCheckService;
-        $this->flushCacheService = $flushCacheService;
     }
 
     /**
@@ -182,23 +173,11 @@ class CommentController extends AbstractController
     }
 
     /**
-     * Clear cache of current post page and sends correct header.
+     * @inheritDoc
      */
     protected function clearCacheOnError()
     {
-        if ($this->arguments->hasArgument('post')) {
-            $post = $this->arguments->getArgument('post')->getValue();
-            $this->flushCacheService->addCacheTagsToFlush([
-                'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
-            ]);
-        } else {
-            parent::clearCacheOnError();
-        }
-
-        $this->response->setHeader('Cache-Control', 'private', true);
-        $this->response->setHeader('Expires', '0', true);
-        $this->response->setHeader('Pragma', 'no-cache', true);
-        $this->response->sendHeaders();
+        $this->clearPageCache();
     }
 
     /**
