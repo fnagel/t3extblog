@@ -70,12 +70,6 @@ class CommentController extends AbstractController
     protected $spamCheckService;
 
     /**
-     * @var \FelixNagel\T3extblog\Service\FlushCacheService
-     * @inject
-     */
-    protected $cacheService;
-
-    /**
      * action list.
      *
      * @param Post $post Show only comments related to this post
@@ -181,19 +175,7 @@ class CommentController extends AbstractController
      */
     protected function clearCacheOnError()
     {
-        if ($this->arguments->hasArgument('post')) {
-            $post = $this->arguments->getArgument('post')->getValue();
-            $this->cacheService->addCacheTagsToFlush([
-                'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
-            ]);
-        } else {
-            parent::clearCacheOnError();
-        }
-
-        $this->response->setHeader('Cache-Control', 'private', true);
-        $this->response->setHeader('Expires', '0', true);
-        $this->response->setHeader('Pragma', 'no-cache', true);
-        $this->response->sendHeaders();
+        $this->clearPageCache();
     }
 
     /**

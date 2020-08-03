@@ -76,6 +76,10 @@ plugin.tx_t3extblog {
 				# use http://www.php.net/manual/en/datetime.formats.relative.php
 				allowedUntil = +6 months
 
+				# Try to fill the comment email and author field from valid FE user session or
+				# from blog subscription authentication. DISABLES CACHING!
+				prefillFields = 0
+
 				# comments are approved by default
 				approvedByDefault = 0
 

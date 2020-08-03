@@ -62,6 +62,12 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
     protected $cHashActions = [];
 
     /**
+     * @var \FelixNagel\T3extblog\Service\FlushCacheService
+     * @inject
+     */
+    protected $flushCacheService;
+
+    /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
      * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration.
@@ -187,6 +193,26 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
         }
 
         return false;
+    }
+
+    /**
+     * Clear cache of current post page and sends correct header.
+     */
+    protected function clearPageCache()
+    {
+        if ($this->arguments->hasArgument('post')) {
+            $post = $this->arguments->getArgument('post')->getValue();
+            $this->flushCacheService->addCacheTagsToFlush([
+                'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
+            ]);
+        } else {
+            parent::clearCacheOnError();
+        }
+
+        $this->response->setHeader('Cache-Control', 'private', true);
+        $this->response->setHeader('Expires', '0', true);
+        $this->response->setHeader('Pragma', 'no-cache', true);
+        $this->response->sendHeaders();
     }
 
     /**
