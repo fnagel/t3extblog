@@ -5,7 +5,7 @@ namespace FelixNagel\T3extblog\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2018 Felix Nagel <info@felixnagel.com>
+ *  (c) 2015-2020 Felix Nagel <info@felixnagel.com>
  *
  *  All rights reserved
  *
@@ -125,7 +125,15 @@ class BlogSubscriberFormController extends AbstractController
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
             $this->log->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
-            $this->redirect('', null, null, $settings['redirect']['arguments'], intval($settings['redirect']['pid']), $statusCode = 403);
+            $this->redirect(
+                '',
+                null,
+                null,
+                $settings['redirect']['arguments'],
+                intval($settings['redirect']['pid']),
+                0,
+                $statusCode = 403
+            );
         }
 
         // block comment and show message
