@@ -78,7 +78,12 @@ plugin.tx_t3extblog {
 
 				# Try to fill the comment email and author field from valid FE user session or
 				# from blog subscription authentication. DISABLES CACHING!
-				prefillFields = 0
+				prefillFields {
+					enable = 0
+
+					# Which fe_user field to use for filling the author field (use "fullName" for complete name)
+					authorField = fullName
+				}
 
 				# comments are approved by default
 				approvedByDefault = 0
