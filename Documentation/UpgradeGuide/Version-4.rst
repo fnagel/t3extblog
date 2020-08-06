@@ -16,6 +16,33 @@ Version 4.x
    :depth: 3
 
 
+Upgrade from 4.1.0 to 4.2.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/4.1.0...4.2.0
+
+- Pre-fill comment author and email field (sponsored feature, thanks to *WebundWerbeWerk* https://www.webundwerbe.de)
+
+- A few bugfixes
+
+
+**Breaking changes**
+
+- none
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust templates and configuration if needed
+
+#. Clear all caches
+
+
+
 Upgrade from 4.0.x to 4.1.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
