@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Service\AuthenticationService;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
@@ -232,7 +233,7 @@ class PostController extends AbstractController
         /* @var $comment Comment */
         $comment = $this->objectManager->get(Comment::class);
 
-        if (!$this->settings['blogsystem']['comments']['prefillFields']) {
+        if (!$this->settings['blogsystem']['comments']['prefillFields']['enable']) {
             return $comment;
         }
 
@@ -243,11 +244,8 @@ class PostController extends AbstractController
         $this->clearPageCache();
 
         if (GeneralUtility::isUserLoggedIn()) {
-            $user = GeneralUtility::getTsFe()->fe_user->user;
-            $comment->setEmail($user['email']);
-            $comment->setAuthor(
-                $user['name'] ?: ($user['first_name'] . ' ' . $user['middle_name']. ' ' . $user['last_name'])
-            );
+            $comment->setEmail(GeneralUtility::getTsFe()->fe_user->user['email']);
+            $comment->setAuthor($this->getNewCommentAuthor());
 
             return $comment;
         }
@@ -261,6 +259,34 @@ class PostController extends AbstractController
         }
 
         return $comment;
+    }
+
+    /**
+     * @return string
+     * @throws InvalidConfigurationException
+     */
+    protected function getNewCommentAuthor()
+    {
+        $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];
+        $user = GeneralUtility::getTsFe()->fe_user->user;
+
+        if ($field === 'fullName') {
+            $fullName = [];
+
+            foreach (['first_name', 'middle_name', 'last_name'] as $item) {
+                if (!empty($user[$item])) {
+                    $fullName[] = $user[$item];
+                }
+            }
+
+            return implode(' ', $fullName);
+        }
+
+        if (!array_key_exists($field, $user)) {
+            throw new InvalidConfigurationException('Field does not exist!', 1596646025);
+        }
+
+        return $user[$field];
     }
 
     /**
