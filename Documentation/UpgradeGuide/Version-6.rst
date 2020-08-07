@@ -16,6 +16,32 @@ Version 6.x
    :depth: 3
 
 
+Upgrade from 6.0.2 to 6.0.3
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/6.0.2...6.0.3
+
+- Support for PHP 7.4
+
+- Fix some issues with MySQL 5.7 and DB mode (thanks to Philipp Kuhlmay)
+
+- Fix post preview functionality
+
+- Improve TS constants editor categories
+
+- Add Github action based commit message check
+
+
+How to upgrade
+""""""""""""""
+
+#. Clear caches
+
+
+
 Upgrade from 6.0.1 to 6.0.2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
