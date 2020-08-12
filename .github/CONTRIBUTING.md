@@ -18,15 +18,16 @@ When submitting a ticket, the following information should be included:
 
 ## Making Changes / Send PR's
 
-* Make sure to follow the commit message style:
-    * Example: `[TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE] What has been fixed`
+* Follow the commit message style:
+    * Example: `[BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE] What has been fixed`
+    * Message should start with an uppercase char
     * 72 chars max line length
-* Make sure to follow our CGL, see:
+* Follow our CGL, see:
     * [.editorconfig](.editorconfig)
     * [.php_cs.dist (PSR-2)](.php_cs.dist)
     * [typoscript-lint.yml](typoscript-lint.yml)
 * Run `composer run test`
-* Make sure to test with all supported TYPO3 CMS versions (according to `composer.json`)
+* Test with all supported TYPO3 CMS versions (according to `composer.json`)
 * Test your changes following the [testing guide](Documentation/DeveloperGuide/Index.rst)
 
 

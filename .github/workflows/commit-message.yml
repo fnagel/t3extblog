@@ -21,9 +21,15 @@ jobs:
       - name: Check type prefix
         uses: gsactions/commit-message-checker@v1
         with:
-          pattern: '\[(TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE){1}\] .+$'
+          pattern: '^\[(BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE){1}\] .+$'
           flags: 'gm'
-          error: 'The first line has to contain a commit type like "[BUGFIX]".'
+          error: 'The first line needs to start with a commit type like "[BUGFIX]".'
+      - name: Check message format
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '^\[[A-Z]+\] [A-Z]+.+$'
+          flags: 'gm'
+          error: 'The actual message after the commit type should start with a uppercase letter.'
       - name: Check line length
         uses: gsactions/commit-message-checker@v1
         with:
