@@ -22,7 +22,7 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
  * CommentController.
  */
-class CommentController extends AbstractController
+class CommentController extends AbstractCommentController
 {
     /**
      * @var array
@@ -123,7 +123,7 @@ class CommentController extends AbstractController
     public function newAction(Post $post, Comment $newComment = null)
     {
         if ($newComment === null) {
-            $newComment = $this->objectManager->get(Comment::class);
+            $newComment = $this->getNewComment();
         }
 
         $this->view->assign('newComment', $newComment);

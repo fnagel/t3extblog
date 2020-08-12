@@ -13,8 +13,6 @@ use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Exception\AccessDeniedException;
-use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
-use FelixNagel\T3extblog\Service\AuthenticationService;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -26,7 +24,7 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
  * @SuppressWarnings("PHPMD.ExcessivePublicCount")
  * @SuppressWarnings("PHPMD.TooManyPublicMethods")
  */
-class PostController extends AbstractController
+class PostController extends AbstractCommentController
 {
     /**
      * @var array
@@ -225,70 +223,6 @@ class PostController extends AbstractController
 
         $this->view->assign('nextPost', $this->postRepository->nextPost($post));
         $this->view->assign('previousPost', $this->postRepository->previousPost($post));
-    }
-
-    /**
-     * @return Comment
-     */
-    protected function getNewComment()
-    {
-        /* @var $comment Comment */
-        $comment = $this->objectManager->get(Comment::class);
-
-        if (!$this->settings['blogsystem']['comments']['prefillFields']['enable']) {
-            return $comment;
-        }
-
-        // Check for a user session
-
-        // In this case, the page needs to be uncached
-        // @todo Change this when post and comment are separate plugins
-        $this->clearPageCache();
-
-        if (GeneralUtility::isUserLoggedIn()) {
-            $comment->setEmail(GeneralUtility::getTsFe()->fe_user->user['email']);
-            $comment->setAuthor($this->getNewCommentAuthor());
-
-            return $comment;
-        }
-
-        /* @var $authentication AuthenticationService */
-        $authentication = $this->objectManager->get(AuthenticationService::class);
-        if ($authentication->isValid()) {
-            $comment->setEmail($authentication->getEmail());
-
-            return $comment;
-        }
-
-        return $comment;
-    }
-
-    /**
-     * @return string
-     * @throws InvalidConfigurationException
-     */
-    protected function getNewCommentAuthor()
-    {
-        $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];
-        $user = GeneralUtility::getTsFe()->fe_user->user;
-
-        if ($field === 'fullName') {
-            $fullName = [];
-
-            foreach (['first_name', 'middle_name', 'last_name'] as $item) {
-                if (!empty($user[$item])) {
-                    $fullName[] = $user[$item];
-                }
-            }
-
-            return implode(' ', $fullName);
-        }
-
-        if (!array_key_exists($field, $user)) {
-            throw new InvalidConfigurationException('Field does not exist!', 1596646025);
-        }
-
-        return $user[$field];
     }
 
     /**
