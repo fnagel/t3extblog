@@ -47,7 +47,6 @@ abstract class AbstractController extends ActionController
     /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
-     * original code taken from http://forge.typo3.org/projects/typo3v4-mvc/wiki/How_to_control_override_of_TS-Flexform_configuration.
      *
      * @param $configurationManager ConfigurationManagerInterface An instance of the Configuration Manager
      */

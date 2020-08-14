@@ -17,6 +17,10 @@ if (!defined('TYPO3_MODE')) {
 \FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('Categories', 'categories.title');
 
 \FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('LatestComments', 'latestcomments.title');
+\FelixNagel\T3extblog\Utility\TcaUtility::addFlexForm(
+    'LatestComments',
+    '/Configuration/FlexForms/LatestComments.xml'
+);
 
 \FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('LatestPosts', 'latestposts.title');
 \FelixNagel\T3extblog\Utility\TcaUtility::addFlexForm(

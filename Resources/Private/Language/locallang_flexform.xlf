@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-02-06T16:10:22Z" product-name="t3extblog">
+		<header/>
+		<body>
+			<trans-unit id="latestPosts.categoryUid" xml:space="preserve">
+				<source>Filter by category</source>
+			</trans-unit>
+			<trans-unit id="latestPosts.paginate.itemsPerPage" xml:space="preserve">
+				<source>Amount of posts</source>
+			</trans-unit>
+			<trans-unit id="latestComments.paginate.itemsPerPage" xml:space="preserve">
+				<source>Amount of comments</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

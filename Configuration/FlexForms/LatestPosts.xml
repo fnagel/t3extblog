@@ -12,7 +12,7 @@
 				<el>
 					<settings.latestPosts.categoryUid>
 						<TCEforms>
-							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.catname</label>
+							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.categoryUid</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -28,6 +28,21 @@
 							</config>
 						</TCEforms>
 					</settings.latestPosts.categoryUid>
+					<settings.latestPosts.paginate.itemsPerPage>
+						<TCEforms>
+							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.paginate.itemsPerPage</label>
+							<config>
+								<type>input</type>
+								<max>100</max>
+								<size>3</size>
+								<eval>int</eval>
+								<range>
+									<lower>0</lower>
+									<upper>100</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</settings.latestPosts.paginate.itemsPerPage>
 				</el>
 			</ROOT>
 		</sDEF>

@@ -3,7 +3,7 @@ plugin.tx_t3extblog.settings {
 		categoryUid =
 
 		paginate {
-			itemsPerPage = 5
+			itemsPerPage = 3
 			insertAbove = 0
 			insertBelow = 0
 			maximumNumberOfLinks = 0

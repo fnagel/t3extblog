@@ -22,7 +22,8 @@ plugin.tx_t3extblog {
 	}
 
 	settings {
-		overrideFlexformSettingsIfEmpty = latestPosts.categoryUid
+		overrideFlexformSettingsIfEmpty := addToList(latestPosts.categoryUid, latestPosts.paginate.itemsPerPage)
+		overrideFlexformSettingsIfEmpty := addToList(latestComments.paginate.itemsPerPage)
 
 		# Used for all emails
 		blogName = {$plugin.tx_t3extblog.settings.blogName}
