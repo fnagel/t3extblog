@@ -16,6 +16,33 @@ Version 6.x
    :depth: 3
 
 
+Upgrade from 6.0.3 to 6.1.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/6.0.3...6.1.0
+
+- Pre-fill comment author and email field (see `settings.blogsystem.comments.prefillFields`,
+   sponsored feature, thanks to *WebundWerbeWerk* https://www.webundwerbe.de )
+
+- Allow comment email address to be an optional property (see `settings.blogsystem.comments.requireEmail`)
+
+- Add items amount configuration to latest records plugins
+
+- Minor refactoring and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust templates and configuration if needed
+
+#. Clear caches
+
+
+
 Upgrade from 6.0.2 to 6.0.3
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
