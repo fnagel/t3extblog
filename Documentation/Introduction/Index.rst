@@ -44,6 +44,7 @@ Currently implemented features:
 * Opt-In mails for subscriptions with configurable expiration date
 * Configurable spam check: "I am human" checkbox, honeypot, cookie and user agent
 * Email address for comments is optional (but will be enforced if subscription checkbox is enabled)
+* Pre-fill comment author and email from session
 * Auto close comments functionality
 * Allow some HTML tags in comment message
 * GDPR / DSGVO checkboxes
@@ -57,8 +58,8 @@ Currently implemented features:
 * Default HTML markup matches Twitter Bootstrap 3.x or 4.x
 * Using Pootle translation server (translation.typo3.org)
 * Using interfaces and signal / slot for easy extending
-* Supports migration (of EXT:t3blog) and is tested in TYPO3 6-10
-* A few unit tests
+* Supports migration from EXT:t3blog and is tested in TYPO3 6-10
+* CGL and code quality tests
 
 
 .. tip::
