@@ -18,6 +18,8 @@ A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible
 
 ![Backend module: dashboard](./Documentation/Images/Screenshots/dashboard.png)
 
+![Dashboard module: widgets](./Documentation/Images/Screenshots/dashboardwidgets.png)
+
 
 ## Features
 

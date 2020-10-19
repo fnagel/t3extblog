@@ -68,43 +68,55 @@ Currently implemented features:
 
 
 Screenshots
------------
+===========
 
-**Frontend**
+Screenshots taken from a TYPO3 CMS instance with "Introduction package" (EXT:introduction using
+EXT:bootstrap_package extension) and T3extblog installed.
 
-Blogsystem
+
+Frontend
+--------
+
+**Blogsystem**
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
 	:alt: Blogsystem
 
 
-Comment form
+**Comment form**
 
 .. figure:: ../Images/Screenshots/comment.png
 	:alt: Comment form
 
 
-Archive
+**Archive**
 
 .. figure:: ../Images/AdministratorManual/archive.png
 	:alt: Archive
 
 
-Subscription Manager
+**Subscription Manager**
 
 .. figure:: ../Images/AdministratorManual/subscription-manager.png
 	:alt: Subscription Manager
 
 
-**Backend**
+Backend
+-------
 
-Dashboard
+**Core dashboard widgets**
+
+.. figure:: ../Images/Screenshots/dashboardwidgets.png
+	:alt: Core dashboard widgets
+
+
+**Extension module dashboard**
 
 .. figure:: ../Images/Screenshots/dashboard.png
 	:alt: Dashboard backend module
 
 
-Post records list
+**Post records list**
 
 .. figure:: ../Images/UserManual/module.png
 	:alt: Post records backend module
