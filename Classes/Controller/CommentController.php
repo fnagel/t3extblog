@@ -235,7 +235,7 @@ class CommentController extends AbstractCommentController
                 $settings['redirect']['arguments'],
                 (int)$settings['redirect']['pid'],
                 0,
-                HttpUtility::HTTP_STATUS_403
+                403
             );
         }
 
