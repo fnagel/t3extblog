@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback',
+        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback',
         'label' => 'uid',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -28,7 +28,7 @@ return [
         ],
         'fromurl' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.fromurl',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.fromurl',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -39,7 +39,7 @@ return [
         ],
         'text' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.text',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -49,7 +49,7 @@ return [
         ],
         'title' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.title',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -59,7 +59,7 @@ return [
         ],
         'blogname' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.blogname',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.blogname',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -69,7 +69,7 @@ return [
         ],
         'postid' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_trackback.postid',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.postid',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',

@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat',
+        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat',
         'label' => 'catname',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -139,7 +139,7 @@ return [
         'parent_id' => [
             'exclude' => 1,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.parent_id',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.parent_id',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectTree',
@@ -163,7 +163,7 @@ return [
         'catname' => [
             'exclude' => 1,
             'l10n_mode' => 'prefixLangTitle',
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.catname',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.catname',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -172,7 +172,7 @@ return [
         ],
         'url_segment' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.url_segment',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.url_segment',
             'config' => [
                 'type' => 'slug',
                 'size' => 30,
@@ -189,7 +189,7 @@ return [
         ],
         'description' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.description',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.description',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -202,7 +202,7 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_cat.tabs.general,
+			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.tabs.general,
 			    l18n_parent,l18n_diffsource,catname,url_segment,description,parent_id,
             --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,

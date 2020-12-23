@@ -70,7 +70,7 @@ call_user_func(function ($packageKey) {
             [
                 'access' => 'user,group',
                 'icon' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png',
-                'labels' => 'LLL:EXT:'.$packageKey.'/Resources/Private/Language/locallang_mod.xml',
+                'labels' => 'LLL:EXT:'.$packageKey.'/Resources/Private/Language/locallang_mod.xlf',
                 'navigationComponentId' => 'typo3-pagetree',
             ]
         );

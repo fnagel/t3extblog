@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com',
+        'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com',
         'label' => 'title',
         'label_alt' => 'email, fk_post',
         'label_alt_force' => true,
@@ -93,7 +93,7 @@ return [
         ],
         'title' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.title',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -101,7 +101,7 @@ return [
         ],
         'author' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.author',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.author',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -110,7 +110,7 @@ return [
         ],
         'email' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.email',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -120,7 +120,7 @@ return [
         ],
         'website' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.website',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.website',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -129,7 +129,7 @@ return [
         ],
         'date' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.date',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.date',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -141,7 +141,7 @@ return [
         ],
         'text' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.text',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.text',
             'config' => [
                 'type' => 'text',
                 'cols' => 30,
@@ -153,21 +153,21 @@ return [
         ],
         'approved' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.approved',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.approved',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'spam' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.spam',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.spam',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'fk_post' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.fk_post',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.fk_post',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -185,7 +185,7 @@ return [
         ],
         'mails_sent' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.mails_sent',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.mails_sent',
             'config' => [
                 'type' => 'check',
             ],
@@ -193,7 +193,7 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xml:tx_t3blog_com.tabs.general,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.tabs.general,
                 fk_post,title,author,email,website,date,text,
             --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
