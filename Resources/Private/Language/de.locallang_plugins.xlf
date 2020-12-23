@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="tab.title" xml:space="preserve">
+				<source>Blog</source>
+			<target state="needs-translation">Blog</target></trans-unit>
+      <trans-unit id="blogsystem.title" xml:space="preserve">
+				<source>T3Extblog: Blogsystem</source>
+			<target state="needs-translation">T3Extblog: Blogsystem</target></trans-unit>
+      <trans-unit id="blogsystem.description" xml:space="preserve">
+				<source>Main plugin of the extension. Provides post list and detail view. Enables users to create comments.</source>
+			<target state="needs-translation">Main plugin of the extension. Provides post list and detail view. Enables users to create comments.</target></trans-unit>
+      <trans-unit id="subscriptionmanager.title" xml:space="preserve">
+				<source>T3Extblog: Subscription Manager</source>
+			<target state="needs-translation">T3Extblog: Subscription Manager</target></trans-unit>
+      <trans-unit id="subscriptionmanager.description" xml:space="preserve">
+				<source>This plugin manages all blog related subscriptions.</source>
+			<target state="needs-translation">This plugin manages all blog related subscriptions.</target></trans-unit>
+      <trans-unit id="blogsubscription.title" xml:space="preserve">
+				<source>T3Extblog: Blog Subscription Form</source>
+			<target state="needs-translation">T3Extblog: Blog Subscription Form</target></trans-unit>
+      <trans-unit id="blogsubscription.description" xml:space="preserve">
+				<source>This plugin provides a simple form which enables users to subscribe for new blog posts.</source>
+			<target state="needs-translation">This plugin provides a simple form which enables users to subscribe for new blog posts.</target></trans-unit>
+      <trans-unit id="archive.title" xml:space="preserve">
+				<source>T3Extblog: Archive</source>
+			<target state="needs-translation">T3Extblog: Archive</target></trans-unit>
+      <trans-unit id="archive.description" xml:space="preserve">
+				<source>This plugin displays a list of your blog posts, nested by month and sorted by date.</source>
+			<target state="needs-translation">This plugin displays a list of your blog posts, nested by month and sorted by date.</target></trans-unit>
+      <trans-unit id="rss.title" xml:space="preserve">
+				<source>T3Extblog: RSS feed</source>
+			<target state="needs-translation">T3Extblog: RSS feed</target></trans-unit>
+      <trans-unit id="rss.description" xml:space="preserve">
+				<source>This plugin renders a RSS feed. Needs additional TypoScript!</source>
+			<target state="needs-translation">This plugin renders a RSS feed. Needs additional TypoScript!</target></trans-unit>
+      <trans-unit id="categories.title" xml:space="preserve">
+				<source>T3Extblog: Categories</source>
+			<target state="needs-translation">T3Extblog: Categories</target></trans-unit>
+      <trans-unit id="categories.description" xml:space="preserve">
+				<source>This plugin displays all blog categories including sub categories</source>
+			<target state="needs-translation">This plugin displays all blog categories including sub categories</target></trans-unit>
+      <trans-unit id="latestposts.title" xml:space="preserve">
+				<source>T3Extblog: Latest posts</source>
+			<target state="needs-translation">T3Extblog: Latest posts</target></trans-unit>
+      <trans-unit id="latestposts.description" xml:space="preserve">
+				<source>This plugin displays a list of the latest blog posts.</source>
+			<target state="needs-translation">This plugin displays a list of the latest blog posts.</target></trans-unit>
+      <trans-unit id="latestcomments.title" xml:space="preserve">
+				<source>T3Extblog: Latest comments</source>
+			<target state="needs-translation">T3Extblog: Latest comments</target></trans-unit>
+      <trans-unit id="latestcomments.description" xml:space="preserve">
+				<source>This plugin displays a list of the latest comments.</source>
+			<target state="needs-translation">This plugin displays a list of the latest comments.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
