@@ -1,7 +1,7 @@
 # TYPO3 CMS extension `t3extblog`
 
 
-[![Github actions test suite](https://github.com/fnagel/t3extblog/workflows/Tests/badge.svg)](https://github.com/fnagel/t3extblog/actions)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/fnagel/t3extblog/Tests/master?label=tests)](https://github.com/fnagel/t3extblog/actions)
 [![Latest stable version from Packagist](https://img.shields.io/packagist/v/felixnagel/t3extblog)](https://packagist.org/packages/felixnagel/t3extblog)
 [![PHP version from Packagist](https://img.shields.io/packagist/php-v/felixnagel/t3extblog)](https://github.com/fnagel/t3extblog/blob/master/composer.json)
 [![License](https://img.shields.io/packagist/l/felixnagel/t3extblog)](https://github.com/fnagel/t3extblog/blob/master/LICENSE.txt)
