@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="nl">
+    <header/>
+    <body>
+      <trans-unit id="tt_content.list_type_pi2">
+        <source>Blog Widget Selector</source>
+        <target state="needs-translation">Blog Widget Selector</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_blog_nl">
+        <source>Blog-Subscriber</source>
+        <target state="needs-translation">Blog-Subscriber</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_blog_nl.code">
+        <source>Auth-Code:</source>
+        <target state="needs-translation">Auth-Code:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_blog_nl.email">
+        <source>Email:</source>
+        <target state="needs-translation">Email:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_blog_nl.lastsent">
+        <source>Last sent:</source>
+        <target state="needs-translation">Last sent:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_blog_nl.tabs.meta">
+        <source>Metadata</source>
+        <target state="needs-translation">Metadata</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat">
+        <source>Category</source>
+        <target state="needs-translation">Category</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.catname">
+        <source>Category name</source>
+        <target state="needs-translation">Category name</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.description">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.keywords">
+        <source>Keywords (comma separated list)</source>
+        <target state="needs-translation">Keywords (comma separated list)</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.nav_title">
+        <source>Navigation title</source>
+        <target state="needs-translation">Navigation title</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.page_shortcut">
+        <source>Single PID</source>
+        <target state="needs-translation">Single PID</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.parent_id">
+        <source>Category tree</source>
+        <target state="needs-translation">Category tree</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.subtitle">
+        <source>Subtitle</source>
+        <target state="needs-translation">Subtitle</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.tabs.general">
+        <source>General</source>
+        <target state="needs-translation">General</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_cat.url_segment">
+        <source>URL segment</source>
+        <target state="needs-translation">URL segment</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com">
+        <source>Comment</source>
+        <target state="needs-translation">Comment</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.approved">
+        <source>Approved</source>
+        <target state="needs-translation">Approved</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.author">
+        <source>Author</source>
+        <target state="needs-translation">Author</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.date">
+        <source><![CDATA[Date & Time]]></source>
+        <target state="needs-translation"><![CDATA[Date & Time]]></target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.fk_post">
+        <source>Related post</source>
+        <target state="needs-translation">Related post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.mails_sent">
+        <source>Notification mails already sent</source>
+        <target state="needs-translation">Notification mails already sent</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.spam">
+        <source>SPAM</source>
+        <target state="needs-translation">SPAM</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.tabs.general">
+        <source>General</source>
+        <target state="needs-translation">General</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.text">
+        <source>Text</source>
+        <target state="needs-translation">Text</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com.website">
+        <source>Website</source>
+        <target state="needs-translation">Website</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl">
+        <source>Comment-Subscriber</source>
+        <target state="needs-translation">Comment-Subscriber</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.code">
+        <source>Unsubscribe code:</source>
+        <target state="needs-translation">Unsubscribe code:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.email">
+        <source>Email:</source>
+        <target state="needs-translation">Email:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.lastsent">
+        <source>Last sent:</source>
+        <target state="needs-translation">Last sent:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.name">
+        <source>Name:</source>
+        <target state="needs-translation">Name:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.post_uid">
+        <source>Subscribed to:</source>
+        <target state="needs-translation">Subscribed to:</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_com_nl.tabs.meta">
+        <source>Metadata</source>
+        <target state="needs-translation">Metadata</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_pingback">
+        <source>Pingback</source>
+        <target state="needs-translation">Pingback</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_pingback.date">
+        <source>Date</source>
+        <target state="needs-translation">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_pingback.text">
+        <source>Text</source>
+        <target state="needs-translation">Text</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_pingback.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_pingback.url">
+        <source>URL</source>
+        <target state="needs-translation">URL</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post">
+        <source>Post</source>
+        <target state="needs-translation">Post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.allow_comments">
+        <source>Allow comments</source>
+        <target state="needs-translation">Allow comments</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.allow_comments.I.0">
+        <source>Everybody can comment this post</source>
+        <target state="needs-translation">Everybody can comment this post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.allow_comments.I.1">
+        <source>Nobody can comment this post</source>
+        <target state="needs-translation">Nobody can comment this post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.allow_comments.I.2">
+        <source>Only registered users can comment</source>
+        <target state="needs-translation">Only registered users can comment</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.author">
+        <source>Author</source>
+        <target state="needs-translation">Author</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.cat">
+        <source>Categories</source>
+        <target state="needs-translation">Categories</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.content">
+        <source>Contents</source>
+        <target state="needs-translation">Contents</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.date">
+        <source><![CDATA[Date & Time]]></source>
+        <target state="needs-translation"><![CDATA[Date & Time]]></target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.mails_sent">
+        <source>Notification mails already sent</source>
+        <target state="needs-translation">Notification mails already sent</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.meta_description">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.meta_keywords">
+        <source>Keywords</source>
+        <target state="needs-translation">Keywords</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.meta_keywords.placeholder">
+        <source>keyword1, keyword2, keyword3</source>
+        <target state="needs-translation">keyword1, keyword2, keyword3</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.number_views">
+        <source>Number of views</source>
+        <target state="needs-translation">Number of views</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_image">
+        <source>Image</source>
+        <target state="needs-translation">Image</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_mode">
+        <source>Preview mode</source>
+        <target state="needs-translation">Preview mode</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_mode.0">
+        <source>Auto - Use preview text and image (otherwise complete post)</source>
+        <target state="needs-translation">Auto - Use preview text and image (otherwise complete post)</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_mode.1">
+        <source>Show the first content element as preview</source>
+        <target state="needs-translation">Show the first content element as preview</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_mode.2">
+        <source>Show two content elements as preview</source>
+        <target state="needs-translation">Show two content elements as preview</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_mode.3">
+        <source>Show three content elements as preview</source>
+        <target state="needs-translation">Show three content elements as preview</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.preview_text">
+        <source>Text</source>
+        <target state="needs-translation">Text</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tabs.category">
+        <source>Category</source>
+        <target state="needs-translation">Category</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tabs.interactive">
+        <source>Interactivity</source>
+        <target state="needs-translation">Interactivity</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tabs.meta">
+        <source>Metadata</source>
+        <target state="needs-translation">Metadata</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tabs.post">
+        <source>Post</source>
+        <target state="needs-translation">Post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tabs.preview">
+        <source>Preview</source>
+        <target state="needs-translation">Preview</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tagClouds">
+        <source>Tag Cloud (comma separated list)</source>
+        <target state="needs-translation">Tag Cloud (comma separated list)</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.tagClouds.placeholder">
+        <source>tag1, tag2, tag3</source>
+        <target state="needs-translation">tag1, tag2, tag3</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.trackback">
+        <source>Trackback URLs (each URL on one line)</source>
+        <target state="needs-translation">Trackback URLs (each URL on one line)</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.trackback_hash">
+        <source>Trackback Hash</source>
+        <target state="needs-translation">Trackback Hash</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_post.url_segment">
+        <source>URL segment</source>
+        <target state="needs-translation">URL segment</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback">
+        <source>Trackback</source>
+        <target state="needs-translation">Trackback</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback.blogname">
+        <source>Blogname</source>
+        <target state="needs-translation">Blogname</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback.fromurl">
+        <source>Related website</source>
+        <target state="needs-translation">Related website</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback.postid">
+        <source>Related post</source>
+        <target state="needs-translation">Related post</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback.text">
+        <source>Text</source>
+        <target state="needs-translation">Text</target>
+      </trans-unit>
+      <trans-unit id="tx_t3blog_trackback.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
