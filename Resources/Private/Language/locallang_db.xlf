@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z">
+		<body>
+			<trans-unit id="tt_content.list_type_pi2">
+				<source>Blog Widget Selector</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_blog_nl">
+				<source>Blog-Subscriber</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.code">
+				<source>Auth-Code:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.email">
+				<source>Email:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.lastsent">
+				<source>Last sent:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.tabs.meta">
+				<source>Metadata</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_cat">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.catname">
+				<source>Category name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.keywords">
+				<source>Keywords (comma separated list)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.nav_title">
+				<source>Navigation title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.page_shortcut">
+				<source>Single PID</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.parent_id">
+				<source>Category tree</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.subtitle">
+				<source>Subtitle</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.tabs.general">
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_cat.url_segment">
+				<source>URL segment</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_com">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.approved">
+				<source>Approved</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.date">
+				<source><![CDATA[Date & Time]]></source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.fk_post">
+				<source>Related post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.mails_sent">
+				<source>Notification mails already sent</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.spam">
+				<source>SPAM</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.tabs.general">
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com.website">
+				<source>Website</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_com_nl">
+				<source>Comment-Subscriber</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.code">
+				<source>Unsubscribe code:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.email">
+				<source>Email:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.lastsent">
+				<source>Last sent:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.name">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.post_uid">
+				<source>Subscribed to:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.tabs.meta">
+				<source>Metadata</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_pingback">
+				<source>Pingback</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_pingback.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_pingback.text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_pingback.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_pingback.url">
+				<source>URL</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3blog_post">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.allow_comments">
+				<source>Allow comments</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.allow_comments.I.0">
+				<source>Everybody can comment this post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.allow_comments.I.1">
+				<source>Nobody can comment this post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.allow_comments.I.2">
+				<source>Only registered users can comment</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.cat">
+				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.content">
+				<source>Contents</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.date">
+				<source><![CDATA[Date & Time]]></source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.mails_sent">
+				<source>Notification mails already sent</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.meta_description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.meta_keywords">
+				<source>Keywords</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.meta_keywords.placeholder">
+				<source>keyword1, keyword2, keyword3</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.number_views">
+				<source>Number of views</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_mode">
+				<source>Preview mode</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_mode.0">
+				<source>Auto - Use preview text and image (otherwise complete post)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_mode.1">
+				<source>Show the first content element as preview</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_mode.2">
+				<source>Show two content elements as preview</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_mode.3">
+				<source>Show three content elements as preview</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.preview_text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tabs.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tabs.interactive">
+				<source>Interactivity</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tabs.meta">
+				<source>Metadata</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tabs.post">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tabs.preview">
+				<source>Preview</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tagClouds">
+				<source>Tag Cloud (comma separated list)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.tagClouds.placeholder">
+				<source>tag1, tag2, tag3</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.trackback">
+				<source>Trackback URLs (each URL on one line)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.trackback_hash">
+				<source>Trackback Hash</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_post.url_segment">
+				<source>URL segment</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3blog_trackback">
+				<source>Trackback</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_trackback.blogname">
+				<source>Blogname</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_trackback.fromurl">
+				<source>Related website</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_trackback.postid">
+				<source>Related post</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_trackback.text">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_trackback.title">
+				<source>Title</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
