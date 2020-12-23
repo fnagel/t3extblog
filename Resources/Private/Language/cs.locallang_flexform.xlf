@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="cs">
+    <header/>
+    <body>
+      <trans-unit id="latestPosts.categoryUid" xml:space="preserve">
+				<source>Filter by category</source>
+			<target state="needs-translation">Filter by category</target></trans-unit>
+      <trans-unit id="latestPosts.paginate.itemsPerPage" xml:space="preserve">
+				<source>Amount of posts</source>
+			<target state="needs-translation">Amount of posts</target></trans-unit>
+      <trans-unit id="latestComments.paginate.itemsPerPage" xml:space="preserve">
+				<source>Amount of comments</source>
+			<target state="needs-translation">Amount of comments</target></trans-unit>
+    </body>
+  </file>
+</xliff>
