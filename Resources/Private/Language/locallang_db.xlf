@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog">
+		<header/>
 		<body>
 			<trans-unit id="tt_content.list_type_pi2">
 				<source>Blog Widget Selector</source>
@@ -224,7 +225,7 @@
 			<trans-unit id="tx_t3blog_post.url_segment">
 				<source>URL segment</source>
 			</trans-unit>
-			
+
 			<trans-unit id="tx_t3blog_trackback">
 				<source>Trackback</source>
 			</trans-unit>
