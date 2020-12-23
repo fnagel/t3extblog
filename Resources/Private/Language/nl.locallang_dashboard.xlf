@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="nl">
+    <header/>
+    <body>
+      <trans-unit id="widgetGroup.title" xml:space="preserve">
+				<source>Blog</source>
+			<target state="needs-translation">Blog</target></trans-unit>
+      <trans-unit id="dashboardPreset.title" xml:space="preserve">
+				<source>Blog dashboard</source>
+			<target state="needs-translation">Blog dashboard</target></trans-unit>
+      <trans-unit id="dashboardPreset.description" xml:space="preserve">
+				<source>Create a new dashboard with a set of blog related widgets.</source>
+			<target state="needs-translation">Create a new dashboard with a set of blog related widgets.</target></trans-unit>
+      <trans-unit id="widget.latestComments.title" xml:space="preserve">
+				<source>Latest blog comments</source>
+			<target state="needs-translation">Latest blog comments</target></trans-unit>
+      <trans-unit id="widget.latestComments.description" xml:space="preserve">
+				<source>Add a list of the latest blog comments.</source>
+			<target state="needs-translation">Add a list of the latest blog comments.</target></trans-unit>
+      <trans-unit id="widget.latestComments.moreItems" xml:space="preserve">
+				<source>All comments</source>
+			<target state="needs-translation">All comments</target></trans-unit>
+      <trans-unit id="widget.latestPosts.title" xml:space="preserve">
+				<source>Latest blog posts</source>
+			<target state="needs-translation">Latest blog posts</target></trans-unit>
+      <trans-unit id="widget.latestPosts.description" xml:space="preserve">
+				<source>Add a list of the latest blog posts.</source>
+			<target state="needs-translation">Add a list of the latest blog posts.</target></trans-unit>
+      <trans-unit id="widget.latestPosts.moreItems" xml:space="preserve">
+				<source>All posts</source>
+			<target state="needs-translation">All posts</target></trans-unit>
+      <trans-unit id="widget.draftPosts.title" xml:space="preserve">
+				<source>Blog post drafts</source>
+			<target state="needs-translation">Blog post drafts</target></trans-unit>
+      <trans-unit id="widget.draftPosts.description" xml:space="preserve">
+				<source>Add a list of the blog posts draft.</source>
+			<target state="needs-translation">Add a list of the blog posts draft.</target></trans-unit>
+      <trans-unit id="widget.draftPosts.moreItems" xml:space="preserve">
+				<source>All posts</source>
+			<target state="needs-translation">All posts</target></trans-unit>
+      <trans-unit id="widget.pendingComments.title" xml:space="preserve">
+				<source>Pending blog comments</source>
+			<target state="needs-translation">Pending blog comments</target></trans-unit>
+      <trans-unit id="widget.pendingComments.description" xml:space="preserve">
+				<source>Add a list of the pending blog comments.</source>
+			<target state="needs-translation">Add a list of the pending blog comments.</target></trans-unit>
+      <trans-unit id="widget.pendingComments.moreItems" xml:space="preserve">
+				<source>All pending comments</source>
+			<target state="needs-translation">All pending comments</target></trans-unit>
+      <trans-unit id="widget.pendingCommentsNumberWithIcon.title" xml:space="preserve">
+				<source>Pending blog comments</source>
+			<target state="needs-translation">Pending blog comments</target></trans-unit>
+      <trans-unit id="widget.pendingCommentsNumberWithIcon.description" xml:space="preserve">
+				<source>Add an overview of the pending blog comments.</source>
+			<target state="needs-translation">Add an overview of the pending blog comments.</target></trans-unit>
+      <trans-unit id="widget.pendingCommentsNumberWithIcon.subtitle" xml:space="preserve">
+				<source>Comments awaiting moderation</source>
+			<target state="needs-translation">Comments awaiting moderation</target></trans-unit>
+      <trans-unit id="widget.blogSubscriber.title" xml:space="preserve">
+				<source>New blog post subscriptions</source>
+			<target state="needs-translation">New blog post subscriptions</target></trans-unit>
+      <trans-unit id="widget.blogSubscriber.description" xml:space="preserve">
+				<source>Add a list of new post subscriptions.</source>
+			<target state="needs-translation">Add a list of new post subscriptions.</target></trans-unit>
+      <trans-unit id="widget.blogSubscriber.moreItems" xml:space="preserve">
+				<source>All post subscriptions</source>
+			<target state="needs-translation">All post subscriptions</target></trans-unit>
+      <trans-unit id="widget.postSubscriber.title" xml:space="preserve">
+				<source>New blog comment subscriptions</source>
+			<target state="needs-translation">New blog comment subscriptions</target></trans-unit>
+      <trans-unit id="widget.postSubscriber.description" xml:space="preserve">
+				<source>Add a list of new comment subscriptions.</source>
+			<target state="needs-translation">Add a list of new comment subscriptions.</target></trans-unit>
+      <trans-unit id="widget.postSubscriber.moreItems" xml:space="preserve">
+				<source>All comment subscriptions</source>
+			<target state="needs-translation">All comment subscriptions</target></trans-unit>
+      <trans-unit id="widget.statisticChart.title" xml:space="preserve">
+				<source>Blog statistic</source>
+			<target state="needs-translation">Blog statistic</target></trans-unit>
+      <trans-unit id="widget.statisticChart.description" xml:space="preserve">
+				<source>Add a blog statistic doughnut chart.</source>
+			<target state="needs-translation">Add a blog statistic doughnut chart.</target></trans-unit>
+      <trans-unit id="widget.statisticChart.chart.posts" xml:space="preserve">
+				<source>posts</source>
+			<target state="needs-translation">posts</target></trans-unit>
+      <trans-unit id="widget.statisticChart.chart.comments" xml:space="preserve">
+				<source>comments</source>
+			<target state="needs-translation">comments</target></trans-unit>
+      <trans-unit id="widget.statisticChart.chart.blogSubscribers" xml:space="preserve">
+				<source>post subscribers</source>
+			<target state="needs-translation">post subscribers</target></trans-unit>
+      <trans-unit id="widget.statisticChart.chart.postSubscribers" xml:space="preserve">
+				<source>comment subscribers</source>
+			<target state="needs-translation">comment subscribers</target></trans-unit>
+    </body>
+  </file>
+</xliff>
