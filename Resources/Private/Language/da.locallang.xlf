@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="da">
+    <header/>
+    <body>
+      <trans-unit id="error.headline">
+        <source>Error:</source>
+        <target state="needs-translation">Error:</target>
+      </trans-unit>
+      <trans-unit id="general.confirm">
+        <source>Are you sure?</source>
+        <target state="needs-translation">Are you sure?</target>
+      </trans-unit>
+      <trans-unit id="post.comments">
+        <source>comments</source>
+        <target state="needs-translation">comments</target>
+      </trans-unit>
+      <trans-unit id="post.permalink">
+        <source>permalink</source>
+        <target state="needs-translation">permalink</target>
+      </trans-unit>
+      <trans-unit id="post.filter.legend">
+        <source>Filtered by </source>
+        <target state="needs-translation">Filtered by </target>
+      </trans-unit>
+      <trans-unit id="post.filter.reset">
+        <source>Reset filter</source>
+        <target state="needs-translation">Reset filter</target>
+      </trans-unit>
+      <trans-unit id="post.category">
+        <source>category</source>
+        <target state="needs-translation">category</target>
+      </trans-unit>
+      <trans-unit id="post.tag">
+        <source>tag</source>
+        <target state="needs-translation">tag</target>
+      </trans-unit>
+      <trans-unit id="post.no-result">
+        <source>No posts found.</source>
+        <target state="needs-translation">No posts found.</target>
+      </trans-unit>
+      <trans-unit id="comment.new">
+        <source>New comment</source>
+        <target state="needs-translation">New comment</target>
+      </trans-unit>
+      <trans-unit id="comment.submit">
+        <source>Submit</source>
+        <target state="needs-translation">Submit</target>
+      </trans-unit>
+      <trans-unit id="comment.disabled">
+        <source>Comments are disabled for this post.</source>
+        <target state="needs-translation">Comments are disabled for this post.</target>
+      </trans-unit>
+      <trans-unit id="comment.text">
+        <source>Message</source>
+        <target state="needs-translation">Message</target>
+      </trans-unit>
+      <trans-unit id="comment.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="comment.author">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="comment.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="comment.website">
+        <source>Link</source>
+        <target state="needs-translation">Link</target>
+      </trans-unit>
+      <trans-unit id="comment.subscribe">
+        <source>Receive notifications of new comments</source>
+        <target state="needs-translation">Receive notifications of new comments</target>
+      </trans-unit>
+      <trans-unit id="comment.human">
+        <source>I am a human</source>
+        <target state="needs-translation">I am a human</target>
+      </trans-unit>
+      <trans-unit id="comment.optional">
+        <source>optional</source>
+        <target state="needs-translation">optional</target>
+      </trans-unit>
+      <trans-unit id="comment.privacyPolicyAccepted">
+        <source>Accept the privacy policy</source>
+        <target state="needs-translation">Accept the privacy policy</target>
+      </trans-unit>
+      <trans-unit id="comment.privacyPolicyAccepted.text">
+        <source>Accept the %s</source>
+        <target state="needs-translation">Accept the %s</target>
+      </trans-unit>
+      <trans-unit id="comment.privacyPolicyAccepted.link">
+        <source>privacy policy</source>
+        <target state="needs-translation">privacy policy</target>
+      </trans-unit>
+      <trans-unit id="category.button">
+        <source>Show categories</source>
+        <target state="needs-translation">Show categories</target>
+      </trans-unit>
+      <trans-unit id="subscriber.headline">
+        <source>Listing of subscriptions</source>
+        <target state="needs-translation">Listing of subscriptions</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.caption">
+        <source>Comment subscriptions</source>
+        <target state="needs-translation">Comment subscriptions</target>
+      </trans-unit>
+      <trans-unit id="subscriber.logout">
+        <source>Logout</source>
+        <target state="needs-translation">Logout</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.header.post">
+        <source>Article</source>
+        <target state="needs-translation">Article</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.header.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.header.comments">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.approved">
+        <source>approved</source>
+        <target state="needs-translation">approved</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.moderation">
+        <source>awaiting moderation</source>
+        <target state="needs-translation">awaiting moderation</target>
+      </trans-unit>
+      <trans-unit id="subscriber.table.delete">
+        <source>Delete</source>
+        <target state="needs-translation">Delete</target>
+      </trans-unit>
+      <trans-unit id="subscriber.blog.delete">
+        <source>End subscription for new posts</source>
+        <target state="needs-translation">End subscription for new posts</target>
+      </trans-unit>
+      <trans-unit id="subscriber.blog.create">
+        <source>Subscribe for new posts</source>
+        <target state="needs-translation">Subscribe for new posts</target>
+      </trans-unit>
+      <trans-unit id="subscriber.email">
+        <source>Email address</source>
+        <target state="needs-translation">Email address</target>
+      </trans-unit>
+      <trans-unit id="subscriber.privacyPolicyAccepted">
+        <source>Accept the privacy policy</source>
+        <target state="needs-translation">Accept the privacy policy</target>
+      </trans-unit>
+      <trans-unit id="subscriber.privacyPolicyAccepted.text">
+        <source>Accept the %s</source>
+        <target state="needs-translation">Accept the %s</target>
+      </trans-unit>
+      <trans-unit id="subscriber.privacyPolicyAccepted.link">
+        <source>privacy policy</source>
+        <target state="needs-translation">privacy policy</target>
+      </trans-unit>
+      <trans-unit id="subscriber.form.new">
+        <source>Subscribe for new blog posts</source>
+        <target state="needs-translation">Subscribe for new blog posts</target>
+      </trans-unit>
+      <trans-unit id="subscriber.form.submit">
+        <source>Submit</source>
+        <target state="needs-translation">Submit</target>
+      </trans-unit>
+      <trans-unit id="subject.comment.admin.new">
+        <source>%1$s: New comment</source>
+        <target state="needs-translation">%1$s: New comment</target>
+      </trans-unit>
+      <trans-unit id="subject.subscriber.comment.notify">
+        <source>%1$s: New comment on '%2$s'</source>
+        <target state="needs-translation">%1$s: New comment on '%2$s'</target>
+      </trans-unit>
+      <trans-unit id="subject.subscriber.comment.new">
+        <source>%1$s: Subscribe to '%2$s'</source>
+        <target state="needs-translation">%1$s: Subscribe to '%2$s'</target>
+      </trans-unit>
+      <trans-unit id="subject.subscriber.blog.notify">
+        <source>%1$s: New blog post '%2$s'</source>
+        <target state="needs-translation">%1$s: New blog post '%2$s'</target>
+      </trans-unit>
+      <trans-unit id="subject.subscriber.blog.new">
+        <source>%1$s: Subscribe to new blog posts</source>
+        <target state="needs-translation">%1$s: Subscribe to new blog posts</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">
+        <source>Already registered.</source>
+        <target state="needs-translation">Already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.alreadyRegistered">
+        <source>Your email address is already registered.</source>
+        <target state="needs-translation">Your email address is already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.notAllowed.title">
+        <source>Subscription not allowed</source>
+        <target state="needs-translation">Subscription not allowed</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.notAllowed">
+        <source>Sorry, no new subscriptions allowed.</source>
+        <target state="needs-translation">Sorry, no new subscriptions allowed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.created.title">
+        <source>Subscription enabled!</source>
+        <target state="needs-translation">Subscription enabled!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.created">
+        <source>New post notification has been enabled.</source>
+        <target state="needs-translation">New post notification has been enabled.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.confirmed.title">
+        <source>Successfully confirmed!</source>
+        <target state="needs-translation">Successfully confirmed!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.confirmed">
+        <source>Thank you! Your subscription has been confirmed.</source>
+        <target state="needs-translation">Thank you! Your subscription has been confirmed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.deleted.title">
+        <source>Successfully disabled!</source>
+        <target state="needs-translation">Successfully disabled!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriber.deleted">
+        <source>New post notification has been disabled.</source>
+        <target state="needs-translation">New post notification has been disabled.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.postSubscriber.confirmed.title">
+        <source>Successfully confirmed!</source>
+        <target state="needs-translation">Successfully confirmed!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.postSubscriber.confirmed">
+        <source>Thank you! Your subscription has been confirmed.</source>
+        <target state="needs-translation">Thank you! Your subscription has been confirmed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.postSubscriber.deleted.title">
+        <source>Successfully deleted!</source>
+        <target state="needs-translation">Successfully deleted!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.postSubscriber.deleted">
+        <source>Your subscription has been deleted.</source>
+        <target state="needs-translation">Your subscription has been deleted.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.logout.title">
+        <source>Logged out!</source>
+        <target state="needs-translation">Logged out!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.logout">
+        <source>You have been successfully logged out.</source>
+        <target state="needs-translation">You have been successfully logged out.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.invalidAuth.title">
+        <source>Missing authentication!</source>
+        <target state="needs-translation">Missing authentication!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.invalidAuth">
+        <source>Authentication missing. Please try again.</source>
+        <target state="needs-translation">Authentication missing. Please try again.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.authFailed.title">
+        <source>Authentication failed!</source>
+        <target state="needs-translation">Authentication failed!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.authFailed">
+        <source>Authentication has failed. It seems no such subscription exists.</source>
+        <target state="needs-translation">Authentication has failed. It seems no such subscription exists.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.linkOutdated.title">
+        <source>Link outdated!</source>
+        <target state="needs-translation">Link outdated!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.linkOutdated">
+        <source>The used authentication link is expired.</source>
+        <target state="needs-translation">The used authentication link is expired.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.alreadyRegistered.title">
+        <source>Already registered.</source>
+        <target state="needs-translation">Already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.alreadyRegistered">
+        <source>Your email address is already registered.</source>
+        <target state="needs-translation">Your email address is already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.invalidLink.title">
+        <source>Invalid link!</source>
+        <target state="needs-translation">Invalid link!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.subscriber.invalidLink">
+        <source>The authentication link seems to be invalid.</source>
+        <target state="needs-translation">The authentication link seems to be invalid.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.created.title">
+        <source>Comment saved!</source>
+        <target state="needs-translation">Comment saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.created">
+        <source>Thanks, your comment has been saved.</source>
+        <target state="needs-translation">Thanks, your comment has been saved.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.createdDisapproved.title">
+        <source>Comment saved!</source>
+        <target state="needs-translation">Comment saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.createdDisapproved">
+        <source>Thanks, your comment has been saved and is awaiting moderation.</source>
+        <target state="needs-translation">Thanks, your comment has been saved and is awaiting moderation.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.markedAsSpam.title">
+        <source>Comment saved!</source>
+        <target state="needs-translation">Comment saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.markedAsSpam">
+        <source>Sorry, your comment has been saved but was marked as SPAM. Your comment is awaiting moderation.</source>
+        <target state="needs-translation">Sorry, your comment has been saved but was marked as SPAM. Your comment is awaiting moderation.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.blockedAsSpam.title">
+        <source>Comment not saved!</source>
+        <target state="needs-translation">Comment not saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.blockedAsSpam">
+        <source>Sorry, your comment has recognized as SPAM. Please try again!</source>
+        <target state="needs-translation">Sorry, your comment has recognized as SPAM. Please try again!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.notAllowed.title">
+        <source>Comments not allowed</source>
+        <target state="needs-translation">Comments not allowed</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.notAllowed">
+        <source>Sorry, no new comments allowed.</source>
+        <target state="needs-translation">Sorry, no new comments allowed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.commentsClosed.title">
+        <source>Comments closed.</source>
+        <target state="needs-translation">Comments closed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.commentsClosed">
+        <source>Sorry, no new comments allowed.</source>
+        <target state="needs-translation">Sorry, no new comments allowed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.notLoggedIn.title">
+        <source>Login needed.</source>
+        <target state="needs-translation">Login needed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.comment.notLoggedIn">
+        <source>Please login to comment.</source>
+        <target state="needs-translation">Please login to comment.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
+        <source>Already registered.</source>
+        <target state="needs-translation">Already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered">
+        <source>Your email address is already registered.</source>
+        <target state="needs-translation">Your email address is already registered.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam.title">
+        <source>Subscription not saved!</source>
+        <target state="needs-translation">Subscription not saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.blockedAsSpam">
+        <source>Sorry, your subscription has been recognized as SPAM. Please try again!</source>
+        <target state="needs-translation">Sorry, your subscription has been recognized as SPAM. Please try again!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.notAllowed.title">
+        <source>Subscription not allowed</source>
+        <target state="needs-translation">Subscription not allowed</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.notAllowed">
+        <source>Sorry, no new subscriptions allowed.</source>
+        <target state="needs-translation">Sorry, no new subscriptions allowed.</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.created.title">
+        <source>Subscription saved!</source>
+        <target state="needs-translation">Subscription saved!</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.blogSubscriberForm.created">
+        <source>Thanks, your subscription has been saved. A confirmation email has been sent.</source>
+        <target state="needs-translation">Thanks, your subscription has been saved. A confirmation email has been sent.</target>
+      </trans-unit>
+      <trans-unit id="module.title">
+        <source>Blog-Administration</source>
+        <target state="needs-translation">Blog-Administration</target>
+      </trans-unit>
+      <trans-unit id="module.buttons.new.post">
+        <source>Create new post</source>
+        <target state="needs-translation">Create new post</target>
+      </trans-unit>
+      <trans-unit id="module.buttons.new.category">
+        <source>Create new category</source>
+        <target state="needs-translation">Create new category</target>
+      </trans-unit>
+      <trans-unit id="module.buttons.new.comment">
+        <source>Create new comment</source>
+        <target state="needs-translation">Create new comment</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.title">
+        <source>Dashboard</source>
+        <target state="needs-translation">Dashboard</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.actions">
+        <source>Choose a view:</source>
+        <target state="needs-translation">Choose a view:</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.comments">
+        <source>Latest comments</source>
+        <target state="needs-translation">Latest comments</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.subscriptions">
+        <source>Latest subscriptions</source>
+        <target state="needs-translation">Latest subscriptions</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.drafts">
+        <source>Post drafts</source>
+        <target state="needs-translation">Post drafts</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.statistic">
+        <source>Blog statistic</source>
+        <target state="needs-translation">Blog statistic</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.statistic.postAndComments">
+        <source>%1$s posts with %2$s comments and %3$s subscriptions for new comments</source>
+        <target state="needs-translation">%1$s posts with %2$s comments and %3$s subscriptions for new comments</target>
+      </trans-unit>
+      <trans-unit id="module.dashboard.statistic.subscriptions">
+        <source>%1$s subscriptions for new blog posts</source>
+        <target state="needs-translation">%1$s subscriptions for new blog posts</target>
+      </trans-unit>
+      <trans-unit id="module.post.title">
+        <source>Posts</source>
+        <target state="needs-translation">Posts</target>
+      </trans-unit>
+      <trans-unit id="module.post.table.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="module.post.table.date">
+        <source>Date</source>
+        <target state="needs-translation">Date</target>
+      </trans-unit>
+      <trans-unit id="module.post.table.author">
+        <source>Author</source>
+        <target state="needs-translation">Author</target>
+      </trans-unit>
+      <trans-unit id="module.post.table.comments">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="module.post.table.count">
+        <source>Show %1$s of %2$s posts</source>
+        <target state="needs-translation">Show %1$s of %2$s posts</target>
+      </trans-unit>
+      <trans-unit id="module.post.noRecords">
+        <source>No blog posts found.</source>
+        <target state="needs-translation">No blog posts found.</target>
+      </trans-unit>
+      <trans-unit id="module.post.help.hide.0">
+        <source>Unhide post</source>
+        <target state="needs-translation">Unhide post</target>
+      </trans-unit>
+      <trans-unit id="module.post.help.hide.1">
+        <source>Hide post</source>
+        <target state="needs-translation">Hide post</target>
+      </trans-unit>
+      <trans-unit id="module.post.help.edit">
+        <source>Edit post</source>
+        <target state="needs-translation">Edit post</target>
+      </trans-unit>
+      <trans-unit id="module.post.help.delete">
+        <source>Delete post</source>
+        <target state="needs-translation">Delete post</target>
+      </trans-unit>
+      <trans-unit id="module.post.sendBlogSubscriptionEmails">
+        <source>Send new post notification mail to blog subscribers</source>
+        <target state="needs-translation">Send new post notification mail to blog subscribers</target>
+      </trans-unit>
+      <trans-unit id="module.post.emailsSent">
+        <source>Successfully sent notification emails to %1$s subscribers.</source>
+        <target state="needs-translation">Successfully sent notification emails to %1$s subscribers.</target>
+      </trans-unit>
+      <trans-unit id="module.comment.title.byPost">
+        <source><![CDATA[All comments for post <em>%1$s</em>]]></source>
+        <target state="needs-translation"><![CDATA[All comments for post <em>%1$s</em>]]></target>
+      </trans-unit>
+      <trans-unit id="module.comment.group">
+        <source>Comments</source>
+        <target state="needs-translation">Comments</target>
+      </trans-unit>
+      <trans-unit id="module.comment.title.all">
+        <source>All comments</source>
+        <target state="needs-translation">All comments</target>
+      </trans-unit>
+      <trans-unit id="module.comment.title.pending">
+        <source>Pending comments</source>
+        <target state="needs-translation">Pending comments</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.date">
+        <source>Date</source>
+        <target state="needs-translation">Date</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.author">
+        <source>Author</source>
+        <target state="needs-translation">Author</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.website">
+        <source>Website</source>
+        <target state="needs-translation">Website</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.approved">
+        <source>Approved</source>
+        <target state="needs-translation">Approved</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.spam">
+        <source>SPAM</source>
+        <target state="needs-translation">SPAM</target>
+      </trans-unit>
+      <trans-unit id="module.comment.table.count">
+        <source>Show %1$s of %2$s comments</source>
+        <target state="needs-translation">Show %1$s of %2$s comments</target>
+      </trans-unit>
+      <trans-unit id="module.comment.noRecords">
+        <source>No comments found.</source>
+        <target state="needs-translation">No comments found.</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.approved.0">
+        <source>Disapprove this comment</source>
+        <target state="needs-translation">Disapprove this comment</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.approved.1">
+        <source>Approve this comment</source>
+        <target state="needs-translation">Approve this comment</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.spam.0">
+        <source>Mark this comment as not SPAM</source>
+        <target state="needs-translation">Mark this comment as not SPAM</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.spam.1">
+        <source>Mark this comment as SPAM</source>
+        <target state="needs-translation">Mark this comment as SPAM</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.hide.0">
+        <source>Unhide comment</source>
+        <target state="needs-translation">Unhide comment</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.hide.1">
+        <source>Hide comment</source>
+        <target state="needs-translation">Hide comment</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.edit">
+        <source>Edit comment</source>
+        <target state="needs-translation">Edit comment</target>
+      </trans-unit>
+      <trans-unit id="module.comment.help.delete">
+        <source>Delete comment</source>
+        <target state="needs-translation">Delete comment</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.table.count">
+        <source>Show %1$s of %2$s subscriptions</source>
+        <target state="needs-translation">Show %1$s of %2$s subscriptions</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.noRecords">
+        <source>No subscriptions found.</source>
+        <target state="needs-translation">No subscriptions found.</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.help.hide.0">
+        <source>Enable subscription (not confirmed yet)</source>
+        <target state="needs-translation">Enable subscription (not confirmed yet)</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.help.hide.1">
+        <source>Disable subscription</source>
+        <target state="needs-translation">Disable subscription</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.help.edit">
+        <source>Edit subscription</source>
+        <target state="needs-translation">Edit subscription</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.help.delete">
+        <source>Delete subscription</source>
+        <target state="needs-translation">Delete subscription</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.group">
+        <source>Subscriptions</source>
+        <target state="needs-translation">Subscriptions</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.post.title">
+        <source>New comment subscriptions</source>
+        <target state="needs-translation">New comment subscriptions</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.blog.title">
+        <source>New post subscriptions</source>
+        <target state="needs-translation">New post subscriptions</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.post.table.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.post.table.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="module.subscriber.post.table.date">
+        <source>Date</source>
+        <target state="needs-translation">Date</target>
+      </trans-unit>
+      <trans-unit id="module.message.pendingComments.title">
+        <source>Pending comments</source>
+        <target state="needs-translation">Pending comments</target>
+      </trans-unit>
+      <trans-unit id="module.message.pendingComments">
+        <source>%1$s comments await moderation.</source>
+        <target state="needs-translation">%1$s comments await moderation.</target>
+      </trans-unit>
+      <trans-unit id="module.message.pageNotice.title">
+        <source>No blog records found!</source>
+        <target state="needs-translation">No blog records found!</target>
+      </trans-unit>
+      <trans-unit id="module.message.pageNotice">
+        <source>We found some related data on the following pages:</source>
+        <target state="needs-translation">We found some related data on the following pages:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
