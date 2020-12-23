@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-23T15:42:07Z" product-name="t3extblog" target-language="pt-PT">
+    <header/>
+    <body>
+      <trans-unit id="constants.category.basic" xml:space="preserve">
+				<source>Basic (required)</source>
+			<target state="needs-translation">Basic (required)</target></trans-unit>
+      <trans-unit id="constants.category.pid" xml:space="preserve">
+				<source>Pages (required)</source>
+			<target state="needs-translation">Pages (required)</target></trans-unit>
+      <trans-unit id="constants.category.persistence" xml:space="preserve">
+				<source>Storage (required)</source>
+			<target state="needs-translation">Storage (required)</target></trans-unit>
+      <trans-unit id="constants.category.email" xml:space="preserve">
+				<source>Email (required)</source>
+			<target state="needs-translation">Email (required)</target></trans-unit>
+      <trans-unit id="constants.category.preview" xml:space="preserve">
+				<source>Preview</source>
+			<target state="needs-translation">Preview</target></trans-unit>
+      <trans-unit id="constants.category.privacy" xml:space="preserve">
+				<source>Privacy policy</source>
+			<target state="needs-translation">Privacy policy</target></trans-unit>
+    </body>
+  </file>
+</xliff>
