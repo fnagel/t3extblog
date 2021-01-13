@@ -331,9 +331,10 @@ Localization works like for any other TYPO3 extension:
 
 Feel free to add new localization!
 
-TYPO3 Pootle project: http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
+Crowdin project: https://crowdin.com/project/typo3-extension-t3extblog
 
-More information about TYPO3 translation server: https://wiki.typo3.org/Translations
+More information about TYPO3 translations:
+https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Internationalization/TranslationServer/Crowdin.html
 
 
 Clear frontend cache

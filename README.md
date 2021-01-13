@@ -4,6 +4,7 @@
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/fnagel/t3extblog/Tests/master?label=tests)](https://github.com/fnagel/t3extblog/actions)
 [![Latest stable version from Packagist](https://img.shields.io/packagist/v/felixnagel/t3extblog)](https://packagist.org/packages/felixnagel/t3extblog)
 [![PHP version from Packagist](https://img.shields.io/packagist/php-v/felixnagel/t3extblog)](https://github.com/fnagel/t3extblog/blob/master/composer.json)
+[![Crowdin](https://badges.crowdin.net/typo3-extension-t3extblog/localized.svg)](https://crowdin.com/project/typo3-extension-t3extblog)
 [![License](https://img.shields.io/packagist/l/felixnagel/t3extblog)](https://github.com/fnagel/t3extblog/blob/master/LICENSE.txt)
 
 A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
@@ -35,8 +36,8 @@ See [/Documentation](./Documentation) directory or [online](https://docs.typo3.o
 
 Please see [/Documentation/Installation/Full.rst](./Documentation/Installation/Full.rst) for installation.
 
-The extension is available within the [TYPO3 TER](https://extensions.typo3.org/extension/t3extblog/)
-or using [composer with packagist](https://packagist.org/packages/felixnagel/t3extblog).
+The extension is available using the [TYPO3 TER](https://extensions.typo3.org/extension/t3extblog/)
+or [composer with packagist](https://packagist.org/packages/felixnagel/t3extblog).
 
 * For TYPO3 10.x use the [master branch](https://github.com/fnagel/t3extblog/tree/master) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/master/en-us/)
 * For TYPO3 9.x use the [5.x branch](https://github.com/fnagel/t3extblog/tree/5.x) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/5.0/en-us/)
