@@ -75,6 +75,7 @@ routeEnhancers:
         type: T3extblogPostMapper
         # Remove to disable date segment in the URL
         datePrefix: 'Y/m/d/'
+        datePrefixRegex: '#^[^\/]*\/[^\/]*\/[^\/]*\/#'
       post_prefix_localized:
         type: LocaleModifier
         default: 'article'
