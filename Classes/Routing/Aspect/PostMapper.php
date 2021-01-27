@@ -26,6 +26,11 @@ class PostMapper extends AbstractPersistedAliasMapper
     /**
      * @var string
      */
+    protected $datePrefixRegex;
+
+    /**
+     * @var string
+     */
     protected $dateFieldName;
 
     /**
@@ -40,6 +45,7 @@ class PostMapper extends AbstractPersistedAliasMapper
 
         $dateFieldName = $settings['dateFieldName'] ?? 'date';
         $datePrefix = $settings['datePrefix'] ?? null;
+        $datePrefixRegex = $settings['datePrefixRegex'] ?? null;
 
         if (!is_string($dateFieldName)) {
             throw new \InvalidArgumentException('dateFieldName must be string', 1537277135);
@@ -53,10 +59,14 @@ class PostMapper extends AbstractPersistedAliasMapper
             if (empty($date->format($datePrefix))) {
                 throw new \InvalidArgumentException('datePrefix must be valid DateTime value', 1550748751);
             }
+            if (!is_string($datePrefixRegex)) {
+                throw new \InvalidArgumentException('datePrefixRegex must be string', 1611742603);
+            }
         }
 
         $this->dateFieldName = $dateFieldName;
         $this->datePrefix = $datePrefix;
+        $this->datePrefixRegex = $datePrefixRegex;
 
         parent::__construct($settings);
     }
@@ -97,11 +107,10 @@ class PostMapper extends AbstractPersistedAliasMapper
         $valueBackup = $value;
 
         // Remove date prefix if existing
-        $date = new \DateTime();
-        $value = substr($value, strlen($date->format($this->datePrefix)));
+        $value = \preg_replace($this->datePrefixRegex, '', $value);
 
         if (!is_string($value)) {
-            $this->logNotFound('Invalid blog post date given!');
+            $this->logNotFound('Date prefix (based on regex) not found!');
             return null;
         }
 
