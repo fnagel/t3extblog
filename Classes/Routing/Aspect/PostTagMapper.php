@@ -11,8 +11,6 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  */
 
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Routing\Aspect\PersistedAliasMapper;
-use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 
 /**
  * PostTagMapper
