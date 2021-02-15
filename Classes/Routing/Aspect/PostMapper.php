@@ -29,6 +29,11 @@ class PostMapper extends AbstractPersistedAliasMapper
     protected $datePrefixRegex;
 
     /**
+     * @var boolean
+     */
+    protected $datePrefixLowercase;
+
+    /**
      * @var string
      */
     protected $dateFieldName;
@@ -67,6 +72,7 @@ class PostMapper extends AbstractPersistedAliasMapper
         $this->dateFieldName = $dateFieldName;
         $this->datePrefix = $datePrefix;
         $this->datePrefixRegex = $datePrefixRegex;
+        $this->datePrefixLowercase = (bool) ($settings['datePrefixLowercase'] ?? false);
 
         parent::__construct($settings);
     }
@@ -160,7 +166,13 @@ class PostMapper extends AbstractPersistedAliasMapper
         $date = new \DateTime(date('c', (int)$result[$this->dateFieldName]));
 
         if ($date instanceof \DateTime) {
-            $value = $date->format($this->datePrefix).$value;
+            $formattedDate = $date->format($this->datePrefix);
+
+            if ($this->datePrefixLowercase) {
+                $formattedDate = strtolower($formattedDate);
+            }
+
+            $value = $formattedDate.$value;
         }
 
         return $value;

@@ -119,7 +119,8 @@ change this by either:
 * Use any date format string with according prefix. For example with speaking month names:
    `datePrefix: 'Y/F/'` and `datePrefixRegex: '#^[^\/]*\/[^\/]*\/#'` resulting in URLs like
    `domain.com/page/article/2020/December/post-title/` (please note: you will need to adjust `requirements.post_title`
-   to `^\d{4}\/\p{L}{3,10}\/[\p{Ll}\d\-\_]+$` in order to make this work)
+   to `^\d{4}\/\p{L}{3,10}\/[\p{Ll}\d\-\_]+$` in order to make this work; you might want to enable `datePrefixLowercase`
+   too)
 
 .. tip::
 	Option `datePrefix` uses the `date()` method, see here for possible options:
