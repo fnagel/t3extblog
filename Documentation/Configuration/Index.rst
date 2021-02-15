@@ -111,6 +111,20 @@ Speaking URLs
 This extension include a predefined setup for the TYPO3 CMS core feature speaking URL,
 see :code:`t3extblog/Configuration/Routes/Default.yaml` for details.
 
+Default will render URLs for blog posts like this: `domain.com/page/article/2020/12/30/post-title/` but it's easy to
+change this by either:
+
+* Remove the `datePrefix` option completely, resulting in no date prefix in the URL:
+   `domain.com/page/article/post-title/`
+* Use any date format string with according prefix. For example with speaking month names:
+   `datePrefix: 'Y/F/'` and `datePrefixRegex: '#^[^\/]*\/[^\/]*\/#'` resulting in URLs like
+   `domain.com/page/article/2020/December/post-title/` (please note: you will need to adjust `requirements.post_title`
+   to `^\d{4}\/\p{L}{3,10}\/[\p{Ll}\d\-\_]+$` in order to make this work)
+
+.. tip::
+	Option `datePrefix` uses the `date()` method, see here for possible options:
+   https://www.php.net/manual/en/function.date
+   https://www.php.net/manual/en/datetime.format.php
 
 .. tip::
 	See here for more info on site configuration and speaking URLs:
