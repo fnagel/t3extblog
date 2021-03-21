@@ -14,6 +14,8 @@ use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
 
 /**
  * AbstractEntity.
@@ -142,7 +144,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
      */
     protected function loadLazyRelation($relation)
     {
-        if ($relation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($relation instanceof LazyLoadingProxy) {
             $relation->_loadRealInstance();
         }
     }
@@ -172,7 +174,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         // Remove lazy object storage as this will break post preview when serializing the post in form VH
         // @todo Fix this!
         foreach ($properties as $key => $property) {
-            if ($property instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage) {
+            if ($property instanceof LazyObjectStorage) {
                 unset($properties[$key]);
             }
         }

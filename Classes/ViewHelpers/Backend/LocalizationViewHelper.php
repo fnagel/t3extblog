@@ -18,6 +18,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * Show localized posts view helper.
@@ -111,7 +112,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
                     $records[$sysLanguageUid] = [
                         'editIcon' => self::getLanguageIconLink(
                             $sysLanguageUid,
-                            BackendUtility::editOnClick('&edit['.$table.']['.$translationData['uid'].']=edit'),
+                            GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . ('&edit['.$table.']['.$translationData['uid'].']=edit') . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI')),
                             $translationData['uid']
                         ),
                         'uid' => $translations['translations'][$sysLanguageUid]['uid'],

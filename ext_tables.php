@@ -57,15 +57,15 @@ call_user_func(function ($packageKey) {
 
         // Register  Backend Module
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'FelixNagel.'.$packageKey,
+            'T3extblog',
             'web',
             'Tx_T3extblog',
             '',
             [
-                'BackendDashboard' => 'index',
-                'BackendPost' => 'index, sendPostNotifications',
-                'BackendComment' => 'index, listPending, listByPost',
-                'BackendSubscriber' => 'indexPostSubscriber, indexBlogSubscriber',
+                \FelixNagel\T3extblog\Controller\BackendDashboardController::class => 'index',
+                \FelixNagel\T3extblog\Controller\BackendPostController::class => 'index, sendPostNotifications',
+                \FelixNagel\T3extblog\Controller\BackendCommentController::class => 'index, listPending, listByPost',
+                \FelixNagel\T3extblog\Controller\BackendSubscriberController::class => 'indexPostSubscriber, indexBlogSubscriber',
             ],
             [
                 'access' => 'user,group',

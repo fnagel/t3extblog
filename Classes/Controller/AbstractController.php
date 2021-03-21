@@ -126,7 +126,7 @@ abstract class AbstractController extends ActionController
         TypoScriptValidator::validateSettings($this->settings);
 
         $frameworkConfiguration = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             $this->request->getControllerExtensionName(),
             $this->request->getPluginName()
         );

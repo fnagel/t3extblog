@@ -12,6 +12,8 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 
 /**
  * AbstractRepository.
@@ -101,8 +103,8 @@ abstract class AbstractRepository extends Repository
             $table = $this->getTableName();
         }
 
-        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Database\ConnectionPool::class
+        $queryBuilder = GeneralUtility::makeInstance(
+            ConnectionPool::class
         )
             ->getQueryBuilderForTable($table);
 

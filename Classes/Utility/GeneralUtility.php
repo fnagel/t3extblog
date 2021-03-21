@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
+use TYPO3\CMS\Core\Core\Bootstrap;
 
 /**
  * General utility class.
@@ -97,7 +98,7 @@ class GeneralUtility implements SingletonInterface
     {
         // Init if needed
         if (!isset($GLOBALS['BE_USER'])) {
-            \TYPO3\CMS\Core\Core\Bootstrap::initializeBackendUser();
+            Bootstrap::initializeBackendUser();
         }
 
         // Check for valid user
