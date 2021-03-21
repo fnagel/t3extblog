@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Service;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Handles logging
@@ -103,7 +104,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
     protected function outputDebug($msg, $severity = 'debug', $data = [])
     {
         if ($this->renderInFe) {
-            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
+            DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);
         }
     }
 }

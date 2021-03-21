@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Exception\AccessDeniedException;
@@ -56,7 +57,7 @@ class PostController extends AbstractCommentController
      */
     protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
     {
-        if ($exception instanceof  \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) {
+        if ($exception instanceof  TargetNotFoundException) {
             $this->pageNotFoundAndExit('Entity not found.');
         }
 

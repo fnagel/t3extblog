@@ -10,9 +10,6 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Traits\LoggingTrait;
-use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
-
 /**
  * PostMapper
  */

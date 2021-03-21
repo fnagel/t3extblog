@@ -11,104 +11,104 @@ if (!defined('TYPO3_MODE')) {
 
 // Plugins
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'Blogsystem',
     [
-        'Post' => 'list, tag, category, author, show, permalink, preview',
-        'Comment' => 'create, show',
+        \FelixNagel\T3extblog\Controller\PostController::class => 'list, tag, category, author, show, permalink, preview',
+        \FelixNagel\T3extblog\Controller\CommentController::class => 'create, show',
     ],
     // non-cacheable actions
     [
-        'Post' => 'permalink, preview',
-        'Comment' => 'create',
+        \FelixNagel\T3extblog\Controller\PostController::class => 'permalink, preview',
+        \FelixNagel\T3extblog\Controller\CommentController::class => 'create',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'Archive',
     [
-        'Post' => 'archive',
+        \FelixNagel\T3extblog\Controller\PostController::class => 'archive',
     ],
     // non-cacheable actions
     [
-        'Post' => '',
+        \FelixNagel\T3extblog\Controller\PostController::class => '',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'Rss',
     [
-        'Post' => 'rss',
+        \FelixNagel\T3extblog\Controller\PostController::class => 'rss',
     ],
     // non-cacheable actions
     [
-        'Post' => '',
+        \FelixNagel\T3extblog\Controller\PostController::class => '',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'SubscriptionManager',
     [
-        'Subscriber' => 'list, error, logout',
-        'PostSubscriber' => 'list, delete, confirm',
-        'BlogSubscriber' => 'list, delete, confirm, create',
+        \FelixNagel\T3extblog\Controller\SubscriberController::class => 'list, error, logout',
+        \FelixNagel\T3extblog\Controller\PostSubscriberController::class => 'list, delete, confirm',
+        \FelixNagel\T3extblog\Controller\BlogSubscriberController::class => 'list, delete, confirm, create',
     ],
     // non-cacheable actions
     [
-        'Subscriber' => 'list, error, logout',
-        'PostSubscriber' => 'list, delete, confirm',
-        'BlogSubscriber' => 'list, delete, confirm, create',
+        \FelixNagel\T3extblog\Controller\SubscriberController::class => 'list, error, logout',
+        \FelixNagel\T3extblog\Controller\PostSubscriberController::class => 'list, delete, confirm',
+        \FelixNagel\T3extblog\Controller\BlogSubscriberController::class => 'list, delete, confirm, create',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'BlogSubscription',
     [
-        'BlogSubscriberForm' => 'new, create, success',
+        \FelixNagel\T3extblog\Controller\BlogSubscriberFormController::class => 'new, create, success',
     ],
     // non-cacheable actions
     [
-        'BlogSubscriberForm' => 'new, create, success',
+        \FelixNagel\T3extblog\Controller\BlogSubscriberFormController::class => 'new, create, success',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'Categories',
     [
-        'Category' => 'list, show',
+        \FelixNagel\T3extblog\Controller\CategoryController::class => 'list, show',
     ],
     // non-cacheable actions
     [
-        'Category' => '',
+        \FelixNagel\T3extblog\Controller\CategoryController::class => '',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'LatestPosts',
     [
-        'Post' => 'latest',
+        \FelixNagel\T3extblog\Controller\PostController::class => 'latest',
     ],
     // non-cacheable actions
     [
-        'Post' => '',
+        \FelixNagel\T3extblog\Controller\PostController::class => '',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'FelixNagel.t3extblog',
+    'T3extblog',
     'LatestComments',
     [
-        'Comment' => 'latest',
+        \FelixNagel\T3extblog\Controller\CommentController::class => 'latest',
     ],
     // non-cacheable actions
     [
-        'Comment' => '',
+        \FelixNagel\T3extblog\Controller\CommentController::class => '',
     ]
 );
 
