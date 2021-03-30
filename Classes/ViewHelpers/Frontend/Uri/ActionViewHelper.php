@@ -45,7 +45,7 @@ class ActionViewHelper extends CoreActionViewHelper
      */
     protected static function renderFrontendLink($uriBuilder, array $arguments)
     {
-        if ($arguments['pageUid'] === null || !intval($arguments['pageUid'])) {
+        if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
             throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
         }
 

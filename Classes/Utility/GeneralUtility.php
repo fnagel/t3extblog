@@ -100,12 +100,7 @@ class GeneralUtility implements SingletonInterface
         if (!isset($GLOBALS['BE_USER'])) {
             Bootstrap::initializeBackendUser();
         }
-
         // Check for valid user
-        if (is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid'])) {
-            return true;
-        }
-
-        return false;
+        return is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid']);
     }
 }

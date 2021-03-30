@@ -44,7 +44,7 @@ class PostTagMapper extends AbstractPersistedAliasMapper
             $this->routeFieldName => $value
         ]);
 
-        if ($result === false) {
+        if (!$result) {
             return null;
         }
 

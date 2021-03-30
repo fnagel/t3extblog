@@ -149,7 +149,7 @@ class CommentController extends AbstractCommentController
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'prePersist',
             [$post, &$newComment, $this]
         );
@@ -201,11 +201,9 @@ class CommentController extends AbstractCommentController
             $this->errorAction();
         }
 
-        if ($settings['allowedUntil']) {
-            if ($post->isExpired(trim($settings['allowedUntil']))) {
-                $this->addFlashMessageByKey('commentsClosed', FlashMessage::ERROR);
-                $this->errorAction();
-            }
+        if ($settings['allowedUntil'] && $post->isExpired(trim($settings['allowedUntil']))) {
+            $this->addFlashMessageByKey('commentsClosed', FlashMessage::ERROR);
+            $this->errorAction();
         }
     }
 
@@ -226,7 +224,7 @@ class CommentController extends AbstractCommentController
         ];
 
         // block comment and redirect user
-        if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= intval($threshold['redirect'])) {
+        if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= (int) $threshold['redirect']) {
             $this->getLog()->notice('New comment blocked and user redirected because of SPAM.', $logData);
             $this->redirect(
                 '',
@@ -240,14 +238,14 @@ class CommentController extends AbstractCommentController
         }
 
         // block comment and show message
-        if ($threshold['block'] > 0 && $comment->getSpamPoints() >= intval($threshold['block'])) {
+        if ($threshold['block'] > 0 && $comment->getSpamPoints() >= (int) $threshold['block']) {
             $this->getLog()->notice('New comment blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
             $this->errorAction();
         }
 
         // mark as spam
-        if ($comment->getSpamPoints() >= intval($threshold['markAsSpam'])) {
+        if ($comment->getSpamPoints() >= (int) $threshold['markAsSpam']) {
             $this->getLog()->notice('New comment marked as SPAM.', $logData);
             $comment->markAsSpam();
             $this->addFlashMessageByKey('markedAsSpam', FlashMessage::NOTICE);
@@ -262,15 +260,15 @@ class CommentController extends AbstractCommentController
     protected function sanitizeComment(Comment $comment)
     {
         // Remove non tag chars
-        $allowedTags = preg_replace('/[^\w<>]/i', '', $this->settings['blogsystem']['comments']['allowTags']);
+        $allowedTags = preg_replace('#[^\w<>]#i', '', $this->settings['blogsystem']['comments']['allowTags']);
         // Remove bad tags
-        $allowedTags = preg_replace('/<(script|link|i?frame)>/i', '', $allowedTags);
+        $allowedTags = preg_replace('#<(script|link|i?frame)>#i', '', $allowedTags);
 
         // Remove unwanted tags from text
         $text = strip_tags($comment->getText(), $allowedTags);
 
         // Remove all attributes
-        $text = preg_replace('/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i', '<$1$2>', $text);
+        $text = preg_replace('#<([a-z][a-z0-9]*)[^>]*?(\/?)>#i', '<$1$2>', $text);
 
         $comment->setText($text);
     }

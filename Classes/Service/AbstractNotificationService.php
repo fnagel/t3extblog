@@ -51,12 +51,12 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * @var array
      */
-    protected $subscriptionSettings;
+    protected $subscriptionSettings = [];
 
     /**
      * @var EmailService
@@ -220,7 +220,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     protected function persistToDatabase($force = false)
     {
-        if ($force === true || TYPO3_MODE === 'BE') {
+        if ($force || TYPO3_MODE === 'BE') {
             $this->objectManager->get(PersistenceManager::class)->persistAll();
         }
     }

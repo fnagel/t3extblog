@@ -43,7 +43,7 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        $queueIdentifier = isset($this->arguments['queueIdentifier']) ? $this->arguments['queueIdentifier'] : null;
+        $queueIdentifier = $this->arguments['queueIdentifier'] ?? null;
         $flashMessages = $this->renderingContext->getControllerContext()->getFlashMessageQueue($queueIdentifier)->getAllMessages();
 
         if (count($flashMessages) > 0) {

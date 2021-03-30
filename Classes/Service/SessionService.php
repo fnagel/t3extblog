@@ -20,6 +20,9 @@ class SessionService implements SessionServiceInterface
 {
     use LoggingTrait;
 
+    /**
+     * @var string
+     */
     const SESSION_DATA_KEY = 'subscription_session';
 
     /**

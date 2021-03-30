@@ -47,8 +47,7 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
 
         /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-        $icon = $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
 
-        return $icon;
+        return $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
     }
 }

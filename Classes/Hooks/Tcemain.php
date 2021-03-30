@@ -214,7 +214,7 @@ class Tcemain
             $queryBuilder->expr()->eq($fieldName, $queryBuilder->createNamedParameter($postId, \PDO::PARAM_INT))
         ];
 
-        if ($tableName = 'tt_content') {
+        if ($tableName === 'tt_content') {
             $constraints[] = $queryBuilder->expr()->eq(
                 'irre_parenttable',
                 $queryBuilder->createNamedParameter('tx_t3blog_post')
@@ -353,7 +353,7 @@ class Tcemain
         }
 
         // Fallback (used for deleted records)
-        list($pid) = BackendUtility::getTSCpid($table, $id, '');
+        [$pid] = BackendUtility::getTSCpid($table, $id, '');
 
         return (int) $pid;
     }

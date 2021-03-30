@@ -125,7 +125,7 @@ class BlogSubscriberFormController extends AbstractController
         $logData = ['spamPoints' => $spamPoints];
 
         // block comment and redirect user
-        if ($threshold['redirect'] > 0 && $spamPoints >= intval($threshold['redirect'])) {
+        if ($threshold['redirect'] > 0 && $spamPoints >= (int) $threshold['redirect']) {
             $this->getLog()->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
             $this->redirect(
                 '',
@@ -139,7 +139,7 @@ class BlogSubscriberFormController extends AbstractController
         }
 
         // block comment and show message
-        if ($threshold['block'] > 0 && $spamPoints >= intval($threshold['block'])) {
+        if ($threshold['block'] > 0 && $spamPoints >= (int) $threshold['block']) {
             $this->getLog()->notice('New blog subscriber blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
             $this->errorAction();

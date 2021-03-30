@@ -11,6 +11,8 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Messaging\FlashMessageRendererResolver;
 
 /**
  * Class ext_update.
@@ -56,8 +58,8 @@ class ext_update
      */
     public function __construct()
     {
-        $this->connectionPool =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Database\ConnectionPool::class
+        $this->connectionPool =  GeneralUtility::makeInstance(
+            ConnectionPool::class
         );
     }
 
@@ -433,7 +435,7 @@ class ext_update
 
         foreach ($this->messageArray as $messageItem) {
             /** @var FlashMessage $flashMessage */
-            $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            $flashMessage = GeneralUtility::makeInstance(
                 FlashMessage::class,
                 $messageItem[2],
                 $messageItem[1],
@@ -443,8 +445,8 @@ class ext_update
         }
 
         /** @var \TYPO3\CMS\Core\Messaging\Renderer\FlashMessageRendererInterface $renderer */
-        $renderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Messaging\FlashMessageRendererResolver::class
+        $renderer = GeneralUtility::makeInstance(
+            FlashMessageRendererResolver::class
         )->resolve();
 
         return $renderer->render($flashMessages);

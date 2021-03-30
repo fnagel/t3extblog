@@ -34,7 +34,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
     /**
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * LoggingService constructor.

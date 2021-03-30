@@ -48,7 +48,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'processNewSubscriber',
             [&$subscriber, $this]
         );
@@ -71,7 +71,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'processChangedSubscriber',
             [&$subscriber, $this]
         );
@@ -125,7 +125,7 @@ class BlogNotificationService extends AbstractNotificationService
         $variables = ['post' => $post];
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'notifySubscribers',
             [$post, &$subscribers, &$subject, &$variables, $this]
         );

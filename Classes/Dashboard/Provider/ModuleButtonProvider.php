@@ -30,7 +30,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
     /**
      * @var array
      */
-    private $linkArguments;
+    private $linkArguments = [];
 
     public function __construct(string $title, array $linkArguments, string $target = '')
     {

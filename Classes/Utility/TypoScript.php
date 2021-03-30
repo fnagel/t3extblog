@@ -34,20 +34,15 @@ class TypoScript
                 $keyAsArray = explode('.', $fieldName);
 
                 $foundInCurrentTs = $this->getValue($base, $keyAsArray);
-
-                if (is_string($foundInCurrentTs) && strlen($foundInCurrentTs) === 0) {
+                if (is_string($foundInCurrentTs) && $foundInCurrentTs === '') {
                     $foundInOriginal = $this->getValue($overload['settings'], $keyAsArray);
                     if ($foundInOriginal) {
                         $base = $this->setValue($base, $keyAsArray, $foundInOriginal);
                     }
                 }
-            } else {
-                // if flexform setting is empty and value is available in TS
-                if ((!isset($base[$fieldName]) || (strlen($base[$fieldName]) === 0))
-                    && isset($overload['settings'][$fieldName])
-                ) {
-                    $base[$fieldName] = $overload['settings'][$fieldName];
-                }
+            } elseif ((!isset($base[$fieldName]) || ($base[$fieldName] === ''))
+                && isset($overload['settings'][$fieldName])) {
+                $base[$fieldName] = $overload['settings'][$fieldName];
             }
         }
 
@@ -67,8 +62,9 @@ class TypoScript
     protected function getValue(array $data, array $path)
     {
         $found = true;
+        $pathCount = count($path);
 
-        for ($x = 0; ($x < count($path) && $found); ++$x) {
+        for ($x = 0; ($x < $pathCount && $found); ++$x) {
             $key = $path[$x];
 
             if (isset($data[$key])) {
@@ -98,9 +94,7 @@ class TypoScript
     {
         $this->setValueByReference($array, $path, $value);
 
-        $final = array_merge_recursive([], $array);
-
-        return $final;
+        return array_merge_recursive([], $array);
     }
 
     /**

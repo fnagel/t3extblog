@@ -59,7 +59,7 @@ abstract class AbstractRepository extends Repository
             $query->setLimit($limit);
         }
 
-        if ($respectEnableFields === false) {
+        if (!$respectEnableFields) {
             $query->getQuerySettings()->setIgnoreEnableFields(true);
 
             $query->matching(

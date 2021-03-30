@@ -25,6 +25,9 @@ class EmailService implements SingletonInterface
 {
     use LoggingTrait;
 
+    /**
+     * @var string
+     */
     const TEMPLATE_FOLDER = 'Email';
 
     /**
@@ -52,7 +55,7 @@ class EmailService implements SingletonInterface
     /**
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * EmailService constructor.
@@ -91,7 +94,7 @@ class EmailService implements SingletonInterface
     public function sendEmail($mailTo, $mailFrom, $subject, $variables, $templatePath)
     {
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'sendEmail',
             [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
         );
@@ -230,16 +233,15 @@ class EmailService implements SingletonInterface
     protected function preparePlainTextBody($html)
     {
         // Remove style tags
-        $output = preg_replace('/<style\\b[^>]*>(.*?)<\\/style>/s', '', $html);
+        $output = preg_replace('#<style\b[^>]*>(.*?)<\/style>#s', '', $html);
 
         // Remove tags and extract url from link tags
-        $output = strip_tags(preg_replace('/<a.* href=(?:"|\')(.*)(?:"|\').*>/', '$1', $output));
+        $output = strip_tags(preg_replace('#<a.* href=(?:"|\')(.*)(?:"|\').*>#', '$1', $output));
 
         // Break lines and clean up white spaces
         $output = MailUtility::breakLinesForEmail($output);
-        $output = preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', "\n\n", $output);
 
-        return $output;
+        return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
     }
 
     /**
@@ -249,7 +251,7 @@ class EmailService implements SingletonInterface
     protected function setMessageContent(MailMessage $message, $emailBody)
     {
         // Plain text only
-        if (strip_tags($emailBody) == $emailBody) {
+        if (strip_tags($emailBody) === $emailBody) {
             $message->text($emailBody);
         } else {
             // Send as HTML and plain text

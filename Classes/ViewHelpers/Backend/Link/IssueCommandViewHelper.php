@@ -48,7 +48,7 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
         $redirectUrl = $this->arguments['redirectUrl'];
 
         // Needed in 7.x and 8.x
-        $parameters = '&id='.intval(GeneralUtility::_GP('id')).'&'.$parameters;
+        $parameters = '&id='.(int) GeneralUtility::_GP('id').'&'.$parameters;
         $href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);
 
         $this->tag->addAttribute('href', $href);

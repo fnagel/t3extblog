@@ -58,7 +58,7 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         $constraints[] = $query->equals('email', $email);
 
         if ($excludeUid !== null) {
-            $constraints[] = $query->logicalNot($query->equals('uid', intval($excludeUid)));
+            $constraints[] = $query->logicalNot($query->equals('uid', (int) $excludeUid));
         }
 
         return $constraints;

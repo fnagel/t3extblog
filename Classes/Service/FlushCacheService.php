@@ -36,7 +36,7 @@ class FlushCacheService implements SingletonInterface
      */
     public function flushFrontendCache()
     {
-        $this->flushFrontendCacheByTags($this->cacheTagsToFlush);
+        static::flushFrontendCacheByTags($this->cacheTagsToFlush);
     }
 
     /**

@@ -103,11 +103,7 @@ class Category extends AbstractLocalizedEntity
      */
     public function isFirstLevel()
     {
-        if ($this->parentId) {
-            return false;
-        }
-
-        return true;
+        return !$this->parentId;
     }
 
     /**

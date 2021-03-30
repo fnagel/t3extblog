@@ -117,9 +117,9 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * Sets the lastSent.
      *
-     * @param \DateTime $lastSent
+     * @param \DateTime|\DateTimeImmutable $lastSent
      */
-    public function setLastSent($lastSent)
+    public function setLastSent(\DateTimeInterface $lastSent)
     {
         $this->lastSent = $lastSent;
     }
@@ -208,10 +208,6 @@ abstract class AbstractSubscriber extends AbstractEntity
         $now = new \DateTime();
         $expire = clone $this->getLastSent();
 
-        if ($now > $expire->modify($expireDate)) {
-            return true;
-        }
-
-        return false;
+        return $now > $expire->modify($expireDate);
     }
 }

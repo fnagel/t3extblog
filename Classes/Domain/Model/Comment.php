@@ -268,9 +268,9 @@ class Comment extends AbstractEntity
     /**
      * Sets the date.
      *
-     * @param \DateTime $date
+     * @param \DateTime|\DateTimeImmutable $date
      */
-    public function setDate($date)
+    public function setDate(\DateTimeInterface $date)
     {
         $this->date = $date;
     }

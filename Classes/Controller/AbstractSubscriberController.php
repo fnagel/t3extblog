@@ -37,7 +37,7 @@ abstract class AbstractSubscriberController extends AbstractController
      *
      * @var array
      */
-    protected $subscriptionSettings;
+    protected $subscriptionSettings = [];
 
     /**
      * feUserService.
@@ -68,7 +68,7 @@ abstract class AbstractSubscriberController extends AbstractController
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'subscriberConfirmAction',
             [&$this->subscriber, $this]
         );
@@ -95,12 +95,12 @@ abstract class AbstractSubscriberController extends AbstractController
     {
         $this->checkAuth();
 
-        if (!($subscriber instanceof BlogSubscriber || $subscriber instanceof PostSubscriber)) {
+        if (!$subscriber instanceof BlogSubscriber && !$subscriber instanceof PostSubscriber) {
             throw new \InvalidArgumentException('No subscriber given.');
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'subscriberDeleteAction',
             [&$this->subscriber, $this]
         );
@@ -188,11 +188,7 @@ abstract class AbstractSubscriberController extends AbstractController
      */
     protected function hasCodeArgument()
     {
-        if ($this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0) {
-            return true;
-        }
-
-        return false;
+        return $this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0;
     }
 
     /**

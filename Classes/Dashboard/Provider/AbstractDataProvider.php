@@ -15,6 +15,9 @@ abstract class AbstractDataProvider
 {
     use ProviderTrait;
 
+    /**
+     * @var string
+     */
     const LOCALLANG_FILE = 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:';
 
     /**

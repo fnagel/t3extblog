@@ -10,6 +10,8 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  */
 
 use FelixNagel\T3extblog\ViewHelpers\AbstractConditionViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
  * ViewHelper to render children only for specific versions.
@@ -35,10 +37,6 @@ class Typo3VersionViewHelper extends AbstractConditionViewHelper
         $version = $arguments['version'];
         $operator = $arguments['operator'];
 
-        if (version_compare(TYPO3_branch, (int) $version, $operator)) {
-            return true;
-        }
-
-        return false;
+        return version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getBranch(), (int) $version, $operator);
     }
 }
