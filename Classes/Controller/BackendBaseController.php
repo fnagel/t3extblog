@@ -88,7 +88,7 @@ class BackendBaseController extends ActionController
      *
      * @var array
      */
-    protected $pageInfo;
+    protected $pageInfo = [];
 
     /**
      * The database connection.
@@ -261,9 +261,9 @@ class BackendBaseController extends ActionController
      *
      * @throws InvalidConfigurationException
      */
-    public function initializeAction()
+    protected function initializeAction()
     {
-        $this->pageId = intval(GeneralUtility::_GP('id'));
+        $this->pageId = (int) GeneralUtility::_GP('id');
         $this->pageInfo = $this->getBlogRelatedPageInfo();
 
         try {

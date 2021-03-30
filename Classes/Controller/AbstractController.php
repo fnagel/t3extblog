@@ -90,7 +90,7 @@ abstract class AbstractController extends ActionController
      * @param \Exception $exception
      * @throws \Exception
      */
-    protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
+    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
         throw $exception;
     }
@@ -172,12 +172,8 @@ abstract class AbstractController extends ActionController
     protected function hasFlashMessages()
     {
         $messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
-
-        if (count($messages) > 0) {
-            return true;
-        }
-
-        return false;
+        
+        return count($messages) > 0;
     }
 
     /**

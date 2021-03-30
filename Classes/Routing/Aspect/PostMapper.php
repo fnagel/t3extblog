@@ -10,6 +10,9 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
+
 /**
  * PostMapper
  */
@@ -119,7 +122,7 @@ class PostMapper extends AbstractPersistedAliasMapper
 
         // Remove possible appended route string (e.g. "/comment")
         // Needed since TYPO3 9.5.15 and https://forge.typo3.org/issues/88291
-        if (version_compare(TYPO3_version, '9.5.15', '>=')) {
+        if (version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), '9.5.15', '>=')) {
             $valueSplit = preg_split('#/#', $value);
             if ($valueSplit > 0) {
                 $value =  $valueSplit[0];

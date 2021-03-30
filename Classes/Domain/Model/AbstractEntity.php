@@ -120,13 +120,13 @@ abstract class AbstractEntity extends CoreAbstractEntity
     {
         $camelCaseProperties = ObjectAccess::getGettableProperties($this);
 
-        if ($camelCaseKeys === true) {
+        if ($camelCaseKeys) {
             return $camelCaseProperties;
         }
 
         $data = [];
         foreach ($camelCaseProperties as $camelCaseFieldKey => $value) {
-            $fieldKey = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $camelCaseFieldKey));
+            $fieldKey = strtolower(preg_replace('#([a-z])([A-Z])#', '$1_$2', $camelCaseFieldKey));
 
             // TYPO3 cObj edge case
             if ($camelCaseFieldKey === 'cType') {

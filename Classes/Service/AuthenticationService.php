@@ -43,11 +43,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function isValid()
     {
-        if ($this->getEmail()) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->getEmail();
     }
 
     /**

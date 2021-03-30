@@ -46,9 +46,9 @@ class TitleTagViewHelper extends AbstractViewHelper
 
         $content = $renderChildrenClosure();
 
-        if (empty($content) !== true) {
+        if (!empty($content)) {
             if ($prepend === true) {
-                $content = $content.GeneralUtility::getTsFe()->page['title'];
+                $content .= GeneralUtility::getTsFe()->page['title'];
             }
 
             if ($searchTitle === null) {

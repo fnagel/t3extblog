@@ -55,7 +55,7 @@ class PostController extends AbstractCommentController
     /**
      * @inheritdoc
      */
-    protected function handleKnownExceptionsElseThrowAgain(\Exception $exception)
+    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
         if ($exception instanceof  TargetNotFoundException) {
             $this->pageNotFoundAndExit('Entity not found.');

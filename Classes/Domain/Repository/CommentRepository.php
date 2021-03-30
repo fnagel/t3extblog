@@ -55,7 +55,7 @@ class CommentRepository extends AbstractRepository
         $constraints = [];
         $constraints[] = $query->equals('postId', $post->getUid());
 
-        if ($respectEnableFields === false) {
+        if (!$respectEnableFields) {
             $query->getQuerySettings()->setIgnoreEnableFields(true);
             $constraints[] = $query->equals('deleted', '0');
         }

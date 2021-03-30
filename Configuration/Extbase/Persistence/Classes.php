@@ -1,7 +1,15 @@
 <?php
 
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\Content;
+use FelixNagel\T3extblog\Domain\Model\Category;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+
 return [
-    \FelixNagel\T3extblog\Domain\Model\Post::class => [
+    Post::class => [
         'tableName' => 'tx_t3blog_post',
         'properties' => [
             'title' => [
@@ -49,7 +57,7 @@ return [
         ],
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\Content::class => [
+    Content::class => [
         'tableName' => 'tt_content',
         'properties' => [
             'colPos' => [
@@ -61,7 +69,7 @@ return [
         ],
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\Category::class => [
+    Category::class => [
         'tableName' => 'tx_t3blog_cat',
         'properties' => [
             'sorting' => [
@@ -79,7 +87,7 @@ return [
         ],
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\Comment::class => [
+    Comment::class => [
         'tableName' => 'tx_t3blog_com',
         'properties' => [
             'title' => [
@@ -118,11 +126,11 @@ return [
         ],
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\BackendUser::class => [
+    BackendUser::class => [
         'tableName' => 'be_users',
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\PostSubscriber::class => [
+    PostSubscriber::class => [
         'tableName' => 'tx_t3blog_com_nl',
         'properties' => [
             'name' => [
@@ -146,7 +154,7 @@ return [
         ],
     ],
 
-    \FelixNagel\T3extblog\Domain\Model\BlogSubscriber::class => [
+    BlogSubscriber::class => [
         'tableName' => 'tx_t3blog_blog_nl',
         'properties' => [
             'email' => [

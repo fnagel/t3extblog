@@ -75,7 +75,7 @@ class SubscriberController extends AbstractController
     /**
      * Error action.
      */
-    public function errorAction()
+    protected function errorAction()
     {
         if (!$this->hasFlashMessages()) {
             $this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);

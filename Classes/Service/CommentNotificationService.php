@@ -50,7 +50,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'processNewComment',
             [&$comment, $this]
         );
@@ -85,7 +85,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'processChangedComment',
             [&$comment, $this]
         );
@@ -211,7 +211,7 @@ class CommentNotificationService extends AbstractNotificationService
         ];
 
         $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
+            self::class,
             'notifySubscribers',
             [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
         );

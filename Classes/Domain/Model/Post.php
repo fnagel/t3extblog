@@ -23,8 +23,17 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class Post extends AbstractLocalizedEntity
 {
+    /**
+     * @var int
+     */
     const ALLOW_COMMENTS_EVERYONE = 0;
+    /**
+     * @var int
+     */
     const ALLOW_COMMENTS_NOBODY = 1;
+    /**
+     * @var int
+     */
     const ALLOW_COMMENTS_LOGIN = 2;
 
     /**
@@ -174,7 +183,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * @inheritDoc
      */
-    public function getPropertiesForSerialization()
+    protected function getPropertiesForSerialization()
     {
         $properties = parent::getPropertiesForSerialization();
 
@@ -272,7 +281,7 @@ class Post extends AbstractLocalizedEntity
     {
         if ($author instanceof BackendUser) {
             $this->author = $author->getUid();
-        } elseif (intval($author)) {
+        } elseif ((int) $author !== 0) {
             $this->author = (int)$author;
         }
     }
@@ -329,19 +338,15 @@ class Post extends AbstractLocalizedEntity
         $now = new \DateTime();
         $expire = clone $this->getPublishDate();
 
-        if ($now > $expire->modify($expireDate)) {
-            return true;
-        }
-
-        return false;
+        return $now > $expire->modify($expireDate);
     }
 
     /**
      * Sets the publishDate.
      *
-     * @param \DateTime $publishDate
+     * @param \DateTime|\DateTimeImmutable $publishDate
      */
-    public function setPublishDate($publishDate)
+    public function setPublishDate(\DateTimeInterface $publishDate)
     {
         $this->publishDate = $publishDate;
     }
@@ -393,11 +398,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function setTagCloud($tagCloud)
     {
-        if (is_array($tagCloud)) {
-            $this->tagCloud = implode(', ', $tagCloud);
-        } else {
-            $this->tagCloud = $tagCloud;
-        }
+        $this->tagCloud = is_array($tagCloud) ? implode(', ', $tagCloud) : $tagCloud;
     }
 
     /**
@@ -425,7 +426,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function riseNumberOfViews()
     {
-        $this->numberOfViews = $$this->numberOfViews + 1;
+        $this->numberOfViews += 1;
     }
 
     /**
@@ -619,7 +620,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function getPreview()
     {
-        if ($this->getPreviewText()) {
+        if ($this->getPreviewText() !== '') {
             return strip_tags($this->getPreviewText());
         }
 
