@@ -13,6 +13,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * PostRepository.
@@ -104,7 +105,7 @@ class PostRepository extends AbstractRepository
      *
      * @param mixed $filter
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     public function findByFilter($filter = null)
     {
@@ -124,7 +125,7 @@ class PostRepository extends AbstractRepository
             return $this->findByTag($filter);
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -132,7 +133,7 @@ class PostRepository extends AbstractRepository
      *
      * @param string $tag
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findByTag($tag)
     {
@@ -150,7 +151,7 @@ class PostRepository extends AbstractRepository
      *
      * @param Category $category
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findByCategory($category)
     {
@@ -179,7 +180,7 @@ class PostRepository extends AbstractRepository
      * @param int    $limit
      * @param string $until
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findDrafts($pid = 0, $limit = null, $until = '-12 months')
     {
