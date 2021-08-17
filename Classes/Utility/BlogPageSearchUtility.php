@@ -50,9 +50,11 @@ class BlogPageSearchUtility implements SingletonInterface
         $pages = array_merge_recursive(
             // Get pages with set module property
             self::getBlogModulePages(),
-            // Split the join queries because otherwise the query is awful slow
-            self::getPagesWithBlogRecords(['tx_t3blog_post', 'tx_t3blog_com']),
-            self::getPagesWithBlogRecords(['tx_t3blog_com_nl', 'tx_t3blog_blog_nl'])
+            // Search for blog related records
+            self::getPagesWithBlogRecords('tx_t3blog_post'),
+            self::getPagesWithBlogRecords('tx_t3blog_com'),
+            self::getPagesWithBlogRecords('tx_t3blog_com_nl'),
+            self::getPagesWithBlogRecords('tx_t3blog_blog_nl'),
         );
 
         self::$cache = array_unique($pages, SORT_REGULAR);
@@ -81,11 +83,11 @@ class BlogPageSearchUtility implements SingletonInterface
     }
 
     /**
-     * @param $joinTables
+     * @param string $joinTable
      *
      * @return array
      */
-    protected static function getPagesWithBlogRecords($joinTables)
+    protected static function getPagesWithBlogRecords($joinTable)
     {
         $table = 'pages';
         $queryBuilder = self::getDatabaseConnection()->getQueryBuilderForTable($table);
@@ -94,17 +96,15 @@ class BlogPageSearchUtility implements SingletonInterface
             ->from($table)
             ->groupBy($table.'.uid');
 
-        foreach ($joinTables as $joinTable) {
-            $queryBuilder->leftJoin(
-                $table,
-                $joinTable,
-                $joinTable,
-                $queryBuilder->expr()->eq(
-                    $table . '.uid',
-                    $queryBuilder->quoteIdentifier($joinTable . '.pid')
-                )
-            );
-        }
+        $queryBuilder->join(
+            $table,
+            $joinTable,
+            $joinTable,
+            $queryBuilder->expr()->eq(
+                $joinTable . '.pid',
+                $queryBuilder->quoteIdentifier($table . '.uid')
+            )
+        );
 
         return $queryBuilder->execute()->fetchAll();
     }
