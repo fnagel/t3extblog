@@ -26,7 +26,9 @@ https://github.com/fnagel/t3extblog/compare/6.1.1...6.2.0
 
 - Improved post URL generation (more flexible date segment), thanks to @mueller-sebastian!
 
-- Extension now uses Crowdin, see https://crowdin.com/project/typo3-extension-t3extblog
+- Extension now uses Crowdin for managing localization, see https://crowdin.com/project/typo3-extension-t3extblog
+
+- Improve code quality using rector, see https://github.com/rectorphp/rector
 
 
 How to upgrade
@@ -35,7 +37,7 @@ How to upgrade
 #. Make sure the new `routeEnhancers.T3extblogBlogsystemPlugin.aspects.post_title.datePrefixRegex` routing option
    is available (either by adding it you your config or by importing the default)
 
-#. Pull localization data
+#. Pull latest localization data
 
 #. Clear caches
 
