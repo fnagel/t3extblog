@@ -113,6 +113,7 @@ class TypoScript
             if (!isset($array[$key])) {
                 $array[$key] = [];
             }
+            
             $array = &$array[$key];
         }
 

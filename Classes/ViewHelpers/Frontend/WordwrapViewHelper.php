@@ -17,14 +17,18 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class WordwrapViewHelper extends AbstractViewHelper
 {
     /**
-     * PHP wordwrap function VH.
-     *
-     * @param int $width
-     *
-     * @return string
+     * @inheritDoc
      */
-    public function render($width = 75)
+    public function initializeArguments(): void
     {
+        parent::initializeArguments();
+
+        $this->registerArgument('width', 'int', 'Max characters per line', false, 75);
+    }
+
+    public function render()
+    {
+        $width = $this->arguments['width'];
         $content = $this->renderChildren();
 
         return wordwrap($content, $width);

@@ -88,14 +88,14 @@ class RenderContentViewHelper extends AbstractViewHelper
 
         $parent = GeneralUtility::getTsFe()->currentRecord;
         if (!empty($parent)) {
-            GeneralUtility::getTsFe()->recordRegister[$parent]++;
+            ++GeneralUtility::getTsFe()->recordRegister[$parent];
         }
 
         $html = $this->getContentObjectRenderer()->cObjGetSingle('RECORDS', $configuration);
 
         GeneralUtility::getTsFe()->currentRecord = $parent;
         if (!empty($parent)) {
-            GeneralUtility::getTsFe()->recordRegister[$parent]--;
+            --GeneralUtility::getTsFe()->recordRegister[$parent];
         }
 
         return $html;

@@ -24,7 +24,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
     /**
      * @var bool
      */
-    protected $renderInFe;
+    protected $renderInFe = false;
 
     /**
      * @var SettingsService

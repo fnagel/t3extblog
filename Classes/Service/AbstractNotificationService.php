@@ -121,6 +121,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         if ($subscriber instanceof BlogSubscriber) {
             $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
         }
+        
         if ($subscriber instanceof PostSubscriber) {
             $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
         }

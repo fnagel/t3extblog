@@ -42,10 +42,10 @@ class PostRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(!$respectEnableFields);
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('uid', $uid),
-                $query->equals('deleted', 0)
-            )
+                $query->equals('deleted', 0),
+            ])
         );
 
         return $query->execute()->getFirst();
@@ -195,11 +195,11 @@ class PostRepository extends AbstractRepository
         $date->modify($until);
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('hidden', 1),
                 $query->equals('deleted', 0),
-                $query->greaterThanOrEqual('crdate', $date->getTimestamp())
-            )
+                $query->greaterThanOrEqual('crdate', $date->getTimestamp()),
+            ])
         );
 
         return $query->execute();

@@ -79,10 +79,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $this->getValidConstraints($query),
-                $query->equals('postId', $post->getLocalizedUid())
-            )
+                $query->equals('postId', $post->getLocalizedUid()),
+            ])
         );
 
         return $query->execute();
@@ -120,10 +120,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
-                $this->getValidConstraints($query)
-            )
+                $this->getValidConstraints($query),
+            ])
         );
 
         return $query->execute();
@@ -142,10 +142,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
-                $this->getPendingConstraints($query)
-            )
+                $this->getPendingConstraints($query),
+            ])
         );
 
         return $query->execute();
@@ -163,10 +163,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('postId', $post->getUid()),
-                $this->getPendingConstraints($query)
-            )
+                $this->getPendingConstraints($query),
+            ])
         );
 
         return $query->execute();
@@ -220,10 +220,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, $email, $postUid)
     {
-        $constraints = $query->logicalAnd(
+        $constraints = $query->logicalAnd([
             $query->equals('email', $email),
-            $query->equals('postId', $postUid)
-        );
+            $query->equals('postId', $postUid),
+        ]);
 
         return $constraints;
     }
@@ -237,10 +237,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getValidConstraints(QueryInterface $query)
     {
-        $constraints = $query->logicalAnd(
+        $constraints = $query->logicalAnd([
             $query->equals('spam', 0),
-            $query->equals('approved', 1)
-        );
+            $query->equals('approved', 1),
+        ]);
 
         return $constraints;
     }
@@ -254,10 +254,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getPendingConstraints(QueryInterface $query)
     {
-        $constraints = $query->logicalOr(
+        $constraints = $query->logicalOr([
             $query->equals('spam', 1),
-            $query->equals('approved', 0)
-        );
+            $query->equals('approved', 0),
+        ]);
 
         return $constraints;
     }

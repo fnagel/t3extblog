@@ -267,9 +267,11 @@ abstract class AbstractController extends ActionController
         if ($object instanceof Post) {
             $tags[] = 'tx_t3blog_post_pid_'.$object->getPid();
         }
+        
         if ($object instanceof Comment) {
             $tags[] = 'tx_t3blog_com_pid_'.$object->getPid();
         }
+        
         if ($object instanceof Category) {
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }

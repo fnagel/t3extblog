@@ -51,28 +51,20 @@ class SpamCheckService implements SpamCheckServiceInterface
             return $spamPoints;
         }
 
-        if ($settings['honeypot']) {
-            if (!$this->checkHoneyPotFields($arguments)) {
-                $spamPoints += intval($settings['honeypot']);
-            }
+        if ($settings['honeypot'] && !$this->checkHoneyPotFields($arguments)) {
+            $spamPoints += (int) $settings['honeypot'];
         }
 
-        if ($settings['isHumanCheckbox']) {
-            if (!isset($arguments['human']) && empty($arguments['human'])) {
-                $spamPoints += intval($settings['isHumanCheckbox']);
-            }
+        if ($settings['isHumanCheckbox'] && (!isset($arguments['human']) && empty($arguments['human']))) {
+            $spamPoints += (int) $settings['isHumanCheckbox'];
         }
 
-        if ($settings['cookie']) {
-            if (!$_COOKIE['fe_typo_user']) {
-                $spamPoints += intval($settings['cookie']);
-            }
+        if ($settings['cookie'] && !$_COOKIE['fe_typo_user']) {
+            $spamPoints += (int) $settings['cookie'];
         }
 
-        if ($settings['userAgent']) {
-            if (GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
-                $spamPoints += intval($settings['userAgent']);
-            }
+        if ($settings['userAgent'] && GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
+            $spamPoints += (int) $settings['userAgent'];
         }
 
         $this->signalSlotDispatcher->dispatch(

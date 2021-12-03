@@ -155,11 +155,12 @@ abstract class AbstractSubscriberController extends AbstractController
         if (isset($this->subscriptionSettings['emailHashTimeout'])) {
             $modify = trim($this->subscriptionSettings['emailHashTimeout']);
         }
+        
         if ($subscriber->isAuthCodeExpired($modify)) {
             $this->forward('processError', 'Subscriber', null, ['message' => 'linkOutdated']);
         }
 
-        if ($isConfirmRequest === true) {
+        if ($isConfirmRequest) {
             $confirmedSubscriptions = $this->findExistingSubscriptions($subscriber);
 
             if (count($confirmedSubscriptions) > 0) {

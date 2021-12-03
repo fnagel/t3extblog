@@ -79,6 +79,7 @@ class TypoScriptValidator
             );
         }
     }
+    
     /**
      * Check needed framework configuration.
      *

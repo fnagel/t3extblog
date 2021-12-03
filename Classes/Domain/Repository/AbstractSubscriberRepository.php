@@ -35,10 +35,10 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
 
         $query->matching(
-            $query->logicalAnd(
-                $query->equals('code', $code),
-                $query->equals('deleted', 0)
-            )
+            $query->logicalAnd([
+				$query->equals('code', $code),
+				$query->equals('deleted', 0),
+		    ])
         );
 
         return $query->execute()->getFirst();

@@ -32,10 +32,10 @@ class CommentEmailValidator extends AbstractValidator
         }
 
         if (empty($value->getEmail())) {
-            if ((bool)$this->getConfiguration('blogsystem.comments.requireEmail') === true) {
+            if ((bool)$this->getConfiguration('blogsystem.comments.requireEmail')) {
                 $error = new Error('Email address is required.', 1592252730);
                 $this->result->forProperty('email')->addError($error);
-            } elseif ((bool)$this->getConfiguration('blogsystem.comments.subscribeForComments') === true &&
+            } elseif ((bool)$this->getConfiguration('blogsystem.comments.subscribeForComments') &&
                 $value->getSubscribe()
             ) {
                 $error = new Error('Email address is required for subscription.', 1592252730);

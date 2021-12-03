@@ -2,12 +2,24 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\ClassMethod\DateTimeToDateTimeInterfaceRector;
+use Rector\CodeQuality\Rector\FuncCall\SimplifyRegexPatternRector;
+use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
+use Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector;
+use Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector;
+use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
+use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
+use Rector\CodingStyle\Rector\FuncCall\ConsistentPregDelimiterRector;
+use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
+use Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\Php71\Rector\FuncCall\CountOnNullRector;
+use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
+use Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
 use Rector\Set\ValueObject\SetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Ssch\TYPO3Rector\Configuration\Typo3Option;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -15,21 +27,37 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Paths to refactor; solid alternative to CLI arguments
     $parameters->set(Option::PATHS, [__DIR__]);
 
-    $parameters->set(Option::SETS, [
-        SetList::CODING_STYLE,
-        SetList::CODE_QUALITY,
+    $containerConfigurator->import(SetList::CODING_STYLE);
+    $containerConfigurator->import(SetList::CODE_QUALITY);
 
-        SetList::PHP_53,
-        SetList::PHP_54,
-        SetList::PHP_55,
-        SetList::PHP_56,
-        SetList::PHP_70,
-        SetList::PHP_71,
-        SetList::PHP_72,
-        SetList::PHP_73,
-        SetList::PHP_74,
+    $containerConfigurator->import(SetList::PHP_53);
+    $containerConfigurator->import(SetList::PHP_54);
+    $containerConfigurator->import(SetList::PHP_55);
+    $containerConfigurator->import(SetList::PHP_56);
+    $containerConfigurator->import(SetList::PHP_70);
+    $containerConfigurator->import(SetList::PHP_71);
+    $containerConfigurator->import(SetList::PHP_72);
+    $containerConfigurator->import(SetList::PHP_73);
+    $containerConfigurator->import(SetList::PHP_74);
 
-        Typo3SetList::TYPO3_104,
+    $containerConfigurator->import(Typo3SetList::TYPO3_87);
+    $containerConfigurator->import(Typo3SetList::TYPO3_95);
+    $containerConfigurator->import(Typo3SetList::TYPO3_104);
+
+    $parameters->set(Option::SKIP, [
+        ExplicitBoolCompareRector::class,
+        SimplifyRegexPatternRector::class,
+        ConsistentPregDelimiterRector::class,
+        RemoveUnusedVariableInCatchRector::class,
+        DateTimeToDateTimeInterfaceRector::class,
+        CountArrayToEmptyArrayComparisonRector::class,
+        AddLiteralSeparatorToNumberRector::class,
+        SymplifyQuoteEscapeRector::class,
+        UnSpreadOperatorRector::class,
+        SimplifyUselessVariableRector::class,
+        SimplifyIfReturnBoolRector::class,
+        CatchExceptionNameMatchingTypeRector::class,
+        CountOnNullRector::class,
     ]);
 
     // Define your target version which you want to support
@@ -43,7 +71,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // This will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
     $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
-
-    // If you would like to see the changelog url when a rector is applied
-    $parameters->set(Typo3Option::OUTPUT_CHANGELOG, true);
 };

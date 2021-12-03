@@ -107,9 +107,11 @@ class ActionViewHelper extends CoreActionViewHelper
         if ($actionName !== null) {
             $controllerArguments['action'] = $actionName;
         }
+        
         if ($controllerName !== null) {
             $controllerArguments['controller'] = $controllerName;
         }
+        
         if ($pluginName === null) {
             $pluginName = $extensionService->getPluginNameByAction(
                 $extensionName,
@@ -117,6 +119,7 @@ class ActionViewHelper extends CoreActionViewHelper
                 $controllerArguments['action']
             );
         }
+        
         if ($format !== '') {
             $controllerArguments['format'] = $format;
         }

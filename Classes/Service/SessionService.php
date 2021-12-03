@@ -23,7 +23,7 @@ class SessionService implements SessionServiceInterface
     /**
      * @var string
      */
-    const SESSION_DATA_KEY = 'subscription_session';
+    public const SESSION_DATA_KEY = 'subscription_session';
 
     /**
      * Frontend user authentication.

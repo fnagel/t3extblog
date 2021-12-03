@@ -31,7 +31,7 @@ class PostMapper extends AbstractPersistedAliasMapper
     /**
      * @var boolean
      */
-    protected $datePrefixLowercase;
+    protected $datePrefixLowercase = false;
 
     /**
      * @var string
@@ -60,10 +60,12 @@ class PostMapper extends AbstractPersistedAliasMapper
             if (!is_string($datePrefix)) {
                 throw new \InvalidArgumentException('datePrefix must be string', 1537277134);
             }
+            
             $date = new \DateTime();
             if (empty($date->format($datePrefix))) {
                 throw new \InvalidArgumentException('datePrefix must be valid DateTime value', 1550748751);
             }
+            
             if (!is_string($datePrefixRegex)) {
                 throw new \InvalidArgumentException('datePrefixRegex must be string', 1611742603);
             }

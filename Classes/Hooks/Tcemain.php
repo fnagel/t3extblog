@@ -84,6 +84,7 @@ class Tcemain
                 $tagsToFlush[] = $table.'_pid_'.$pid;
                 $tagsToFlush[] = $table.'_uid_'.$id;
             }
+            
             if ($table === 'tx_t3blog_com') {
                 $tagsToFlush[] = $table.'_pid_'.$pid;
             }
@@ -105,10 +106,8 @@ class Tcemain
      */
     public function processCmdmap_postProcess($command, $table, $id, $relativeTo, $tceMain)
     {
-        if ($command === 'delete') {
-            if ($table === 'tx_t3blog_post') {
-                $this->deletePostRelations(intval($id));
-            }
+        if ($command === 'delete' && $table === 'tx_t3blog_post') {
+            $this->deletePostRelations((int) $id);
         }
     }
 
@@ -136,19 +135,15 @@ class Tcemain
 
         $tagsToFlush = [];
 
-        if ($table === 'tx_t3blog_post') {
-            // Cache tags for posts
-            if ($status == 'update' || $status === 'new') {
-                $tagsToFlush[] = $table.'_pid_'.$pid;
-                $tagsToFlush[] = $table.'_uid_'.$id;
-            }
+        // Cache tags for posts
+        if ($table === 'tx_t3blog_post' && ($status == 'update' || $status === 'new')) {
+            $tagsToFlush[] = $table.'_pid_'.$pid;
+            $tagsToFlush[] = $table.'_uid_'.$id;
         }
 
         if ($table === 'tx_t3blog_com') {
-            if ($status == 'update') {
-                if ($this->isUpdateNeeded($fields, $this->watchedFields)) {
-                    $this->processChangedComment($id);
-                }
+            if ($status == 'update' && $this->isUpdateNeeded($fields, $this->watchedFields)) {
+                $this->processChangedComment($id);
             }
 
             if ($status === 'new') {
@@ -161,11 +156,9 @@ class Tcemain
             }
         }
 
-        if ($table === 'tx_t3blog_cat') {
-            // Cache tags for categories
-            if ($status == 'update' || $status === 'new') {
-                $tagsToFlush[] = $table.'_pid_'.$pid;
-            }
+        // Cache tags for categories
+        if ($table === 'tx_t3blog_cat' && ($status == 'update' || $status === 'new')) {
+            $tagsToFlush[] = $table.'_pid_'.$pid;
         }
 
         FlushCacheService::flushFrontendCacheByTags($tagsToFlush);
@@ -322,14 +315,13 @@ class Tcemain
      */
     protected function resolveRecordUid($id, DataHandler $reference)
     {
-        if (false !== strpos($id, 'NEW')) {
-            if (false === empty($reference->substNEWwithIDs[$id])) {
-                $id = $reference->substNEWwithIDs[$id];
-            }
+        if (false !== strpos($id, 'NEW') && !empty($reference->substNEWwithIDs[$id])) {
+            $id = $reference->substNEWwithIDs[$id];
         }
 
         return (int) $id;
     }
+    
     /**
      * Get record pid.
      *

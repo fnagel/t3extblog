@@ -26,15 +26,17 @@ class Post extends AbstractLocalizedEntity
     /**
      * @var int
      */
-    const ALLOW_COMMENTS_EVERYONE = 0;
+    public const ALLOW_COMMENTS_EVERYONE = 0;
+    
     /**
      * @var int
      */
-    const ALLOW_COMMENTS_NOBODY = 1;
+    public const ALLOW_COMMENTS_NOBODY = 1;
+    
     /**
      * @var int
      */
-    const ALLOW_COMMENTS_LOGIN = 2;
+    public const ALLOW_COMMENTS_LOGIN = 2;
 
     /**
      * @var bool
@@ -426,7 +428,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function riseNumberOfViews()
     {
-        $this->numberOfViews += 1;
+        ++$this->numberOfViews;
     }
 
     /**
@@ -591,6 +593,7 @@ class Post extends AbstractLocalizedEntity
         if ($this->getContent() === null) {
             $this->content = new ObjectStorage();
         }
+        
         $this->content->attach($content);
     }
 

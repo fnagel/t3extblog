@@ -62,10 +62,10 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
             return false;
         }
 
-        if ($settings['blogsystem']['comments']['allowedUntil']) {
-            if ($post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))) {
-                return false;
-            }
+        if ($settings['blogsystem']['comments']['allowedUntil']
+            && $post->isExpired(trim($settings['blogsystem']['comments']['allowedUntil']))
+        ) {
+            return false;
         }
 
         return true;

@@ -26,7 +26,7 @@ class Comment extends AbstractEntity
     /**
      * @var bool
      */
-    protected $deleted;
+    protected $deleted = false;
 
     /**
      * title.

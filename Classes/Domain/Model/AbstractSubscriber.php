@@ -25,7 +25,7 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * @var bool
      */
-    protected $deleted;
+    protected $deleted = false;
 
     /**
      * email.

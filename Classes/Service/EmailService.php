@@ -28,7 +28,7 @@ class EmailService implements SingletonInterface
     /**
      * @var string
      */
-    const TEMPLATE_FOLDER = 'Email';
+    public const TEMPLATE_FOLDER = 'Email';
 
     /**
      * Extension name.
@@ -215,9 +215,11 @@ class EmailService implements SingletonInterface
         if (isset($frameworkConfig['view']['layoutRootPaths'])) {
             $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
         }
+        
         if (isset($frameworkConfig['view']['partialRootPaths'])) {
             $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
         }
+        
         if (isset($frameworkConfig['view']['templateRootPaths'])) {
             $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
         }
