@@ -24,7 +24,7 @@ When submitting a ticket, the following information should be included:
     * 72 chars max line length
 * Follow our CGL, see:
     * [.editorconfig](.editorconfig)
-    * [.php_cs.dist (PSR-2)](.php_cs.dist)
+    * [.php-cs-fixer.dist.php (PSR-2)](.php-cs-fixer.dist.php)
     * [typoscript-lint.yml](typoscript-lint.yml)
 * Run `composer run test`
 * Test with all supported TYPO3 CMS versions (according to `composer.json`)
