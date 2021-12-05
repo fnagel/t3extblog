@@ -25,6 +25,7 @@ abstract class AbstractPersistedAliasMapper extends PersistedAliasMapper
 
     protected function logNotFound($message)
     {
+        // @extensionScannerIgnoreLine
         $this->getLog()->error($message, array_merge(
             [
                 'url' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),

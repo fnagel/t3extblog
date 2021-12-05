@@ -110,6 +110,7 @@ class SessionService implements SessionServiceInterface
         $this->getLog()->dev('Write to FE session', $data ?: []);
 
         $this->frontendUser->setKey('ses', 'tx_t3extblog_'.$key, $data);
+        // @extensionScannerIgnoreLine
         $this->frontendUser->storeSessionData();
     }
 }

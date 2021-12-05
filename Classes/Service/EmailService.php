@@ -115,6 +115,7 @@ class EmailService implements SingletonInterface
     public function send($mailTo, $mailFrom, $subject, $emailBody)
     {
         if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
+            // @extensionScannerIgnoreLine
             $this->getLog()->error('Given mailto email address is invalid.', $mailTo);
 
             return false;
@@ -215,11 +216,11 @@ class EmailService implements SingletonInterface
         if (isset($frameworkConfig['view']['layoutRootPaths'])) {
             $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
         }
-        
+
         if (isset($frameworkConfig['view']['partialRootPaths'])) {
             $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
         }
-        
+
         if (isset($frameworkConfig['view']['templateRootPaths'])) {
             $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
         }

@@ -98,6 +98,7 @@ class SubscriberController extends AbstractController
      */
     protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR)
     {
+        // @extensionScannerIgnoreLine
         $this->authentication->logout();
 
         $this->addFlashMessageByKey($message, $severity);

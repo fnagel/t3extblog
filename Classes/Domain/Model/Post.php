@@ -27,12 +27,12 @@ class Post extends AbstractLocalizedEntity
      * @var int
      */
     public const ALLOW_COMMENTS_EVERYONE = 0;
-    
+
     /**
      * @var int
      */
     public const ALLOW_COMMENTS_NOBODY = 1;
-    
+
     /**
      * @var int
      */
@@ -203,6 +203,7 @@ class Post extends AbstractLocalizedEntity
     {
         $this->categories = new ObjectStorage();
         $this->subscriptions = new ObjectStorage();
+        // @extensionScannerIgnoreLine
         $this->content = new ObjectStorage();
     }
 
@@ -570,6 +571,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function getContent()
     {
+        // @extensionScannerIgnoreLine
         return $this->content;
     }
 
@@ -580,6 +582,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function setContent($content)
     {
+        // @extensionScannerIgnoreLine
         $this->content = $content;
     }
 
@@ -591,9 +594,11 @@ class Post extends AbstractLocalizedEntity
     public function addContent(Content $content)
     {
         if ($this->getContent() === null) {
+            // @extensionScannerIgnoreLine
             $this->content = new ObjectStorage();
         }
-        
+
+        // @extensionScannerIgnoreLine
         $this->content->attach($content);
     }
 

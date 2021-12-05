@@ -258,6 +258,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         if (!(is_array($settings['mailTo']) && strlen($settings['mailTo']['email']) > 0)) {
+            // @extensionScannerIgnoreLine
             $this->getLog()->error('No admin email configured.', $settings['mailTo']);
 
             return;

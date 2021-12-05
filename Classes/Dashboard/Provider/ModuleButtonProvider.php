@@ -35,6 +35,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
     public function __construct(string $title, array $linkArguments, string $target = '')
     {
         $this->title = $title;
+        // @extensionScannerIgnoreLine
         $this->target = $target;
         $this->linkArguments = $linkArguments;
     }
