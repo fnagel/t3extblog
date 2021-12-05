@@ -225,9 +225,9 @@ class ext_update
         $queryBuilder
             ->select('*')
             ->from($table)->where([$queryBuilder->expr()->neq('website', $queryBuilder->createNamedParameter('')), $queryBuilder->expr()->notLike(
-            'website',
-            $queryBuilder->createNamedParameter('http%')
-        ), $queryBuilder->expr()->notLike(
+                'website',
+                $queryBuilder->createNamedParameter('http%')
+            ), $queryBuilder->expr()->notLike(
             'website',
             $queryBuilder->createNamedParameter('https%')
         )]);

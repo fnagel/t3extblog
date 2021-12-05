@@ -36,9 +36,9 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
 
         $query->matching(
             $query->logicalAnd([
-				$query->equals('code', $code),
-				$query->equals('deleted', 0),
-		    ])
+                $query->equals('code', $code),
+                $query->equals('deleted', 0),
+            ])
         );
 
         return $query->execute()->getFirst();
