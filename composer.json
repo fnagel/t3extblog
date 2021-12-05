@@ -74,18 +74,15 @@
     ],
     "test-php-lint": [
       ".Build/bin/parallel-lint ./Classes/",
-      ".Build/bin/parallel-lint ./Configuration/TCA/",
-      ".Build/bin/parallel-lint ./Tests/"
+      ".Build/bin/parallel-lint ./Configuration/TCA/"
     ],
     "test-php-cs-fixer": [
       ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Classes/",
-      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Configuration/",
-      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Tests/"
+      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Configuration/"
     ],
     "test-php-md": [
       ".Build/bin/phpmd ./Classes/ ansi codesize,design,unusedcode",
-      ".Build/bin/phpmd ./Configuration/ ansi codesize,design,unusedcode",
-      ".Build/bin/phpmd ./Tests/ ansi codesize,design,unusedcode"
+      ".Build/bin/phpmd ./Configuration/ ansi codesize,design,unusedcode"
     ],
     "test-typoscript-lint": [
       ".Build/bin/typoscript-lint"
