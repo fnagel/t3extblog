@@ -30,11 +30,11 @@ use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
- * BackendBaseController.
+ * AbstractBackendController.
  *
  * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
-class BackendBaseController extends ActionController
+abstract class AbstractBackendController extends ActionController
 {
     use LoggingTrait;
 

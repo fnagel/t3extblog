@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 /**
  * BackendDashboardController.
  */
-class BackendDashboardController extends BackendBaseController
+class BackendDashboardController extends AbstractBackendController
 {
     /**
      * Blog dashboard.

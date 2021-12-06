@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 /**
  * BackendSubscriberController.
  */
-class BackendSubscriberController extends BackendBaseController
+class BackendSubscriberController extends AbstractBackendController
 {
     /**
      * Show post subscribers.

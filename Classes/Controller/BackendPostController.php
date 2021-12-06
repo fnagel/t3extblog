@@ -16,7 +16,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 /**
  * BackendPostController.
  */
-class BackendPostController extends BackendBaseController
+class BackendPostController extends AbstractBackendController
 {
     /**
      * Main Backendmodule: displays posts and pending comments.

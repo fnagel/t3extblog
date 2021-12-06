@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * BackendCommentController.
  */
-class BackendCommentController extends BackendBaseController
+class BackendCommentController extends AbstractBackendController
 {
     /**
      * Displays all comments.
