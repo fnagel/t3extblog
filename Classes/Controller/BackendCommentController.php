@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * BackendCommentController.
@@ -20,18 +21,22 @@ class BackendCommentController extends AbstractBackendController
     /**
      * Displays all comments.
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         $this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
         $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+
+		return $this->htmlResponse();
     }
 
     /**
      * Displays all pending comments.
      */
-    public function listPendingAction()
+    public function listPendingAction(): ResponseInterface
     {
         $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -58,12 +63,14 @@ class BackendCommentController extends AbstractBackendController
      *
      * @param Post $post The post
      */
-    public function listByPostAction(Post $post)
+    public function listByPostAction(Post $post): ResponseInterface
     {
         $this->view->assignMultiple([
             'post' => $this->postRepository->findOneByUid($post),
             'comments' => $this->commentRepository->findByPost($post, false),
             'pendingComments' => $this->commentRepository->findPendingByPost($post),
         ]);
+
+        return $this->htmlResponse();
     }
 }

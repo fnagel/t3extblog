@@ -18,25 +18,13 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
 class StatisticChartDataProvider extends AbstractDataProvider implements ChartDataProviderInterface
 {
-    /**
-     * @var PostRepository
-     */
-    protected $postRepository;
+    protected PostRepository $postRepository;
 
-    /**
-     * @var CommentRepository
-     */
-    protected $commentRepository;
+    protected CommentRepository $commentRepository;
 
-    /**
-     * @var BlogSubscriberRepository
-     */
-    protected $blogSubscriberRepository;
+    protected BlogSubscriberRepository $blogSubscriberRepository;
 
-    /**
-     * @var PostSubscriberRepository
-     */
-    protected $postSubscriberRepository;
+    protected PostSubscriberRepository $postSubscriberRepository;
 
     /**
      * @param PostRepository $postRepository

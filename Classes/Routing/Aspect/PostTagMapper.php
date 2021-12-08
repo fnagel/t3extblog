@@ -17,10 +17,7 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
  */
 class PostTagMapper extends AbstractPersistedAliasMapper
 {
-    /**
-     * @var bool
-     */
-    protected $isFieldNameCsv = true;
+    protected bool $isFieldNameCsv = true;
 
     /**
      * @param array $settings
@@ -29,8 +26,8 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     public function __construct(array $settings)
     {
         // Set defaults
-        $settings['tableName'] = $settings['tableName'] ?? 'tx_t3blog_post';
-        $settings['routeFieldName'] = $settings['routeFieldName'] ?? 'tagClouds';
+        $settings['tableName'] ??= 'tx_t3blog_post';
+        $settings['routeFieldName'] ??= 'tagClouds';
 
         parent::__construct($settings);
     }

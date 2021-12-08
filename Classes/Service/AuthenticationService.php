@@ -16,17 +16,13 @@ class AuthenticationService implements AuthenticationServiceInterface
 {
     /**
      * Session data.
-     *
-     * @var array
      */
-    protected $sessionData = null;
+    protected ?array $sessionData = null;
 
     /**
      * Session Service.
-     *
-     * @var SessionServiceInterface
      */
-    protected $session;
+    protected SessionServiceInterface $session;
 
     /**
      * AuthenticationService constructor.

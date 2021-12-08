@@ -15,6 +15,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as CoreActionViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * A view helper for creating URIs to extbase actions.
@@ -31,7 +32,7 @@ class ActionViewHelper extends CoreActionViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        if (TYPO3_MODE === 'FE') {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
         }
 
@@ -72,7 +73,6 @@ class ActionViewHelper extends CoreActionViewHelper
             ->setCreateAbsoluteUri((bool) $arguments['absolute'])
             ->setAddQueryString((bool) $arguments['addQueryString'])
             ->setArgumentsToBeExcludedFromQueryString($arguments['argumentsToBeExcludedFromQueryString'])
-            ->setAddQueryStringMethod($arguments['addQueryStringMethod'] ?: '')
             ->buildFrontendUri();
 
         return $uri;

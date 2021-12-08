@@ -19,10 +19,8 @@ trait LoggingTrait
 {
     /**
      * Logging Service.
-     *
-     * @var LoggingServiceInterface
      */
-    private $log = null;
+    private ?LoggingServiceInterface $log = null;
 
     /**
      * @param LoggingServiceInterface $log

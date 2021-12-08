@@ -91,8 +91,9 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-			sys_language_uid, email, hidden,
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_blog_nl.tabs.meta,
-				lastsent, code, privacy_policy_accepted'],
+            sys_language_uid,email,hidden,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_blog_nl.tabs.meta,
+                lastsent, code, privacy_policy_accepted'
+        ],
     ],
 ];

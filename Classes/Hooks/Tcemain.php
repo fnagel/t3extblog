@@ -28,34 +28,26 @@ class Tcemain
 {
     /**
      * Fields to check for changes.
-     *
-     * @var array
      */
-    protected $watchedFields = [
+    protected array $watchedFields = [
         'approved',
         'spam',
     ];
 
     /**
      * notificationService.
-     *
-     * @var \FelixNagel\T3extblog\Service\CommentNotificationService
      */
-    protected $notificationService = null;
+    protected ?CommentNotificationService $notificationService = null;
 
     /**
      * objectContainer.
-     *
-     * @var Container
      */
-    protected $objectContainer = null;
+    protected ?Container $objectContainer = null;
 
     /**
      * commentRepository.
-     *
-     * @var CommentRepository
      */
-    protected $commentRepository = null;
+    protected ?CommentRepository $commentRepository = null;
 
     /**
      * Before processing: clear cache.
@@ -84,7 +76,7 @@ class Tcemain
                 $tagsToFlush[] = $table.'_pid_'.$pid;
                 $tagsToFlush[] = $table.'_uid_'.$id;
             }
-            
+
             if ($table === 'tx_t3blog_com') {
                 $tagsToFlush[] = $table.'_pid_'.$pid;
             }
@@ -136,13 +128,13 @@ class Tcemain
         $tagsToFlush = [];
 
         // Cache tags for posts
-        if ($table === 'tx_t3blog_post' && ($status == 'update' || $status === 'new')) {
+        if ($table === 'tx_t3blog_post' && ($status === 'update' || $status === 'new')) {
             $tagsToFlush[] = $table.'_pid_'.$pid;
             $tagsToFlush[] = $table.'_uid_'.$id;
         }
 
         if ($table === 'tx_t3blog_com') {
-            if ($status == 'update' && $this->isUpdateNeeded($fields, $this->watchedFields)) {
+            if ($status === 'update' && $this->isUpdateNeeded($fields, $this->watchedFields)) {
                 $this->processChangedComment($id);
             }
 
@@ -151,13 +143,13 @@ class Tcemain
             }
 
             // Cache tags for comments
-            if ($status == 'update' || $status === 'new') {
+            if ($status === 'update' || $status === 'new') {
                 $tagsToFlush[] = $table.'_pid_'.$pid;
             }
         }
 
         // Cache tags for categories
-        if ($table === 'tx_t3blog_cat' && ($status == 'update' || $status === 'new')) {
+        if ($table === 'tx_t3blog_cat' && ($status === 'update' || $status === 'new')) {
             $tagsToFlush[] = $table.'_pid_'.$pid;
         }
 
@@ -321,7 +313,7 @@ class Tcemain
 
         return (int) $id;
     }
-    
+
     /**
      * Get record pid.
      *

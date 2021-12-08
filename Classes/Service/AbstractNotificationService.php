@@ -20,6 +20,7 @@ use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * Handles all notification mails.
@@ -28,45 +29,24 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 {
     use LoggingTrait;
 
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
+    protected ObjectManagerInterface $objectManager;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $signalSlotDispatcher;
+    protected Dispatcher $signalSlotDispatcher;
 
     /**
      * subscriberRepository.
      */
     protected $subscriberRepository;
 
-    /**
-     * @var SettingsService
-     */
-    protected $settingsService;
+    protected SettingsService $settingsService;
 
-    /**
-     * @var array
-     */
-    protected $settings = [];
+    protected array $settings = [];
 
-    /**
-     * @var array
-     */
-    protected $subscriptionSettings = [];
+    protected array $subscriptionSettings = [];
 
-    /**
-     * @var EmailService
-     */
-    protected $emailService;
+    protected EmailService $emailService;
 
-    /**
-     * @var FlushCacheService
-     */
-    protected $cacheService;
+    protected FlushCacheService $cacheService;
 
     /**
      * AbstractNotificationService constructor.
@@ -121,7 +101,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         if ($subscriber instanceof BlogSubscriber) {
             $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
         }
-        
+
         if ($subscriber instanceof PostSubscriber) {
             $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
         }
@@ -221,7 +201,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     protected function persistToDatabase($force = false)
     {
-        if ($force || TYPO3_MODE === 'BE') {
+        if ($force || ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->objectManager->get(PersistenceManager::class)->persistAll();
         }
     }

@@ -23,10 +23,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class MetaTagViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var string
-     */
-    protected $tagName = 'meta';
+    protected string $tagName = 'meta';
 
     /**
      * Arguments initialization.

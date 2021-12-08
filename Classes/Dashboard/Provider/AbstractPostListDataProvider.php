@@ -13,15 +13,9 @@ use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 
 abstract class AbstractPostListDataProvider extends AbstractListDataProvider
 {
-    /**
-     * @var PostRepository
-     */
-    protected $postRepository;
+    protected PostRepository $postRepository;
 
-    /**
-     * @var array
-     */
-    protected $options = [
+    protected array $options = [
         'limit' => 10,
     ];
 

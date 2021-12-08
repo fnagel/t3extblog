@@ -29,7 +29,7 @@
   "require-dev": {
     "nimut/testing-framework": "^5.0",
     "squizlabs/php_codesniffer": "^3.5",
-    "friendsofphp/php-cs-fixer": "^2.16",
+    "friendsofphp/php-cs-fixer": "^2.19",
     "phpmd/phpmd": "^2.8",
     "php-parallel-lint/php-parallel-lint": "^0.4",
     "helmich/typo3-typoscript-lint": "^2.1",

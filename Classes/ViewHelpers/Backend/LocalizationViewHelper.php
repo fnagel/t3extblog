@@ -28,23 +28,16 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     use CompileWithRenderStatic;
 
     /**
-     * This view helper renders HTML, thus output must not be escaped
-     *
-     * @var bool
+     * @inheritdoc
      */
     protected $escapeOutput = false;
 
-    /**
-     * @var \TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider
-     */
-    protected static $translateTools;
+    protected static ?TranslationConfigurationProvider $translateTools = null;
 
     /**
      * Contains sys language icons and titles.
-     *
-     * @var array
      */
-    public static $systemLanguages = [];
+    public static array $systemLanguages = [];
 
     /**
      * @inheritdoc
@@ -59,10 +52,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     }
 
     /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return mixed
+     * @inheritDoc
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {

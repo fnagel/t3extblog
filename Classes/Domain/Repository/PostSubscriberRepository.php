@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Exception\Exception;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * PostSubscriberRepository.
@@ -21,7 +22,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
     /**
      * @param Post $post The post the comment is related to
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findForNotification(Post $post)
     {
@@ -41,7 +42,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
      * @param string $email
      * @param int    $excludeUid
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     public function findExistingSubscriptions($postUid, $email, $excludeUid = null)
     {

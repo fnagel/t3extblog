@@ -13,15 +13,9 @@ use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 
 abstract class AbstractCommentListDataProvider extends AbstractListDataProvider
 {
-    /**
-     * @var CommentRepository
-     */
-    protected $commentRepository;
+    protected CommentRepository $commentRepository;
 
-    /**
-     * @var array
-     */
-    protected $options = [
+    protected array $options = [
         'limit' => 10,
     ];
 

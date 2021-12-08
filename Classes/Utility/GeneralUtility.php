@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * General utility class.
@@ -30,7 +31,7 @@ class GeneralUtility implements SingletonInterface
      */
     public static function getTsFe()
     {
-        if (TYPO3_MODE === 'BE') {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             throw new Exception('TSFE is not available in backend context!', 1582672848);
         }
 

@@ -30,20 +30,11 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class BackendModuleService
 {
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
+    protected ObjectManagerInterface $objectManager;
 
-    /**
-     * @var BackendTemplateView
-     */
-    protected $view;
+    protected BackendTemplateView $view;
 
-    /**
-     * @var int
-     */
-    protected $pid;
+    protected int $pid;
 
     /**
      * BackendModuleService constructor.

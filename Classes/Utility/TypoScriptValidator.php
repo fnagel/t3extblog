@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Utility;
 
 use TYPO3\CMS\Core\Utility\MathUtility;
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * TypoScript Settings Validator class.
@@ -34,7 +35,8 @@ class TypoScriptValidator
     public static function validateSettings(array $settings = null)
     {
         $key = 'plugin';
-        if (TYPO3_MODE === 'BE') {
+
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $key = 'module';
         }
 

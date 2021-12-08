@@ -24,40 +24,24 @@ class SettingsService
      *
      * Needed as parameter for configurationManager->getConfiguration when used in BE context
      * Otherwise generated TS will be incorrect or missing
-     *
-     * @var string
      */
-    protected $extensionName = 'T3extblog';
+    protected string $extensionName = 'T3extblog';
 
     /**
      * Plugin name.
      *
      * Needed as parameter for configurationManager->getConfiguration when used in BE context
      * Otherwise generated TS will be incorrect or missing when used in BE
-     *
-     * @var string
      */
-    protected $pluginName = '';
+    protected string $pluginName = '';
 
-    /**
-     * @var mixed
-     */
-    protected $typoScriptSettings = null;
+    protected ?array $typoScriptSettings = null;
 
-    /**
-     * @var mixed
-     */
-    protected $frameworkSettings = null;
+    protected ?array $frameworkSettings = null;
 
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
-    /**
-     * @var TypoScriptService
-     */
-    protected $typoScriptService;
+    protected TypoScriptService $typoScriptService;
 
     /**
      * SettingsService constructor.

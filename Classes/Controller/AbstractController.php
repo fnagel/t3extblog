@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
@@ -39,10 +39,8 @@ abstract class AbstractController extends ActionController
 
     /**
      * Actions which need a configured cHash
-     *
-     * @var array
      */
-    protected $cHashActions = [];
+    protected array $cHashActions = [];
 
     /**
      * Injects the Configuration Manager and is initializing the framework settings
@@ -77,10 +75,10 @@ abstract class AbstractController extends ActionController
     /**
      * @inheritdoc
      */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    public function processRequest(RequestInterface $request): ResponseInterface
     {
         try {
-            parent::processRequest($request, $response);
+            return parent::processRequest($request);
         } catch (\Exception $exception) {
             $this->handleKnownExceptionsElseThrowAgain($exception);
         }
@@ -172,7 +170,7 @@ abstract class AbstractController extends ActionController
     protected function hasFlashMessages()
     {
         $messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
-        
+
         return count($messages) > 0;
     }
 
@@ -267,11 +265,11 @@ abstract class AbstractController extends ActionController
         if ($object instanceof Post) {
             $tags[] = 'tx_t3blog_post_pid_'.$object->getPid();
         }
-        
+
         if ($object instanceof Comment) {
             $tags[] = 'tx_t3blog_com_pid_'.$object->getPid();
         }
-        
+
         if ($object instanceof Category) {
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }

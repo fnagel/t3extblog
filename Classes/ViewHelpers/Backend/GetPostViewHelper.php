@@ -20,10 +20,8 @@ class GetPostViewHelper extends AbstractBackendViewHelper
 {
     /**
      * postRepository.
-     *
-     * @var PostRepository
      */
-    protected $postRepository = null;
+    protected ?PostRepository $postRepository = null;
 
     /**
      * @inheritdoc

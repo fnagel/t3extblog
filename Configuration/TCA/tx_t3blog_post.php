@@ -1,5 +1,9 @@
 <?php
 
+use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Resource\File;
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post',
@@ -230,6 +234,7 @@ return [
                     'l10n_mode' => 'prefixLangTitle',
                 ],
                 'default' => '',
+                'overrideChildTca' => [],
             ],
         ],
         'allow_comments' => [
@@ -241,15 +246,15 @@ return [
                 'items' => [
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.0',
-                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_EVERYONE,
+                        Post::ALLOW_COMMENTS_EVERYONE,
                     ],
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.1',
-                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_NOBODY,
+                        Post::ALLOW_COMMENTS_NOBODY,
                     ],
                     [
                         'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.2',
-                        \FelixNagel\T3extblog\Domain\Model\Post::ALLOW_COMMENTS_LOGIN,
+                        Post::ALLOW_COMMENTS_LOGIN,
                     ],
                 ],
                 'behaviour' => [
@@ -378,13 +383,13 @@ return [
         'preview_image' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'preview_image',
                 [
                     'maxitems' => 1,
                     'overrideChildTca' => [
                         'types' => [
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                            File::FILETYPE_IMAGE => [
                                 'showitem' => '
                                     --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;t3extblogPostPreviewImagePalette,
                                     --palette--;;filePalette'
@@ -416,21 +421,20 @@ return [
         ],
     ],
     'types' => [
-        '0' => [
-            'showitem' => '
-                --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.post,
-                    sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,url_segment,content,
-                --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.preview,
-                    preview_mode,preview_image,preview_text,
-                --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.category,
-                    tagClouds,cat,
-                --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.interactive,
-                    allow_comments,trackback,number_views,mails_sent,
-                --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.meta,
-                    meta_description,meta_keywords,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
-                    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
-                    --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access',
+        '0' => ['showitem' => '
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.post,
+                sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,url_segment,content,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.preview,
+                preview_mode,preview_image,preview_text,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.category,
+                tagClouds,cat,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.interactive,
+                allow_comments,trackback,number_views,mails_sent,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.meta,
+                meta_description,meta_keywords,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
         ],
     ],
     'palettes' => [

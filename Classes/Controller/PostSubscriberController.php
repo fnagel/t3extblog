@@ -13,6 +13,8 @@ use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * SubscriberController.
@@ -28,15 +30,13 @@ class PostSubscriberController extends AbstractSubscriberController
 
     /**
      * blogSubscriberRepository.
-     *
-     * @var BlogSubscriberRepository
      */
-    protected $blogSubscriberRepository;
+    protected BlogSubscriberRepository $blogSubscriberRepository;
 
     /**
      * subscriber.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\PostSubscriber
+     * @var PostSubscriber
      */
     protected $subscriber = null;
 
@@ -75,13 +75,13 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * action delete.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriber
-     *
-     * @throws InvalidArgumentValueException
+     * @param PostSubscriber $subscriber
      */
-    public function deleteAction($subscriber = null)
+    public function deleteAction($subscriber = null): ResponseInterface
     {
         parent::deleteAction($subscriber);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -89,7 +89,7 @@ class PostSubscriberController extends AbstractSubscriberController
      *
      * @param PostSubscriber $subscriber
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     protected function findExistingSubscriptions($subscriber)
     {

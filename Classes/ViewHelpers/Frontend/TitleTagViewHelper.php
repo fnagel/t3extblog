@@ -1,7 +1,7 @@
 <?php
 
 namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
-
+;
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
  *
@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * ViewHelper to render the page title.
@@ -40,7 +41,7 @@ class TitleTagViewHelper extends AbstractViewHelper
         $prepend = $arguments['prepend'];
         $searchTitle = $arguments['searchTitle'];
 
-        if (TYPO3_MODE === 'BE') {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             return;
         }
 

@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
@@ -18,6 +19,8 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /**
  * PostController.
@@ -27,20 +30,14 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
  */
 class PostController extends AbstractCommentController
 {
-    /**
-     * @var array
-     */
-    protected $cHashActions = [
+    protected array $cHashActions = [
         'categoryAction',
         'authorAction',
         'tagAction',
         'showAction',
     ];
 
-    /**
-     * @var PostRepository
-     */
-    protected $postRepository;
+    protected PostRepository $postRepository;
 
     /**
      * PostController constructor.
@@ -67,29 +64,31 @@ class PostController extends AbstractCommentController
     /**
      * Displays a list of posts.
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $this->view->assign('posts', $this->findPosts());
+
+        return $this->htmlResponse();
     }
 
     /**
      * Displays a list of posts related to a category.
-     *
-     * @param Category $category
      */
-    public function categoryAction(Category $category)
+    public function categoryAction(Category $category): ResponseInterface
     {
         $this->view->assign('posts', $this->findPosts($category));
+
+        return $this->htmlResponse();
     }
 
     /**
      * Displays a list of posts created by an author.
-     *
-     * @param BackendUser $author
      */
-    public function authorAction(BackendUser $author)
+    public function authorAction(BackendUser $author): ResponseInterface
     {
         $this->view->assign('posts', $this->findPosts($author));
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -97,7 +96,7 @@ class PostController extends AbstractCommentController
      *
      * @param string $tag The name of the tag to show the posts for
      */
-    public function tagAction($tag)
+    public function tagAction($tag): ResponseInterface
     {
         $posts = $this->findPosts($tag);
 
@@ -106,12 +105,14 @@ class PostController extends AbstractCommentController
         }
 
         $this->view->assign('posts', $posts);
+
+        return $this->htmlResponse();
     }
 
     /**
      * Displays a list of latest posts.
      */
-    public function latestAction()
+    public function latestAction(): ResponseInterface
     {
         $category = null;
 
@@ -122,6 +123,8 @@ class PostController extends AbstractCommentController
         }
 
         $this->view->assign('posts', $this->findPosts($category));
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -129,7 +132,7 @@ class PostController extends AbstractCommentController
      *
      * @param mixed $filter
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     protected function findPosts($filter = null)
     {
@@ -159,9 +162,11 @@ class PostController extends AbstractCommentController
     /**
      * Displays archive of all posts.
      */
-    public function archiveAction()
+    public function archiveAction(): ResponseInterface
     {
         $this->view->assign('posts', $this->findPosts());
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -176,9 +181,11 @@ class PostController extends AbstractCommentController
     /**
      * Displays rss feed of all posts.
      */
-    public function rssAction()
+    public function rssAction(): ResponseInterface
     {
         $this->view->assign('posts', $this->findPosts());
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -202,10 +209,10 @@ class PostController extends AbstractCommentController
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      *
-     * @param Post    $post       The post to display
-     * @param Comment $newComment A new comment
+     * @param Post $post The post to display
+     * @param Comment|null $newComment A new comment
      */
-    public function showAction(Post $post, Comment $newComment = null)
+    public function showAction(Post $post, Comment $newComment = null): ResponseInterface
     {
         if ($newComment === null) {
             $newComment = $this->getNewComment();
@@ -224,16 +231,16 @@ class PostController extends AbstractCommentController
 
         $this->view->assign('nextPost', $this->postRepository->nextPost($post));
         $this->view->assign('previousPost', $this->postRepository->previousPost($post));
+
+        return $this->htmlResponse();
     }
 
     /**
      * Preview a post.
      *
      * @param int $previewPost The post to display
-     *
-     * @throws AccessDeniedException
      */
-    public function previewAction($previewPost)
+    public function previewAction($previewPost): ResponseInterface
     {
         if (!GeneralUtility::isValidBackendUser()) {
             throw new AccessDeniedException('Preview not allowed.');
@@ -244,6 +251,6 @@ class PostController extends AbstractCommentController
             $this->forward('show', null, null, ['post' => $post]);
         }
 
-        $this->errorAction();
+        return $this->errorAction();
     }
 }

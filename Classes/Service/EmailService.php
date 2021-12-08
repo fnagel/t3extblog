@@ -17,6 +17,7 @@ use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Handles email sending and templating.
@@ -32,30 +33,16 @@ class EmailService implements SingletonInterface
 
     /**
      * Extension name.
-     *
-     * @var string
      */
-    protected $extensionName = 't3extblog';
+    protected string $extensionName = 't3extblog';
 
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
+    protected ObjectManagerInterface $objectManager;
 
-    /**
-     * @var Dispatcher
-     */
-    protected $signalSlotDispatcher;
+    protected Dispatcher $signalSlotDispatcher;
 
-    /**
-     * @var SettingsService
-     */
-    protected $settingsService;
+    protected SettingsService $settingsService;
 
-    /**
-     * @var array
-     */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * EmailService constructor.
@@ -73,8 +60,6 @@ class EmailService implements SingletonInterface
         $this->settingsService = $settingsService;
     }
 
-    /**
-     */
     public function initializeObject()
     {
         $this->settings = $this->settingsService->getTypoScriptSettings();
@@ -162,7 +147,7 @@ class EmailService implements SingletonInterface
         $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
         $emailView->assignMultiple([
-            'timestamp' => $GLOBALS['EXEC_TIME'],
+            'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
             'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
             'settings' => $this->settings,
         ]);
@@ -206,10 +191,7 @@ class EmailService implements SingletonInterface
         return $emailView;
     }
 
-    /**
-     * @param \TYPO3\CMS\Fluid\View\StandaloneView $emailView
-     */
-    protected function setViewPaths($emailView)
+    protected function setViewPaths(StandaloneView $emailView)
     {
         $frameworkConfig = $this->settingsService->getFrameworkSettings();
 

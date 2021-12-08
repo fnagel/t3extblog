@@ -28,10 +28,7 @@ class PostMapper extends AbstractPersistedAliasMapper
      */
     protected $datePrefixRegex;
 
-    /**
-     * @var boolean
-     */
-    protected $datePrefixLowercase = false;
+    protected bool $datePrefixLowercase = false;
 
     /**
      * @var string
@@ -45,8 +42,8 @@ class PostMapper extends AbstractPersistedAliasMapper
     public function __construct(array $settings)
     {
         // Set defaults
-        $settings['tableName'] = $settings['tableName'] ?? 'tx_t3blog_post';
-        $settings['routeFieldName'] = $settings['routeFieldName'] ?? 'url_segment';
+        $settings['tableName'] ??= 'tx_t3blog_post';
+        $settings['routeFieldName'] ??= 'url_segment';
 
         $dateFieldName = $settings['dateFieldName'] ?? 'date';
         $datePrefix = $settings['datePrefix'] ?? null;

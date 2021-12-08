@@ -23,24 +23,18 @@ class ext_update
 {
     /**
      * The database connection.
-     *
-     * @var \TYPO3\CMS\Core\Database\ConnectionPool
      */
-    protected $connectionPool;
+    protected ConnectionPool $connectionPool;
 
     /**
      * Array of flash messages (params) array[][status,title,message].
-     *
-     * @var array
      */
-    protected $messageArray = [];
+    protected array $messageArray = [];
 
     /**
      * Array of sections (HTML).
-     *
-     * @var array
      */
-    protected $sectionArray = [];
+    protected array $sectionArray = [];
 
     /**
      * Called by the extension manager to determine

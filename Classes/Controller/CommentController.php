@@ -16,18 +16,15 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * CommentController.
  */
 class CommentController extends AbstractCommentController
 {
-    /**
-     * @var array
-     */
-    protected $cHashActions = [
+    protected array $cHashActions = [
         'listAction',
         'latestAction',
         'showAction',
@@ -35,24 +32,18 @@ class CommentController extends AbstractCommentController
 
     /**
      * commentRepository.
-     *
-     * @var CommentRepository
      */
-    protected $commentRepository;
+    protected CommentRepository $commentRepository;
 
     /**
      * Notification Service.
-     *
-     * @var CommentNotificationService
      */
-    protected $notificationService;
+    protected CommentNotificationService $notificationService;
 
     /**
      * Spam Check Service.
-     *
-     * @var SpamCheckServiceInterface
      */
-    protected $spamCheckService;
+    protected SpamCheckServiceInterface $spamCheckService;
 
     /**
      * CommentController constructor.
@@ -74,9 +65,9 @@ class CommentController extends AbstractCommentController
     /**
      * action list.
      *
-     * @param Post $post Show only comments related to this post
+     * @param Post|null $post Show only comments related to this post
      */
-    public function listAction(Post $post = null)
+    public function listAction(Post $post = null): ResponseInterface
     {
         if ($post === null) {
             $comments = $this->commentRepository->findValid();
@@ -89,16 +80,20 @@ class CommentController extends AbstractCommentController
         $this->addCacheTags($comments->getFirst());
 
         $this->view->assign('comments', $comments);
+
+        return $this->htmlResponse();
     }
 
     /**
      * action latest.
      *
-     * @param Post $post Show only comments related to this post
+     * @param Post|null $post Show only comments related to this post
      */
-    public function latestAction(Post $post = null)
+    public function latestAction(Post $post = null): ResponseInterface
     {
         $this->listAction($post);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -120,7 +115,7 @@ class CommentController extends AbstractCommentController
      * @param Comment $newComment
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      */
-    public function newAction(Post $post, Comment $newComment = null)
+    public function newAction(Post $post, Comment $newComment = null): ResponseInterface
     {
         if ($newComment === null) {
             $newComment = $this->getNewComment();
@@ -128,6 +123,8 @@ class CommentController extends AbstractCommentController
 
         $this->view->assign('newComment', $newComment);
         $this->view->assign('post', $post);
+
+        return $this->htmlResponse();
     }
 
     /**

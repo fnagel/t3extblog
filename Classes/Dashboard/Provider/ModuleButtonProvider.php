@@ -17,20 +17,11 @@ class ModuleButtonProvider implements ButtonProviderInterface
 {
     use ProviderTrait;
 
-    /**
-     * @var string
-     */
-    private $title;
+    private string $title;
 
-    /**
-     * @var string
-     */
-    private $target;
+    private string $target;
 
-    /**
-     * @var array
-     */
-    private $linkArguments = [];
+    private array $linkArguments = [];
 
     public function __construct(string $title, array $linkArguments, string $target = '')
     {

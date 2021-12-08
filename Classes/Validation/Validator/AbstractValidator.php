@@ -19,10 +19,8 @@ abstract class AbstractValidator extends CoreAbstractValidator
 {
     /**
      * The SettingsService
-     *
-     * @var SettingsService
      */
-    protected $settingsService;
+    protected ?SettingsService $settingsService = null;
 
     /**
      * Inject the SettingsService
@@ -42,8 +40,8 @@ abstract class AbstractValidator extends CoreAbstractValidator
     {
         if ($key === null) {
             return $this->settingsService->getTypoScriptSettings();
-        } else {
-            return $this->settingsService->getTypoScriptByPath($key);
         }
+
+        return $this->settingsService->getTypoScriptByPath($key);
     }
 }

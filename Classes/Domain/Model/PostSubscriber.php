@@ -23,7 +23,7 @@ class PostSubscriber extends AbstractSubscriber
      * @var string
      * @Extbase\Validate("NotEmpty")
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
      * postUid.
@@ -31,7 +31,7 @@ class PostSubscriber extends AbstractSubscriber
      * @var int
      * @Extbase\Validate("NotEmpty")
      */
-    protected $postUid;
+    protected int $postUid;
 
     /**
      * post.
@@ -39,7 +39,7 @@ class PostSubscriber extends AbstractSubscriber
      * @var \FelixNagel\T3extblog\Domain\Model\Post
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $post = null;
+    protected ?Post $post = null;
 
     /**
      * comments.
@@ -47,7 +47,7 @@ class PostSubscriber extends AbstractSubscriber
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $postComments = null;
+    protected ?ObjectStorage $postComments = null;
 
     /**
      * comments.
@@ -55,7 +55,7 @@ class PostSubscriber extends AbstractSubscriber
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $postPendingComments = null;
+    protected ?ObjectStorage $postPendingComments = null;
 
     /**
      * __construct.

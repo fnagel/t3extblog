@@ -21,20 +21,11 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var bool
-     */
-    protected $renderInFe = false;
+    protected bool $renderInFe = false;
 
-    /**
-     * @var SettingsService
-     */
-    protected $settingsService;
+    protected SettingsService $settingsService;
 
-    /**
-     * @var array
-     */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * LoggingService constructor.
@@ -51,7 +42,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
      */
     public function initializeObject()
     {
-        $this->renderInFe = $this->settingsService->getTypoScriptByPath('debug.renderInFe');
+        $this->renderInFe = (bool)$this->settingsService->getTypoScriptByPath('debug.renderInFe');
     }
 
     /**

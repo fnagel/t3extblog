@@ -18,17 +18,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BlogPageSearchUtility implements SingletonInterface
 {
-    /**
-     * @var array
-     */
-    protected static $cache = null;
+    protected static ?array $cache = null;
 
     /**
      * The database connection.
-     *
-     * @var ConnectionPool
      */
-    protected static $connectionPool = null;
+    protected static ?ConnectionPool $connectionPool = null;
 
     /**
      * @return array

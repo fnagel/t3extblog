@@ -20,12 +20,12 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * @var bool
      */
-    protected $hidden = true;
+    protected bool $hidden = true;
 
     /**
      * @var bool
      */
-    protected $deleted = false;
+    protected bool $deleted = false;
 
     /**
      * email.
@@ -34,7 +34,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      * @Extbase\Validate("NotEmpty")
      * @Extbase\Validate("EmailAddress")
      */
-    protected $email;
+    protected ?string $email = null;
 
     /**
      * lastSent.
@@ -48,7 +48,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @var string
      */
-    protected $code;
+    protected ?string $code = null;
 
     /**
      * privacy policy accepted.
@@ -56,7 +56,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      * @var bool
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", options={"key": "blog"})
      */
-    protected $privacyPolicyAccepted = false;
+    protected bool $privacyPolicyAccepted = false;
 
     /**
      * If the subscriber is valid for opt in email.

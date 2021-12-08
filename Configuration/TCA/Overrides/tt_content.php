@@ -1,29 +1,29 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
+use FelixNagel\T3extblog\Utility\TcaUtility;
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('Blogsystem', 'blogsystem.title');
+defined('TYPO3') || die();
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('SubscriptionManager', 'subscriptionmanager.title');
+TcaUtility::registerPlugin('Blogsystem', 'blogsystem.title');
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('BlogSubscription', 'blogsubscription.title');
+TcaUtility::registerPlugin('SubscriptionManager', 'subscriptionmanager.title');
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('Archive', 'archive.title');
+TcaUtility::registerPlugin('BlogSubscription', 'blogsubscription.title');
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('Rss', 'rss.title');
+TcaUtility::registerPlugin('Archive', 'archive.title');
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('Categories', 'categories.title');
+TcaUtility::registerPlugin('Rss', 'rss.title');
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('LatestComments', 'latestcomments.title');
-\FelixNagel\T3extblog\Utility\TcaUtility::addFlexForm(
+TcaUtility::registerPlugin('Categories', 'categories.title');
+
+TcaUtility::registerPlugin('LatestComments', 'latestcomments.title');
+TcaUtility::addFlexForm(
     'LatestComments',
     '/Configuration/FlexForms/LatestComments.xml'
 );
 
-\FelixNagel\T3extblog\Utility\TcaUtility::registerPlugin('LatestPosts', 'latestposts.title');
-\FelixNagel\T3extblog\Utility\TcaUtility::addFlexForm(
+TcaUtility::registerPlugin('LatestPosts', 'latestposts.title');
+TcaUtility::addFlexForm(
     'LatestPosts',
     '/Configuration/FlexForms/LatestPosts.xml'
 );

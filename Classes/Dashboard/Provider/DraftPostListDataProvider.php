@@ -11,10 +11,7 @@ namespace FelixNagel\T3extblog\Dashboard\Provider;
 
 class DraftPostListDataProvider extends AbstractPostListDataProvider
 {
-    /**
-     * @var array
-     */
-    protected $options = [
+    protected array $options = [
         'limit' => 4,
     ];
 

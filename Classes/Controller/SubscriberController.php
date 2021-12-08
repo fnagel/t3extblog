@@ -13,28 +13,19 @@ use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /**
  * SubscriberController.
  */
 class SubscriberController extends AbstractController
 {
-    /**
-     * feUserService.
-     *
-     * @var AuthenticationServiceInterface
-     */
-    protected $authentication;
+    protected AuthenticationServiceInterface $authentication;
 
-    /**
-     * @var BlogSubscriberRepository
-     */
-    protected $blogSubscriberRepository;
+    protected BlogSubscriberRepository $blogSubscriberRepository;
 
-    /**
-     * @var PostSubscriberRepository
-     */
-    protected $postSubscriberRepository;
+    protected PostSubscriberRepository $postSubscriberRepository;
 
     /**
      * SubscriberController constructor.
@@ -56,7 +47,7 @@ class SubscriberController extends AbstractController
     /**
      * Displays a list of all posts a user subscribed to.
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         if (!$this->authentication->isValid()) {
             $this->forward('list', 'PostSubscriber');
@@ -70,16 +61,20 @@ class SubscriberController extends AbstractController
         $this->view->assign('email', $email);
         $this->view->assign('postSubscriber', $postSubscriber);
         $this->view->assign('blogSubscriber', $blogSubscriber);
+
+        return $this->htmlResponse();
     }
 
     /**
      * Error action.
      */
-    protected function errorAction()
+    protected function errorAction(): ResponseInterface
     {
         if (!$this->hasFlashMessages()) {
             $this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
         }
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -94,7 +89,7 @@ class SubscriberController extends AbstractController
      * Redirects user when no auth was possible.
      *
      * @param string $message  Flash message key
-     * @param int    $severity Severity code. One of the FlashMessage constants
+     * @param int $severity Severity code. One of the FlashMessage constants
      */
     protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR)
     {

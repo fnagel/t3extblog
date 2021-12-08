@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
@@ -37,7 +38,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * subscriber.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\PostSubscriber
+     * @var PostSubscriber
      */
     protected $subscriber = null;
 

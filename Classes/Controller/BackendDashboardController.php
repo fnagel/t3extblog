@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * BackendDashboardController.
  */
@@ -17,7 +19,7 @@ class BackendDashboardController extends AbstractBackendController
     /**
      * Blog dashboard.
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         $this->view->assignMultiple([
             'postDrafts' => $this->postRepository->findDrafts($this->pageId),
@@ -31,5 +33,7 @@ class BackendDashboardController extends AbstractBackendController
             'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
             'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),
         ]);
+
+        return $this->htmlResponse();
     }
 }

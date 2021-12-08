@@ -19,11 +19,11 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
  */
 class TcaUtility implements SingletonInterface
 {
-    protected static $packageKey = 't3extblog';
+    protected static string $packageKey = 't3extblog';
 
-    protected static $extensionName = null;
+    protected static ?string $extensionName = null;
 
-    protected static $localizationPrefix = 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:';
+    protected static string $localizationPrefix = 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:';
 
     /**
      * Register a plugin and hide default fields

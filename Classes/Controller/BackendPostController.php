@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * BackendPostController.
@@ -21,17 +22,17 @@ class BackendPostController extends AbstractBackendController
     /**
      * Main Backendmodule: displays posts and pending comments.
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         $this->view->assignMultiple([
             'posts' => $this->postRepository->findByPage($this->pageId, false),
         ]);
+
+        return $this->htmlResponse();
     }
 
     /**
      * Send post notification mails.
-     *
-     * @param Post $post
      */
     public function sendPostNotificationsAction(Post $post)
     {

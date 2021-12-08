@@ -27,10 +27,8 @@ class SessionService implements SessionServiceInterface
 
     /**
      * Frontend user authentication.
-     *
-     * @var FrontendUserAuthentication
      */
-    protected $frontendUser;
+    protected FrontendUserAuthentication $frontendUser;
 
     /**
      * SessionService constructor.

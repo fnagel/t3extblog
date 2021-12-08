@@ -24,21 +24,21 @@ class Category extends AbstractLocalizedEntity
      * @var string
      * @Extbase\Validate("NotEmpty")
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
      * description.
      *
      * @var string
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * Id of parent category.
      *
      * @var int
      */
-    protected $parentId;
+    protected int $parentId;
 
     /**
      * Posts.
@@ -46,7 +46,7 @@ class Category extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Post>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $posts = null;
+    protected ?ObjectStorage $posts = null;
 
     /**
      * child categories.
@@ -54,7 +54,7 @@ class Category extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $childCategories = null;
+    protected ?ObjectStorage $childCategories = null;
 
     /**
      * Returns the name.

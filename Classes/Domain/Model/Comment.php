@@ -21,12 +21,12 @@ class Comment extends AbstractEntity
     /**
      * @var bool
      */
-    protected $hidden = false;
+    protected bool $hidden = false;
 
     /**
      * @var bool
      */
-    protected $deleted = false;
+    protected bool $deleted = false;
 
     /**
      * title.
@@ -35,7 +35,7 @@ class Comment extends AbstractEntity
      *
      * @var string
      */
-    protected $title;
+    protected ?string $title = null;
 
     /**
      * author.
@@ -45,7 +45,7 @@ class Comment extends AbstractEntity
      *
      * @var string
      */
-    protected $author;
+    protected ?string $author = null;
 
     /**
      * email.
@@ -53,7 +53,7 @@ class Comment extends AbstractEntity
      * @var string
      * @Extbase\Validate("EmailAddress")
      */
-    protected $email;
+    protected ?string $email = null;
 
     /**
      * website.
@@ -61,7 +61,7 @@ class Comment extends AbstractEntity
      * @var string
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\UrlValidator")
      */
-    protected $website;
+    protected ?string $website = null;
 
     /**
      * date.
@@ -76,35 +76,35 @@ class Comment extends AbstractEntity
      * @var string
      * @Extbase\Validate("NotEmpty")
      */
-    protected $text;
+    protected ?string $text = null;
 
     /**
      * approved.
      *
      * @var bool
      */
-    protected $approved = false;
+    protected bool $approved = false;
 
     /**
      * spam.
      *
      * @var bool
      */
-    protected $spam = false;
+    protected bool $spam = false;
 
     /**
      * spamPoints.
      *
      * @var int
      */
-    protected $spamPoints = null;
+    protected ?int $spamPoints = null;
 
     /**
      * postId.
      *
      * @var int
      */
-    protected $postId;
+    protected ?int $postId = null;
 
     /**
      * post.
@@ -112,28 +112,28 @@ class Comment extends AbstractEntity
      * @var \FelixNagel\T3extblog\Domain\Model\Post
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $post = null;
+    protected ?Post $post = null;
 
     /**
      * subscribe (not persisted).
      *
      * @var bool
      */
-    protected $subscribe = false;
+    protected bool $subscribe = false;
 
     /**
      * If the notification mails are already sent.
      *
      * @var bool
      */
-    protected $mailsSent = false;
+    protected bool $mailsSent = false;
 
     /**
      * privacy policy accepted.
      *
      * @var bool
      */
-    protected $privacyPolicyAccepted = false;
+    protected bool $privacyPolicyAccepted = false;
 
     /**
      * __construct.

@@ -34,20 +34,16 @@ abstract class AbstractEntity extends CoreAbstractEntity
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\CommentRepository
      */
-    protected $commentRepository = null;
+    protected ?CommentRepository $commentRepository = null;
 
     /**
      * postRepository.
      *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      */
-    protected $postRepository = null;
+    protected ?PostRepository $postRepository = null;
 
-    /**
-     * @var ObjectManagerInterface
-     *
-     */
-    protected $objectManager = null;
+    protected ?ObjectManagerInterface $objectManager = null;
 
     /**
      * @param ObjectManagerInterface $objectManager

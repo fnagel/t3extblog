@@ -67,11 +67,7 @@ return [
                 'minitems' => 1,
                 'maxitems' => 1,
                 'size' => 1,
-                'wizards' => [
-                    'add' => [
-                        'type' => 'suggest',
-                    ],
-                ],
+                'fieldControl' => ['addRecord' => ['disabled' => false]],
             ],
         ],
         'lastsent' => [
@@ -95,8 +91,9 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-			name, email, hidden,
-			--div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.tabs.meta,
-				post_uid, lastsent, code'],
+            name,email,hidden,
+            --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.tabs.meta,
+                post_uid, lastsent, code'
+        ],
     ],
 ];

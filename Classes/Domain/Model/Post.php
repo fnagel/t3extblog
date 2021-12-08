@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Core\Resource\FileReference;
 
 /**
  * Post.
@@ -41,12 +42,12 @@ class Post extends AbstractLocalizedEntity
     /**
      * @var bool
      */
-    protected $hidden = true;
+    protected bool $hidden = true;
 
     /**
      * @var bool
      */
-    protected $deleted = false;
+    protected bool $deleted = false;
 
     /**
      * title.
@@ -54,7 +55,7 @@ class Post extends AbstractLocalizedEntity
      * @var string
      * @Extbase\Validate("NotEmpty")
      */
-    protected $title;
+    protected ?string $title = null;
 
     /**
      * author.
@@ -76,56 +77,56 @@ class Post extends AbstractLocalizedEntity
      *
      * @var int
      */
-    protected $allowComments;
+    protected ?int $allowComments = null;
 
     /**
      * tagCloud.
      *
      * @var string
      */
-    protected $tagCloud;
+    protected ?string $tagCloud = null;
 
     /**
      * numberOfViews.
      *
      * @var int
      */
-    protected $numberOfViews;
+    protected int $numberOfViews = 0;
 
     /**
      * If the notification mails are already sent.
      *
      * @var bool
      */
-    protected $mailsSent = false;
+    protected bool $mailsSent = false;
 
     /**
      * metaDescription.
      *
      * @var string
      */
-    protected $metaDescription;
+    protected ?string $metaDescription = null;
 
     /**
      * metaKeywords.
      *
      * @var string
      */
-    protected $metaKeywords;
+    protected ?string $metaKeywords = null;
 
     /**
      * previewMode.
      *
      * @var int
      */
-    protected $previewMode;
+    protected ?int $previewMode = null;
 
     /**
      * previewText.
      *
      * @var string
      */
-    protected $previewText;
+    protected ?string $previewText = null;
 
     /**
      * previewImage.
@@ -133,7 +134,7 @@ class Post extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $previewImage;
+    protected ?FileReference $previewImage = null;
 
     /**
      * content.
@@ -141,7 +142,7 @@ class Post extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $content;
+    protected ?ObjectStorage $content = null;
 
     /**
      * categories.
@@ -149,14 +150,14 @@ class Post extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $categories;
+    protected ?ObjectStorage $categories = null;
 
     /**
      * comments.
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
      */
-    protected $comments = null;
+    protected ?ObjectStorage $comments = null;
 
     /**
      * raw comments.
@@ -172,7 +173,7 @@ class Post extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $subscriptions;
+    protected ?ObjectStorage $subscriptions = null;
 
     /**
      * __construct.

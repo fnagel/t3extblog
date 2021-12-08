@@ -14,10 +14,7 @@ use TYPO3\CMS\Dashboard\Widgets\NumberWithIconDataProviderInterface;
 
 class PendingCommentNumberWithIconDataProvider extends AbstractDataProvider implements NumberWithIconDataProviderInterface
 {
-    /**
-     * @var CommentRepository
-     */
-    protected $commentRepository;
+    protected CommentRepository $commentRepository;
 
     /**
      * @param CommentRepository $commentRepository

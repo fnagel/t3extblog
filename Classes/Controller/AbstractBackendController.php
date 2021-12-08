@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
@@ -50,52 +50,38 @@ abstract class AbstractBackendController extends ActionController
 
     /**
      * postRepository.
-     *
-     * @var PostRepository
      */
-    protected $postRepository;
+    protected PostRepository $postRepository;
 
     /**
      * commentRepository.
-     *
-     * @var CommentRepository
      */
-    protected $commentRepository;
+    protected CommentRepository $commentRepository;
 
     /**
      * postSubscriberRepository.
-     *
-     * @var PostSubscriberRepository
      */
-    protected $postSubscriberRepository;
+    protected PostSubscriberRepository $postSubscriberRepository;
 
     /**
      * blogSubscriberRepository.
-     *
-     * @var BlogSubscriberRepository
      */
-    protected $blogSubscriberRepository;
+    protected BlogSubscriberRepository $blogSubscriberRepository;
 
     /**
      * The page id.
-     *
-     * @var int
      */
-    protected $pageId;
+    protected ?int $pageId = null;
 
     /**
      * Page info.
-     *
-     * @var array
      */
-    protected $pageInfo = [];
+    protected array $pageInfo = [];
 
     /**
      * The database connection.
-     *
-     * @var ConnectionPool
      */
-    protected $connectionPool;
+    protected ConnectionPool $connectionPool;
 
     /**
      * BackendBaseController constructor.
@@ -120,19 +106,16 @@ abstract class AbstractBackendController extends ActionController
     /**
      * Load and persist module data.
      *
-     * @param RequestInterface  $request
-     * @param ResponseInterface $response
-     *
-     * @throws StopActionException
+     * @inheritdoc
      */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    public function processRequest(RequestInterface $request): ResponseInterface
     {
         /* @var $persistenceManager PersistenceManager */
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
 
         // We "finally" persist the module data.
         try {
-            parent::processRequest($request, $response);
+            parent::processRequest($request);
             $persistenceManager->persistAll();
         } catch (StopActionException $exception) {
             $persistenceManager->persistAll();

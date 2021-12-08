@@ -13,15 +13,9 @@ use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 
 class SubscriberListDataProvider extends AbstractListDataProvider
 {
-    /**
-     * @var AbstractSubscriberRepository
-     */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
-    /**
-     * @var array
-     */
-    protected $options = [
+    protected array $options = [
         'limit' => 10,
     ];
 

@@ -17,10 +17,7 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
  */
 class SpamCheckService implements SpamCheckServiceInterface
 {
-    /**
-     * @var Dispatcher
-     */
-    protected $signalSlotDispatcher;
+    protected Dispatcher $signalSlotDispatcher;
 
     /**
      * SpamCheckService constructor.

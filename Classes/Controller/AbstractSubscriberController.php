@@ -28,23 +28,19 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * subscriber.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\AbstractSubscriber
+     * @var AbstractSubscriber
      */
     protected $subscriber = null;
 
     /**
      * Contains the subscription settings.
-     *
-     * @var array
      */
-    protected $subscriptionSettings = [];
+    protected array $subscriptionSettings = [];
 
     /**
      * feUserService.
-     *
-     * @var AuthenticationServiceInterface
      */
-    protected $authentication;
+    protected ?AuthenticationServiceInterface $authentication = null;
 
     /**
      * @param AuthenticationServiceInterface $authentication
@@ -56,8 +52,6 @@ abstract class AbstractSubscriberController extends AbstractController
 
     /**
      * action confirm.
-     *
-     * @throws \InvalidArgumentException
      */
     public function confirmAction()
     {
@@ -87,9 +81,7 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * action delete.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\AbstractSubscriber $subscriber
-     *
-     * @throws \InvalidArgumentException
+     * @param AbstractSubscriber $subscriber
      */
     public function deleteAction($subscriber = null)
     {
@@ -155,7 +147,7 @@ abstract class AbstractSubscriberController extends AbstractController
         if (isset($this->subscriptionSettings['emailHashTimeout'])) {
             $modify = trim($this->subscriptionSettings['emailHashTimeout']);
         }
-        
+
         if ($subscriber->isAuthCodeExpired($modify)) {
             $this->forward('processError', 'Subscriber', null, ['message' => 'linkOutdated']);
         }
