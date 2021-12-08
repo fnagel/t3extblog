@@ -20,7 +20,6 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     protected bool $isFieldNameCsv = true;
 
     /**
-     * @param array $settings
      * @throws \InvalidArgumentException
      */
     public function __construct(array $settings)
@@ -67,11 +66,7 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     }
 
 
-    /**
-     * @param QueryBuilder $queryBuilder
-     * @param array $values
-     * @return array
-     */
+    
     protected function createFieldConstraints(QueryBuilder $queryBuilder, array $values): array
     {
         if (!$this->isFieldNameCsv) {

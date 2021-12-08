@@ -55,7 +55,7 @@ class SessionService implements SessionServiceInterface
     /**
      * @inheritDoc
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->restoreFromSession(self::SESSION_DATA_KEY);
     }
@@ -85,10 +85,9 @@ class SessionService implements SessionServiceInterface
     /**
      * Return stored session data.
      *
-     * @param string $key
      * @return array|string
      */
-    private function restoreFromSession($key)
+    private function restoreFromSession(string $key)
     {
         $data = $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
 
@@ -100,10 +99,9 @@ class SessionService implements SessionServiceInterface
     /**
      * Write session data.
      *
-     * @param string $key
      * @param array|string $data
      */
-    private function writeToSession($key, $data)
+    private function writeToSession(string $key, $data)
     {
         $this->getLog()->dev('Write to FE session', $data ?: []);
 

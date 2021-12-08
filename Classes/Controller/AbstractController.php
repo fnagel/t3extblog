@@ -135,9 +135,8 @@ abstract class AbstractController extends ActionController
      * Override getErrorFlashMessage to present
      * nice flash error messages.
      *
-     * @return string
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): string
     {
         $defaultFlashMessage = parent::getErrorFlashMessage();
         $locallangKey = sprintf('error.%s.%s', lcfirst($this->request->getControllerName()), $this->actionMethodName);
@@ -148,10 +147,9 @@ abstract class AbstractController extends ActionController
     /**
      * Helper function to render localized flashmessages.
      *
-     * @param string $key
      * @param int    $severity optional severity code. One of the FlashMessage constants
      */
-    protected function addFlashMessageByKey($key, $severity = FlashMessage::OK)
+    protected function addFlashMessageByKey(string $key, int $severity = FlashMessage::OK)
     {
         $messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
         $localizedMessage = $this->translate($messageLocallangKey, '['.$messageLocallangKey.']');
@@ -165,9 +163,8 @@ abstract class AbstractController extends ActionController
     /**
      * Helper function to check if flashmessages have been saved until now.
      *
-     * @return bool
      */
-    protected function hasFlashMessages()
+    protected function hasFlashMessages(): bool
     {
         $messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
 
@@ -195,10 +192,8 @@ abstract class AbstractController extends ActionController
         $this->response->sendHeaders();
     }
 
-    /**
-     * @param string $message
-     */
-    protected function pageNotFoundAndExit($message = 'Entity not found.')
+    
+    protected function pageNotFoundAndExit(string $message = 'Entity not found.')
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
             $GLOBALS['TYPO3_REQUEST'],
@@ -211,9 +206,8 @@ abstract class AbstractController extends ActionController
     /**
      * Persist all records to database.
      *
-     * @return string
      */
-    protected function persistAllEntities()
+    protected function persistAllEntities(): string
     {
         /* @var $persistenceManager PersistenceManager */
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);
@@ -226,9 +220,8 @@ abstract class AbstractController extends ActionController
      * @param string $key            locallang key
      * @param string $defaultMessage the default message to show if key was not found
      *
-     * @return string
      */
-    protected function translate($key, $defaultMessage = '')
+    protected function translate(string $key, string $defaultMessage = ''): string
     {
         $message = LocalizationUtility::translate($key, 'T3extblog');
 

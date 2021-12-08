@@ -24,11 +24,10 @@ class CategoryRepository extends AbstractRepository
     /**
      * Returns all children of the given category
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\Category $category
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findChildren($category)
+    public function findChildren(\FelixNagel\T3extblog\Domain\Model\Category $category)
     {
         if (!$category->isFirstLevel()) {
             return null;

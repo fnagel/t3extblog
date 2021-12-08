@@ -24,9 +24,8 @@ interface SessionServiceInterface
     /**
      * Get data.
      *
-     * @return array
      */
-    public function getData();
+    public function getData(): array;
 
     /**
      * Remove data.
@@ -36,9 +35,8 @@ interface SessionServiceInterface
     /**
      * Get single value from data by key.
      *
-     * @param string $key
      *
      * @return array|string
      */
-    public function getDataByKey($key);
+    public function getDataByKey(string $key);
 }

@@ -40,9 +40,8 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
      *
      * @see DocumentTemplate::issueCommand()
      *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $parameters = $this->arguments['parameters'];
         $redirectUrl = $this->arguments['redirectUrl'];

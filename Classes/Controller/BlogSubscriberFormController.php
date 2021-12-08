@@ -15,7 +15,6 @@ use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 
 /**
  * BlogSubscriberFormController.
@@ -46,9 +45,6 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * BlogSubscriberFormController constructor.
      *
-     * @param BlogSubscriberRepository $blogSubscriberRepository
-     * @param BlogNotificationService $notificationService
-     * @param SpamCheckServiceInterface $spamCheckService
      */
     public function __construct(
         BlogSubscriberRepository $blogSubscriberRepository,
@@ -158,10 +154,8 @@ class BlogSubscriberFormController extends AbstractController
 
     /**
      * Disable error flash message.
-     *
-     * @return string|bool
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): string
     {
         return false;
     }

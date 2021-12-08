@@ -39,9 +39,6 @@ class BackendModuleService
     /**
      * BackendModuleService constructor.
      *
-     * @param ObjectManagerInterface $objectManager
-     * @param BackendTemplateView $view
-     * @param int $pid
      */
     public function __construct(ObjectManagerInterface $objectManager, BackendTemplateView $view, int $pid)
     {
@@ -66,10 +63,8 @@ class BackendModuleService
     /**
      * Add JS and CSS assets to the view
      *
-     * @param array $requireJsModules
-     * @param array $cssLibraries
      */
-    public function addViewAssets($requireJsModules = [], $cssLibraries = [])
+    public function addViewAssets(array $requireJsModules = [], array $cssLibraries = [])
     {
         $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
 
@@ -85,11 +80,8 @@ class BackendModuleService
     /**
      * Generates the action menu
      *
-     * @param Request $request
-     * @param array $menuItems
-     * @param string $menuIdentifier
      */
-    public function addViewHeaderMenu(Request $request, array $menuItems, $menuIdentifier)
+    public function addViewHeaderMenu(Request $request, array $menuItems, string $menuIdentifier)
     {
         $menu = $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier($menuIdentifier);
@@ -113,11 +105,9 @@ class BackendModuleService
     /**
      * Create the panel of buttons
      *
-     * @param array $buttonItems
      * @param string $shortcutModuleName
-     * @param bool $addRefreshButton
      */
-    public function addViewHeaderButtons(array $buttonItems, $shortcutModuleName = null, $addRefreshButton = true)
+    public function addViewHeaderButtons(array $buttonItems, string $shortcutModuleName = null, bool $addRefreshButton = true)
     {
         $uriBuilder = $this->objectManager->get(BackendUriBuilder::class);
         $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
@@ -161,18 +151,14 @@ class BackendModuleService
         }
     }
 
-    /**
-     * @return LanguageService
-     */
-    protected function getLanguageService()
+    
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }
 
-    /**
-     * @return BackendUserAuthentication
-     */
-    protected function getBackendUserAuthentication()
+    
+    protected function getBackendUserAuthentication(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];
     }

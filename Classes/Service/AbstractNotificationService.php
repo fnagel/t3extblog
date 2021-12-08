@@ -51,11 +51,6 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * AbstractNotificationService constructor.
      *
-     * @param ObjectManagerInterface $objectManager
-     * @param Dispatcher $signalSlotDispatcher
-     * @param SettingsService $settingsService
-     * @param EmailService $emailService
-     * @param FlushCacheService $cacheService
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
@@ -82,12 +77,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * Send subscriber notification emails.
      *
-     * @param AbstractSubscriber $subscriber
-     * @param string             $subject
-     * @param string             $template
-     * @param array              $variables
      */
-    protected function sendSubscriberEmail(AbstractSubscriber $subscriber, $subject, $template, $variables = [])
+    protected function sendSubscriberEmail(AbstractSubscriber $subscriber, string $subject, string $template, array $variables = [])
     {
         if (empty($subscriber->getEmail())) {
             throw new Exception('Email address is a required property!', 1592248953);
@@ -118,13 +109,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * Send notification emails.
      *
-     * @param array $mailTo
-     * @param string $subject
-     * @param string $template
-     * @param array $settings
-     * @param array $variables
      */
-    protected function sendEmail($mailTo, $subject, $template, $settings, $variables = [])
+    protected function sendEmail(array $mailTo, string $subject, string $template, array $settings, array $variables = [])
     {
         $this->emailService->sendEmail(
             $mailTo,
@@ -139,9 +125,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     /**
      * Render dateTime object for using in template.
      *
-     * @return \DateTime
      */
-    protected function getValidUntil()
+    protected function getValidUntil(): \DateTime
     {
         $date = new \DateTime();
         $modify = '+1 hour';
@@ -161,9 +146,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      * @param string $key      Translation key
      * @param string $variable Argument for translation
      *
-     * @return string
      */
-    protected function translate($key, $variable = '')
+    protected function translate(string $key, string $variable = ''): string
     {
         return LocalizationUtility::translate(
             $key,
@@ -183,7 +167,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      *
      * @param Comment $comment Comment
      */
-    public function flushFrontendCache($comment)
+    public function flushFrontendCache(Comment $comment)
     {
         $this->cacheService->addCacheTagsToFlush([
             'tx_t3blog_post_uid_'.$comment->getPost()->getLocalizedUid(),
@@ -197,9 +181,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      * Needed as in non FE controller context (aka our hook) there is no
      * auto persisting.
      *
-     * @param bool $force
      */
-    protected function persistToDatabase($force = false)
+    protected function persistToDatabase(bool $force = false)
     {
         if ($force || ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->objectManager->get(PersistenceManager::class)->persistAll();

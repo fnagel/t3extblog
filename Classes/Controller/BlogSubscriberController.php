@@ -15,6 +15,7 @@ use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * BlogSubscriberController.
@@ -45,8 +46,6 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * BlogSubscriberController constructor.
      *
-     * @param BlogSubscriberRepository $subscriberRepository
-     * @param BlogNotificationService $notificationService
      */
     public function __construct(BlogSubscriberRepository $subscriberRepository, BlogNotificationService $notificationService)
     {
@@ -125,7 +124,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      *
      * @param BlogSubscriber $subscriber
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     protected function findExistingSubscriptions($subscriber)
     {

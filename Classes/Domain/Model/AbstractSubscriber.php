@@ -17,14 +17,9 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 abstract class AbstractSubscriber extends AbstractEntity
 {
-    /**
-     * @var bool
-     */
     protected bool $hidden = true;
 
-    /**
-     * @var bool
-     */
+    
     protected bool $deleted = false;
 
     /**
@@ -53,7 +48,6 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * privacy policy accepted.
      *
-     * @var bool
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", options={"key": "blog"})
      */
     protected bool $privacyPolicyAccepted = false;
@@ -61,25 +55,20 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * If the subscriber is valid for opt in email.
      *
-     * @return bool
      */
-    public function isValidForOptin()
+    public function isValidForOptin(): bool
     {
         return $this->isHidden() && !$this->deleted && $this->getLastSent() === null;
     }
 
-    /**
-     * @return bool
-     */
-    public function isHidden()
+    
+    public function isHidden(): bool
     {
         return (bool) $this->hidden;
     }
 
-    /**
-     * @param bool $hidden
-     */
-    public function setHidden($hidden)
+    
+    public function setHidden(bool $hidden)
     {
         $this->hidden = (bool) $hidden;
     }
@@ -89,7 +78,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -97,9 +86,8 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * Sets the email.
      *
-     * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -109,7 +97,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @return \DateTime $lastSent
      */
-    public function getLastSent()
+    public function getLastSent(): \DateTime
     {
         return $this->lastSent;
     }
@@ -129,7 +117,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @return string $code
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -137,9 +125,8 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * Sets the code.
      *
-     * @param string $code
      */
-    public function setCode($code)
+    public function setCode(string $code)
     {
         $this->code = $code;
     }
@@ -155,18 +142,14 @@ abstract class AbstractSubscriber extends AbstractEntity
         $this->code = substr(GeneralUtility::hmac($input), 0, 32);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasPrivacyPolicyAccepted()
+    
+    public function hasPrivacyPolicyAccepted(): bool
     {
         return $this->privacyPolicyAccepted;
     }
 
-    /**
-     * @param bool $privacyPolicyAccepted
-     */
-    public function setPrivacyPolicyAccepted($privacyPolicyAccepted)
+    
+    public function setPrivacyPolicyAccepted(bool $privacyPolicyAccepted)
     {
         $this->privacyPolicyAccepted = $privacyPolicyAccepted;
     }
@@ -183,9 +166,8 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * Returns prepared mailto array.
      *
-     * @return array
      */
-    public function getMailTo()
+    public function getMailTo(): array
     {
         $mail = [$this->getEmail() => ''];
 
@@ -199,11 +181,9 @@ abstract class AbstractSubscriber extends AbstractEntity
     /**
      * Checks if the authCode is still valid.
      *
-     * @param string $expireDate
      *
-     * @return bool
      */
-    public function isAuthCodeExpired($expireDate)
+    public function isAuthCodeExpired(string $expireDate): bool
     {
         $now = new \DateTime();
         $expire = clone $this->getLastSent();

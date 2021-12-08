@@ -39,9 +39,8 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
     /**
      * Prints sprite icon html for $iconName key.
      *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $iconName = $this->arguments['iconName'];
 

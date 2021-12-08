@@ -18,13 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class TypoScript
 {
-    /**
-     * @param array $base
-     * @param array $overload
-     *
-     * @return array
-     */
-    public function override(array $base, array $overload)
+    public function override(array $base, array $overload): array
     {
         $validFields = GeneralUtility::trimExplode(',', $overload['settings']['overrideFlexformSettingsIfEmpty'], true);
         foreach ($validFields as $fieldName) {
@@ -54,10 +48,6 @@ class TypoScript
      *
      * @SuppressWarnings("PHPMD.CountInLoopExpression")
      *
-     * @param array $data
-     * @param array $path
-     *
-     * @return array|null
      */
     protected function getValue(array $data, array $path)
     {
@@ -78,19 +68,17 @@ class TypoScript
             return $data;
         }
 
-        return;
+        return null;
     }
 
     /**
      * Set value in array by path.
      *
-     * @param array $array
      * @param $path
      * @param $value
      *
-     * @return array
      */
-    protected function setValue(array $array, $path, $value)
+    protected function setValue(array $array, $path, $value): array
     {
         $this->setValueByReference($array, $path, $value);
 
@@ -102,8 +90,6 @@ class TypoScript
      *
      * @SuppressWarnings("PHPMD.CountInLoopExpression")
      *
-     * @param array $array
-     * @param array $path
      * @param $value
      */
     private function setValueByReference(array &$array, array $path, $value)
@@ -113,7 +99,7 @@ class TypoScript
             if (!isset($array[$key])) {
                 $array[$key] = [];
             }
-            
+
             $array = &$array[$key];
         }
 

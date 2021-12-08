@@ -25,7 +25,6 @@ abstract class AbstractValidator extends CoreAbstractValidator
     /**
      * Inject the SettingsService
      *
-     * @param SettingsService $settingsService
      */
     public function injectSettingsService(SettingsService $settingsService)
     {
@@ -34,9 +33,8 @@ abstract class AbstractValidator extends CoreAbstractValidator
 
     /**
      * @param string $key
-     * @return array
      */
-    protected function getConfiguration($key = null)
+    protected function getConfiguration(string $key = null): array
     {
         if ($key === null) {
             return $this->settingsService->getTypoScriptSettings();

@@ -26,7 +26,7 @@ class BackendCommentController extends AbstractBackendController
         $this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
         $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
 
-		return $this->htmlResponse();
+        return $this->htmlResponse();
     }
 
     /**
@@ -39,10 +39,8 @@ class BackendCommentController extends AbstractBackendController
         return $this->htmlResponse();
     }
 
-    /**
-     * @return array
-     */
-    protected function getViewHeaderButtonItems()
+    
+    protected function getViewHeaderButtonItems(): array
     {
         $items = parent::getViewHeaderButtonItems();
         $arguments = GeneralUtility::_GET('tx_t3extblog_web_t3extblogtxt3extblog');

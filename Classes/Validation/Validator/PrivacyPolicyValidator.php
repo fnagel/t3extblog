@@ -62,11 +62,8 @@ class PrivacyPolicyValidator extends AbstractValidator
         }
     }
 
-    /**
-     * @param string $key
-     * @return array
-     */
-    protected function getPrivacyPolicyConfiguration($key)
+    
+    protected function getPrivacyPolicyConfiguration(string $key): array
     {
         $settings = $this->getConfiguration();
         $configuration = [

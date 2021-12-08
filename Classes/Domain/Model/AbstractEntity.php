@@ -45,26 +45,20 @@ abstract class AbstractEntity extends CoreAbstractEntity
 
     protected ?ObjectManagerInterface $objectManager = null;
 
-    /**
-     * @param ObjectManagerInterface $objectManager
-     */
+    
     public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCrdate()
+    
+    public function getCrdate(): \DateTime
     {
         return $this->crdate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreateDate()
+    
+    public function getCreateDate(): \DateTime
     {
         return $this->getCrdate();
     }
@@ -80,9 +74,8 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get commentRepository.
      *
-     * @return CommentRepository
      */
-    protected function getCommentRepository()
+    protected function getCommentRepository(): CommentRepository
     {
         if ($this->commentRepository === null) {
             $this->commentRepository = $this->objectManager->get(CommentRepository::class);
@@ -94,9 +87,8 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * Get postRepository.
      *
-     * @return PostRepository
      */
-    protected function getPostRepository()
+    protected function getPostRepository(): PostRepository
     {
         if ($this->postRepository === null) {
             $this->postRepository = $this->objectManager->get(PostRepository::class);
@@ -110,9 +102,8 @@ abstract class AbstractEntity extends CoreAbstractEntity
      *
      * @param bool $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
      *
-     * @return array
      */
-    public function toArray($camelCaseKeys = false)
+    public function toArray(bool $camelCaseKeys = false): array
     {
         $camelCaseProperties = ObjectAccess::getGettableProperties($this);
 
@@ -135,9 +126,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $data;
     }
 
-    /**
-     * @param mixed $relation
-     */
+    
     protected function loadLazyRelation($relation)
     {
         if ($relation instanceof LazyLoadingProxy) {
@@ -150,7 +139,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
      *
      * @return array Names of the properties to be serialized
      */
-    public function __sleep()
+    public function __sleep(): array
     {
         return array_keys($this->getPropertiesForSerialization());
     }
@@ -158,7 +147,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
     /**
      * @return array Names of the properties to be serialized
      */
-    protected function getPropertiesForSerialization()
+    protected function getPropertiesForSerialization(): array
     {
         $properties = get_object_vars($this);
 

@@ -20,10 +20,8 @@ abstract class AbstractDataProvider
      */
     public const LOCALLANG_FILE = 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:';
 
-    /**
-     * @return int
-     */
-    protected function getStoragePids()
+    
+    protected function getStoragePids(): int
     {
         $pages = $this->getBlogPageUids();
 
@@ -31,19 +29,14 @@ abstract class AbstractDataProvider
         return (count($pages) === 1) ? current($pages) : -1;
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    protected function translate($key)
+    
+    protected function translate(string $key): string
     {
         return $this->getLanguageService()->sL(self::LOCALLANG_FILE . $key);
     }
 
-    /**
-     * @return LanguageService
-     */
-    protected function getLanguageService()
+    
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }

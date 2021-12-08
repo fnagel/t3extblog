@@ -30,7 +30,6 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
     /**
      * LoggingService constructor.
      *
-     * @param SettingsService $settingsService
      */
     public function __construct(SettingsService $settingsService)
     {
@@ -92,7 +91,7 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
      * @param string $severity Severity
      * @param array  $data     Data
      */
-    protected function outputDebug($msg, $severity = 'debug', $data = [])
+    protected function outputDebug(string $msg, string $severity = 'debug', array $data = [])
     {
         if ($this->renderInFe) {
             DebuggerUtility::var_dump($data, '['.$severity.'] '.$msg);

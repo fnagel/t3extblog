@@ -1,7 +1,7 @@
 <?php
 
 namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
-;
+
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
  *

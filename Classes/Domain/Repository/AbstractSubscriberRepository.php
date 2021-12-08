@@ -24,12 +24,9 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
     /**
      * Find by code.
      *
-     * @param string $code
-     * @param bool   $enableFields
      *
-     * @return AbstractSubscriber
      */
-    public function findByCode($code, $enableFields = true)
+    public function findByCode(string $code, bool $enableFields = true): AbstractSubscriber
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
@@ -45,13 +42,10 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
     }
 
     /**
-     * @param QueryInterface $query
-     * @param string         $email
      * @param int            $excludeUid
      *
-     * @return array
      */
-    protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, $email, $excludeUid = null)
+    protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, string $email, int $excludeUid = null): array
     {
         $constraints = [];
 

@@ -28,10 +28,8 @@ class RecordTitleViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('uid', 'int', 'Record UID', true);
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    
+    public function render(): string
     {
         $table = $this->arguments['table'];
         $uid = $this->arguments['uid'];

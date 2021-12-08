@@ -36,7 +36,6 @@ class Category extends AbstractLocalizedEntity
     /**
      * Id of parent category.
      *
-     * @var int
      */
     protected int $parentId;
 
@@ -61,7 +60,7 @@ class Category extends AbstractLocalizedEntity
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -69,9 +68,8 @@ class Category extends AbstractLocalizedEntity
     /**
      * Sets the name.
      *
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -81,7 +79,7 @@ class Category extends AbstractLocalizedEntity
      *
      * @return string $description
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -89,9 +87,8 @@ class Category extends AbstractLocalizedEntity
     /**
      * Sets the description.
      *
-     * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
@@ -99,9 +96,8 @@ class Category extends AbstractLocalizedEntity
     /**
      * If category is first level.
      *
-     * @return bool
      */
-    public function isFirstLevel()
+    public function isFirstLevel(): bool
     {
         return !$this->parentId;
     }
@@ -111,7 +107,7 @@ class Category extends AbstractLocalizedEntity
      *
      * @return ObjectStorage $posts
      */
-    public function getPosts()
+    public function getPosts(): ObjectStorage
     {
         if ($this->posts === null) {
             $posts = $this->getPostRepository()->findByCategory($this);
@@ -130,7 +126,7 @@ class Category extends AbstractLocalizedEntity
      *
      * @return null|ObjectStorage $posts
      */
-    public function getChildCategories()
+    public function getChildCategories(): ?ObjectStorage
     {
         if (!$this->isFirstLevel()) {
             return null;

@@ -34,10 +34,8 @@ class GetPostViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('respectEnableFields', 'bool', 'If set to false, hidden records are shown', false, true);
     }
 
-    /**
-     * @return string
-     */
-    public function render()
+    
+    public function render(): string
     {
         $uid = $this->arguments['uid'];
         $respectEnableFields = $this->arguments['respectEnableFields'];
@@ -49,10 +47,8 @@ class GetPostViewHelper extends AbstractBackendViewHelper
         return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
     }
 
-    /**
-     * @return PostRepository
-     */
-    protected function getPostRepository()
+    
+    protected function getPostRepository(): PostRepository
     {
         if ($this->postRepository === null) {
             $this->postRepository = GeneralUtility::makeInstance(PostRepository::class);

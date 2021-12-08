@@ -11,7 +11,6 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -43,8 +42,6 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * PostSubscriberController constructor.
      *
-     * @param PostSubscriberRepository $subscriberRepository
-     * @param BlogSubscriberRepository $blogSubscriberRepository
      */
     public function __construct(PostSubscriberRepository $subscriberRepository, BlogSubscriberRepository $blogSubscriberRepository)
     {
@@ -88,10 +85,8 @@ class PostSubscriberController extends AbstractSubscriberController
      * Finds existing subscriptions.
      *
      * @param PostSubscriber $subscriber
-     *
-     * @return QueryResultInterface
      */
-    protected function findExistingSubscriptions($subscriber)
+    protected function findExistingSubscriptions($subscriber): QueryResultInterface
     {
         return $this->subscriberRepository->findExistingSubscriptions(
             $subscriber->getPostUid(),

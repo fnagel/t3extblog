@@ -19,9 +19,8 @@ class BackendUser extends BaseBackendUser
     /**
      * Returns the name value.
      *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         $name = $this->getRealName();
 
@@ -35,9 +34,8 @@ class BackendUser extends BaseBackendUser
     /**
      * Returns prepared mailto array.
      *
-     * @return array
      */
-    public function getMailTo()
+    public function getMailTo(): array
     {
         return [$this->getEmail() => $this->getName()];
     }

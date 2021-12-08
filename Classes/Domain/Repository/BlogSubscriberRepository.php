@@ -17,9 +17,8 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository
     /**
      * @param int $pageUid
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      */
-    public function createQuery($pageUid = null)
+    public function createQuery(int $pageUid = null): \TYPO3\CMS\Extbase\Persistence\QueryInterface
     {
         $query = parent::createQuery($pageUid);
 
@@ -41,12 +40,11 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository
     /**
      * Search for already registered subscriptions.
      *
-     * @param string $email
      * @param int    $excludeUid
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findExistingSubscriptions($email, $excludeUid = null)
+    public function findExistingSubscriptions(string $email, int $excludeUid = null)
     {
         $query = $this->createQuery();
 

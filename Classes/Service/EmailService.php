@@ -46,9 +46,6 @@ class EmailService implements SingletonInterface
 
     /**
      * EmailService constructor.
-     * @param ObjectManagerInterface $objectManager
-     * @param Dispatcher $signalSlotDispatcher
-     * @param SettingsService $settingsService
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
@@ -68,15 +65,10 @@ class EmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     * @param array  $mailTo
-     * @param array  $mailFrom
-     * @param string $subject
-     * @param array  $variables
-     * @param string $templatePath
      *
      * @return int the number of recipients who were accepted for delivery
      */
-    public function sendEmail($mailTo, $mailFrom, $subject, $variables, $templatePath)
+    public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
     {
         $this->signalSlotDispatcher->dispatch(
             self::class,
@@ -90,14 +82,10 @@ class EmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     * @param array  $mailTo
-     * @param array  $mailFrom
-     * @param string $subject
-     * @param string $emailBody
      *
      * @return int the number of recipients who were accepted for delivery
      */
-    public function send($mailTo, $mailFrom, $subject, $emailBody)
+    public function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
     {
         if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
             // @extensionScannerIgnoreLine
@@ -140,9 +128,8 @@ class EmailService implements SingletonInterface
      * @param array  $variables    Arguments for template
      * @param string $templatePath Choose a template
      *
-     * @return string
      */
-    public function render($variables, $templatePath = 'Default.txt')
+    public function render(array $variables, string $templatePath = 'Default.txt'): string
     {
         $emailView = $this->getEmailView($templatePath);
         $emailView->assignMultiple($variables);
@@ -160,9 +147,8 @@ class EmailService implements SingletonInterface
      *
      * @param string $templateFile Choose a template
      *
-     * @return StandaloneView
      */
-    public function getEmailView($templateFile)
+    public function getEmailView(string $templateFile): StandaloneView
     {
         $emailView = $this->createStandaloneView();
 
@@ -176,10 +162,8 @@ class EmailService implements SingletonInterface
         return $emailView;
     }
 
-    /**
-     * @return StandaloneView
-     */
-    protected function createStandaloneView()
+    
+    protected function createStandaloneView(): StandaloneView
     {
         /* @var $emailView StandaloneView */
         $emailView = $this->objectManager->get(StandaloneView::class);
@@ -211,11 +195,9 @@ class EmailService implements SingletonInterface
     /**
      * Prepare html as plain text.
      *
-     * @param string $html
      *
-     * @return string
      */
-    protected function preparePlainTextBody($html)
+    protected function preparePlainTextBody(string $html): string
     {
         // Remove style tags
         $output = preg_replace('#<style\b[^>]*>(.*?)<\/style>#s', '', $html);
@@ -229,11 +211,8 @@ class EmailService implements SingletonInterface
         return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
     }
 
-    /**
-     * @param MailMessage $message
-     * @param string $emailBody
-     */
-    protected function setMessageContent(MailMessage $message, $emailBody)
+    
+    protected function setMessageContent(MailMessage $message, string $emailBody)
     {
         // Plain text only
         if (strip_tags($emailBody) === $emailBody) {
@@ -248,9 +227,8 @@ class EmailService implements SingletonInterface
     /**
      * Create mail message
      *
-     * @return MailMessage
      */
-    protected function createMailMessage()
+    protected function createMailMessage(): MailMessage
     {
         return $this->objectManager->get(MailMessage::class);
     }

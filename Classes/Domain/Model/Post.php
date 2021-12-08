@@ -39,14 +39,10 @@ class Post extends AbstractLocalizedEntity
      */
     public const ALLOW_COMMENTS_LOGIN = 2;
 
-    /**
-     * @var bool
-     */
+
     protected bool $hidden = true;
 
-    /**
-     * @var bool
-     */
+
     protected bool $deleted = false;
 
     /**
@@ -89,14 +85,12 @@ class Post extends AbstractLocalizedEntity
     /**
      * numberOfViews.
      *
-     * @var int
      */
     protected int $numberOfViews = 0;
 
     /**
      * If the notification mails are already sent.
      *
-     * @var bool
      */
     protected bool $mailsSent = false;
 
@@ -186,7 +180,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * @inheritDoc
      */
-    protected function getPropertiesForSerialization()
+    protected function getPropertiesForSerialization(): array
     {
         $properties = parent::getPropertiesForSerialization();
 
@@ -208,34 +202,26 @@ class Post extends AbstractLocalizedEntity
         $this->content = new ObjectStorage();
     }
 
-    /**
-     * @param bool $deleted
-     */
-    public function setDeleted($deleted)
+
+    public function setDeleted(bool $deleted)
     {
         $this->deleted = $deleted;
     }
 
-    /**
-     * @return bool
-     */
-    public function getDeleted()
+
+    public function getDeleted(): bool
     {
         return $this->deleted;
     }
 
-    /**
-     * @param bool $hidden
-     */
-    public function setHidden($hidden)
+
+    public function setHidden(bool $hidden)
     {
         $this->hidden = $hidden;
     }
 
-    /**
-     * @return bool
-     */
-    public function getHidden()
+
+    public function getHidden(): bool
     {
         return $this->hidden;
     }
@@ -245,7 +231,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -253,9 +239,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the title.
      *
-     * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -265,7 +250,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return BackendUser $author
      */
-    public function getAuthor()
+    public function getAuthor(): BackendUser
     {
         if (!($this->author instanceof BackendUser)) {
             $this->author = new BackendUser();
@@ -295,7 +280,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return \DateTime $publishDate
      */
-    public function getPublishDate()
+    public function getPublishDate(): \DateTime
     {
         return $this->publishDate;
     }
@@ -303,9 +288,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the publish year.
      *
-     * @return string
      */
-    public function getPublishYear()
+    public function getPublishYear(): string
     {
         return $this->publishDate->format('Y');
     }
@@ -313,9 +297,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the publish month.
      *
-     * @return string
      */
-    public function getPublishMonth()
+    public function getPublishMonth(): string
     {
         return $this->publishDate->format('m');
     }
@@ -323,9 +306,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the publish day.
      *
-     * @return string
      */
-    public function getPublishDay()
+    public function getPublishDay(): string
     {
         return $this->publishDate->format('d');
     }
@@ -333,11 +315,9 @@ class Post extends AbstractLocalizedEntity
     /**
      * Checks if the post is too old for posting new comments.
      *
-     * @param string $expireDate
      *
-     * @return string
      */
-    public function isExpired($expireDate = '+1 month')
+    public function isExpired(string $expireDate = '+1 month'): string
     {
         $now = new \DateTime();
         $expire = clone $this->getPublishDate();
@@ -360,7 +340,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return int $allowComments
      */
-    public function getAllowComments()
+    public function getAllowComments(): int
     {
         return $this->allowComments;
     }
@@ -368,9 +348,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the allowComments.
      *
-     * @param int $allowComments
      */
-    public function setAllowComments($allowComments)
+    public function setAllowComments(int $allowComments)
     {
         $this->allowComments = $allowComments;
     }
@@ -380,7 +359,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return array $tagCloud
      */
-    public function getTagCloud()
+    public function getTagCloud(): array
     {
         return GeneralUtility::trimExplode(',', $this->tagCloud, true);
     }
@@ -388,9 +367,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the tagCloud as in DB (concated string).
      *
-     * @return string
      */
-    public function getRawTagCloud()
+    public function getRawTagCloud(): string
     {
         return $this->tagCloud;
     }
@@ -398,9 +376,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the tagCloud.
      *
-     * @param string $tagCloud
      */
-    public function setTagCloud($tagCloud)
+    public function setTagCloud(string $tagCloud)
     {
         $this->tagCloud = is_array($tagCloud) ? implode(', ', $tagCloud) : $tagCloud;
     }
@@ -410,7 +387,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return int $numberOfViews
      */
-    public function getNumberOfViews()
+    public function getNumberOfViews(): int
     {
         return $this->numberOfViews;
     }
@@ -418,9 +395,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the numberOfViews.
      *
-     * @param int $numberOfViews
      */
-    public function setNumberOfViews($numberOfViews)
+    public function setNumberOfViews(int $numberOfViews)
     {
         $this->numberOfViews = $numberOfViews;
     }
@@ -433,18 +409,14 @@ class Post extends AbstractLocalizedEntity
         ++$this->numberOfViews;
     }
 
-    /**
-     * @param bool $mailsSent
-     */
-    public function setMailsSent($mailsSent)
+
+    public function setMailsSent(bool $mailsSent)
     {
         $this->mailsSent = (boolean) $mailsSent;
     }
 
-    /**
-     * @return bool
-     */
-    public function getMailsSent()
+
+    public function getMailsSent(): bool
     {
         return (boolean) $this->mailsSent;
     }
@@ -452,9 +424,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Is it possible to send post subscription mails?
      *
-     * @return bool
      */
-    public function isMailSendingAllowed()
+    public function isMailSendingAllowed(): bool
     {
         return !$this->getMailsSent() && !$this->getHidden() && !$this->getDeleted();
     }
@@ -462,9 +433,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the metaDescription.
      *
-     * @return string
      */
-    public function getMetaDescription()
+    public function getMetaDescription(): string
     {
         return $this->metaDescription;
     }
@@ -472,9 +442,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the metaDescription.
      *
-     * @param string $metaDescription
      */
-    public function setMetaDescription($metaDescription)
+    public function setMetaDescription(string $metaDescription)
     {
         $this->metaDescription = $metaDescription;
     }
@@ -482,9 +451,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the metaKeywords.
      *
-     * @return string
      */
-    public function getMetaKeywords()
+    public function getMetaKeywords(): string
     {
         return $this->metaKeywords;
     }
@@ -492,9 +460,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the metaKeywords.
      *
-     * @param string $metaKeywords
      */
-    public function setMetaKeywords($metaKeywords)
+    public function setMetaKeywords(string $metaKeywords)
     {
         $this->metaKeywords = $metaKeywords;
     }
@@ -502,9 +469,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the previewMode.
      *
-     * @return int
      */
-    public function getPreviewMode()
+    public function getPreviewMode(): int
     {
         return $this->previewMode;
     }
@@ -512,9 +478,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the previewMode.
      *
-     * @param int $previewMode
      */
-    public function setPreviewMode($previewMode)
+    public function setPreviewMode(int $previewMode)
     {
         $this->previewMode = $previewMode;
     }
@@ -522,9 +487,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the previewText.
      *
-     * @return string
      */
-    public function getPreviewText()
+    public function getPreviewText(): string
     {
         return $this->previewText;
     }
@@ -532,9 +496,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the previewText.
      *
-     * @param string $previewText
      */
-    public function setPreviewText($previewText)
+    public function setPreviewText(string $previewText)
     {
         $this->previewText = $previewText;
     }
@@ -542,9 +505,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the previewImage.
      *
-     * @return \TYPO3\CMS\Core\Resource\FileReference|null
      */
-    public function getPreviewImage()
+    public function getPreviewImage(): ?\TYPO3\CMS\Core\Resource\FileReference
     {
         $this->loadLazyRelation($this->previewImage);
 
@@ -558,9 +520,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the previewImage.
      *
-     * @param \TYPO3\CMS\Core\Resource\FileReference $previewImage
      */
-    public function setPreviewImage($previewImage)
+    public function setPreviewImage(\TYPO3\CMS\Core\Resource\FileReference $previewImage)
     {
         $this->previewImage = $previewImage;
     }
@@ -570,7 +531,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content> $content
      */
-    public function getContent()
+    public function getContent(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         // @extensionScannerIgnoreLine
         return $this->content;
@@ -581,7 +542,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @param ObjectStorage $content content elements
      */
-    public function setContent($content)
+    public function setContent(ObjectStorage $content)
     {
         // @extensionScannerIgnoreLine
         $this->content = $content;
@@ -590,7 +551,6 @@ class Post extends AbstractLocalizedEntity
     /**
      * Adds a content element to the record.
      *
-     * @param Content $content
      */
     public function addContent(Content $content)
     {
@@ -606,9 +566,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Get id list of content elements.
      *
-     * @return string
      */
-    public function getContentIdList()
+    public function getContentIdList(): string
     {
         $idList = [];
 
@@ -625,9 +584,8 @@ class Post extends AbstractLocalizedEntity
      * Either using the preview text or
      * all content elements bodytext field values concated without HTML tags
      *
-     * @return string
      */
-    public function getPreview()
+    public function getPreview(): string
     {
         if ($this->getPreviewText() !== '') {
             return strip_tags($this->getPreviewText());
@@ -668,7 +626,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category> $categories
      */
-    public function getCategories()
+    public function getCategories(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         return $this->categories;
     }
@@ -724,9 +682,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the comments.
      *
-     * @return ObjectStorage
      */
-    public function getComments()
+    public function getComments(): ObjectStorage
     {
         $this->initComments();
 
@@ -736,9 +693,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the comments.
      *
-     * @return QueryResultInterface
      */
-    public function getCommentsForPaginate()
+    public function getCommentsForPaginate(): QueryResultInterface
     {
         $this->initComments();
 
@@ -780,7 +736,7 @@ class Post extends AbstractLocalizedEntity
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber> $subscriptions
      */
-    public function getSubscriptions()
+    public function getSubscriptions(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         return $this->subscriptions;
     }
@@ -798,9 +754,8 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the permalink configuration.
      *
-     * @return array
      */
-    public function getLinkParameter()
+    public function getLinkParameter(): array
     {
         return [
             'post' => $this->getUid(),

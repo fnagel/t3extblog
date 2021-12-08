@@ -40,9 +40,8 @@ class ext_update
      * Called by the extension manager to determine
      * if the update menu entry should by showed.
      *
-     * @return bool
      */
-    public function access()
+    public function access(): bool
     {
         return $GLOBALS['BE_USER']->isAdmin();
     }
@@ -60,9 +59,8 @@ class ext_update
     /**
      * Executes the update script.
      *
-     * @return string
      */
-    public function main()
+    public function main(): string
     {
         $output = '';
 
@@ -82,10 +80,8 @@ class ext_update
         return $output;
     }
 
-    /**
-     * @return void
-     */
-    protected function renderCreateMissingPostSlugsSection()
+    
+    protected function renderCreateMissingPostSlugsSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_post', 'url_segment')) {
             return;
@@ -101,10 +97,8 @@ class ext_update
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function renderCreateMissingCategorySlugsSection()
+    
+    protected function renderCreateMissingCategorySlugsSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_cat', 'url_segment')) {
             return;
@@ -120,12 +114,8 @@ class ext_update
         }
     }
 
-    /**
-     * @param string $table
-     * @param string $slug
-     * @return int
-     */
-    protected function countMissingSlugs($table = 'tx_t3blog_post', $slug = 'url_segment')
+    
+    protected function countMissingSlugs(string $table = 'tx_t3blog_post', string $slug = 'url_segment'): int
     {
         $queryBuilder = $this->getSlugQueryBuilder($table);
         $constraint = $queryBuilder->expr()->eq($slug, $queryBuilder->createNamedParameter(''));
@@ -138,19 +128,13 @@ class ext_update
             ->rowCount();
     }
 
-    /**
-     * @param string $table
-     * @param string $slug
-     * @param string $name
-     * @param int $limit
-     * @return void
-     */
+    
     protected function createMissingSlugs(
-        $table = 'tx_t3blog_post',
-        $slug = 'url_segment',
-        $name = 'records',
-        $limit = 50
-    ) {
+        string $table = 'tx_t3blog_post',
+        string $slug = 'url_segment',
+        string $name = 'records',
+        int $limit = 50
+    ): void {
         $queryBuilder = $this->getSlugQueryBuilder($table);
         $constraint = $queryBuilder->expr()->eq($slug, $queryBuilder->createNamedParameter(''));
         $rows = $queryBuilder
@@ -181,11 +165,8 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Records updated', $message];
     }
 
-    /**
-     * @param string $table
-     * @return QueryBuilder
-     */
-    protected function getSlugQueryBuilder($table = 'tx_t3blog_post')
+    
+    protected function getSlugQueryBuilder(string $table = 'tx_t3blog_post'): QueryBuilder
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
         $queryBuilder->getRestrictions()->removeAll();
@@ -193,10 +174,8 @@ class ext_update
         return $queryBuilder;
     }
 
-    /**
-     * @return void
-     */
-    protected function renderCommentUrlValidationSection()
+    
+    protected function renderCommentUrlValidationSection(): void
     {
         $key = 'comment_url_validation';
         $this->sectionArray[] = $this->renderForm(
@@ -208,10 +187,8 @@ class ext_update
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function findCommentRecordsForUrlValidation()
+    
+    protected function findCommentRecordsForUrlValidation(): void
     {
         $table = 'tx_t3blog_com';
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
@@ -222,9 +199,9 @@ class ext_update
                 'website',
                 $queryBuilder->createNamedParameter('http%')
             ), $queryBuilder->expr()->notLike(
-            'website',
-            $queryBuilder->createNamedParameter('https%')
-        )]);
+                'website',
+                $queryBuilder->createNamedParameter('https%')
+            )]);
 
         $rows = $queryBuilder->execute()->fetchAll();
 
@@ -249,10 +226,8 @@ class ext_update
         $this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
     }
 
-    /**
-     * @return void
-     */
-    protected function renderPostMailsSentSection()
+    
+    protected function renderPostMailsSentSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_post', 'mails_sent')) {
             return;
@@ -268,10 +243,8 @@ class ext_update
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function updatePostRecordsForMailsSent()
+    
+    protected function updatePostRecordsForMailsSent(): void
     {
         $table = 'tx_t3blog_post';
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
@@ -287,10 +260,8 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
     }
 
-    /**
-     * @return void
-     */
-    protected function renderCommentMailsSentSection()
+    
+    protected function renderCommentMailsSentSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_com', 'mails_sent')) {
             return;
@@ -306,10 +277,8 @@ class ext_update
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function updateCommentRecordsForMailsSent()
+    
+    protected function updateCommentRecordsForMailsSent(): void
     {
         $table = 'tx_t3blog_com';
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
@@ -325,10 +294,8 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Comments updated', $message];
     }
 
-    /**
-     * @return void
-     */
-    protected function renderCommentAuthorOrEmailInvalidSection()
+    
+    protected function renderCommentAuthorOrEmailInvalidSection(): void
     {
         $key = 'comment_author_email_invalid';
         $this->sectionArray[] = $this->renderForm(
@@ -340,10 +307,8 @@ class ext_update
         }
     }
 
-    /**
-     * @return void
-     */
-    protected function findCommentAuthorOrEmailInvalid()
+    
+    protected function findCommentAuthorOrEmailInvalid(): void
     {
         $table = 'tx_t3blog_com';
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
@@ -378,10 +343,8 @@ class ext_update
         $this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
     }
 
-    /**
-     * @return string
-     */
-    protected function renderForm($key, $message)
+    
+    protected function renderForm($key, $message): string
     {
         return
             '<form action="'.GeneralUtility::getIndpEnv('REQUEST_URI').'" method="POST">
@@ -393,12 +356,9 @@ class ext_update
     /**
      * Check if a tale field is available.
      *
-     * @param string $table
-     * @param string $field
      *
-     * @return bool
      */
-    protected function isFieldAvailable($table, $field)
+    protected function isFieldAvailable(string $table, string $field): bool
     {
         return array_key_exists(
             $field,
@@ -409,9 +369,8 @@ class ext_update
     /**
      * Generates output by using flash messages.
      *
-     * @return string
      */
-    protected function generateMessages()
+    protected function generateMessages(): string
     {
         $flashMessages = [];
 

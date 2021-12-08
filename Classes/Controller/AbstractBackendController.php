@@ -86,10 +86,6 @@ abstract class AbstractBackendController extends ActionController
     /**
      * BackendBaseController constructor.
      *
-     * @param PostRepository $postRepository
-     * @param CommentRepository $commentRepository
-     * @param PostSubscriberRepository $postSubscriberRepository
-     * @param BlogSubscriberRepository $blogSubscriberRepository
      */
     public function __construct(
         PostRepository $postRepository,
@@ -168,10 +164,8 @@ abstract class AbstractBackendController extends ActionController
         ]);
     }
 
-    /**
-     * @return array
-     */
-    protected function getViewHeaderMenuItems()
+    
+    protected function getViewHeaderMenuItems(): array
     {
         return [
             'backendDashboardIndex' => [
@@ -215,10 +209,8 @@ abstract class AbstractBackendController extends ActionController
         ];
     }
 
-    /**
-     * @return array
-     */
-    protected function getViewHeaderButtonItems()
+    
+    protected function getViewHeaderButtonItems(): array
     {
         return [
             'post' => [
@@ -267,9 +259,8 @@ abstract class AbstractBackendController extends ActionController
     /**
      * Check blog related page info.
      *
-     * @return array
      */
-    protected function getBlogRelatedPageInfo()
+    protected function getBlogRelatedPageInfo(): array
     {
         $blogPages = BlogPageSearchUtility::getBlogRelatedPages();
         $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
@@ -284,19 +275,14 @@ abstract class AbstractBackendController extends ActionController
         ];
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    protected function translate($key)
+    
+    protected function translate(string $key): string
     {
         return $this->getLanguageService()->sL('LLL:EXT:t3extblog/Resources/Private/Language/locallang.xlf:' . $key);
     }
 
-    /**
-     * @return LanguageService
-     */
-    protected function getLanguageService()
+    
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }

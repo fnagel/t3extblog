@@ -33,10 +33,8 @@ class ModuleButtonProvider implements ButtonProviderInterface
 
     /**
      * @param int $id
-     * @param array $arguments
-     * @return string
      */
-    protected function getModuleLink($id = null, array $arguments = [])
+    protected function getModuleLink(int $id = null, array $arguments = []): string
     {
         $parameters = [];
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);

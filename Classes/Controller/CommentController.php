@@ -48,9 +48,6 @@ class CommentController extends AbstractCommentController
     /**
      * CommentController constructor.
      *
-     * @param CommentRepository $commentRepository
-     * @param CommentNotificationService $notificationService
-     * @param SpamCheckServiceInterface $spamCheckService
      */
     public function __construct(
         CommentRepository $commentRepository,
@@ -252,7 +249,6 @@ class CommentController extends AbstractCommentController
     /**
      * Sanitize comment content.
      *
-     * @param Comment $comment
      */
     protected function sanitizeComment(Comment $comment)
     {
@@ -272,10 +268,8 @@ class CommentController extends AbstractCommentController
 
     /**
      * Disable error flash message.
-     *
-     * @return string|bool
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): string
     {
         return false;
     }

@@ -22,10 +22,7 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
  */
 abstract class AbstractCommentController extends AbstractController
 {
-    /**
-     * @return Comment
-     */
-    protected function getNewComment()
+    protected function getNewComment(): Comment
     {
         /* @var $comment Comment */
         $comment = $this->objectManager->get(Comment::class);
@@ -59,10 +56,9 @@ abstract class AbstractCommentController extends AbstractController
     }
 
     /**
-     * @return string
      * @throws InvalidConfigurationException
      */
-    protected function getNewCommentAuthor()
+    protected function getNewCommentAuthor(): string
     {
         $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];
         $user = GeneralUtility::getTsFe()->fe_user->user;

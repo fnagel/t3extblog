@@ -14,27 +14,17 @@ namespace FelixNagel\T3extblog\Service;
  */
 interface AuthenticationServiceInterface
 {
-    /**
-     * @return bool
-     */
-    public function isValid();
+    public function isValid(): bool;
 
-    /**
-     * @param string $email
-     *
-     * @return bool
-     */
-    public function login($email);
+    
+    public function login(string $email): bool;
 
-    /**
-     *
-     */
+    
     public function logout();
 
     /**
      * Returns email of the subscriber object.
      *
-     * @return string
      */
-    public function getEmail();
+    public function getEmail(): string;
 }

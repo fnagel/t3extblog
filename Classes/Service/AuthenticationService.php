@@ -27,27 +27,20 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * AuthenticationService constructor.
      *
-     * @param SessionServiceInterface $session
      */
     public function __construct(SessionServiceInterface $session)
     {
         $this->session = $session;
     }
 
-    /**
-     * @return bool
-     */
-    public function isValid()
+    
+    public function isValid(): bool
     {
         return (bool) $this->getEmail();
     }
 
-    /**
-     * @param string $email
-     *
-     * @return bool
-     */
-    public function login($email)
+    
+    public function login(string $email): bool
     {
         $this->session->setData(
             [
@@ -58,9 +51,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         return true;
     }
 
-    /**
-     *
-     */
+    
     public function logout()
     {
         $this->session->removeData();
@@ -69,9 +60,8 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * Returns email of the subscriber object.
      *
-     * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         $data = $this->getData();
 
@@ -86,10 +76,8 @@ class AuthenticationService implements AuthenticationServiceInterface
         return $data['email'];
     }
 
-    /**
-     * @return array
-     */
-    protected function getData()
+    
+    protected function getData(): array
     {
         if ($this->sessionData === null) {
             $this->sessionData = $this->session->getData();

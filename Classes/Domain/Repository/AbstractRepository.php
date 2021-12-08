@@ -23,9 +23,8 @@ abstract class AbstractRepository extends Repository
     /**
      * @param int $pageUid
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      */
-    public function createQuery($pageUid = null)
+    public function createQuery(int $pageUid = null): \TYPO3\CMS\Extbase\Persistence\QueryInterface
     {
         $query = parent::createQuery();
 
@@ -46,12 +45,11 @@ abstract class AbstractRepository extends Repository
      * Returns all objects with specific PID.
      *
      * @param int  $pid
-     * @param bool $respectEnableFields
      * @param int  $limit
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByPage($pid = null, $respectEnableFields = true, $limit = null)
+    public function findByPage(int $pid = null, bool $respectEnableFields = true, int $limit = null)
     {
         $query = $this->createQuery($pid);
 
@@ -70,11 +68,8 @@ abstract class AbstractRepository extends Repository
         return $query->execute();
     }
 
-    /**
-     * @param QueryInterface|null $query
-     * @return string
-     */
-    protected function getTableName(QueryInterface $query = null)
+    
+    protected function getTableName(QueryInterface $query = null): string
     {
         if (empty($query)) {
             $query = $this->createQuery();
@@ -83,21 +78,16 @@ abstract class AbstractRepository extends Repository
         return $this->getTableNameByClass($query->getType());
     }
 
-    /**
-     * @param string $object
-     * @return string
-     */
-    protected function getTableNameByClass($object)
+    
+    protected function getTableNameByClass(string $object): string
     {
         return $this->objectManager->get(DataMapper::class)->convertClassNameToTableName($object);
     }
 
     /**
-     * @param string $value
      * @param string $table
-     * @return string
      */
-    protected function escapeStrForLike($value, $table = null)
+    protected function escapeStrForLike(string $value, string $table = null): string
     {
         if ($table === null) {
             $table = $this->getTableName();

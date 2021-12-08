@@ -14,18 +14,13 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 class BlogSubscriber extends AbstractSubscriber
 {
-    /**
-     * @return int
-     */
-    public function getSysLanguageUid()
+    public function getSysLanguageUid(): int
     {
         return (int) $this->_languageUid;
     }
 
-    /**
-     * @param int $language
-     */
-    public function setSysLanguageUid($language)
+    
+    public function setSysLanguageUid(int $language)
     {
         $this->_languageUid = (int) $language;
     }

@@ -36,7 +36,6 @@ class PostMapper extends AbstractPersistedAliasMapper
     protected $dateFieldName;
 
     /**
-     * @param array $settings
      * @throws \InvalidArgumentException
      */
     public function __construct(array $settings)
@@ -155,12 +154,8 @@ class PostMapper extends AbstractPersistedAliasMapper
         return null;
     }
 
-    /**
-     * @param array $result
-     * @param string $value
-     * @return string
-     */
-    protected function getRouteValueFromResult(array $result, $value)
+    
+    protected function getRouteValueFromResult(array $result, string $value): string
     {
         $date = new \DateTime(date('c', (int)$result[$this->dateFieldName]));
 

@@ -20,9 +20,8 @@ class HeaderDataViewHelper extends AbstractViewHelper
     /**
      * Renders HeaderData
      *
-     * @return void
      */
-    public function render()
+    public function render(): void
     {
         GeneralUtility::getPageRenderer()->addHeaderData($this->renderChildren());
     }

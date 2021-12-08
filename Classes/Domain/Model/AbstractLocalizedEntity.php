@@ -14,10 +14,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 abstract class AbstractLocalizedEntity extends AbstractEntity
 {
-    /**
-     * @return int
-     */
-    public function getLocalizedUid()
+    public function getLocalizedUid(): int
     {
         if ($this->_languageUid) {
             return $this->_localizedUid;
@@ -26,18 +23,14 @@ abstract class AbstractLocalizedEntity extends AbstractEntity
         return $this->getUid();
     }
 
-    /**
-     * @return int
-     */
-    public function getSysLanguageUid()
+    
+    public function getSysLanguageUid(): int
     {
         return $this->_languageUid;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getL18nParent()
+    
+    public function getL18nParent(): ?int
     {
         if ($this->getSysLanguageUid() === 0) {
             return 0;

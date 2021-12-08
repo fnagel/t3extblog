@@ -25,18 +25,14 @@ class BlogPageSearchUtility implements SingletonInterface
      */
     protected static ?ConnectionPool $connectionPool = null;
 
-    /**
-     * @return array
-     */
-    public static function getBlogPageUids()
+    
+    public static function getBlogPageUids(): array
     {
         return array_column(self::getBlogRelatedPages(), 'uid');
     }
 
-    /**
-     * @return array
-     */
-    public static function getBlogRelatedPages()
+    
+    public static function getBlogRelatedPages(): array
     {
         if (self::$cache !== null) {
             return self::$cache;
@@ -60,9 +56,8 @@ class BlogPageSearchUtility implements SingletonInterface
     /**
      * Run query for getting page info.
      *
-     * @return array
      */
-    protected static function getBlogModulePages()
+    protected static function getBlogModulePages(): array
     {
         $table = 'pages';
         $queryBuilder = self::getDatabaseConnection()->getQueryBuilderForTable($table);
@@ -77,12 +72,8 @@ class BlogPageSearchUtility implements SingletonInterface
         return $queryBuilder->execute()->fetchAll();
     }
 
-    /**
-     * @param string $joinTable
-     *
-     * @return array
-     */
-    protected static function getPagesWithBlogRecords($joinTable)
+    
+    protected static function getPagesWithBlogRecords(string $joinTable): array
     {
         $table = 'pages';
         $queryBuilder = self::getDatabaseConnection()->getQueryBuilderForTable($table);
@@ -107,9 +98,8 @@ class BlogPageSearchUtility implements SingletonInterface
     /**
      * Get database connection.
      *
-     * @return ConnectionPool
      */
-    protected static function getDatabaseConnection()
+    protected static function getDatabaseConnection(): ConnectionPool
     {
         if (self::$connectionPool === null) {
             self::$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);

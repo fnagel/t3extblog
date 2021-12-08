@@ -19,10 +19,7 @@ class SubscriberListDataProvider extends AbstractListDataProvider
         'limit' => 10,
     ];
 
-    /**
-     * @param AbstractSubscriberRepository $subscriberRepository
-     * @param array $options
-     */
+    
     public function __construct(AbstractSubscriberRepository $subscriberRepository, array $options = [])
     {
         $this->subscriberRepository = $subscriberRepository;

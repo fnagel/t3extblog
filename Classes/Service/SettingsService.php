@@ -46,8 +46,6 @@ class SettingsService
     /**
      * SettingsService constructor.
      *
-     * @param ConfigurationManagerInterface $configurationManager
-     * @param TypoScriptService $typoScriptService
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
@@ -60,11 +58,10 @@ class SettingsService
     /**
      * Returns all framework settings.
      *
-     * @return array
      *
      * @throws Exception
      */
-    public function getFrameworkSettings()
+    public function getFrameworkSettings(): array
     {
         if ($this->frameworkSettings === null) {
             $this->frameworkSettings = $this->configurationManager->getConfiguration(
@@ -84,11 +81,10 @@ class SettingsService
     /**
      * Returns all TS settings.
      *
-     * @return array
      *
      * @throws Exception
      */
-    public function getTypoScriptSettings()
+    public function getTypoScriptSettings(): array
     {
         if ($this->typoScriptSettings === null) {
             $this->typoScriptSettings = $this->configurationManager->getConfiguration(
@@ -112,11 +108,9 @@ class SettingsService
      *
      * If the path is invalid or no entry is found, false is returned.
      *
-     * @param string $path
      *
-     * @return mixed
      */
-    public function getTypoScriptByPath($path)
+    public function getTypoScriptByPath(string $path): mixed
     {
         return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
     }

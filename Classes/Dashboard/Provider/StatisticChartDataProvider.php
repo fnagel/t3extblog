@@ -26,12 +26,7 @@ class StatisticChartDataProvider extends AbstractDataProvider implements ChartDa
 
     protected PostSubscriberRepository $postSubscriberRepository;
 
-    /**
-     * @param PostRepository $postRepository
-     * @param CommentRepository $commentRepository
-     * @param BlogSubscriberRepository $blogSubscriberRepository
-     * @param PostSubscriberRepository $postSubscriberRepository
-     */
+    
     public function __construct(
         PostRepository $postRepository,
         CommentRepository $commentRepository,

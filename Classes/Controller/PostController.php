@@ -20,7 +20,6 @@ use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /**
  * PostController.
@@ -42,7 +41,6 @@ class PostController extends AbstractCommentController
     /**
      * PostController constructor.
      *
-     * @param PostRepository $postRepository
      */
     public function __construct(PostRepository $postRepository)
     {
@@ -96,7 +94,7 @@ class PostController extends AbstractCommentController
      *
      * @param string $tag The name of the tag to show the posts for
      */
-    public function tagAction($tag): ResponseInterface
+    public function tagAction(string $tag): ResponseInterface
     {
         $posts = $this->findPosts($tag);
 
@@ -130,11 +128,9 @@ class PostController extends AbstractCommentController
     /**
      * Find all or filtered by tag, category or author.
      *
-     * @param mixed $filter
      *
-     * @return QueryResultInterface
      */
-    protected function findPosts($filter = null)
+    protected function findPosts($filter = null): QueryResultInterface
     {
         if ($filter instanceof BackendUser) {
             $this->view->assign('author', $filter);
@@ -193,7 +189,7 @@ class PostController extends AbstractCommentController
      *
      * @param int $permalinkPost The post to display
      */
-    public function permalinkAction($permalinkPost)
+    public function permalinkAction(int $permalinkPost)
     {
         $post = $this->postRepository->findByUid((int) $permalinkPost);
 
@@ -240,7 +236,7 @@ class PostController extends AbstractCommentController
      *
      * @param int $previewPost The post to display
      */
-    public function previewAction($previewPost): ResponseInterface
+    public function previewAction(int $previewPost): ResponseInterface
     {
         if (!GeneralUtility::isValidBackendUser()) {
             throw new AccessDeniedException('Preview not allowed.');

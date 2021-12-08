@@ -23,8 +23,7 @@ class FlushCacheService implements SingletonInterface
      */
     protected $cacheTagsToFlush = [];
 
-    /**
-     */
+    
     public function initializeObject()
     {
         // Clear cache on shutdown

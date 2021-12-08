@@ -39,9 +39,8 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
      *
      * @todo Core bug, see https://github.com/fnagel/t3extblog/issues/112
      *
-     * @return void
      */
-    public function render()
+    public function render(): void
     {
         $queueIdentifier = $this->arguments['queueIdentifier'] ?? null;
         $flashMessages = $this->renderingContext->getControllerContext()->getFlashMessageQueue($queueIdentifier)->getAllMessages();

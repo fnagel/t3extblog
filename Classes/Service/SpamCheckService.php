@@ -22,7 +22,6 @@ class SpamCheckService implements SpamCheckServiceInterface
     /**
      * SpamCheckService constructor.
      *
-     * @param Dispatcher $signalSlotDispatcher
      */
     public function __construct(Dispatcher $signalSlotDispatcher)
     {
@@ -37,9 +36,8 @@ class SpamCheckService implements SpamCheckServiceInterface
      *
      * @var array
      *
-     * @return int
      */
-    public function process($settings)
+    public function process($settings): int
     {
         $arguments = GeneralUtility::_GPmerged('tx_t3extblog');
         $spamPoints = 0;
@@ -76,11 +74,9 @@ class SpamCheckService implements SpamCheckServiceInterface
     /**
      * Checks honeypot fields.
      *
-     * @param array $arguments
      *
-     * @return bool
      */
-    protected function checkHoneyPotFields($arguments)
+    protected function checkHoneyPotFields(array $arguments): bool
     {
         if (!isset($arguments['author']) || strlen($arguments['author']) > 0) {
             return false;

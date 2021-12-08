@@ -132,10 +132,8 @@ class Content extends AbstractLocalizedEntity
      */
     protected $listType;
 
-    /**
-     * @return \DateTime
-     */
-    public function getTstamp()
+    
+    public function getTstamp(): \DateTime
     {
         return $this->tstamp;
     }
@@ -148,10 +146,8 @@ class Content extends AbstractLocalizedEntity
         $this->tstamp = $tstamp;
     }
 
-    /**
-     * @return string
-     */
-    public function getCType()
+    
+    public function getCType(): string
     {
         return $this->CType;
     }
@@ -164,10 +160,8 @@ class Content extends AbstractLocalizedEntity
         $this->CType = $ctype;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    
+    public function getHeader(): string
     {
         return $this->header;
     }
@@ -180,10 +174,8 @@ class Content extends AbstractLocalizedEntity
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderPosition()
+    
+    public function getHeaderPosition(): string
     {
         return $this->headerPosition;
     }
@@ -196,10 +188,8 @@ class Content extends AbstractLocalizedEntity
         $this->headerPosition = $headerPosition;
     }
 
-    /**
-     * @return string
-     */
-    public function getBodytext()
+    
+    public function getBodytext(): string
     {
         return $this->bodytext;
     }
@@ -215,9 +205,8 @@ class Content extends AbstractLocalizedEntity
     /**
      * Get the colpos.
      *
-     * @return int
      */
-    public function getColPos()
+    public function getColPos(): int
     {
         return (int) $this->colPos;
     }
@@ -225,17 +214,14 @@ class Content extends AbstractLocalizedEntity
     /**
      * Set colpos.
      *
-     * @param int $colPos
      */
-    public function setColPos($colPos)
+    public function setColPos(int $colPos)
     {
         $this->colPos = $colPos;
     }
 
-    /**
-     * @return string
-     */
-    public function getImage()
+    
+    public function getImage(): string
     {
         return $this->image;
     }
@@ -248,10 +234,8 @@ class Content extends AbstractLocalizedEntity
         $this->image = $image;
     }
 
-    /**
-     * @return int
-     */
-    public function getImagewidth()
+    
+    public function getImagewidth(): int
     {
         return $this->imagewidth;
     }
@@ -264,10 +248,8 @@ class Content extends AbstractLocalizedEntity
         $this->imagewidth = $imagewidth;
     }
 
-    /**
-     * @return int
-     */
-    public function getImageorient()
+    
+    public function getImageorient(): int
     {
         return $this->imageorient;
     }
@@ -280,10 +262,8 @@ class Content extends AbstractLocalizedEntity
         $this->imageorient = $imageorient;
     }
 
-    /**
-     * @return string
-     */
-    public function getImagecaption()
+    
+    public function getImagecaption(): string
     {
         return $this->imagecaption;
     }
@@ -296,10 +276,8 @@ class Content extends AbstractLocalizedEntity
         $this->imagecaption = $imagecaption;
     }
 
-    /**
-     * @return int
-     */
-    public function getImagecols()
+    
+    public function getImagecols(): int
     {
         return $this->imagecols;
     }
@@ -312,10 +290,8 @@ class Content extends AbstractLocalizedEntity
         $this->imagecols = $imagecols;
     }
 
-    /**
-     * @return int
-     */
-    public function getImageborder()
+    
+    public function getImageborder(): int
     {
         return $this->imageborder;
     }
@@ -328,10 +304,8 @@ class Content extends AbstractLocalizedEntity
         $this->imageborder = $imageborder;
     }
 
-    /**
-     * @return string
-     */
-    public function getMedia()
+    
+    public function getMedia(): string
     {
         return $this->media;
     }
@@ -344,10 +318,8 @@ class Content extends AbstractLocalizedEntity
         $this->media = $media;
     }
 
-    /**
-     * @return string
-     */
-    public function getLayout()
+    
+    public function getLayout(): string
     {
         return $this->layout;
     }
@@ -360,10 +332,8 @@ class Content extends AbstractLocalizedEntity
         $this->layout = $layout;
     }
 
-    /**
-     * @return int
-     */
-    public function getCols()
+    
+    public function getCols(): int
     {
         return $this->cols;
     }
@@ -376,10 +346,8 @@ class Content extends AbstractLocalizedEntity
         $this->cols = $cols;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubheader()
+    
+    public function getSubheader(): string
     {
         return $this->subheader;
     }
@@ -392,10 +360,8 @@ class Content extends AbstractLocalizedEntity
         $this->subheader = $subheader;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderLink()
+    
+    public function getHeaderLink(): string
     {
         return $this->headerLink;
     }
@@ -408,10 +374,8 @@ class Content extends AbstractLocalizedEntity
         $this->headerLink = $headerLink;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageLink()
+    
+    public function getImageLink(): string
     {
         return $this->imageLink;
     }
@@ -424,10 +388,8 @@ class Content extends AbstractLocalizedEntity
         $this->imageLink = $imageLink;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageZoom()
+    
+    public function getImageZoom(): string
     {
         return $this->imageZoom;
     }
@@ -440,10 +402,8 @@ class Content extends AbstractLocalizedEntity
         $this->imageZoom = $imageZoom;
     }
 
-    /**
-     * @return string
-     */
-    public function getAltText()
+    
+    public function getAltText(): string
     {
         return $this->altText;
     }
@@ -456,10 +416,8 @@ class Content extends AbstractLocalizedEntity
         $this->altText = $altText;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleText()
+    
+    public function getTitleText(): string
     {
         return $this->titleText;
     }
@@ -472,10 +430,8 @@ class Content extends AbstractLocalizedEntity
         $this->titleText = $titleText;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderLayout()
+    
+    public function getHeaderLayout(): string
     {
         return $this->headerLayout;
     }
@@ -488,10 +444,8 @@ class Content extends AbstractLocalizedEntity
         $this->headerLayout = $headerLayout;
     }
 
-    /**
-     * @return string
-     */
-    public function getListType()
+    
+    public function getListType(): string
     {
         return $this->listType;
     }

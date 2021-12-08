@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
+
 /**
  * Interface for Notification Service.
  *
@@ -20,14 +22,14 @@ interface NotificationServiceInterface
     /**
      * Process added entity.
      *
-     * @param object $entity
+     * @param AbstractEntity $entity
      */
     public function processNewEntity($entity);
 
     /**
      * Process changed status of a entity.
      *
-     * @param object $entity
+     * @param AbstractEntity $entity
      */
     public function processChangedStatus($entity);
 }

@@ -26,8 +26,7 @@ class BlogNotificationService extends AbstractNotificationService
      */
     protected $subscriberRepository;
 
-    /**
-     */
+
     public function initializeObject()
     {
         parent::initializeObject();
@@ -85,7 +84,6 @@ class BlogNotificationService extends AbstractNotificationService
     /**
      * Send optin mail for subscriber.
      *
-     * @param BlogSubscriber $subscriber
      */
     protected function sendOptInMail(BlogSubscriber $subscriber)
     {
@@ -104,9 +102,7 @@ class BlogNotificationService extends AbstractNotificationService
     /**
      * Send post notification mails.
      *
-     * @param Post $post
-     *
-     * @return int Amount of subscribers
+     * @return int|void Amount of subscribers
      */
     public function notifySubscribers(Post $post)
     {

@@ -28,10 +28,8 @@ class TcaUtility implements SingletonInterface
     /**
      * Register a plugin and hide default fields
      *
-     * @param string $pluginName
-     * @param string $pluginTitleKey
      */
-    public static function registerPlugin($pluginName, $pluginTitleKey)
+    public static function registerPlugin(string $pluginName, string $pluginTitleKey)
     {
         // Register plugin
         ExtensionUtility::registerPlugin(self::$packageKey, $pluginName, self::$localizationPrefix . $pluginTitleKey);
@@ -40,11 +38,8 @@ class TcaUtility implements SingletonInterface
         self::disablePluginDefaultFields(self::getPluginSignature($pluginName));
     }
 
-    /**
-     * @param string $pluginName
-     * @param string $flexFormFilePath
-     */
-    public static function addFlexForm($pluginName, $flexFormFilePath)
+    
+    public static function addFlexForm(string $pluginName, string $flexFormFilePath)
     {
         $pluginSignature = self::getPluginSignature($pluginName);
 
@@ -55,28 +50,20 @@ class TcaUtility implements SingletonInterface
         );
     }
 
-    /**
-     * @param string $pluginSignature
-     */
-    protected static function disablePluginDefaultFields($pluginSignature)
+    
+    protected static function disablePluginDefaultFields(string $pluginSignature)
     {
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'pages, recursive';
     }
 
-    /**
-     * @param string $pluginName
-     *
-     * @return string
-     */
-    protected static function getPluginSignature($pluginName)
+    
+    protected static function getPluginSignature(string $pluginName): string
     {
         return strtolower(self::getExtensionName()).'_'.strtolower($pluginName);
     }
 
-    /**
-     * @return string
-     */
-    protected static function getExtensionName()
+    
+    protected static function getExtensionName(): string
     {
         if (self::$extensionName === null) {
             self::$extensionName = GeneralUtility::underscoredToUpperCamelCase(self::$packageKey);

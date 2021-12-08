@@ -61,7 +61,7 @@ class Tcemain
      * @param DataHandler $tceMain            Reference to the parent object (TCEmain)
      * @param bool        $commandIsProcessed If the command has been processed
      */
-    public function processCmdmap($command, $table, $id, $relativeTo, $commandIsProcessed, $tceMain)
+    public function processCmdmap(string $command, string $table, string $id, array $relativeTo, bool $commandIsProcessed, DataHandler $tceMain)
     {
         if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com'])) {
             return;
@@ -96,7 +96,7 @@ class Tcemain
      * @param array       $relativeTo Filled if command is relative to another element
      * @param DataHandler $tceMain    Reference to the parent object (TCEmain)
      */
-    public function processCmdmap_postProcess($command, $table, $id, $relativeTo, $tceMain)
+    public function processCmdmap_postProcess(string $command, string $table, string $id, array $relativeTo, DataHandler $tceMain)
     {
         if ($command === 'delete' && $table === 'tx_t3blog_post') {
             $this->deletePostRelations((int) $id);
@@ -116,7 +116,7 @@ class Tcemain
      * @param array       $fields  The record row how it has been inserted into the database
      * @param DataHandler $tceMain A reference to the TCEmain instance
      */
-    public function processDatamap_afterDatabaseOperations($status, $table, $id, $fields, $tceMain)
+    public function processDatamap_afterDatabaseOperations(string $status, string $table, $id, array $fields, DataHandler $tceMain)
     {
         if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'])) {
             return;
@@ -159,9 +159,8 @@ class Tcemain
     /**
      * Deletes all data associated with the post when post is deleted.
      *
-     * @param int $id
      */
-    protected function deletePostRelations($id)
+    protected function deletePostRelations(int $id)
     {
         $command = [
             'tx_t3blog_com' => $this->getDeleteArrayForTable($id, 'tx_t3blog_com', 'fk_post'),
@@ -177,14 +176,8 @@ class Tcemain
         $tceMain->process_cmdmap();
     }
 
-    /**
-     * @param int $postId
-     * @param string $tableName
-     * @param string $fieldName
-     *
-     * @return array
-     */
-    protected function getDeleteArrayForTable($postId, $tableName, $fieldName)
+    
+    protected function getDeleteArrayForTable(int $postId, string $tableName, string $fieldName): array
     {
         $command = [];
 
@@ -221,21 +214,19 @@ class Tcemain
     }
 
     /**
-     * @param int $id
      *
      * @internal param int $fields
      */
-    protected function processNewComment($id)
+    protected function processNewComment(int $id)
     {
         $this->getNotificationService()->processNewEntity($this->getComment($id));
     }
 
     /**
-     * @param int $id
      *
      * @internal param int $fields
      */
-    protected function processChangedComment($id)
+    protected function processChangedComment(int $id)
     {
         $this->getNotificationService()->processChangedStatus($this->getComment($id));
     }
@@ -245,9 +236,8 @@ class Tcemain
      *
      * @param int $uid Page uid
      *
-     * @return Comment
      */
-    protected function getComment($uid)
+    protected function getComment(int $uid): Comment
     {
         /* @var $comment Comment */
         $comment = $this->getCommentRepository()->findByUid($uid);
@@ -258,9 +248,8 @@ class Tcemain
     /**
      * Get comment repository.
      *
-     * @return CommentRepository
      */
-    protected function getCommentRepository()
+    protected function getCommentRepository(): CommentRepository
     {
         if ($this->commentRepository === null) {
             $this->commentRepository = $this->getObjectContainer()->getInstance(CommentRepository::class);
@@ -272,9 +261,8 @@ class Tcemain
     /**
      * Get object container.
      *
-     * @return Container
      */
-    protected function getObjectContainer()
+    protected function getObjectContainer(): Container
     {
         if ($this->objectContainer === null) {
             $this->objectContainer = GeneralUtility::makeInstance(Container::class);
@@ -286,9 +274,8 @@ class Tcemain
     /**
      * Get notification service.
      *
-     * @return CommentNotificationService
      */
-    protected function getNotificationService()
+    protected function getNotificationService(): CommentNotificationService
     {
         if ($this->notificationService === null) {
             $this->notificationService = $this->getObjectContainer()->getInstance(CommentNotificationService::class);
@@ -300,12 +287,9 @@ class Tcemain
     /**
      * Get record uid.
      *
-     * @param int         $id
-     * @param DataHandler $reference
      *
-     * @return int
      */
-    protected function resolveRecordUid($id, DataHandler $reference)
+    protected function resolveRecordUid(int $id, DataHandler $reference): int
     {
         if (false !== strpos($id, 'NEW') && !empty($reference->substNEWwithIDs[$id])) {
             $id = $reference->substNEWwithIDs[$id];
@@ -317,14 +301,10 @@ class Tcemain
     /**
      * Get record pid.
      *
-     * @param string      $table
-     * @param int         $id
-     * @param DataHandler $tceMain
      * @param array       $fields
      *
-     * @return int
      */
-    protected function resolveRecordPid($table, $id, $tceMain, $fields = null)
+    protected function resolveRecordPid(string $table, int $id, DataHandler $tceMain, array $fields = null): int
     {
         // Changed records
         if (isset($tceMain->checkValue_currentRecord['pid'])) {
@@ -345,12 +325,9 @@ class Tcemain
     /**
      * Check if one of our watched fields have been changed.
      *
-     * @param array $fields
-     * @param array $watchedFields
      *
-     * @return bool
      */
-    protected function isUpdateNeeded($fields, $watchedFields)
+    protected function isUpdateNeeded(array $fields, array $watchedFields): bool
     {
         // If uid field exists (and therefore all fields) nothing has been updated
         if (array_key_exists('uid', $fields)) {

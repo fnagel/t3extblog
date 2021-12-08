@@ -28,7 +28,6 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * postUid.
      *
-     * @var int
      * @Extbase\Validate("NotEmpty")
      */
     protected int $postUid;
@@ -60,9 +59,8 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * __construct.
      *
-     * @param int $postUid
      */
-    public function __construct($postUid)
+    public function __construct(int $postUid)
     {
         $this->postUid = $postUid;
     }
@@ -72,7 +70,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -80,9 +78,8 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Sets the name.
      *
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -92,7 +89,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @return int $postUid
      */
-    public function getPostUid()
+    public function getPostUid(): int
     {
         return $this->postUid;
     }
@@ -102,7 +99,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @return Post $post
      */
-    public function getPost()
+    public function getPost(): Post
     {
         if ($this->post === null) {
             $this->post = $this->getPostRepository()->findByLocalizedUid($this->postUid);
@@ -116,7 +113,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
-    public function getPostComments()
+    public function getPostComments(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         if ($this->postComments === null) {
             $postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
@@ -135,7 +132,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
-    public function getPostPendingComments()
+    public function getPostPendingComments(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
         if ($this->postPendingComments === null) {
             $postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);
@@ -152,9 +149,8 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Sets the postUid.
      *
-     * @param int $postUid
      */
-    public function setPostUid($postUid)
+    public function setPostUid(int $postUid)
     {
         $this->postUid = $postUid;
     }

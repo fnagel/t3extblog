@@ -38,13 +38,10 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
     /**
      * Searchs for already registered subscriptions.
      *
-     * @param int    $postUid
-     * @param string $email
      * @param int    $excludeUid
      *
-     * @return QueryResultInterface
      */
-    public function findExistingSubscriptions($postUid, $email, $excludeUid = null)
+    public function findExistingSubscriptions(int $postUid, string $email, int $excludeUid = null): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -61,11 +58,9 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
     /**
      * Finds a single subscriber without opt-in mail sent before.
      *
-     * @param Comment $comment
      *
-     * @return object
      */
-    public function findForSubscriptionMail(Comment $comment)
+    public function findForSubscriptionMail(Comment $comment): object
     {
         if (empty($comment->getEmail())) {
             throw new Exception('Email address is a required property!', 1592248975);

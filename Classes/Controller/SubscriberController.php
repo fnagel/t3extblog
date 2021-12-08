@@ -14,7 +14,6 @@ use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /**
  * SubscriberController.
@@ -30,9 +29,6 @@ class SubscriberController extends AbstractController
     /**
      * SubscriberController constructor.
      *
-     * @param AuthenticationServiceInterface $authentication
-     * @param BlogSubscriberRepository $blogSubscriberRepository
-     * @param PostSubscriberRepository $postSubscriberRepository
      */
     public function __construct(
         AuthenticationServiceInterface $authentication,
@@ -91,7 +87,7 @@ class SubscriberController extends AbstractController
      * @param string $message  Flash message key
      * @param int $severity Severity code. One of the FlashMessage constants
      */
-    protected function processErrorAction($message = 'invalidAuth', $severity = FlashMessage::ERROR)
+    protected function processErrorAction(string $message = 'invalidAuth', int $severity = FlashMessage::ERROR)
     {
         // @extensionScannerIgnoreLine
         $this->authentication->logout();

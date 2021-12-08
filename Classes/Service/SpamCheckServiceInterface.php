@@ -21,5 +21,5 @@ interface SpamCheckServiceInterface
      *
      * @return int SPAM points
      */
-    public function process($settings);
+    public function process($settings): int;
 }

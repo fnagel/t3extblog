@@ -39,9 +39,8 @@ class RenderContentViewHelper extends AbstractViewHelper
     /**
      * Render content.
      *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $output = '';
         $iterator = 0;
@@ -69,12 +68,9 @@ class RenderContentViewHelper extends AbstractViewHelper
      *
      * Taken from EXT:vhs/Classes/ViewHelpers/Content/AbstractContentViewHelper.php
      *
-     * @param int    $uid
-     * @param string $table
      *
-     * @return string
      */
-    protected function renderRecord($uid, $table)
+    protected function renderRecord(int $uid, string $table): string
     {
         if (0 < GeneralUtility::getTsFe()->recordRegister[$table.':'.$uid]) {
             return '';
@@ -106,9 +102,8 @@ class RenderContentViewHelper extends AbstractViewHelper
      *
      * @param array|DomainObjectInterface $element
      *
-     * @return int|null
      */
-    protected function getElementUid($element)
+    protected function getElementUid($element): ?int
     {
         if ($element instanceof DomainObjectInterface) {
             if ($element instanceof AbstractLocalizedEntity) {
@@ -128,9 +123,8 @@ class RenderContentViewHelper extends AbstractViewHelper
     /**
      * Get content object renderer.
      *
-     * @return \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      */
-    protected function getContentObjectRenderer()
+    protected function getContentObjectRenderer(): \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
     {
         return GeneralUtility::getTsFe()->cObj;
     }

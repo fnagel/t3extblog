@@ -85,9 +85,8 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      * @param string $table The table
      * @param array  $row   The record for which to make the localization panel.
      *
-     * @return array
      */
-    public static function getLocalizedRecords($table, $row)
+    public static function getLocalizedRecords(string $table, array $row): array
     {
         $records = [];
         $translations = self::$translateTools->translationInfo($table, $row['uid'], 0, $row);
@@ -133,9 +132,8 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     /**
      * Gets an instance of TranslationConfigurationProvider.
      *
-     * @return TranslationConfigurationProvider
      */
-    protected static function getTranslateTools()
+    protected static function getTranslateTools(): TranslationConfigurationProvider
     {
         if (!isset(self::$translateTools)) {
             self::$translateTools = GeneralUtility::makeInstance(TranslationConfigurationProvider::class);

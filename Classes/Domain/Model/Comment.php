@@ -18,14 +18,9 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class Comment extends AbstractEntity
 {
-    /**
-     * @var bool
-     */
     protected bool $hidden = false;
 
-    /**
-     * @var bool
-     */
+
     protected bool $deleted = false;
 
     /**
@@ -81,14 +76,12 @@ class Comment extends AbstractEntity
     /**
      * approved.
      *
-     * @var bool
      */
     protected bool $approved = false;
 
     /**
      * spam.
      *
-     * @var bool
      */
     protected bool $spam = false;
 
@@ -117,21 +110,18 @@ class Comment extends AbstractEntity
     /**
      * subscribe (not persisted).
      *
-     * @var bool
      */
     protected bool $subscribe = false;
 
     /**
      * If the notification mails are already sent.
      *
-     * @var bool
      */
     protected bool $mailsSent = false;
 
     /**
      * privacy policy accepted.
      *
-     * @var bool
      */
     protected bool $privacyPolicyAccepted = false;
 
@@ -143,34 +133,26 @@ class Comment extends AbstractEntity
         $this->date = new \DateTime();
     }
 
-    /**
-     * @param bool $deleted
-     */
-    public function setDeleted($deleted)
+
+    public function setDeleted(bool $deleted)
     {
         $this->deleted = $deleted;
     }
 
-    /**
-     * @return bool
-     */
-    public function getDeleted()
+
+    public function getDeleted(): bool
     {
         return $this->deleted;
     }
 
-    /**
-     * @param bool $hidden
-     */
-    public function setHidden($hidden)
+
+    public function setHidden(bool $hidden)
     {
         $this->hidden = $hidden;
     }
 
-    /**
-     * @return bool
-     */
-    public function getHidden()
+
+    public function getHidden(): bool
     {
         return $this->hidden;
     }
@@ -180,7 +162,7 @@ class Comment extends AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -188,9 +170,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the title.
      *
-     * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -200,7 +181,7 @@ class Comment extends AbstractEntity
      *
      * @return string $author
      */
-    public function getAuthor()
+    public function getAuthor(): string
     {
         return $this->author;
     }
@@ -208,9 +189,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the author.
      *
-     * @param string $author
      */
-    public function setAuthor($author)
+    public function setAuthor(string $author)
     {
         $this->author = $author;
     }
@@ -220,7 +200,7 @@ class Comment extends AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -228,9 +208,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the email.
      *
-     * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -240,7 +219,7 @@ class Comment extends AbstractEntity
      *
      * @return string $website
      */
-    public function getWebsite()
+    public function getWebsite(): string
     {
         return $this->website;
     }
@@ -248,9 +227,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the website.
      *
-     * @param string $website
      */
-    public function setWebsite($website)
+    public function setWebsite(string $website)
     {
         $this->website = $website;
     }
@@ -260,7 +238,7 @@ class Comment extends AbstractEntity
      *
      * @return \DateTime $date
      */
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
@@ -280,7 +258,7 @@ class Comment extends AbstractEntity
      *
      * @return string $text
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -290,7 +268,7 @@ class Comment extends AbstractEntity
      *
      * @return string $text
      */
-    public function getPlainText()
+    public function getPlainText(): string
     {
         return strip_tags($this->text);
     }
@@ -298,9 +276,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the text.
      *
-     * @param string $text
      */
-    public function setText($text)
+    public function setText(string $text)
     {
         $this->text = $text;
     }
@@ -310,7 +287,7 @@ class Comment extends AbstractEntity
      *
      * @return bool $approved
      */
-    public function getApproved()
+    public function getApproved(): bool
     {
         return $this->approved;
     }
@@ -318,9 +295,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the approved.
      *
-     * @param bool $approved
      */
-    public function setApproved($approved)
+    public function setApproved(bool $approved)
     {
         $this->approved = (boolean) $approved;
     }
@@ -328,9 +304,8 @@ class Comment extends AbstractEntity
     /**
      * Returns the boolean state of approved.
      *
-     * @return bool
      */
-    public function isApproved()
+    public function isApproved(): bool
     {
         return (boolean) $this->getApproved();
     }
@@ -340,7 +315,7 @@ class Comment extends AbstractEntity
      *
      * @return bool $spam
      */
-    public function getSpam()
+    public function getSpam(): bool
     {
         return $this->spam;
     }
@@ -348,25 +323,20 @@ class Comment extends AbstractEntity
     /**
      * Sets the spam.
      *
-     * @param bool $spam
      */
-    public function setSpam($spam)
+    public function setSpam(bool $spam)
     {
         $this->spam = (boolean) $spam;
     }
 
-    /**
-     * @param int $spamPoints
-     */
-    public function setSpamPoints($spamPoints)
+
+    public function setSpamPoints(int $spamPoints)
     {
         $this->spamPoints = $spamPoints;
     }
 
-    /**
-     * @return int
-     */
-    public function getSpamPoints()
+
+    public function getSpamPoints(): int
     {
         return $this->spamPoints;
     }
@@ -374,9 +344,8 @@ class Comment extends AbstractEntity
     /**
      * Returns the boolean state of spam.
      *
-     * @return bool
      */
-    public function isSpam()
+    public function isSpam(): bool
     {
         return (boolean) $this->getSpam();
     }
@@ -392,9 +361,8 @@ class Comment extends AbstractEntity
     /**
      * Sets the postId.
      *
-     * @param int $postId
      */
-    public function setPostId($postId)
+    public function setPostId(int $postId)
     {
         $this->postId = $postId;
     }
@@ -402,9 +370,8 @@ class Comment extends AbstractEntity
     /**
      * Returns the post id.
      *
-     * @return int
      */
-    public function getPostId()
+    public function getPostId(): int
     {
         return $this->postId;
     }
@@ -412,9 +379,8 @@ class Comment extends AbstractEntity
     /**
      * Returns the post.
      *
-     * @return \FelixNagel\T3extblog\Domain\Model\Post
      */
-    public function getPost()
+    public function getPost(): \FelixNagel\T3extblog\Domain\Model\Post
     {
         if ($this->post === null) {
             $this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
@@ -428,7 +394,7 @@ class Comment extends AbstractEntity
      *
      * @return bool $spam
      */
-    public function getSubscribe()
+    public function getSubscribe(): bool
     {
         return (boolean) $this->subscribe;
     }
@@ -436,51 +402,40 @@ class Comment extends AbstractEntity
     /**
      * Sets the subscribe.
      *
-     * @param bool $subscribe
      */
-    public function setSubscribe($subscribe)
+    public function setSubscribe(bool $subscribe)
     {
         $this->subscribe = (boolean) $subscribe;
     }
 
-    /**
-     * @param bool $mailsSent
-     */
-    public function setMailsSent($mailsSent)
+
+    public function setMailsSent(bool $mailsSent)
     {
         $this->mailsSent = (boolean) $mailsSent;
     }
 
-    /**
-     * @return bool
-     */
-    public function getMailsSent()
+
+    public function getMailsSent(): bool
     {
         return (boolean) $this->mailsSent;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasPrivacyPolicyAccepted()
+
+    public function hasPrivacyPolicyAccepted(): bool
     {
         return $this->privacyPolicyAccepted;
     }
 
-    /**
-     * @param bool $privacyPolicyAccepted
-     */
-    public function setPrivacyPolicyAccepted($privacyPolicyAccepted)
+
+    public function setPrivacyPolicyAccepted(bool $privacyPolicyAccepted)
     {
         $this->privacyPolicyAccepted = $privacyPolicyAccepted;
     }
 
     /**
      * If the comment is shown in frontend.
-     *
-     * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return !$this->spam && $this->approved && !$this->hidden && !$this->deleted;
     }

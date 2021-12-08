@@ -27,8 +27,7 @@ class CommentNotificationService extends AbstractNotificationService
      */
     protected $subscriberRepository;
 
-    /**
-     */
+    
     public function initializeObject()
     {
         parent::initializeObject();
@@ -108,11 +107,9 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Checks if a new subscription should be added.
      *
-     * @param Comment $comment
      *
-     * @return bool
      */
-    protected function isNewSubscriptionValid(Comment $comment)
+    protected function isNewSubscriptionValid(Comment $comment): bool
     {
         if (empty($comment->getEmail())) {
             return false;
@@ -139,7 +136,6 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Send opt-in mail for subscriber.
      *
-     * @param PostSubscriber $subscriber
      * @param Comment        $comment    Comment
      */
     protected function sendOptInMail(PostSubscriber $subscriber, Comment $comment)
@@ -165,11 +161,9 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Add a subscriber.
      *
-     * @param Comment $comment
      *
-     * @return PostSubscriber
      */
-    protected function addSubscriber(Comment $comment)
+    protected function addSubscriber(Comment $comment): PostSubscriber
     {
         /* @var $newSubscriber PostSubscriber */
         $newSubscriber = $this->objectManager->get(PostSubscriber::class, $comment->getPostId());
@@ -188,7 +182,6 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Send comment notification mails.
      *
-     * @param Comment $comment
      */
     protected function notifySubscribers(Comment $comment)
     {
@@ -247,7 +240,6 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Notify the blog admin.
      *
-     * @param Comment $comment
      */
     public function notifyAdmin(Comment $comment)
     {

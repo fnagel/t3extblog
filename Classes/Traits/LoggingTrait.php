@@ -22,18 +22,14 @@ trait LoggingTrait
      */
     private ?LoggingServiceInterface $log = null;
 
-    /**
-     * @param LoggingServiceInterface $log
-     */
+    
     public function injectLog(LoggingServiceInterface $log)
     {
         $this->log = $log;
     }
 
-    /**
-     * @return LoggingServiceInterface
-     */
-    protected function getLog()
+    
+    protected function getLog(): LoggingServiceInterface
     {
         if ($this->log === null) {
             $this->log = GeneralUtility::makeInstance(LoggingServiceInterface::class);

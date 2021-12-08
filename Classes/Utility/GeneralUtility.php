@@ -27,9 +27,8 @@ class GeneralUtility implements SingletonInterface
     /**
      * Get TypoScript frontend controller.
      *
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
      */
-    public static function getTsFe()
+    public static function getTsFe(): \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
     {
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             throw new Exception('TSFE is not available in backend context!', 1582672848);
@@ -41,9 +40,8 @@ class GeneralUtility implements SingletonInterface
     /**
      * Get FE language UID.
      *
-     * @return int
      */
-    public static function getLanguageUid()
+    public static function getLanguageUid(): int
     {
         $languageAspect = CoreGeneralUtility::makeInstance(Context::class)->getAspect('language');
 
@@ -53,9 +51,8 @@ class GeneralUtility implements SingletonInterface
     /**
      * CAUTION: disables whole FE cache!
      *
-     * @return void
      */
-    public static function disableFrontendCache()
+    public static function disableFrontendCache(): void
     {
         if (isset($GLOBALS['TSFE'])) {
             $GLOBALS['TSFE']->no_cache = true;
@@ -65,9 +62,8 @@ class GeneralUtility implements SingletonInterface
     /**
      * Get page renderer.
      *
-     * @return PageRenderer
      */
-    public static function getPageRenderer()
+    public static function getPageRenderer(): PageRenderer
     {
         return CoreGeneralUtility::makeInstance(PageRenderer::class);
     }
@@ -75,9 +71,8 @@ class GeneralUtility implements SingletonInterface
     /**
      * Check if FE user is logged in
      *
-     * @return bool
      */
-    public static function isUserLoggedIn()
+    public static function isUserLoggedIn(): bool
     {
         $context = CoreGeneralUtility::makeInstance(Context::class);
 
@@ -93,9 +88,8 @@ class GeneralUtility implements SingletonInterface
      * @todo Workaround for bug in TYPO3
      * @todo Since t3extblog v5: Check if this is still needed
      *
-     * @return bool
      */
-    public static function isValidBackendUser()
+    public static function isValidBackendUser(): bool
     {
         // Init if needed
         if (!isset($GLOBALS['BE_USER'])) {

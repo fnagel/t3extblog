@@ -31,9 +31,8 @@ class PostRepository extends AbstractRepository
      * @param int  $uid                 id of record
      * @param bool $respectEnableFields if set to false, hidden records are shown
      *
-     * @return Post
      */
-    public function findByUid($uid, $respectEnableFields = true)
+    public function findByUid($uid, bool $respectEnableFields = true): Post
     {
         $query = $this->createQuery();
 
@@ -57,9 +56,8 @@ class PostRepository extends AbstractRepository
      * @param int  $uid                 id of record
      * @param bool $respectEnableFields if set to false, hidden records are shown
      *
-     * @return Post
      */
-    public function findByLocalizedUid($uid, $respectEnableFields = true)
+    public function findByLocalizedUid(int $uid, bool $respectEnableFields = true): Post
     {
         return  $this->findByUid($uid, $respectEnableFields);
     }
@@ -67,11 +65,9 @@ class PostRepository extends AbstractRepository
     /**
      * Get next post.
      *
-     * @param Post $post
      *
-     * @return Post
      */
-    public function nextPost(Post $post)
+    public function nextPost(Post $post): Post
     {
         $query = $this->createQuery();
 
@@ -87,11 +83,9 @@ class PostRepository extends AbstractRepository
     /**
      * Get previous post.
      *
-     * @param Post $post
      *
-     * @return Post
      */
-    public function previousPost(Post $post)
+    public function previousPost(Post $post): Post
     {
         $query = $this->createQuery();
 
@@ -103,9 +97,7 @@ class PostRepository extends AbstractRepository
     /**
      * Find all or filtered by tag, category or author.
      *
-     * @param mixed $filter
-     *
-     * @return QueryResultInterface
+     * @return QueryResultInterface|null
      */
     public function findByFilter($filter = null)
     {
@@ -131,11 +123,10 @@ class PostRepository extends AbstractRepository
     /**
      * Finds posts by the specified tag.
      *
-     * @param string $tag
      *
      * @return array|QueryResultInterface
      */
-    public function findByTag($tag)
+    public function findByTag(string $tag)
     {
         $query = $this->createQuery();
 
@@ -149,11 +140,10 @@ class PostRepository extends AbstractRepository
     /**
      * Returns all objects of this repository with matching category.
      *
-     * @param Category $category
      *
      * @return array|QueryResultInterface
      */
-    public function findByCategory($category)
+    public function findByCategory(Category $category)
     {
         $query = $this->createQuery();
 
@@ -176,13 +166,11 @@ class PostRepository extends AbstractRepository
     /**
      * Returns all hidden posts of a time frame from now.
      *
-     * @param int    $pid
      * @param int    $limit
-     * @param string $until
      *
      * @return array|QueryResultInterface
      */
-    public function findDrafts($pid = 0, $limit = null, $until = '-12 months')
+    public function findDrafts(int $pid = 0, int $limit = null, string $until = '-12 months')
     {
         $query = $this->createQuery((int) $pid);
         $query->getQuerySettings()->setIgnoreEnableFields(true);

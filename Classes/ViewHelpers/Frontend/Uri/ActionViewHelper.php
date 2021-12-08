@@ -40,11 +40,10 @@ class ActionViewHelper extends CoreActionViewHelper
     }
 
     /**
-     * @param UriBuilder $uriBuilder
      * @param array  $arguments Arguments
      * @return string Rendered link
      */
-    protected static function renderFrontendLink($uriBuilder, array $arguments)
+    protected static function renderFrontendLink(UriBuilder $uriBuilder, array $arguments): string
     {
         if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
             throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
@@ -90,17 +89,16 @@ class ActionViewHelper extends CoreActionViewHelper
      * @param string $format The requested format, e.g. ".html
      * @param array  $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
      *
-     * @return array
      */
     protected static function uriFor(
-        $actionName = null,
-        $controllerArguments = [],
-        $controllerName = null,
-        $extensionName = null,
-        $pluginName = null,
-        $format = '',
+        string $actionName = null,
+        array $controllerArguments = [],
+        string $controllerName = null,
+        string $extensionName = null,
+        string $pluginName = null,
+        string $format = '',
         array $additionalParams = []
-    ) {
+    ): array {
         /* @var $extensionService ExtensionService */
         $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
 

@@ -16,9 +16,7 @@ class PendingCommentNumberWithIconDataProvider extends AbstractDataProvider impl
 {
     protected CommentRepository $commentRepository;
 
-    /**
-     * @param CommentRepository $commentRepository
-     */
+    
     public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;

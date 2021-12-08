@@ -42,9 +42,7 @@ abstract class AbstractSubscriberController extends AbstractController
      */
     protected ?AuthenticationServiceInterface $authentication = null;
 
-    /**
-     * @param AuthenticationServiceInterface $authentication
-     */
+    
     public function injectAuthentication(AuthenticationServiceInterface $authentication)
     {
         $this->authentication = $authentication;
@@ -83,7 +81,7 @@ abstract class AbstractSubscriberController extends AbstractController
      *
      * @param AbstractSubscriber $subscriber
      */
-    public function deleteAction($subscriber = null)
+    public function deleteAction(AbstractSubscriber $subscriber = null)
     {
         $this->checkAuth();
 
@@ -112,9 +110,8 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * Check and get authentication.
      *
-     * @param bool $isConfirmRequest
      */
-    protected function checkAuth($isConfirmRequest = false)
+    protected function checkAuth(bool $isConfirmRequest = false)
     {
         if ($this->hasCodeArgument()) {
             $this->authenticate($isConfirmRequest);
@@ -130,9 +127,8 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * Get authentication.
      *
-     * @param bool $isConfirmRequest
      */
-    protected function authenticate($isConfirmRequest = false)
+    protected function authenticate(bool $isConfirmRequest = false)
     {
         $code = $this->getAuthCode();
 
@@ -177,9 +173,8 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * If the request has argument 'code'.
      *
-     * @return string
      */
-    protected function hasCodeArgument()
+    protected function hasCodeArgument(): string
     {
         return $this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0;
     }
@@ -187,9 +182,8 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * Checks the code.
      *
-     * @return string
      */
-    protected function getAuthCode()
+    protected function getAuthCode(): string
     {
         $code = $this->request->getArgument('code');
 

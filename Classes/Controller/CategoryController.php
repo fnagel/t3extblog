@@ -31,7 +31,6 @@ class CategoryController extends AbstractController
     /**
      * CategoryController constructor.
      *
-     * @param CategoryRepository $categoryRepository
      */
     public function __construct(CategoryRepository $categoryRepository)
     {
@@ -54,7 +53,6 @@ class CategoryController extends AbstractController
     /**
      * action show.
      *
-     * @param Category $category
      */
     public function showAction(Category $category)
     {

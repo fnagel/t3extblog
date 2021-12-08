@@ -85,7 +85,6 @@ class TypoScriptValidator
     /**
      * Check needed framework configuration.
      *
-     * @param array $settings
      *
      * @throws InvalidConfigurationException
      */
