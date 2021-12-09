@@ -128,14 +128,9 @@ ExtensionUtility::configurePlugin(
     ]
 );
 
-if (TYPO3_MODE == 'BE') {
-    // Add BE hooks
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        Tcemain::class;
-
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
-        Tcemain::class;
-}
+// Add BE hooks
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = Tcemain::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = Tcemain::class;
 
 // Add cHash configuration
 // See: http://forum.typo3.org/index.php?t=msg&th=203350
@@ -148,6 +143,7 @@ $requiredParameters = [
     'tx_t3extblog_blogsystem[tag]',
     'tx_t3extblog_blogsystem[category]',
     'tx_t3extblog_blogsystem[author]',
+    // @todo Fix this for TYPO3 11
     'tx_t3extblog_blogsystem[@widget_0][currentPage]',
 
     'tx_t3extblog_subscriptionmanager[controller]',

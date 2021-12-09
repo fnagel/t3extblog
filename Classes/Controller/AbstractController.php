@@ -99,6 +99,7 @@ abstract class AbstractController extends ActionController
             $this->validateTypoScriptConfiguration();
         } catch (\Exception $exception) {
             $this->getLog()->exception($exception, [
+                // @extensionScannerIgnoreLine
                 'pid' => \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->id,
                 'context' => 'frontend',
             ]);

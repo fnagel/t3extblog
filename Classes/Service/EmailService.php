@@ -76,6 +76,7 @@ class EmailService implements SingletonInterface
             [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
         );
 
+        // @extensionScannerIgnoreLine
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
     }
 
@@ -127,7 +128,6 @@ class EmailService implements SingletonInterface
      *
      * @param array  $variables    Arguments for template
      * @param string $templatePath Choose a template
-     *
      */
     public function render(array $variables, string $templatePath = 'Default.txt'): string
     {
@@ -146,7 +146,6 @@ class EmailService implements SingletonInterface
      * Create and configure the view.
      *
      * @param string $templateFile Choose a template
-     *
      */
     public function getEmailView(string $templateFile): StandaloneView
     {
@@ -162,7 +161,7 @@ class EmailService implements SingletonInterface
         return $emailView;
     }
 
-    
+
     protected function createStandaloneView(): StandaloneView
     {
         /* @var $emailView StandaloneView */
@@ -211,7 +210,7 @@ class EmailService implements SingletonInterface
         return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
     }
 
-    
+
     protected function setMessageContent(MailMessage $message, string $emailBody)
     {
         // Plain text only

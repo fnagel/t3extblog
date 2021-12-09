@@ -80,7 +80,7 @@ class ext_update
         return $output;
     }
 
-    
+
     protected function renderCreateMissingPostSlugsSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_post', 'url_segment')) {
@@ -97,7 +97,7 @@ class ext_update
         }
     }
 
-    
+
     protected function renderCreateMissingCategorySlugsSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_cat', 'url_segment')) {
@@ -114,7 +114,7 @@ class ext_update
         }
     }
 
-    
+
     protected function countMissingSlugs(string $table = 'tx_t3blog_post', string $slug = 'url_segment'): int
     {
         $queryBuilder = $this->getSlugQueryBuilder($table);
@@ -128,7 +128,7 @@ class ext_update
             ->rowCount();
     }
 
-    
+
     protected function createMissingSlugs(
         string $table = 'tx_t3blog_post',
         string $slug = 'url_segment',
@@ -165,7 +165,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Records updated', $message];
     }
 
-    
+
     protected function getSlugQueryBuilder(string $table = 'tx_t3blog_post'): QueryBuilder
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
@@ -174,7 +174,7 @@ class ext_update
         return $queryBuilder;
     }
 
-    
+
     protected function renderCommentUrlValidationSection(): void
     {
         $key = 'comment_url_validation';
@@ -187,7 +187,7 @@ class ext_update
         }
     }
 
-    
+
     protected function findCommentRecordsForUrlValidation(): void
     {
         $table = 'tx_t3blog_com';
@@ -226,7 +226,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
     }
 
-    
+
     protected function renderPostMailsSentSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_post', 'mails_sent')) {
@@ -243,7 +243,7 @@ class ext_update
         }
     }
 
-    
+
     protected function updatePostRecordsForMailsSent(): void
     {
         $table = 'tx_t3blog_post';
@@ -260,7 +260,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Posts updated', $message];
     }
 
-    
+
     protected function renderCommentMailsSentSection(): void
     {
         if (!$this->isFieldAvailable('tx_t3blog_com', 'mails_sent')) {
@@ -277,7 +277,7 @@ class ext_update
         }
     }
 
-    
+
     protected function updateCommentRecordsForMailsSent(): void
     {
         $table = 'tx_t3blog_com';
@@ -294,7 +294,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::INFO, 'Comments updated', $message];
     }
 
-    
+
     protected function renderCommentAuthorOrEmailInvalidSection(): void
     {
         $key = 'comment_author_email_invalid';
@@ -307,7 +307,7 @@ class ext_update
         }
     }
 
-    
+
     protected function findCommentAuthorOrEmailInvalid(): void
     {
         $table = 'tx_t3blog_com';
@@ -343,7 +343,7 @@ class ext_update
         $this->messageArray[] = [FlashMessage::ERROR, 'Invalid comments!', $message];
     }
 
-    
+
     protected function renderForm($key, $message): string
     {
         return
@@ -390,6 +390,7 @@ class ext_update
             FlashMessageRendererResolver::class
         )->resolve();
 
+        // @extensionScannerIgnoreLine
         return $renderer->render($flashMessages);
     }
 }
