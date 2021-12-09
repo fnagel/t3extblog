@@ -38,11 +38,6 @@ abstract class AbstractController extends ActionController
     use LoggingTrait;
 
     /**
-     * Actions which need a configured cHash
-     */
-    protected array $cHashActions = [];
-
-    /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
      *
@@ -111,7 +106,6 @@ abstract class AbstractController extends ActionController
         }
 
         $this->addDefaultCacheTags();
-        $this->configureCHash();
     }
 
     /**
@@ -192,7 +186,7 @@ abstract class AbstractController extends ActionController
         $this->response->sendHeaders();
     }
 
-    
+
     protected function pageNotFoundAndExit(string $message = 'Entity not found.')
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
@@ -282,19 +276,6 @@ abstract class AbstractController extends ActionController
 
             // We only want to set the tag once in one request
             $cacheTagsSet = true;
-        }
-    }
-
-    /**
-     * Add basic cache tag for all related pages.
-     *
-     * @deprecated
-     * @todo Seems to be no longer needed in TYPO3 10
-     */
-    protected function configureCHash()
-    {
-        if (count($this->cHashActions) > 0 && in_array($this->actionMethodName, $this->cHashActions)) {
-            \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->reqCHash();
         }
     }
 }

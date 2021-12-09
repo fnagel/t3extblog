@@ -17,10 +17,6 @@ use TYPO3\CMS\Extbase\Domain\Model\Category;
  */
 class CategoryController extends AbstractController
 {
-    protected array $cHashActions = [
-        'showAction',
-    ];
-
     /**
      * categoryRepository.
      *

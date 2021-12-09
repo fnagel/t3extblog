@@ -29,13 +29,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PostController extends AbstractCommentController
 {
-    protected array $cHashActions = [
-        'categoryAction',
-        'authorAction',
-        'tagAction',
-        'showAction',
-    ];
-
     protected PostRepository $postRepository;
 
     /**

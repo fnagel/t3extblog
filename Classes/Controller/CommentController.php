@@ -24,12 +24,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class CommentController extends AbstractCommentController
 {
-    protected array $cHashActions = [
-        'listAction',
-        'latestAction',
-        'showAction',
-    ];
-
     /**
      * commentRepository.
      */
