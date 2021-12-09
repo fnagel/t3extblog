@@ -192,7 +192,7 @@ class Post extends AbstractLocalizedEntity
     }
 
     /**
-     * Initializes all Tx_Extbase_Persistence_ObjectStorage properties.
+     * Initializes all ObjectStorage properties.
      */
     protected function initStorageObjects()
     {
@@ -254,7 +254,7 @@ class Post extends AbstractLocalizedEntity
     {
         if (!($this->author instanceof BackendUser)) {
             $this->author = new BackendUser();
-            $this->author->setUserName(uniqid('author-unavailable'));
+            $this->author->setUserName(uniqid('author-unavailable', true));
             $this->author->setRealName('Author unavailable');
         }
 
@@ -277,8 +277,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the publishDate.
-     *
-     * @return \DateTime $publishDate
      */
     public function getPublishDate(): \DateTime
     {
@@ -287,7 +285,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the publish year.
-     *
      */
     public function getPublishYear(): string
     {
@@ -296,7 +293,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the publish month.
-     *
      */
     public function getPublishMonth(): string
     {
@@ -305,7 +301,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the publish day.
-     *
      */
     public function getPublishDay(): string
     {
@@ -314,8 +309,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Checks if the post is too old for posting new comments.
-     *
-     *
      */
     public function isExpired(string $expireDate = '+1 month'): string
     {
@@ -337,8 +330,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the allowComments.
-     *
-     * @return int $allowComments
      */
     public function getAllowComments(): int
     {
@@ -347,7 +338,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the allowComments.
-     *
      */
     public function setAllowComments(int $allowComments)
     {
@@ -356,8 +346,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the tagCloud.
-     *
-     * @return array $tagCloud
      */
     public function getTagCloud(): array
     {
@@ -366,7 +354,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the tagCloud as in DB (concated string).
-     *
      */
     public function getRawTagCloud(): string
     {
@@ -376,16 +363,15 @@ class Post extends AbstractLocalizedEntity
     /**
      * Sets the tagCloud.
      *
+     * @param string|array $tagCloud
      */
-    public function setTagCloud(string $tagCloud)
+    public function setTagCloud($tagCloud)
     {
         $this->tagCloud = is_array($tagCloud) ? implode(', ', $tagCloud) : $tagCloud;
     }
 
     /**
      * Returns the numberOfViews.
-     *
-     * @return int $numberOfViews
      */
     public function getNumberOfViews(): int
     {
@@ -394,7 +380,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the numberOfViews.
-     *
      */
     public function setNumberOfViews(int $numberOfViews)
     {
@@ -409,16 +394,15 @@ class Post extends AbstractLocalizedEntity
         ++$this->numberOfViews;
     }
 
-
     public function setMailsSent(bool $mailsSent)
     {
-        $this->mailsSent = (boolean) $mailsSent;
+        $this->mailsSent = $mailsSent;
     }
 
 
     public function getMailsSent(): bool
     {
-        return (boolean) $this->mailsSent;
+        return $this->mailsSent;
     }
 
     /**
@@ -432,7 +416,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the metaDescription.
-     *
      */
     public function getMetaDescription(): string
     {
@@ -441,7 +424,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the metaDescription.
-     *
      */
     public function setMetaDescription(string $metaDescription)
     {
@@ -450,7 +432,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the metaKeywords.
-     *
      */
     public function getMetaKeywords(): string
     {
@@ -459,7 +440,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the metaKeywords.
-     *
      */
     public function setMetaKeywords(string $metaKeywords)
     {
@@ -468,7 +448,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the previewMode.
-     *
      */
     public function getPreviewMode(): int
     {
@@ -477,7 +456,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the previewMode.
-     *
      */
     public function setPreviewMode(int $previewMode)
     {
@@ -486,7 +464,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the previewText.
-     *
      */
     public function getPreviewText(): string
     {
@@ -495,7 +472,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the previewText.
-     *
      */
     public function setPreviewText(string $previewText)
     {
@@ -504,9 +480,8 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the previewImage.
-     *
      */
-    public function getPreviewImage(): ?\TYPO3\CMS\Core\Resource\FileReference
+    public function getPreviewImage(): ?FileReference
     {
         $this->loadLazyRelation($this->previewImage);
 
@@ -519,9 +494,8 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the previewImage.
-     *
      */
-    public function setPreviewImage(\TYPO3\CMS\Core\Resource\FileReference $previewImage)
+    public function setPreviewImage(FileReference $previewImage)
     {
         $this->previewImage = $previewImage;
     }
@@ -529,9 +503,9 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the content.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content> $content
+     * @return ObjectStorage $content
      */
-    public function getContent(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getContent(): ObjectStorage
     {
         // @extensionScannerIgnoreLine
         return $this->content;
@@ -550,7 +524,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Adds a content element to the record.
-     *
      */
     public function addContent(Content $content)
     {
@@ -565,7 +538,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Get id list of content elements.
-     *
      */
     public function getContentIdList(): string
     {
@@ -582,8 +554,7 @@ class Post extends AbstractLocalizedEntity
      * Get a plain text only preview of the post.
      *
      * Either using the preview text or
-     * all content elements bodytext field values concated without HTML tags
-     *
+     * all content elements bodytext field values contacted without HTML tags
      */
     public function getPreview(): string
     {
@@ -624,9 +595,9 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the categories.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category> $categories
+     * @return ObjectStorage $categories
      */
-    public function getCategories(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getCategories(): ObjectStorage
     {
         return $this->categories;
     }
@@ -651,8 +622,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Adds a Comment.
-     *
-     * @param \FelixNagel\T3extblog\Domain\Model\Comment $comment
      */
     public function addComment(Comment $comment)
     {
@@ -666,8 +635,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Removes a Comment.
-     *
-     * @param \FelixNagel\T3extblog\Domain\Model\Comment $commentToRemove The Comment to be removed
      */
     public function removeComment(Comment $commentToRemove)
     {
@@ -681,7 +648,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the comments.
-     *
      */
     public function getComments(): ObjectStorage
     {
@@ -692,7 +658,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the comments.
-     *
      */
     public function getCommentsForPaginate(): QueryResultInterface
     {
@@ -703,8 +668,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the comments.
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
      */
     public function setComments(ObjectStorage $comments)
     {
@@ -723,8 +686,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Removes a Subscriber.
-     *
-     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriptionToRemove The Subscriber to be removed
      */
     public function removeSubscription(PostSubscriber $subscriptionToRemove)
     {
@@ -733,18 +694,14 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the subscriptions.
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber> $subscriptions
      */
-    public function getSubscriptions(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getSubscriptions(): ?ObjectStorage
     {
         return $this->subscriptions;
     }
 
     /**
      * Sets the subscriptions.
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber> $subscriptions
      */
     public function setSubscriptions(ObjectStorage $subscriptions)
     {
@@ -753,7 +710,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Returns the permalink configuration.
-     *
      */
     public function getLinkParameter(): array
     {

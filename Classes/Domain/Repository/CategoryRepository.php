@@ -9,7 +9,9 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * CategoryRepository.
@@ -23,11 +25,8 @@ class CategoryRepository extends AbstractRepository
 
     /**
      * Returns all children of the given category
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findChildren(\FelixNagel\T3extblog\Domain\Model\Category $category)
+    public function findChildren(Category $category): ?QueryResultInterface
     {
         if (!$category->isFirstLevel()) {
             return null;

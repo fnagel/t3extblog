@@ -64,10 +64,8 @@ class PostRepository extends AbstractRepository
 
     /**
      * Get next post.
-     *
-     *
      */
-    public function nextPost(Post $post): Post
+    public function nextPost(Post $post): ?Post
     {
         $query = $this->createQuery();
 
@@ -82,10 +80,8 @@ class PostRepository extends AbstractRepository
 
     /**
      * Get previous post.
-     *
-     *
      */
-    public function previousPost(Post $post): Post
+    public function previousPost(Post $post): ?Post
     {
         $query = $this->createQuery();
 

@@ -24,6 +24,8 @@ use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * Handles all notification mails.
+ *
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 abstract class AbstractNotificationService implements NotificationServiceInterface, SingletonInterface
 {

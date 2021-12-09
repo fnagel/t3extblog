@@ -9,9 +9,11 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * CommentRepository.
@@ -24,12 +26,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds all valid comments.
-     *
-     * @param int $pid
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findValid(int $pid = null)
+    public function findValid(int $pid = null): QueryResultInterface
     {
         $query = $this->createQuery($pid);
 
@@ -42,11 +40,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds all comments for the given post.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByPost(Post $post, bool $respectEnableFields = true)
+    public function findByPost(Post $post, bool $respectEnableFields = true): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -67,11 +62,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds all valid comments for the given post.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findValidByPost(Post $post)
+    public function findValidByPost(Post $post): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -87,11 +79,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds comments by email and post uid.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByEmailAndPostId(string $email, int $postUid)
+    public function findByEmailAndPostId(string $email, int $postUid): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -104,11 +93,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds valid comments by email and post uid.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findValidByEmailAndPostId(string $email, int $postUid)
+    public function findValidByEmailAndPostId(string $email, int $postUid): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -124,11 +110,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds pending comments by email and post uid.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findPendingByEmailAndPostId(string $email, int $postUid)
+    public function findPendingByEmailAndPostId(string $email, int $postUid): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -144,11 +127,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds pending comments by post.
-     *
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findPendingByPost(Post $post)
+    public function findPendingByPost(Post $post): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -165,7 +145,7 @@ class CommentRepository extends AbstractRepository
     /**
      * Finds all pending comments.
      */
-    public function findPending()
+    public function findPending(): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -178,12 +158,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds all pending comments by page.
-     *
-     * @param int $limit
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findPendingByPage(int $pid = 0, int $limit = null)
+    public function findPendingByPage(int $pid = 0, int $limit = null): QueryResultInterface
     {
         $query = $this->createQuery((int) $pid);
 
@@ -200,10 +176,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Create constraints.
-     *
-     *
      */
-    protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, string $email, int $postUid): object
+    protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, string $email, int $postUid): AndInterface
     {
         $constraints = $query->logicalAnd([
             $query->equals('email', $email),
@@ -215,10 +189,8 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Create constraints for valid comments.
-     *
-     *
      */
-    protected function getValidConstraints(QueryInterface $query): object
+    protected function getValidConstraints(QueryInterface $query): AndInterface
     {
         $constraints = $query->logicalAnd([
             $query->equals('spam', 0),
@@ -230,8 +202,6 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Create constraints for pending comments.
-     *
-     *
      */
     protected function getPendingConstraints(QueryInterface $query): OrInterface
     {

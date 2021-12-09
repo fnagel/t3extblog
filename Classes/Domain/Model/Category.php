@@ -35,9 +35,8 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Id of parent category.
-     *
      */
-    protected int $parentId;
+    protected ?int $parentId = null;
 
     /**
      * Posts.
@@ -57,8 +56,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Returns the name.
-     *
-     * @return string $name
      */
     public function getName(): string
     {
@@ -67,7 +64,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Sets the name.
-     *
      */
     public function setName(string $name)
     {
@@ -76,8 +72,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Returns the description.
-     *
-     * @return string $description
      */
     public function getDescription(): string
     {
@@ -86,7 +80,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Sets the description.
-     *
      */
     public function setDescription(string $description)
     {
@@ -95,7 +88,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * If category is first level.
-     *
      */
     public function isFirstLevel(): bool
     {
@@ -123,8 +115,6 @@ class Category extends AbstractLocalizedEntity
 
     /**
      * Returns all child categories.
-     *
-     * @return null|ObjectStorage $posts
      */
     public function getChildCategories(): ?ObjectStorage
     {

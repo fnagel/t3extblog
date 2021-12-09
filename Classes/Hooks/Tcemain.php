@@ -57,12 +57,18 @@ class Tcemain
      * @param string      $command            The TCEmain operation status, fx. 'update'
      * @param string      $table              The table TCEmain is currently processing
      * @param string      $id                 The records id (if any)
-     * @param array       $relativeTo         Filled if command is relative to another element
-     * @param DataHandler $tceMain            Reference to the parent object (TCEmain)
+     * @param mixed       $value	          The value containing the data
      * @param bool        $commandIsProcessed If the command has been processed
+     * @param DataHandler $tceMain            Reference to the parent object (TCEmain)
      */
-    public function processCmdmap(string $command, string $table, string $id, array $relativeTo, bool $commandIsProcessed, DataHandler $tceMain)
-    {
+    public function processCmdmap(
+        string $command,
+        string $table,
+        string $id,
+        $value,
+        bool $commandIsProcessed,
+        DataHandler $tceMain
+    ) {
         if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com'])) {
             return;
         }
@@ -93,10 +99,16 @@ class Tcemain
      * @param string      $command    The TCEmain operation status, fx. 'update'
      * @param string      $table      The table TCEmain is currently processing
      * @param string      $id         The records id (if any)
-     * @param array       $relativeTo Filled if command is relative to another element
+     * @param mixed       $value	  The value containing the data
      * @param DataHandler $tceMain    Reference to the parent object (TCEmain)
      */
-    public function processCmdmap_postProcess(string $command, string $table, string $id, array $relativeTo, DataHandler $tceMain)
+    public function processCmdmap_postProcess(
+        string $command,
+        string $table,
+        string $id,
+        $value,
+        DataHandler $tceMain
+    )
     {
         if ($command === 'delete' && $table === 'tx_t3blog_post') {
             $this->deletePostRelations((int) $id);
@@ -158,7 +170,6 @@ class Tcemain
 
     /**
      * Deletes all data associated with the post when post is deleted.
-     *
      */
     protected function deletePostRelations(int $id)
     {
@@ -176,7 +187,6 @@ class Tcemain
         $tceMain->process_cmdmap();
     }
 
-    
     protected function getDeleteArrayForTable(int $postId, string $tableName, string $fieldName): array
     {
         $command = [];
@@ -213,19 +223,11 @@ class Tcemain
         return $command;
     }
 
-    /**
-     *
-     * @internal param int $fields
-     */
     protected function processNewComment(int $id)
     {
         $this->getNotificationService()->processNewEntity($this->getComment($id));
     }
 
-    /**
-     *
-     * @internal param int $fields
-     */
     protected function processChangedComment(int $id)
     {
         $this->getNotificationService()->processChangedStatus($this->getComment($id));
@@ -235,7 +237,6 @@ class Tcemain
      * Get comment.
      *
      * @param int $uid Page uid
-     *
      */
     protected function getComment(int $uid): Comment
     {
@@ -247,7 +248,6 @@ class Tcemain
 
     /**
      * Get comment repository.
-     *
      */
     protected function getCommentRepository(): CommentRepository
     {
@@ -260,7 +260,6 @@ class Tcemain
 
     /**
      * Get object container.
-     *
      */
     protected function getObjectContainer(): Container
     {
@@ -273,7 +272,6 @@ class Tcemain
 
     /**
      * Get notification service.
-     *
      */
     protected function getNotificationService(): CommentNotificationService
     {
@@ -287,9 +285,9 @@ class Tcemain
     /**
      * Get record uid.
      *
-     *
+     * @param int|string $id
      */
-    protected function resolveRecordUid(int $id, DataHandler $reference): int
+    protected function resolveRecordUid($id, DataHandler $reference): int
     {
         if (false !== strpos($id, 'NEW') && !empty($reference->substNEWwithIDs[$id])) {
             $id = $reference->substNEWwithIDs[$id];
@@ -301,10 +299,9 @@ class Tcemain
     /**
      * Get record pid.
      *
-     * @param array       $fields
-     *
+     * @param int|string $id
      */
-    protected function resolveRecordPid(string $table, int $id, DataHandler $tceMain, array $fields = null): int
+    protected function resolveRecordPid(string $table, $id, DataHandler $tceMain, array $fields = null): int
     {
         // Changed records
         if (isset($tceMain->checkValue_currentRecord['pid'])) {
@@ -324,8 +321,6 @@ class Tcemain
 
     /**
      * Check if one of our watched fields have been changed.
-     *
-     *
      */
     protected function isUpdateNeeded(array $fields, array $watchedFields): bool
     {

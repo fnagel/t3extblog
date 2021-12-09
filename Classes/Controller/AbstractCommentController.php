@@ -55,9 +55,6 @@ abstract class AbstractCommentController extends AbstractController
         return $comment;
     }
 
-    /**
-     * @throws InvalidConfigurationException
-     */
     protected function getNewCommentAuthor(): string
     {
         $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];

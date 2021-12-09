@@ -48,7 +48,6 @@ class CategoryController extends AbstractController
 
     /**
      * action show.
-     *
      */
     public function showAction(Category $category)
     {

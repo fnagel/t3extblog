@@ -152,9 +152,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         $properties = get_object_vars($this);
 
         // Remove properties not required if fully populated
-        unset($properties['objectManager']);
-        unset($properties['postRepository']);
-        unset($properties['commentRepository']);
+        unset($properties['objectManager'], $properties['postRepository'], $properties['commentRepository']);
 
         // Remove lazy object storage as this will break post preview when serializing the post in form VH
         // @todo Preview: Fix this!

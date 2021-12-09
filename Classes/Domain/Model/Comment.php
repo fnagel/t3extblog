@@ -63,7 +63,7 @@ class Comment extends AbstractEntity
      *
      * @var \DateTime
      */
-    protected $date;
+    protected ?\DateTime $date = null;
 
     /**
      * text.
@@ -238,7 +238,7 @@ class Comment extends AbstractEntity
      *
      * @return \DateTime $date
      */
-    public function getDate(): \DateTime
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
