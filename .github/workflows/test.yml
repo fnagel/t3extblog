@@ -19,10 +19,8 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        # Using multiple PHP version is not useful atm, as we do not have actual unit or functional tests
-        # For now, use latest supported PHP version only
-        php-versions: [7.4]
-        typo3-versions: [10.4]
+        php-versions: [7.4, 8.0]
+        typo3-versions: [11.5]
 
     name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
     steps:
@@ -52,7 +50,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install composer dependencies
-        run: composer require typo3/minimal "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress --no-suggest
+        run: composer require typo3/cms-core "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress
 
       - name: Run PHP lint
         run: composer run-script test-php-lint

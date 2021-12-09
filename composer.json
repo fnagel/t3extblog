@@ -27,7 +27,7 @@
     "typo3/cms-dashboard": "^11"
   },
   "require-dev": {
-    "nimut/testing-framework": "^5.0",
+    "nimut/testing-framework": "^6.0",
     "squizlabs/php_codesniffer": "^3.5",
     "friendsofphp/php-cs-fixer": "^2.19",
     "phpmd/phpmd": "^2.8",
