@@ -16,7 +16,7 @@
 						{category.name}
 					</f:link.action>
 					<f:if condition="{category.childCategories}">
-						<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
+						<f:render section="categoryTree" arguments="{categories: category.childCategories, settings: settings}" />
 					</f:if>
 				</li>
 				</f:if>

@@ -13,13 +13,16 @@ use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Category;
@@ -79,10 +82,6 @@ abstract class AbstractController extends ActionController
         }
     }
 
-    /**
-     * @param \Exception $exception
-     * @throws \Exception
-     */
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
         throw $exception;
@@ -111,8 +110,6 @@ abstract class AbstractController extends ActionController
 
     /**
      * Validate TypoScript settings.
-     *
-     * @throw  FelixNagel\T3extblog\Exception\InvalidConfigurationException
      */
     protected function validateTypoScriptConfiguration()
     {
@@ -129,7 +126,6 @@ abstract class AbstractController extends ActionController
     /**
      * Override getErrorFlashMessage to present
      * nice flash error messages.
-     *
      */
     protected function getErrorFlashMessage(): string
     {
@@ -142,7 +138,7 @@ abstract class AbstractController extends ActionController
     /**
      * Helper function to render localized flashmessages.
      *
-     * @param int    $severity optional severity code. One of the FlashMessage constants
+     * @param int $severity optional severity code. One of the FlashMessage constants
      */
     protected function addFlashMessageByKey(string $key, int $severity = FlashMessage::OK)
     {
@@ -157,7 +153,6 @@ abstract class AbstractController extends ActionController
 
     /**
      * Helper function to check if flashmessages have been saved until now.
-     *
      */
     protected function hasFlashMessages(): bool
     {
@@ -189,7 +184,6 @@ abstract class AbstractController extends ActionController
         $this->response->sendHeaders();
     }
 
-
     protected function pageNotFoundAndExit(string $message = 'Entity not found.')
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
@@ -202,7 +196,6 @@ abstract class AbstractController extends ActionController
 
     /**
      * Persist all records to database.
-     *
      */
     protected function persistAllEntities(): string
     {
@@ -216,7 +209,6 @@ abstract class AbstractController extends ActionController
      *
      * @param string $key            locallang key
      * @param string $defaultMessage the default message to show if key was not found
-     *
      */
     protected function translate(string $key, string $defaultMessage = ''): string
     {
@@ -236,10 +228,6 @@ abstract class AbstractController extends ActionController
      */
     protected function addCacheTags($object = null)
     {
-        if (TYPO3_MODE !== 'FE') {
-            return;
-        }
-
         $tags = is_array($object) ? $object : [];
 
         if (is_string($object)) {
@@ -280,5 +268,17 @@ abstract class AbstractController extends ActionController
             // We only want to set the tag once in one request
             $cacheTagsSet = true;
         }
+    }
+
+    protected function paginationHtmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
+    {
+        $paginator = new QueryResultPaginator($result, $page, $paginationConfig['itemsPerPage'] ?: 10);
+
+        $this->view->assignMultiple([
+            'paginator' => $paginator,
+            'pagination' => new SimplePagination($paginator),
+        ]);
+
+        return $this->htmlResponse();
     }
 }

@@ -5,10 +5,14 @@
 
 <f:section name="main">
 
-	<f:if condition="{posts}">
-		<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.latestPosts.paginate}">
-			<ul>
-			<f:for each="{paginatedPosts}" as="post">
+	<f:if condition="{paginator.paginatedItems}">
+
+		<f:if condition="{settings.latestPosts.paginate.insertAbove}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
+
+		<ul>
+			<f:for each="{paginator.paginatedItems}" as="post">
 				<li>
 					<f:link.action pluginName="Blogsystem" controller="Post" action="show" pageUid="{settings.blogsystem.pid}" arguments="{post.linkParameter}">
 						{post.title}
@@ -16,7 +20,10 @@
 				</li>
 			</f:for>
 			</ul>
-		</t3b:widget.paginate>
+
+		<f:if condition="{settings.latestPosts.paginate.insertBelow}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
 	</f:if>
 
 </f:section>

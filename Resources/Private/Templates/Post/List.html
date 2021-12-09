@@ -3,7 +3,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<f:if condition="{posts}">
+	<f:if condition="{paginator.paginatedItems}">
 		<f:then>
 			<f:render partial="Post/List" arguments="{_all}" />
 		</f:then>

@@ -55,31 +55,37 @@ class PostController extends AbstractCommentController
     /**
      * Displays a list of posts.
      */
-    public function listAction(): ResponseInterface
+    public function listAction(int $page = 1): ResponseInterface
     {
-        $this->view->assign('posts', $this->findPosts());
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->findPosts(),
+            $this->settings['blogsystem']['posts']['paginate'],
+            $page
+        );
     }
 
     /**
      * Displays a list of posts related to a category.
      */
-    public function categoryAction(Category $category): ResponseInterface
+    public function categoryAction(Category $category, int $page = 1): ResponseInterface
     {
-        $this->view->assign('posts', $this->findPosts($category));
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->findPosts($category),
+            $this->settings['blogsystem']['posts']['paginate'],
+            $page
+        );
     }
 
     /**
      * Displays a list of posts created by an author.
      */
-    public function authorAction(BackendUser $author): ResponseInterface
+    public function authorAction(BackendUser $author, int $page = 1): ResponseInterface
     {
-        $this->view->assign('posts', $this->findPosts($author));
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->findPosts($author),
+            $this->settings['blogsystem']['posts']['paginate'],
+            $page
+        );
     }
 
     /**
@@ -87,7 +93,7 @@ class PostController extends AbstractCommentController
      *
      * @param string $tag The name of the tag to show the posts for
      */
-    public function tagAction(string $tag): ResponseInterface
+    public function tagAction(string $tag, int $page = 1): ResponseInterface
     {
         $posts = $this->findPosts($tag);
 
@@ -95,15 +101,17 @@ class PostController extends AbstractCommentController
             $this->pageNotFoundAndExit('Tag not found!');
         }
 
-        $this->view->assign('posts', $posts);
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $posts,
+            $this->settings['blogsystem']['posts']['paginate'],
+            $page
+        );
     }
 
     /**
      * Displays a list of latest posts.
      */
-    public function latestAction(): ResponseInterface
+    public function latestAction(int $page = 1): ResponseInterface
     {
         $category = null;
 
@@ -113,15 +121,15 @@ class PostController extends AbstractCommentController
                 ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
         }
 
-        $this->view->assign('posts', $this->findPosts($category));
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->findPosts($category),
+            $this->settings['latestPosts']['paginate'],
+            $page
+        );
     }
 
     /**
      * Find all or filtered by tag, category or author.
-     *
-     *
      */
     protected function findPosts($filter = null): QueryResultInterface
     {
@@ -159,16 +167,17 @@ class PostController extends AbstractCommentController
     }
 
     /**
-     * Initializes the current action.
+     * Set Format to xml for the RSS action.
      */
     public function initializeRssAction()
     {
-        // set format to xml
         $this->request->setFormat('xml');
     }
 
     /**
      * Displays rss feed of all posts.
+     *
+     * @todo TYPO3 11: Fix pagination!
      */
     public function rssAction(): ResponseInterface
     {
@@ -179,12 +188,10 @@ class PostController extends AbstractCommentController
 
     /**
      * Redirects permalinks to default show action.
-     *
-     * @param int $permalinkPost The post to display
      */
     public function permalinkAction(int $permalinkPost)
     {
-        $post = $this->postRepository->findByUid((int) $permalinkPost);
+        $post = $this->postRepository->findByUid($permalinkPost);
 
         if ($post === null) {
             $this->pageNotFoundAndExit('Post not found!');
@@ -197,11 +204,8 @@ class PostController extends AbstractCommentController
      * Displays one single post.
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
-     *
-     * @param Post $post The post to display
-     * @param Comment|null $newComment A new comment
      */
-    public function showAction(Post $post, Comment $newComment = null): ResponseInterface
+    public function showAction(Post $post, int $page = 1, Comment $newComment = null): ResponseInterface
     {
         if ($newComment === null) {
             $newComment = $this->getNewComment();
@@ -221,7 +225,11 @@ class PostController extends AbstractCommentController
         $this->view->assign('nextPost', $this->postRepository->nextPost($post));
         $this->view->assign('previousPost', $this->postRepository->previousPost($post));
 
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $post->getCommentsForPaginate(),
+            $this->settings['blogsystem']['comments']['paginate'],
+            $page
+        );
     }
 
     /**

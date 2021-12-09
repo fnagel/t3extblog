@@ -6,8 +6,6 @@ plugin.tx_t3extblog.settings {
 			itemsPerPage = 3
 			insertAbove = 0
 			insertBelow = 0
-			maximumNumberOfLinks = 0
-			addQueryStringMethod = GET
 		}
 	}
 }

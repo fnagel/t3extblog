@@ -22,8 +22,6 @@ plugin.tx_t3extblog {
 					itemsPerPage = 10
 					insertAbove = 0
 					insertBelow = 1
-					maximumNumberOfLinks = 100
-					addQueryStringMethod = GET
 				}
 
 				metadata {
@@ -115,7 +113,6 @@ plugin.tx_t3extblog {
 					itemsPerPage = 500
 					insertAbove = 0
 					insertBelow = 0
-					maximumNumberOfLinks = 100
 				}
 			}
 		}
