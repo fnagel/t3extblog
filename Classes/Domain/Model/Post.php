@@ -185,7 +185,7 @@ class Post extends AbstractLocalizedEntity
         $properties = parent::getPropertiesForSerialization();
 
         // Remove previewImage due to broken post preview
-        // @todo Fix this!
+        // @todo Preview: Fix this!
         unset($properties['previewImage']);
 
         return $properties;

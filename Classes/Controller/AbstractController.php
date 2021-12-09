@@ -178,9 +178,11 @@ abstract class AbstractController extends ActionController
                 'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
             ]);
         } else {
+            // @todo TYPO3 11: Fix this!
             parent::clearCacheOnError();
         }
 
+        // @todo TYPO3 11: Fix this!
         $this->response->setHeader('Cache-Control', 'private', true);
         $this->response->setHeader('Expires', '0', true);
         $this->response->setHeader('Pragma', 'no-cache', true);

@@ -38,7 +38,6 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
      * Fix flash message caching
      *
      * @todo Core bug, see https://github.com/fnagel/t3extblog/issues/112
-     *
      */
     public function render(): void
     {

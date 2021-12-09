@@ -28,6 +28,7 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      * Using a issueCommand VH link works as expected. Not needed for TYPO3 7.x.
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
+     * @todo TYPO3 11: Test this!
      *
      * {@inheritdoc}
      */

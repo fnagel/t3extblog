@@ -86,8 +86,7 @@ class GeneralUtility implements SingletonInterface
      * See https://forge.typo3.org/issues/23625
      *
      * @todo Workaround for bug in TYPO3
-     * @todo Since t3extblog v5: Check if this is still needed
-     *
+     * @todo TYPO3 11: Check if this is still needed
      */
     public static function isValidBackendUser(): bool
     {
@@ -95,7 +94,7 @@ class GeneralUtility implements SingletonInterface
         if (!isset($GLOBALS['BE_USER'])) {
             Bootstrap::initializeBackendUser();
         }
-        
+
         // Check for valid user
         return is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid']);
     }

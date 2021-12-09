@@ -45,19 +45,19 @@ abstract class AbstractEntity extends CoreAbstractEntity
 
     protected ?ObjectManagerInterface $objectManager = null;
 
-    
+
     public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
 
-    
+
     public function getCrdate(): \DateTime
     {
         return $this->crdate;
     }
 
-    
+
     public function getCreateDate(): \DateTime
     {
         return $this->getCrdate();
@@ -126,7 +126,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $data;
     }
 
-    
+
     protected function loadLazyRelation($relation)
     {
         if ($relation instanceof LazyLoadingProxy) {
@@ -157,7 +157,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         unset($properties['commentRepository']);
 
         // Remove lazy object storage as this will break post preview when serializing the post in form VH
-        // @todo Fix this!
+        // @todo Preview: Fix this!
         foreach ($properties as $key => $property) {
             if ($property instanceof LazyObjectStorage) {
                 unset($properties[$key]);

@@ -15,7 +15,6 @@ trait ProviderTrait
 {
     /**
      * @todo Add dashboard specific TSconfig based PID configuration
-     *
      */
     protected function getBlogPageUids(): array
     {
