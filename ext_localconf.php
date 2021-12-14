@@ -143,8 +143,7 @@ $requiredParameters = [
     'tx_t3extblog_blogsystem[tag]',
     'tx_t3extblog_blogsystem[category]',
     'tx_t3extblog_blogsystem[author]',
-    // @todo Fix this for TYPO3 11
-    'tx_t3extblog_blogsystem[@widget_0][currentPage]',
+    'tx_t3extblog_blogsystem[page]',
 
     'tx_t3extblog_subscriptionmanager[controller]',
     'tx_t3extblog_subscriptionmanager[action]',

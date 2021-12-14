@@ -30,7 +30,7 @@ class PostSubscriber extends AbstractSubscriber
      *
      * @Extbase\Validate("NotEmpty")
      */
-    protected int $postUid;
+    protected ?int $postUid = null;
 
     /**
      * post.

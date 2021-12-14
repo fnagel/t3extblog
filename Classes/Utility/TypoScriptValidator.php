@@ -27,10 +27,6 @@ class TypoScriptValidator
      *
      * @SuppressWarnings("PHPMD.CyclomaticComplexity")
      * @SuppressWarnings("PHPMD.NPathComplexity")
-     *
-     * @param array $settings
-     *
-     * @throws InvalidConfigurationException
      */
     public static function validateSettings(array $settings = null)
     {
@@ -81,7 +77,7 @@ class TypoScriptValidator
             );
         }
     }
-    
+
     /**
      * Check needed framework configuration.
      *

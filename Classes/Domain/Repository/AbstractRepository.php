@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -20,17 +21,11 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 abstract class AbstractRepository extends Repository
 {
-    /**
-     * @param int $pageUid
-     *
-     */
-    public function createQuery(int $pageUid = null): \TYPO3\CMS\Extbase\Persistence\QueryInterface
+    public function createQuery(int $pageUid = null): QueryInterface
     {
         $query = parent::createQuery();
 
         if ($pageUid !== null) {
-            $pageUid = (int) $pageUid;
-
             if ($pageUid >= 0) {
                 $query->getQuerySettings()->setStoragePageIds([$pageUid]);
             } else {
@@ -43,17 +38,12 @@ abstract class AbstractRepository extends Repository
 
     /**
      * Returns all objects with specific PID.
-     *
-     * @param int  $pid
-     * @param int  $limit
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByPage(int $pid = null, bool $respectEnableFields = true, int $limit = null)
+    public function findByPage(int $pid = null, bool $respectEnableFields = true, int $limit = null): QueryResultInterface
     {
         $query = $this->createQuery($pid);
 
-        if (is_int($limit)) {
+        if (is_int($limit) && $limit >= 1) {
             $query->setLimit($limit);
         }
 
@@ -68,25 +58,20 @@ abstract class AbstractRepository extends Repository
         return $query->execute();
     }
 
-    
     protected function getTableName(QueryInterface $query = null): string
     {
-        if (empty($query)) {
+        if ($query === null) {
             $query = $this->createQuery();
         }
 
         return $this->getTableNameByClass($query->getType());
     }
 
-    
     protected function getTableNameByClass(string $object): string
     {
         return $this->objectManager->get(DataMapper::class)->convertClassNameToTableName($object);
     }
 
-    /**
-     * @param string $table
-     */
     protected function escapeStrForLike(string $value, string $table = null): string
     {
         if ($table === null) {

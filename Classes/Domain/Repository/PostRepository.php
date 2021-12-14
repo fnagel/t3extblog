@@ -28,9 +28,6 @@ class PostRepository extends AbstractRepository
      * Override default findByUid function to enable also the option to turn of
      * the enableField setting.
      *
-     * @param int  $uid                 id of record
-     * @param bool $respectEnableFields if set to false, hidden records are shown
-     *
      */
     public function findByUid($uid, bool $respectEnableFields = true): Post
     {
@@ -52,10 +49,6 @@ class PostRepository extends AbstractRepository
 
     /**
      * Gets localized post by uid. No overlay.
-     *
-     * @param int  $uid                 id of record
-     * @param bool $respectEnableFields if set to false, hidden records are shown
-     *
      */
     public function findByLocalizedUid(int $uid, bool $respectEnableFields = true): Post
     {
@@ -92,10 +85,8 @@ class PostRepository extends AbstractRepository
 
     /**
      * Find all or filtered by tag, category or author.
-     *
-     * @return QueryResultInterface|null
      */
-    public function findByFilter($filter = null)
+    public function findByFilter($filter = null): ?QueryResultInterface
     {
         if ($filter === null) {
             return $this->findAll();
@@ -118,11 +109,8 @@ class PostRepository extends AbstractRepository
 
     /**
      * Finds posts by the specified tag.
-     *
-     *
-     * @return array|QueryResultInterface
      */
-    public function findByTag(string $tag)
+    public function findByTag(string $tag): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -135,11 +123,8 @@ class PostRepository extends AbstractRepository
 
     /**
      * Returns all objects of this repository with matching category.
-     *
-     *
-     * @return array|QueryResultInterface
      */
-    public function findByCategory(Category $category)
+    public function findByCategory(Category $category): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -161,17 +146,13 @@ class PostRepository extends AbstractRepository
 
     /**
      * Returns all hidden posts of a time frame from now.
-     *
-     * @param int    $limit
-     *
-     * @return array|QueryResultInterface
      */
-    public function findDrafts(int $pid = 0, int $limit = null, string $until = '-12 months')
+    public function findDrafts(int $pid = 0, int $limit = null, string $until = '-12 months'): QueryResultInterface
     {
-        $query = $this->createQuery((int) $pid);
+        $query = $this->createQuery($pid);
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-        if (is_int($limit)) {
+        if (is_int($limit) && $limit >= 1) {
             $query->setLimit($limit);
         }
 

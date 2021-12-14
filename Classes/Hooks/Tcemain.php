@@ -108,8 +108,7 @@ class Tcemain
         string $id,
         $value,
         DataHandler $tceMain
-    )
-    {
+    ) {
         if ($command === 'delete' && $table === 'tx_t3blog_post') {
             $this->deletePostRelations((int) $id);
         }

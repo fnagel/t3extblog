@@ -22,13 +22,11 @@ trait LoggingTrait
      */
     private ?LoggingServiceInterface $log = null;
 
-    
     public function injectLog(LoggingServiceInterface $log)
     {
         $this->log = $log;
     }
 
-    
     protected function getLog(): LoggingServiceInterface
     {
         if ($this->log === null) {
