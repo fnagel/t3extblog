@@ -58,7 +58,7 @@ class CommentController extends AbstractCommentController
      *
      * @param Post|null $post Show only comments related to this post
      */
-    public function listAction(Post $post = null): ResponseInterface
+    public function listAction(int $page = 1, Post $post = null): ResponseInterface
     {
         if ($post === null) {
             $comments = $this->commentRepository->findValid();
@@ -72,7 +72,11 @@ class CommentController extends AbstractCommentController
 
         $this->view->assign('comments', $comments);
 
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $comments,
+            $this->settings['latestComments']['paginate'],
+            $page
+        );
     }
 
     /**
@@ -80,11 +84,9 @@ class CommentController extends AbstractCommentController
      *
      * @param Post|null $post Show only comments related to this post
      */
-    public function latestAction(Post $post = null): ResponseInterface
+    public function latestAction(int $page = 1, Post $post = null): ResponseInterface
     {
-        $this->listAction($post);
-
-        return $this->htmlResponse();
+        return $this->listAction($page, $post);
     }
 
     /**

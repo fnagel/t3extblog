@@ -5,12 +5,18 @@
 
 <f:section name="main">
 
-	<f:if condition="{comments}">
-		<t3b:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.latestComments.paginate}">
-			<f:for each="{paginatedComments}" as="comment">
-				<f:render partial="Comment/Show" arguments="{post: comment.post, comment: comment}" />
-			</f:for>
-		</t3b:widget.paginate>
+	<f:if condition="{paginator.paginatedItems}">
+		<f:if condition="{settings.latestComments.paginate.insertAbove}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
+
+		<f:for each="{paginator.paginatedItems}" as="comment">
+			<f:render partial="Comment/Show" arguments="{post: comment.post, comment: comment}" />
+		</f:for>
+
+		<f:if condition="{settings.latestComments.paginate.insertBelow}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
 	</f:if>
 
 </f:section>
