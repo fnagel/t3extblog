@@ -11,15 +11,21 @@
 		{category.description}
 	</div>
 
-	<t3b:widget.paginate objects="{category.posts}" as="paginatedPosts" configuration="{settings.categories.paginate}">
-		<ul>
-		<f:for each="{paginatedPosts}" as="post">
+	<f:if condition="{settings.categories.paginate.insertAbove}">
+		<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+	</f:if>
+
+	<ul>
+		<f:for each="{paginator.paginatedItems}" as="post">
 			<li>
 				<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{post.linkParameter}">{post.title}</f:link.action>
 			</li>
 		</f:for>
-		</ul>
-	</t3b:widget.paginate>
+	</ul>
+
+	<f:if condition="{settings.categories.paginate.insertBelow}">
+		<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+	</f:if>
 
 </f:section>
 

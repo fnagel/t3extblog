@@ -10,33 +10,31 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
-use TYPO3\CMS\Extbase\Domain\Model\Category;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Domain\Model\Category;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * CategoryController.
  */
 class CategoryController extends AbstractController
 {
-    /**
-     * categoryRepository.
-     *
-     * @var CategoryRepository
-     */
-    protected $categoryRepository;
+    protected CategoryRepository $categoryRepository;
+    protected PostRepository $postRepository;
 
     /**
      * CategoryController constructor.
-     *
      */
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->postRepository = $postRepository;
     }
 
     /**
      * action list.
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $categories = $this->categoryRepository->findAll();
 
@@ -44,14 +42,22 @@ class CategoryController extends AbstractController
         $this->addCacheTags($categories->getFirst());
 
         $this->view->assign('categories', $categories);
+
+        return $this->htmlResponse();
     }
 
     /**
      * action show.
      */
-    public function showAction(Category $category)
+    public function showAction(Category $category, int $page = 1): ResponseInterface
     {
         $this->addCacheTags($category);
         $this->view->assign('category', $category);
+
+        return $this->paginationHtmlResponse(
+            $this->postRepository->findByCategory($category),
+            $this->settings['categories']['paginate'],
+            $page
+        );
     }
 }
