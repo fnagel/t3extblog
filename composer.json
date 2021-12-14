@@ -31,7 +31,7 @@
     "squizlabs/php_codesniffer": "^3.5",
     "friendsofphp/php-cs-fixer": "^2.19",
     "phpmd/phpmd": "^2.8",
-    "php-parallel-lint/php-parallel-lint": "^0.4",
+    "php-parallel-lint/php-parallel-lint": "^1.3",
     "helmich/typo3-typoscript-lint": "^2.1",
     "rector/rector": "^0.12"
   },
