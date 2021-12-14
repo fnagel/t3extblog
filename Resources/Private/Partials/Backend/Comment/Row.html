@@ -2,9 +2,9 @@
 			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
-<tr class="db_list_normal{f:if(condition: '{comment.valid}', else: ' warning')}">
-	<td class="col-icon">
-		<a href="#" class="t3js-contextmenutrigger" data-uid="{comment.uid}" data-table="tx_t3blog_com" title="{comment.uid}">
+<tr class="{f:if(condition: '{comment.valid}', else: ' warning')}">
+	<td>
+		<a href="#" data-uid="{comment.uid}" data-table="tx_t3blog_com" title="{comment.uid}">
 			<t3b:spriteIconForRecord table="tx_t3blog_com" object="{comment}" />
 		</a>
 	</td>

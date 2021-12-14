@@ -8,11 +8,11 @@
 </f:section>
 
 <f:section name="main">
-	<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
+	<f:render partial="Backend/PendingComments" arguments="{pendingCommentsCount: pendingCommentsCount, addLink: 1}" />
 
 	<f:render
 		partial="Backend/Comment/Table"
-		arguments="{comments: comments,	dateTimeFormat: dateTimeFormat}" />
+		arguments="{paginator: paginator, pagination: pagination,	dateTimeFormat: dateTimeFormat}" />
 </f:section>
 
 </html>

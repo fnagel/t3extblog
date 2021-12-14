@@ -11,7 +11,7 @@
 	<div id="pending-comments-list">
 		<f:render
 			partial="Backend/Comment/Table"
-			arguments="{comments: pendingComments, dateTimeFormat: dateTimeFormat}" />
+			arguments="{paginator: paginator, pagination: pagination,	dateTimeFormat: dateTimeFormat}" />
 	</div>
 </f:section>
 

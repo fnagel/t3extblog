@@ -78,20 +78,6 @@ class CommentRepository extends AbstractRepository
     }
 
     /**
-     * Finds comments by email and post uid.
-     */
-    public function findByEmailAndPostId(string $email, int $postUid): QueryResultInterface
-    {
-        $query = $this->createQuery();
-
-        $query->matching(
-            $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
-        );
-
-        return $query->execute();
-    }
-
-    /**
      * Finds valid comments by email and post uid.
      */
     public function findValidByEmailAndPostId(string $email, int $postUid): QueryResultInterface
@@ -108,18 +94,38 @@ class CommentRepository extends AbstractRepository
         return $query->execute();
     }
 
+    protected function createPendingQuery(int $pid = null, Post $post = null, int $limit = null): QueryInterface
+    {
+        $query = $this->createQuery($pid);
+
+        if (is_int($limit) && $limit >= 1) {
+            $query->setLimit($limit);
+        }
+
+        $constraints = [
+            $this->getPendingConstraints($query)
+        ];
+
+        if ($post !== null) {
+            $constraints[] = $query->equals('postId', $post->getUid());
+        }
+
+        $query->matching(
+            $query->logicalAnd($constraints)
+        );
+
+        return $query;
+    }
+
     /**
      * Finds pending comments by email and post uid.
      */
     public function findPendingByEmailAndPostId(string $email, int $postUid): QueryResultInterface
     {
-        $query = $this->createQuery();
+        $query = $this->createPendingQuery();
 
         $query->matching(
-            $query->logicalAnd([
-                $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
-                $this->getPendingConstraints($query),
-            ])
+            $query->logicalAnd($this->getFindByEmailAndPostIdConstraints($query, $email, $postUid))
         );
 
         return $query->execute();
@@ -127,33 +133,34 @@ class CommentRepository extends AbstractRepository
 
     /**
      * Finds pending comments by post.
+     *
+     * @todo Remove in version 8
+     *
+     * @deprecated
      */
     public function findPendingByPost(Post $post): QueryResultInterface
     {
-        $query = $this->createQuery();
+        return $this->createPendingQuery(null, $post)->execute();
+    }
 
-        $query->matching(
-            $query->logicalAnd([
-                $query->equals('postId', $post->getUid()),
-                $this->getPendingConstraints($query),
-            ])
-        );
-
-        return $query->execute();
+    /**
+     * Count pending comments by post.
+     */
+    public function countPendingByPost(Post $post): int
+    {
+        return $this->createPendingQuery(null, $post)->count();
     }
 
     /**
      * Finds all pending comments.
+     *
+     * @todo Remove in version 8
+     *
+     * @deprecated
      */
     public function findPending(): QueryResultInterface
     {
-        $query = $this->createQuery();
-
-        $query->matching(
-            $this->getPendingConstraints($query)
-        );
-
-        return $query->execute();
+        return $this->createPendingQuery()->execute();
     }
 
     /**
@@ -161,17 +168,15 @@ class CommentRepository extends AbstractRepository
      */
     public function findPendingByPage(int $pid = 0, int $limit = null): QueryResultInterface
     {
-        $query = $this->createQuery((int) $pid);
+        return $this->createPendingQuery($pid, null, $limit)->execute();
+    }
 
-        if (is_int($limit)) {
-            $query->setLimit($limit);
-        }
-
-        $query->matching(
-            $this->getPendingConstraints($query)
-        );
-
-        return $query->execute();
+    /**
+     * Count all pending comments by page.
+     */
+    public function countPendingByPage(int $pid = 0): int
+    {
+        return $this->createPendingQuery($pid)->count();
     }
 
     /**
@@ -179,12 +184,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, string $email, int $postUid): AndInterface
     {
-        $constraints = $query->logicalAnd([
+        return $query->logicalAnd([
             $query->equals('email', $email),
             $query->equals('postId', $postUid),
         ]);
-
-        return $constraints;
     }
 
     /**
@@ -192,12 +195,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getValidConstraints(QueryInterface $query): AndInterface
     {
-        $constraints = $query->logicalAnd([
+        return $query->logicalAnd([
             $query->equals('spam', 0),
             $query->equals('approved', 1),
         ]);
-
-        return $constraints;
     }
 
     /**
@@ -205,11 +206,9 @@ class CommentRepository extends AbstractRepository
      */
     protected function getPendingConstraints(QueryInterface $query): OrInterface
     {
-        $constraints = $query->logicalOr([
+        return $query->logicalOr([
             $query->equals('spam', 1),
             $query->equals('approved', 0),
         ]);
-
-        return $constraints;
     }
 }

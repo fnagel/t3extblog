@@ -2,14 +2,17 @@
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <div class="panel panel-space panel-default">
-	<f:if condition="{comments}">
+	<f:if condition="{paginator.paginatedItems}">
 		<f:then>
 			<div class="table-fit">
-			<t3b:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.backend.comments.paginate}">
-				<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+				<f:if condition="{settings.backend.comments.paginate.insertAbove}">
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+				</f:if>
+
+				<table class="table table-striped table-hover">
 					<thead>
-						<tr class="t3-row-header">
-							<td>&nbsp;</td>
+						<tr>
+							<td style="width: 35px;">&nbsp;</td>
 							<td><f:translate key="module.comment.table.title" /></td>
 							<td><f:translate key="module.comment.table.date" /></td>
 							<td><f:translate key="module.comment.table.author" /></td>
@@ -21,9 +24,9 @@
 						</tr>
 					</thead>
 
-					<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
-						<tr class="c-headLine">
-							<td colspan="9" class="col-title">
+					<f:groupedFor each="{paginator.paginatedItems}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
+						<tr>
+							<td colspan="9">
 								<b><t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" /></b>
 							</td>
 						</tr>
@@ -39,7 +42,10 @@
 						</td>
 					</tr>
 				</table>
-			</t3b:widget.paginate>
+
+				<f:if condition="{settings.backend.comments.paginate.insertBelow}">
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+				</f:if>
 			</div>
 		</f:then>
 		<f:else>

@@ -19,24 +19,24 @@ class BackendSubscriberController extends AbstractBackendController
     /**
      * Show post subscribers.
      */
-    public function indexPostSubscriberAction(): ResponseInterface
+    public function indexPostSubscriberAction(int $page = 1): ResponseInterface
     {
-        $this->view->assignMultiple([
-            'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, false),
-        ]);
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->postSubscriberRepository->findByPage($this->pageId, false),
+            $this->settings['backend']['subscriber']['post']['paginate'],
+            $page
+        );
     }
 
     /**
      * Show blog subscribers.
      */
-    public function indexBlogSubscriberAction(): ResponseInterface
+    public function indexBlogSubscriberAction(int $page = 1): ResponseInterface
     {
-        $this->view->assignMultiple([
-            'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, false),
-        ]);
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->blogSubscriberRepository->findByPage($this->pageId, false),
+            $this->settings['backend']['subscriber']['blog']['paginate'],
+            $page
+        );
     }
 }

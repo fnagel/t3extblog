@@ -4,11 +4,10 @@
 
 <div class="table-fit">
 
-<t3b:widget.paginate objects="{comments}" as="paginatedComments" configuration="{settings.backend.dashboard.comments.paginate}">
-	<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+	<table class="typo3-dblist table table-striped table-hover">
 		<thead>
-			<tr class="t3-row-header">
-				<td>&nbsp;</td>
+			<tr>
+				<td style="width: 35px;">&nbsp;</td>
 				<td><f:translate key="module.comment.table.author" /></td>
 				<td><f:translate key="module.comment.table.date" /></td>
 				<td>&nbsp;</td>
@@ -17,9 +16,9 @@
 
 		<tbody>
 
-		<f:groupedFor each="{paginatedComments}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
-			<tr class="c-headLine">
-				<td colspan="4" class="col-title">
+		<f:groupedFor each="{comments}" as="commentsByPost" groupBy="postId" groupKey="currentPostUid">
+			<tr>
+				<td colspan="4">
 					<b>
 						<f:format.crop maxCharacters="50" respectWordBoundaries="0">
 							<t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" />
@@ -27,10 +26,10 @@
 					</b>
 				</td>
 			</tr>
-			<f:for each="{paginatedCommentsByPost}" as="comment">
-				<tr class="db_list_normal{f:if(condition: '{comment.valid}', else: ' warning')}">
-					<td class="col-icon">
-						<a href="#" class="t3js-contextmenutrigger" data-uid="{comment.uid}" data-table="tx_t3blog_com" title="{comment.uid}">
+			<f:for each="{commentsByPost}" as="comment">
+				<tr class="{f:if(condition: '{comment.valid}', else: 'warning')}">
+					<td>
+						<a href="#" data-uid="{comment.uid}" data-table="tx_t3blog_com" title="{comment.uid}">
 							<t3b:backend.spriteIconForRecord table="tx_t3blog_com" object="{comment}" />
 						</a>
 					</td>
@@ -95,7 +94,6 @@
 		</f:groupedFor>
 		</tbody>
 	</table>
-</t3b:widget.paginate>
 
 </div>
 

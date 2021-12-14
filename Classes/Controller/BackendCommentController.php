@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * BackendCommentController.
@@ -21,25 +22,56 @@ class BackendCommentController extends AbstractBackendController
     /**
      * Displays all comments.
      */
-    public function indexAction(): ResponseInterface
+    public function indexAction(int $page = 1): ResponseInterface
     {
-        $this->view->assign('comments', $this->commentRepository->findByPage($this->pageId));
-        $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+        $this->view->assign('pendingCommentsCount', $this->commentRepository->countPendingByPage($this->pageId));
 
-        return $this->htmlResponse();
+        return $this->response(
+            $this->commentRepository->findByPage($this->pageId),
+            $page
+        );
     }
 
     /**
      * Displays all pending comments.
      */
-    public function listPendingAction(): ResponseInterface
+    public function listPendingAction(int $page = 1): ResponseInterface
     {
-        $this->view->assign('pendingComments', $this->commentRepository->findPendingByPage($this->pageId));
+        return $this->response(
+            $this->commentRepository->findPendingByPage($this->pageId),
+            $page
+        );
+    }
+
+    /**
+     * Displays all comments for a post.
+     */
+    public function listByPostAction(Post $post, int $page = 1): ResponseInterface
+    {
+        $this->view->assignMultiple([
+            'post' => $this->postRepository->findOneByUid($post),
+            'pendingCommentsCount' => $this->commentRepository->countPendingByPost($post),
+        ]);
+
+        return $this->response(
+            $this->commentRepository->findByPost($post, false),
+            $page
+        );
+    }
+
+    protected function response(QueryResultInterface $result, int $page = 1): ResponseInterface
+    {
+        $this->view->assignMultiple(
+            $this->getPaginationViewVariables(
+                $result,
+                $this->settings['backend']['comments']['paginate'],
+                $page
+            )
+        );
 
         return $this->htmlResponse();
     }
 
-    
     protected function getViewHeaderButtonItems(): array
     {
         $items = parent::getViewHeaderButtonItems();
@@ -54,21 +86,5 @@ class BackendCommentController extends AbstractBackendController
         }
 
         return $items;
-    }
-
-    /**
-     * Displays all comments for a post.
-     *
-     * @param Post $post The post
-     */
-    public function listByPostAction(Post $post): ResponseInterface
-    {
-        $this->view->assignMultiple([
-            'post' => $this->postRepository->findOneByUid($post),
-            'comments' => $this->commentRepository->findByPost($post, false),
-            'pendingComments' => $this->commentRepository->findPendingByPost($post),
-        ]);
-
-        return $this->htmlResponse();
     }
 }

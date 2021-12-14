@@ -9,7 +9,7 @@
 
 <f:section name="main">
 	<div id="dashboard">
-		<f:render partial="Backend/PendingComments" arguments="{pendingComments: pendingComments, addLink: 1}" />
+		<f:render partial="Backend/PendingComments" arguments="{pendingCommentsCount: pendingCommentsCount, addLink: 1}" />
 
 		<div class="grid" style="width: 28%; margin-right: 2%;">
 			<div class="panel panel-default" id="dashboard-actions">
@@ -47,8 +47,7 @@
 						<f:translate key="module.dashboard.drafts" />
 					</div>
 
-					<f:render partial="Backend/Dashboard/Posts"
-						arguments="{posts: postDrafts, dateTimeFormat: dateTimeFormat}" />
+					<f:render partial="Backend/Dashboard/Posts" arguments="{posts: postDrafts, dateTimeFormat: dateTimeFormat}" />
 				</div>
 			</f:if>
 
@@ -97,10 +96,10 @@
 				</div>
 
 				<div class="table-fit">
-					<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+					<table class="typo3-dblist table table-striped table-hover">
 						<thead>
 						<tr class="t3-row-header">
-							<td>&nbsp;</td>
+							<td style="width: 35px;">&nbsp;</td>
 							<td><f:translate key="module.subscriber.post.table.email" /></td>
 							<td><f:translate key="module.subscriber.post.table.date" /></td>
 							<td>&nbsp;</td>
@@ -117,10 +116,8 @@
 						</tr>
 						<f:if condition="{postSubscribers}">
 							<f:then>
-								<t3b:widget.paginate objects="{postSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.post.paginate}">
-									<f:render partial="Backend/Dashboard/Subscriber"
-														arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_com_nl', dateTimeFormat: dateTimeFormat}" />
-								</t3b:widget.paginate>
+								<f:render partial="Backend/Dashboard/Subscriber"
+													arguments="{subscribers: postSubscribers, table: 'tx_t3blog_com_nl', dateTimeFormat: dateTimeFormat}" />
 							</f:then>
 							<f:else>
 								<tr class="db_list_normal">
@@ -138,10 +135,8 @@
 						</tr>
 						<f:if condition="{blogSubscribers}">
 							<f:then>
-								<t3b:widget.paginate objects="{blogSubscribers}" as="paginatedPostSubscribers" configuration="{settings.backend.dashboard.subscriber.blog.paginate}">
-									<f:render partial="Backend/Dashboard/Subscriber"
-														arguments="{subscribers: paginatedPostSubscribers, table: 'tx_t3blog_blog_nl', dateTimeFormat: dateTimeFormat}" />
-								</t3b:widget.paginate>
+								<f:render partial="Backend/Dashboard/Subscriber"
+													arguments="{subscribers: blogSubscribers, table: 'tx_t3blog_blog_nl', dateTimeFormat: dateTimeFormat}" />
 							</f:then>
 							<f:else>
 								<tr class="db_list_normal">

@@ -7,16 +7,10 @@ plugin.tx_t3extblog.settings {
 		dashboard {
 			postDrafts.paginate {
 				itemsPerPage = 5
-				insertAbove = 0
-				insertBelow = 0
-				maximumNumberOfLinks = 0
 			}
 
 			comments.paginate {
 				itemsPerPage = 5
-				insertAbove = 0
-				insertBelow = 0
-				maximumNumberOfLinks = 0
 			}
 
 			subscriber {
@@ -40,14 +34,12 @@ plugin.tx_t3extblog.settings {
 			itemsPerPage = 15
 			insertAbove = 0
 			insertBelow = 1
-			maximumNumberOfLinks = 100
 		}
 
 		comments.paginate {
 			itemsPerPage = 20
 			insertAbove = 0
 			insertBelow = 1
-			maximumNumberOfLinks = 100
 		}
 
 		subscriber {
@@ -55,14 +47,12 @@ plugin.tx_t3extblog.settings {
 				itemsPerPage = 10
 				insertAbove = 0
 				insertBelow = 1
-				maximumNumberOfLinks = 100
 			}
 
 			blog.paginate {
 				itemsPerPage = 15
 				insertAbove = 0
 				insertBelow = 1
-				maximumNumberOfLinks = 100
 			}
 		}
 	}

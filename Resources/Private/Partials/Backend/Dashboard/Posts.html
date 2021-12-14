@@ -4,20 +4,19 @@
 
 <div class="table-fit">
 
-<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.backend.dashboard.postDrafts.paginate}">
-	<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist table table-striped table-hover">
+	<table class="table table-striped table-hover">
 		<thead>
-			<tr class="t3-row-header">
-				<td>&nbsp;</td>
+			<tr>
+				<td style="width: 35px;">&nbsp;</td>
 				<td><f:translate key="module.post.table.title" /></td>
 				<td><f:translate key="module.post.table.author" /></td>
 			</tr>
 		</thead>
 
-		<f:for each="{paginatedPosts}" as="post">
-			<tr class="db_list_normal">
-				<td class="col-icon">
-					<a href="#" class="t3js-contextmenutrigger" data-uid="{post.uid}" data-table="tx_t3blog_post" title="{post.uid}">
+		<f:for each="{posts}" as="post">
+			<tr>
+				<td>
+					<a href="#" data-uid="{post.uid}" data-table="tx_t3blog_post" title="{post.uid}">
 						<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 					</a>
 				</td>
@@ -31,7 +30,6 @@
 			</tr>
 		</f:for>
 	</table>
-</t3b:widget.paginate>
 
 </div>
 

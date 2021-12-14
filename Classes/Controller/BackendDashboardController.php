@@ -21,14 +21,30 @@ class BackendDashboardController extends AbstractBackendController
      */
     public function indexAction(): ResponseInterface
     {
+        $settings = $this->settings['backend']['dashboard'];
+
         $this->view->assignMultiple([
-            'postDrafts' => $this->postRepository->findDrafts($this->pageId),
-            'comments' => $this->commentRepository->findByPage($this->pageId),
-            'pendingComments' => $this->commentRepository->findPendingByPage($this->pageId),
-            'postSubscribers' => $this->postSubscriberRepository->findByPage($this->pageId, false),
-            'blogSubscribers' => $this->blogSubscriberRepository->findByPage($this->pageId, false),
+            'postDrafts' => $this->postRepository->findDrafts(
+                $this->pageId,
+                (int)$settings['postDrafts']['paginate']['itemsPerPage']
+            ),
+            'comments' => $this->commentRepository->findByPage(
+                $this->pageId,
+                (int)$settings['comments']['paginate']['itemsPerPage']
+            ),
+            'postSubscribers' => $this->postSubscriberRepository->findByPage(
+                $this->pageId,
+                false,
+                (int)$settings['subscriber']['post']['paginate']['itemsPerPage']
+            ),
+            'blogSubscribers' => $this->blogSubscriberRepository->findByPage(
+                $this->pageId,
+                false,
+                (int)$settings['subscriber']['blog']['paginate']['itemsPerPage']
+            ),
             // For statistic
             'postCount' => $this->postRepository->findByPage($this->pageId)->count(),
+            'pendingCommentsCount' => $this->commentRepository->countPendingByPage($this->pageId),
             'validCommentsCount' => $this->commentRepository->findValid($this->pageId)->count(),
             'validPostSubscribersCount' => $this->postSubscriberRepository->findByPage($this->pageId)->count(),
             'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),

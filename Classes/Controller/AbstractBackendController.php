@@ -19,6 +19,7 @@ use FelixNagel\T3extblog\Utility\BlogPageSearchUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -27,7 +28,9 @@ use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Utility\TypoScriptValidator;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * AbstractBackendController.
@@ -85,7 +88,6 @@ abstract class AbstractBackendController extends ActionController
 
     /**
      * BackendBaseController constructor.
-     *
      */
     public function __construct(
         PostRepository $postRepository,
@@ -101,8 +103,6 @@ abstract class AbstractBackendController extends ActionController
 
     /**
      * Load and persist module data.
-     *
-     * @inheritdoc
      */
     public function processRequest(RequestInterface $request): ResponseInterface
     {
@@ -111,8 +111,9 @@ abstract class AbstractBackendController extends ActionController
 
         // We "finally" persist the module data.
         try {
-            parent::processRequest($request);
+            $response = parent::processRequest($request);
             $persistenceManager->persistAll();
+            return $response;
         } catch (StopActionException $exception) {
             $persistenceManager->persistAll();
             throw $exception;
@@ -164,7 +165,6 @@ abstract class AbstractBackendController extends ActionController
         ]);
     }
 
-    
     protected function getViewHeaderMenuItems(): array
     {
         return [
@@ -209,7 +209,6 @@ abstract class AbstractBackendController extends ActionController
         ];
     }
 
-    
     protected function getViewHeaderButtonItems(): array
     {
         return [
@@ -233,8 +232,6 @@ abstract class AbstractBackendController extends ActionController
 
     /**
      * Initialize actions.
-     *
-     * @throws InvalidConfigurationException
      */
     protected function initializeAction()
     {
@@ -256,9 +253,28 @@ abstract class AbstractBackendController extends ActionController
         }
     }
 
+    protected function paginationHtmlResponse(
+        QueryResultInterface $result,
+        array $paginationConfig,
+        int $page = 1
+    ): ResponseInterface {
+        $this->view->assignMultiple($this->getPaginationViewVariables($result, $paginationConfig, $page));
+
+        return $this->htmlResponse();
+    }
+
+    protected function getPaginationViewVariables(QueryResultInterface $result, array $paginationConfig, int $page = 1): array
+    {
+        $paginator = new QueryResultPaginator($result, $page, (int)$paginationConfig['itemsPerPage'] ?: 10);
+
+        return [
+            'paginator' => $paginator,
+            'pagination' => new SimplePagination($paginator),
+        ];
+    }
+
     /**
      * Check blog related page info.
-     *
      */
     protected function getBlogRelatedPageInfo(): array
     {
@@ -275,13 +291,11 @@ abstract class AbstractBackendController extends ActionController
         ];
     }
 
-    
     protected function translate(string $key): string
     {
         return $this->getLanguageService()->sL('LLL:EXT:t3extblog/Resources/Private/Language/locallang.xlf:' . $key);
     }
 
-    
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];

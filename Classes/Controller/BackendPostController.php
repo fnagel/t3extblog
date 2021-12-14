@@ -20,15 +20,15 @@ use Psr\Http\Message\ResponseInterface;
 class BackendPostController extends AbstractBackendController
 {
     /**
-     * Main Backendmodule: displays posts and pending comments.
+     * Displays posts.
      */
-    public function indexAction(): ResponseInterface
+    public function indexAction(int $page = 1): ResponseInterface
     {
-        $this->view->assignMultiple([
-            'posts' => $this->postRepository->findByPage($this->pageId, false),
-        ]);
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->postRepository->findByPage($this->pageId, false),
+            $this->settings['backend']['posts']['paginate'],
+            $page
+        );
     }
 
     /**
