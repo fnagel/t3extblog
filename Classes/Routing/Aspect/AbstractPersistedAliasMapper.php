@@ -12,7 +12,6 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\Routing\Aspect\PersistedAliasMapper;
-use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -20,7 +19,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class AbstractPersistedAliasMapper extends PersistedAliasMapper
 {
-    use SiteLanguageAwareTrait;
     use LoggingTrait;
 
     protected function logNotFound($message)

@@ -18,26 +18,11 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 class PostMapper extends AbstractPersistedAliasMapper
 {
-    /**
-     * @var string
-     */
-    protected $datePrefix;
-
-    /**
-     * @var string
-     */
-    protected $datePrefixRegex;
-
+    protected string $datePrefix;
+    protected string $datePrefixRegex;
     protected bool $datePrefixLowercase = false;
+    protected string $dateFieldName;
 
-    /**
-     * @var string
-     */
-    protected $dateFieldName;
-
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function __construct(array $settings)
     {
         // Set defaults
@@ -56,12 +41,12 @@ class PostMapper extends AbstractPersistedAliasMapper
             if (!is_string($datePrefix)) {
                 throw new \InvalidArgumentException('datePrefix must be string', 1537277134);
             }
-            
+
             $date = new \DateTime();
             if (empty($date->format($datePrefix))) {
                 throw new \InvalidArgumentException('datePrefix must be valid DateTime value', 1550748751);
             }
-            
+
             if (!is_string($datePrefixRegex)) {
                 throw new \InvalidArgumentException('datePrefixRegex must be string', 1611742603);
             }
@@ -84,24 +69,18 @@ class PostMapper extends AbstractPersistedAliasMapper
             return parent::generate($value);
         }
 
-        $result = $this->getPersistenceDelegate()->generate([
-            'uid' => $value
-        ]);
+        $result = $this->findByIdentifier($value);
         $result = $this->resolveOverlay($result);
 
         if (!isset($result[$this->routeFieldName])) {
             return null;
         }
 
-        $value = (string)$result[$this->routeFieldName];
-        $value = $this->getRouteValueFromResult($result, $value);
-
-        return $this->purgeRouteValuePrefix($value);
+        return $this->purgeRouteValuePrefix(
+            $this->getRouteValueFromResult($result, (string)$result[$this->routeFieldName])
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolve(string $value): ?string
     {
         if ($this->datePrefix === null) {
@@ -119,18 +98,17 @@ class PostMapper extends AbstractPersistedAliasMapper
         }
 
         // Remove possible appended route string (e.g. "/comment")
-        // Needed since TYPO3 9.5.15 and https://forge.typo3.org/issues/88291
+        // Needed since TYPO3 9.5.15 and https://forge.typ  o3.org/issues/88291
+        // @todo TYPO3 11 Test if this is still needed, if yes: remove condition, if no: remove
         if (version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), '9.5.15', '>=')) {
-            $valueSplit = preg_split('#/#', $value);
+            $valueSplit = explode("/", $value);
             if ($valueSplit > 0) {
                 $value =  $valueSplit[0];
             }
         }
 
         $value = $this->routeValuePrefix . $this->purgeRouteValuePrefix($value);
-        $result = $this->getPersistenceDelegate()->resolve([
-            $this->routeFieldName => $value
-        ]);
+        $result = $this->findByRouteFieldValue($value);
 
         if ($result === null) {
             $this->logNotFound('Invalid blog post slug given!');
@@ -154,7 +132,6 @@ class PostMapper extends AbstractPersistedAliasMapper
         return null;
     }
 
-    
     protected function getRouteValueFromResult(array $result, string $value): string
     {
         $date = new \DateTime(date('c', (int)$result[$this->dateFieldName]));
@@ -172,9 +149,6 @@ class PostMapper extends AbstractPersistedAliasMapper
         return $value;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function buildPersistenceFieldNames(): array
     {
         $fields = parent::buildPersistenceFieldNames();

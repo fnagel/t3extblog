@@ -32,15 +32,17 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     }
 
     /**
-     * {@inheritdoc}
+     * Check if tag is in any post tag cloud CSV field
+     * Return plain value as the field may contain multiple tags
+     *
+     * @inheritDoc
      */
     public function generate(string $value): ?string
     {
-        $result = $this->getPersistenceDelegate()->exists([
-            $this->routeFieldName => $value
-        ]);
+        $result = $this->findByIdentifier($value);
+        $result = $this->resolveOverlay($result);
 
-        if (!$result) {
+        if (!isset($result[$this->routeFieldName])) {
             return null;
         }
 
@@ -48,43 +50,43 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     }
 
     /**
-     * {@inheritdoc}
+     * Check if tag is in any post tag cloud CSV field
+     * Return given value when existing.
+     *
+     * @inheritDoc
      */
     public function resolve(string $value): ?string
     {
-        $value = $this->routeValuePrefix . $this->purgeRouteValuePrefix($value);
+        $value = $this->purgeRouteValuePrefix($value);
 
-        $result = $this->getPersistenceDelegate()->resolve([
-            $this->routeFieldName => $value
-        ]);
-
-        if ($result === false) {
-            return null;
+        if ($value && $this->generate($value)) {
+            return $value;
         }
 
-        return $value;
+        return null;
     }
 
-
-    
-    protected function createFieldConstraints(QueryBuilder $queryBuilder, array $values): array
+    /**
+     * Search in post tag cloud field (CSV field)
+     * Search with a space before and after due to FIND_IN_SET limitations
+     *
+     * @inheritDoc
+     */
+    protected function findByIdentifier(string $value): ?array
     {
-        if (!$this->isFieldNameCsv) {
-            return parent::createFieldConstraints($queryBuilder, $values);
-        }
-
-        $constraints = [];
-
-        foreach ($values as $fieldName => $fieldValue) {
-            $constraints[] = $queryBuilder->expr()->in(
-                $fieldName,
-                $queryBuilder->createNamedParameter(
-                    $fieldValue,
-                    \PDO::PARAM_STR
+        $queryBuilder = $this->createQueryBuilder();
+        $result = $queryBuilder
+            ->select(...$this->persistenceFieldNames)
+            ->where(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote($value)),
+                    $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote(' '.$value)),
+                    $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote($value.' '))
                 )
-            );
-        }
+            )
+            ->execute()
+            ->fetchAssociative();
 
-        return $constraints;
+        return $result !== false ? $result : null;
     }
 }
