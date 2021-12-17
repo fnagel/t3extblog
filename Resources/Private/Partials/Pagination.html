@@ -3,14 +3,14 @@
         <f:then>
             <li class="page-item first">
                 <a class="page-link"
-                   href="{f:uri.action(action:actionName, arguments: {page: 1}, addQueryString: 1)}"
+                   href="{f:uri.action(arguments: {page: 1})}"
                    title="{f:translate(key:'pagination.first')}">
                     <<
                 </a>
             </li>
             <li class="page-item previous">
                 <a  class="page-link"
-                    href="{f:uri.action(action:actionName, arguments: {page: pagination.previousPageNumber}, addQueryString: 1)}"
+                    href="{f:uri.action(arguments: {page: pagination.previousPageNumber})}"
                     title="{f:translate(key:'pagination.previous')}">
                     <
                 </a>
@@ -33,7 +33,7 @@
     <f:for each="{pagination.allPageNumbers}" as="page">
         <li class="page-item {f:if(condition: '{page} == {paginator.currentPageNumber}', then: 'active')}">
             <a class="page-link"
-               href="{f:uri.action(action:actionName, arguments: {page: page}, addQueryString: 1)}">
+               href="{f:uri.action(arguments: {page: page})}">
                 {page}
             </a>
         </li>
@@ -47,14 +47,14 @@
         <f:then>
             <li class="page-item next">
                 <a  class="page-link"
-                    href="{f:uri.action(action:actionName, arguments: {page: pagination.nextPageNumber}, addQueryString: 1)}"
+                    href="{f:uri.action(arguments: {page: pagination.nextPageNumber})}"
                     title="{f:translate(key:'pagination.next')}">
                     >
                 </a>
             </li>
             <li class="page-item last">
                 <a class="page-link"
-                   href="{f:uri.action(action:actionName, arguments: {page: pagination.lastPageNumber}, addQueryString: 1)}"
+                   href="{f:uri.action(arguments: {page: pagination.lastPageNumber})}"
                    title="{f:translate(key:'pagination.last')}">
                     >>
                 </a>

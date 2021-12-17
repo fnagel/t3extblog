@@ -12,7 +12,7 @@ routeEnhancers:
       - routePath: '/{post_page_localized}/{post_page}'
         _controller: 'Post::list'
         _arguments:
-          'post_page': '@widget_0/currentPage'
+          'post_page': 'page'
       - routePath: '/{post_prefix_localized}/{post_title}'
         _controller: 'Post::show'
         _arguments:
@@ -33,7 +33,7 @@ routeEnhancers:
         _controller: 'Post::author'
         _arguments:
           'author_title': 'author'
-          'post_page': '@widget_0/currentPage'
+          'post_page': 'page'
       - routePath: '/{tag_prefix_localized}/{tag_title}'
         _controller: 'Post::tag'
         _arguments:
@@ -42,7 +42,7 @@ routeEnhancers:
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
-          'post_page': '@widget_0/currentPage'
+          'post_page': 'page'
       - routePath: '/{category_prefix_localized}/{category_title}'
         _controller: 'Post::category'
         _arguments:
@@ -51,7 +51,7 @@ routeEnhancers:
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
-          'post_page': '@widget_0/currentPage'
+          'post_page': 'page'
     requirements:
       post_page: '\d+'
       post_permalink_uid: '\d+'
@@ -60,16 +60,16 @@ routeEnhancers:
       category_title: '^[\p{Ll}\d\-\_]+$'
       tag_title: '^[\p{Ll}\d\-\_\.\!\# ]+$'
     aspects:
-      post_page:
-        type: StaticRangeMapper
-        start: '1'
-        end: '99'
-      post_page_localized:
-        type: LocaleModifier
-        default: 'page'
-        localeMap:
-          - locale: 'de_DE.*'
-            value: 'seite'
+#      post_page:
+#        type: StaticRangeMapper
+#        start: '1'
+#        end: '99'
+#      post_page_localized:
+#        type: LocaleModifier
+#        default: 'page'
+#        localeMap:
+#          - locale: 'de_DE.*'
+#            value: 'seite'
       post_title:
         type: T3extblogPostMapper
         # Remove to disable date segment in the URL
