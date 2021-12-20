@@ -10,15 +10,11 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-
 /**
  * PostTagMapper
  */
 class PostTagMapper extends AbstractPersistedAliasMapper
 {
-    protected bool $isFieldNameCsv = true;
-
     /**
      * @throws \InvalidArgumentException
      */
