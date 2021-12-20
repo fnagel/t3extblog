@@ -53,7 +53,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-    "typo3/cms-seo": "^10"
+    "typo3/cms-seo": "^11"
   },
   "config": {
     "vendor-dir": ".Build/vendor",
