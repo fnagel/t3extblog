@@ -84,9 +84,16 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-            sys_language_uid,email,hidden,
+            sys_language_uid, email,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_blog_nl.tabs.meta,
-                lastsent, code, privacy_policy_accepted'
+                lastsent, code,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility'
+        ],
+    ],
+    'palettes' => [
+        'visibility' => [
+            'showitem' => 'privacy_policy_accepted, hidden',
         ],
     ],
 ];

@@ -194,13 +194,25 @@ return [
     'types' => [
         '0' => ['showitem' => '
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.tabs.general,
-                fk_post,title,author,email,website,date,text,
+                --palette--;;relation,
+                --palette--;;main,
+                --palette--;;contact,
+                text,
             --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
         ],
     ],
     'palettes' => [
+        'relation' => [
+            'showitem' => 'fk_post,date',
+        ],
+        'main' => [
+            'showitem' => 'title,author',
+        ],
+        'contact' => [
+            'showitem' => 'email,website',
+        ],
         'visibility' => [
             'showitem' => 'approved, spam, hidden',
         ],

@@ -91,9 +91,23 @@ return [
     ],
     'types' => [
         '0' => ['showitem' => '
-            name,email,hidden,
+            post_uid,
+            --palette--;;contact,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.tabs.meta,
-                post_uid, lastsent, code'
+                --palette--;;subscription,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+                --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility'
+        ],
+    ],
+    'palettes' => [
+        'contact' => [
+            'showitem' => 'name,email',
+        ],
+        'subscription' => [
+            'showitem' => 'lastsent, code',
+        ],
+        'visibility' => [
+            'showitem' => 'hidden',
         ],
     ],
 ];

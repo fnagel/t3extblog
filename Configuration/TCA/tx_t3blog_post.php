@@ -421,7 +421,10 @@ return [
     'types' => [
         '0' => ['showitem' => '
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.post,
-                sys_language_uid,l18n_parent,l18n_diffsource,date,author,title,url_segment,content,
+                --palette--;;meta,
+                title,url_segment,content,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.preview,
                 preview_mode,preview_image,preview_text,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.category,
@@ -436,6 +439,12 @@ return [
         ],
     ],
     'palettes' => [
+        'meta' => [
+            'showitem' => 'date,author',
+        ],
+        'language' => [
+            'showitem' => 'sys_language_uid,l18n_parent',
+        ],
         'visibility' => [
             'showitem' => 'hidden',
         ],
