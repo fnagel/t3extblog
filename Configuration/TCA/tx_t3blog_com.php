@@ -190,6 +190,13 @@ return [
                 'type' => 'check',
             ],
         ],
+        'privacy_policy_accepted' => [
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.privacy_policy_accepted',
+            'config' => [
+                'type' => 'check',
+                'default' => 0,
+            ],
+        ],
     ],
     'types' => [
         '0' => ['showitem' => '
@@ -214,7 +221,7 @@ return [
             'showitem' => 'email,website',
         ],
         'visibility' => [
-            'showitem' => 'approved, spam, hidden',
+            'showitem' => 'approved, spam, --linebreak--, hidden, privacy_policy_accepted',
         ],
         'access' => [
             'showitem' => '

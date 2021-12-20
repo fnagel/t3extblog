@@ -88,6 +88,13 @@ return [
                 'size' => 30,
             ],
         ],
+        'privacy_policy_accepted' => [
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.privacy_policy_accepted',
+            'config' => [
+                'type' => 'check',
+                'default' => 0,
+            ],
+        ],
     ],
     'types' => [
         '0' => ['showitem' => '
@@ -101,13 +108,13 @@ return [
     ],
     'palettes' => [
         'contact' => [
-            'showitem' => 'name,email',
+            'showitem' => 'name, email',
         ],
         'subscription' => [
             'showitem' => 'lastsent, code',
         ],
         'visibility' => [
-            'showitem' => 'hidden',
+            'showitem' => 'hidden, privacy_policy_accepted',
         ],
     ],
 ];

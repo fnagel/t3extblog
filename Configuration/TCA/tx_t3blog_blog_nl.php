@@ -75,7 +75,7 @@ return [
             ],
         ],
         'privacy_policy_accepted' => [
-            'label' => '...',
+            'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_blog_nl.privacy_policy_accepted',
             'config' => [
                 'type' => 'check',
                 'default' => 0,
@@ -93,7 +93,7 @@ return [
     ],
     'palettes' => [
         'visibility' => [
-            'showitem' => 'privacy_policy_accepted, hidden',
+            'showitem' => 'hidden, privacy_policy_accepted',
         ],
     ],
 ];

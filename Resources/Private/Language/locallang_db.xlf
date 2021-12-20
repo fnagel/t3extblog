@@ -19,6 +19,9 @@
 			<trans-unit id="tx_t3blog_blog_nl.lastsent">
 				<source>Last sent:</source>
 			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.privacy_policy_accepted">
+				<source>Privacy policy accepted</source>
+			</trans-unit>
 			<trans-unit id="tx_t3blog_blog_nl.tabs.meta">
 				<source>Metadata</source>
 			</trans-unit>
@@ -90,6 +93,9 @@
 			<trans-unit id="tx_t3blog_com.website">
 				<source>Website</source>
 			</trans-unit>
+			<trans-unit id="tx_t3blog_com.privacy_policy_accepted">
+				<source>Privacy policy accepted</source>
+			</trans-unit>
 
 			<trans-unit id="tx_t3blog_com_nl">
 				<source>Comment-Subscriber</source>
@@ -108,6 +114,9 @@
 			</trans-unit>
 			<trans-unit id="tx_t3blog_com_nl.post_uid">
 				<source>Subscribed to:</source>
+			</trans-unit>
+			<trans-unit id="tx_t3blog_com_nl.privacy_policy_accepted">
+				<source>Privacy policy accepted</source>
 			</trans-unit>
 			<trans-unit id="tx_t3blog_com_nl.tabs.meta">
 				<source>Metadata</source>
