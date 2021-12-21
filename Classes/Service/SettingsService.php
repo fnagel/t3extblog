@@ -45,7 +45,6 @@ class SettingsService
 
     /**
      * SettingsService constructor.
-     *
      */
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
@@ -57,9 +56,6 @@ class SettingsService
 
     /**
      * Returns all framework settings.
-     *
-     *
-     * @throws Exception
      */
     public function getFrameworkSettings(): array
     {
@@ -80,9 +76,6 @@ class SettingsService
 
     /**
      * Returns all TS settings.
-     *
-     *
-     * @throws Exception
      */
     public function getTypoScriptSettings(): array
     {
@@ -107,8 +100,6 @@ class SettingsService
      * "pages.uid" would return $this->settings['pages']['uid'].
      *
      * If the path is invalid or no entry is found, false is returned.
-     *
-     *
      */
     public function getTypoScriptByPath(string $path): mixed
     {

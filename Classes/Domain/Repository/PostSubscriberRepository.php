@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
 
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -21,10 +22,8 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
 {
     /**
      * @param Post $post The post the comment is related to
-     *
-     * @return array|QueryResultInterface
      */
-    public function findForNotification(Post $post)
+    public function findForNotification(Post $post): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -37,9 +36,6 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
 
     /**
      * Searchs for already registered subscriptions.
-     *
-     * @param int    $excludeUid
-     *
      */
     public function findExistingSubscriptions(int $postUid, string $email, int $excludeUid = null): QueryResultInterface
     {
@@ -57,10 +53,8 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
 
     /**
      * Finds a single subscriber without opt-in mail sent before.
-     *
-     *
      */
-    public function findForSubscriptionMail(Comment $comment): object
+    public function findForSubscriptionMail(Comment $comment): ?PostSubscriber
     {
         if (empty($comment->getEmail())) {
             throw new Exception('Email address is a required property!', 1592248975);

@@ -29,10 +29,7 @@ class PrivacyPolicyValidator extends AbstractValidator
     ];
 
     /**
-     * Check if $value is valid. If it is not valid, needs to add an error
-     * to result.
-     *
-     * @param mixed $value The value to check
+     * @inheritDoc
      */
     protected function isValid($value)
     {
@@ -62,7 +59,6 @@ class PrivacyPolicyValidator extends AbstractValidator
         }
     }
 
-    
     protected function getPrivacyPolicyConfiguration(string $key): array
     {
         $settings = $this->getConfiguration();
