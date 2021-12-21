@@ -32,7 +32,7 @@
 		</f:if>
 
 		<div class="bottom row">
-			<div class="col-xs-4">
+			<div class="col-4">
 				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
 					<span class="badge">
 						<span class="icon icon-comments glyphicon glyphicon-comment" aria-hidden="true"></span>
@@ -46,7 +46,7 @@
 					<f:translate key="post.permalink" />
 				</f:link.action>
 			</div>
-			<div class="col-xs-8 text-right">
+			<div class="col-8 text-right">
 				<f:render partial="Post/TagCloud" arguments="{post: post}" />
 			</div>
 		</div>
