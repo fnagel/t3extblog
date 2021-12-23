@@ -176,14 +176,13 @@ class PostController extends AbstractCommentController
 
     /**
      * Displays rss feed of all posts.
-     *
-     * @todo TYPO3 11: Fix pagination!
      */
     public function rssAction(): ResponseInterface
     {
-        $this->view->assign('posts', $this->findPosts());
-
-        return $this->htmlResponse();
+        return $this->paginationHtmlResponse(
+            $this->findPosts(),
+            $this->settings['rss']['paginate']
+        );
     }
 
     /**

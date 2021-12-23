@@ -21,12 +21,10 @@
                 <link></link>
             </image>
 
-            <f:if condition="{posts}">
-                <f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.rss.paginate}">
-                    <f:for each="{paginatedPosts}" as="post">
-                        <f:render partial="Post/RssItem.xml" arguments="{_all}" />
-                    </f:for>
-                </f:widget.paginate>
+            <f:if condition="{paginator.paginatedItems}">
+                <f:for each="{paginator.paginatedItems}" as="post">
+                    <f:render partial="Post/RssItem.xml" arguments="{_all}" />
+                </f:for>
             </f:if>
         </channel>
     </rss>

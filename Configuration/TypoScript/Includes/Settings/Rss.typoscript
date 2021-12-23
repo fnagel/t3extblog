@@ -2,11 +2,6 @@ plugin.tx_t3extblog.settings {
 	rss {
 		paginate {
 			itemsPerPage = 10
-
-			# Do not change this!
-			insertAbove = 0
-			insertBelow = 0
-			maximumNumberOfLinks = 0
 		}
 	}
 }
