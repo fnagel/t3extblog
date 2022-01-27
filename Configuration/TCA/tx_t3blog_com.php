@@ -3,8 +3,8 @@
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com',
-        'label' => 'title',
-        'label_alt' => 'email, fk_post',
+        'label' => 'email',
+        'label_alt' => 'title, author, fk_post',
         'label_alt_force' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
