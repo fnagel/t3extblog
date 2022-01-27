@@ -38,7 +38,6 @@ routeEnhancers:
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
-          'post_page': '@widget_0/currentPage'
       - routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}/{post_page}'
         _controller: 'Post::tag'
         _arguments:
@@ -59,7 +58,7 @@ routeEnhancers:
       post_title: '^[\d\-\/]{0,11}[\p{Ll}\d\-\_]+$'
       author_title: '^[\p{Ll}\d\-\_]+$'
       category_title: '^[\p{Ll}\d\-\_]+$'
-      tag_title: '^[\p{Ll}\p{P}\d\-\_ ]+$'
+      tag_title: '^[\p{Ll}\d\-\_\.\!\# ]+$'
     aspects:
       post_page:
         type: StaticRangeMapper
