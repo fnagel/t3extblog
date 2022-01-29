@@ -133,24 +133,23 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = Tcemain::class;
 
 // Add cHash configuration
-// See: http://forum.typo3.org/index.php?t=msg&th=203350
-$requiredParameters = [
-    'tx_t3extblog_blogsystem[controller]',
-    'tx_t3extblog_blogsystem[action]',
-    'tx_t3extblog_blogsystem[post]',
-    'tx_t3extblog_blogsystem[permalinkPost]',
-    'tx_t3extblog_blogsystem[previewPost]',
-    'tx_t3extblog_blogsystem[tag]',
-    'tx_t3extblog_blogsystem[category]',
-    'tx_t3extblog_blogsystem[author]',
-    'tx_t3extblog_blogsystem[page]',
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['requireCacheHashPresenceParameters'] =
+    array_merge($GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['requireCacheHashPresenceParameters'], [
+        'tx_t3extblog_blogsystem[controller]',
+        'tx_t3extblog_blogsystem[action]',
+        'tx_t3extblog_blogsystem[post]',
+        'tx_t3extblog_blogsystem[permalinkPost]',
+        'tx_t3extblog_blogsystem[previewPost]',
+        'tx_t3extblog_blogsystem[tag]',
+        'tx_t3extblog_blogsystem[category]',
+        'tx_t3extblog_blogsystem[author]',
+        'tx_t3extblog_blogsystem[page]',
 
-    'tx_t3extblog_subscriptionmanager[controller]',
-    'tx_t3extblog_subscriptionmanager[action]',
-    'tx_t3extblog_subscriptionmanager[subscriber]',
-    'tx_t3extblog_subscriptionmanager[code]',
-];
-$GLOBALS['TYPO3_CONF_VARS']['FE']['cHashRequiredParameters'] .= ','.implode(',', $requiredParameters);
+        'tx_t3extblog_subscriptionmanager[controller]',
+        'tx_t3extblog_subscriptionmanager[action]',
+        'tx_t3extblog_subscriptionmanager[subscriber]',
+        'tx_t3extblog_subscriptionmanager[code]',
+    ]);
 
 // Make sure post preview works, taken from EXT:tt_news
 $configuredCookieName = trim($GLOBALS['TYPO3_CONF_VARS']['BE']['cookieName']);
