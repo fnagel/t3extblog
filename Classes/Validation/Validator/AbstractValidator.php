@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Validation\Validator;
  */
 
 use FelixNagel\T3extblog\Service\SettingsService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as CoreAbstractValidator;
 
 /**
@@ -17,29 +18,14 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as CoreAbstractVali
  */
 abstract class AbstractValidator extends CoreAbstractValidator
 {
-    /**
-     * The SettingsService
-     */
-    protected ?SettingsService $settingsService = null;
-
-    /**
-     * Inject the SettingsService
-     *
-     */
-    public function injectSettingsService(SettingsService $settingsService)
-    {
-        $this->settingsService = $settingsService;
-    }
-
-    /**
-     * @param string $key
-     */
     protected function getConfiguration(string $key = null): array
     {
+        $settingsService = GeneralUtility::makeInstance(SettingsService::class);
+
         if ($key === null) {
-            return $this->settingsService->getTypoScriptSettings();
+            return $settingsService->getTypoScriptSettings();
         }
 
-        return $this->settingsService->getTypoScriptByPath($key);
+        return $settingsService->getTypoScriptByPath($key);
     }
 }

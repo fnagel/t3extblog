@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
@@ -124,7 +125,7 @@ class Category extends AbstractLocalizedEntity
 
         if ($this->childCategories === null) {
             /* @var $categoryRepository CategoryRepository */
-            $categoryRepository = $this->objectManager->get(CategoryRepository::class);
+            $categoryRepository = GeneralUtility::makeInstance(CategoryRepository::class);
             $categories = $categoryRepository->findChildren($this);
 
             $this->childCategories = new ObjectStorage();

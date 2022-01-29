@@ -11,8 +11,8 @@ namespace FelixNagel\T3extblog\Domain\Model;
 
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
@@ -37,26 +37,14 @@ abstract class AbstractEntity extends CoreAbstractEntity
     protected ?CommentRepository $commentRepository = null;
 
     /**
-     * postRepository.
-     *
      * @var \FelixNagel\T3extblog\Domain\Repository\PostRepository
      */
     protected ?PostRepository $postRepository = null;
-
-    protected ?ObjectManagerInterface $objectManager = null;
-
-
-    public function injectObjectManager(ObjectManagerInterface $objectManager)
-    {
-        $this->objectManager = $objectManager;
-    }
-
 
     public function getCrdate(): \DateTime
     {
         return $this->crdate;
     }
-
 
     public function getCreateDate(): \DateTime
     {
@@ -78,7 +66,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
     protected function getCommentRepository(): CommentRepository
     {
         if ($this->commentRepository === null) {
-            $this->commentRepository = $this->objectManager->get(CommentRepository::class);
+            $this->commentRepository = GeneralUtility::makeInstance(CommentRepository::class);
         }
 
         return $this->commentRepository;
@@ -91,7 +79,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
     protected function getPostRepository(): PostRepository
     {
         if ($this->postRepository === null) {
-            $this->postRepository = $this->objectManager->get(PostRepository::class);
+            $this->postRepository = GeneralUtility::makeInstance(PostRepository::class);
         }
 
         return $this->postRepository;
