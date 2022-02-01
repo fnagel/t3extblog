@@ -54,5 +54,8 @@ plugin.tx_t3extblog {
 			# cat=plugin.tx_t3extblog/privacy/2; type=string; label=Typolink that links to the privacy policy page
 			typolink =
 		}
+
+		# cat=plugin.tx_t3extblog/pid/4; type=int+; label=SPAM check redirect PID: Target when redirecting a client due to SPAM
+		spamCheck.redirect.pid =
 	}
 }
