@@ -17,9 +17,7 @@ interface SpamCheckServiceInterface
     /**
      * Checks GET / POST parameter for SPAM.
      *
-     * @var array
-     *
      * @return int SPAM points
      */
-    public function process($settings): int;
+    public function process(array $settings): int;
 }

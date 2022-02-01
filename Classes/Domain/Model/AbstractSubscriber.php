@@ -19,7 +19,7 @@ abstract class AbstractSubscriber extends AbstractEntity
 {
     protected bool $hidden = true;
 
-    
+
     protected bool $deleted = false;
 
     /**
@@ -36,7 +36,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @var \DateTime
      */
-    protected $lastSent = null;
+    protected ?\DateTime $lastSent = null;
 
     /**
      * code.
@@ -61,13 +61,13 @@ abstract class AbstractSubscriber extends AbstractEntity
         return $this->isHidden() && !$this->deleted && $this->getLastSent() === null;
     }
 
-    
+
     public function isHidden(): bool
     {
         return (bool) $this->hidden;
     }
 
-    
+
     public function setHidden(bool $hidden)
     {
         $this->hidden = (bool) $hidden;
@@ -97,7 +97,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      *
      * @return \DateTime $lastSent
      */
-    public function getLastSent(): \DateTime
+    public function getLastSent(): ?\DateTime
     {
         return $this->lastSent;
     }
@@ -142,13 +142,13 @@ abstract class AbstractSubscriber extends AbstractEntity
         $this->code = substr(GeneralUtility::hmac($input), 0, 32);
     }
 
-    
+
     public function hasPrivacyPolicyAccepted(): bool
     {
         return $this->privacyPolicyAccepted;
     }
 
-    
+
     public function setPrivacyPolicyAccepted(bool $privacyPolicyAccepted)
     {
         $this->privacyPolicyAccepted = $privacyPolicyAccepted;
@@ -165,7 +165,6 @@ abstract class AbstractSubscriber extends AbstractEntity
 
     /**
      * Returns prepared mailto array.
-     *
      */
     public function getMailTo(): array
     {
@@ -180,8 +179,6 @@ abstract class AbstractSubscriber extends AbstractEntity
 
     /**
      * Checks if the authCode is still valid.
-     *
-     *
      */
     public function isAuthCodeExpired(string $expireDate): bool
     {

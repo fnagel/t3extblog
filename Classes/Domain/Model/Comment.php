@@ -322,7 +322,6 @@ class Comment extends AbstractEntity
 
     /**
      * Sets the spam.
-     *
      */
     public function setSpam(bool $spam)
     {
@@ -343,7 +342,6 @@ class Comment extends AbstractEntity
 
     /**
      * Returns the boolean state of spam.
-     *
      */
     public function isSpam(): bool
     {
@@ -360,7 +358,6 @@ class Comment extends AbstractEntity
 
     /**
      * Sets the postId.
-     *
      */
     public function setPostId(int $postId)
     {
@@ -369,7 +366,6 @@ class Comment extends AbstractEntity
 
     /**
      * Returns the post id.
-     *
      */
     public function getPostId(): int
     {
@@ -378,11 +374,10 @@ class Comment extends AbstractEntity
 
     /**
      * Returns the post.
-     *
      */
-    public function getPost(): \FelixNagel\T3extblog\Domain\Model\Post
+    public function getPost(): ?Post
     {
-        if ($this->post === null) {
+        if ($this->post === null && $this->postId !== null) {
             $this->post = $this->getPostRepository()->findByLocalizedUid($this->postId);
         }
 

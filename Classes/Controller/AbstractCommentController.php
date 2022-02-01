@@ -27,14 +27,12 @@ abstract class AbstractCommentController extends AbstractController
         /* @var $comment Comment */
         $comment = $this->objectManager->get(Comment::class);
 
+        // Shall we check for a user session?
         if (!$this->settings['blogsystem']['comments']['prefillFields']['enable']) {
             return $comment;
         }
 
-        // Check for a user session
-
         // In this case, the page needs to be uncached
-        // @todo Change this when post and comment are separate plugins
         $this->clearPageCache();
 
         if (GeneralUtility::isUserLoggedIn()) {

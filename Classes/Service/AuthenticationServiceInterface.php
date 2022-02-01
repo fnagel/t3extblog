@@ -16,15 +16,14 @@ interface AuthenticationServiceInterface
 {
     public function isValid(): bool;
 
-    
+
     public function login(string $email): bool;
 
-    
+
     public function logout();
 
     /**
      * Returns email of the subscriber object.
-     *
      */
     public function getEmail(): string;
 }

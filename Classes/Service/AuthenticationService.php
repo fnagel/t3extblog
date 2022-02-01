@@ -33,13 +33,13 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->session = $session;
     }
 
-    
+
     public function isValid(): bool
     {
         return (bool) $this->getEmail();
     }
 
-    
+
     public function login(string $email): bool
     {
         $this->session->setData(
@@ -51,7 +51,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         return true;
     }
 
-    
+
     public function logout()
     {
         $this->session->removeData();
@@ -76,8 +76,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         return $data['email'];
     }
 
-    
-    protected function getData(): array
+    protected function getData(): ?array
     {
         if ($this->sessionData === null) {
             $this->sessionData = $this->session->getData();

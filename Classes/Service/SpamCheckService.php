@@ -33,11 +33,8 @@ class SpamCheckService implements SpamCheckServiceInterface
      *
      * @SuppressWarnings("PHPMD.CyclomaticComplexity")
      * @SuppressWarnings("PHPMD.NPathComplexity")
-     *
-     * @var array
-     *
      */
-    public function process($settings): int
+    public function process(array $settings): int
     {
         $arguments = GeneralUtility::_GPmerged('tx_t3extblog');
         $spamPoints = 0;
@@ -58,7 +55,7 @@ class SpamCheckService implements SpamCheckServiceInterface
             $spamPoints += (int) $settings['cookie'];
         }
 
-        if ($settings['userAgent'] && GeneralUtility::getIndpEnv('HTTP_USER_AGENT') == '') {
+        if ($settings['userAgent'] && GeneralUtility::getIndpEnv('HTTP_USER_AGENT') === '') {
             $spamPoints += (int) $settings['userAgent'];
         }
 
@@ -73,8 +70,6 @@ class SpamCheckService implements SpamCheckServiceInterface
 
     /**
      * Checks honeypot fields.
-     *
-     *
      */
     protected function checkHoneyPotFields(array $arguments): bool
     {
