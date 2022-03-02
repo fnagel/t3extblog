@@ -9,122 +9,174 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend\Uri;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Exception\InvalidArgumentException;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as CoreActionViewHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * A view helper for creating URIs to extbase actions.
  *
- * This a modified version of the default Extbase class which enables us to
- * use a FE link within a BE context.
+ * This a modified version of the default Extbase class forcing FE links within BE context.
  */
 class ActionViewHelper extends CoreActionViewHelper
 {
-    use CompileWithRenderStatic;
-
     /**
      * @inheritDoc
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface
+            && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()
+        ) {
             return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
         }
 
-        return self::renderFrontendLink($renderingContext->getControllerContext()->getUriBuilder(), $arguments);
+        return self::renderStaticFrontend($arguments, $renderChildrenClosure, $renderingContext);
     }
 
     /**
-     * @param array  $arguments Arguments
-     * @return string Rendered link
+     * Always renders a FE link but with limited functionality.
+     *
+     * Some more arguments are required as the
+     *
+     * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::renderStatic
+     * @return string
      */
-    protected static function renderFrontendLink(UriBuilder $uriBuilder, array $arguments): string
+    protected static function renderStaticFrontend(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
-            throw new \Exception('Missing pageUid argument for extbase link generation from BE context. Check your template!');
+            throw new InvalidArgumentException('Missing pageUid argument for extbase link generation from BE context. Check your template!');
         }
 
         if ($arguments['controller'] === null || $arguments['extensionName'] === null || $arguments['pluginName'] === null) {
-            throw new \Exception('Missing arguments for extbase link generation from BE context. Check your template!');
+            throw new InvalidArgumentException('Missing arguments for extbase link generation from BE context. Check your template!');
         }
 
-        $uri = $uriBuilder->reset()
-            ->setTargetPageUid($arguments['pageUid'])
-            ->setTargetPageType($arguments['pageType'])
-            ->setNoCache((bool) $arguments['noCache'])
-            ->setSection($arguments['section'])
-            ->setFormat($arguments['format'])
-            ->setLinkAccessRestrictedPages((bool) $arguments['linkAccessRestrictedPages'])
-            ->setArguments(self::uriFor(
-                $arguments['action'],
-                $arguments['arguments'],
-                $arguments['controller'],
-                $arguments['extensionName'],
-                $arguments['pluginName'],
-                $arguments['format'],
-                $arguments['additionalParams']
-            ))
-            ->setCreateAbsoluteUri((bool) $arguments['absolute'])
-            ->setAddQueryString((bool) $arguments['addQueryString'])
-            ->setArgumentsToBeExcludedFromQueryString($arguments['argumentsToBeExcludedFromQueryString'])
-            ->buildFrontendUri();
+        // @todo Remove this when TYPO3 11 is no longer supported
+        if (isset($arguments['addQueryStringMethod'])) {
+            trigger_error('Using the argument "addQueryStringMethod" in <f:uri.action> ViewHelper has no effect anymore and will be removed in TYPO3 v12. Remove the argument in your fluid template, as it will result in a fatal error.', E_USER_DEPRECATED);
+        }
 
-        return $uri;
+        /** @var int $pageUid */
+        $pageUid = $arguments['pageUid'] ?? 0;
+        /** @var int $pageType */
+        $pageType = $arguments['pageType'] ?? 0;
+        /** @var bool $noCache */
+        $noCache = $arguments['noCache'] ?? false;
+        /** @var string|null $section */
+        $section = $arguments['section'] ?? null;
+        /** @var string|null $format */
+        $format = $arguments['format'] ?? null;
+        /** @var bool $linkAccessRestrictedPages */
+        $linkAccessRestrictedPages = $arguments['linkAccessRestrictedPages'] ?? false;
+        /** @var array|null $additionalParams */
+        $additionalParams = $arguments['additionalParams'] ?? null;
+        /** @var bool $absolute */
+        $absolute = $arguments['absolute'] ?? false;
+        /** @var bool $addQueryString */
+        $addQueryString = $arguments['addQueryString'] ?? false;
+        /** @var array|null $argumentsToBeExcludedFromQueryString */
+        $argumentsToBeExcludedFromQueryString = $arguments['argumentsToBeExcludedFromQueryString'] ?? null;
+        /** @var string|null $action */
+        $action = $arguments['action'] ?? null;
+        /** @var string|null $controller */
+        $controller = $arguments['controller'] ?? null;
+        /** @var string|null $extensionName */
+        $extensionName = $arguments['extensionName'] ?? null;
+        /** @var string|null $pluginName */
+        $pluginName = $arguments['pluginName'] ?? null;
+        /** @var array|null $arguments */
+        $arguments = self::uriFor($action, $arguments['arguments'], $controller, $extensionName, $pluginName);
+
+        /** @var UriBuilder $uriBuilder */
+        $uriBuilder = $renderingContext->getUriBuilder();
+        $uriBuilder->reset();
+
+        if ($pageUid > 0) {
+            $uriBuilder->setTargetPageUid($pageUid);
+        }
+
+        if ($pageType > 0) {
+            $uriBuilder->setTargetPageType($pageType);
+        }
+
+        if ($noCache === true) {
+            $uriBuilder->setNoCache($noCache);
+        }
+
+        if (is_string($section)) {
+            $uriBuilder->setSection($section);
+        }
+
+        if (is_string($format)) {
+            $uriBuilder->setFormat($format);
+        }
+
+        if (is_array($additionalParams)) {
+            ArrayUtility::mergeRecursiveWithOverrule($arguments, $additionalParams);
+        }
+
+        if ($absolute === true) {
+            $uriBuilder->setCreateAbsoluteUri($absolute);
+        }
+
+        if ($addQueryString === true) {
+            $uriBuilder->setAddQueryString($addQueryString);
+        }
+
+        if (is_array($argumentsToBeExcludedFromQueryString)) {
+            $uriBuilder->setArgumentsToBeExcludedFromQueryString($argumentsToBeExcludedFromQueryString);
+        }
+
+        if ($linkAccessRestrictedPages === true) {
+            $uriBuilder->setLinkAccessRestrictedPages($linkAccessRestrictedPages);
+        }
+
+        $uriBuilder->setArguments($arguments);
+
+        return $uriBuilder->buildFrontendUri();
     }
 
-    /**
-     * Creates an URI used for linking to an Extbase action.
-     * Works in Frontend and Backend mode of TYPO3.
+    /** Simplified version of UriBuilder::uriFor
      *
-     * @param string $actionName Name of the action to be called
-     * @param array  $controllerArguments Additional query parameters. Will be "namespaced" and merged with $arguments.
-     * @param string $controllerName Name of the target controller. If not set, current ControllerName is used.
-     * @param string $extensionName Name of the target extension, without underscores. If not set, current ExtensionName is used.
-     * @param string $pluginName Name of the target plugin. If not set, current PluginName is used.
-     * @param string $format The requested format, e.g. ".html
-     * @param array  $additionalParams additional query parameters that won't be prefixed like $arguments (overrule $arguments)
-     *
+     * @see \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::uriFor
      */
     protected static function uriFor(
-        string $actionName = null,
-        array $controllerArguments = [],
-        string $controllerName = null,
-        string $extensionName = null,
-        string $pluginName = null,
-        string $format = '',
-        array $additionalParams = []
+        ?string $actionName = null,
+        ?array $controllerArguments = null,
+        ?string $controllerName = null,
+        ?string $extensionName = null,
+        ?string $pluginName = null
     ): array {
         /* @var $extensionService ExtensionService */
         $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
 
+        $controllerArguments = $controllerArguments ?? [];
+
         if ($actionName !== null) {
             $controllerArguments['action'] = $actionName;
         }
-        
+
         if ($controllerName !== null) {
             $controllerArguments['controller'] = $controllerName;
         }
-        
+
         if ($pluginName === null) {
             $pluginName = $extensionService->getPluginNameByAction(
                 $extensionName,
                 $controllerArguments['controller'],
-                $controllerArguments['action']
+                $controllerArguments['action'] ?? null
             );
-        }
-        
-        if ($format !== '') {
-            $controllerArguments['format'] = $format;
         }
 
         $pluginNamespace = $extensionService->getPluginNamespace($extensionName, $pluginName);
-        $prefixedControllerArguments = [$pluginNamespace => $controllerArguments];
 
-        return array_merge_recursive($additionalParams, $prefixedControllerArguments);
+        return [$pluginNamespace => $controllerArguments];
     }
 }
