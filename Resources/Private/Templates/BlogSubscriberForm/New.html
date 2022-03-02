@@ -24,7 +24,8 @@
 					<f:translate key="subscriber.email" />
 				</label>
 				<div class="col-sm-9">
-					<f:form.textfield additionalAttributes="{required: 'required'}" class="form-control" id="subscriber.email" property="email" />
+					<f:form.textfield property="email" type="email" class="form-control" id="subscriber.email"
+														additionalAttributes="{required: 'required'}" />
 				</div>
 			</div>
 			<div class="form-group {t3b:formError(for: 'subscriber.privacyPolicyAccepted')}">

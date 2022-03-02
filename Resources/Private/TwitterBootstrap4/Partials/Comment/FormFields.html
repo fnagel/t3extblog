@@ -33,7 +33,8 @@
 				<f:translate key="comment.email" />
 			</label>
 			<div class="col-sm-9">
-				<f:form.textfield additionalAttributes="{f:if(condition: '{settings.blogsystem.comments.requireEmail}', then: {required: 'required'})}" class="form-control" id="newComment.email" property="email" errorClass="is-invalid" />
+				<f:form.textfield property="email" type="email" class="form-control" id="newComment.email" errorClass="is-invalid"
+													additionalAttributes="{f:if(condition: '{settings.blogsystem.comments.requireEmail}', then: {required: 'required'})}" />
 			</div>
 		</div>
 		<div class="form-group row {t3b:formError(for: 'newComment.website')}">
