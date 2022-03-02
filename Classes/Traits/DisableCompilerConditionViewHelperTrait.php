@@ -30,7 +30,5 @@ trait DisableCompilerConditionViewHelperTrait
         TemplateCompiler $compiler
     ) {
         $compiler->disable();
-
-        return $compiler::SHOULD_GENERATE_VIEWHELPER_INVOCATION;
     }
 }
