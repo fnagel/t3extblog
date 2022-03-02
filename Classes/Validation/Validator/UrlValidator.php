@@ -18,11 +18,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class UrlValidator extends AbstractValidator
 {
     /**
-     * Returns TRUE, if the given value is a valid URL / URI.
-     *
-     * @param mixed $value The value that should be validated
-     *
-     * @return bool TRUE if the value is valid, FALSE if an error occurred
+     * @inheritDoc
      */
     protected function isValid($value)
     {
@@ -30,10 +26,6 @@ class UrlValidator extends AbstractValidator
             !GeneralUtility::isValidUrl($value)
         ) {
             $this->addError('The given subject was not a valid URL.', 1392679659);
-
-            return false;
         }
-
-        return true;
     }
 }

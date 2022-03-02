@@ -20,10 +20,7 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 class CommentEmailValidator extends AbstractValidator
 {
     /**
-     * Check if $value is valid. If it is not valid, needs to add an error
-     * to result.
-     *
-     * @param Comment $value The value to check
+     * @inheritDoc
      */
     protected function isValid($value)
     {
