@@ -14,29 +14,14 @@ namespace FelixNagel\T3extblog\Service;
  */
 interface SessionServiceInterface
 {
-    /**
-     * Add data.
-     *
-     * @param array $data Data array to save
-     */
     public function setData(array $data);
 
-    /**
-     * Get data.
-     *
-     */
-    public function getData(): array;
+    public function getData(): ?array;
 
-    /**
-     * Remove data.
-     */
     public function removeData();
 
     /**
      * Get single value from data by key.
-     *
-     *
-     * @return array|string
      */
-    public function getDataByKey(string $key);
+    public function getDataByKey(string $key): ?array;
 }

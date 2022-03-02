@@ -38,44 +38,32 @@ class SessionService implements SessionServiceInterface
         $this->frontendUser = GeneralUtility::getTsFe()->fe_user;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
-        $oldData = $this->restoreFromSession(self::SESSION_DATA_KEY);
+        $restoredData = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
-        if (is_array($oldData)) {
-            $this->writeToSession(self::SESSION_DATA_KEY, array_merge($oldData, $data));
-        } else {
-            $this->writeToSession(self::SESSION_DATA_KEY, $data);
+        if ($restoredData) {
+            $data = array_merge($restoredData, $data);
         }
+
+        $this->writeToSession(self::SESSION_DATA_KEY, $data);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->restoreFromSession(self::SESSION_DATA_KEY);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function removeData()
+    public function removeData(): void
     {
         $this->writeToSession(self::SESSION_DATA_KEY, '');
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getDataByKey($key)
+    public function getDataByKey($key): ?array
     {
         $data = $this->restoreFromSession(self::SESSION_DATA_KEY);
 
-        if (is_array($data) && $data[$key]) {
+        if (is_array($data) && array_key_exists($key, $data)) {
             return $data[$key];
         }
 
@@ -84,16 +72,14 @@ class SessionService implements SessionServiceInterface
 
     /**
      * Return stored session data.
-     *
-     * @return array|string
      */
-    private function restoreFromSession(string $key)
+    private function restoreFromSession(string $key): ?array
     {
         $data = $this->frontendUser->getKey('ses', 'tx_t3extblog_'.$key);
 
         $this->getLog()->dev('Get from FE session', $data ?: []);
 
-        return $data;
+        return $data ? (array) $data: null;
     }
 
     /**
