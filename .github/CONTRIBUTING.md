@@ -19,7 +19,7 @@ When submitting a ticket, the following information should be included:
 ## Making Changes / Send PR's
 
 * Follow the commit message style:
-    * Example: `[BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE] What has been fixed`
+    * Example: `[!!!][BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE] What has been fixed`
     * Message should start with an uppercase char
     * 72 chars max line length
 * Follow our CGL, see:
