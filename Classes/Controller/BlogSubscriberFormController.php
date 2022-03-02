@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\GeneralUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
@@ -22,30 +23,20 @@ use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 class BlogSubscriberFormController extends AbstractController
 {
     /**
-     * blogSubscriberRepository.
-     *
      * @var BlogSubscriberRepository
      */
     protected $blogSubscriberRepository;
 
     /**
-     * Notification Service.
-     *
      * @var BlogNotificationService
      */
     protected $notificationService;
 
     /**
-     * Spam Check Service.
-     *
      * @var SpamCheckServiceInterface
      */
     protected $spamCheckService;
 
-    /**
-     * BlogSubscriberFormController constructor.
-     *
-     */
     public function __construct(
         BlogSubscriberRepository $blogSubscriberRepository,
         BlogNotificationService $notificationService,
@@ -57,12 +48,9 @@ class BlogSubscriberFormController extends AbstractController
     }
 
     /**
-     * action new.
-     *
-     * @param BlogSubscriber $subscriber
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
      */
-    public function newAction(BlogSubscriber $subscriber = null)
+    public function newAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
         /* @var $subscriber BlogSubscriber */
         if ($subscriber === null) {
@@ -70,34 +58,38 @@ class BlogSubscriberFormController extends AbstractController
         }
 
         $this->view->assign('subscriber', $subscriber);
+
+        return $this->htmlResponse();
     }
 
     /**
      * Adds a subscriber.
-     *
-     * @param BlogSubscriber $subscriber
      */
-    public function createAction(BlogSubscriber $subscriber = null)
+    public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
         if ($subscriber === null) {
             $this->redirect('new');
         }
 
+        // Check if blog subscription is allowed
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
             $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
 
-        $this->checkSpamPoints();
+        $spamPointResult = $this->checkSpamPoints();
+        if ($spamPointResult instanceof ResponseInterface) {
+            return $spamPointResult;
+        }
 
-        // check if user already registered
+        // Check if user already registered
         $subscribers = $this->blogSubscriberRepository->findExistingSubscriptions($subscriber->getEmail());
         if (count($subscribers) > 0) {
             $this->addFlashMessageByKey('alreadyRegistered', FlashMessage::INFO);
-            $this->errorAction();
+            return $this->errorAction();
         }
 
-        $subscriber->setSysLanguageUid((int) GeneralUtility::getLanguageUid());
+        $subscriber->setSysLanguageUid(GeneralUtility::getLanguageUid());
 
         $this->blogSubscriberRepository->add($subscriber);
         $this->persistAllEntities();
@@ -112,7 +104,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Process SPAM point.
      */
-    protected function checkSpamPoints()
+    protected function checkSpamPoints(): ?ResponseInterface
     {
         $settings = $this->settings['blogSubscription']['spamCheck'];
         $threshold = $settings['threshold'];
@@ -120,7 +112,7 @@ class BlogSubscriberFormController extends AbstractController
         $spamPoints = $this->spamCheckService->process($settings);
         $logData = ['spamPoints' => $spamPoints];
 
-        // block comment and redirect user
+        // Block comment and redirect user
         if ($threshold['redirect'] > 0 && $spamPoints >= (int) $threshold['redirect']) {
             $this->getLog()->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
             $this->redirect(
@@ -128,23 +120,20 @@ class BlogSubscriberFormController extends AbstractController
                 null,
                 null,
                 $settings['redirect']['arguments'],
-                (int)$settings['redirect']['pid'],
-                0,
-                403
+                (int)$settings['redirect']['pid']
             );
         }
 
-        // block comment and show message
+        // Block comment and show message
         if ($threshold['block'] > 0 && $spamPoints >= (int) $threshold['block']) {
             $this->getLog()->notice('New blog subscriber blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
+
+        return null;
     }
 
-    /**
-     * action success.
-     */
     public function successAction()
     {
         if (!$this->hasFlashMessages()) {
@@ -154,8 +143,10 @@ class BlogSubscriberFormController extends AbstractController
 
     /**
      * Disable error flash message.
+     *
+     * @inheritDoc
      */
-    protected function getErrorFlashMessage(): string
+    protected function getErrorFlashMessage()
     {
         return false;
     }
