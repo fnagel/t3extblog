@@ -43,7 +43,11 @@ class ActionViewHelper extends CoreActionViewHelper
     /**
      * Always renders a FE link but with limited functionality.
      *
-     * Some more arguments are required as the
+     * Some more arguments are required due to routing limitations.
+     *
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::renderStatic
      * @return string
