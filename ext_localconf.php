@@ -151,16 +151,6 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['requireCacheHashPresenceParamete
         'tx_t3extblog_subscriptionmanager[code]',
     ]);
 
-// Make sure post preview works, taken from EXT:tt_news
-$configuredCookieName = trim($GLOBALS['TYPO3_CONF_VARS']['BE']['cookieName']);
-if (empty($configuredCookieName)) {
-    $configuredCookieName = 'be_typo_user';
-}
-
-if ($_COOKIE[$configuredCookieName]) {
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = 0;
-}
-
 // Make default avatar provider available in FE
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = [
     'provider' => DefaultAvatarProvider::class,

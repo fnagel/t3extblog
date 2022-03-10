@@ -9,10 +9,12 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\AbstractRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity as CoreAbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
@@ -61,7 +63,6 @@ abstract class AbstractEntity extends CoreAbstractEntity
 
     /**
      * Get commentRepository.
-     *
      */
     protected function getCommentRepository(): CommentRepository
     {
@@ -140,12 +141,19 @@ abstract class AbstractEntity extends CoreAbstractEntity
         $properties = get_object_vars($this);
 
         // Remove properties not required if fully populated
-        unset($properties['objectManager'], $properties['postRepository'], $properties['commentRepository']);
+        unset(
+            $properties['objectManager'],
+            $properties['postRepository'],
+            $properties['commentRepository'],
+            $properties['rawComments']
+        );
 
         // Remove lazy object storage as this will break post preview when serializing the post in form VH
-        // @todo Preview: Fix this!
         foreach ($properties as $key => $property) {
-            if ($property instanceof LazyObjectStorage) {
+            if ($property instanceof LazyObjectStorage
+                || $property instanceof AbstractRepository
+                || $property instanceof QueryResult
+            ) {
                 unset($properties[$key]);
             }
         }

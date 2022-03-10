@@ -81,21 +81,9 @@ class GeneralUtility implements SingletonInterface
 
     /**
      * Check if a valid BE login exists.
-     *
-     * $GLOBALS['TSFE']->isBackendUserLoggedIn() (and TS equivalent) does not work.
-     * See https://forge.typo3.org/issues/23625
-     *
-     * @todo Workaround for bug in TYPO3
-     * @todo TYPO3 11: Check if this is still needed
      */
     public static function isValidBackendUser(): bool
     {
-        // Init if needed
-        if (!isset($GLOBALS['BE_USER'])) {
-            Bootstrap::initializeBackendUser();
-        }
-
-        // Check for valid user
-        return is_object($GLOBALS['BE_USER']) && !empty($GLOBALS['BE_USER']->user['uid']);
+        return static::getTsFe()->isBackendUserLoggedIn();
     }
 }

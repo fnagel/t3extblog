@@ -233,8 +233,6 @@ class PostController extends AbstractCommentController
 
     /**
      * Preview a post.
-     *
-     * @param int $previewPost The post to display
      */
     public function previewAction(int $previewPost): ResponseInterface
     {
