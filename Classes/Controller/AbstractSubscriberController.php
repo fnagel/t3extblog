@@ -42,15 +42,12 @@ abstract class AbstractSubscriberController extends AbstractController
      */
     protected ?AuthenticationServiceInterface $authentication = null;
 
-    
+
     public function injectAuthentication(AuthenticationServiceInterface $authentication)
     {
         $this->authentication = $authentication;
     }
 
-    /**
-     * action confirm.
-     */
     public function confirmAction()
     {
         $this->checkAuth(true);
@@ -67,7 +64,7 @@ abstract class AbstractSubscriberController extends AbstractController
 
         if ($this->subscriber->_getProperty('hidden') === true) {
             $this->subscriber->_setProperty('hidden', false);
-            $this->addFlashMessageByKey('confirmed', FlashMessage::OK);
+            $this->addFlashMessageByKey('confirmed');
 
             $this->subscriberRepository->update($this->subscriber);
             $this->persistAllEntities();
@@ -76,11 +73,6 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->redirect('list', 'PostSubscriber');
     }
 
-    /**
-     * action delete.
-     *
-     * @param AbstractSubscriber $subscriber
-     */
     public function deleteAction(AbstractSubscriber $subscriber = null)
     {
         $this->checkAuth();
@@ -109,7 +101,6 @@ abstract class AbstractSubscriberController extends AbstractController
 
     /**
      * Check and get authentication.
-     *
      */
     protected function checkAuth(bool $isConfirmRequest = false)
     {
@@ -126,7 +117,6 @@ abstract class AbstractSubscriberController extends AbstractController
 
     /**
      * Get authentication.
-     *
      */
     protected function authenticate(bool $isConfirmRequest = false)
     {
@@ -172,7 +162,6 @@ abstract class AbstractSubscriberController extends AbstractController
 
     /**
      * If the request has argument 'code'.
-     *
      */
     protected function hasCodeArgument(): string
     {
@@ -181,7 +170,6 @@ abstract class AbstractSubscriberController extends AbstractController
 
     /**
      * Checks the code.
-     *
      */
     protected function getAuthCode(): string
     {
@@ -195,10 +183,6 @@ abstract class AbstractSubscriberController extends AbstractController
     }
 
     /**
-     * Finds existing subscriptions.
-     *
-     * @param $subscriber
-     *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     abstract protected function findExistingSubscriptions($subscriber);

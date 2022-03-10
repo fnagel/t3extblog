@@ -16,7 +16,7 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
 class PostTagMapper extends AbstractPersistedAliasMapper
 {
     /**
-     * @throws \InvalidArgumentException
+     * @inheritDoc
      */
     public function __construct(array $settings)
     {

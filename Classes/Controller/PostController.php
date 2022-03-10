@@ -196,7 +196,7 @@ class PostController extends AbstractCommentController
             $this->pageNotFoundAndExit('Post not found!');
         }
 
-        $this->redirect('show', 'Post', null, $post->getLinkParameter(), null, 0, 303);
+        $this->redirect('show', 'Post', null, $post->getLinkParameter());
     }
 
     /**

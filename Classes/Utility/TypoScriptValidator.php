@@ -80,9 +80,6 @@ class TypoScriptValidator
 
     /**
      * Check needed framework configuration.
-     *
-     *
-     * @throws InvalidConfigurationException
      */
     public static function validateFrameworkConfiguration(array $settings)
     {
