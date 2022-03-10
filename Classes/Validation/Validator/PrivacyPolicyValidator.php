@@ -11,7 +11,6 @@ namespace FelixNagel\T3extblog\Validation\Validator;
 
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Comment;
-use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
@@ -49,12 +48,12 @@ class PrivacyPolicyValidator extends AbstractValidator
         $configuration = $this->getPrivacyPolicyConfiguration($this->options['key']);
 
         if ($configuration['privacyPolicy']['enabled'] && !$value) {
-            $error = new Error('Please accept the privacy policy.', 1526564974);
+            $message = 'Please accept the privacy policy.';
 
             if ($this->options['property'] === null) {
-                $this->result->addError($error);
+                $this->addError($message, 1526564974);
             } else {
-                $this->result->forProperty($this->options['property'])->addError($error);
+                $this->addErrorForProperty($this->options['property'], $message, 1526564975);
             }
         }
     }

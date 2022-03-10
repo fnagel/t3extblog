@@ -10,7 +10,6 @@ namespace FelixNagel\T3extblog\Validation\Validator;
  */
 
 use FelixNagel\T3extblog\Domain\Model\Comment;
-use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
@@ -30,13 +29,9 @@ class CommentEmailValidator extends AbstractValidator
 
         if (empty($value->getEmail())) {
             if ($this->getConfiguration('blogsystem.comments.requireEmail')) {
-                $error = new Error('Email address is required.', 1592252730);
-                $this->result->forProperty('email')->addError($error);
-            } elseif ($this->getConfiguration('blogsystem.comments.subscribeForComments') &&
-                $value->getSubscribe()
-            ) {
-                $error = new Error('Email address is required for subscription.', 1592252730);
-                $this->result->forProperty('email')->addError($error);
+                $this->addErrorForProperty('email', 'Email address is required.', 1592252730);
+            } elseif ($this->getConfiguration('blogsystem.comments.subscribeForComments') && $value->getSubscribe()) {
+                $this->addErrorForProperty('email', 'Email address is required for subscription.', 1592252731);
             }
         }
     }
