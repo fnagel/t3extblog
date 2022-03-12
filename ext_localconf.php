@@ -10,6 +10,7 @@ use FelixNagel\T3extblog\Controller\BlogSubscriberController;
 use FelixNagel\T3extblog\Controller\BlogSubscriberFormController;
 use FelixNagel\T3extblog\Controller\CategoryController;
 use FelixNagel\T3extblog\Hooks\Tcemain;
+use FelixNagel\T3extblog\UpgradeWizard as UpgradeWizard;
 use TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
 use FelixNagel\T3extblog\Routing\Aspect\PostMapper;
@@ -174,3 +175,17 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfigurati
         ],
     ],
 ];
+
+// Upgrade wizards
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CreateMissingPostSlugs::class]
+    = UpgradeWizard\CreateMissingPostSlugs::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CreateMissingCategorySlugs::class]
+    = UpgradeWizard\CreateMissingCategorySlugs::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\PostMailsSentWizard::class]
+    = UpgradeWizard\PostMailsSentWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentMailsSentWizard::class]
+    = UpgradeWizard\CommentMailsSentWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentAuthorOrEmailValid::class]
+    = UpgradeWizard\CommentAuthorOrEmailValid::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentUrlValidation::class]
+    = UpgradeWizard\CommentUrlValidation::class;
