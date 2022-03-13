@@ -11,26 +11,21 @@ namespace FelixNagel\T3extblog\Configuration;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * A general purpose configuration manager used in backend mode.
- */
 class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager
 {
     /**
      * Make sure TS is generated from currently selected page.
      *
-     * Needed basically to make extbase work. Without PID is set to 0 (which is root)
-     * and persistence, TS generation, etc. will fail. This is the case in TYPO3 8.x
-     * and 9.x when editing a record using the context menu (t3js-clickmenutrigger CSS
-     * class). Example: right click on a record in the BE module, click edit, change
-     * visibility which should trigger emails but does not.
+     * Needed basically to make extbase work in some context. Without PID is set to 0
+     * (which is root) and persistence, TS generation, etc. will fail. This is the case
+     * in TYPO3 8-11 when editing a record.
      *
-     * Using a issueCommand VH link works as expected. Not needed for TYPO3 7.x.
+     * Example: right-click on a record using the context menu (t3js-clickmenutrigger
+     * CSS class).in the blog (or list) BE module and use edit (tab access, change
+     * to valid and click save) or change visibility directly in context menu which
+     * should trigger emails but does not.
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
-     * @todo TYPO3 11: Test this!
-     *
-     * {@inheritdoc}
      */
     protected function getCurrentPageIdFromGetPostData(): int
     {
