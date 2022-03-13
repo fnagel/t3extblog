@@ -9,10 +9,8 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -21,37 +19,20 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class PostSubscriberController extends AbstractSubscriberController
 {
     /**
-     * subscriberRepository.
-     *
      * @var PostSubscriberRepository
      */
     protected $subscriberRepository;
 
     /**
-     * blogSubscriberRepository.
-     */
-    protected BlogSubscriberRepository $blogSubscriberRepository;
-
-    /**
-     * subscriber.
-     *
      * @var PostSubscriber
      */
     protected $subscriber = null;
 
-    /**
-     * PostSubscriberController constructor.
-     *
-     */
-    public function __construct(PostSubscriberRepository $subscriberRepository, BlogSubscriberRepository $blogSubscriberRepository)
+    public function __construct(PostSubscriberRepository $subscriberRepository)
     {
         $this->subscriberRepository = $subscriberRepository;
-        $this->blogSubscriberRepository = $blogSubscriberRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function initializeAction()
     {
         parent::initializeAction();
@@ -60,25 +41,14 @@ class PostSubscriberController extends AbstractSubscriberController
     }
 
     /**
-     * action list.
-     */
-    public function listAction()
-    {
-        $this->checkAuth();
-
-        $this->redirect('list', 'Subscriber');
-    }
-
-    /**
-     * action delete.
+     * Do not remove @param (needed for Extbase)
      *
-     * @param PostSubscriber $subscriber
+     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriber
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
      */
-    public function deleteAction($subscriber = null): ResponseInterface
+    public function deleteAction($subscriber = null)
     {
         parent::deleteAction($subscriber);
-
-        return $this->htmlResponse();
     }
 
     /**

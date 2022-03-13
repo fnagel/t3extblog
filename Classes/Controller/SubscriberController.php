@@ -26,10 +26,6 @@ class SubscriberController extends AbstractController
 
     protected PostSubscriberRepository $postSubscriberRepository;
 
-    /**
-     * SubscriberController constructor.
-     *
-     */
     public function __construct(
         AuthenticationServiceInterface $authentication,
         BlogSubscriberRepository $blogSubscriberRepository,
@@ -62,7 +58,7 @@ class SubscriberController extends AbstractController
     }
 
     /**
-     * Error action.
+     * Error action (with actual template so no parent class call!).
      */
     protected function errorAction(): ResponseInterface
     {
@@ -70,29 +66,33 @@ class SubscriberController extends AbstractController
             $this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
         }
 
-        return $this->htmlResponse();
+        // Set action for proper template file
+        $this->request->setControllerActionName('error');
+
+        return $this->htmlResponse()->withStatus(400);
     }
 
     /**
      * Invalidates the auth and redirects user.
      */
-    public function logoutAction()
+    public function logoutAction(): ResponseInterface
     {
-        $this->processErrorAction('logout', FlashMessage::INFO);
+        return $this->processErrorAction('logout', FlashMessage::INFO);
     }
 
     /**
      * Redirects user when no auth was possible.
      *
-     * @param string $message  Flash message key
+     * @param string $message Flash message key
      * @param int $severity Severity code. One of the FlashMessage constants
      */
-    protected function processErrorAction(string $message = 'invalidAuth', int $severity = FlashMessage::ERROR)
+    protected function processErrorAction(string $message = 'invalidAuth', int $severity = FlashMessage::ERROR): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $this->authentication->logout();
 
         $this->addFlashMessageByKey($message, $severity);
-        $this->redirect('error');
+
+        return $this->errorAction();
     }
 }

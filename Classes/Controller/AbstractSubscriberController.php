@@ -9,11 +9,13 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * AbstractSubscriberController.
@@ -21,13 +23,11 @@ use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 abstract class AbstractSubscriberController extends AbstractController
 {
     /**
-     * subscriberRepository.
+     * @var AbstractSubscriberRepository
      */
     protected $subscriberRepository;
 
     /**
-     * subscriber.
-     *
      * @var AbstractSubscriber
      */
     protected $subscriber = null;
@@ -37,15 +37,18 @@ abstract class AbstractSubscriberController extends AbstractController
      */
     protected array $subscriptionSettings = [];
 
-    /**
-     * feUserService.
-     */
     protected ?AuthenticationServiceInterface $authentication = null;
-
 
     public function injectAuthentication(AuthenticationServiceInterface $authentication)
     {
         $this->authentication = $authentication;
+    }
+
+    public function listAction()
+    {
+        $this->checkAuth();
+
+        $this->redirect('list', 'Subscriber');
     }
 
     public function confirmAction()
@@ -183,7 +186,7 @@ abstract class AbstractSubscriberController extends AbstractController
     }
 
     /**
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @param AbstractSubscriber $subscriber
      */
-    abstract protected function findExistingSubscriptions($subscriber);
+    abstract protected function findExistingSubscriptions($subscriber): QueryResultInterface;
 }

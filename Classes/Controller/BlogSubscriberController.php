@@ -23,54 +23,31 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class BlogSubscriberController extends AbstractSubscriberController
 {
     /**
-     * subscriberRepository.
-     *
      * @var BlogSubscriberRepository
      */
     protected $subscriberRepository;
 
     /**
-     * Notification Service.
-     *
      * @var BlogNotificationService
      */
-    protected $notificationService;
+    protected BlogNotificationService $notificationService;
 
     /**
-     * subscriber.
-     *
      * @var PostSubscriber
      */
     protected $subscriber = null;
 
-    /**
-     * BlogSubscriberController constructor.
-     *
-     */
     public function __construct(BlogSubscriberRepository $subscriberRepository, BlogNotificationService $notificationService)
     {
         $this->subscriberRepository = $subscriberRepository;
         $this->notificationService = $notificationService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function initializeAction()
     {
         parent::initializeAction();
 
         $this->subscriptionSettings = $this->settings['subscriptionManager']['blog']['subscriber'];
-    }
-
-    /**
-     * action list.
-     */
-    public function listAction()
-    {
-        $this->checkAuth();
-
-        $this->redirect('list', 'Subscriber');
     }
 
     /**
@@ -110,9 +87,10 @@ class BlogSubscriberController extends AbstractSubscriberController
     }
 
     /**
-     * action delete.
+     * Do not remove @param (needed for Extbase)
      *
      * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
      */
     public function deleteAction($subscriber = null)
     {
@@ -123,10 +101,8 @@ class BlogSubscriberController extends AbstractSubscriberController
      * Finds existing subscriptions.
      *
      * @param BlogSubscriber $subscriber
-     *
-     * @return array|QueryResultInterface
      */
-    protected function findExistingSubscriptions($subscriber)
+    protected function findExistingSubscriptions($subscriber): QueryResultInterface
     {
         return $this->subscriberRepository->findExistingSubscriptions(
             $subscriber->getEmail(),
