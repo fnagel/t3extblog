@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -23,6 +23,6 @@ class HeaderDataViewHelper extends AbstractViewHelper
      */
     public function render(): void
     {
-        GeneralUtility::getPageRenderer()->addHeaderData($this->renderChildren());
+        FrontendUtility::getPageRenderer()->addHeaderData($this->renderChildren());
     }
 }

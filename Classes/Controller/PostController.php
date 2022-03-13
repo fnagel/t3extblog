@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Exception\AccessDeniedException;
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
@@ -233,7 +233,7 @@ class PostController extends AbstractCommentController
      */
     public function previewAction(int $previewPost): ResponseInterface
     {
-        if (!GeneralUtility::isValidBackendUser()) {
+        if (!FrontendUtility::isValidBackendUser()) {
             throw new AccessDeniedException('Preview not allowed.');
         }
 

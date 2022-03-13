@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -48,7 +48,7 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
             return false;
         }
 
-        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()
+        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !FrontendUtility::isUserLoggedIn()
         ) {
             return false;
         }

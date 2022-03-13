@@ -79,7 +79,7 @@ class FlushCacheService implements SingletonInterface
      */
     public static function clearPageCache()
     {
-        $pageUid = \FelixNagel\T3extblog\Utility\GeneralUtility::getPageUid();
+        $pageUid = \FelixNagel\T3extblog\Utility\FrontendUtility::getPageUid();
 
         /** @var $cacheService CacheService */
         $cacheService = GeneralUtility::makeInstance(CacheService::class);

@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -188,7 +188,7 @@ class CommentController extends AbstractCommentController
             return $this->errorAction();
         }
 
-        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()) {
+        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !FrontendUtility::isUserLoggedIn()) {
             $this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
             return $this->errorAction();
         }

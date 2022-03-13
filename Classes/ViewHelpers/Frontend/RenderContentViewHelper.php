@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -67,7 +67,7 @@ class RenderContentViewHelper extends AbstractViewHelper
      */
     protected function renderRecord(int $uid, string $table): string
     {
-        if (0 < GeneralUtility::getTsFe()->recordRegister[$table.':'.$uid]) {
+        if (0 < FrontendUtility::getTsFe()->recordRegister[$table.':'.$uid]) {
             return '';
         }
 
@@ -77,16 +77,16 @@ class RenderContentViewHelper extends AbstractViewHelper
             'dontCheckPid' => 1,
         ];
 
-        $parent = GeneralUtility::getTsFe()->currentRecord;
+        $parent = FrontendUtility::getTsFe()->currentRecord;
         if (!empty($parent)) {
-            ++GeneralUtility::getTsFe()->recordRegister[$parent];
+            ++FrontendUtility::getTsFe()->recordRegister[$parent];
         }
 
         $html = $this->getContentObjectRenderer()->cObjGetSingle('RECORDS', $configuration);
 
-        GeneralUtility::getTsFe()->currentRecord = $parent;
+        FrontendUtility::getTsFe()->currentRecord = $parent;
         if (!empty($parent)) {
-            --GeneralUtility::getTsFe()->recordRegister[$parent];
+            --FrontendUtility::getTsFe()->recordRegister[$parent];
         }
 
         return $html;
@@ -119,6 +119,6 @@ class RenderContentViewHelper extends AbstractViewHelper
      */
     protected function getContentObjectRenderer(): ContentObjectRenderer
     {
-        return GeneralUtility::getTsFe()->cObj;
+        return FrontendUtility::getTsFe()->cObj;
     }
 }

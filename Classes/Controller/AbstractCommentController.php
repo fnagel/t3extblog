@@ -11,7 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Service\AuthenticationService;
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 
 /**
@@ -35,8 +35,8 @@ abstract class AbstractCommentController extends AbstractController
         // In this case, the page needs to be uncached
         $this->clearPageCache();
 
-        if (GeneralUtility::isUserLoggedIn()) {
-            $comment->setEmail(GeneralUtility::getTsFe()->fe_user->user['email']);
+        if (FrontendUtility::isUserLoggedIn()) {
+            $comment->setEmail(FrontendUtility::getTsFe()->fe_user->user['email']);
             $comment->setAuthor($this->getNewCommentAuthor());
 
             return $comment;
@@ -56,7 +56,7 @@ abstract class AbstractCommentController extends AbstractController
     protected function getNewCommentAuthor(): string
     {
         $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];
-        $user = GeneralUtility::getTsFe()->fe_user->user;
+        $user = FrontendUtility::getTsFe()->fe_user->user;
 
         if ($field === 'fullName') {
             $fullName = [];

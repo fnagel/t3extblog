@@ -13,20 +13,19 @@ use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * General utility class.
- *
- * @todo Rename to FrontendUtility
  */
-class GeneralUtility implements SingletonInterface
+class FrontendUtility implements SingletonInterface
 {
     /**
      * Get TypoScript frontend controller.
      */
-    public static function getTsFe(): \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+    public static function getTsFe(): TypoScriptFrontendController
     {
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             throw new Exception('TSFE is not available in backend context!', 1582672848);
@@ -64,7 +63,7 @@ class GeneralUtility implements SingletonInterface
      */
     public static function getPageRenderer(): PageRenderer
     {
-        return CoreGeneralUtility::makeInstance(PageRenderer::class);
+        return GeneralUtility::makeInstance(PageRenderer::class);
     }
 
     /**
@@ -85,6 +84,6 @@ class GeneralUtility implements SingletonInterface
 
     protected static function getContext(): Context
     {
-        return CoreGeneralUtility::makeInstance(Context::class);
+        return GeneralUtility::makeInstance(Context::class);
     }
 }

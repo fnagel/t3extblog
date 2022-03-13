@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -44,15 +44,15 @@ class TitleTagViewHelper extends AbstractViewHelper
 
         if (!empty($content)) {
             if ($prepend === true) {
-                $content .= GeneralUtility::getTsFe()->page['title'];
+                $content .= FrontendUtility::getTsFe()->page['title'];
             }
 
             if ($searchTitle === null) {
                 $searchTitle = $content;
             }
 
-            GeneralUtility::getTsFe()->indexedDocTitle = $searchTitle;
-            GeneralUtility::getTsFe()->page['title'] = $content;
+            FrontendUtility::getTsFe()->indexedDocTitle = $searchTitle;
+            FrontendUtility::getTsFe()->page['title'] = $content;
         }
     }
 }

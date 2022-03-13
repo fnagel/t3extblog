@@ -103,7 +103,7 @@ abstract class AbstractController extends ActionController
         } catch (\Exception $exception) {
             $this->getLog()->exception($exception, [
                 // @extensionScannerIgnoreLine
-                'pid' => \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->id,
+                'pid' => \FelixNagel\T3extblog\Utility\FrontendUtility::getTsFe()->id,
                 'context' => 'frontend',
             ]);
             throw $exception;
@@ -242,7 +242,7 @@ abstract class AbstractController extends ActionController
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }
 
-        \FelixNagel\T3extblog\Utility\GeneralUtility::getTsFe()->addCacheTags($tags);
+        \FelixNagel\T3extblog\Utility\FrontendUtility::getTsFe()->addCacheTags($tags);
     }
 
     /**

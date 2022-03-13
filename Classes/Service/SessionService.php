@@ -10,7 +10,7 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 /**
@@ -35,7 +35,7 @@ class SessionService implements SessionServiceInterface
      */
     public function __construct()
     {
-        $this->frontendUser = GeneralUtility::getTsFe()->fe_user;
+        $this->frontendUser = FrontendUtility::getTsFe()->fe_user;
     }
 
     public function setData(array $data): void

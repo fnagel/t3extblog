@@ -10,7 +10,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  */
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use FelixNagel\T3extblog\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 
 /**
  * View helper to fix flash message caching issue
@@ -41,7 +41,7 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
         $flashMessages = $this->renderingContext->getControllerContext()->getFlashMessageQueue($queueIdentifier)->getAllMessages();
 
         if (count($flashMessages) > 0) {
-            GeneralUtility::disableFrontendCache();
+            FrontendUtility::disableFrontendCache();
         }
     }
 }
