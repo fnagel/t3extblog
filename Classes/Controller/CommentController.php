@@ -104,8 +104,9 @@ class CommentController extends AbstractCommentController
     /**
      * action new.
      *
-     * @param Post    $post       The post the comment is related to
-     * @param Comment $newComment
+     * @param Post $post The post the comment is related to
+     * @param Comment|null $newComment
+     * @return ResponseInterface
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      */
     public function newAction(Post $post, Comment $newComment = null): ResponseInterface
@@ -130,8 +131,16 @@ class CommentController extends AbstractCommentController
      */
     public function createAction(Post $post, Comment $newComment)
     {
-        $this->checkIfCommentIsAllowed($post);
-        $this->checkSpamPoints($newComment);
+        $commentAllowedResult = $this->checkIfCommentIsAllowed($post);
+        if ($commentAllowedResult instanceof ResponseInterface) {
+            return $commentAllowedResult;
+        }
+
+        $spamPointResult = $this->checkSpamPoints($newComment);
+        if ($spamPointResult instanceof ResponseInterface) {
+            return $spamPointResult;
+        }
+
         $this->sanitizeComment($newComment);
 
         if ($this->settings['blogsystem']['comments']['approvedByDefault']) {
@@ -154,21 +163,15 @@ class CommentController extends AbstractCommentController
 
         if (!$this->hasFlashMessages()) {
             if ($newComment->isApproved()) {
-                $this->addFlashMessageByKey('created', FlashMessage::OK);
+                $this->addFlashMessageByKey('created');
             } else {
                 $this->addFlashMessageByKey('createdDisapproved', FlashMessage::NOTICE);
             }
+
+            $this->clearPageCache();
         }
 
         $this->redirect('show', 'Post', null, $post->getLinkParameter());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function clearCacheOnError()
-    {
-        $this->clearPageCache();
     }
 
     /**
@@ -176,33 +179,29 @@ class CommentController extends AbstractCommentController
      *
      * @param Post $post The post the comment is related to
      */
-    protected function checkIfCommentIsAllowed(Post $post)
+    protected function checkIfCommentIsAllowed(Post $post): ?ResponseInterface
     {
         $settings = $this->settings['blogsystem']['comments'];
 
         if (!$settings['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
             $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
 
-        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()
-        ) {
+        if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !GeneralUtility::isUserLoggedIn()) {
             $this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
 
         if ($settings['allowedUntil'] && $post->isExpired(trim($settings['allowedUntil']))) {
             $this->addFlashMessageByKey('commentsClosed', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
+
+        return null;
     }
 
-    /**
-     * Process comment request.
-     *
-     * @param Comment $comment The comment to be deleted
-     */
-    protected function checkSpamPoints(Comment $comment)
+    protected function checkSpamPoints(Comment $comment): ?ResponseInterface
     {
         $settings = $this->settings['blogsystem']['comments']['spamCheck'];
         $comment->setSpamPoints($this->spamCheckService->process($settings));
@@ -221,9 +220,7 @@ class CommentController extends AbstractCommentController
                 null,
                 null,
                 $settings['redirect']['arguments'],
-                (int)$settings['redirect']['pid'],
-                0,
-                403
+                (int)$settings['redirect']['pid']
             );
         }
 
@@ -231,7 +228,7 @@ class CommentController extends AbstractCommentController
         if ($threshold['block'] > 0 && $comment->getSpamPoints() >= (int) $threshold['block']) {
             $this->getLog()->notice('New comment blocked because of SPAM.', $logData);
             $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
-            $this->errorAction();
+            return $this->errorAction();
         }
 
         // mark as spam
@@ -240,11 +237,12 @@ class CommentController extends AbstractCommentController
             $comment->markAsSpam();
             $this->addFlashMessageByKey('markedAsSpam', FlashMessage::NOTICE);
         }
+
+        return null;
     }
 
     /**
      * Sanitize comment content.
-     *
      */
     protected function sanitizeComment(Comment $comment)
     {
@@ -264,8 +262,10 @@ class CommentController extends AbstractCommentController
 
     /**
      * Disable error flash message.
+     *
+     * @return string|false
      */
-    protected function getErrorFlashMessage(): string
+    protected function getErrorFlashMessage()
     {
         return false;
     }

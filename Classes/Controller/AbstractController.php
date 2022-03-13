@@ -41,6 +41,11 @@ abstract class AbstractController extends ActionController
     use LoggingTrait;
 
     /**
+     * @var \TYPO3\CMS\Fluid\View\TemplateView
+     */
+    protected $view;
+
+    /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
      *
@@ -70,16 +75,15 @@ abstract class AbstractController extends ActionController
         $this->settings = $originalSettings;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         try {
-            return parent::processRequest($request);
+             $response = parent::processRequest($request);
         } catch (\Exception $exception) {
             $this->handleKnownExceptionsElseThrowAgain($exception);
         }
+
+        return $response;
     }
 
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
@@ -124,10 +128,11 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * Override getErrorFlashMessage to present
-     * nice flash error messages.
+     * Override getErrorFlashMessage to present nice flash error messages.
+     *
+     * @return string|false
      */
-    protected function getErrorFlashMessage(): string
+    protected function getErrorFlashMessage()
     {
         $defaultFlashMessage = parent::getErrorFlashMessage();
         $locallangKey = sprintf('error.%s.%s', lcfirst($this->request->getControllerName()), $this->actionMethodName);
@@ -162,26 +167,11 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * Clear cache of current page and sends correct header.
+     * Clear cache of current page.
      */
     protected function clearPageCache()
     {
-        if ($this->arguments->hasArgument('post')) {
-            $flushCacheService = $this->objectManager->get(FlushCacheService::class);
-            $post = $this->arguments->getArgument('post')->getValue();
-            $flushCacheService->addCacheTagsToFlush([
-                'tx_t3blog_post_uid_'.$post->getLocalizedUid(),
-            ]);
-        } else {
-            // @todo TYPO3 11: Fix this!
-            parent::clearCacheOnError();
-        }
-
-        // @todo TYPO3 11: Fix this!
-        $this->response->setHeader('Cache-Control', 'private', true);
-        $this->response->setHeader('Expires', '0', true);
-        $this->response->setHeader('Pragma', 'no-cache', true);
-        $this->response->sendHeaders();
+        FlushCacheService::clearPageCache();
     }
 
     protected function pageNotFoundAndExit(string $message = 'Entity not found.')
@@ -191,13 +181,13 @@ abstract class AbstractController extends ActionController
             $message
         );
 
-        throw new ImmediateResponseException($response, 1576748646637);
+        throw new ImmediateResponseException($response, 1576748646);
     }
 
     /**
      * Persist all records to database.
      */
-    protected function persistAllEntities(): string
+    protected function persistAllEntities(): void
     {
         /* @var $persistenceManager PersistenceManager */
         $persistenceManager = $this->objectManager->get(PersistenceManager::class);

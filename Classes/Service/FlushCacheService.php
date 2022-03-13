@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Service;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\CacheService;
 
 /**
  * Handles email sending and templating.
@@ -23,7 +24,6 @@ class FlushCacheService implements SingletonInterface
      */
     protected $cacheTagsToFlush = [];
 
-    
     public function initializeObject()
     {
         // Clear cache on shutdown
@@ -33,7 +33,7 @@ class FlushCacheService implements SingletonInterface
     /**
      * Clear all added cache tags. Called on shutdown.
      */
-    public function flushFrontendCache()
+    protected function flushFrontendCache()
     {
         static::flushFrontendCacheByTags($this->cacheTagsToFlush);
     }
@@ -42,8 +42,6 @@ class FlushCacheService implements SingletonInterface
      * Add a cache tag to flush.
      *
      * @param string|array $cacheTagsToFlush
-     *
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
     public function addCacheTagsToFlush($cacheTagsToFlush)
     {
@@ -60,12 +58,8 @@ class FlushCacheService implements SingletonInterface
 
     /**
      * Clear frontend page cache by tags.
-     *
-     * @param $cacheTagsToFlush
-     *
-     * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
      */
-    public static function flushFrontendCacheByTags($cacheTagsToFlush)
+    public static function flushFrontendCacheByTags(array $cacheTagsToFlush)
     {
         if (count($cacheTagsToFlush) < 1) {
             return;
@@ -78,5 +72,17 @@ class FlushCacheService implements SingletonInterface
             $cacheManager->getCache('cache_pages')->flushByTag($cacheTag);
             $cacheManager->getCache('cache_pagesection')->flushByTag($cacheTag);
         }
+    }
+
+    /**
+     * Clear current frontend page cache.
+     */
+    public static function clearPageCache()
+    {
+        $pageUid = \FelixNagel\T3extblog\Utility\GeneralUtility::getPageUid();
+
+        /** @var $cacheService CacheService */
+        $cacheService = GeneralUtility::makeInstance(CacheService::class);
+        $cacheService->clearPageCache([$pageUid]);
     }
 }

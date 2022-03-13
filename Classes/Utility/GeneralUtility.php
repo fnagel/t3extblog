@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility as CoreGeneralUtility;
-use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
@@ -26,7 +25,6 @@ class GeneralUtility implements SingletonInterface
 {
     /**
      * Get TypoScript frontend controller.
-     *
      */
     public static function getTsFe(): \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
     {
@@ -38,30 +36,31 @@ class GeneralUtility implements SingletonInterface
     }
 
     /**
+     * Get FE page UID.
+     */
+    public static function getPageUid(): int
+    {
+        return static::getTsFe()->id;
+    }
+
+    /**
      * Get FE language UID.
-     *
      */
     public static function getLanguageUid(): int
     {
-        $languageAspect = CoreGeneralUtility::makeInstance(Context::class)->getAspect('language');
-
-        return $languageAspect->getId();
+        return static::getContext()->getAspect('language')->getId();
     }
 
     /**
      * CAUTION: disables whole FE cache!
-     *
      */
     public static function disableFrontendCache(): void
     {
-        if (isset($GLOBALS['TSFE'])) {
-            $GLOBALS['TSFE']->no_cache = true;
-        }
+        static::getTsFe()->set_no_cache('EXT:t3extblog', true);
     }
 
     /**
      * Get page renderer.
-     *
      */
     public static function getPageRenderer(): PageRenderer
     {
@@ -70,13 +69,10 @@ class GeneralUtility implements SingletonInterface
 
     /**
      * Check if FE user is logged in
-     *
      */
     public static function isUserLoggedIn(): bool
     {
-        $context = CoreGeneralUtility::makeInstance(Context::class);
-
-        return (bool)$context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        return (bool)static::getContext()->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
     /**
@@ -85,5 +81,10 @@ class GeneralUtility implements SingletonInterface
     public static function isValidBackendUser(): bool
     {
         return static::getTsFe()->isBackendUserLoggedIn();
+    }
+
+    protected static function getContext(): Context
+    {
+        return CoreGeneralUtility::makeInstance(Context::class);
     }
 }
