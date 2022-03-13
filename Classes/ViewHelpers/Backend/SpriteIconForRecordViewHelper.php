@@ -27,9 +27,6 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -40,7 +37,6 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
 
     /**
      * Displays spriteIcon for database table and object.
-     *
      *
      * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
      */

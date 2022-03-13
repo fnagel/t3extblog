@@ -16,15 +16,11 @@ class PendingCommentNumberWithIconDataProvider extends AbstractDataProvider impl
 {
     protected CommentRepository $commentRepository;
 
-    
     public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNumber(): int
     {
         return $this->commentRepository->findPendingByPage($this->getStoragePids())->count();

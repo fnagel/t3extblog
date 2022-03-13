@@ -26,7 +26,6 @@ class StatisticChartDataProvider extends AbstractDataProvider implements ChartDa
 
     protected PostSubscriberRepository $postSubscriberRepository;
 
-    
     public function __construct(
         PostRepository $postRepository,
         CommentRepository $commentRepository,
@@ -39,9 +38,6 @@ class StatisticChartDataProvider extends AbstractDataProvider implements ChartDa
         $this->postSubscriberRepository = $postSubscriberRepository;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getChartData(): array
     {
         $pids = $this->getStoragePids();

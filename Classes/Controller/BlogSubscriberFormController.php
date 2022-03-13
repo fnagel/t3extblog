@@ -143,8 +143,6 @@ class BlogSubscriberFormController extends AbstractController
 
     /**
      * Disable error flash message.
-     *
-     * @inheritDoc
      */
     protected function getErrorFlashMessage()
     {

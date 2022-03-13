@@ -20,9 +20,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class PostSubscriberRepository extends AbstractSubscriberRepository
 {
-    /**
-     * @param Post $post The post the comment is related to
-     */
     public function findForNotification(Post $post): QueryResultInterface
     {
         $query = $this->createQuery();

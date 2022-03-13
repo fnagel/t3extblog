@@ -27,9 +27,6 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
 {
     use CompileWithRenderStatic;
 
-    /**
-     * @inheritdoc
-     */
     protected $escapeOutput = false;
 
     protected static ?TranslationConfigurationProvider $translateTools = null;
@@ -39,9 +36,6 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      */
     public static array $systemLanguages = [];
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -51,9 +45,6 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('object', 'object', 'Object to process', true);
     }
 
-    /**
-     * @inheritDoc
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         $translations = $arguments['translations'];
@@ -84,7 +75,6 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      *
      * @param string $table The table
      * @param array  $row   The record for which to make the localization panel.
-     *
      */
     public static function getLocalizedRecords(string $table, array $row): array
     {
@@ -131,7 +121,6 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
 
     /**
      * Gets an instance of TranslationConfigurationProvider.
-     *
      */
     protected static function getTranslateTools(): TranslationConfigurationProvider
     {

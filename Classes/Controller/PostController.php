@@ -40,9 +40,6 @@ class PostController extends AbstractCommentController
         $this->postRepository = $postRepository;
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
         if ($exception instanceof  TargetNotFoundException) {

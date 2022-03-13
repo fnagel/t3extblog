@@ -18,14 +18,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
  */
 class GetPostViewHelper extends AbstractBackendViewHelper
 {
-    /**
-     * postRepository.
-     */
     protected ?PostRepository $postRepository = null;
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -34,7 +28,7 @@ class GetPostViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('respectEnableFields', 'bool', 'If set to false, hidden records are shown', false, true);
     }
 
-    
+
     public function render(): string
     {
         $uid = $this->arguments['uid'];
@@ -47,7 +41,6 @@ class GetPostViewHelper extends AbstractBackendViewHelper
         return $this->getPostRepository()->findByLocalizedUid($uid, $respectEnableFields);
     }
 
-    
     protected function getPostRepository(): PostRepository
     {
         if ($this->postRepository === null) {

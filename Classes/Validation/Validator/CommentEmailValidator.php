@@ -18,9 +18,6 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
  */
 class CommentEmailValidator extends AbstractValidator
 {
-    /**
-     * @inheritDoc
-     */
     protected function isValid($value)
     {
         if (!$value instanceof Comment) {

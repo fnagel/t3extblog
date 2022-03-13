@@ -16,9 +16,6 @@ use TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider;
  */
 class PostXmlSitemapDataProvider extends RecordsXmlSitemapDataProvider
 {
-    /**
-     * @inheritdoc
-     */
     protected function getUrlFieldParameterMap(array $additionalParams, array $data): array
     {
         $additionalParams = parent::getUrlFieldParameterMap($additionalParams, $data);

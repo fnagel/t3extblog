@@ -18,9 +18,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FormErrorViewHelper extends AbstractViewHelper
 {
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -39,9 +36,6 @@ class FormErrorViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         /* @var $controllerContext ControllerContext */

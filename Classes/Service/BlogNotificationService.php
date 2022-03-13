@@ -20,12 +20,9 @@ use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 class BlogNotificationService extends AbstractNotificationService
 {
     /**
-     * subscriberRepository.
-     *
      * @var BlogSubscriberRepository
      */
     protected $subscriberRepository;
-
 
     public function initializeObject()
     {
@@ -82,8 +79,7 @@ class BlogNotificationService extends AbstractNotificationService
     }
 
     /**
-     * Send optin mail for subscriber.
-     *
+     * Send opt-in mail for subscriber.
      */
     protected function sendOptInMail(BlogSubscriber $subscriber)
     {
@@ -101,19 +97,17 @@ class BlogNotificationService extends AbstractNotificationService
 
     /**
      * Send post notification mails.
-     *
-     * @return int|void Amount of subscribers
      */
-    public function notifySubscribers(Post $post)
+    public function notifySubscribers(Post $post): ?int
     {
         $settings = $this->subscriptionSettings['subscriber'];
 
         if (!$settings['enableNotifications']) {
-            return;
+            return null;
         }
 
         if ($post->getMailsSent()) {
-            return;
+            return null;
         }
 
         $subscribers = $this->subscriberRepository->findForNotification();

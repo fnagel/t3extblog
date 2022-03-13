@@ -15,9 +15,6 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  */
 class PostTagMapper extends AbstractPersistedAliasMapper
 {
-    /**
-     * @inheritDoc
-     */
     public function __construct(array $settings)
     {
         // Set defaults
@@ -30,8 +27,6 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     /**
      * Check if tag is in any post tag cloud CSV field
      * Return plain value as the field may contain multiple tags
-     *
-     * @inheritDoc
      */
     public function generate(string $value): ?string
     {
@@ -48,8 +43,6 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     /**
      * Check if tag is in any post tag cloud CSV field
      * Return given value when existing.
-     *
-     * @inheritDoc
      */
     public function resolve(string $value): ?string
     {
@@ -65,8 +58,6 @@ class PostTagMapper extends AbstractPersistedAliasMapper
     /**
      * Search in post tag cloud field (CSV field)
      * Search with a space before and after due to FIND_IN_SET limitations
-     *
-     * @inheritDoc
      */
     protected function findByIdentifier(string $value): ?array
     {

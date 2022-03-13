@@ -27,9 +27,6 @@ class PrivacyPolicyValidator extends AbstractValidator
         'property' => [null, 'Property to add the error to', 'string'],
     ];
 
-    /**
-     * @inheritDoc
-     */
     protected function isValid($value)
     {
         if ($this->options['property'] !== null &&

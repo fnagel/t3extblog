@@ -19,7 +19,6 @@ class BlogSubscriber extends AbstractSubscriber
         return (int) $this->_languageUid;
     }
 
-    
     public function setSysLanguageUid(int $language)
     {
         $this->_languageUid = (int) $language;

@@ -19,9 +19,6 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  */
 class CommentAllowedViewHelper extends AbstractConditionViewHelper
 {
-    /**
-     * {@inheritdoc}
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -34,9 +31,6 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public static function verdict(array $arguments, RenderingContextInterface $renderingContext)
     {
         $arguments['settings'] = $renderingContext->getVariableProvider()->get('settings');
@@ -44,9 +38,6 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
         return parent::verdict($arguments, $renderingContext);
     }
 
-    /**
-     * @inheritdoc
-     */
     protected static function evaluateCondition($arguments = null)
     {
         /* @var Post $post */

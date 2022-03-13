@@ -21,13 +21,10 @@ use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 class CommentNotificationService extends AbstractNotificationService
 {
     /**
-     * subscriberRepository.
-     *
      * @var PostSubscriberRepository
      */
     protected $subscriberRepository;
 
-    
     public function initializeObject()
     {
         parent::initializeObject();
@@ -37,8 +34,7 @@ class CommentNotificationService extends AbstractNotificationService
     }
 
     /**
-     * Process added comment
-     * Comment is already persisted to DB.
+     * Process added comment (comment is already persisted to DB).
      *
      * @param Comment $comment Comment
      */
@@ -72,8 +68,7 @@ class CommentNotificationService extends AbstractNotificationService
     }
 
     /**
-     * Process changed status of a comment
-     * Comment is already persisted to DB.
+     * Process changed status of a comment (comment is already persisted to DB).
      *
      * @param Comment $comment Comment
      */
@@ -106,8 +101,6 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Checks if a new subscription should be added.
-     *
-     *
      */
     protected function isNewSubscriptionValid(Comment $comment): bool
     {
@@ -135,8 +128,6 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Send opt-in mail for subscriber.
-     *
-     * @param Comment        $comment    Comment
      */
     protected function sendOptInMail(PostSubscriber $subscriber, Comment $comment)
     {
@@ -160,8 +151,6 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Add a subscriber.
-     *
-     *
      */
     protected function addSubscriber(Comment $comment): PostSubscriber
     {
@@ -181,7 +170,6 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Send comment notification mails.
-     *
      */
     protected function notifySubscribers(Comment $comment)
     {
@@ -239,7 +227,6 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Notify the blog admin.
-     *
      */
     public function notifyAdmin(Comment $comment)
     {

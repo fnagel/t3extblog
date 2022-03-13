@@ -21,13 +21,9 @@ use FelixNagel\T3extblog\Utility\GeneralUtility;
  *
  * <t3b:flashMessagesClearCache />
  * <f:flashMessages />
- *
  */
 class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
 {
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

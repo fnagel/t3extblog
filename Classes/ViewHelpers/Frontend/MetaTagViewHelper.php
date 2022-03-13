@@ -38,8 +38,6 @@ class MetaTagViewHelper extends AbstractViewHelper
 
     /**
      * Renders a meta tag.
-     *
-     * @inheritdoc
      */
     public function render()
     {

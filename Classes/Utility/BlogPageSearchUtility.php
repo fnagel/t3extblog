@@ -20,18 +20,13 @@ class BlogPageSearchUtility implements SingletonInterface
 {
     protected static ?array $cache = null;
 
-    /**
-     * The database connection.
-     */
     protected static ?ConnectionPool $connectionPool = null;
 
-    
     public static function getBlogPageUids(): array
     {
         return array_column(self::getBlogRelatedPages(), 'uid');
     }
 
-    
     public static function getBlogRelatedPages(): array
     {
         if (self::$cache !== null) {
@@ -55,7 +50,6 @@ class BlogPageSearchUtility implements SingletonInterface
 
     /**
      * Run query for getting page info.
-     *
      */
     protected static function getBlogModulePages(): array
     {
@@ -72,7 +66,6 @@ class BlogPageSearchUtility implements SingletonInterface
         return $queryBuilder->execute()->fetchAll();
     }
 
-    
     protected static function getPagesWithBlogRecords(string $joinTable): array
     {
         $table = 'pages';
@@ -97,7 +90,6 @@ class BlogPageSearchUtility implements SingletonInterface
 
     /**
      * Get database connection.
-     *
      */
     protected static function getDatabaseConnection(): ConnectionPool
     {

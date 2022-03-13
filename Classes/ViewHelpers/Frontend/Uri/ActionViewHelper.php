@@ -26,9 +26,6 @@ use TYPO3\CMS\Core\Http\ApplicationType;
  */
 class ActionViewHelper extends CoreActionViewHelper
 {
-    /**
-     * @inheritDoc
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface

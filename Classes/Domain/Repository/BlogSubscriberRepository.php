@@ -2,6 +2,9 @@
 
 namespace FelixNagel\T3extblog\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
  *
@@ -14,11 +17,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  */
 class BlogSubscriberRepository extends AbstractSubscriberRepository
 {
-    /**
-     * @param int $pageUid
-     *
-     */
-    public function createQuery(int $pageUid = null): \TYPO3\CMS\Extbase\Persistence\QueryInterface
+    public function createQuery(int $pageUid = null): QueryInterface
     {
         $query = parent::createQuery($pageUid);
 
@@ -27,24 +26,15 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository
         return $query;
     }
 
-    /**
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findForNotification()
+    public function findForNotification(): QueryResultInterface
     {
-        $query = $this->createQuery();
-
-        return $query->execute();
+        return $this->createQuery()->execute();
     }
 
     /**
      * Search for already registered subscriptions.
-     *
-     * @param int    $excludeUid
-     *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findExistingSubscriptions(string $email, int $excludeUid = null)
+    public function findExistingSubscriptions(string $email, int $excludeUid = null): QueryResultInterface
     {
         $query = $this->createQuery();
 

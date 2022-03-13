@@ -26,9 +26,6 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

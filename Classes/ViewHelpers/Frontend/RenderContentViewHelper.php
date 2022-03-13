@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 use FelixNagel\T3extblog\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use FelixNagel\T3extblog\Domain\Model\AbstractLocalizedEntity;
 
@@ -26,9 +27,6 @@ class RenderContentViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeArguments()
     {
         $this->registerArgument('contentElements', 'array', 'Content elements to render, array or object implementing \ArrayAccess to iterated over', true);
@@ -38,7 +36,6 @@ class RenderContentViewHelper extends AbstractViewHelper
 
     /**
      * Render content.
-     *
      */
     public function render(): string
     {
@@ -67,8 +64,6 @@ class RenderContentViewHelper extends AbstractViewHelper
      * element by typoscript RENDER function.
      *
      * Taken from EXT:vhs/Classes/ViewHelpers/Content/AbstractContentViewHelper.php
-     *
-     *
      */
     protected function renderRecord(int $uid, string $table): string
     {
@@ -101,7 +96,6 @@ class RenderContentViewHelper extends AbstractViewHelper
      * Get element uid.
      *
      * @param array|DomainObjectInterface $element
-     *
      */
     protected function getElementUid($element): ?int
     {
@@ -122,9 +116,8 @@ class RenderContentViewHelper extends AbstractViewHelper
 
     /**
      * Get content object renderer.
-     *
      */
-    protected function getContentObjectRenderer(): \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+    protected function getContentObjectRenderer(): ContentObjectRenderer
     {
         return GeneralUtility::getTsFe()->cObj;
     }

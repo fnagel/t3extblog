@@ -19,8 +19,6 @@ trait DisableCompilerConditionViewHelperTrait
 {
     /**
      * Disable caching
-     *
-     * {@inheritdoc}
      */
     public function compile(
         $argumentsName,

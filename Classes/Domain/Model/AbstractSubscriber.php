@@ -19,7 +19,6 @@ abstract class AbstractSubscriber extends AbstractEntity
 {
     protected bool $hidden = true;
 
-
     protected bool $deleted = false;
 
     /**
@@ -54,19 +53,16 @@ abstract class AbstractSubscriber extends AbstractEntity
 
     /**
      * If the subscriber is valid for opt in email.
-     *
      */
     public function isValidForOptin(): bool
     {
         return $this->isHidden() && !$this->deleted && $this->getLastSent() === null;
     }
 
-
     public function isHidden(): bool
     {
         return (bool) $this->hidden;
     }
-
 
     public function setHidden(bool $hidden)
     {
@@ -137,17 +133,16 @@ abstract class AbstractSubscriber extends AbstractEntity
     protected function createCode()
     {
         $now = new \DateTime();
+        /** @noinspection NonSecureUniqidUsageInspection */
         $input = $this->email.$now->getTimestamp().uniqid();
 
         $this->code = substr(GeneralUtility::hmac($input), 0, 32);
     }
 
-
     public function hasPrivacyPolicyAccepted(): bool
     {
         return $this->privacyPolicyAccepted;
     }
-
 
     public function setPrivacyPolicyAccepted(bool $privacyPolicyAccepted)
     {

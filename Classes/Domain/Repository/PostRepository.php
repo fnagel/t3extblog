@@ -27,9 +27,8 @@ class PostRepository extends AbstractRepository
     /**
      * Override default findByUid function to enable also the option to turn of
      * the enableField setting.
-     *
      */
-    public function findByUid($uid, bool $respectEnableFields = true): Post
+    public function findByUid($uid, bool $respectEnableFields = true): ?Post
     {
         $query = $this->createQuery();
 
@@ -50,7 +49,7 @@ class PostRepository extends AbstractRepository
     /**
      * Gets localized post by uid. No overlay.
      */
-    public function findByLocalizedUid(int $uid, bool $respectEnableFields = true): Post
+    public function findByLocalizedUid(int $uid, bool $respectEnableFields = true): ?Post
     {
         return  $this->findByUid($uid, $respectEnableFields);
     }

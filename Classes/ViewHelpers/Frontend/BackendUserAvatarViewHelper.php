@@ -24,9 +24,6 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         $this->registerArgument('uid', 'string', 'Uid of the backend user');
@@ -36,8 +33,6 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 
     /**
      * Render the avatar image.
-     *
-     * @inheritdoc
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {

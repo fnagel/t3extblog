@@ -22,9 +22,6 @@ class TitleTagViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
 
-    /**
-     * @inheritdoc
-     */
     public function initializeArguments()
     {
         $this->registerArgument('prepend', 'string', 'Prepend to the existing page path title', false, true);
@@ -33,8 +30,6 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     /**
      * Override the title tag.
-     *
-     * @inheritdoc
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {

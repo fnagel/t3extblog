@@ -16,9 +16,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class WordwrapViewHelper extends AbstractViewHelper
 {
-    /**
-     * @inheritDoc
-     */
     public function initializeArguments(): void
     {
         parent::initializeArguments();

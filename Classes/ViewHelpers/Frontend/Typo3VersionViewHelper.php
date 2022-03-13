@@ -18,9 +18,6 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 class Typo3VersionViewHelper extends AbstractConditionViewHelper
 {
-    /**
-     * {@inheritdoc}
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -29,9 +26,6 @@ class Typo3VersionViewHelper extends AbstractConditionViewHelper
         $this->registerArgument('operator', 'string', 'Compare operator', true, '>');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected static function evaluateCondition($arguments = null)
     {
         $version = $arguments['version'];

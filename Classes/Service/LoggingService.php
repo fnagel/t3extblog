@@ -27,35 +27,22 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
 
     protected array $settings = [];
 
-    /**
-     * LoggingService constructor.
-     *
-     */
     public function __construct(SettingsService $settingsService)
     {
         $this->settingsService = $settingsService;
     }
 
-    /**
-     * Init object.
-     */
     public function initializeObject()
     {
         $this->renderInFe = (bool)$this->settingsService->getTypoScriptByPath('debug.renderInFe');
     }
 
-    /**
-     * @inheritDoc
-     */
     public function error($msg, array $data = [])
     {
         $this->logger->critical($msg, $data);
         $this->outputDebug($msg, 'error', $data);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function exception(\Exception $exception, array $data = [])
     {
         $this->logger->alert($exception->getMessage(), array_merge(
@@ -66,18 +53,12 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
         ));
     }
 
-    /**
-     * @inheritDoc
-     */
     public function notice($msg, array $data = [])
     {
         $this->logger->notice($msg, $data);
         $this->outputDebug($msg, 'notice', $data);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function dev($msg, array $data = [])
     {
         $this->logger->debug($msg, $data);

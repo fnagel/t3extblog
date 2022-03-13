@@ -39,9 +39,7 @@ class Post extends AbstractLocalizedEntity
      */
     public const ALLOW_COMMENTS_LOGIN = 2;
 
-
     protected bool $hidden = true;
-
 
     protected bool $deleted = false;
 
@@ -177,9 +175,6 @@ class Post extends AbstractLocalizedEntity
         $this->initStorageObjects();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getPropertiesForSerialization(): array
     {
         $properties = parent::getPropertiesForSerialization();
@@ -202,24 +197,20 @@ class Post extends AbstractLocalizedEntity
         $this->content = new ObjectStorage();
     }
 
-
     public function setDeleted(bool $deleted)
     {
         $this->deleted = $deleted;
     }
-
 
     public function getDeleted(): bool
     {
         return $this->deleted;
     }
 
-
     public function setHidden(bool $hidden)
     {
         $this->hidden = $hidden;
     }
-
 
     public function getHidden(): bool
     {

@@ -21,12 +21,7 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         'crdate' => QueryInterface::ORDER_DESCENDING,
     ];
 
-    /**
-     * Find by code.
-     *
-     *
-     */
-    public function findByCode(string $code, bool $enableFields = true): AbstractSubscriber
+    public function findByCode(string $code, bool $enableFields = true): ?AbstractSubscriber
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
@@ -41,10 +36,6 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         return $query->execute()->getFirst();
     }
 
-    /**
-     * @param int            $excludeUid
-     *
-     */
     protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, string $email, int $excludeUid = null): array
     {
         $constraints = [];
