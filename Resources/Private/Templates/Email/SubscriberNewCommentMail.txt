@@ -20,7 +20,7 @@ See the comment: <t3b:uri.action
 					section="comment-{comment.uid}" />
 
 You can manage your subscription by using this link:
-<t3b:uri.action
+ <t3b:uri.action
 	extensionName="T3extblog"
 	pluginName="SubscriptionManager"
 	controller="PostSubscriber"

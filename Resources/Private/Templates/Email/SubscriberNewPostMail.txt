@@ -20,9 +20,9 @@ a new post has been released on {settings.blogName}:
 
 
 You can manage your subscription by using this link:
-<t3b:uri.action
+ <t3b:uri.action
 	extensionName="T3extblog"
-	pluginName="SubscriptionManager" 
+	pluginName="SubscriptionManager"
 	controller="BlogSubscriber"
 	action="list"
 	pageUid="{settings.subscriptionManager.pid}"
