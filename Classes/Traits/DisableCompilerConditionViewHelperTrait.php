@@ -19,6 +19,8 @@ trait DisableCompilerConditionViewHelperTrait
 {
     /**
      * Disable caching
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function compile(
         $argumentsName,

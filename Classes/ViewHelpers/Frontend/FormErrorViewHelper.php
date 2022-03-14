@@ -9,7 +9,6 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -36,11 +35,12 @@ class FormErrorViewHelper extends AbstractViewHelper
         );
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        /* @var $controllerContext ControllerContext */
-        $controllerContext = $renderingContext->getcontrollerContext();
-        $validationResults = $controllerContext->getRequest()->getOriginalRequestMappingResults();
+        $validationResults = $renderingContext->getRequest()->getOriginalRequestMappingResults();
 
         $for = $arguments['for'];
         $error = $arguments['error'];

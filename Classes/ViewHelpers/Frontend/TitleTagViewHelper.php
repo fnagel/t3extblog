@@ -30,6 +30,8 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     /**
      * Override the title tag.
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {

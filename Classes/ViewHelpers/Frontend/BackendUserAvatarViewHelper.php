@@ -33,6 +33,8 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 
     /**
      * Render the avatar image.
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
@@ -50,8 +52,6 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 
     /**
      * Get avatar url using TYPO3 avatar provider.
-     *
-     *
      */
     protected static function getAvatarUrl(int $uid, int $size): ?string
     {
@@ -90,8 +90,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     /**
      * Called when no user avatar has been found.
      *
-     * @param string $default Blank gif als fallback
-     *
+     * @param string|null $default Blank gif als fallback
      */
     protected static function noAvatarFound(string $default = null): string
     {
