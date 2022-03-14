@@ -27,7 +27,7 @@ jobs:
       - name: Check message format
         uses: gsactions/commit-message-checker@v1
         with:
-          pattern: '^\[[A-Z]+\] [A-Z]+.+$'
+          pattern: '^(?:\[!!!\])?\[[A-Z]+\] [A-Z]+.+$'
           flags: 'gm'
           error: 'The actual message after the commit type should start with a uppercase letter.'
       - name: Check line length
