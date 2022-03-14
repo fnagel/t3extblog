@@ -60,9 +60,6 @@ class PostMapper extends AbstractPersistedAliasMapper
         parent::__construct($settings);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generate(string $value): ?string
     {
         if ($this->datePrefix === null) {
@@ -95,16 +92,6 @@ class PostMapper extends AbstractPersistedAliasMapper
         if (!is_string($value)) {
             $this->logNotFound('Invalid blog post date given!');
             return null;
-        }
-
-        // Remove possible appended route string (e.g. "/comment")
-        // Needed since TYPO3 9.5.15 and https://forge.typ  o3.org/issues/88291
-        // @todo TYPO3 11 Test if this is still needed, if yes: remove condition, if no: remove
-        if (version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), '9.5.15', '>=')) {
-            $valueSplit = explode("/", $value);
-            if ($valueSplit > 0) {
-                $value =  $valueSplit[0];
-            }
         }
 
         $value = $this->routeValuePrefix . $this->purgeRouteValuePrefix($value);
