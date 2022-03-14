@@ -27,9 +27,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      */
     protected $subscriberRepository;
 
-    /**
-     * @var BlogNotificationService
-     */
+    
     protected BlogNotificationService $notificationService;
 
     /**

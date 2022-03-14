@@ -44,15 +44,18 @@ abstract class AbstractUpgradeWizard implements UpgradeWizardInterface, ChattyIn
         return static::class;
     }
 
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->getTitle();
     }
 
-    public function updateNecessary(): bool {
+    public function updateNecessary(): bool
+    {
         return true;
     }
 
-    public function getConfirmation(): Confirmation {
+    public function getConfirmation(): Confirmation
+    {
         return new Confirmation(
             'Are you sure?',
             'This wizard will alter the database. Be careful in production environments!',

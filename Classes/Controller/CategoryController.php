@@ -22,18 +22,12 @@ class CategoryController extends AbstractController
     protected CategoryRepository $categoryRepository;
     protected PostRepository $postRepository;
 
-    /**
-     * CategoryController constructor.
-     */
     public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->postRepository = $postRepository;
     }
 
-    /**
-     * action list.
-     */
     public function listAction(): ResponseInterface
     {
         $categories = $this->categoryRepository->findAll();
@@ -46,9 +40,6 @@ class CategoryController extends AbstractController
         return $this->htmlResponse();
     }
 
-    /**
-     * action show.
-     */
     public function showAction(Category $category, int $page = 1): ResponseInterface
     {
         $this->addCacheTags($category);

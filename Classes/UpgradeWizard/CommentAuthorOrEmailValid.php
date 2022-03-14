@@ -2,8 +2,6 @@
 
 namespace FelixNagel\T3extblog\UpgradeWizard;
 
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
  *
@@ -13,11 +11,13 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
 {
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return 'T3extblog: Find existing comments with invalid author or email';
     }
 
-    public function executeUpdate(): bool {
+    public function executeUpdate(): bool
+    {
         return $this->findCommentAuthorOrEmailInvalid();
     }
 
@@ -47,7 +47,7 @@ class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
         $message .= ' Make sure to fix those records!';
         $this->output->writeln($message);
 
-        $commentList = array_map(function($comment) {
+        $commentList = array_map(function ($comment) {
             return $comment['uid'];
         }, $rows);
         $this->output->writeln('List of comment UIDs: '.implode(', ', $commentList));

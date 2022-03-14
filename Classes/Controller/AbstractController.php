@@ -78,7 +78,7 @@ abstract class AbstractController extends ActionController
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         try {
-             $response = parent::processRequest($request);
+            $response = parent::processRequest($request);
         } catch (\Exception $exception) {
             $this->handleKnownExceptionsElseThrowAgain($exception);
         }

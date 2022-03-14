@@ -2,9 +2,6 @@
 
 namespace FelixNagel\T3extblog\UpgradeWizard;
 
-use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.
  *
@@ -14,11 +11,13 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class CommentUrlValidation extends AbstractManualCheckWizard
 {
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return 'T3extblog: Find existing comments with invalid website URLs';
     }
 
-    public function executeUpdate(): bool {
+    public function executeUpdate(): bool
+    {
         return $this->findCommentRecordsForUrlValidation();
     }
 
@@ -47,7 +46,7 @@ class CommentUrlValidation extends AbstractManualCheckWizard
         $message .= ' Make sure to remove or fix those URLs!';
         $this->output->writeln($message);
 
-        $commentList = array_map(function($comment) {
+        $commentList = array_map(function ($comment) {
             return $comment['uid'];
         }, $rows);
         $this->output->writeln('List of comment UIDs: '.implode(', ', $commentList));

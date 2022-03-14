@@ -105,8 +105,6 @@ class CommentController extends AbstractCommentController
      * action new.
      *
      * @param Post $post The post the comment is related to
-     * @param Comment|null $newComment
-     * @return ResponseInterface
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      */
     public function newAction(Post $post, Comment $newComment = null): ResponseInterface

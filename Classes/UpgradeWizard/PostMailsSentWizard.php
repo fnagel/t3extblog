@@ -11,18 +11,21 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
 
 class PostMailsSentWizard extends AbstractMailsSentWizard
 {
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return 'T3extblog: Set "mails_sent" flag for existing posts';
     }
 
-    public function executeUpdate(): bool {
+    public function executeUpdate(): bool
+    {
         $count = $this->updateRecordsForMailsSent('tx_t3blog_post');
         $this->output->writeln($count.' posts have been updated.');
 
         return true;
     }
 
-    public function updateNecessary(): bool {
+    public function updateNecessary(): bool
+    {
         return $this->isFieldAvailable('tx_t3blog_post', 'mails_sent');
     }
 }
