@@ -5,9 +5,6 @@ plugin.tx_t3extblog {
 		partialRootPaths.5 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Partials/
 
 		layoutRootPaths.5 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Layouts/
-
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.5 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Templates/
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.partialRootPaths.5 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Partials/
 	}
 }
 

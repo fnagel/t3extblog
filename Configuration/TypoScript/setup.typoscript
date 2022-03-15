@@ -9,11 +9,6 @@ plugin.tx_t3extblog {
 
 		layoutRootPaths.0 = EXT:t3extblog/Resources/Private/Layouts/
 		layoutRootPaths.10 = {$plugin.tx_t3extblog.view.layoutRootPath}
-
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.partialRootPaths.0 = EXT:t3extblog/Resources/Private/Partials/
-		widget.FelixNagel\T3extblog\ViewHelpers\Widget\PaginateViewHelper.partialRootPaths.10 = {$plugin.tx_t3extblog.view.partialRootPath}
 	}
 
 	persistence {
