@@ -30,6 +30,7 @@ class BackendDashboardController extends AbstractBackendController
             ),
             'comments' => $this->commentRepository->findByPage(
                 $this->pageId,
+                false,
                 (int)$settings['comments']['paginate']['itemsPerPage']
             ),
             'postSubscribers' => $this->postSubscriberRepository->findByPage(

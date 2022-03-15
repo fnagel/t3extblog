@@ -9,10 +9,7 @@
 
 <f:section name="main">
 	<f:render partial="Backend/PendingComments" arguments="{pendingCommentsCount: pendingCommentsCount, addLink: 0}" />
-
-	<f:render
-		partial="Backend/Comment/Table"
-		arguments="{paginator: paginator, pagination: pagination,	dateTimeFormat: dateTimeFormat}" />
+	<f:render partial="Backend/Comment/Table" arguments="{_all}" />
 </f:section>
 
 </html>

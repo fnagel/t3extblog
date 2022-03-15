@@ -61,15 +61,11 @@ class BackendCommentController extends AbstractBackendController
 
     protected function response(QueryResultInterface $result, int $page = 1): ResponseInterface
     {
-        $this->view->assignMultiple(
-            $this->getPaginationViewVariables(
-                $result,
-                $this->settings['backend']['comments']['paginate'],
-                $page
-            )
+        return $this->paginationHtmlResponse(
+            $result,
+            $this->settings['backend']['comments']['paginate'],
+            $page
         );
-
-        return $this->htmlResponse();
     }
 
     protected function getViewHeaderButtonItems(): array

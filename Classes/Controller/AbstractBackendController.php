@@ -258,19 +258,15 @@ abstract class AbstractBackendController extends ActionController
         array $paginationConfig,
         int $page = 1
     ): ResponseInterface {
-        $this->view->assignMultiple($this->getPaginationViewVariables($result, $paginationConfig, $page));
-
-        return $this->htmlResponse();
-    }
-
-    protected function getPaginationViewVariables(QueryResultInterface $result, array $paginationConfig, int $page = 1): array
-    {
         $paginator = new QueryResultPaginator($result, $page, (int)$paginationConfig['itemsPerPage'] ?: 10);
 
-        return [
+        $this->view->assignMultiple([
+            'totalAmountOfItems' => $result->count(),
             'paginator' => $paginator,
             'pagination' => new SimplePagination($paginator),
-        ];
+        ]);
+
+        return $this->htmlResponse();
     }
 
     /**

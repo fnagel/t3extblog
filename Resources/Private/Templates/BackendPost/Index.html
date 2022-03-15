@@ -69,7 +69,7 @@
 							<td colspan="{f:if(condition: '{settings.subscriptionManager.blog.subscriber.enableNotifications}', then: 7, else: 6)}">
 								<f:translate
 									key="module.post.table.count"
-									arguments="{0: '{paginatedPosts -> f:count()}', 1: '{posts -> f:count()}'}" />
+									arguments="{0: '{paginator.paginatedItems -> f:count()}', 1: '{totalAmountOfItems}'}" />
 							</td>
 						</tr>
 					</table>

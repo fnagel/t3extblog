@@ -6,7 +6,7 @@
 		<f:then>
 			<div class="table-fit">
 				<f:if condition="{settings.backend.comments.paginate.insertAbove}">
-					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+					<f:render partial="Backend/Pagination" arguments="{pagination: pagination, paginator: paginator}" />
 				</f:if>
 
 				<table class="table table-striped table-hover">
@@ -38,7 +38,7 @@
 						<td colspan="9">
 							<f:translate
 								key="module.comment.table.count"
-								arguments="{0: '{paginatedComments -> f:count()}', 1: '{comments -> f:count()}'}" />
+								arguments="{0: '{paginator.paginatedItems -> f:count()}', 1: '{totalAmountOfItems}'}" />
 						</td>
 					</tr>
 				</table>
