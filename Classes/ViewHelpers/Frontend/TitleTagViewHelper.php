@@ -24,7 +24,7 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     public function initializeArguments()
     {
-        $this->registerArgument('prepend', 'string', 'Prepend to the existing page path title', false, true);
+        $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
         $this->registerArgument('searchTitle', 'string', 'Title for search index', false, null);
     }
 
@@ -47,6 +47,8 @@ class TitleTagViewHelper extends AbstractViewHelper
         if (!empty($content)) {
             if ($prepend === true) {
                 $content .= FrontendUtility::getTsFe()->page['title'];
+            } else {
+                $content = FrontendUtility::getTsFe()->page['title'].$content;
             }
 
             if ($searchTitle === null) {
