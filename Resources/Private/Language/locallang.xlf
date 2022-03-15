@@ -440,7 +440,6 @@
                 <source>Delete comment</source>
             </trans-unit>
 
-
 			<trans-unit id="module.subscriber.table.count">
 		   		<source>Show %1$s of %2$s subscriptions</source>
 	   		</trans-unit>
@@ -480,7 +479,6 @@
 				<source>Date</source>
 			</trans-unit>
 
-
 			<trans-unit id="module.message.pendingComments.title">
 				<source>Pending comments</source>
 			</trans-unit>
@@ -493,6 +491,19 @@
 			</trans-unit>
 			<trans-unit id="module.message.pageNotice">
 				<source>We found some related data on the following pages:</source>
+			</trans-unit>
+
+			<trans-unit id="pagination.previous">
+				<source>previous page</source>
+			</trans-unit>
+			<trans-unit id="pagination.next">
+				<source>next page</source>
+			</trans-unit>
+			<trans-unit id="pagination.first">
+				<source>first page</source>
+			</trans-unit>
+			<trans-unit id="pagination.last">
+				<source>last page</source>
 			</trans-unit>
 		</body>
 	</file>
