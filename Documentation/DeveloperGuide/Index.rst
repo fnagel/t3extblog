@@ -148,16 +148,16 @@ It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 * Posting comments and subscribe for new comments
 	* With and without SPAM check triggered
 	* Test field validation
+   * Test prefilling fields
 * Using the subscription manager (confirm and delete for new comment and post subscription)
 * New comment subscription
-	* admin, subscriber opt-in and notification emails
-	* triggered by:
-      * frontend & backend (confirm and un-spam a comment)
-      * edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
-	* make sure mails are sent with localized links for multi language setups
+	* Admin, subscriber opt-in and notification emails
+	* Triggered by:
+      * Frontend & backend (confirm and un-spam a comment)
+      * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
+	* Make sure mails are sent with localized links for multi language setups
 * New post subscription
 	* subscriber opt-in (frontend) and notification emails (button in BE module)
-* Run unit tests (see below)
 
 
 **Quick test procedure**
@@ -173,21 +173,6 @@ It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 * Add a valid comment for the translated post -> new comment mail sent (check localization and link)
 * Make sure there a two comments displayed for the default language post and only one for the localized post
 * Click envelope icon in "all post" view (T3extblog BE module) -> New post subscription mail sent
-
-
-
-Run unit tests
-^^^^^^^^^^^^^^
-
-This extension uses the `nimut/testing-framework` testing framework, see https://github.com/Nimut/testing-framework
-
-.. code-block:: bash
-
-	cd web/typo3conf/ext/t3extblog
-
-	composer install
-
-   ./vendor/bin/phpunit -c vendor/nimut/testing-framework/res/Configuration/UnitTests.xml ./Tests/Unit
 
 
 TER deployment
