@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
@@ -28,8 +29,7 @@ class GetPostViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('respectEnableFields', 'bool', 'If set to false, hidden records are shown', false, true);
     }
 
-
-    public function render(): string
+    public function render(): Post
     {
         $uid = $this->arguments['uid'];
         $respectEnableFields = $this->arguments['respectEnableFields'];
