@@ -27,7 +27,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      */
     protected $subscriberRepository;
 
-    
+
     protected BlogNotificationService $notificationService;
 
     /**
@@ -49,7 +49,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     }
 
     /**
-     * Displays a form (create) or a button (delete).
+     * Create a new subscription.
      */
     public function createAction()
     {
@@ -72,7 +72,7 @@ class BlogSubscriberController extends AbstractSubscriberController
         $subscriber = $this->objectManager->get(BlogSubscriber::class);
         $subscriber->setEmail($email);
         $subscriber->setHidden(false);
-        $subscriber->setSysLanguageUid((int) FrontendUtility::getLanguageUid());
+        $subscriber->setSysLanguageUid(FrontendUtility::getLanguageUid());
 
         $this->subscriberRepository->add($subscriber);
         $this->persistAllEntities();

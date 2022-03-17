@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  */
 
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
+use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -21,7 +22,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
- * Show localized posts view helper.
+ * Get localized records view helper.
  */
 class LocalizationViewHelper extends AbstractBackendViewHelper
 {
@@ -52,7 +53,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $object = $arguments['object'];
 
         if (!$object instanceof AbstractEntity) {
-            throw new \Exception('Invalid object given!', 1592862844);
+            throw new Exception('Invalid object given!', 1592862844);
         }
 
         $content = '';
@@ -79,7 +80,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
     public static function getLocalizedRecords(string $table, array $row): array
     {
         $records = [];
-        $translations = self::$translateTools->translationInfo($table, $row['uid'], 0, $row);
+        $translations = self::getTranslateTools()->translationInfo($table, $row['uid'], 0, $row);
 
         if (is_array($translations) && is_array($translations['translations'])) {
             foreach ($translations['translations'] as $sysLanguageUid => $translationData) {
@@ -108,7 +109,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 
         if (self::$systemLanguages[$sysLanguageUid]['flagIcon']) {
-            /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
+            /* @var $iconFactory IconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
             $icon = $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
         } else {
