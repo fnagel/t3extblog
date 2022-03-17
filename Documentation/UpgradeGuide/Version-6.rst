@@ -16,6 +16,30 @@ Version 6.x
    :depth: 3
 
 
+Upgrade from 6.2.0 to 6.2.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/6.2.0...6.2.1
+
+- Minor improvements and fixes
+
+- Clean up code base and fix extension scanner issues
+
+- Improve code quality using rector, see https://github.com/rectorphp/rector
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust templates and routing configuration if needed
+
+#. Clear caches
+
+
+
 Upgrade from 6.1.0 to 6.2.0
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
