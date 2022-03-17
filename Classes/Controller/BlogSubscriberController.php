@@ -73,6 +73,7 @@ class BlogSubscriberController extends AbstractSubscriberController
         $subscriber->setEmail($email);
         $subscriber->setHidden(false);
         $subscriber->setSysLanguageUid(FrontendUtility::getLanguageUid());
+        $subscriber->setPrivacyPolicyAccepted(true);
 
         $this->subscriberRepository->add($subscriber);
         $this->persistAllEntities();
