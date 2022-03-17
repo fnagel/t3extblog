@@ -37,6 +37,7 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
+					<f:render partial="IsHuman" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
 					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
 				</div>
 			</div>
