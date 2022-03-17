@@ -19,6 +19,9 @@
 			<trans-unit id="tx_t3blog_blog_nl.lastsent">
 				<source>Last sent:</source>
 			</trans-unit>
+			<trans-unit id="tx_t3blog_blog_nl.privacy_policy_accepted">
+				<source>Privacy policy accepted</source>
+			</trans-unit>
 			<trans-unit id="tx_t3blog_blog_nl.tabs.meta">
 				<source>Metadata</source>
 			</trans-unit>
