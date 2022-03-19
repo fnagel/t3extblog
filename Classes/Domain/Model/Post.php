@@ -126,7 +126,7 @@ class Post extends AbstractLocalizedEntity
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected ?FileReference $previewImage = null;
+    protected $previewImage = null;
 
     /**
      * content.
