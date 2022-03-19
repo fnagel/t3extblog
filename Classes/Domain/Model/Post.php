@@ -456,7 +456,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the previewText.
      */
-    public function getPreviewText(): string
+    public function getPreviewText(): ?string
     {
         return $this->previewText;
     }
