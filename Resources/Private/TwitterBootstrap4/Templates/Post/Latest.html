@@ -5,14 +5,22 @@
 
 <f:section name="main">
 
-	<f:if condition="{posts}">
-		<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.latestPosts.paginate}">
-			<div class="card-deck">
-				<f:for each="{paginatedPosts}" as="post">
-					<f:render partial="Post/Latest" arguments="{post: post, settings: settings}" />
-				</f:for>
-			</div>
-		</t3b:widget.paginate>
+	<f:if condition="{paginator.paginatedItems}">
+
+		<f:if condition="{settings.latestPosts.paginate.insertAbove}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
+
+		<div class="card-deck">
+			<f:for each="{paginator.paginatedItems}" as="post">
+				<f:render partial="Post/Latest" arguments="{post: post, settings: settings}" />
+			</f:for>
+		</div>
+
+		<f:if condition="{settings.latestPosts.paginate.insertBelow}">
+			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+		</f:if>
+
 	</f:if>
 
 </f:section>

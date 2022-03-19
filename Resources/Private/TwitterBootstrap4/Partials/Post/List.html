@@ -3,58 +3,64 @@
 
 <f:render partial="Post/Filter" arguments="{category: category, tag: tag, author: author}" />
 
-<t3b:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.blogsystem.posts.paginate}">
-	<f:for each="{paginatedPosts}" as="post">
-		<article class="card mb-3 mb-md-4 mb-lg-5">
+<f:if condition="{settings.blogsystem.posts.paginate.insertAbove}">
+	<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+</f:if>
 
-			<div class="card-header">
-				<h2>
-					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-						{post.title}
-					</f:link.action>
-				</h2>
-				<h6 class="mb-0">
-					<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
-					<f:if condition="{post.author.uid}">
-						<f:link.action controller="Post" action="author" arguments="{author: post.author}">
-							<span class="author">{post.author.name}</span>
-						</f:link.action> -
-					</f:if>
-					<f:render partial="Post/Categories" arguments="{post: post}" />
-				</h6>
+<f:for each="{paginator.paginatedItems}" as="post">
+	<article class="card mb-3 mb-md-4 mb-lg-5">
+
+		<div class="card-header">
+			<h2>
+				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+					{post.title}
+				</f:link.action>
+			</h2>
+			<h6 class="mb-0">
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
+				<f:if condition="{post.author.uid}">
+					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
+						<span class="author">{post.author.name}</span>
+					</f:link.action> -
+				</f:if>
+				<f:render partial="Post/Categories" arguments="{post: post}" />
+			</h6>
+		</div>
+
+		<f:if condition="{post.previewMode} == 0 && {post.previewText} && {post.previewImage}">
+			<div class="card-img-top">
+				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
 			</div>
+		</f:if>
 
-			<f:if condition="{post.previewMode} == 0 && {post.previewText} && {post.previewImage}">
-				<div class="card-img-top">
-					<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
+		<div class="card-body">
+			<f:if condition="{post.content}">
+				<div class="card-text">
+					<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
 				</div>
 			</f:if>
+		</div>
 
-			<div class="card-body">
-				<f:if condition="{post.content}">
-					<div class="card-text">
-						<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
-					</div>
-				</f:if>
-			</div>
-
-			<div class="card-footer text-muted small">
-				<div class="row">
-					<div class="col-sm-4">
-						<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
-							<span class="icon icon-comments" aria-hidden="true"></span>
-							<f:count subject="{post.comments}" />
-							<f:translate key="post.comments" />
-						</f:link.action>
-					</div>
-					<div class="col-sm-8 text-sm-right">
-						<f:render partial="Post/TagCloud" arguments="{post: post}" />
-					</div>
+		<div class="card-footer text-muted small">
+			<div class="row">
+				<div class="col-sm-4">
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
+						<span class="icon icon-comments" aria-hidden="true"></span>
+						<f:count subject="{post.comments}" />
+						<f:translate key="post.comments" />
+					</f:link.action>
+				</div>
+				<div class="col-sm-8 text-sm-right">
+					<f:render partial="Post/TagCloud" arguments="{post: post}" />
 				</div>
 			</div>
+		</div>
 
-		</article>
-	</f:for>
-</t3b:widget.paginate>
+	</article>
+</f:for>
+
+<f:if condition="{settings.blogsystem.posts.paginate.insertBelow}">
+	<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+</f:if>
 
 </html>

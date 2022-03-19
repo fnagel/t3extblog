@@ -73,13 +73,20 @@
 
 			<h3><f:count subject="{post.comments}" /> <f:translate key="post.comments" /></h3>
 
-			<f:if condition="{post.comments}">
+			<f:if condition="{paginator.paginatedItems}">
 				<div id="comment-list">
-					<t3b:widget.paginate objects="{post.commentsForPaginate}" as="paginatedComments" configuration="{settings.blogsystem.comments.paginate}">
-						<f:for each="{paginatedComments}" as="comment">
-							<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
-						</f:for>
-					</t3b:widget.paginate>
+					<f:if condition="{settings.blogsystem.comments.paginate.insertAbove}">
+						<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+					</f:if>
+
+					<f:for each="{paginator.paginatedItems}" as="comment">
+						<f:render partial="Comment/Show" arguments="{post: post, comment: comment}" />
+						<hr>
+					</f:for>
+
+					<f:if condition="{settings.blogsystem.comments.paginate.insertBelow}">
+						<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+					</f:if>
 				</div>
 			</f:if>
 		</div>
