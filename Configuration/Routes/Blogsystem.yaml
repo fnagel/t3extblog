@@ -9,7 +9,7 @@ routeEnhancers:
     routes:
       - routePath: '/'
         _controller: 'Post::list'
-      - routePath: '/{post_page_localized}/{post_page}'
+      - routePath: '/{post_page_localized}-{post_page}'
         _controller: 'Post::list'
         _arguments:
           'post_page': 'page'
@@ -29,7 +29,7 @@ routeEnhancers:
         _controller: 'Post::author'
         _arguments:
           'author_title': 'author'
-      - routePath: '/{author_prefix_localized}/{author_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{author_prefix_localized}/{author_title}/{post_page_localized}-{post_page}'
         _controller: 'Post::author'
         _arguments:
           'author_title': 'author'
@@ -38,7 +38,7 @@ routeEnhancers:
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
-      - routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{tag_prefix_localized}/{tag_title}/{post_page_localized}-{post_page}'
         _controller: 'Post::tag'
         _arguments:
           'tag_title': 'tag'
@@ -47,29 +47,29 @@ routeEnhancers:
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
-      - routePath: '/{category_prefix_localized}/{category_title}/{post_page_localized}/{post_page}'
+      - routePath: '/{category_prefix_localized}/{category_title}/{post_page_localized}-{post_page}'
         _controller: 'Post::category'
         _arguments:
           'category_title': 'category'
           'post_page': 'page'
     requirements:
-      post_page: '\d+'
-      post_permalink_uid: '\d+'
+      post_page: '^\d+$'
+      post_permalink_uid: '^\d+$'
       post_title: '^[\d\-\/]{0,11}[\p{Ll}\d\-\_]+$'
       author_title: '^[\p{Ll}\d\-\_]+$'
       category_title: '^[\p{Ll}\d\-\_]+$'
       tag_title: '^[\p{Ll}\d\-\_\.\!\# ]+$'
     aspects:
-#      post_page:
-#        type: StaticRangeMapper
-#        start: '1'
-#        end: '99'
-#      post_page_localized:
-#        type: LocaleModifier
-#        default: 'page'
-#        localeMap:
-#          - locale: 'de_DE.*'
-#            value: 'seite'
+      post_page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '99'
+      post_page_localized:
+        type: LocaleModifier
+        default: 'page'
+        localeMap:
+          - locale: 'de_DE.*'
+            value: 'seite'
       post_title:
         type: T3extblogPostMapper
         # Remove to disable date segment in the URL

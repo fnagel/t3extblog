@@ -34,7 +34,7 @@ https://github.com/fnagel/t3extblog/compare/6.2.0...7.0.0
 
 - Code clean-up (removed and replaced deprecated code usage)
 
-- Migrated EM update class to upgrade wizards
+- Migrated EM update class to upgrade wizards (you might need to run those again)
 
 - Some minor bugfixes and improvements
 
@@ -45,6 +45,8 @@ https://github.com/fnagel/t3extblog/compare/6.2.0...7.0.0
 - Removed support for TYPO3 10.x
 
 - Routing changes
+
+- Page URL structure has changed (`yyyy-mm-dd-my-post-title` instead of `yyyy/mm/dd/my-post-title`)
 
 - Template changes
 
@@ -58,6 +60,18 @@ How to upgrade
 
 #. Adjust your routing configuration (pagination has changed)
 
+#. Add a htaccess rule for redirecting old page URLs (see "URL redirect" below)
+
 #. Adjust your templates (pagination and a few other changes)
 
 #. Clear all caches
+
+
+**URL redirect**
+
+This will work for the pagination URL change when using the default routing:
+
+.. code-block::
+
+   RewriteRule ^blog/page/(\d+)/$ /blog/page-$1 [R=301,NC,L]
+   RewriteRule ^blog/(.*)/page/(\d+)/$ /blog/$1/page-$2 [R=301,NC,L]
