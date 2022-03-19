@@ -100,8 +100,10 @@ class SettingsService
      * "pages.uid" would return $this->settings['pages']['uid'].
      *
      * If the path is invalid or no entry is found, false is returned.
+     *
+     * @return mixed
      */
-    public function getTypoScriptByPath(string $path): mixed
+    public function getTypoScriptByPath(string $path)
     {
         return ObjectAccess::getPropertyPath($this->getTypoScriptSettings(), $path);
     }
