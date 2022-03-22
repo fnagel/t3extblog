@@ -101,7 +101,6 @@ class SettingsService
      *
      * If the path is invalid or no entry is found, false is returned.
      *
-     * @return mixed
      */
     public function getTypoScriptByPath(string $path)
     {
