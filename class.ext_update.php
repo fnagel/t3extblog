@@ -178,7 +178,7 @@ class ext_update
 
         foreach ($rows as $row) {
             $queryBuilder
-                ->update($table)->where([$constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))])
+                ->update($table)->where($constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)))
                 ->set($slug, $slugService->generate($row, $row['pid']))
                 ->execute();
         }
@@ -224,13 +224,13 @@ class ext_update
         $queryBuilder->getRestrictions()->removeAll();
         $queryBuilder
             ->select('*')
-            ->from($table)->where([$queryBuilder->expr()->neq('website', $queryBuilder->createNamedParameter('')), $queryBuilder->expr()->notLike(
+            ->from($table)->where($queryBuilder->expr()->neq('website', $queryBuilder->createNamedParameter('')), $queryBuilder->expr()->notLike(
                 'website',
                 $queryBuilder->createNamedParameter('http%')
             ), $queryBuilder->expr()->notLike(
-            'website',
-            $queryBuilder->createNamedParameter('https%')
-        )]);
+                'website',
+                $queryBuilder->createNamedParameter('https%')
+            ));
 
         $rows = $queryBuilder->execute()->fetchAll();
 
@@ -358,7 +358,7 @@ class ext_update
             ->select('*')
             ->from($table)
             ->where(
-                $queryBuilder->expr()->orX([$queryBuilder->expr()->eq('author', $queryBuilder->createNamedParameter('')), $queryBuilder->expr()->eq('email', $queryBuilder->createNamedParameter(''))])
+                $queryBuilder->expr()->orX($queryBuilder->expr()->eq('author', $queryBuilder->createNamedParameter('')), $queryBuilder->expr()->eq('email', $queryBuilder->createNamedParameter('')))
             );
 
         $rows = $queryBuilder->execute()->fetchAll();
