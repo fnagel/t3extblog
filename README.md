@@ -7,7 +7,9 @@
 [![Crowdin](https://badges.crowdin.net/typo3-extension-t3extblog/localized.svg)](https://crowdin.com/project/typo3-extension-t3extblog)
 [![License](https://img.shields.io/packagist/l/felixnagel/t3extblog)](https://github.com/fnagel/t3extblog/blob/master/LICENSE.txt)
 
-A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
+A record based blog extension for TYPO3 CMS. Easy to use and packed with features (incl. comments, subscriptions for
+comments and posts, Wordpress like subscription manager, reasonable email sending in FE and BE, GDPR ready, BE modules,
+Dashboard widgets, RSS, Sitemap, ...). Flexible and powerful!
 
 ## Screenshots
 

@@ -12,7 +12,9 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'T3Blog Extbase',
-    'description' => 'A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!',
+    'description' => 'A record based blog extension for TYPO3 CMS. Easy to use and packed with features (incl.
+        comments, subscriptions for comments and posts, Wordpress like subscription manager, reasonable email sending
+        in FE and BE, GDPR ready, BE modules, Dashboard widgets, RSS, Sitemap, ...). Flexible and powerful!',
     'category' => 'plugin',
     'author' => 'Felix Nagel',
     'author_email' => 'info@felixnagel.com',

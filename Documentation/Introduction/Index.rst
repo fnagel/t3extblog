@@ -14,7 +14,7 @@
 What does it do?
 ================
 
-A record based blog extension for TYPO3 CMS powered by Extbase / Fluid. Flexible and powerful!
+A record based blog extension for TYPO3 CMS. Easy to use and packed with features. Flexible and powerful!
 
 
 Currently implemented features:
@@ -58,7 +58,7 @@ Currently implemented features:
 * Default HTML markup matches Twitter Bootstrap 3.x or 4.x
 * Using official TYPO3 localization tools (Crowdin, see https://crowdin.com/project/typo3-extension-t3extblog)
 * Using interfaces and signal / slot for easy extending
-* Supports migration from EXT:t3blog and is tested in TYPO3 6-10
+* Supports migration from EXT:t3blog and is tested in TYPO3 6-11
 * CGL and code quality tests
 
 
