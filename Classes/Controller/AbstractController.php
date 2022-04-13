@@ -267,6 +267,7 @@ abstract class AbstractController extends ActionController
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SimplePagination($paginator),
+            'totalItems' => $result->count(),
         ]);
 
         return $this->htmlResponse();
