@@ -111,7 +111,7 @@ Translations
 ------------
 
 Translations could be added here:
-http://translation.typo3.org/projects/TYPO3.TYPO3.ext.t3extblog/
+https://crowdin.com/project/typo3-extension-t3extblog
 
 Please consider opening a GitHub ticket so we can review new translations as soon as possible!
 
@@ -197,7 +197,7 @@ See `/.github/workflows/release.yml` for more information.
 
 * Make sure the release has been pushed to the TER
 * Add t3x file rendered by TER to the GitHub release
-* Update maintained translations (German) on http://translation.typo3.org
+* Update maintained translations (German) on https://crowdin.com/project/typo3-extension-t3extblog
 
 
 .. important::
