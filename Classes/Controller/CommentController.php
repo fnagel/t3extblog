@@ -129,6 +129,10 @@ class CommentController extends AbstractCommentController
      */
     public function createAction(Post $post, Comment $newComment)
     {
+        // @todo Fix flash messages caching issue, see:
+        // https://github.com/fnagel/t3extblog/issues/112
+        $this->clearPageCache();
+
         $commentAllowedResult = $this->checkIfCommentIsAllowed($post);
         if ($commentAllowedResult instanceof ResponseInterface) {
             return $commentAllowedResult;
@@ -165,8 +169,6 @@ class CommentController extends AbstractCommentController
             } else {
                 $this->addFlashMessageByKey('createdDisapproved', FlashMessage::NOTICE);
             }
-
-            $this->clearPageCache();
         }
 
         $this->redirect('show', 'Post', null, $post->getLinkParameter());

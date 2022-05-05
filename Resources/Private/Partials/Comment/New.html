@@ -3,7 +3,7 @@
 
 <f:comment>
 	Make sure to always add flashMessagesClearCache BEFORE flashMessages VH
-	Not needed before TYPO3 CMS 7.3
+	Fix flash message caching: see https://github.com/fnagel/t3extblog/issues/112
 </f:comment>
 <t3b:flashMessagesClearCache />
 <f:render partial="FlashMessages" arguments="{_all}" />
