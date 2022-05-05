@@ -28,25 +28,24 @@ https://github.com/fnagel/t3extblog/compare/6.2.0...7.0.0
 
 - Support for TYPO3 11.5 LTS
 
-- Support for PHP 8.0
+- Support for PHP 8.0 and 8.1
 
-- Implement custom pagination (as core VH is no longer supported)
+- Implement custom pagination (as core VH widget is no longer available)
 
-- Code clean-up (removed and replaced deprecated code usage)
+- Migrated EM update class to upgrade wizards
 
-- Migrated EM update class to upgrade wizards (you might need to run those again)
+- Lots of bugfixes and other improvements
 
-- Some minor bugfixes and improvements
-
+- Massive code clean-up and quality improvements
 
 
 **Breaking changes**
 
 - Removed support for TYPO3 10.x
 
-- Routing changes
+- Routing and TCA has changed
 
-- Page URL structure has changed (`yyyy-mm-dd-my-post-title` instead of `yyyy/mm/dd/my-post-title`)
+- Page URL structure has changed (`my-blog/page-123` instead of `my-blog/page/123`)
 
 - Template changes
 
@@ -63,6 +62,8 @@ How to upgrade
 #. Add a htaccess rule for redirecting old page URLs (see "URL redirect" below)
 
 #. Adjust your templates (pagination and a few other changes)
+
+#. Run upgrade wizards in admin tools
 
 #. Clear all caches
 
