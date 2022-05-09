@@ -127,11 +127,16 @@ class CommentController extends AbstractCommentController
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator", param="newComment")
      * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", param="newComment", options={"key": "comment", "property": "privacyPolicyAccepted"})
      */
-    public function createAction(Post $post, Comment $newComment)
+    public function createAction(Post $post, Comment $newComment = null)
     {
         // @todo Fix flash messages caching issue, see:
         // https://github.com/fnagel/t3extblog/issues/112
         $this->clearPageCache();
+
+        if ($newComment === null) {
+            $this->addFlashMessageByKey('noComment', FlashMessage::WARNING);
+            $this->redirect('show', 'Post', null, $post->getLinkParameter());
+        }
 
         $commentAllowedResult = $this->checkIfCommentIsAllowed($post);
         if ($commentAllowedResult instanceof ResponseInterface) {

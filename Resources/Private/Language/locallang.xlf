@@ -271,6 +271,12 @@
 			<trans-unit id="flashMessage.comment.notLoggedIn">
 				<source>Please login to comment.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.noComment.title">
+				<source>No comment.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.noComment">
+				<source>No comment submitted.</source>
+			</trans-unit>
 
 			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
 				<source>Already registered.</source>
