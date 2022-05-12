@@ -408,7 +408,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Returns the metaDescription.
      */
-    public function getMetaDescription(): string
+    public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
     }
