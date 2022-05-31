@@ -14,25 +14,14 @@ namespace FelixNagel\T3extblog\Service;
  */
 class AuthenticationService implements AuthenticationServiceInterface
 {
-    /**
-     * Session data.
-     */
     protected ?array $sessionData = null;
 
-    /**
-     * Session Service.
-     */
     protected SessionServiceInterface $session;
 
-    /**
-     * AuthenticationService constructor.
-     *
-     */
     public function __construct(SessionServiceInterface $session)
     {
         $this->session = $session;
     }
-
 
     public function isValid(): bool
     {
@@ -57,10 +46,6 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->session->removeData();
     }
 
-    /**
-     * Returns email of the subscriber object.
-     *
-     */
     public function getEmail(): string
     {
         $data = $this->getData();
