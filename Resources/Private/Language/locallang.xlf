@@ -228,6 +228,12 @@
 			<trans-unit id="flashMessage.subscriber.invalidLink">
 				<source>The authentication link seems to be invalid.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.rateLimit.title">
+				<source>Request Rate Limited.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.subscriber.rateLimit">
+				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
+			</trans-unit>
 
 			<trans-unit id="flashMessage.comment.created.title">
 				<source>Comment saved!</source>
@@ -277,6 +283,12 @@
 			<trans-unit id="flashMessage.comment.noComment">
 				<source>No comment submitted.</source>
 			</trans-unit>
+			<trans-unit id="flashMessage.comment.rateLimit.title">
+				<source>Request Rate Limited.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.comment.rateLimit">
+				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
+			</trans-unit>
 
 			<trans-unit id="flashMessage.blogSubscriberForm.alreadyRegistered.title">
 				<source>Already registered.</source>
@@ -301,6 +313,12 @@
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.created">
 				<source>Thanks, your subscription has been saved. A confirmation email has been sent.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.rateLimit.title">
+				<source>Request Rate Limited.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.blogSubscriberForm.rateLimit">
+				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
 			</trans-unit>
 
 			<trans-unit id="module.title">

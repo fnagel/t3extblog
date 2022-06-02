@@ -31,6 +31,19 @@ plugin.tx_t3extblog.settings {
 			cookie = 2
 		}
 
+		# Throttle blog subscription requests by IP address
+		rateLimit {
+			enable = 0
+
+			# Maximum amount of attempts for the time interval, before further requests will be denied.
+			limit = 5
+			# Allowed time interval for the configured rate limit (PHP relative formats).
+			interval = 15 minutes
+			# IP-numbers (with *-wildcards) that are excluded from rate limiting. Syntax similar to [BE][IPmaskList].
+			# An empty value disables the exclude list check.
+			ipExcludeList =
+		}
+
 		privacyPolicy {
 			enabled = {$plugin.tx_t3extblog.settings.privacyPolicy.enabled}
 			typolink = {$plugin.tx_t3extblog.settings.privacyPolicy.typolink}

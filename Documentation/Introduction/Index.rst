@@ -42,7 +42,8 @@ Currently implemented features:
 * Subscriptions for new comments and new blog posts
 * Wordpress like subscription manager (manage all subscriptions from a dashboard)
 * Opt-In mails for subscriptions with configurable expiration date
-* Configurable spam check: "I am human" checkbox, honeypot, cookie and user agent check, link count
+* Configurable SPAM check: "I am human" checkbox, honeypot, cookie and user agent check, link count
+* Using TYPO3 core alike rate limiter implementation for throttling requests as additional SPAM check
 * Email address for comments is optional (but will be enforced if subscription checkbox is enabled)
 * Pre-fill comment author and email from session
 * Auto close comments functionality
