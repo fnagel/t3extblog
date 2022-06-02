@@ -121,8 +121,15 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * Get authentication.
      */
-    protected function authenticate(bool $isConfirmRequest = false)
+    protected function authenticate(bool $isConfirmRequest = false): void
     {
+        $rateLimitSettings = $this->settings['subscriptionManager']['rateLimit'];
+        if ($rateLimitSettings['enable'] && !$this->initRateLimiter('subscriber-authenticate', $rateLimitSettings)
+                ->isAccepted('subscriber-authenticate')
+        ) {
+            $this->forward('processError', 'Subscriber', null, ['message' => 'rateLimit']);
+        }
+
         $code = $this->getAuthCode();
 
         /* @var $subscriber AbstractSubscriber */
@@ -158,6 +165,8 @@ abstract class AbstractSubscriberController extends AbstractController
                 );
             }
         }
+
+        $this->getRateLimiter()->reset('subscriber-authenticate');
 
         $this->authentication->login($subscriber->getEmail());
         $this->subscriber = $subscriber;

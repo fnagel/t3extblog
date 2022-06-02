@@ -8,9 +8,11 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Fluid\View\TemplateView;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
+use FelixNagel\T3extblog\Service\RateLimiterServiceInterface;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
@@ -45,6 +47,8 @@ abstract class AbstractController extends ActionController
      * @var TemplateView
      */
     protected $view;
+
+    protected ?RateLimiterServiceInterface $rateLimiter = null;
 
     /**
      * Injects the Configuration Manager and is initializing the framework settings
@@ -92,11 +96,6 @@ abstract class AbstractController extends ActionController
         throw $exception;
     }
 
-    /**
-     * Initializes the controller before invoking an action method.
-     *
-     * @api
-     */
     protected function initializeAction()
     {
         try {
@@ -272,5 +271,19 @@ abstract class AbstractController extends ActionController
         ]);
 
         return $this->htmlResponse();
+    }
+
+    protected function initRateLimiter(string $key, array $settings): RateLimiterServiceInterface
+    {
+        return $this->getRateLimiter()->create($this->request, $key, $settings)->consume($key);
+    }
+
+    protected function getRateLimiter(): RateLimiterServiceInterface
+    {
+        if ($this->rateLimiter === null) {
+            $this->rateLimiter = GeneralUtility::makeInstance(RateLimiterServiceInterface::class);
+        }
+
+        return $this->rateLimiter;
     }
 }

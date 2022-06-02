@@ -119,6 +119,15 @@ class CommentController extends AbstractCommentController
         return $this->htmlResponse();
     }
 
+    public function initializeCreateAction()
+    {
+        $settings = $this->settings['blogsystem']['comments']['rateLimit'];
+
+        if ($settings['enable']) {
+            $this->initRateLimiter('comment-create', $settings);
+        }
+    }
+
     /**
      * Adds a comment to a blog post and redirects to single view.
      *
@@ -129,22 +138,23 @@ class CommentController extends AbstractCommentController
      */
     public function createAction(Post $post, Comment $newComment = null)
     {
-        // @todo Fix flash messages caching issue, see:
-        // https://github.com/fnagel/t3extblog/issues/112
+        // @todo Fix flash messages caching issue, see: https://github.com/fnagel/t3extblog/issues/112
         $this->clearPageCache();
+
+        if (($rateLimitResult = $this->checkRateLimit()) instanceof ResponseInterface) {
+            return $rateLimitResult;
+        }
 
         if ($newComment === null) {
             $this->addFlashMessageByKey('noComment', FlashMessage::WARNING);
             $this->redirect('show', 'Post', null, $post->getLinkParameter());
         }
 
-        $commentAllowedResult = $this->checkIfCommentIsAllowed($post);
-        if ($commentAllowedResult instanceof ResponseInterface) {
+        if (($commentAllowedResult = $this->checkIfCommentIsAllowed($post)) instanceof ResponseInterface) {
             return $commentAllowedResult;
         }
 
-        $spamPointResult = $this->checkSpamPoints($newComment);
-        if ($spamPointResult instanceof ResponseInterface) {
+        if (($spamPointResult = $this->checkSpamPoints($newComment)) instanceof ResponseInterface) {
             return $spamPointResult;
         }
 
@@ -176,7 +186,24 @@ class CommentController extends AbstractCommentController
             }
         }
 
+        $this->getRateLimiter()->reset('comment-create');
+
         $this->redirect('show', 'Post', null, $post->getLinkParameter());
+    }
+
+    /**
+     * Checks rate limit for request.
+     */
+    protected function checkRateLimit(): ?ResponseInterface
+    {
+        $settings = $this->settings['blogsystem']['comments']['rateLimit'];
+
+        if ($settings['enable'] && !$this->getRateLimiter()->isAccepted('comment-create')) {
+            $this->addFlashMessageByKey('rateLimit', FlashMessage::ERROR);
+            return $this->errorAction();
+        }
+
+        return null;
     }
 
     /**

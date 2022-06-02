@@ -30,3 +30,7 @@ services:
   FelixNagel\T3extblog\Service\LoggingServiceInterface:
     alias: FelixNagel\T3extblog\Service\LoggingService
     public: true
+
+  FelixNagel\T3extblog\Service\RateLimiterServiceInterface:
+    alias: FelixNagel\T3extblog\Service\RateLimiterService
+    public: true

@@ -62,8 +62,19 @@ class BlogSubscriberFormController extends AbstractController
         return $this->htmlResponse();
     }
 
+    public function initializeCreateAction()
+    {
+        $settings = $this->settings['blogSubscription']['rateLimit'];
+
+        if ($settings['enable']) {
+            $this->initRateLimiter('blog-subscriber-create', $settings);
+        }
+    }
+
     /**
      * Adds a subscriber.
+     *
+     * @param BlogSubscriber $subscriber
      */
     public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
@@ -77,8 +88,15 @@ class BlogSubscriberFormController extends AbstractController
             return $this->errorAction();
         }
 
-        $spamPointResult = $this->checkSpamPoints();
-        if ($spamPointResult instanceof ResponseInterface) {
+        // Rate limit for requests
+        $rateLimitSettings = $this->settings['blogSubscription']['rateLimit'];
+        if ($rateLimitSettings['enable'] && !$this->getRateLimiter()->isAccepted('blog-subscriber-create')) {
+            $this->addFlashMessageByKey('rateLimit', FlashMessage::ERROR);
+            return $this->errorAction();
+        }
+
+        // Check for SPAM
+        if (($spamPointResult = $this->checkSpamPoints()) instanceof ResponseInterface) {
             return $spamPointResult;
         }
 
@@ -98,6 +116,8 @@ class BlogSubscriberFormController extends AbstractController
         $this->notificationService->processNewEntity($subscriber);
 
         $this->addFlashMessageByKey('created');
+        $this->getRateLimiter()->reset('blog-subscriber-create');
+
         $this->redirect('success');
     }
 
