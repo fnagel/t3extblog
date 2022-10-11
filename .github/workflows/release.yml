@@ -45,8 +45,7 @@ jobs:
 
     env:
       TYPO3_EXTENSION_KEY: t3extblog
-      TYPO3_USER: ${{ secrets.TYPO3_USER }}
-      TYPO3_PASSWORD: ${{ secrets.TYPO3_PASSWORD }}
+      TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -56,10 +55,11 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: intl, mbstring, xml, soap, zip, curl
+          extensions: intl, mbstring, json, zip, curl
+          tools: composer:v2
 
       - name: Install TYPO3 TER client
-        run: composer global require namelesscoder/typo3-repository-client "^2.0" --prefer-dist --no-progress --no-suggest
+        run: composer global require typo3/tailor "^1.4" --prefer-dist --no-progress --no-suggest
 
       - name: Remove .git folder
         run: rm -rf ./$TYPO3_EXTENSION_KEY/.git
@@ -67,5 +67,9 @@ jobs:
       - name: List extension folder
         run: ls -liAsh ./$TYPO3_EXTENSION_KEY
 
+      - name: Get version
+        id: get-version
+        run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
+
       - name: Upload EXT:${{ env.TYPO3_EXTENSION_KEY }} as ${{ github.event.ref }} to TER
-        run: php ~/.composer/vendor/bin/upload "./$TYPO3_EXTENSION_KEY" "$TYPO3_USER" "$TYPO3_PASSWORD" "${{ github.event.head_commit.message }}"
+        run: php ~/.composer/vendor/bin/tailor ter:publish --path="./$TYPO3_EXTENSION_KEY" --comment "${{ github.event.head_commit.message }}" ${{ steps.get-version.outputs.version }}
