@@ -67,7 +67,7 @@ class RenderContentViewHelper extends AbstractViewHelper
      */
     protected function renderRecord(int $uid, string $table): string
     {
-        if (0 < FrontendUtility::getTsFe()->recordRegister[$table.':'.$uid]) {
+        if (empty(FrontendUtility::getTsFe()->recordRegister[$table.':'.$uid])) {
             return '';
         }
 
