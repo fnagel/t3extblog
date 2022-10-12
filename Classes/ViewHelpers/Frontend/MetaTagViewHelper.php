@@ -55,7 +55,7 @@ class MetaTagViewHelper extends AbstractViewHelper
         if ($forceAbsoluteUrl) {
             $siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 
-            if (!GeneralUtility::isFirstPartOfStr($content, $siteUrl)) {
+            if (!str_starts_with($content, $siteUrl)) {
                 $content = rtrim($siteUrl, '/') . '/' . ltrim($this->arguments['content'], '/');
             }
         }

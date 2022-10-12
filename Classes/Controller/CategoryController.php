@@ -20,6 +20,7 @@ use Psr\Http\Message\ResponseInterface;
 class CategoryController extends AbstractController
 {
     protected CategoryRepository $categoryRepository;
+    
     protected PostRepository $postRepository;
 
     public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository)

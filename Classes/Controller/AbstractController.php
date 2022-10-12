@@ -8,7 +8,8 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Fluid\View\TemplateView;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
@@ -41,7 +42,7 @@ abstract class AbstractController extends ActionController
     use LoggingTrait;
 
     /**
-     * @var \TYPO3\CMS\Fluid\View\TemplateView
+     * @var TemplateView
      */
     protected $view;
 
@@ -103,7 +104,7 @@ abstract class AbstractController extends ActionController
         } catch (\Exception $exception) {
             $this->getLog()->exception($exception, [
                 // @extensionScannerIgnoreLine
-                'pid' => \FelixNagel\T3extblog\Utility\FrontendUtility::getTsFe()->id,
+                'pid' => FrontendUtility::getTsFe()->id,
                 'context' => 'frontend',
             ]);
             throw $exception;
@@ -242,7 +243,7 @@ abstract class AbstractController extends ActionController
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }
 
-        \FelixNagel\T3extblog\Utility\FrontendUtility::getTsFe()->addCacheTags($tags);
+        FrontendUtility::getTsFe()->addCacheTags($tags);
     }
 
     /**

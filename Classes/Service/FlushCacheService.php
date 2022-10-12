@@ -8,7 +8,7 @@ namespace FelixNagel\T3extblog\Service;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -79,7 +79,7 @@ class FlushCacheService implements SingletonInterface
      */
     public static function clearPageCache()
     {
-        $pageUid = \FelixNagel\T3extblog\Utility\FrontendUtility::getPageUid();
+        $pageUid = FrontendUtility::getPageUid();
 
         /** @var $cacheService CacheService */
         $cacheService = GeneralUtility::makeInstance(CacheService::class);

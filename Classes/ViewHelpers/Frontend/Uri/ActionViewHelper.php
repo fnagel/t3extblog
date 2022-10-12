@@ -107,7 +107,7 @@ class ActionViewHelper extends CoreActionViewHelper
             $uriBuilder->setTargetPageType($pageType);
         }
 
-        if ($noCache === true) {
+        if ($noCache) {
             $uriBuilder->setNoCache($noCache);
         }
 
@@ -123,11 +123,11 @@ class ActionViewHelper extends CoreActionViewHelper
             ArrayUtility::mergeRecursiveWithOverrule($arguments, $additionalParams);
         }
 
-        if ($absolute === true) {
+        if ($absolute) {
             $uriBuilder->setCreateAbsoluteUri($absolute);
         }
 
-        if ($addQueryString === true) {
+        if ($addQueryString) {
             $uriBuilder->setAddQueryString($addQueryString);
         }
 
@@ -135,7 +135,7 @@ class ActionViewHelper extends CoreActionViewHelper
             $uriBuilder->setArgumentsToBeExcludedFromQueryString($argumentsToBeExcludedFromQueryString);
         }
 
-        if ($linkAccessRestrictedPages === true) {
+        if ($linkAccessRestrictedPages) {
             $uriBuilder->setLinkAccessRestrictedPages($linkAccessRestrictedPages);
         }
 

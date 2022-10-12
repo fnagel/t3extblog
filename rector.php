@@ -40,6 +40,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SetList::PHP_73);
     $containerConfigurator->import(SetList::PHP_74);
     $containerConfigurator->import(SetList::PHP_80);
+    $containerConfigurator->import(SetList::PHP_81);
 
     $containerConfigurator->import(Typo3SetList::TYPO3_87);
     $containerConfigurator->import(Typo3SetList::TYPO3_95);
@@ -70,7 +71,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // This will not import root namespace classes, like \DateTime or \Exception
     $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
-
-    // This will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
-    $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
 };
