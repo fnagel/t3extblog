@@ -53,9 +53,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $this->getCrdate();
     }
 
-    /**
-     * @param $crdate
-     */
+    
     public function setCrdate($crdate)
     {
         $this->crdate = $crdate;

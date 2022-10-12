@@ -22,7 +22,6 @@ class TypoScript
     {
         $validFields = GeneralUtility::trimExplode(',', $overload['settings']['overrideFlexformSettingsIfEmpty'], true);
         foreach ($validFields as $fieldName) {
-
             // Multilevel field
             if (strpos($fieldName, '.') !== false) {
                 $keyAsArray = explode('.', $fieldName);
@@ -74,8 +73,6 @@ class TypoScript
     /**
      * Set value in array by path.
      *
-     * @param $path
-     * @param $value
      *
      */
     protected function setValue(array $array, $path, $value): array
@@ -90,7 +87,6 @@ class TypoScript
      *
      * @SuppressWarnings("PHPMD.CountInLoopExpression")
      *
-     * @param $value
      */
     private function setValueByReference(array &$array, array $path, $value)
     {

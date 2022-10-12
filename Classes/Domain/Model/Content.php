@@ -138,9 +138,7 @@ class Content extends AbstractLocalizedEntity
         return $this->tstamp;
     }
 
-    /**
-     * @param $tstamp
-     */
+    
     public function setTstamp($tstamp)
     {
         $this->tstamp = $tstamp;
@@ -152,9 +150,7 @@ class Content extends AbstractLocalizedEntity
         return $this->CType;
     }
 
-    /**
-     * @param $ctype
-     */
+    
     public function setCType($ctype)
     {
         $this->CType = $ctype;
@@ -166,9 +162,7 @@ class Content extends AbstractLocalizedEntity
         return $this->header;
     }
 
-    /**
-     * @param $header
-     */
+    
     public function setHeader($header)
     {
         $this->header = $header;
@@ -180,9 +174,7 @@ class Content extends AbstractLocalizedEntity
         return $this->headerPosition;
     }
 
-    /**
-     * @param $headerPosition
-     */
+    
     public function setHeaderPosition($headerPosition)
     {
         $this->headerPosition = $headerPosition;
@@ -194,9 +186,7 @@ class Content extends AbstractLocalizedEntity
         return $this->bodytext;
     }
 
-    /**
-     * @param $bodytext
-     */
+    
     public function setBodytext($bodytext)
     {
         $this->bodytext = $bodytext;
@@ -226,9 +216,7 @@ class Content extends AbstractLocalizedEntity
         return $this->image;
     }
 
-    /**
-     * @param $image
-     */
+    
     public function setImage($image)
     {
         $this->image = $image;
@@ -240,9 +228,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imagewidth;
     }
 
-    /**
-     * @param $imagewidth
-     */
+    
     public function setImagewidth($imagewidth)
     {
         $this->imagewidth = $imagewidth;
@@ -254,9 +240,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imageorient;
     }
 
-    /**
-     * @param $imageorient
-     */
+    
     public function setImageorient($imageorient)
     {
         $this->imageorient = $imageorient;
@@ -268,9 +252,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imagecaption;
     }
 
-    /**
-     * @param $imagecaption
-     */
+    
     public function setImagecaption($imagecaption)
     {
         $this->imagecaption = $imagecaption;
@@ -282,9 +264,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imagecols;
     }
 
-    /**
-     * @param $imagecols
-     */
+    
     public function setImagecols($imagecols)
     {
         $this->imagecols = $imagecols;
@@ -296,9 +276,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imageborder;
     }
 
-    /**
-     * @param $imageborder
-     */
+    
     public function setImageborder($imageborder)
     {
         $this->imageborder = $imageborder;
@@ -310,9 +288,7 @@ class Content extends AbstractLocalizedEntity
         return $this->media;
     }
 
-    /**
-     * @param $media
-     */
+    
     public function setMedia($media)
     {
         $this->media = $media;
@@ -324,9 +300,7 @@ class Content extends AbstractLocalizedEntity
         return $this->layout;
     }
 
-    /**
-     * @param $layout
-     */
+    
     public function setLayout($layout)
     {
         $this->layout = $layout;
@@ -338,9 +312,7 @@ class Content extends AbstractLocalizedEntity
         return $this->cols;
     }
 
-    /**
-     * @param $cols
-     */
+    
     public function setCols($cols)
     {
         $this->cols = $cols;
@@ -352,9 +324,7 @@ class Content extends AbstractLocalizedEntity
         return $this->subheader;
     }
 
-    /**
-     * @param $subheader
-     */
+    
     public function setSubheader($subheader)
     {
         $this->subheader = $subheader;
@@ -366,9 +336,7 @@ class Content extends AbstractLocalizedEntity
         return $this->headerLink;
     }
 
-    /**
-     * @param $headerLink
-     */
+    
     public function setHeaderLink($headerLink)
     {
         $this->headerLink = $headerLink;
@@ -380,9 +348,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imageLink;
     }
 
-    /**
-     * @param $imageLink
-     */
+    
     public function setImageLink($imageLink)
     {
         $this->imageLink = $imageLink;
@@ -394,9 +360,7 @@ class Content extends AbstractLocalizedEntity
         return $this->imageZoom;
     }
 
-    /**
-     * @param $imageZoom
-     */
+    
     public function setImageZoom($imageZoom)
     {
         $this->imageZoom = $imageZoom;
@@ -408,9 +372,7 @@ class Content extends AbstractLocalizedEntity
         return $this->altText;
     }
 
-    /**
-     * @param $altText
-     */
+    
     public function setAltText($altText)
     {
         $this->altText = $altText;
@@ -422,9 +384,7 @@ class Content extends AbstractLocalizedEntity
         return $this->titleText;
     }
 
-    /**
-     * @param $titleText
-     */
+    
     public function setTitleText($titleText)
     {
         $this->titleText = $titleText;
@@ -436,9 +396,7 @@ class Content extends AbstractLocalizedEntity
         return $this->headerLayout;
     }
 
-    /**
-     * @param $headerLayout
-     */
+    
     public function setHeaderLayout($headerLayout)
     {
         $this->headerLayout = $headerLayout;
@@ -450,9 +408,7 @@ class Content extends AbstractLocalizedEntity
         return $this->listType;
     }
 
-    /**
-     * @param $listType
-     */
+    
     public function setListType($listType)
     {
         $this->listType = $listType;
