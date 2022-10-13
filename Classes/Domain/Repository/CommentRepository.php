@@ -10,7 +10,6 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  */
 
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -102,19 +101,29 @@ class CommentRepository extends AbstractRepository
             $query->setLimit($limit);
         }
 
-        $constraints = [
-            $this->getPendingConstraints($query)
-        ];
-
-        if ($post !== null) {
-            $constraints[] = $query->equals('postId', $post->getUid());
-        }
+        $constraints = $this->getPendingConstraints($query, $post);
 
         $query->matching(
             $query->logicalAnd($constraints)
         );
 
         return $query;
+    }
+
+    protected function getPendingConstraints(QueryInterface $query, Post $post = null): array
+    {
+        $constraints = [
+            $query->logicalOr([
+                $query->equals('spam', 1),
+                $query->equals('approved', 0),
+            ])
+        ];
+
+        if ($post !== null) {
+            $constraints[] = $query->equals('postId', $post->getUid());
+        }
+
+        return $constraints;
     }
 
     /**
@@ -125,7 +134,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createPendingQuery();
 
         $query->matching(
-            $query->logicalAnd($this->getFindByEmailAndPostIdConstraints($query, $email, $postUid))
+            $query->logicalAnd(
+                $this->getPendingConstraints($query),
+                $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
+            )
         );
 
         return $query->execute();
@@ -198,17 +210,6 @@ class CommentRepository extends AbstractRepository
         return $query->logicalAnd([
             $query->equals('spam', 0),
             $query->equals('approved', 1),
-        ]);
-    }
-
-    /**
-     * Create constraints for pending comments.
-     */
-    protected function getPendingConstraints(QueryInterface $query): OrInterface
-    {
-        return $query->logicalOr([
-            $query->equals('spam', 1),
-            $query->equals('approved', 0),
         ]);
     }
 }
