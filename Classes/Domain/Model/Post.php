@@ -549,7 +549,7 @@ class Post extends AbstractLocalizedEntity
      */
     public function getPreview(): string
     {
-        if ($this->getPreviewText() !== '') {
+        if ($this->getPreviewText()) {
             return strip_tags($this->getPreviewText());
         }
 
