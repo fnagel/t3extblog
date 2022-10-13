@@ -1,8 +1,4 @@
-<html xmlns:content="http://purl.org/rss/1.0/modules/content/"
-      xmlns:atom="http://www.w3.org/2005/Atom"
-      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend"
-      data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <item>
     <title><f:format.htmlspecialchars><f:format.crop maxCharacters="72" append="...">{post.title}</f:format.crop></f:format.htmlspecialchars></title>
     <pubDate><f:format.date format="D, d M Y H:i:s O">{post.publishDate}</f:format.date></pubDate>
@@ -49,7 +45,7 @@
         <content:encoded>
             <f:format.cdata>
                 <div class="content">
-                    <t3b:renderContent contentElements="{post.content}" />
+                    <f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{post.contentIdList}</f:cObject>
                 </div>
                 <div style="clear: both;"></div>
             </f:format.cdata>

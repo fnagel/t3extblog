@@ -1,5 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:if condition="{post.previewMode} == 0">
 	<f:then>
@@ -19,7 +18,7 @@
 	<f:else>
 		<f:for each="{post.content}" as="content" iteration="iterator">
 			<f:if condition="{iterator.index} < {post.previewMode}">
-				<t3b:frontend.renderContent contentElements="{0: content}" />
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.contentElementRendering">{content.uid}</f:cObject>
 			</f:if>
 		</f:for>
 		<f:render partial="Post/Button" arguments="{post: post, settings: settings}" />

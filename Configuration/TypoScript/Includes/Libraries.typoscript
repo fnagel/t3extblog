@@ -1,3 +1,11 @@
+# Post content rendering
+lib.tx_t3extblog.contentElementRendering = RECORDS
+lib.tx_t3extblog.contentElementRendering {
+	tables = tt_content
+	source.current = 1
+	dontCheckPid = 1
+}
+
 # Localize date format, used within the fluid templates
 lib.tx_t3extblog.date = TEXT
 lib.tx_t3extblog.date {
