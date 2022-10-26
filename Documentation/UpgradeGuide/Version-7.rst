@@ -6,7 +6,7 @@
 .. include:: ../Includes.txt
 
 
-.. _upgrade-guide-v6:
+.. _upgrade-guide-v7:
 
 Version 7.x
 -----------
@@ -16,8 +16,47 @@ Version 7.x
    :depth: 3
 
 
-Upgrade from 6.2.0 to 7.0.0
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Upgrade from 7.1.0
+^^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/7.0.0...7.1.0
+
+- Add support for PHP 8.1
+
+- Change post content rendering to a TypoScript RECORDS approach (and removed RenderContent VH)
+
+- Minor improvements and bug fixes
+
+- Minor code clean-up
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust post content rendering related templates if needed (see "Content rendering templates" section below)
+
+#. Adjust post content rendering related TypoScript (see `Configuration/TypoScript/Includes/Libraries.typoscript`) if needed
+
+#. Clear caches
+
+
+**Content rendering templates**
+
+You need to replace the removed `<t3b:frontend.renderContent />` view helper.
+Please check the following templates and partials:
+
+- `Resources/Private/Partials/Post/Content.html`
+- `Resources/Private/Partials/Post/RssItem.xml`
+- `Resources/Private/Partials/Post/Teaser.html`
+- `Resources/Private/TwitterBootstrap4/Partials/Post/Teaser.html`
+
+
+
+Upgrade to 7.0.0
+^^^^^^^^^^^^^^^^
 
 *"TYPO3 11 LTS support"*
 
