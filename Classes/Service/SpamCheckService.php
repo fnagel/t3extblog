@@ -37,6 +37,7 @@ class SpamCheckService implements SpamCheckServiceInterface
     public function process(array $settings): int
     {
         $arguments = GeneralUtility::_GPmerged('tx_t3extblog');
+        $commentArguments = GeneralUtility::_POST('tx_t3extblog_blogsystem')['newComment'];
         $spamPoints = 0;
 
         if (!$settings['enable']) {
@@ -57,6 +58,10 @@ class SpamCheckService implements SpamCheckServiceInterface
 
         if ($settings['userAgent'] && GeneralUtility::getIndpEnv('HTTP_USER_AGENT') === '') {
             $spamPoints += (int) $settings['userAgent'];
+        }
+
+        if ($settings['link'] && $this->checkTextForLinks($commentArguments['text'])) {
+            $spamPoints += (int) $settings['link'];
         }
 
         $this->signalSlotDispatcher->dispatch(
@@ -90,5 +95,10 @@ class SpamCheckService implements SpamCheckServiceInterface
         }
 
         return true;
+    }
+
+    protected function checkTextForLinks(string $string): bool
+    {
+        return preg_match('/(.*)(:)(\/\/)?(.*)(\..*)?/', $string) > 0;
     }
 }

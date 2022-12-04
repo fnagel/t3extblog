@@ -27,7 +27,7 @@ plugin.tx_t3extblog.settings {
 			honeypot = 3
 			# Checks for useragent
 			userAgent = 5
-			# Checks if client accepts cookies
+			# Checks if client has FE user cookie
 			cookie = 2
 		}
 

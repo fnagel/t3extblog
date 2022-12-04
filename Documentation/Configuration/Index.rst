@@ -84,6 +84,7 @@ In addition multiple basic SPAM checks flag every new comment as SPAM or not SPA
 * Honeypot fields
 * Cookie support check
 * User agent check
+* Search for links in comment text
 
 Each of these checks has a configurable spam point value. The sum of all spam points is compared to multiple
 configurable threshold values in order to trigger specific actions:

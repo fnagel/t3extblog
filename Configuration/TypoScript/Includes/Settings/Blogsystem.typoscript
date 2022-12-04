@@ -93,15 +93,17 @@ plugin.tx_t3extblog {
 						# }
 					}
 
-					### spam points by check, 0 = disabled
-					# simple checkbox which needs to be enabled
+					### Spam points by check, 0 = disabled
+					# Simple checkbox which needs to be enabled
 					isHumanCheckbox = 10
-					# hidden honeypot fields
+					# Hidden honeypot fields
 					honeypot = 3
-					# checks for useragent
+					# Checks for useragent
 					userAgent = 5
-					# checks if client accepts cookies
+					# Checks if client has FE user cookie
 					cookie = 2
+					# Checks if the comment text contains at least one link
+					link = 4
 				}
 
 				privacyPolicy {
