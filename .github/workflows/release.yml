@@ -27,7 +27,7 @@ jobs:
         id: check-tag
         run: |
           if [[ ${{ github.event.ref }} =~ ^refs/tags/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo ::set-output name=match::true
+            echo "match=true" >> $GITHUB_OUTPUT
           fi
 
   # The actual TER upload job
@@ -48,7 +48,7 @@ jobs:
       TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: ${{ env.TYPO3_EXTENSION_KEY }}
 
@@ -69,7 +69,7 @@ jobs:
 
       - name: Get version
         id: get-version
-        run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
+        run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
 
       - name: Upload EXT:${{ env.TYPO3_EXTENSION_KEY }} as ${{ github.event.ref }} to TER
         run: php ~/.composer/vendor/bin/tailor ter:publish --path="./$TYPO3_EXTENSION_KEY" --comment "${{ github.event.head_commit.message }}" ${{ steps.get-version.outputs.version }}
