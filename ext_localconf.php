@@ -167,9 +167,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostMapper'] 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostTagMapper'] = PostTagMapper::class;
 
 // Logging
-$logLevel = Environment::getContext()->isDevelopment() ? LogLevel::DEBUG : LogLevel::ERROR;
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfiguration'] = [
-    $logLevel => [
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfiguration'] ??= [
+    (Environment::getContext()->isDevelopment() ? LogLevel::DEBUG : LogLevel::ERROR) => [
         FileWriter::class => [
             'logFileInfix' => 't3extblog',
         ],
