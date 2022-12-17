@@ -499,6 +499,9 @@
 				<source>We found some related data on the following pages:</source>
 			</trans-unit>
 
+			<trans-unit id="pagination.page">
+				<source>Page</source>
+			</trans-unit>
 			<trans-unit id="pagination.previous">
 				<source>previous page</source>
 			</trans-unit>

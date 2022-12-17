@@ -10,7 +10,7 @@
 	<f:for each="{pagination.allPageNumbers}" as="page">
 		<f:if condition="{page} == {paginator.currentPageNumber}">
 			<f:if condition="{page} > 1">
-				<t3b:titleTag><f:translate key="widget.pagination.page" /> {page}</t3b:titleTag>
+				<t3b:titleTag><f:translate key="pagination.page" /> {page}</t3b:titleTag>
 			</f:if>
 		</f:if>
 	</f:for>
