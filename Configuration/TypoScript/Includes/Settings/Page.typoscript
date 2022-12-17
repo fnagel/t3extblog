@@ -1,0 +1,8 @@
+config {
+	pageTitleProviders {
+		t3extblog {
+			provider = FelixNagel\T3extblog\Seo\PageTitleProvider
+			before = record,seo
+		}
+	}
+}

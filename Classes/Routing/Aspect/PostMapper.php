@@ -10,18 +10,17 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-
 /**
  * PostMapper
  */
 class PostMapper extends AbstractPersistedAliasMapper
 {
     protected string $datePrefix;
-    
+
     protected string $datePrefixRegex;
-    
+
     protected bool $datePrefixLowercase = false;
-    
+
     protected string $dateFieldName;
 
     public function __construct(array $settings)

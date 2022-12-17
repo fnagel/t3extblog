@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
 
-<t3b:titleTag searchTitle="{post.title}">{post.title} - </t3b:titleTag>
+<t3b:titleTag>{post.title}</t3b:titleTag>
 
 <f:if condition="{settings.blogsystem.posts.metadata.enable}">
 	<f:if condition="{post.metaDescription}">

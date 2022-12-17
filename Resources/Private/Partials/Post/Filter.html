@@ -2,7 +2,7 @@
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
 
 <f:if condition="{category}">
-	<t3b:titleTag><f:translate key="post.category" /> "{category.name}" / </t3b:titleTag>
+	<t3b:titleTag><f:translate key="post.category" /> "{category.name}"</t3b:titleTag>
 	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.category" /> <em>{category.name}</em>
 		<f:link.action controller="Post" action="list" class="pull-right float-right alert-link">
@@ -13,7 +13,7 @@
 </f:if>
 
 <f:if condition="{tag}">
-	<t3b:titleTag><f:translate key="post.tag" /> "{tag}" / </t3b:titleTag>
+	<t3b:titleTag><f:translate key="post.tag" /> "{tag}"</t3b:titleTag>
 	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <f:translate key="post.tag" /> <em>{tag}</em>
 		<f:link.action controller="Post" action="list" class="pull-right float-right alert-link">
@@ -24,7 +24,7 @@
 </f:if>
 
 <f:if condition="{author}">
-	<t3b:titleTag>"{author.name}" / </t3b:titleTag>
+	<t3b:titleTag>"{author.name}"</t3b:titleTag>
 	<div class="alert alert-info">
 		<f:translate key="post.filter.legend" /> <em>{author.name}</em>
 		<f:link.action controller="Post" action="list" class="pull-right float-right alert-link">

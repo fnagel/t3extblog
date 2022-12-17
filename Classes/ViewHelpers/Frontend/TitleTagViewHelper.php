@@ -9,7 +9,8 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\FrontendUtility;
+use FelixNagel\T3extblog\Seo\PageTitleProvider;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -25,7 +26,8 @@ class TitleTagViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
-        $this->registerArgument('searchTitle', 'string', 'Title for search index', false, null);
+        // @todo Remove this in next major!
+        $this->registerArgument('searchTitle', 'string', 'DEPRECATED');
     }
 
     /**
@@ -35,28 +37,23 @@ class TitleTagViewHelper extends AbstractViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $prepend = $arguments['prepend'];
-        $searchTitle = $arguments['searchTitle'];
-
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             return;
         }
 
+        $prepend = $arguments['prepend'];
         $content = $renderChildrenClosure();
 
         if (!empty($content)) {
+            $titleProvider = GeneralUtility::makeInstance(PageTitleProvider::class);
+
             if ($prepend === true) {
-                $content .= FrontendUtility::getTsFe()->page['title'];
+                $content .= $titleProvider->getTitle();
             } else {
-                $content = FrontendUtility::getTsFe()->page['title'].$content;
+                $content = $titleProvider->getTitle().$content;
             }
 
-            if ($searchTitle === null) {
-                $searchTitle = $content;
-            }
-
-            FrontendUtility::getTsFe()->indexedDocTitle = $searchTitle;
-            FrontendUtility::getTsFe()->page['title'] = $content;
+            $titleProvider->setTitle($content);
         }
     }
 }
