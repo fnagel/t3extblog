@@ -75,6 +75,8 @@ routeEnhancers:
         # Remove to disable date segment in the URL
         datePrefix: 'Y/m/d/'
         datePrefixRegex: '#^[^\/]*\/[^\/]*\/[^\/]*\/#'
+        # Enable if needed
+        # datePrefixLowercase = 1
       post_prefix_localized:
         type: LocaleModifier
         default: 'article'
