@@ -73,7 +73,6 @@ class TypoScript
     /**
      * Set value in array by path.
      *
-     *
      */
     protected function setValue(array $array, $path, $value): array
     {

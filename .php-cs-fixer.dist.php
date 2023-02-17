@@ -15,6 +15,8 @@ $config
         // Those are risky, check manually if enabled!
         // 'phpdoc_to_param_type' => true,
         // 'phpdoc_to_return_type' => true,
+        // 'phpdoc_to_property_type' => true,
+        // 'phpdoc_trim_consecutive_blank_line_separation' => true,
     ]);
 
 return $config;

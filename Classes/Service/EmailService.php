@@ -65,7 +65,6 @@ class EmailService implements SingletonInterface
     /**
      * This is the main-function for sending Mails.
      *
-     *
      * @return int the number of recipients who were accepted for delivery
      */
     public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
@@ -82,7 +81,6 @@ class EmailService implements SingletonInterface
 
     /**
      * This is the main-function for sending Mails.
-     *
      *
      * @return int the number of recipients who were accepted for delivery
      */
@@ -193,7 +191,6 @@ class EmailService implements SingletonInterface
 
     /**
      * Prepare html as plain text.
-     *
      *
      */
     protected function preparePlainTextBody(string $html): string

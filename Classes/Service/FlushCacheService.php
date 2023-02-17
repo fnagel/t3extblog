@@ -19,10 +19,7 @@ use TYPO3\CMS\Extbase\Service\CacheService;
  */
 class FlushCacheService implements SingletonInterface
 {
-    /**
-     * @var array
-     */
-    protected $cacheTagsToFlush = [];
+    protected array $cacheTagsToFlush = [];
 
     public function initializeObject()
     {
