@@ -333,7 +333,7 @@ class Tcemain
         if (is_array($changedFields)) {
             $updatedFields = array_intersect($changedFields, $watchedFields);
 
-            if (is_array($updatedFields) && count($updatedFields) > 0) {
+            if (is_array($updatedFields) && $updatedFields !== []) {
                 return true;
             }
         }

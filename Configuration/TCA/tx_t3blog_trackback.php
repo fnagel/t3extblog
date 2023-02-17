@@ -72,7 +72,6 @@ return [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_trackback.postid',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_t3blog_post',
                 'size' => 1,
                 'minitems' => 0,

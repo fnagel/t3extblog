@@ -158,7 +158,7 @@ class ActionViewHelper extends CoreActionViewHelper
         /* @var $extensionService ExtensionService */
         $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
 
-        $controllerArguments = $controllerArguments ?? [];
+        $controllerArguments ??= [];
 
         if ($actionName !== null) {
             $controllerArguments['action'] = $actionName;

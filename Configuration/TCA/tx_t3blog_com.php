@@ -20,7 +20,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-comment',
         ],
-        'dividers2tabs' => true,
         'searchFields' => 'title,author,email,website,text',
     ],
     'columns' => [
@@ -176,11 +175,6 @@ return [
                 'minitems' => 1,
                 'maxitems' => 1,
                 'size' => 1,
-                'wizards' => [
-                    'add' => [
-                        'type' => 'suggest',
-                    ],
-                ],
             ],
         ],
         'mails_sent' => [

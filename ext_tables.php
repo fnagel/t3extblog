@@ -12,7 +12,7 @@ use FelixNagel\T3extblog\Controller\BackendSubscriberController;
 
 defined('TYPO3') || die();
 
-call_user_func(function ($packageKey) {
+call_user_func(static function ($packageKey) {
     ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
     ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
     ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');

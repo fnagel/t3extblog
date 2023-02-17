@@ -51,7 +51,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
             $parameters['id'] = $id;
         }
 
-        if (count($arguments) > 0) {
+        if ($arguments !== []) {
             $parameters['tx_t3extblog_web_t3extblogtxt3extblog'] = $arguments;
         }
 

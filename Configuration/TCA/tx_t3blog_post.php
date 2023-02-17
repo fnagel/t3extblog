@@ -30,7 +30,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-post',
         ],
-        'dividers2tabs' => true,
         'searchFields' => 'title',
     ],
     'columns' => [

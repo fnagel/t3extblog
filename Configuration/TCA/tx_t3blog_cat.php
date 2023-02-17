@@ -27,7 +27,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-category',
         ],
-        'dividers2tabs' => true,
         'searchFields' => 'catname,description',
     ],
     'columns' => [

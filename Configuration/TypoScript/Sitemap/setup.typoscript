@@ -20,8 +20,6 @@ plugin.tx_seo {
 								tx_t3extblog_blogsystem.controller = Post
 								tx_t3extblog_blogsystem.action = show
 							}
-
-							useCacheHash = 1
 						}
 					}
 				}
