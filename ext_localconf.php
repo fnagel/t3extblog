@@ -149,6 +149,9 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['requireCacheHashPresenceParamete
         'tx_t3extblog_subscriptionmanager[controller]',
         'tx_t3extblog_subscriptionmanager[action]',
         'tx_t3extblog_subscriptionmanager[subscriber]',
+    ]);
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'] =
+    array_merge($GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'], [
         'tx_t3extblog_subscriptionmanager[code]',
     ]);
 

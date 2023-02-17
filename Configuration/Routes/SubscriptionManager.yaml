@@ -41,4 +41,4 @@ routeEnhancers:
         _controller: 'BlogSubscriber::delete'
     requirements:
       subscription_uid: '\d+'
-      subscription_code: '^[a-z0-9]{32}$'
+      subscription_code: '^[a-z0-9]+$'
