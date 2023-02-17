@@ -119,7 +119,7 @@ class BlogSubscriberFormController extends AbstractController
                 '',
                 null,
                 null,
-                $settings['redirect']['arguments'],
+                $settings['redirect']['arguments'] ?? null,
                 (int)$settings['redirect']['pid']
             );
         }

@@ -224,7 +224,7 @@ class CommentController extends AbstractCommentController
                 '',
                 null,
                 null,
-                $settings['redirect']['arguments'],
+                $settings['redirect']['arguments'] ?? null,
                 (int)$settings['redirect']['pid']
             );
         }
