@@ -22,7 +22,7 @@ plugin.tx_t3extblog.settings {
 
 			### Spam points by check, 0 = disabled
 			# Simple checkbox which needs to be enabled
-			isHumanCheckbox = 10
+			isHumanCheckbox = 7
 			# Hidden honeypot fields
 			honeypot = 3
 			# Checks for useragent
