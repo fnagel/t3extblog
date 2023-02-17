@@ -16,6 +16,38 @@ Version 7.x
    :depth: 3
 
 
+Upgrade from 7.2.0
+^^^^^^^^^^^^^^^^^^
+
+*"Anti SPAM"*
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/7.1.0...7.2.0
+
+- Make use of page title API, see https://docs.typo3.org/m/typo3/reference-coreapi/11.5/en-us/ApiOverview/Seo/PageTitleApi.html
+
+- Implement rate limiter for throttling requests (for new comment or blog subscriptions and subscriber authentication)
+
+- SPAM check: count links in comment text
+
+- Minor improvements and bug fixes
+
+- Minor code clean-up and quality improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Enable and adjust request rate limiter configuration if needed
+
+#. Adjust templates with titleTag VH if needed
+
+#. Clear caches
+
+
+
 Upgrade from 7.1.0
 ^^^^^^^^^^^^^^^^^^
 
