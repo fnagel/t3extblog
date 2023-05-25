@@ -19,8 +19,8 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        php-versions: [7.4, 8.0, 8.1]
-        typo3-versions: [11.5]
+        php-versions: [8.1, 8.2]
+        typo3-versions: [12.4]
 
     name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
     steps:
