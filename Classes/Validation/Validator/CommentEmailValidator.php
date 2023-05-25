@@ -18,7 +18,7 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
  */
 class CommentEmailValidator extends AbstractValidator
 {
-    protected function isValid($value)
+    protected function isValid(mixed $value): void
     {
         if (!$value instanceof Comment) {
             throw new InvalidValidationOptionsException('No valid comment given!', 1592253083);

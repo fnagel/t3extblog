@@ -27,7 +27,7 @@ class PrivacyPolicyValidator extends AbstractValidator
         'property' => [null, 'Property to add the error to', 'string'],
     ];
 
-    protected function isValid($value)
+    protected function isValid(mixed $value): void
     {
         if ($this->options['property'] !== null &&
             ($value instanceof AbstractEntity && !$value->_hasProperty($this->options['property']))

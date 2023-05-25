@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 class UrlValidator extends AbstractValidator
 {
-    protected function isValid($value)
+    protected function isValid(mixed $value): void
     {
         if (!in_array(parse_url($value, PHP_URL_SCHEME), ['http', 'https'], true) ||
             !GeneralUtility::isValidUrl($value)
