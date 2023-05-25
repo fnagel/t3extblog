@@ -14,6 +14,12 @@ services:
   FelixNagel\T3extblog\Service\SettingsService:
     public: true
 
+  FelixNagel\T3extblog\Configuration\BackendConfigurationManager:
+    public: true
+    arguments:
+      $typoScriptCache: '@cache.typoscript'
+      $runtimeCache: '@cache.runtime'
+
   # Interface implementations
   FelixNagel\T3extblog\Service\SessionServiceInterface:
     alias: FelixNagel\T3extblog\Service\SessionService

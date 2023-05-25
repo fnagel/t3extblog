@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Configuration;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager
@@ -26,10 +27,11 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      * should trigger emails but does not.
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
+     * @todo Test this in TYPO3 v12!
      */
-    protected function getCurrentPageIdFromGetPostData(): int
+    protected function getCurrentPageIdFromRequest(ServerRequestInterface $request): int
     {
-        $id = parent::getCurrentPageIdFromGetPostData();
+        $id = parent::getCurrentPageIdFromRequest($request);
 
         if (empty($id)) {
             $id = (int) GeneralUtility::_GP('popViewId');
