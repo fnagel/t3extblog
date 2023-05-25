@@ -9,32 +9,68 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend\Uri;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Exception\InvalidArgumentException;
-use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
-use TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper as CoreActionViewHelper;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for creating URIs to extbase actions.
  *
  * This a modified version of the default Extbase class forcing FE links within BE context.
+ *
+ * @todo Test this in TYPO3 v12!
  */
-class ActionViewHelper extends CoreActionViewHelper
+class ActionViewHelper extends AbstractViewHelper
 {
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    use CompileWithRenderStatic;
+
+    public function initializeArguments(): void
     {
-        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface
-            && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()
-        ) {
-            return parent::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
+        $this->registerArgument('action', 'string', 'Target action');
+        $this->registerArgument('arguments', 'array', 'Arguments', false, []);
+        $this->registerArgument('controller', 'string', 'Target controller. If NULL current controllerName is used');
+        $this->registerArgument('extensionName', 'string', 'Target Extension Name (without `tx_` prefix and no underscores). If NULL the current extension name is used');
+        $this->registerArgument('pluginName', 'string', 'Target plugin. If empty, the current plugin name is used');
+        $this->registerArgument('pageUid', 'int', 'Target page. See TypoLink destination');
+        $this->registerArgument('pageType', 'int', 'Type of the target page. See typolink.parameter', false, 0);
+        $this->registerArgument('noCache', 'bool', 'Set this to disable caching for the target page. You should not need this.', false);
+        $this->registerArgument('section', 'string', 'The anchor to be added to the URI', false, '');
+        $this->registerArgument('format', 'string', 'The requested format, e.g. ".html', false, '');
+        $this->registerArgument('linkAccessRestrictedPages', 'bool', 'If set, links pointing to access restricted pages will still link to the page even though the page cannot be accessed.', false, false);
+        $this->registerArgument('additionalParams', 'array', 'additional query parameters that won\'t be prefixed like $arguments (overrule $arguments)', false, []);
+        $this->registerArgument('absolute', 'bool', 'If set, an absolute URI is rendered', false, false);
+        $this->registerArgument('addQueryString', 'string', 'If set, the current query parameters will be kept in the URL. If set to "untrusted", then ALL query parameters will be added. Be aware, that this might lead to problems when the generated link is cached.', false, false);
+        $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', 'arguments to be removed from the URI. Only active if $addQueryString = TRUE', false, []);
+    }
+
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
+    {
+        /** @var RenderingContext $renderingContext */
+        $request = $renderingContext->getRequest();
+        if (!$request instanceof RequestInterface) {
+            throw new Exception(
+                'ViewHelper t3b:uri.action can be used only in extbase context and needs a request implementing extbase RequestInterface.',
+                1639819692
+            );
         }
 
-        return self::renderStaticFrontend($arguments, $renderChildrenClosure, $renderingContext);
+        if (ApplicationType::fromRequest($request)->isFrontend()) {
+            throw new Exception(
+                'ViewHelper t3b:uri.action can be used only in non frontend context.',
+                1639819694
+            );
+        }
+
+        return self::renderStaticFrontend($request, $arguments, $renderingContext);
     }
 
     /**
@@ -49,7 +85,7 @@ class ActionViewHelper extends CoreActionViewHelper
      * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::renderStatic
      * @return string
      */
-    protected static function renderStaticFrontend(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    protected static function renderStaticFrontend(RequestInterface $request, array $arguments, RenderingContext $renderingContext)
     {
         if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
             throw new InvalidArgumentException('Missing pageUid argument for extbase link generation from BE context. Check your template!');
@@ -57,11 +93,6 @@ class ActionViewHelper extends CoreActionViewHelper
 
         if ($arguments['controller'] === null || $arguments['extensionName'] === null || $arguments['pluginName'] === null) {
             throw new InvalidArgumentException('Missing arguments for extbase link generation from BE context. Check your template!');
-        }
-
-        // @todo Remove this when TYPO3 11 is no longer supported
-        if (isset($arguments['addQueryStringMethod'])) {
-            trigger_error('Using the argument "addQueryStringMethod" in <f:uri.action> ViewHelper has no effect anymore and will be removed in TYPO3 v12. Remove the argument in your fluid template, as it will result in a fatal error.', E_USER_DEPRECATED);
         }
 
         /** @var int $pageUid */
@@ -80,7 +111,7 @@ class ActionViewHelper extends CoreActionViewHelper
         $additionalParams = $arguments['additionalParams'] ?? null;
         /** @var bool $absolute */
         $absolute = $arguments['absolute'] ?? false;
-        /** @var bool $addQueryString */
+        /** @var bool|string $addQueryString */
         $addQueryString = $arguments['addQueryString'] ?? false;
         /** @var array|null $argumentsToBeExcludedFromQueryString */
         $argumentsToBeExcludedFromQueryString = $arguments['argumentsToBeExcludedFromQueryString'] ?? null;
@@ -99,6 +130,7 @@ class ActionViewHelper extends CoreActionViewHelper
         $uriBuilder = $renderingContext->getUriBuilder();
         $uriBuilder->reset();
 
+
         if ($pageUid > 0) {
             $uriBuilder->setTargetPageUid($pageUid);
         }
@@ -107,7 +139,7 @@ class ActionViewHelper extends CoreActionViewHelper
             $uriBuilder->setTargetPageType($pageType);
         }
 
-        if ($noCache) {
+        if ($noCache === true) {
             $uriBuilder->setNoCache($noCache);
         }
 
@@ -123,11 +155,11 @@ class ActionViewHelper extends CoreActionViewHelper
             ArrayUtility::mergeRecursiveWithOverrule($arguments, $additionalParams);
         }
 
-        if ($absolute) {
+        if ($absolute === true) {
             $uriBuilder->setCreateAbsoluteUri($absolute);
         }
 
-        if ($addQueryString) {
+        if ($addQueryString && $addQueryString !== 'false') {
             $uriBuilder->setAddQueryString($addQueryString);
         }
 
@@ -135,7 +167,7 @@ class ActionViewHelper extends CoreActionViewHelper
             $uriBuilder->setArgumentsToBeExcludedFromQueryString($argumentsToBeExcludedFromQueryString);
         }
 
-        if ($linkAccessRestrictedPages) {
+        if ($linkAccessRestrictedPages === true) {
             $uriBuilder->setLinkAccessRestrictedPages($linkAccessRestrictedPages);
         }
 
