@@ -18,7 +18,7 @@ use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 // See https://github.com/sabbelasichon/typo3-rector/tree/main/docs
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
-        Typo3LevelSetList::UP_TO_TYPO3_11
+        Typo3LevelSetList::UP_TO_TYPO3_12
     ]);
 
     $rectorConfig->import(SetList::CODING_STYLE);
@@ -34,9 +34,12 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(SetList::PHP_72);
     $rectorConfig->import(SetList::PHP_73);
     $rectorConfig->import(SetList::PHP_74);
+    $rectorConfig->import(SetList::PHP_80);
+    $rectorConfig->import(SetList::PHP_81);
+    $rectorConfig->import(SetList::PHP_82);
 
     // Define your target version which you want to support
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_80);
 
     $rectorConfig->skip([
         ExplicitBoolCompareRector::class,

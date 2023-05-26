@@ -46,7 +46,8 @@ return [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.email',
             'config' => [
                 'type' => 'input',
-                'eval' => 'required, email',
+                'eval' => 'email',
+                'required' => true,
                 'softref' => 'email',
             ],
         ],
@@ -54,7 +55,7 @@ return [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.name',
             'config' => [
                 'type' => 'input',
-                'eval' => 'required',
+                'required' => true,
             ],
         ],
         'post_uid' => [

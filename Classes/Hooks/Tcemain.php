@@ -65,7 +65,7 @@ class Tcemain
         string $command,
         string $table,
         string $id,
-        $value,
+        mixed $value,
         bool $commandIsProcessed,
         DataHandler $tceMain
     ) {
@@ -106,7 +106,7 @@ class Tcemain
         string $command,
         string $table,
         string $id,
-        $value,
+        mixed $value,
         DataHandler $tceMain
     ) {
         if ($command === 'delete' && $table === 'tx_t3blog_post') {
@@ -127,7 +127,7 @@ class Tcemain
      * @param array       $fields  The record row how it has been inserted into the database
      * @param DataHandler $tceMain A reference to the TCEmain instance
      */
-    public function processDatamap_afterDatabaseOperations(string $status, string $table, $id, array $fields, DataHandler $tceMain)
+    public function processDatamap_afterDatabaseOperations(string $status, string $table, mixed $id, array $fields, DataHandler $tceMain)
     {
         if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'])) {
             return;
@@ -211,7 +211,7 @@ class Tcemain
         $queryBuilder
             ->select('uid')
             ->from($tableName)
-            ->where(new CompositeExpression(CompositeExpression::TYPE_AND, $constraints));
+            ->where(CompositeExpression::and($constraints));
 
         $rows = $queryBuilder->execute()->fetchAll();
 
@@ -283,12 +283,10 @@ class Tcemain
 
     /**
      * Get record uid.
-     *
-     * @param int|string $id
      */
-    protected function resolveRecordUid($id, DataHandler $reference): int
+    protected function resolveRecordUid(int|string $id, DataHandler $reference): int
     {
-        if (false !== strpos($id, 'NEW') && !empty($reference->substNEWwithIDs[$id])) {
+        if (str_contains($id, 'NEW') && !empty($reference->substNEWwithIDs[$id])) {
             $id = $reference->substNEWwithIDs[$id];
         }
 
@@ -297,10 +295,8 @@ class Tcemain
 
     /**
      * Get record pid.
-     *
-     * @param int|string $id
      */
-    protected function resolveRecordPid(string $table, $id, DataHandler $tceMain, array $fields = null): int
+    protected function resolveRecordPid(string $table, int|string $id, DataHandler $tceMain, array $fields = null): int
     {
         // Changed records
         if (isset($tceMain->checkValue_currentRecord['pid'])) {

@@ -13,16 +13,13 @@ use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 
 class SubscriberListDataProvider extends AbstractListDataProvider
 {
-    protected AbstractSubscriberRepository $subscriberRepository;
-
     protected array $options = [
         'limit' => 10,
     ];
 
     
-    public function __construct(AbstractSubscriberRepository $subscriberRepository, array $options = [])
+    public function __construct(protected AbstractSubscriberRepository $subscriberRepository, array $options = [])
     {
-        $this->subscriberRepository = $subscriberRepository;
         $this->options = array_merge(
             $this->options,
             $options

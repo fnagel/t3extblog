@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
@@ -42,36 +43,6 @@ abstract class AbstractBackendController extends ActionController
     use LoggingTrait;
 
     /**
-     * @var BackendTemplateView
-     */
-    protected $view;
-
-    /**
-     * @var BackendTemplateView
-     */
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
-    /**
-     * postRepository.
-     */
-    protected PostRepository $postRepository;
-
-    /**
-     * commentRepository.
-     */
-    protected CommentRepository $commentRepository;
-
-    /**
-     * postSubscriberRepository.
-     */
-    protected PostSubscriberRepository $postSubscriberRepository;
-
-    /**
-     * blogSubscriberRepository.
-     */
-    protected BlogSubscriberRepository $blogSubscriberRepository;
-
-    /**
      * The page id.
      */
     protected ?int $pageId = null;
@@ -90,15 +61,13 @@ abstract class AbstractBackendController extends ActionController
      * BackendBaseController constructor.
      */
     public function __construct(
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        PostSubscriberRepository $postSubscriberRepository,
-        BlogSubscriberRepository $blogSubscriberRepository
-    ) {
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->postSubscriberRepository = $postSubscriberRepository;
-        $this->blogSubscriberRepository = $blogSubscriberRepository;
+        protected PostRepository $postRepository,
+        protected CommentRepository $commentRepository,
+        protected PostSubscriberRepository $postSubscriberRepository,
+        protected BlogSubscriberRepository $blogSubscriberRepository,
+        private ModuleTemplateFactory $moduleTemplateFactory
+    )
+    {
     }
 
     /**
@@ -275,7 +244,7 @@ abstract class AbstractBackendController extends ActionController
     protected function getBlogRelatedPageInfo(): array
     {
         $blogPages = BlogPageSearchUtility::getBlogRelatedPages();
-        $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'));
+        $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'), true);
 
         if ($blogPagesCurrentPageKey !== false) {
             unset($blogPages[$blogPagesCurrentPageKey]);

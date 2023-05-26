@@ -23,13 +23,10 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
 
     protected bool $renderInFe = false;
 
-    protected SettingsService $settingsService;
-
     protected array $settings = [];
 
-    public function __construct(SettingsService $settingsService)
+    public function __construct(protected SettingsService $settingsService)
     {
-        $this->settingsService = $settingsService;
     }
 
     public function initializeObject()

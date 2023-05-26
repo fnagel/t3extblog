@@ -37,28 +37,19 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 
     protected $subscriberRepository;
 
-    protected SettingsService $settingsService;
-
     protected array $settings = [];
 
     protected array $subscriptionSettings = [];
 
-    protected EmailService $emailService;
-
-    protected FlushCacheService $cacheService;
-
     public function __construct(
         ObjectManagerInterface $objectManager,
         Dispatcher $signalSlotDispatcher,
-        SettingsService $settingsService,
-        EmailService $emailService,
-        FlushCacheService $cacheService
+        protected SettingsService $settingsService,
+        protected EmailService $emailService,
+        protected FlushCacheService $cacheService
     ) {
         $this->objectManager = $objectManager;
         $this->signalSlotDispatcher = $signalSlotDispatcher;
-        $this->settingsService = $settingsService;
-        $this->emailService = $emailService;
-        $this->cacheService = $cacheService;
     }
 
     public function initializeObject()

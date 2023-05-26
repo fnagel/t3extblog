@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -47,14 +48,14 @@ class Post extends AbstractLocalizedEntity
      * title.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $title = null;
 
     /**
      * author.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\BackendUser
+     * @var BackendUser
      */
     protected $author;
 
@@ -62,8 +63,8 @@ class Post extends AbstractLocalizedEntity
      * publishDate.
      *
      * @var \DateTime
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected $publishDate;
 
     /**
@@ -124,30 +125,30 @@ class Post extends AbstractLocalizedEntity
      * previewImage.
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
+    #[Lazy]
     protected $previewImage = null;
 
     /**
      * content.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Content>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Content>
      */
+    #[Lazy]
     protected ?ObjectStorage $content = null;
 
     /**
      * categories.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Category>
      */
+    #[Lazy]
     protected ?ObjectStorage $categories = null;
 
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
+     * @var ObjectStorage<Comment>
      */
     protected ?ObjectStorage $comments = null;
 
@@ -155,16 +156,16 @@ class Post extends AbstractLocalizedEntity
      * raw comments.
      *
      * @var QueryResultInterface
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
+    #[Lazy]
     protected $rawComments = null;
 
     /**
      * subscriptions.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\PostSubscriber>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<PostSubscriber>
      */
+    #[Lazy]
     protected ?ObjectStorage $subscriptions = null;
 
     /**
@@ -254,10 +255,8 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the author.
-     *
-     * @param BackendUser|int $author
      */
-    public function setAuthor($author)
+    public function setAuthor(BackendUser|int $author)
     {
         if ($author instanceof BackendUser) {
             $this->author = $author->getUid();
@@ -311,10 +310,8 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the publishDate.
-     *
-     * @param \DateTime|\DateTimeImmutable $publishDate
      */
-    public function setPublishDate(\DateTimeInterface $publishDate)
+    public function setPublishDate(\DateTime|\DateTimeImmutable $publishDate)
     {
         $this->publishDate = $publishDate;
     }
@@ -353,10 +350,8 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Sets the tagCloud.
-     *
-     * @param string|array $tagCloud
      */
-    public function setTagCloud($tagCloud)
+    public function setTagCloud(string|array $tagCloud)
     {
         $this->tagCloud = is_array($tagCloud) ? implode(', ', $tagCloud) : $tagCloud;
     }
@@ -565,8 +560,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Adds a Category.
-     *
-     * @param \FelixNagel\T3extblog\Domain\Model\Category $category
      */
     public function addCategory(Category $category)
     {
@@ -576,7 +569,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Removes a Category.
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\Category $categoryToRemove The Category to be removed
+     * @param Category $categoryToRemove The Category to be removed
      */
     public function removeCategory(Category $categoryToRemove)
     {
@@ -667,8 +660,6 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Adds a Subscriber.
-     *
-     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscription
      */
     public function addSubscription(PostSubscriber $subscription)
     {

@@ -65,13 +65,13 @@ class PostTagMapper extends AbstractPersistedAliasMapper
         $result = $queryBuilder
             ->select(...$this->persistenceFieldNames)
             ->where(
-                $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->or(
                     $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote($value)),
                     $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote(' '.$value)),
                     $queryBuilder->expr()->inSet($this->routeFieldName, $queryBuilder->quote($value.' '))
                 )
             )
-            ->execute()
+            ->executeQuery()
             ->fetchAssociative();
 
         return $result !== false ? $result : null;

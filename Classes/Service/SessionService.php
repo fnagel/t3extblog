@@ -84,10 +84,8 @@ class SessionService implements SessionServiceInterface
 
     /**
      * Write session data.
-     *
-     * @param array|string $data
      */
-    private function writeToSession(string $key, $data)
+    private function writeToSession(string $key, array|string $data)
     {
         $this->getLog()->dev('Write to FE session', $data ?: []);
 

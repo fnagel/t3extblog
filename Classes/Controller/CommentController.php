@@ -9,11 +9,14 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator;
+use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -25,32 +28,14 @@ use Psr\Http\Message\ResponseInterface;
 class CommentController extends AbstractCommentController
 {
     /**
-     * commentRepository.
-     */
-    protected CommentRepository $commentRepository;
-
-    /**
-     * Notification Service.
-     */
-    protected CommentNotificationService $notificationService;
-
-    /**
-     * Spam Check Service.
-     */
-    protected SpamCheckServiceInterface $spamCheckService;
-
-    /**
      * CommentController constructor.
-     *
      */
     public function __construct(
-        CommentRepository $commentRepository,
-        CommentNotificationService $notificationService,
-        SpamCheckServiceInterface $spamCheckService
-    ) {
-        $this->commentRepository = $commentRepository;
-        $this->notificationService = $notificationService;
-        $this->spamCheckService = $spamCheckService;
+        protected CommentRepository $commentRepository,
+        protected CommentNotificationService $notificationService,
+        protected SpamCheckServiceInterface $spamCheckService
+    )
+    {
     }
 
     /**
@@ -105,8 +90,8 @@ class CommentController extends AbstractCommentController
      * action new.
      *
      * @param Post $post The post the comment is related to
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      */
+    #[IgnoreValidation(['value' => 'newComment'])]
     public function newAction(Post $post, Comment $newComment = null): ResponseInterface
     {
         if ($newComment === null) {
@@ -133,9 +118,9 @@ class CommentController extends AbstractCommentController
      *
      * @param Post    $post       The post the comment is related to
      * @param Comment $newComment The comment to create
-     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator", param="newComment")
-     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", param="newComment", options={"key": "comment", "property": "privacyPolicyAccepted"})
      */
+    #[Extbase\Validate(['validator' => CommentEmailValidator::class, 'param' => 'newComment'])]
+    #[Extbase\Validate(['validator' => PrivacyPolicyValidator::class, 'param' => 'newComment', 'options' => ['key' => 'comment', 'property' => 'privacyPolicyAccepted']])]
     public function createAction(Post $post, Comment $newComment = null)
     {
         // @todo Fix flash messages caching issue, see: https://github.com/fnagel/t3extblog/issues/112
@@ -146,7 +131,7 @@ class CommentController extends AbstractCommentController
         }
 
         if ($newComment === null) {
-            $this->addFlashMessageByKey('noComment', FlashMessage::WARNING);
+            $this->addFlashMessageByKey('noComment', AbstractMessage::WARNING);
             $this->redirect('show', 'Post', null, $post->getLinkParameter());
         }
 
@@ -182,7 +167,7 @@ class CommentController extends AbstractCommentController
             if ($newComment->isApproved()) {
                 $this->addFlashMessageByKey('created');
             } else {
-                $this->addFlashMessageByKey('createdDisapproved', FlashMessage::NOTICE);
+                $this->addFlashMessageByKey('createdDisapproved', AbstractMessage::NOTICE);
             }
         }
 
@@ -199,7 +184,7 @@ class CommentController extends AbstractCommentController
         $settings = $this->settings['blogsystem']['comments']['rateLimit'];
 
         if ($settings['enable'] && !$this->getRateLimiter()->isAccepted('comment-create')) {
-            $this->addFlashMessageByKey('rateLimit', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('rateLimit', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
@@ -216,17 +201,17 @@ class CommentController extends AbstractCommentController
         $settings = $this->settings['blogsystem']['comments'];
 
         if (!$settings['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
-            $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
         if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !FrontendUtility::isUserLoggedIn()) {
-            $this->addFlashMessageByKey('notLoggedIn', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('notLoggedIn', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
         if ($settings['allowedUntil'] && $post->isExpired(trim($settings['allowedUntil']))) {
-            $this->addFlashMessageByKey('commentsClosed', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('commentsClosed', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
@@ -259,7 +244,7 @@ class CommentController extends AbstractCommentController
         // block comment and show message
         if ($threshold['block'] > 0 && $comment->getSpamPoints() >= (int) $threshold['block']) {
             $this->getLog()->notice('New comment blocked because of SPAM.', $logData);
-            $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('blockedAsSpam', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
@@ -267,7 +252,7 @@ class CommentController extends AbstractCommentController
         if ($comment->getSpamPoints() >= (int) $threshold['markAsSpam']) {
             $this->getLog()->notice('New comment marked as SPAM.', $logData);
             $comment->markAsSpam();
-            $this->addFlashMessageByKey('markedAsSpam', FlashMessage::NOTICE);
+            $this->addFlashMessageByKey('markedAsSpam', AbstractMessage::NOTICE);
         }
 
         return null;
@@ -297,7 +282,7 @@ class CommentController extends AbstractCommentController
      *
      * @return string|false
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool
     {
         return false;
     }

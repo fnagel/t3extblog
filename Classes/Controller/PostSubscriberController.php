@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use Psr\Http\Message\ResponseInterface;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -43,12 +45,14 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * Do not remove @param (needed for Extbase)
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\PostSubscriber $subscriber
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
+     * @param PostSubscriber $subscriber
      */
-    public function deleteAction($subscriber = null)
+    #[IgnoreValidation(['value' => 'subscriber'])]
+    public function deleteAction($subscriber = null): ResponseInterface
     {
         parent::deleteAction($subscriber);
+
+        return $this->htmlResponse();
     }
 
     /**

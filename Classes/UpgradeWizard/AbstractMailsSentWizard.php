@@ -23,6 +23,6 @@ abstract class AbstractMailsSentWizard extends AbstractUpgradeWizard implements 
                 $queryBuilder->expr()->isNull($field)
             )
             ->set($field, 1)
-            ->execute();
+            ->executeStatement();
     }
 }

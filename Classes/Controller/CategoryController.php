@@ -19,14 +19,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class CategoryController extends AbstractController
 {
-    protected CategoryRepository $categoryRepository;
-    
-    protected PostRepository $postRepository;
-
-    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository)
+    public function __construct(protected CategoryRepository $categoryRepository, protected PostRepository $postRepository)
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->postRepository = $postRepository;
     }
 
     public function listAction(): ResponseInterface

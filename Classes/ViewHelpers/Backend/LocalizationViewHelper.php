@@ -104,7 +104,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         return $records;
     }
 
-    protected static function getLanguageIconLink($sysLanguageUid, $onclick, $uid)
+    protected static function getLanguageIconLink($sysLanguageUid, $onclick, $uid): string
     {
         $language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
 

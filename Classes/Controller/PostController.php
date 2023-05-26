@@ -8,7 +8,8 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
@@ -29,15 +30,14 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PostController extends AbstractCommentController
 {
-    protected PostRepository $postRepository;
+    public $objectManager;
 
     /**
      * PostController constructor.
      *
      */
-    public function __construct(PostRepository $postRepository)
+    public function __construct(protected PostRepository $postRepository)
     {
-        $this->postRepository = $postRepository;
     }
 
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
@@ -198,12 +198,11 @@ class PostController extends AbstractCommentController
 
     /**
      * Displays one single post.
-     *
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("newComment")
      */
+    #[IgnoreValidation(['value' => 'newComment'])]
     public function showAction(Post $post, int $page = 1, Comment $newComment = null): ResponseInterface
     {
-        if ($newComment === null) {
+        if (!$newComment instanceof Comment) {
             $newComment = $this->getNewComment();
         }
 
@@ -239,7 +238,7 @@ class PostController extends AbstractCommentController
 
         if (is_int($previewPost)) {
             $post = $this->postRepository->findByUid($previewPost, false);
-            $this->forward('show', null, null, ['post' => $post]);
+            return (new ForwardResponse('show'))->withArguments(['post' => $post]);
         }
 
         return $this->errorAction();

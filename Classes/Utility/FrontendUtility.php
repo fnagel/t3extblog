@@ -79,7 +79,7 @@ class FrontendUtility implements SingletonInterface
      */
     public static function isValidBackendUser(): bool
     {
-        return static::getTsFe()->isBackendUserLoggedIn();
+        return static::getTsFe()->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
     }
 
     protected static function getContext(): Context

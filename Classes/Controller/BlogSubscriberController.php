@@ -9,11 +9,13 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use Psr\Http\Message\ResponseInterface;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -27,18 +29,14 @@ class BlogSubscriberController extends AbstractSubscriberController
      */
     protected $subscriberRepository;
 
-
-    protected BlogNotificationService $notificationService;
-
     /**
      * @var PostSubscriber
      */
     protected $subscriber = null;
 
-    public function __construct(BlogSubscriberRepository $subscriberRepository, BlogNotificationService $notificationService)
+    public function __construct(BlogSubscriberRepository $subscriberRepository, protected BlogNotificationService $notificationService)
     {
         $this->subscriberRepository = $subscriberRepository;
-        $this->notificationService = $notificationService;
     }
 
     protected function initializeAction()
@@ -57,14 +55,14 @@ class BlogSubscriberController extends AbstractSubscriberController
         $email = $this->authentication->getEmail();
 
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
-            $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
             $this->redirect('list', 'PostSubscriber');
         }
 
         // check if user already registered
         $subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
         if (count($subscribers) > 0) {
-            $this->addFlashMessageByKey('alreadyRegistered', FlashMessage::NOTICE);
+            $this->addFlashMessageByKey('alreadyRegistered', AbstractMessage::NOTICE);
             $this->redirect('list', 'PostSubscriber');
         }
 
@@ -88,12 +86,14 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * Do not remove @param (needed for Extbase)
      *
-     * @param \FelixNagel\T3extblog\Domain\Model\BlogSubscriber $subscriber
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
+     * @param BlogSubscriber $subscriber
      */
-    public function deleteAction($subscriber = null)
+    #[IgnoreValidation(['value' => 'subscriber'])]
+    public function deleteAction($subscriber = null): ResponseInterface
     {
         parent::deleteAction($subscriber);
+
+        return $this->htmlResponse();
     }
 
     /**

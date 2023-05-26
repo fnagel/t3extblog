@@ -23,7 +23,7 @@ class WordwrapViewHelper extends AbstractViewHelper
         $this->registerArgument('width', 'int', 'Max characters per line', false, 75);
     }
 
-    public function render()
+    public function render(): string
     {
         $width = $this->arguments['width'];
         $content = $this->renderChildren();

@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -23,8 +24,8 @@ class Category extends AbstractLocalizedEntity
      * name.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $name = null;
 
     /**
@@ -42,17 +43,17 @@ class Category extends AbstractLocalizedEntity
     /**
      * Posts.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Post>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Post>
      */
+    #[Lazy]
     protected ?ObjectStorage $posts = null;
 
     /**
      * child categories.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
      */
+    #[Lazy]
     protected ?ObjectStorage $childCategories = null;
 
     /**

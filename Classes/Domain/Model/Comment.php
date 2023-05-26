@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Validation\Validator\UrlValidator;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
@@ -26,36 +28,36 @@ class Comment extends AbstractEntity
     /**
      * title.
      *
-     * @Extbase\Validate("Text")
      *
      * @var string
      */
+    #[Extbase\Validate(['validator' => 'Text'])]
     protected ?string $title = null;
 
     /**
      * author.
      *
-     * @Extbase\Validate("NotEmpty")
-     * @Extbase\Validate("Text")
      *
      * @var string
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
+    #[Extbase\Validate(['validator' => 'Text'])]
     protected ?string $author = null;
 
     /**
      * email.
      *
      * @var string
-     * @Extbase\Validate("EmailAddress")
      */
+    #[Extbase\Validate(['validator' => 'EmailAddress'])]
     protected ?string $email = null;
 
     /**
      * website.
      *
      * @var string
-     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\UrlValidator")
      */
+    #[Extbase\Validate(['validator' => UrlValidator::class])]
     protected ?string $website = null;
 
     /**
@@ -69,8 +71,8 @@ class Comment extends AbstractEntity
      * text.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $text = null;
 
     /**
@@ -102,9 +104,9 @@ class Comment extends AbstractEntity
     /**
      * post.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\Post
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var Post
      */
+    #[Lazy]
     protected ?Post $post = null;
 
     /**
@@ -245,10 +247,8 @@ class Comment extends AbstractEntity
 
     /**
      * Sets the date.
-     *
-     * @param \DateTime|\DateTimeImmutable $date
      */
-    public function setDate(\DateTimeInterface $date)
+    public function setDate(\DateTime|\DateTimeImmutable $date)
     {
         $this->date = $date;
     }

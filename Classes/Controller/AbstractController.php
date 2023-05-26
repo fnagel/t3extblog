@@ -8,7 +8,7 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
@@ -19,7 +19,6 @@ use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -82,6 +81,8 @@ abstract class AbstractController extends ActionController
 
     public function processRequest(RequestInterface $request): ResponseInterface
     {
+        $response = null;
+
         try {
             $response = parent::processRequest($request);
         } catch (\Exception $exception) {
@@ -145,7 +146,7 @@ abstract class AbstractController extends ActionController
      *
      * @param int $severity optional severity code. One of the FlashMessage constants
      */
-    protected function addFlashMessageByKey(string $key, int $severity = FlashMessage::OK)
+    protected function addFlashMessageByKey(string $key, int $severity = AbstractMessage::OK)
     {
         $messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
         $localizedMessage = $this->translate($messageLocallangKey, '['.$messageLocallangKey.']');
@@ -216,7 +217,7 @@ abstract class AbstractController extends ActionController
      *
      * @param mixed $object A cache tag string or a blog model object
      */
-    protected function addCacheTags($object = null)
+    protected function addCacheTags(mixed $object = null)
     {
         $tags = is_array($object) ? $object : [];
 

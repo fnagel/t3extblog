@@ -18,24 +18,13 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
 class StatisticChartDataProvider extends AbstractDataProvider implements ChartDataProviderInterface
 {
-    protected PostRepository $postRepository;
-
-    protected CommentRepository $commentRepository;
-
-    protected BlogSubscriberRepository $blogSubscriberRepository;
-
-    protected PostSubscriberRepository $postSubscriberRepository;
-
     public function __construct(
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        BlogSubscriberRepository $blogSubscriberRepository,
-        PostSubscriberRepository $postSubscriberRepository
-    ) {
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->blogSubscriberRepository = $blogSubscriberRepository;
-        $this->postSubscriberRepository = $postSubscriberRepository;
+        protected PostRepository $postRepository,
+        protected CommentRepository $commentRepository,
+        protected BlogSubscriberRepository $blogSubscriberRepository,
+        protected PostSubscriberRepository $postSubscriberRepository
+    )
+    {
     }
 
     public function getChartData(): array

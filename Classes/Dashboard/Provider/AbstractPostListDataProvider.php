@@ -13,16 +13,13 @@ use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 
 abstract class AbstractPostListDataProvider extends AbstractListDataProvider
 {
-    protected PostRepository $postRepository;
-
     protected array $options = [
         'limit' => 10,
     ];
 
     
-    public function __construct(PostRepository $postRepository, array $options = [])
+    public function __construct(protected PostRepository $postRepository, array $options = [])
     {
-        $this->postRepository = $postRepository;
         $this->options = array_merge(
             $this->options,
             $options

@@ -16,11 +16,8 @@ class AuthenticationService implements AuthenticationServiceInterface
 {
     protected ?array $sessionData = null;
 
-    protected SessionServiceInterface $session;
-
-    public function __construct(SessionServiceInterface $session)
+    public function __construct(protected SessionServiceInterface $session)
     {
-        $this->session = $session;
     }
 
     public function isValid(): bool

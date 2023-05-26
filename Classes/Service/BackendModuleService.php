@@ -34,17 +34,14 @@ class BackendModuleService
 
     protected BackendTemplateView $view;
 
-    protected int $pid;
-
     /**
      * BackendModuleService constructor.
      *
      */
-    public function __construct(ObjectManagerInterface $objectManager, BackendTemplateView $view, int $pid)
+    public function __construct(ObjectManagerInterface $objectManager, BackendTemplateView $view, protected int $pid)
     {
         $this->objectManager = $objectManager;
         $this->view = $view;
-        $this->pid = $pid;
     }
 
     /**
@@ -104,7 +101,6 @@ class BackendModuleService
 
     /**
      * Create the panel of buttons
-     *
      */
     public function addViewHeaderButtons(array $buttonItems, string $shortcutModuleName = null, bool $addRefreshButton = true)
     {

@@ -40,8 +40,6 @@ class EmailService implements SingletonInterface
 
     protected Dispatcher $signalSlotDispatcher;
 
-    protected SettingsService $settingsService;
-
     protected array $settings = [];
 
     /**
@@ -50,11 +48,10 @@ class EmailService implements SingletonInterface
     public function __construct(
         ObjectManagerInterface $objectManager,
         Dispatcher $signalSlotDispatcher,
-        SettingsService $settingsService
+        protected SettingsService $settingsService
     ) {
         $this->objectManager = $objectManager;
         $this->signalSlotDispatcher = $signalSlotDispatcher;
-        $this->settingsService = $settingsService;
     }
 
     public function initializeObject()

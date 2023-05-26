@@ -8,7 +8,8 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
@@ -20,20 +21,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class SubscriberController extends AbstractController
 {
-    protected AuthenticationServiceInterface $authentication;
-
-    protected BlogSubscriberRepository $blogSubscriberRepository;
-
-    protected PostSubscriberRepository $postSubscriberRepository;
-
-    public function __construct(
-        AuthenticationServiceInterface $authentication,
-        BlogSubscriberRepository $blogSubscriberRepository,
-        PostSubscriberRepository $postSubscriberRepository
-    ) {
-        $this->authentication = $authentication;
-        $this->blogSubscriberRepository = $blogSubscriberRepository;
-        $this->postSubscriberRepository = $postSubscriberRepository;
+    public function __construct(protected AuthenticationServiceInterface $authentication, protected BlogSubscriberRepository $blogSubscriberRepository, protected PostSubscriberRepository $postSubscriberRepository)
+    {
     }
 
     /**
@@ -42,7 +31,7 @@ class SubscriberController extends AbstractController
     public function listAction(): ResponseInterface
     {
         if (!$this->authentication->isValid()) {
-            $this->forward('list', 'PostSubscriber');
+            return (new ForwardResponse('list'))->withControllerName('PostSubscriber');
         }
 
         $email = $this->authentication->getEmail();
@@ -63,7 +52,7 @@ class SubscriberController extends AbstractController
     protected function errorAction(): ResponseInterface
     {
         if (!$this->hasFlashMessages()) {
-            $this->addFlashMessageByKey('invalidAuth', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('invalidAuth', AbstractMessage::ERROR);
         }
 
         // Set action for proper template file
@@ -77,7 +66,7 @@ class SubscriberController extends AbstractController
      */
     public function logoutAction(): ResponseInterface
     {
-        return $this->processErrorAction('logout', FlashMessage::INFO);
+        return $this->processErrorAction('logout', AbstractMessage::INFO);
     }
 
     /**
@@ -86,7 +75,7 @@ class SubscriberController extends AbstractController
      * @param string $message Flash message key
      * @param int $severity Severity code. One of the FlashMessage constants
      */
-    protected function processErrorAction(string $message = 'invalidAuth', int $severity = FlashMessage::ERROR): ResponseInterface
+    protected function processErrorAction(string $message = 'invalidAuth', int $severity = AbstractMessage::ERROR): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $this->authentication->logout();

@@ -13,16 +13,13 @@ use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 
 abstract class AbstractCommentListDataProvider extends AbstractListDataProvider
 {
-    protected CommentRepository $commentRepository;
-
     protected array $options = [
         'limit' => 10,
     ];
 
     
-    public function __construct(CommentRepository $commentRepository, array $options = [])
+    public function __construct(protected CommentRepository $commentRepository, array $options = [])
     {
-        $this->commentRepository = $commentRepository;
         $this->options = array_merge(
             $this->options,
             $options

@@ -26,7 +26,7 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
             ->select('*')
             ->from($table)
             ->where($constraint)
-            ->execute()
+            ->executeQuery()
             ->rowCount();
     }
 
@@ -42,7 +42,7 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
             ->from($table)
             ->where($constraint)
             ->setMaxResults($limit)
-            ->execute()
+            ->executeQuery()
             ->fetchAll();
 
         if (count($rows) === 0) {
@@ -56,7 +56,7 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
             $queryBuilder
                 ->update($table)->where($constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)))
                 ->set($slug, $slugService->generate($row, $row['pid']))
-                ->execute();
+                ->executeStatement();
         }
 
         return count($rows);

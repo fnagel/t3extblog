@@ -30,7 +30,7 @@ class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
             ->select('*')
             ->from($table)
             ->where(
-                $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->or(
                     $queryBuilder->expr()->eq('author', $queryBuilder->createNamedParameter('')),
                     $queryBuilder->expr()->eq('email', $queryBuilder->createNamedParameter(''))
                 )
@@ -47,7 +47,7 @@ class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
         $message .= ' Make sure to fix those records!';
         $this->output->writeln($message);
 
-        $commentList = array_map(fn ($comment) => $comment['uid'], $rows);
+        $commentList = array_map(static fn($comment) => $comment['uid'], $rows);
         $this->output->writeln('List of comment UIDs: '.implode(', ', $commentList));
 
         return false;

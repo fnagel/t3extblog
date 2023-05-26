@@ -9,12 +9,13 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 
 /**
@@ -47,9 +48,7 @@ class BlogSubscriberFormController extends AbstractController
         $this->spamCheckService = $spamCheckService;
     }
 
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("subscriber")
-     */
+    #[IgnoreValidation(['value' => 'subscriber'])]
     public function newAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
         /* @var $subscriber BlogSubscriber */
@@ -73,7 +72,6 @@ class BlogSubscriberFormController extends AbstractController
 
     /**
      * Adds a subscriber.
-     *
      */
     public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
@@ -83,14 +81,14 @@ class BlogSubscriberFormController extends AbstractController
 
         // Check if blog subscription is allowed
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
-            $this->addFlashMessageByKey('notAllowed', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
         // Rate limit for requests
         $rateLimitSettings = $this->settings['blogSubscription']['rateLimit'];
         if ($rateLimitSettings['enable'] && !$this->getRateLimiter()->isAccepted('blog-subscriber-create')) {
-            $this->addFlashMessageByKey('rateLimit', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('rateLimit', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
@@ -102,7 +100,7 @@ class BlogSubscriberFormController extends AbstractController
         // Check if user already registered
         $subscribers = $this->blogSubscriberRepository->findExistingSubscriptions($subscriber->getEmail());
         if (count($subscribers) > 0) {
-            $this->addFlashMessageByKey('alreadyRegistered', FlashMessage::INFO);
+            $this->addFlashMessageByKey('alreadyRegistered', AbstractMessage::INFO);
             return $this->errorAction();
         }
 
@@ -146,7 +144,7 @@ class BlogSubscriberFormController extends AbstractController
         // Block comment and show message
         if ($threshold['block'] > 0 && $spamPoints >= (int) $threshold['block']) {
             $this->getLog()->notice('New blog subscriber blocked because of SPAM.', $logData);
-            $this->addFlashMessageByKey('blockedAsSpam', FlashMessage::ERROR);
+            $this->addFlashMessageByKey('blockedAsSpam', AbstractMessage::ERROR);
             return $this->errorAction();
         }
 
@@ -163,7 +161,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Disable error flash message.
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool
     {
         return false;
     }

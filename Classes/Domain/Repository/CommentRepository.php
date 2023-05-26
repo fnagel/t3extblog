@@ -134,10 +134,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createPendingQuery();
 
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $this->getPendingConstraints($query),
                 $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
-            )
+            ])
         );
 
         return $query->execute();

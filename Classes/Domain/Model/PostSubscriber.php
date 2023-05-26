@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
@@ -21,39 +22,38 @@ class PostSubscriber extends AbstractSubscriber
      * name.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $name = null;
 
     /**
      * postUid.
-     *
-     * @Extbase\Validate("NotEmpty")
      */
-    protected ?int $postUid = null;
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
+    protected ?int $postUid  = null;
 
     /**
      * post.
      *
-     * @var \FelixNagel\T3extblog\Domain\Model\Post
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var Post
      */
+    #[Lazy]
     protected ?Post $post = null;
 
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Comment>
      */
+    #[Lazy]
     protected ?ObjectStorage $postComments = null;
 
     /**
      * comments.
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Comment>
      */
+    #[Lazy]
     protected ?ObjectStorage $postPendingComments = null;
 
     /**
@@ -111,9 +111,9 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Returns the post comments.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
+     * @return ObjectStorage<Comment> $comments
      */
-    public function getPostComments(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getPostComments(): ObjectStorage
     {
         if ($this->postComments === null) {
             $postComments = $this->getCommentRepository()->findValidByEmailAndPostId($this->email, $this->postUid);
@@ -130,9 +130,9 @@ class PostSubscriber extends AbstractSubscriber
     /**
      * Returns the post pending comments.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Comment> $comments
+     * @return ObjectStorage<Comment> $comments
      */
-    public function getPostPendingComments(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getPostPendingComments(): ObjectStorage
     {
         if ($this->postPendingComments === null) {
             $postPendingComments = $this->getCommentRepository()->findPendingByEmailAndPostId($this->email, $this->postUid);

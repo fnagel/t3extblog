@@ -39,10 +39,8 @@ class FlushCacheService implements SingletonInterface
 
     /**
      * Add a cache tag to flush.
-     *
-     * @param string|array $cacheTagsToFlush
      */
-    public function addCacheTagsToFlush($cacheTagsToFlush)
+    public function addCacheTagsToFlush(string|array $cacheTagsToFlush)
     {
         if (!is_array($cacheTagsToFlush)) {
             $cacheTagsToFlush = [$cacheTagsToFlush];
@@ -68,8 +66,8 @@ class FlushCacheService implements SingletonInterface
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 
         foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
-            $cacheManager->getCache('cache_pages')->flushByTag($cacheTag);
-            $cacheManager->getCache('cache_pagesection')->flushByTag($cacheTag);
+            $cacheManager->getCache('pages')->flushByTag($cacheTag);
+            $cacheManager->getCache('pagesection')->flushByTag($cacheTag);
         }
     }
 

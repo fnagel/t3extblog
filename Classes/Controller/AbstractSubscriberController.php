@@ -9,9 +9,10 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
@@ -98,7 +99,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->subscriberRepository->remove($subscriber);
         $this->persistAllEntities();
 
-        $this->addFlashMessageByKey('deleted', FlashMessage::INFO);
+        $this->addFlashMessageByKey('deleted', AbstractMessage::INFO);
         $this->redirect('list', 'Subscriber');
     }
 
@@ -115,19 +116,19 @@ abstract class AbstractSubscriberController extends AbstractController
             return;
         }
 
-        $this->forward('processError', 'Subscriber');
+        return (new ForwardResponse('processError'))->withControllerName('Subscriber');
     }
 
     /**
      * Get authentication.
      */
-    protected function authenticate(bool $isConfirmRequest = false): void
+    protected function authenticate(bool $isConfirmRequest = false)
     {
         $rateLimitSettings = $this->settings['subscriptionManager']['rateLimit'];
         if ($rateLimitSettings['enable'] && !$this->initRateLimiter('subscriber-authenticate', $rateLimitSettings)
                 ->isAccepted('subscriber-authenticate')
         ) {
-            $this->forward('processError', 'Subscriber', null, ['message' => 'rateLimit']);
+            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'rateLimit']);
         }
 
         $code = $this->getAuthCode();
@@ -136,7 +137,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
         if ($subscriber === null) {
-            $this->forward('processError', 'Subscriber', null, ['message' => 'authFailed']);
+            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'authFailed']);
         }
 
         $modify = '+1 hour';
@@ -145,7 +146,7 @@ abstract class AbstractSubscriberController extends AbstractController
         }
 
         if ($subscriber->isAuthCodeExpired($modify)) {
-            $this->forward('processError', 'Subscriber', null, ['message' => 'linkOutdated']);
+            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'linkOutdated']);
         }
 
         if ($isConfirmRequest) {
@@ -157,12 +158,9 @@ abstract class AbstractSubscriberController extends AbstractController
                 $this->subscriberRepository->update($subscriber);
                 $this->persistAllEntities();
 
-                $this->forward(
-                    'processError',
-                    'Subscriber',
-                    null,
-                    ['message' => 'alreadyRegistered', 'severity' => FlashMessage::NOTICE]
-                );
+                return (new ForwardResponse('processError'))
+                    ->withControllerName('Subscriber')
+                    ->withArguments(['message' => 'alreadyRegistered', 'severity' => AbstractMessage::NOTICE]);
             }
         }
 
@@ -188,7 +186,9 @@ abstract class AbstractSubscriberController extends AbstractController
         $code = $this->request->getArgument('code');
 
         if (strlen($code) !== 32 || !ctype_alnum($code)) {
-            $this->forward('processError', 'Subscriber', null, ['message' => 'invalidLink']);
+            return (new ForwardResponse('processError'))
+                ->withControllerName('Subscriber')
+                ->withArguments(['message' => 'invalidLink']);
         }
 
         return $code;

@@ -23,7 +23,7 @@ class TypoScript
         $validFields = GeneralUtility::trimExplode(',', $overload['settings']['overrideFlexformSettingsIfEmpty'], true);
         foreach ($validFields as $fieldName) {
             // Multilevel field
-            if (strpos($fieldName, '.') !== false) {
+            if (str_contains($fieldName, '.')) {
                 $keyAsArray = explode('.', $fieldName);
 
                 $foundInCurrentTs = $this->getValue($base, $keyAsArray);

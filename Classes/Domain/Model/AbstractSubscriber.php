@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
@@ -25,9 +26,9 @@ abstract class AbstractSubscriber extends AbstractEntity
      * email.
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
-     * @Extbase\Validate("EmailAddress")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
+    #[Extbase\Validate(['validator' => 'EmailAddress'])]
     protected ?string $email = null;
 
     /**
@@ -46,9 +47,8 @@ abstract class AbstractSubscriber extends AbstractEntity
 
     /**
      * privacy policy accepted.
-     *
-     * @Extbase\Validate("\FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator", options={"key": "blog"})
      */
+    #[Extbase\Validate(['validator' => PrivacyPolicyValidator::class, 'options' => ['key' => 'blog']])]
     protected bool $privacyPolicyAccepted = false;
 
     /**
