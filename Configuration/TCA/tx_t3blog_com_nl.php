@@ -74,10 +74,7 @@ return [
         'lastsent' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.lastsent',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
-                'size' => 13,
+                'type' => 'datetime',
                 'default' => 0,
             ],
         ],
