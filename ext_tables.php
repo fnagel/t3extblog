@@ -13,14 +13,6 @@ use FelixNagel\T3extblog\Controller\BackendSubscriberController;
 defined('TYPO3') || die();
 
 call_user_func(static function ($packageKey) {
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_post');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_cat');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_com_nl');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_blog_nl');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_pingback');
-    ExtensionManagementUtility::allowTableOnStandardPages('tx_t3blog_trackback');
-
     // Add icons to registry
     /* @var $iconRegistry IconRegistry */
     $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);

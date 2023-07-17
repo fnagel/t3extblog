@@ -12,6 +12,9 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-subscriber',
         ],

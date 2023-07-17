@@ -23,6 +23,9 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'fe_group',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-category',
         ],
