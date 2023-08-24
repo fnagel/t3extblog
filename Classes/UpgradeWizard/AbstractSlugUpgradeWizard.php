@@ -54,7 +54,7 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
 
         foreach ($rows as $row) {
             $queryBuilder
-                ->update($table)->where([$constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT))])
+                ->update($table)->where($constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)))
                 ->set($slug, $slugService->generate($row, $row['pid']))
                 ->execute();
         }
