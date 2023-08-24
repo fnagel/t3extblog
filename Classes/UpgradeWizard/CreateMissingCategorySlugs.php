@@ -23,7 +23,7 @@ class CreateMissingCategorySlugs extends AbstractSlugUpgradeWizard
 
     public function executeUpdate(): bool
     {
-        $count = $this->createMissingSlugs('tx_t3blog_cat', 'url_segment', 'category records');
+        $count = $this->createMissingSlugs('tx_t3blog_cat', 'url_segment', 100);
         $this->output->writeln($count.' missing category record slugs have been updated.');
 
         return true;
