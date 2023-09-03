@@ -54,10 +54,8 @@ return [
         'email' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_blog_nl.email',
             'config' => [
-                'type' => 'input',
-                'eval' => 'email',
+                'type' => 'email',
                 'required' => true,
-                'softref' => 'email',
             ],
         ],
         'lastsent' => [

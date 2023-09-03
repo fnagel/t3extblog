@@ -107,10 +107,8 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com.email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 30,
-                'eval' => 'email',
-                'softref' => 'email',
             ],
         ],
         'website' => [
