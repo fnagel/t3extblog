@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Psr\Http\Message\ResponseInterface;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
@@ -55,14 +55,14 @@ class BlogSubscriberController extends AbstractSubscriberController
         $email = $this->authentication->getEmail();
 
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
-            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', Message::ERROR);
             $this->redirect('list', 'PostSubscriber');
         }
 
         // check if user already registered
         $subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
         if (count($subscribers) > 0) {
-            $this->addFlashMessageByKey('alreadyRegistered', AbstractMessage::NOTICE);
+            $this->addFlashMessageByKey('alreadyRegistered', Message::NOTICE);
             $this->redirect('list', 'PostSubscriber');
         }
 

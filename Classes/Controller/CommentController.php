@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator;
 use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
@@ -131,7 +131,7 @@ class CommentController extends AbstractCommentController
         }
 
         if ($newComment === null) {
-            $this->addFlashMessageByKey('noComment', AbstractMessage::WARNING);
+            $this->addFlashMessageByKey('noComment', Message::WARNING);
             $this->redirect('show', 'Post', null, $post->getLinkParameter());
         }
 
@@ -167,7 +167,7 @@ class CommentController extends AbstractCommentController
             if ($newComment->isApproved()) {
                 $this->addFlashMessageByKey('created');
             } else {
-                $this->addFlashMessageByKey('createdDisapproved', AbstractMessage::NOTICE);
+                $this->addFlashMessageByKey('createdDisapproved', Message::NOTICE);
             }
         }
 
@@ -184,7 +184,7 @@ class CommentController extends AbstractCommentController
         $settings = $this->settings['blogsystem']['comments']['rateLimit'];
 
         if ($settings['enable'] && !$this->getRateLimiter()->isAccepted('comment-create')) {
-            $this->addFlashMessageByKey('rateLimit', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('rateLimit', Message::ERROR);
             return $this->errorAction();
         }
 
@@ -201,17 +201,17 @@ class CommentController extends AbstractCommentController
         $settings = $this->settings['blogsystem']['comments'];
 
         if (!$settings['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
-            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', Message::ERROR);
             return $this->errorAction();
         }
 
         if ($post->getAllowComments() === Post::ALLOW_COMMENTS_LOGIN && !FrontendUtility::isUserLoggedIn()) {
-            $this->addFlashMessageByKey('notLoggedIn', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('notLoggedIn', Message::ERROR);
             return $this->errorAction();
         }
 
         if ($settings['allowedUntil'] && $post->isExpired(trim($settings['allowedUntil']))) {
-            $this->addFlashMessageByKey('commentsClosed', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('commentsClosed', Message::ERROR);
             return $this->errorAction();
         }
 
@@ -244,7 +244,7 @@ class CommentController extends AbstractCommentController
         // block comment and show message
         if ($threshold['block'] > 0 && $comment->getSpamPoints() >= (int) $threshold['block']) {
             $this->getLog()->notice('New comment blocked because of SPAM.', $logData);
-            $this->addFlashMessageByKey('blockedAsSpam', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('blockedAsSpam', Message::ERROR);
             return $this->errorAction();
         }
 
@@ -252,7 +252,7 @@ class CommentController extends AbstractCommentController
         if ($comment->getSpamPoints() >= (int) $threshold['markAsSpam']) {
             $this->getLog()->notice('New comment marked as SPAM.', $logData);
             $comment->markAsSpam();
-            $this->addFlashMessageByKey('markedAsSpam', AbstractMessage::NOTICE);
+            $this->addFlashMessageByKey('markedAsSpam', Message::NOTICE);
         }
 
         return null;

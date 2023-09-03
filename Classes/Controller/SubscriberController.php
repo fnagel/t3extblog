@@ -8,12 +8,12 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -52,7 +52,7 @@ class SubscriberController extends AbstractController
     protected function errorAction(): ResponseInterface
     {
         if (!$this->hasFlashMessages()) {
-            $this->addFlashMessageByKey('invalidAuth', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('invalidAuth', Message::ERROR);
         }
 
         // Set action for proper template file
@@ -66,7 +66,7 @@ class SubscriberController extends AbstractController
      */
     public function logoutAction(): ResponseInterface
     {
-        return $this->processErrorAction('logout', AbstractMessage::INFO);
+        return $this->processErrorAction('logout', Message::INFO);
     }
 
     /**
@@ -75,11 +75,12 @@ class SubscriberController extends AbstractController
      * @param string $message Flash message key
      * @param int $severity Severity code. One of the FlashMessage constants
      */
-    protected function processErrorAction(string $message = 'invalidAuth', int $severity = AbstractMessage::ERROR): ResponseInterface
+    protected function processErrorAction(string $message = 'invalidAuth', ?int $severity = null): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $this->authentication->logout();
 
+        $severity = is_null($severity) ? Message::ERROR : $severity;
         $this->addFlashMessageByKey($message, $severity);
 
         return $this->errorAction();

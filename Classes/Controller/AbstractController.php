@@ -8,7 +8,8 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
@@ -146,8 +147,10 @@ abstract class AbstractController extends ActionController
      *
      * @param int $severity optional severity code. One of the FlashMessage constants
      */
-    protected function addFlashMessageByKey(string $key, int $severity = AbstractMessage::OK)
+    protected function addFlashMessageByKey(string $key, ?int $severity = null)
     {
+        $severity = is_null($severity) ? Message::OK : $severity;
+
         $messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
         $localizedMessage = $this->translate($messageLocallangKey, '['.$messageLocallangKey.']');
 

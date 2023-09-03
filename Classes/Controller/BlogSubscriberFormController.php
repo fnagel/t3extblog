@@ -10,7 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
 use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
@@ -81,14 +81,14 @@ class BlogSubscriberFormController extends AbstractController
 
         // Check if blog subscription is allowed
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
-            $this->addFlashMessageByKey('notAllowed', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('notAllowed', Message::ERROR);
             return $this->errorAction();
         }
 
         // Rate limit for requests
         $rateLimitSettings = $this->settings['blogSubscription']['rateLimit'];
         if ($rateLimitSettings['enable'] && !$this->getRateLimiter()->isAccepted('blog-subscriber-create')) {
-            $this->addFlashMessageByKey('rateLimit', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('rateLimit', Message::ERROR);
             return $this->errorAction();
         }
 
@@ -100,7 +100,7 @@ class BlogSubscriberFormController extends AbstractController
         // Check if user already registered
         $subscribers = $this->blogSubscriberRepository->findExistingSubscriptions($subscriber->getEmail());
         if (count($subscribers) > 0) {
-            $this->addFlashMessageByKey('alreadyRegistered', AbstractMessage::INFO);
+            $this->addFlashMessageByKey('alreadyRegistered', Message::INFO);
             return $this->errorAction();
         }
 
@@ -144,7 +144,7 @@ class BlogSubscriberFormController extends AbstractController
         // Block comment and show message
         if ($threshold['block'] > 0 && $spamPoints >= (int) $threshold['block']) {
             $this->getLog()->notice('New blog subscriber blocked because of SPAM.', $logData);
-            $this->addFlashMessageByKey('blockedAsSpam', AbstractMessage::ERROR);
+            $this->addFlashMessageByKey('blockedAsSpam', Message::ERROR);
             return $this->errorAction();
         }
 

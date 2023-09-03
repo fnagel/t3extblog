@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
@@ -99,7 +99,7 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->subscriberRepository->remove($subscriber);
         $this->persistAllEntities();
 
-        $this->addFlashMessageByKey('deleted', AbstractMessage::INFO);
+        $this->addFlashMessageByKey('deleted', Message::INFO);
         $this->redirect('list', 'Subscriber');
     }
 
@@ -160,7 +160,7 @@ abstract class AbstractSubscriberController extends AbstractController
 
                 return (new ForwardResponse('processError'))
                     ->withControllerName('Subscriber')
-                    ->withArguments(['message' => 'alreadyRegistered', 'severity' => AbstractMessage::NOTICE]);
+                    ->withArguments(['message' => 'alreadyRegistered', 'severity' => Message::NOTICE]);
             }
         }
 
