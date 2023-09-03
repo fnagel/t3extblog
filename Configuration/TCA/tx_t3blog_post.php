@@ -49,7 +49,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3blog_post',
                 'foreign_table_where' => 'AND {#tx_t3blog_post}.{#pid}=###CURRENT_PID### AND {#tx_t3blog_post}.{#sys_language_uid} IN (-1,0)',
@@ -110,22 +110,29 @@ return [
             ],
         ],
         'fe_group' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'size' => 7,
+                'size' => 5,
                 'maxitems' => 20,
                 'items' => [
-                    ['', 0],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.any_login', -2],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.usergroups', '--div--']
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login',
+                        'value' => -1,
+                    ],
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.any_login',
+                        'value' => -2,
+                    ],
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.usergroups',
+                        'value' => '--div--',
+                    ],
                 ],
                 'exclusiveKeys' => '-1,-2',
                 'foreign_table' => 'fe_groups',
-                'foreign_table_where' => 'ORDER BY fe_groups.title',
             ],
         ],
         'title' => [
@@ -235,16 +242,16 @@ return [
                 'default' => 0,
                 'items' => [
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.0',
-                        Post::ALLOW_COMMENTS_EVERYONE,
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.0',
+                        'value' => Post::ALLOW_COMMENTS_EVERYONE,
                     ],
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.1',
-                        Post::ALLOW_COMMENTS_NOBODY,
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.1',
+                        'value' => Post::ALLOW_COMMENTS_NOBODY,
                     ],
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.2',
-                        Post::ALLOW_COMMENTS_LOGIN,
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.allow_comments.I.2',
+                        'value' => Post::ALLOW_COMMENTS_LOGIN,
                     ],
                 ],
                 'behaviour' => [
@@ -335,20 +342,20 @@ return [
                 'default' => 0,
                 'items' => [
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.0',
-                        '0'
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.0',
+                        'value' => '0',
                     ],
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.1',
-                        '1'
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.1',
+                        'value' => '1',
                     ],
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.2',
-                        '2'
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.2',
+                        'value' => '2',
                     ],
                     [
-                        'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.3',
-                        '3'
+                        'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_mode.3',
+                        'value' => '3',
                     ],
                 ],
                 'behaviour' => [
