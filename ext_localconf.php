@@ -177,17 +177,3 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['FelixNagel']['T3extblog']['writerConfigurati
         ],
     ],
 ];
-
-// Upgrade wizards
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CreateMissingPostSlugs::class]
-    = UpgradeWizard\CreateMissingPostSlugs::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CreateMissingCategorySlugs::class]
-    = UpgradeWizard\CreateMissingCategorySlugs::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\PostMailsSentWizard::class]
-    = UpgradeWizard\PostMailsSentWizard::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentMailsSentWizard::class]
-    = UpgradeWizard\CommentMailsSentWizard::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentAuthorOrEmailValid::class]
-    = UpgradeWizard\CommentAuthorOrEmailValid::class;
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][UpgradeWizard\CommentUrlValidation::class]
-    = UpgradeWizard\CommentUrlValidation::class;

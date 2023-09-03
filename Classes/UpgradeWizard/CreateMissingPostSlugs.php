@@ -9,6 +9,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
+
+#[UpgradeWizard(CreateMissingPostSlugs::class)]
 class CreateMissingPostSlugs extends AbstractSlugUpgradeWizard
 {
     public function getTitle(): string
