@@ -300,10 +300,8 @@ return [
             'l10n_mode' => 'prefixLangTitle',
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.number_views',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 8,
-                'max' => 15,
-                'eval' => 'int',
             ],
         ],
         'meta_description' => [
@@ -373,6 +371,7 @@ return [
         'preview_image' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.preview_image',
+            // @todo This might need a migration as the fieldName is no longer available!?
             'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'preview_image',
                 [
