@@ -105,7 +105,6 @@ class BackendModuleService
     /**
      * Create the panel of buttons
      *
-     * @param string $shortcutModuleName
      */
     public function addViewHeaderButtons(array $buttonItems, string $shortcutModuleName = null, bool $addRefreshButton = true)
     {

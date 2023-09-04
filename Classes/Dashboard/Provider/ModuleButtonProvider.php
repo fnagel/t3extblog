@@ -31,9 +31,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
         $this->linkArguments = $linkArguments;
     }
 
-    /**
-     * @param int $id
-     */
+    
     protected function getModuleLink(int $id = null, array $arguments = []): string
     {
         $parameters = [];

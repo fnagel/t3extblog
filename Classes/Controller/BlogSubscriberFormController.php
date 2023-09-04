@@ -74,7 +74,6 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Adds a subscriber.
      *
-     * @param BlogSubscriber $subscriber
      */
     public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
