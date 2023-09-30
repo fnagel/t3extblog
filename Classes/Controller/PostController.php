@@ -8,6 +8,8 @@ namespace FelixNagel\T3extblog\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
@@ -30,8 +32,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PostController extends AbstractCommentController
 {
-    public $objectManager;
-
     /**
      * PostController constructor.
      *
@@ -113,8 +113,7 @@ class PostController extends AbstractCommentController
         $category = null;
 
         if (isset($this->settings['latestPosts']['categoryUid'])) {
-            $category = $this->objectManager
-                ->get(CategoryRepository::class)
+            $category = GeneralUtility::makeInstance(CategoryRepository::class)
                 ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
         }
 
@@ -166,7 +165,7 @@ class PostController extends AbstractCommentController
     /**
      * Set Format to xml for the RSS action.
      */
-    public function initializeRssAction()
+    public function initializeRssAction(): void
     {
         $this->request->setFormat('xml');
     }
@@ -185,7 +184,7 @@ class PostController extends AbstractCommentController
     /**
      * Redirects permalinks to default show action.
      */
-    public function permalinkAction(int $permalinkPost)
+    public function permalinkAction(int $permalinkPost): ResponseInterface
     {
         $post = $this->postRepository->findByUid($permalinkPost);
 
@@ -193,7 +192,7 @@ class PostController extends AbstractCommentController
             $this->pageNotFoundAndExit('Post not found!');
         }
 
-        $this->redirect('show', 'Post', null, $post->getLinkParameter());
+        return $this->redirect('show', 'Post', null, $post->getLinkParameter());
     }
 
     /**
@@ -230,7 +229,7 @@ class PostController extends AbstractCommentController
     /**
      * Preview a post.
      */
-    public function previewAction(int $previewPost): ResponseInterface
+    public function previewAction($previewPost): ResponseInterface
     {
         if (!FrontendUtility::isValidBackendUser()) {
             throw new AccessDeniedException('Preview not allowed.');

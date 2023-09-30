@@ -21,8 +21,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class SubscriberController extends AbstractController
 {
-    public function __construct(protected AuthenticationServiceInterface $authentication, protected BlogSubscriberRepository $blogSubscriberRepository, protected PostSubscriberRepository $postSubscriberRepository)
-    {
+    public function __construct(
+        protected AuthenticationServiceInterface $authentication,
+        protected BlogSubscriberRepository $blogSubscriberRepository,
+        protected PostSubscriberRepository $postSubscriberRepository
+    ) {
     }
 
     /**
@@ -48,15 +51,14 @@ class SubscriberController extends AbstractController
 
     /**
      * Error action (with actual template so no parent class call!).
+     *
+     * @todo Test this in TYPO3 v12!
      */
     protected function errorAction(): ResponseInterface
     {
         if (!$this->hasFlashMessages()) {
             $this->addFlashMessageByKey('invalidAuth', Message::ERROR);
         }
-
-        // Set action for proper template file
-        $this->request->setControllerActionName('error');
 
         return $this->htmlResponse()->withStatus(400);
     }

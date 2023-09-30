@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Service\BlogNotificationService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use Psr\Http\Message\ResponseInterface;
@@ -34,14 +35,14 @@ class BackendPostController extends AbstractBackendController
     /**
      * Send post notification mails.
      */
-    public function sendPostNotificationsAction(Post $post)
+    public function sendPostNotificationsAction(Post $post): ResponseInterface
     {
         /* @var $notificationService BlogNotificationService */
-        $notificationService = $this->objectManager->get(BlogNotificationService::class);
+        $notificationService = GeneralUtility::makeInstance(BlogNotificationService::class);
         $amount = $notificationService->notifySubscribers($post);
 
         $this->addFlashMessage(LocalizationUtility::translate('module.post.emailsSent', 'T3extblog', [$amount]));
 
-        $this->redirect('index');
+        return $this->redirect('index');
     }
 }

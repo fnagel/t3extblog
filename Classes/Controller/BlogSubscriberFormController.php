@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
@@ -53,7 +54,7 @@ class BlogSubscriberFormController extends AbstractController
     {
         /* @var $subscriber BlogSubscriber */
         if ($subscriber === null) {
-            $subscriber = $this->objectManager->get(BlogSubscriber::class);
+            $subscriber = GeneralUtility::makeInstance(BlogSubscriber::class);
         }
 
         $this->view->assign('subscriber', $subscriber);
@@ -76,7 +77,7 @@ class BlogSubscriberFormController extends AbstractController
     public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
         if ($subscriber === null) {
-            $this->redirect('new');
+            return $this->redirect('new');
         }
 
         // Check if blog subscription is allowed
@@ -115,7 +116,7 @@ class BlogSubscriberFormController extends AbstractController
         $this->addFlashMessageByKey('created');
         $this->getRateLimiter()->reset('blog-subscriber-create');
 
-        $this->redirect('success');
+        return $this->redirect('success');
     }
 
     /**
@@ -132,7 +133,7 @@ class BlogSubscriberFormController extends AbstractController
         // Block comment and redirect user
         if ($threshold['redirect'] > 0 && $spamPoints >= (int) $threshold['redirect']) {
             $this->getLog()->notice('New blog subscriber blocked and user redirected because of SPAM.', $logData);
-            $this->redirect(
+            return $this->redirect(
                 '',
                 null,
                 null,
@@ -151,11 +152,13 @@ class BlogSubscriberFormController extends AbstractController
         return null;
     }
 
-    public function successAction()
+    public function successAction(): ResponseInterface
     {
         if (!$this->hasFlashMessages()) {
-            $this->redirect('new');
+            return $this->redirect('new');
         }
+
+        return $this->htmlResponse();
     }
 
     /**

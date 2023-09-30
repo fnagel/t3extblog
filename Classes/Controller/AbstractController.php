@@ -165,7 +165,7 @@ abstract class AbstractController extends ActionController
      */
     protected function hasFlashMessages(): bool
     {
-        $messages = $this->controllerContext->getFlashMessageQueue()->getAllMessages();
+        $messages = $this->getFlashMessageQueue()->getAllMessages();
 
         return count($messages) > 0;
     }
@@ -194,7 +194,7 @@ abstract class AbstractController extends ActionController
     protected function persistAllEntities(): void
     {
         /* @var $persistenceManager PersistenceManager */
-        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $persistenceManager->persistAll();
     }
 

@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Service\AuthenticationService;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Domain\Model\Comment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * PostController.
@@ -25,7 +26,7 @@ abstract class AbstractCommentController extends AbstractController
     protected function getNewComment(): Comment
     {
         /* @var $comment Comment */
-        $comment = $this->objectManager->get(Comment::class);
+        $comment = GeneralUtility::makeInstance(Comment::class);
 
         // Shall we check for a user session?
         if (!$this->settings['blogsystem']['comments']['prefillFields']['enable']) {
@@ -43,7 +44,7 @@ abstract class AbstractCommentController extends AbstractController
         }
 
         /* @var $authentication AuthenticationService */
-        $authentication = $this->objectManager->get(AuthenticationService::class);
+        $authentication = GeneralUtility::makeInstance(AuthenticationService::class);
         if ($authentication->isValid()) {
             $comment->setEmail($authentication->getEmail());
 

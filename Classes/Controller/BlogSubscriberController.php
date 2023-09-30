@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Psr\Http\Message\ResponseInterface;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
@@ -49,25 +50,28 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * Create a new subscription.
      */
-    public function createAction()
+    public function createAction(): ResponseInterface
     {
-        $this->checkAuth();
+        if (($authResult = $this->checkAuth()) instanceof ResponseInterface) {
+            return $authResult;
+        }
+
         $email = $this->authentication->getEmail();
 
         if (!$this->settings['blogSubscription']['subscribeForPosts']) {
             $this->addFlashMessageByKey('notAllowed', Message::ERROR);
-            $this->redirect('list', 'PostSubscriber');
+            return $this->redirect('list', 'PostSubscriber');
         }
 
         // check if user already registered
         $subscribers = $this->subscriberRepository->findExistingSubscriptions($email);
         if (count($subscribers) > 0) {
             $this->addFlashMessageByKey('alreadyRegistered', Message::NOTICE);
-            $this->redirect('list', 'PostSubscriber');
+            return $this->redirect('list', 'PostSubscriber');
         }
 
         /* @var $subscriber BlogSubscriber */
-        $subscriber = $this->objectManager->get(BlogSubscriber::class);
+        $subscriber = GeneralUtility::makeInstance(BlogSubscriber::class);
         $subscriber->setEmail($email);
         $subscriber->setHidden(false);
         $subscriber->setSysLanguageUid(FrontendUtility::getLanguageUid());
@@ -80,7 +84,7 @@ class BlogSubscriberController extends AbstractSubscriberController
         $this->notificationService->processNewEntity($subscriber);
 
         $this->addFlashMessageByKey('created');
-        $this->redirect('list', 'PostSubscriber');
+        return $this->redirect('list', 'PostSubscriber');
     }
 
     /**
@@ -91,9 +95,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     #[IgnoreValidation(['value' => 'subscriber'])]
     public function deleteAction($subscriber = null): ResponseInterface
     {
-        parent::deleteAction($subscriber);
-
-        return $this->htmlResponse();
+        return parent::deleteAction($subscriber);
     }
 
     /**

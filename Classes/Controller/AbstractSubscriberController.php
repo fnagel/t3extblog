@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
@@ -45,26 +46,30 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->authentication = $authentication;
     }
 
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
-        $this->checkAuth();
+        if (($authResult = $this->checkAuth()) instanceof ResponseInterface) {
+            return $authResult;
+        }
 
-        $this->redirect('list', 'Subscriber');
+        return $this->redirect('list', 'Subscriber');
     }
 
-    public function confirmAction()
+    public function confirmAction(): ResponseInterface
     {
-        $this->checkAuth(true);
+        if (($authResult = $this->checkAuth(true)) instanceof ResponseInterface) {
+            return $authResult;
+        }
 
         if ($this->subscriber === null) {
             throw new \InvalidArgumentException('No authenticated subscriber given.');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'subscriberConfirmAction',
-            [&$this->subscriber, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'subscriberConfirmAction',
+//            [&$this->subscriber, $this]
+//        );
 
         if ($this->subscriber->_getProperty('hidden') === true) {
             $this->subscriber->_setProperty('hidden', false);
@@ -74,22 +79,24 @@ abstract class AbstractSubscriberController extends AbstractController
             $this->persistAllEntities();
         }
 
-        $this->redirect('list', 'PostSubscriber');
+        return $this->redirect('list', 'PostSubscriber');
     }
 
-    public function deleteAction(AbstractSubscriber $subscriber = null)
+    public function deleteAction(AbstractSubscriber $subscriber = null): ResponseInterface
     {
-        $this->checkAuth();
+        if (($authResult = $this->checkAuth()) instanceof ResponseInterface) {
+            return $authResult;
+        }
 
         if (!$subscriber instanceof BlogSubscriber && !$subscriber instanceof PostSubscriber) {
             throw new \InvalidArgumentException('No subscriber given.');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'subscriberDeleteAction',
-            [&$this->subscriber, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'subscriberDeleteAction',
+//            [&$this->subscriber, $this]
+//        );
 
         // Check if the given subscriber is owned by authenticated user
         if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
@@ -100,44 +107,56 @@ abstract class AbstractSubscriberController extends AbstractController
         $this->persistAllEntities();
 
         $this->addFlashMessageByKey('deleted', Message::INFO);
-        $this->redirect('list', 'Subscriber');
+
+        return $this->redirect('list', 'Subscriber');
     }
 
     /**
-     * Check and get authentication.
+     * Check authentication.
      */
-    protected function checkAuth(bool $isConfirmRequest = false)
+    protected function checkAuth(bool $isConfirmRequest = false): ?ResponseInterface
     {
         if ($this->hasCodeArgument()) {
-            $this->authenticate($isConfirmRequest);
+            if (($authResult = $this->authenticate($isConfirmRequest)) instanceof ResponseInterface) {
+                return $authResult;
+            }
         }
 
         if ($this->authentication->isValid()) {
-            return;
+            return null;
         }
 
         return (new ForwardResponse('processError'))->withControllerName('Subscriber');
     }
 
     /**
-     * Get authentication.
+     * Set authentication.
      */
-    protected function authenticate(bool $isConfirmRequest = false)
+    protected function authenticate(bool $isConfirmRequest = false): ?ResponseInterface
     {
         $rateLimitSettings = $this->settings['subscriptionManager']['rateLimit'];
         if ($rateLimitSettings['enable'] && !$this->initRateLimiter('subscriber-authenticate', $rateLimitSettings)
                 ->isAccepted('subscriber-authenticate')
         ) {
-            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'rateLimit']);
+            return (new ForwardResponse('processError'))
+                ->withControllerName('Subscriber')
+                ->withArguments(['message' => 'rateLimit']);
         }
 
-        $code = $this->getAuthCode();
+        $code = $this->getCodeArgument();
+        if (strlen($code) !== 32 || !ctype_alnum($code)) {
+            return (new ForwardResponse('processError'))
+                ->withControllerName('Subscriber')
+                ->withArguments(['message' => 'invalidLink']);
+        };
 
         /* @var $subscriber AbstractSubscriber */
         $subscriber = $this->subscriberRepository->findByCode($code, !$isConfirmRequest);
 
         if ($subscriber === null) {
-            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'authFailed']);
+            return (new ForwardResponse('processError'))
+                ->withControllerName('Subscriber')
+                ->withArguments(['message' => 'authFailed']);
         }
 
         $modify = '+1 hour';
@@ -146,7 +165,9 @@ abstract class AbstractSubscriberController extends AbstractController
         }
 
         if ($subscriber->isAuthCodeExpired($modify)) {
-            return (new ForwardResponse('processError'))->withControllerName('Subscriber')->withArguments(['message' => 'linkOutdated']);
+            return (new ForwardResponse('processError'))
+                ->withControllerName('Subscriber')
+                ->withArguments(['message' => 'linkOutdated']);
         }
 
         if ($isConfirmRequest) {
@@ -168,6 +189,8 @@ abstract class AbstractSubscriberController extends AbstractController
 
         $this->authentication->login($subscriber->getEmail());
         $this->subscriber = $subscriber;
+
+        return null;
     }
 
     /**
@@ -181,17 +204,9 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * Checks the code.
      */
-    protected function getAuthCode(): string
+    protected function getCodeArgument(): string
     {
-        $code = $this->request->getArgument('code');
-
-        if (strlen($code) !== 32 || !ctype_alnum($code)) {
-            return (new ForwardResponse('processError'))
-                ->withControllerName('Subscriber')
-                ->withArguments(['message' => 'invalidLink']);
-        }
-
-        return $code;
+        return $this->request->getArgument('code');
     }
 
     /**

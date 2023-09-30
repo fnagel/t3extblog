@@ -81,9 +81,9 @@ class CommentController extends AbstractCommentController
      *
      * @param Post $post The post the comment is related to
      */
-    public function showAction(Post $post)
+    public function showAction(Post $post): ResponseInterface
     {
-        $this->redirect('show', 'Post', null, $post->getLinkParameter());
+        return $this->redirect('show', 'Post', null, $post->getLinkParameter());
     }
 
     /**
@@ -121,7 +121,7 @@ class CommentController extends AbstractCommentController
      */
     #[Extbase\Validate(['validator' => CommentEmailValidator::class, 'param' => 'newComment'])]
     #[Extbase\Validate(['validator' => PrivacyPolicyValidator::class, 'param' => 'newComment', 'options' => ['key' => 'comment', 'property' => 'privacyPolicyAccepted']])]
-    public function createAction(Post $post, Comment $newComment = null)
+    public function createAction(Post $post, Comment $newComment = null): ResponseInterface
     {
         // @todo Fix flash messages caching issue, see: https://github.com/fnagel/t3extblog/issues/112
         $this->clearPageCache();
@@ -132,7 +132,7 @@ class CommentController extends AbstractCommentController
 
         if ($newComment === null) {
             $this->addFlashMessageByKey('noComment', Message::WARNING);
-            $this->redirect('show', 'Post', null, $post->getLinkParameter());
+            return $this->redirect('show', 'Post', null, $post->getLinkParameter());
         }
 
         if (($commentAllowedResult = $this->checkIfCommentIsAllowed($post)) instanceof ResponseInterface) {
@@ -149,11 +149,11 @@ class CommentController extends AbstractCommentController
             $newComment->setApproved(true);
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'prePersist',
-            [$post, &$newComment, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'prePersist',
+//            [$post, &$newComment, $this]
+//        );
 
         $post->addComment($newComment);
         $this->persistAllEntities();
@@ -173,7 +173,7 @@ class CommentController extends AbstractCommentController
 
         $this->getRateLimiter()->reset('comment-create');
 
-        $this->redirect('show', 'Post', null, $post->getLinkParameter());
+        return $this->redirect('show', 'Post', null, $post->getLinkParameter());
     }
 
     /**
@@ -232,7 +232,7 @@ class CommentController extends AbstractCommentController
         // block comment and redirect user
         if ($threshold['redirect'] > 0 && $comment->getSpamPoints() >= (int) $threshold['redirect']) {
             $this->getLog()->notice('New comment blocked and user redirected because of SPAM.', $logData);
-            $this->redirect(
+            return $this->redirect(
                 '',
                 null,
                 null,
@@ -279,8 +279,6 @@ class CommentController extends AbstractCommentController
 
     /**
      * Disable error flash message.
-     *
-     * @return string|false
      */
     protected function getErrorFlashMessage(): bool
     {
