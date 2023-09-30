@@ -57,6 +57,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
 
     public function getTarget(): string
     {
+        // @extensionScannerIgnoreLine
         return $this->target;
     }
 }

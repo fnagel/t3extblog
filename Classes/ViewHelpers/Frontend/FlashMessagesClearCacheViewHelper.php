@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 
@@ -38,7 +40,9 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
     public function render(): void
     {
         $queueIdentifier = $this->arguments['queueIdentifier'] ?? null;
-        $flashMessages = $this->renderingContext->getControllerContext()->getFlashMessageQueue($queueIdentifier)->getAllMessages();
+        $flashMessages = GeneralUtility::makeInstance(FlashMessageService::class)
+            ->getMessageQueueByIdentifier($queueIdentifier)
+            ->getAllMessages();
 
         if (count($flashMessages) > 0) {
             FrontendUtility::disableFrontendCache();

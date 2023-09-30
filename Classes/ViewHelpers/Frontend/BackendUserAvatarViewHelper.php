@@ -55,14 +55,14 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
      */
     protected static function getAvatarUrl(int $uid, int $size): ?string
     {
-        $backendUser = BackendUtility::getRecord('be_users', (int) $uid);
+        $backendUser = BackendUtility::getRecord('be_users', $uid);
 
         foreach (self::getAvatarProviders() as $provider) {
             /* @var $provider AvatarProviderInterface */
             $avatarImage = $provider->getImage($backendUser, $size);
 
             if ($avatarImage !== null) {
-                return $avatarImage->getUrl(true);
+                return $avatarImage->getUrl();
             }
         }
 

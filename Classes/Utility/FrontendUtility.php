@@ -39,6 +39,7 @@ class FrontendUtility implements SingletonInterface
      */
     public static function getPageUid(): int
     {
+        // @extensionScannerIgnoreLine
         return static::getTsFe()->id;
     }
 
