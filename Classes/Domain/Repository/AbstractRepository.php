@@ -69,7 +69,7 @@ abstract class AbstractRepository extends Repository
 
     protected function getTableNameByClass(string $object): string
     {
-        return $this->objectManager->get(DataMapper::class)->convertClassNameToTableName($object);
+        return GeneralUtility::makeInstance(DataMapper::class)->convertClassNameToTableName($object);
     }
 
     protected function escapeStrForLike(string $value, string $table = null): string
@@ -78,10 +78,7 @@ abstract class AbstractRepository extends Repository
             $table = $this->getTableName();
         }
 
-        $queryBuilder = GeneralUtility::makeInstance(
-            ConnectionPool::class
-        )
-            ->getQueryBuilderForTable($table);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 
         return $queryBuilder->escapeLikeWildcards($value);
     }

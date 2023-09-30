@@ -18,7 +18,6 @@ use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Container\Container;
 use FelixNagel\T3extblog\Service\FlushCacheService;
 
 /**
@@ -38,11 +37,6 @@ class Tcemain
      * notificationService.
      */
     protected ?CommentNotificationService $notificationService = null;
-
-    /**
-     * objectContainer.
-     */
-    protected ?Container $objectContainer = null;
 
     /**
      * commentRepository.
@@ -180,7 +174,7 @@ class Tcemain
         ];
 
         /* @var $tceMain DataHandler */
-        $tceMain = $this->getObjectContainer()->getInstance(DataHandler::class);
+        $tceMain = GeneralUtility::makeInstance(DataHandler::class);
 
         $tceMain->start([], $command);
         $tceMain->process_cmdmap();
@@ -251,22 +245,10 @@ class Tcemain
     protected function getCommentRepository(): CommentRepository
     {
         if ($this->commentRepository === null) {
-            $this->commentRepository = $this->getObjectContainer()->getInstance(CommentRepository::class);
+            $this->commentRepository = GeneralUtility::makeInstance(CommentRepository::class);
         }
 
         return $this->commentRepository;
-    }
-
-    /**
-     * Get object container.
-     */
-    protected function getObjectContainer(): Container
-    {
-        if ($this->objectContainer === null) {
-            $this->objectContainer = GeneralUtility::makeInstance(Container::class);
-        }
-
-        return $this->objectContainer;
     }
 
     /**
@@ -275,7 +257,7 @@ class Tcemain
     protected function getNotificationService(): CommentNotificationService
     {
         if ($this->notificationService === null) {
-            $this->notificationService = $this->getObjectContainer()->getInstance(CommentNotificationService::class);
+            $this->notificationService = GeneralUtility::makeInstance(CommentNotificationService::class);
         }
 
         return $this->notificationService;

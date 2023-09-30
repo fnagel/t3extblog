@@ -14,6 +14,7 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Handles all notification mails for new or changed comments.
@@ -29,7 +30,7 @@ class CommentNotificationService extends AbstractNotificationService
     {
         parent::initializeObject();
 
-        $this->subscriberRepository = $this->objectManager->get(PostSubscriberRepository::class);
+        $this->subscriberRepository = GeneralUtility::makeInstance(PostSubscriberRepository::class);
         $this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.comment');
     }
 
@@ -44,11 +45,11 @@ class CommentNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'processNewComment',
-            [&$comment, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'processNewComment',
+//            [&$comment, $this]
+//        );
 
         $subscriber = null;
         if ($this->isNewSubscriptionValid($comment)) {
@@ -78,11 +79,11 @@ class CommentNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'processChangedComment',
-            [&$comment, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'processChangedComment',
+//            [&$comment, $this]
+//        );
 
         if ($comment->isValid()) {
             if (!empty($comment->getEmail())) {
@@ -155,7 +156,7 @@ class CommentNotificationService extends AbstractNotificationService
     protected function addSubscriber(Comment $comment): PostSubscriber
     {
         /* @var $newSubscriber PostSubscriber */
-        $newSubscriber = $this->objectManager->get(PostSubscriber::class, $comment->getPostId());
+        $newSubscriber = GeneralUtility::makeInstance(PostSubscriber::class, $comment->getPostId());
         $newSubscriber->setEmail($comment->getEmail());
         $newSubscriber->setName($comment->getAuthor());
         $newSubscriber->setPrivacyPolicyAccepted($comment->hasPrivacyPolicyAccepted());
@@ -191,11 +192,11 @@ class CommentNotificationService extends AbstractNotificationService
             'comment' => $comment,
         ];
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'notifySubscribers',
-            [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'notifySubscribers',
+//            [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
+//        );
 
         $this->getLog()->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
 
@@ -222,7 +223,7 @@ class CommentNotificationService extends AbstractNotificationService
         }
 
         $comment->setMailsSent(true);
-        $this->objectManager->get(CommentRepository::class)->update($comment);
+        GeneralUtility::makeInstance(CommentRepository::class)->update($comment);
     }
 
     /**

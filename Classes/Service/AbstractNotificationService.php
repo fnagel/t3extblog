@@ -12,9 +12,8 @@ namespace FelixNagel\T3extblog\Service;
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
@@ -31,10 +30,6 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 {
     use LoggingTrait;
 
-    protected ObjectManagerInterface $objectManager;
-
-    protected Dispatcher $signalSlotDispatcher;
-
     protected $subscriberRepository;
 
     protected array $settings = [];
@@ -42,14 +37,11 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected array $subscriptionSettings = [];
 
     public function __construct(
-        ObjectManagerInterface $objectManager,
-        Dispatcher $signalSlotDispatcher,
         protected SettingsService $settingsService,
         protected EmailService $emailService,
         protected FlushCacheService $cacheService
     ) {
-        $this->objectManager = $objectManager;
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
+
     }
 
     public function initializeObject()
@@ -161,7 +153,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     protected function persistToDatabase(bool $force = false)
     {
         if ($force || ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
-            $this->objectManager->get(PersistenceManager::class)->persistAll();
+            GeneralUtility::makeInstance(PersistenceManager::class)->persistAll();
         }
     }
 }

@@ -10,24 +10,12 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
  * Handles spam check.
  */
 class SpamCheckService implements SpamCheckServiceInterface
 {
-    protected Dispatcher $signalSlotDispatcher;
-
-    /**
-     * SpamCheckService constructor.
-     *
-     */
-    public function __construct(Dispatcher $signalSlotDispatcher)
-    {
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
-    }
-
     /**
      * Checks GET / POST parameter for SPAM.
      *
@@ -66,11 +54,11 @@ class SpamCheckService implements SpamCheckServiceInterface
             $spamPoints += (int) $settings['link'];
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'spamCheck',
-            [$settings, $arguments, &$spamPoints, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'spamCheck',
+//            [$settings, $arguments, &$spamPoints, $this]
+//        );
 
         return $spamPoints;
     }

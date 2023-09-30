@@ -14,8 +14,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Context\Context;
 
@@ -36,22 +34,13 @@ class EmailService implements SingletonInterface
      */
     protected string $extensionName = 't3extblog';
 
-    protected ObjectManagerInterface $objectManager;
-
-    protected Dispatcher $signalSlotDispatcher;
-
     protected array $settings = [];
 
     /**
      * EmailService constructor.
      */
-    public function __construct(
-        ObjectManagerInterface $objectManager,
-        Dispatcher $signalSlotDispatcher,
-        protected SettingsService $settingsService
-    ) {
-        $this->objectManager = $objectManager;
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
+    public function __construct(protected SettingsService $settingsService)
+    {
     }
 
     public function initializeObject()
@@ -66,11 +55,11 @@ class EmailService implements SingletonInterface
      */
     public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
     {
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'sendEmail',
-            [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'sendEmail',
+//            [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
+//        );
 
         // @extensionScannerIgnoreLine
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
@@ -139,8 +128,6 @@ class EmailService implements SingletonInterface
 
     /**
      * Create and configure the view.
-     *
-     * @param string $templateFile Choose a template
      */
     public function getEmailView(string $templateFile): StandaloneView
     {
@@ -156,11 +143,12 @@ class EmailService implements SingletonInterface
         return $emailView;
     }
 
-
     protected function createStandaloneView(): StandaloneView
     {
         /* @var $emailView StandaloneView */
-        $emailView = $this->objectManager->get(StandaloneView::class);
+        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
+
+        // @todo See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
         $emailView->getRequest()->setPluginName('');
         $emailView->getRequest()->setControllerExtensionName($this->extensionName);
 
@@ -188,7 +176,6 @@ class EmailService implements SingletonInterface
 
     /**
      * Prepare html as plain text.
-     *
      */
     protected function preparePlainTextBody(string $html): string
     {
@@ -204,7 +191,6 @@ class EmailService implements SingletonInterface
         return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
     }
 
-
     protected function setMessageContent(MailMessage $message, string $emailBody)
     {
         // Plain text only
@@ -218,11 +204,10 @@ class EmailService implements SingletonInterface
     }
 
     /**
-     * Create mail message
-     *
+     * Create mail message.
      */
     protected function createMailMessage(): MailMessage
     {
-        return $this->objectManager->get(MailMessage::class);
+        return GeneralUtility::makeInstance(MailMessage::class);
     }
 }

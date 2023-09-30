@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Handles all notification mails for new posts notification.
@@ -28,7 +29,7 @@ class BlogNotificationService extends AbstractNotificationService
     {
         parent::initializeObject();
 
-        $this->subscriberRepository = $this->objectManager->get(BlogSubscriberRepository::class);
+        $this->subscriberRepository = GeneralUtility::makeInstance(BlogSubscriberRepository::class);
         $this->subscriptionSettings = $this->settingsService->getTypoScriptByPath('subscriptionManager.blog');
     }
 
@@ -43,11 +44,11 @@ class BlogNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'processNewSubscriber',
-            [&$subscriber, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'processNewSubscriber',
+//            [&$subscriber, $this]
+//        );
 
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
@@ -66,11 +67,11 @@ class BlogNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'processChangedSubscriber',
-            [&$subscriber, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'processChangedSubscriber',
+//            [&$subscriber, $this]
+//        );
 
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
@@ -114,11 +115,11 @@ class BlogNotificationService extends AbstractNotificationService
         $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
         $variables = ['post' => $post];
 
-        $this->signalSlotDispatcher->dispatch(
-            self::class,
-            'notifySubscribers',
-            [$post, &$subscribers, &$subject, &$variables, $this]
-        );
+//        $this->signalSlotDispatcher->dispatch(
+//            self::class,
+//            'notifySubscribers',
+//            [$post, &$subscribers, &$subject, &$variables, $this]
+//        );
 
         $this->getLog()->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 
@@ -131,7 +132,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $post->setMailsSent(true);
-        $this->objectManager->get(PostRepository::class)->update($post);
+        GeneralUtility::makeInstance(PostRepository::class)->update($post);
         $this->persistToDatabase();
 
         return count($subscribers);
