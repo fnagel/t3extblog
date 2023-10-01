@@ -51,6 +51,6 @@ class BackendDashboardController extends AbstractBackendController
             'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),
         ]);
 
-        return $this->htmlResponse();
+        return $this->moduleResponse();
     }
 }

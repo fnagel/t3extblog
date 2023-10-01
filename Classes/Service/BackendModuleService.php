@@ -10,8 +10,10 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Fluid\View\TemplateView as View;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -21,7 +23,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder as MvcUriBuilder;
 use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * BackendModuleService.
@@ -30,18 +31,16 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class BackendModuleService
 {
-    protected ObjectManagerInterface $objectManager;
-
-    protected BackendTemplateView $view;
-
     /**
      * BackendModuleService constructor.
      *
      */
-    public function __construct(ObjectManagerInterface $objectManager, BackendTemplateView $view, protected int $pid)
+    public function __construct(
+        protected View $view,
+        protected ModuleTemplate $moduleTemplate,
+        protected int $pid
+    )
     {
-        $this->objectManager = $objectManager;
-        $this->view = $view;
     }
 
     /**
@@ -51,19 +50,18 @@ class BackendModuleService
     {
         $permissionClause = $this->getBackendUserAuthentication()->getPagePermsClause(Permission::PAGE_SHOW);
         $pageRecord = BackendUtility::readPageAccess($this->pid, $permissionClause);
+
         if ($pageRecord) {
-            $this->view->getModuleTemplate()->getDocHeaderComponent()->setMetaInformation($pageRecord);
+            $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation($pageRecord);
         }
     }
 
-
     /**
      * Add JS and CSS assets to the view
-     *
      */
     public function addViewAssets(array $requireJsModules = [], array $cssLibraries = [])
     {
-        $pageRenderer = $this->view->getModuleTemplate()->getPageRenderer();
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 
         foreach ($requireJsModules as $requireJsModule) {
             $pageRenderer->loadRequireJsModule($requireJsModule);
@@ -80,10 +78,10 @@ class BackendModuleService
      */
     public function addViewHeaderMenu(Request $request, array $menuItems, string $menuIdentifier)
     {
-        $menu = $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier($menuIdentifier);
 
-        $uriBuilder = $this->objectManager->get(MvcUriBuilder::class);
+        $uriBuilder = GeneralUtility::makeInstance(MvcUriBuilder::class);
         $uriBuilder->setRequest($request);
 
         foreach ($menuItems as $menuItemConfig) {
@@ -96,7 +94,7 @@ class BackendModuleService
             $menu->addMenuItem($menuItem);
         }
 
-        $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
@@ -104,9 +102,9 @@ class BackendModuleService
      */
     public function addViewHeaderButtons(array $buttonItems, string $shortcutModuleName = null, bool $addRefreshButton = true)
     {
-        $uriBuilder = $this->objectManager->get(BackendUriBuilder::class);
-        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
-        $iconFactory = $this->objectManager->get(IconFactory::class);
+        $uriBuilder = GeneralUtility::makeInstance(BackendUriBuilder::class);
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
         foreach ($buttonItems as $configuration) {
             $parameters = [
@@ -141,18 +139,19 @@ class BackendModuleService
         // Shortcut
         if ($shortcutModuleName !== null) {
             $shortcutButton = $buttonBar->makeShortcutButton()
-                ->setModuleName($shortcutModuleName);
+                ->setRouteIdentifier($shortcutModuleName)
+                ->setDisplayName('Blog');
             $buttonBar->addButton($shortcutButton, ButtonBar::BUTTON_POSITION_RIGHT);
         }
     }
 
-    
+
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }
 
-    
+
     protected function getBackendUserAuthentication(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];

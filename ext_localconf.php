@@ -10,7 +10,6 @@ use FelixNagel\T3extblog\Controller\BlogSubscriberController;
 use FelixNagel\T3extblog\Controller\BlogSubscriberFormController;
 use FelixNagel\T3extblog\Controller\CategoryController;
 use FelixNagel\T3extblog\Hooks\Tcemain;
-use FelixNagel\T3extblog\UpgradeWizard as UpgradeWizard;
 use TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
 use FelixNagel\T3extblog\Routing\Aspect\PostMapper;

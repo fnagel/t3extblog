@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
@@ -17,7 +18,6 @@ use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Service\BackendModuleService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\BlogPageSearchUtility;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -25,8 +25,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Mvc\Exception;
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
@@ -57,6 +56,8 @@ abstract class AbstractBackendController extends ActionController
      */
     protected ConnectionPool $connectionPool;
 
+    protected ModuleTemplate $moduleTemplate;
+
     /**
      * BackendBaseController constructor.
      */
@@ -76,14 +77,14 @@ abstract class AbstractBackendController extends ActionController
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         /* @var $persistenceManager PersistenceManager */
-        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
+        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
         // We "finally" persist the module data.
         try {
             $response = parent::processRequest($request);
             $persistenceManager->persistAll();
             return $response;
-        } catch (StopActionException $exception) {
+        } catch (Exception $exception) {
             $persistenceManager->persistAll();
             throw $exception;
         }
@@ -91,25 +92,28 @@ abstract class AbstractBackendController extends ActionController
 
     /**
      * Initializes the view before invoking an action method.
-     *
-     * @param ViewInterface $view The view to be initialized
      */
-    protected function initializeView(ViewInterface $view)
+    protected function initializeView()
     {
-        /** @var BackendTemplateView $view */
-        parent::initializeView($view);
-
         $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
         if (empty($dateTimeFormat)) {
             $dateTimeFormat = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' .
                 $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
         }
 
+        $this->view->assignMultiple([
+            'pageId' => $this->pageId,
+            'dateTimeFormat' => $dateTimeFormat,
+            'pageNotice' => $this->pageInfo,
+        ]);
+
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
         // Configure module header
-        $moduleService = $this->objectManager->get(
+        $moduleService = GeneralUtility::makeInstance(
             BackendModuleService::class,
-            $this->objectManager,
             $this->view,
+            $this->moduleTemplate,
             $this->pageId
         );
         $moduleService->addMetaInformation();
@@ -124,14 +128,8 @@ abstract class AbstractBackendController extends ActionController
         );
         $moduleService->addViewHeaderButtons(
             $this->getViewHeaderButtonItems(),
-            'web_T3extblogTxT3extblog'
+            'web_T3extblogBlogsystem'
         );
-
-        $this->view->assignMultiple([
-            'pageId' => $this->pageId,
-            'dateTimeFormat' => $dateTimeFormat,
-            'pageNotice' => $this->pageInfo,
-        ]);
     }
 
     protected function getViewHeaderMenuItems(): array
@@ -210,6 +208,7 @@ abstract class AbstractBackendController extends ActionController
         try {
             // Validate settings
             TypoScriptValidator::validateSettings($this->settings);
+
         } catch (InvalidConfigurationException $exception) {
             // On pages with blog records we need to make sure TS is configured so escalate!
             if ($this->pageInfo['show'] === false) {
@@ -220,6 +219,13 @@ abstract class AbstractBackendController extends ActionController
                 throw $exception;
             }
         }
+    }
+
+    protected function moduleResponse(): ResponseInterface
+    {
+        $this->moduleTemplate->setContent($this->view->render());
+
+        return $this->htmlResponse($this->moduleTemplate->renderContent());
     }
 
     protected function paginationHtmlResponse(
@@ -235,7 +241,7 @@ abstract class AbstractBackendController extends ActionController
             'pagination' => new SimplePagination($paginator),
         ]);
 
-        return $this->htmlResponse();
+        return $this->moduleResponse();
     }
 
     /**
