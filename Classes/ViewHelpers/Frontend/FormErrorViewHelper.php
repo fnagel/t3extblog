@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -40,7 +42,10 @@ class FormErrorViewHelper extends AbstractViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $validationResults = $renderingContext->getRequest()->getOriginalRequestMappingResults();
+        /** @var RenderingContext $renderingContext */
+        /** @var ExtbaseRequestParameters $extbaseRequestParameters */
+        $extbaseRequestParameters = $renderingContext->getRequest()->getAttribute('extbase');
+        $validationResults = $extbaseRequestParameters->getOriginalRequestMappingResults();
 
         $for = $arguments['for'];
         $error = $arguments['error'];
