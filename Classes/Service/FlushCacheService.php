@@ -67,7 +67,6 @@ class FlushCacheService implements SingletonInterface
 
         foreach (array_unique($cacheTagsToFlush) as $cacheTag) {
             $cacheManager->getCache('pages')->flushByTag($cacheTag);
-            $cacheManager->getCache('pagesection')->flushByTag($cacheTag);
         }
     }
 
