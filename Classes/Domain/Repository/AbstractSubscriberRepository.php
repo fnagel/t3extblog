@@ -27,10 +27,10 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(!$enableFields);
 
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->equals('code', $code),
-                $query->equals('deleted', 0),
-            ])
+                $query->equals('deleted', 0)
+            )
         );
 
         return $query->execute()->getFirst();
@@ -43,7 +43,7 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         $constraints[] = $query->equals('email', $email);
 
         if ($excludeUid !== null) {
-            $constraints[] = $query->logicalNot($query->equals('uid', (int) $excludeUid));
+            $constraints[] = $query->logicalNot($query->equals('uid', $excludeUid));
         }
 
         return $constraints;

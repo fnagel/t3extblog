@@ -42,7 +42,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
         $constraints[] = $query->equals('postUid', $postUid);
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
@@ -69,7 +69,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
         ];
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute()->getFirst();

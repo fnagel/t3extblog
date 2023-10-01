@@ -53,7 +53,7 @@ class CommentRepository extends AbstractRepository
         }
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
@@ -67,10 +67,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $this->getValidConstraints($query),
-                $query->equals('postId', $post->getLocalizedUid()),
-            ])
+                $query->equals('postId', $post->getLocalizedUid())
+            )
         );
 
         return $query->execute();
@@ -84,10 +84,10 @@ class CommentRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid),
-                $this->getValidConstraints($query),
-            ])
+                $this->getValidConstraints($query)
+            )
         );
 
         return $query->execute();
@@ -104,7 +104,7 @@ class CommentRepository extends AbstractRepository
         $constraints = $this->getPendingConstraints($query, $post);
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query;
@@ -113,10 +113,10 @@ class CommentRepository extends AbstractRepository
     protected function getPendingConstraints(QueryInterface $query, Post $post = null): array
     {
         $constraints = [
-            $query->logicalOr([
+            $query->logicalOr(
                 $query->equals('spam', 1),
-                $query->equals('approved', 0),
-            ])
+                $query->equals('approved', 0)
+            )
         ];
 
         if ($post !== null) {
@@ -133,11 +133,11 @@ class CommentRepository extends AbstractRepository
     {
         $query = $this->createPendingQuery();
 
+        $constraints = $this->getPendingConstraints($query);
+        $constraints[] = $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid);
+
         $query->matching(
-            $query->logicalAnd([
-                $this->getPendingConstraints($query),
-                $this->getFindByEmailAndPostIdConstraints($query, $email, $postUid)
-            ])
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
@@ -196,10 +196,10 @@ class CommentRepository extends AbstractRepository
      */
     protected function getFindByEmailAndPostIdConstraints(QueryInterface $query, string $email, int $postUid): AndInterface
     {
-        return $query->logicalAnd([
+        return $query->logicalAnd(
             $query->equals('email', $email),
             $query->equals('postId', $postUid),
-        ]);
+        );
     }
 
     /**
@@ -207,9 +207,9 @@ class CommentRepository extends AbstractRepository
      */
     protected function getValidConstraints(QueryInterface $query): AndInterface
     {
-        return $query->logicalAnd([
+        return $query->logicalAnd(
             $query->equals('spam', 0),
             $query->equals('approved', 1),
-        ]);
+        );
     }
 }

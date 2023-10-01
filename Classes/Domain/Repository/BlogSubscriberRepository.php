@@ -41,7 +41,7 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository
         $constraints = $this->getBasicExistingSubscriptionConstraints($query, $email, $excludeUid);
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
