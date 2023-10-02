@@ -29,8 +29,10 @@ class FlushCacheService implements SingletonInterface
 
     /**
      * Clear all added cache tags. Called on shutdown.
+     *
+     * @note This function should be public as it's called by register_shutdown_function()!
      */
-    protected function flushFrontendCache()
+    public function flushFrontendCache()
     {
         static::flushFrontendCacheByTags($this->cacheTagsToFlush);
     }
