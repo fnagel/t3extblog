@@ -18,176 +18,176 @@ namespace FelixNagel\T3extblog\Domain\Model;
 class Content extends AbstractLocalizedEntity
 {
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
-    protected $tstamp;
+    protected ?\DateTime $tstamp = null;
 
     /**
      * @var string
      */
-    protected $CType;
+    protected string $CType = '';
 
     /**
      * @var string
      */
-    protected $header;
+    protected string $header = '';
 
     /**
      * @var string
      */
-    protected $headerPosition;
+    protected string $headerPosition = '';
 
     /**
      * @var string
      */
-    protected $bodytext;
+    protected string $bodytext = '';
 
     /**
      * @var int
      */
-    protected $colPos;
+    protected int $colPos = 0;
 
     /**
      * @var string
      */
-    protected $image;
+    protected string $image = '';
 
     /**
      * @var int
      */
-    protected $imagewidth;
+    protected int $imagewidth = 0;
 
     /**
      * @var int
      */
-    protected $imageorient;
+    protected int $imageorient = 0;
 
     /**
      * @var string
      */
-    protected $imagecaption;
+    protected string $imagecaption = '';
 
     /**
      * @var int
      */
-    protected $imagecols;
+    protected int $imagecols = 0;
 
     /**
      * @var int
      */
-    protected $imageborder;
+    protected int $imageborder = 0;
 
     /**
      * @var string
      */
-    protected $media;
+    protected string $media = '';
 
     /**
      * @var string
      */
-    protected $layout;
+    protected string $layout = '';
 
     /**
      * @var int
      */
-    protected $cols;
+    protected int $cols = 0;
 
     /**
      * @var string
      */
-    protected $subheader;
+    protected string $subheader = '';
 
     /**
      * @var string
      */
-    protected $headerLink;
+    protected string $headerLink = '';
 
     /**
      * @var string
      */
-    protected $imageLink;
+    protected string $imageLink = '';
+
+    /**
+     * @var bool
+     */
+    protected bool $imageZoom = false;
 
     /**
      * @var string
      */
-    protected $imageZoom;
+    protected string $altText = '';
 
     /**
      * @var string
      */
-    protected $altText;
+    protected string $titleText = '';
 
     /**
      * @var string
      */
-    protected $titleText;
+    protected string $headerLayout = '';
 
     /**
      * @var string
      */
-    protected $headerLayout;
+    protected string $listType = '';
 
-    /**
-     * @var string
-     */
-    protected $listType;
 
-    
-    public function getTstamp(): \DateTime
+    public function getTstamp(): ?\DateTime
     {
         return $this->tstamp;
     }
 
-    
-    public function setTstamp($tstamp)
+
+    public function setTstamp($tstamp): void
     {
         $this->tstamp = $tstamp;
     }
 
-    
+
     public function getCType(): string
     {
         return $this->CType;
     }
 
-    
-    public function setCType($ctype)
+
+    public function setCType(string $ctype): void
     {
         $this->CType = $ctype;
     }
 
-    
+
     public function getHeader(): string
     {
         return $this->header;
     }
 
-    
-    public function setHeader($header)
+
+    public function setHeader(string $header): void
     {
         $this->header = $header;
     }
 
-    
+
     public function getHeaderPosition(): string
     {
         return $this->headerPosition;
     }
 
-    
-    public function setHeaderPosition($headerPosition)
+
+    public function setHeaderPosition(string $headerPosition): void
     {
         $this->headerPosition = $headerPosition;
     }
 
-    
+
     public function getBodytext(): string
     {
         return $this->bodytext;
     }
 
-    
-    public function setBodytext($bodytext)
+
+    public function setBodytext(string $bodytext): void
     {
         $this->bodytext = $bodytext;
     }
@@ -198,218 +198,218 @@ class Content extends AbstractLocalizedEntity
      */
     public function getColPos(): int
     {
-        return (int) $this->colPos;
+        return $this->colPos;
     }
 
     /**
      * Set colpos.
      *
      */
-    public function setColPos(int $colPos)
+    public function setColPos(int $colPos): void
     {
         $this->colPos = $colPos;
     }
 
-    
+
     public function getImage(): string
     {
         return $this->image;
     }
 
-    
-    public function setImage($image)
+
+    public function setImage(string $image): void
     {
         $this->image = $image;
     }
 
-    
+
     public function getImagewidth(): int
     {
         return $this->imagewidth;
     }
 
-    
-    public function setImagewidth($imagewidth)
+
+    public function setImagewidth(int $imagewidth): void
     {
         $this->imagewidth = $imagewidth;
     }
 
-    
+
     public function getImageorient(): int
     {
         return $this->imageorient;
     }
 
-    
-    public function setImageorient($imageorient)
+
+    public function setImageorient(int $imageorient): void
     {
         $this->imageorient = $imageorient;
     }
 
-    
+
     public function getImagecaption(): string
     {
         return $this->imagecaption;
     }
 
-    
-    public function setImagecaption($imagecaption)
+
+    public function setImagecaption(string $imagecaption): void
     {
         $this->imagecaption = $imagecaption;
     }
 
-    
+
     public function getImagecols(): int
     {
         return $this->imagecols;
     }
 
-    
-    public function setImagecols($imagecols)
+
+    public function setImagecols(int $imagecols): void
     {
         $this->imagecols = $imagecols;
     }
 
-    
+
     public function getImageborder(): int
     {
         return $this->imageborder;
     }
 
-    
-    public function setImageborder($imageborder)
+
+    public function setImageborder(int $imageborder): void
     {
         $this->imageborder = $imageborder;
     }
 
-    
+
     public function getMedia(): string
     {
         return $this->media;
     }
 
-    
-    public function setMedia($media)
+
+    public function setMedia(string $media): void
     {
         $this->media = $media;
     }
 
-    
+
     public function getLayout(): string
     {
         return $this->layout;
     }
 
-    
-    public function setLayout($layout)
+
+    public function setLayout(string $layout): void
     {
         $this->layout = $layout;
     }
 
-    
+
     public function getCols(): int
     {
         return $this->cols;
     }
 
-    
-    public function setCols($cols)
+
+    public function setCols(int $cols): void
     {
         $this->cols = $cols;
     }
 
-    
+
     public function getSubheader(): string
     {
         return $this->subheader;
     }
 
-    
-    public function setSubheader($subheader)
+
+    public function setSubheader(string $subheader): void
     {
         $this->subheader = $subheader;
     }
 
-    
+
     public function getHeaderLink(): string
     {
         return $this->headerLink;
     }
 
-    
-    public function setHeaderLink($headerLink)
+
+    public function setHeaderLink(string $headerLink): void
     {
         $this->headerLink = $headerLink;
     }
 
-    
+
     public function getImageLink(): string
     {
         return $this->imageLink;
     }
 
-    
-    public function setImageLink($imageLink)
+
+    public function setImageLink(string $imageLink): void
     {
         $this->imageLink = $imageLink;
     }
 
-    
-    public function getImageZoom(): string
+
+    public function getImageZoom(): bool
     {
         return $this->imageZoom;
     }
 
-    
-    public function setImageZoom($imageZoom)
+
+    public function setImageZoom(bool $imageZoom): void
     {
         $this->imageZoom = $imageZoom;
     }
 
-    
+
     public function getAltText(): string
     {
         return $this->altText;
     }
 
-    
-    public function setAltText($altText)
+
+    public function setAltText(string $altText): void
     {
         $this->altText = $altText;
     }
 
-    
+
     public function getTitleText(): string
     {
         return $this->titleText;
     }
 
-    
-    public function setTitleText($titleText)
+
+    public function setTitleText(string $titleText): void
     {
         $this->titleText = $titleText;
     }
 
-    
+
     public function getHeaderLayout(): string
     {
         return $this->headerLayout;
     }
 
-    
-    public function setHeaderLayout($headerLayout)
+
+    public function setHeaderLayout(string $headerLayout): void
     {
         $this->headerLayout = $headerLayout;
     }
 
-    
+
     public function getListType(): string
     {
         return $this->listType;
     }
 
-    
-    public function setListType($listType)
+
+    public function setListType(string $listType): void
     {
         $this->listType = $listType;
     }
