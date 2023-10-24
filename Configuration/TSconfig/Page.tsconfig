@@ -8,6 +8,6 @@ TCEFORM.tx_t3blog_post {
 }
 
 # Hide tt_content elements in list view
-[page["module"] == "t3blog"]
+[traverse(page, "module") == "t3blog"]
 	mod.web_list.table.tt_content.hideTable = 1
 [global]
