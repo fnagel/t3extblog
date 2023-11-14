@@ -144,13 +144,9 @@ abstract class AbstractController extends ActionController
 
     /**
      * Helper function to render localized flashmessages.
-     *
-     * @param int $severity optional severity code. One of the FlashMessage constants
      */
-    protected function addFlashMessageByKey(string $key, ?int $severity = null)
+    protected function addFlashMessageByKey(string $key, Message $severity = Message::OK)
     {
-        $severity = is_null($severity) ? Message::OK : $severity;
-
         $messageLocallangKey = sprintf('flashMessage.%s.%s', lcfirst($this->request->getControllerName()), $key);
         $localizedMessage = $this->translate($messageLocallangKey, '['.$messageLocallangKey.']');
 
