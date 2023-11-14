@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check type prefix
-        uses: gsactions/commit-message-checker@v1
+        uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^(?:\[!!!\])?\[(BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE){1}\] .+$'
           flags: 'gm'
@@ -31,7 +31,7 @@ jobs:
           flags: 'gm'
           error: 'The actual message after the commit type should start with a uppercase letter.'
       - name: Check line length
-        uses: gsactions/commit-message-checker@v1
+        uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^.{10,72}$'
           flags: 'gm'
