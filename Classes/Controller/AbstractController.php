@@ -58,26 +58,19 @@ abstract class AbstractController extends ActionController
      */
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
     {
-        $this->configurationManager = $configurationManager;
+        parent::injectConfigurationManager($configurationManager);
 
-        $tsSettings = $this->configurationManager->getConfiguration(
+        $settings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             't3extblog',
             't3extblog_blogsystem'
         );
 
-        $originalSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-
-        // start override
-        if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
+        if (isset($settings['settings']['overrideFlexformSettingsIfEmpty'])) {
             /** @var TypoScript $typoScriptUtility */
             $typoScriptUtility = GeneralUtility::makeInstance(TypoScript::class);
-            $originalSettings = $typoScriptUtility->override($originalSettings, $tsSettings);
+            $this->settings = $typoScriptUtility->override($this->settings, $settings);
         }
-
-        $this->settings = $originalSettings;
     }
 
     public function processRequest(RequestInterface $request): ResponseInterface
