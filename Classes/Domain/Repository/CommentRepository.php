@@ -144,35 +144,11 @@ class CommentRepository extends AbstractRepository
     }
 
     /**
-     * Finds pending comments by post.
-     *
-     * @todo Remove in version 8
-     *
-     * @deprecated
-     */
-    public function findPendingByPost(Post $post): QueryResultInterface
-    {
-        return $this->createPendingQuery(null, $post)->execute();
-    }
-
-    /**
      * Count pending comments by post.
      */
     public function countPendingByPost(Post $post): int
     {
         return $this->createPendingQuery(null, $post)->count();
-    }
-
-    /**
-     * Finds all pending comments.
-     *
-     * @todo Remove in version 8
-     *
-     * @deprecated
-     */
-    public function findPending(): QueryResultInterface
-    {
-        return $this->createPendingQuery()->execute();
     }
 
     /**

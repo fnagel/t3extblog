@@ -26,8 +26,6 @@ class TitleTagViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
-        // @todo Remove this in next major!
-        $this->registerArgument('searchTitle', 'string', 'DEPRECATED');
     }
 
     /**
