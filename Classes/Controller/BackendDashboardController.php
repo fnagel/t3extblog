@@ -21,6 +21,10 @@ class BackendDashboardController extends AbstractBackendController
      */
     public function indexAction(): ResponseInterface
     {
+        if (!isset($this->settings['backend'])) {
+            return $this->moduleResponse();
+        }
+
         $settings = $this->settings['backend']['dashboard'];
 
         $this->view->assignMultiple([

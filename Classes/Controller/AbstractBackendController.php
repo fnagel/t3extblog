@@ -95,10 +95,9 @@ abstract class AbstractBackendController extends ActionController
      */
     protected function initializeView()
     {
-        $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
-        if (empty($dateTimeFormat)) {
-            $dateTimeFormat = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' .
-                $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
+        $dateTimeFormat = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'].' '.$GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'];
+        if (!empty($this->settings['backend']['dateTimeFormat'])) {
+            $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
         }
 
         $this->view->assignMultiple([
