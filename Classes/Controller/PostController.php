@@ -163,22 +163,11 @@ class PostController extends AbstractCommentController
     }
 
     /**
-     * Set Format to xml for the RSS action.
-     */
-    public function initializeRssAction(): void
-    {
-        $this->request->setFormat('xml');
-    }
-
-    /**
      * Displays rss feed of all posts.
      */
     public function rssAction(): ResponseInterface
     {
-        return $this->paginationHtmlResponse(
-            $this->findPosts(),
-            $this->settings['rss']['paginate']
-        );
+        return $this->paginationXmlResponse($this->findPosts(), $this->settings['rss']['paginate']);
     }
 
     /**

@@ -253,7 +253,7 @@ abstract class AbstractController extends ActionController
         }
     }
 
-    protected function paginationHtmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
+    protected function assignPaginationVariables(QueryResultInterface $result, array $paginationConfig, int $page = 1): void
     {
         $paginator = new QueryResultPaginator($result, $page, $paginationConfig['itemsPerPage'] ?: 10);
 
@@ -262,8 +262,29 @@ abstract class AbstractController extends ActionController
             'pagination' => new SimplePagination($paginator),
             'totalItems' => $result->count(),
         ]);
+    }
+
+    protected function paginationHtmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
+    {
+        $this->assignPaginationVariables($result, $paginationConfig, $page);
 
         return $this->htmlResponse();
+    }
+
+    protected function paginationXmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
+    {
+        $this->assignPaginationVariables($result, $paginationConfig, $page);
+
+        return $this->xmlResponse();
+    }
+
+    protected function xmlResponse(string $xml = null): ResponseInterface
+    {
+        $this->view->getTemplatePaths()->setFormat('xml');
+
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->withBody($this->streamFactory->createStream((string)($xml ?? $this->view->render())));
     }
 
     protected function initRateLimiter(string $key, array $settings): RateLimiterServiceInterface

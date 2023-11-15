@@ -1,17 +1,9 @@
-# create a page for xml output
+# Create a page for xml output
 page >
 page = PAGE
 page {
-	# define typeNum for RealUrl
-	# typeNum = 9818
 	10 < tt_content.list.20.t3extblog_rss
 	10 {
-		switchableControllerActions {
-			Post {
-				1 = rss
-			}
-		}
-
 		settings < plugin.tx_t3extblog.settings
 	}
 }
@@ -26,17 +18,6 @@ config {
 	disableCharsetHeader = 1
 	metaCharset = utf-8
 	additionalHeaders.10.header = Content-Type:application/rss+xml;charset=utf-8
-
-	# define http://www.yourdomain.tld/ to produce absolute urls for links and images
-	# absRefPrefix =
-
-	# language related
-	locale_all = de_DE
-	language = de
-	# sys_language_uid = 1
-	# sys_language_mode = strict
-	# sys_language_overlay = hideNonTranslated
-	# linkVars = L
 }
 
 # clean up CSC to prevent unwanted HTML in the XML
