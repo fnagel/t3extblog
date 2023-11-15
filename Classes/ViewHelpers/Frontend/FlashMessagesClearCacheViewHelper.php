@@ -30,7 +30,13 @@ class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('queueIdentifier', 'string', 'Flash-message queue to use');
+        $this->registerArgument(
+            'queueIdentifier',
+            'string',
+            'Flash-message queue to use',
+            false,
+            'extbase.flashmessages.tx_t3extblog_blogsystem'
+        );
     }
 
     /**
