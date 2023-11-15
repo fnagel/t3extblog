@@ -19,7 +19,7 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      *
      * Needed basically to make extbase work in some context. Without PID is set to 0
      * (which is root) and persistence, TS generation, etc. will fail. This is the case
-     * in TYPO3 8-11 when editing a record.
+     * in TYPO3 8-12 when editing a record.
      *
      * Example: right-click on a record using the context menu (t3js-clickmenutrigger
      * CSS class).in the blog (or list) BE module and use edit (tab access, change
@@ -27,7 +27,6 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      * should trigger emails but does not.
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
-     * @todo Test this in TYPO3 v12!
      */
     protected function getCurrentPageIdFromRequest(ServerRequestInterface $request): int
     {
