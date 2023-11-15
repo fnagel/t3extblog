@@ -1,4 +1,8 @@
 /* Lists */
+table td.action {
+	width: 80px;
+}
+
 #pending-comments-list table tr.warning td {
 	background: transparent;
 }
@@ -13,7 +17,7 @@ table tr.localized td.col-icon {
 	float: left;
 }
 #dashboard-comments td.action {
-	width: 110px;
+	width: 120px;
 }
 #dashboard-subscriptions td.action {
 	width: 70px;
