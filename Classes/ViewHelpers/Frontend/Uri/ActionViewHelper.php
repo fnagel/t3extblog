@@ -18,7 +18,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
@@ -26,8 +25,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * A view helper for creating URIs to extbase actions.
  *
  * This a modified version of the default Extbase class forcing FE links within BE context.
- *
- * @todo Test this in TYPO3 v12!
  */
 class ActionViewHelper extends AbstractViewHelper
 {
@@ -60,13 +57,6 @@ class ActionViewHelper extends AbstractViewHelper
             throw new Exception(
                 'ViewHelper t3b:uri.action can be used only in extbase context and needs a request implementing extbase RequestInterface.',
                 1639819692
-            );
-        }
-
-        if (ApplicationType::fromRequest($request)->isFrontend()) {
-            throw new Exception(
-                'ViewHelper t3b:uri.action can be used only in non frontend context.',
-                1639819694
             );
         }
 
@@ -127,9 +117,8 @@ class ActionViewHelper extends AbstractViewHelper
         $arguments = self::uriFor($action, $arguments['arguments'], $controller, $extensionName, $pluginName);
 
         /** @var UriBuilder $uriBuilder */
-        $uriBuilder = $renderingContext->getUriBuilder();
-        $uriBuilder->reset();
-
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder->reset()->setRequest($request);
 
         if ($pageUid > 0) {
             $uriBuilder->setTargetPageUid($pageUid);

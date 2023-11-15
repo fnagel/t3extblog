@@ -10,10 +10,13 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Context\Context;
 
@@ -49,7 +52,7 @@ class EmailService implements SingletonInterface
     }
 
     /**
-     * This is the main-function for sending Mails.
+     * This is the main-function for sending Mails using a template.
      *
      * @return int the number of recipients who were accepted for delivery
      */
@@ -65,21 +68,16 @@ class EmailService implements SingletonInterface
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
     }
 
-    /**
-     * This is the main-function for sending Mails.
-     *
-     * @return int the number of recipients who were accepted for delivery
-     */
-    public function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
+    protected function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
     {
-        if (!($mailTo && is_array($mailTo) && GeneralUtility::validEmail(key($mailTo)))) {
+        if (!GeneralUtility::validEmail(key($mailTo))) {
             // @extensionScannerIgnoreLine
             $this->getLog()->error('Given mailto email address is invalid.', $mailTo);
 
             return false;
         }
 
-        if (!($mailFrom && is_array($mailFrom) && GeneralUtility::validEmail(key($mailFrom)))) {
+        if (!GeneralUtility::validEmail(key($mailFrom))) {
             $mailFrom = MailUtility::getSystemFrom();
         }
 
@@ -147,14 +145,22 @@ class EmailService implements SingletonInterface
     {
         /* @var $emailView StandaloneView */
         $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-
-        // @todo See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
-        $emailView->getRequest()->setPluginName('');
-        $emailView->getRequest()->setControllerExtensionName($this->extensionName);
-
         $this->setViewPaths($emailView);
+        // Create our own Extbase request object (since TYPO3 v12), see:
+        // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
+        $emailView->setRequest($this->creatRequest());
 
         return $emailView;
+    }
+
+    protected function creatRequest(): ServerRequestInterface
+    {
+        $extbaseAttribute = new ExtbaseRequestParameters();
+        $extbaseAttribute->setControllerExtensionName($this->extensionName);
+
+        $request = $GLOBALS['TYPO3_REQUEST']->withAttribute('extbase', $extbaseAttribute);
+
+        return (new Request($request));
     }
 
     protected function setViewPaths(StandaloneView $emailView)
@@ -191,7 +197,7 @@ class EmailService implements SingletonInterface
         return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
     }
 
-    protected function setMessageContent(MailMessage $message, string $emailBody)
+    protected function setMessageContent(MailMessage $message, string $emailBody): void
     {
         // Plain text only
         if (strip_tags($emailBody) === $emailBody) {
