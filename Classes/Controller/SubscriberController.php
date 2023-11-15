@@ -51,8 +51,6 @@ class SubscriberController extends AbstractController
 
     /**
      * Error action (with actual template so no parent class call!).
-     *
-     * @todo Test this in TYPO3 v12!
      */
     protected function errorAction(): ResponseInterface
     {
@@ -60,7 +58,7 @@ class SubscriberController extends AbstractController
             $this->addFlashMessageByKey('invalidAuth', Message::ERROR);
         }
 
-        return $this->htmlResponse()->withStatus(400);
+        return $this->htmlResponse($this->view->render('error'))->withStatus(400);
     }
 
     /**
@@ -73,11 +71,8 @@ class SubscriberController extends AbstractController
 
     /**
      * Redirects user when no auth was possible.
-     *
-     * @param string $message Flash message key
-     * @param int $severity Severity code. One of the FlashMessage constants
      */
-    protected function processErrorAction(string $message = 'invalidAuth', ?int $severity = null): ResponseInterface
+    protected function processErrorAction(string $message = 'invalidAuth', ?Message $severity = null): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $this->authentication->logout();
