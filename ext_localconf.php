@@ -20,11 +20,6 @@ use TYPO3\CMS\Core\Log\Writer\FileWriter;
 
 defined('TYPO3') || die();
 
-// Add page TS config
-ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="DIR:EXT:t3extblog/Configuration/TSconfig/" extensions="tsconfig">'
-);
-
 // Plugins
 ExtensionUtility::configurePlugin(
     'T3extblog',
