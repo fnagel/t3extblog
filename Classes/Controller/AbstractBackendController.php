@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
@@ -206,10 +207,11 @@ abstract class AbstractBackendController extends ActionController
 
         try {
             // Validate settings
+            SiteConfigurationValidator::validate($this->pageId);
             TypoScriptValidator::validateSettings($this->settings);
 
         } catch (InvalidConfigurationException $exception) {
-            // On pages with blog records we need to make sure TS is configured so escalate!
+            // On pages with blog records we need to make sure we have a valid configuration so escalate!
             if ($this->pageInfo['show'] === false) {
                 $this->getLog()->exception($exception, [
                     'pid' => $this->pageId,

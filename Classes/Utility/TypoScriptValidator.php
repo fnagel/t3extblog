@@ -14,7 +14,7 @@ use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
- * TypoScript Settings Validator class.
+ * Checks TypoScript settings.
  */
 class TypoScriptValidator
 {
@@ -28,7 +28,7 @@ class TypoScriptValidator
      * @SuppressWarnings("PHPMD.CyclomaticComplexity")
      * @SuppressWarnings("PHPMD.NPathComplexity")
      */
-    public static function validateSettings(array $settings = null)
+    public static function validateSettings(array $settings = null): void
     {
         $key = 'plugin';
 
@@ -81,7 +81,7 @@ class TypoScriptValidator
     /**
      * Check needed framework configuration.
      */
-    public static function validateFrameworkConfiguration(array $settings)
+    public static function validateFrameworkConfiguration(array $settings): void
     {
         if (
             empty($settings['persistence']['storagePid']) ||
