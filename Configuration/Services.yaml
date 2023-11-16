@@ -9,6 +9,7 @@ services:
 
   FelixNagel\T3extblog\:
     resource: '../Classes/*'
+    exclude: '../Classes/Dashboard/*'
 
   # Dependency injection
   FelixNagel\T3extblog\Service\SettingsService:

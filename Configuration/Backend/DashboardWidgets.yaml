@@ -1,11 +1,13 @@
 services:
-  # Dashboard widgets
-  dashboard.views.t3extblog.postWidget:
-    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
-    public: true
-    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
-    arguments: ['PostWidget']
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
+  FelixNagel\T3extblog\Dashboard\:
+    resource: '../Classes/Dashboard/*'
+
+  # Dashboard widgets
   dashboard.buttons.t3extblog.latestPosts:
     class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
     arguments:
@@ -17,9 +19,10 @@ services:
   dashboard.widget.t3extblog.latestPosts:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.postWidget'
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\LatestPostListDataProvider'
       $buttonProvider: '@dashboard.buttons.t3extblog.latestPosts'
+      $options:
+        partial: 'PostWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogLatestPosts'
@@ -40,9 +43,10 @@ services:
   dashboard.widget.t3extblog.draftPosts:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.postWidget'
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\DraftPostListDataProvider'
       $buttonProvider: '@dashboard.buttons.t3extblog.draftPosts'
+      $options:
+        partial: 'PostWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogDraftPosts'
@@ -51,12 +55,6 @@ services:
         description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.draftPosts.description'
         iconIdentifier: 'content-widget-text'
         height: 'medium'
-
-  dashboard.views.t3extblog.commentWidget:
-    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
-    public: true
-    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
-    arguments: ['CommentWidget']
 
   dashboard.buttons.t3extblog.latestComments:
     class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
@@ -69,9 +67,10 @@ services:
   dashboard.widget.t3extblog.latestComments:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.commentWidget'
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\LatestCommentListDataProvider'
       $buttonProvider: '@dashboard.buttons.t3extblog.latestComments'
+      $options:
+        partial: 'CommentWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogLatestComments'
@@ -92,9 +91,10 @@ services:
   dashboard.widget.t3extblog.pendingComments:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.commentWidget'
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\PendingCommentListDataProvider'
       $buttonProvider: '@dashboard.buttons.t3extblog.pendingComments'
+      $options:
+        partial: 'CommentWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogPendingComments'
@@ -104,17 +104,10 @@ services:
         iconIdentifier: 'content-widget-text'
         height: 'medium'
 
-  dashboard.views.t3extblog.numberWithIconWidget:
-    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
-    public: true
-    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
-    arguments: ['NumberWithIconWidget']
-
   dashboard.widget.t3extblog.pendingCommentsNumberWithIcon:
     class: 'FelixNagel\T3extblog\Dashboard\NumberWithIconWidget'
     arguments:
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\PendingCommentNumberWithIconDataProvider'
-      $view: '@dashboard.views.t3extblog.numberWithIconWidget'
       $options:
         title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.title'
         subtitle: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.subtitle'
@@ -127,12 +120,6 @@ services:
         title: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.title'
         description: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:widget.pendingCommentsNumberWithIcon.description'
         iconIdentifier: 'content-widget-number'
-
-  dashboard.views.t3extblog.subscriberWidget:
-    class: 'TYPO3\CMS\Fluid\View\StandaloneView'
-    public: true
-    factory: ['FelixNagel\T3extblog\Views\DashboardFactory', 'customWidgetTemplate']
-    arguments: ['SubscriberWidget']
 
   dashboard.buttons.t3extblog.postSubscriber:
     class: 'FelixNagel\T3extblog\Dashboard\Provider\ModuleButtonProvider'
@@ -150,11 +137,11 @@ services:
   dashboard.widget.t3extblog.postSubscriber:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.subscriberWidget'
       $dataProvider: '@dashboard.provider.t3extblog.postSubscriber'
       $buttonProvider: '@dashboard.buttons.t3extblog.postSubscriber'
       $options:
         table: 'tx_t3blog_com_nl'
+        partial: 'SubscriberWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogPostSubscriber'
@@ -180,11 +167,11 @@ services:
   dashboard.widget.t3extblog.blogSubscriber:
     class: 'TYPO3\CMS\Dashboard\Widgets\ListWidget'
     arguments:
-      $view: '@dashboard.views.t3extblog.subscriberWidget'
       $dataProvider: '@dashboard.provider.t3extblog.blogSubscriber'
       $buttonProvider: '@dashboard.buttons.t3extblog.blogSubscriber'
       $options:
         table: 'tx_t3blog_blog_nl'
+        partial: 'SubscriberWidget'
     tags:
       - name: dashboard.widget
         identifier: 't3extblogBlogSubscriber'
