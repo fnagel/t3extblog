@@ -24,6 +24,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
     protected function getModuleLink(int $id = null, array $arguments = []): string
     {
         $parameters = [];
+        $route = '';
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
         if ($id === null) {
@@ -38,11 +39,15 @@ class ModuleButtonProvider implements ButtonProviderInterface
             $parameters['id'] = $id;
         }
 
-        if ($arguments !== []) {
-            $parameters['tx_t3extblog_web_t3extblogtxt3extblog'] = $arguments;
+        if ($arguments !== [] && array_key_exists('controller', $arguments)) {
+            $route = '.'.$arguments['controller'];
+
+            if (array_key_exists('action', $arguments)) {
+                $route .= '_'.$arguments['action'];
+            }
         }
 
-        return (string)$uriBuilder->buildUriFromRoute('web_T3extblogTxT3extblog', $parameters);
+        return (string)$uriBuilder->buildUriFromRoute('web_T3extblogBlogsystem'.$route, $parameters);
     }
 
     public function getTitle(): string
