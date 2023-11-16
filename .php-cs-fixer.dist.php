@@ -11,7 +11,7 @@ $config
         ],
         // PHPdocs / type hinting
         'no_empty_phpdoc' => true,
-        // Removes @var annotations from Extbase models which is needed for TYPo3 v11
+        // Removes @var annotations from Extbase models which is needed for TYPO3 v11 but seems ok for v12
         'no_superfluous_phpdoc_tags' => true,
         // Those are risky, check manually if enabled!
         // 'phpdoc_to_param_type' => true,

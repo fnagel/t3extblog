@@ -20,70 +20,44 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class Category extends AbstractLocalizedEntity
 {
-    /**
-     * name.
-     *
-     * @var string
-     */
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $name = null;
 
-    /**
-     * description.
-     *
-     * @var string
-     */
     protected ?string $description = null;
 
     /**
-     * Id of parent category.
+     * ID of parent category.
      */
     protected ?int $parentId = null;
 
     /**
-     * Posts.
-     *
-     * @var ObjectStorage<Post>
+     * @var ?ObjectStorage<Post>
      */
     #[Lazy]
     protected ?ObjectStorage $posts = null;
 
     /**
-     * child categories.
-     *
-     * @var ObjectStorage<\FelixNagel\T3extblog\Domain\Model\Category>
+     * @var ?ObjectStorage<Category>
      */
     #[Lazy]
     protected ?ObjectStorage $childCategories = null;
 
-    /**
-     * Returns the name.
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name.
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * Returns the description.
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Sets the description.
-     */
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }

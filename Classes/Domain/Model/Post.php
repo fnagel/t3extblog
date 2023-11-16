@@ -11,10 +11,12 @@ namespace FelixNagel\T3extblog\Domain\Model;
 
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 
 /**
  * Post.
@@ -44,133 +46,67 @@ class Post extends AbstractLocalizedEntity
 
     protected bool $deleted = false;
 
-    /**
-     * title.
-     *
-     * @var string
-     */
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $title = null;
 
-    /**
-     * author.
-     *
-     * @var BackendUser
-     */
-    protected $author;
+    protected ?BackendUser $author = null;
 
-    /**
-     * publishDate.
-     *
-     * @var \DateTime
-     */
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
-    protected $publishDate;
+    protected \DateTime $publishDate;
 
-    /**
-     * allowComments.
-     *
-     * @var int
-     */
     protected ?int $allowComments = null;
 
     /**
-     * tagCloud.
+     * This var annotation seems needed.
      *
      * @var string
      */
     protected ?string $tagCloud = null;
 
-    /**
-     * numberOfViews.
-     *
-     */
     protected int $numberOfViews = 0;
 
     /**
      * If the notification mails are already sent.
-     *
      */
     protected bool $mailsSent = false;
 
-    /**
-     * metaDescription.
-     *
-     * @var string
-     */
     protected ?string $metaDescription = null;
 
-    /**
-     * metaKeywords.
-     *
-     * @var string
-     */
     protected ?string $metaKeywords = null;
 
-    /**
-     * previewMode.
-     *
-     * @var int
-     */
     protected ?int $previewMode = null;
 
-    /**
-     * previewText.
-     *
-     * @var string
-     */
     protected ?string $previewText = null;
 
-    /**
-     * previewImage.
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     */
     #[Lazy]
-    protected $previewImage = null;
+    protected ExtbaseFileReference|LazyLoadingProxy|null $previewImage = null;
 
     /**
-     * content.
-     *
-     * @var ObjectStorage<Content>
+     * @var ?ObjectStorage<Content>
      */
     #[Lazy]
     protected ?ObjectStorage $content = null;
 
     /**
-     * categories.
-     *
-     * @var ObjectStorage<Category>
+     * @var ?ObjectStorage<Category>
      */
     #[Lazy]
     protected ?ObjectStorage $categories = null;
 
     /**
-     * comments.
-     *
-     * @var ObjectStorage<Comment>
+     * @var ?ObjectStorage<Comment>
      */
     protected ?ObjectStorage $comments = null;
 
-    /**
-     * raw comments.
-     *
-     * @var QueryResultInterface
-     */
     #[Lazy]
-    protected $rawComments = null;
+    protected ?QueryResultInterface $rawComments = null;
 
     /**
-     * subscriptions.
-     *
-     * @var ObjectStorage<PostSubscriber>
+     * @var ?ObjectStorage<PostSubscriber>
      */
     #[Lazy]
     protected ?ObjectStorage $subscriptions = null;
 
-    /**
-     * __construct.
-     */
     public function __construct()
     {
         $this->initStorageObjects();
@@ -198,7 +134,7 @@ class Post extends AbstractLocalizedEntity
         $this->content = new ObjectStorage();
     }
 
-    public function setDeleted(bool $deleted)
+    public function setDeleted(bool $deleted): void
     {
         $this->deleted = $deleted;
     }
@@ -208,7 +144,7 @@ class Post extends AbstractLocalizedEntity
         return $this->deleted;
     }
 
-    public function setHidden(bool $hidden)
+    public function setHidden(bool $hidden): void
     {
         $this->hidden = $hidden;
     }
@@ -218,30 +154,16 @@ class Post extends AbstractLocalizedEntity
         return $this->hidden;
     }
 
-    /**
-     * Returns the title.
-     *
-     * @return string $title
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title.
-     *
-     */
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * Returns the author.
-     *
-     * @return BackendUser $author
-     */
     public function getAuthor(): BackendUser
     {
         if (!($this->author instanceof BackendUser)) {
@@ -253,45 +175,26 @@ class Post extends AbstractLocalizedEntity
         return $this->author;
     }
 
-    /**
-     * Sets the author.
-     */
-    public function setAuthor(BackendUser|int $author)
+    public function setAuthor(BackendUser $author): void
     {
-        if ($author instanceof BackendUser) {
-            $this->author = $author->getUid();
-        } elseif ((int) $author !== 0) {
-            $this->author = (int)$author;
-        }
+        $this->author = $author;
     }
 
-    /**
-     * Returns the publishDate.
-     */
     public function getPublishDate(): \DateTime
     {
         return $this->publishDate;
     }
 
-    /**
-     * Returns the publish year.
-     */
     public function getPublishYear(): string
     {
         return $this->publishDate->format('Y');
     }
 
-    /**
-     * Returns the publish month.
-     */
     public function getPublishMonth(): string
     {
         return $this->publishDate->format('m');
     }
 
-    /**
-     * Returns the publish day.
-     */
     public function getPublishDay(): string
     {
         return $this->publishDate->format('d');
@@ -308,33 +211,21 @@ class Post extends AbstractLocalizedEntity
         return $now > $expire->modify($expireDate);
     }
 
-    /**
-     * Sets the publishDate.
-     */
-    public function setPublishDate(\DateTime|\DateTimeImmutable $publishDate)
+    public function setPublishDate(\DateTime $publishDate): void
     {
         $this->publishDate = $publishDate;
     }
 
-    /**
-     * Returns the allowComments.
-     */
     public function getAllowComments(): int
     {
         return $this->allowComments;
     }
 
-    /**
-     * Sets the allowComments.
-     */
-    public function setAllowComments(int $allowComments)
+    public function setAllowComments(int $allowComments): void
     {
         $this->allowComments = $allowComments;
     }
 
-    /**
-     * Returns the tagCloud.
-     */
     public function getTagCloud(): array
     {
         return GeneralUtility::trimExplode(',', $this->tagCloud, true);
@@ -348,43 +239,30 @@ class Post extends AbstractLocalizedEntity
         return $this->tagCloud;
     }
 
-    /**
-     * Sets the tagCloud.
-     */
-    public function setTagCloud(string|array $tagCloud)
+    public function setTagCloud(string|array $tagCloud): void
     {
         $this->tagCloud = is_array($tagCloud) ? implode(', ', $tagCloud) : $tagCloud;
     }
 
-    /**
-     * Returns the numberOfViews.
-     */
     public function getNumberOfViews(): int
     {
         return $this->numberOfViews;
     }
 
-    /**
-     * Sets the numberOfViews.
-     */
-    public function setNumberOfViews(int $numberOfViews)
+    public function setNumberOfViews(int $numberOfViews): void
     {
         $this->numberOfViews = $numberOfViews;
     }
 
-    /**
-     * Rise the numberOfViews.
-     */
     public function riseNumberOfViews()
     {
         ++$this->numberOfViews;
     }
 
-    public function setMailsSent(bool $mailsSent)
+    public function setMailsSent(bool $mailsSent): void
     {
         $this->mailsSent = $mailsSent;
     }
-
 
     public function getMailsSent(): bool
     {
@@ -393,80 +271,52 @@ class Post extends AbstractLocalizedEntity
 
     /**
      * Is it possible to send post subscription mails?
-     *
      */
     public function isMailSendingAllowed(): bool
     {
         return !$this->getMailsSent() && !$this->getHidden() && !$this->getDeleted();
     }
 
-    /**
-     * Returns the metaDescription.
-     */
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
     }
 
-    /**
-     * Sets the metaDescription.
-     */
-    public function setMetaDescription(string $metaDescription)
+    public function setMetaDescription(string $metaDescription): void
     {
         $this->metaDescription = $metaDescription;
     }
 
-    /**
-     * Returns the metaKeywords.
-     */
     public function getMetaKeywords(): string
     {
         return $this->metaKeywords;
     }
 
-    /**
-     * Sets the metaKeywords.
-     */
-    public function setMetaKeywords(string $metaKeywords)
+    public function setMetaKeywords(string $metaKeywords): void
     {
         $this->metaKeywords = $metaKeywords;
     }
 
-    /**
-     * Returns the previewMode.
-     */
     public function getPreviewMode(): int
     {
         return $this->previewMode;
     }
 
-    /**
-     * Sets the previewMode.
-     */
-    public function setPreviewMode(int $previewMode)
+    public function setPreviewMode(int $previewMode): void
     {
         $this->previewMode = $previewMode;
     }
 
-    /**
-     * Returns the previewText.
-     */
     public function getPreviewText(): ?string
     {
         return $this->previewText;
     }
 
-    /**
-     * Sets the previewText.
-     */
-    public function setPreviewText(string $previewText)
+    public function setPreviewText(string $previewText): void
     {
         $this->previewText = $previewText;
     }
 
-    /**
-     * Returns the previewImage.
-     */
     public function getPreviewImage(): ?FileReference
     {
         $this->loadLazyRelation($this->previewImage);
@@ -478,31 +328,18 @@ class Post extends AbstractLocalizedEntity
         return $this->previewImage->getOriginalResource();
     }
 
-    /**
-     * Sets the previewImage.
-     */
-    public function setPreviewImage(FileReference $previewImage)
+    public function setPreviewImage(ExtbaseFileReference $previewImage): void
     {
         $this->previewImage = $previewImage;
     }
 
-    /**
-     * Returns the content.
-     *
-     * @return ObjectStorage $content
-     */
     public function getContent(): ObjectStorage
     {
         // @extensionScannerIgnoreLine
         return $this->content;
     }
 
-    /**
-     * Set content element list.
-     *
-     * @param ObjectStorage $content content elements
-     */
-    public function setContent(ObjectStorage $content)
+    public function setContent(ObjectStorage $content): void
     {
         // @extensionScannerIgnoreLine
         $this->content = $content;
@@ -511,7 +348,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Adds a content element to the record.
      */
-    public function addContent(Content $content)
+    public function addContent(Content $content): void
     {
         if ($this->getContent() === null) {
             // @extensionScannerIgnoreLine
@@ -523,7 +360,7 @@ class Post extends AbstractLocalizedEntity
     }
 
     /**
-     * Get id list of content elements.
+     * Get UID list of content elements.
      */
     public function getContentIdList(): string
     {
@@ -558,29 +395,16 @@ class Post extends AbstractLocalizedEntity
         return strip_tags(implode('', $text));
     }
 
-    /**
-     * Adds a Category.
-     */
-    public function addCategory(Category $category)
+    public function addCategory(Category $category): void
     {
         $this->categories->attach($category);
     }
 
-    /**
-     * Removes a Category.
-     *
-     * @param Category $categoryToRemove The Category to be removed
-     */
     public function removeCategory(Category $categoryToRemove)
     {
         $this->categories->detach($categoryToRemove);
     }
 
-    /**
-     * Returns the categories.
-     *
-     * @return ObjectStorage $categories
-     */
     public function getCategories(): ObjectStorage
     {
         return $this->categories;
@@ -592,7 +416,7 @@ class Post extends AbstractLocalizedEntity
      * Mapping does not work as relation is not bidirectional, using a repository instead
      * And: its currently not possible to iterate via paginate widget through storage objects
      */
-    protected function initComments()
+    protected function initComments(): void
     {
         if ($this->comments === null) {
             $this->rawComments = $this->getCommentRepository()->findValidByPost($this);
@@ -604,10 +428,7 @@ class Post extends AbstractLocalizedEntity
         }
     }
 
-    /**
-     * Adds a Comment.
-     */
-    public function addComment(Comment $comment)
+    public function addComment(Comment $comment): void
     {
         $this->initComments();
 
@@ -617,10 +438,7 @@ class Post extends AbstractLocalizedEntity
         $this->getCommentRepository()->add($comment);
     }
 
-    /**
-     * Removes a Comment.
-     */
-    public function removeComment(Comment $commentToRemove)
+    public function removeComment(Comment $commentToRemove): void
     {
         $this->initComments();
 
@@ -630,9 +448,6 @@ class Post extends AbstractLocalizedEntity
         $this->getCommentRepository()->update($commentToRemove);
     }
 
-    /**
-     * Returns the comments.
-     */
     public function getComments(): ObjectStorage
     {
         $this->initComments();
@@ -640,9 +455,6 @@ class Post extends AbstractLocalizedEntity
         return $this->comments;
     }
 
-    /**
-     * Returns the comments.
-     */
     public function getCommentsForPaginate(): QueryResultInterface
     {
         $this->initComments();
@@ -650,42 +462,27 @@ class Post extends AbstractLocalizedEntity
         return $this->rawComments;
     }
 
-    /**
-     * Sets the comments.
-     */
-    public function setComments(ObjectStorage $comments)
+    public function setComments(ObjectStorage $comments): void
     {
         $this->comments = $comments;
     }
 
-    /**
-     * Adds a Subscriber.
-     */
-    public function addSubscription(PostSubscriber $subscription)
+    public function addSubscription(PostSubscriber $subscription): void
     {
         $this->subscriptions->attach($subscription);
     }
 
-    /**
-     * Removes a Subscriber.
-     */
-    public function removeSubscription(PostSubscriber $subscriptionToRemove)
+    public function removeSubscription(PostSubscriber $subscriptionToRemove): void
     {
         $this->subscriptions->detach($subscriptionToRemove);
     }
 
-    /**
-     * Returns the subscriptions.
-     */
     public function getSubscriptions(): ?ObjectStorage
     {
         return $this->subscriptions;
     }
 
-    /**
-     * Sets the subscriptions.
-     */
-    public function setSubscriptions(ObjectStorage $subscriptions)
+    public function setSubscriptions(ObjectStorage $subscriptions): void
     {
         $this->subscriptions = $subscriptions;
     }

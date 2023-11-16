@@ -68,8 +68,7 @@ abstract class AbstractBackendController extends ActionController
         protected PostSubscriberRepository $postSubscriberRepository,
         protected BlogSubscriberRepository $blogSubscriberRepository,
         private ModuleTemplateFactory $moduleTemplateFactory
-    )
-    {
+    ) {
     }
 
     /**

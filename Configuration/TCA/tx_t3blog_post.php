@@ -1,7 +1,6 @@
 <?php
 
 use FelixNagel\T3extblog\Domain\Model\Post;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Resource\File;
 
 return [

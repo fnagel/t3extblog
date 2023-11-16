@@ -26,21 +26,11 @@ abstract class AbstractEntity extends CoreAbstractEntity
 {
     /**
      * Creation date and time.
-     *
-     * @var \DateTime
      */
-    protected $crdate;
+    protected \DateTime $crdate;
 
-    /**
-     * commentRepository.
-     *
-     * @var CommentRepository
-     */
     protected ?CommentRepository $commentRepository = null;
 
-    /**
-     * @var PostRepository
-     */
     protected ?PostRepository $postRepository = null;
 
     public function getCrdate(): \DateTime
@@ -53,15 +43,11 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $this->getCrdate();
     }
 
-    
-    public function setCrdate($crdate)
+    public function setCrdate(\DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
 
-    /**
-     * Get commentRepository.
-     */
     protected function getCommentRepository(): CommentRepository
     {
         if ($this->commentRepository === null) {
@@ -71,10 +57,6 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $this->commentRepository;
     }
 
-    /**
-     * Get postRepository.
-     *
-     */
     protected function getPostRepository(): PostRepository
     {
         if ($this->postRepository === null) {
@@ -88,7 +70,6 @@ abstract class AbstractEntity extends CoreAbstractEntity
      * Makes an array out of all public getter methods.
      *
      * @param bool $camelCaseKeys If set to false the array keys are TYPO3 cObj compatible
-     *
      */
     public function toArray(bool $camelCaseKeys = false): array
     {
@@ -113,8 +94,7 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $data;
     }
 
-
-    protected function loadLazyRelation($relation)
+    protected function loadLazyRelation($relation): void
     {
         if ($relation instanceof LazyLoadingProxy) {
             $relation->_loadRealInstance();

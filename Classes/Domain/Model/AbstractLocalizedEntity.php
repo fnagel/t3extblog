@@ -23,13 +23,11 @@ abstract class AbstractLocalizedEntity extends AbstractEntity
         return $this->getUid();
     }
 
-    
     public function getSysLanguageUid(): int
     {
         return $this->_languageUid;
     }
 
-    
     public function getL18nParent(): ?int
     {
         if ($this->getSysLanguageUid() === 0) {

@@ -18,87 +18,47 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class PostSubscriber extends AbstractSubscriber
 {
-    /**
-     * name.
-     *
-     * @var string
-     */
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $name = null;
 
-    /**
-     * postUid.
-     */
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?int $postUid  = null;
 
-    /**
-     * post.
-     *
-     * @var Post
-     */
     #[Lazy]
     protected ?Post $post = null;
 
     /**
-     * comments.
-     *
      * @var ObjectStorage<Comment>
      */
     #[Lazy]
     protected ?ObjectStorage $postComments = null;
 
     /**
-     * comments.
-     *
      * @var ObjectStorage<Comment>
      */
     #[Lazy]
     protected ?ObjectStorage $postPendingComments = null;
 
-    /**
-     * __construct.
-     *
-     */
     public function __construct(int $postUid)
     {
         $this->postUid = $postUid;
     }
 
-    /**
-     * Returns the name.
-     *
-     * @return string $name
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name.
-     *
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * Returns the postUid.
-     *
-     * @return int $postUid
-     */
     public function getPostUid(): int
     {
         return $this->postUid;
     }
 
-    /**
-     * Returns the post.
-     *
-     * @return Post $post
-     */
     public function getPost(): Post
     {
         if ($this->post === null) {
@@ -109,9 +69,7 @@ class PostSubscriber extends AbstractSubscriber
     }
 
     /**
-     * Returns the post comments.
-     *
-     * @return ObjectStorage<Comment> $comments
+     * @return ObjectStorage<Comment>
      */
     public function getPostComments(): ObjectStorage
     {
@@ -146,11 +104,7 @@ class PostSubscriber extends AbstractSubscriber
         return $this->postPendingComments;
     }
 
-    /**
-     * Sets the postUid.
-     *
-     */
-    public function setPostUid(int $postUid)
+    public function setPostUid(int $postUid): void
     {
         $this->postUid = $postUid;
     }

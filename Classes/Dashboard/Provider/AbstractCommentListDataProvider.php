@@ -17,7 +17,6 @@ abstract class AbstractCommentListDataProvider extends AbstractListDataProvider
         'limit' => 10,
     ];
 
-    
     public function __construct(protected CommentRepository $commentRepository, array $options = [])
     {
         $this->options = array_merge(

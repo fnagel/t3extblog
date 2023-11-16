@@ -23,8 +23,7 @@ class StatisticChartDataProvider extends AbstractDataProvider implements ChartDa
         protected CommentRepository $commentRepository,
         protected BlogSubscriberRepository $blogSubscriberRepository,
         protected PostSubscriberRepository $postSubscriberRepository
-    )
-    {
+    ) {
     }
 
     public function getChartData(): array

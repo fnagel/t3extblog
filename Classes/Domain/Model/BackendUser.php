@@ -14,35 +14,17 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 class BackendUser extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    protected $userName = '';
+    protected string $userName = '';
 
-    /**
-     * @var bool
-     */
-    protected $isAdministrator = false;
+    protected bool $isAdministrator = false;
 
-    /**
-     * @var bool
-     */
-    protected $isDisabled = false;
+    protected bool $isDisabled = false;
 
-    /**
-     * @var string
-     */
-    protected $email = '';
+    protected string $email = '';
 
-    /**
-     * @var string
-     */
-    protected $realName = '';
+    protected string $realName = '';
 
-    /**
-     * @var \DateTime|null
-     */
-    protected $lastLoginDateAndTime;
+    protected ?\DateTime $lastLoginDateAndTime = null;
 
     /**
      * Returns the name value.
@@ -66,32 +48,28 @@ class BackendUser extends AbstractEntity
         return [$this->getEmail() => $this->getName()];
     }
 
-    /**
-     * Gets the username.
-     *
-     * @return string the username, will not be empty
-     */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->userName;
     }
 
+    public function setUserName(string $userName): void
+    {
+        $this->userName = $userName;
+    }
+
     /**
      * Checks whether this user is an administrator.
-     *
-     * @return bool whether this user is an administrator
      */
-    public function getIsAdministrator()
+    public function getIsAdministrator(): bool
     {
         return $this->isAdministrator;
     }
 
     /**
      * Checks whether this user is disabled.
-     *
-     * @return bool whether this user is disabled
      */
-    public function getIsDisabled()
+    public function getIsDisabled(): bool
     {
         return $this->isDisabled;
     }
@@ -101,7 +79,7 @@ class BackendUser extends AbstractEntity
      *
      * @return string the e-mail address, might be empty
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -111,8 +89,13 @@ class BackendUser extends AbstractEntity
      *
      * @return string the real name. might be empty
      */
-    public function getRealName()
+    public function getRealName(): string
     {
         return $this->realName;
+    }
+
+    public function setRealName(string $realName): void
+    {
+        $this->realName = $realName;
     }
 }

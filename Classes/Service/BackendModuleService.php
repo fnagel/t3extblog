@@ -39,8 +39,7 @@ class BackendModuleService
         protected View $view,
         protected ModuleTemplate $moduleTemplate,
         protected int $pid
-    )
-    {
+    ) {
     }
 
     /**

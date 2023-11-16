@@ -34,8 +34,7 @@ class CommentController extends AbstractCommentController
         protected CommentRepository $commentRepository,
         protected CommentNotificationService $notificationService,
         protected SpamCheckServiceInterface $spamCheckService
-    )
-    {
+    ) {
     }
 
     /**

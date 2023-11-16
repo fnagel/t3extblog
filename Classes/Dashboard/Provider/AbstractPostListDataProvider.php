@@ -17,7 +17,6 @@ abstract class AbstractPostListDataProvider extends AbstractListDataProvider
         'limit' => 10,
     ];
 
-    
     public function __construct(protected PostRepository $postRepository, array $options = [])
     {
         $this->options = array_merge(
