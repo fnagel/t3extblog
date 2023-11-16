@@ -23,6 +23,9 @@ class SiteConfigurationValidator
      */
     public static function validate(int $pageId): void
     {
+        if ($pageId === 0) {
+            return;
+        }
 
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
         $site = $siteFinder->getSiteByPageId($pageId);
