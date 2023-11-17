@@ -56,6 +56,11 @@ class Post extends AbstractLocalizedEntity
 
     protected ?int $allowComments = null;
 
+    /**
+     * This var annotation seems needed for Extbase.
+     *
+     * @var string
+     */
     protected string $tagCloud = '';
 
     protected int $numberOfViews = 0;
