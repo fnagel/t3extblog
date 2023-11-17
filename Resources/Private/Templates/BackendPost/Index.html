@@ -54,9 +54,11 @@
 							</tr>
 							<t3b:backend.localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
-									<tr class="db_list_normal localized">
+									<tr class="localized">
 										<td class="col-icon">
-											<f:format.raw>{localizedPost.editIcon}</f:format.raw>
+											<a href="#" class="t3js-contextmenutrigger" data-uid="{localizedPost.uid}" data-table="tx_t3blog_post" title="{localizedPost.uid}">
+												<f:format.raw>{localizedPost.icon}</f:format.raw>
+											</a>
 										</td>
 										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateTimeFormat: dateTimeFormat}" />
 										<td></td>

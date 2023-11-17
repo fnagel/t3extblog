@@ -16,10 +16,8 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
 
 /**
  * Get localized records view helper.
@@ -90,11 +88,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
 
                 if (isset($translations['translations'][$sysLanguageUid])) {
                     $records[$sysLanguageUid] = [
-                        'editIcon' => self::getLanguageIconLink(
-                            $sysLanguageUid,
-                            GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . ('&edit['.$table.']['.$translationData['uid'].']=edit') . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI')),
-                            $translationData['uid']
-                        ),
+                        'icon' => self::getLanguageIcon($sysLanguageUid),
                         'uid' => $translations['translations'][$sysLanguageUid]['uid'],
                     ];
                 }
@@ -104,20 +98,16 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         return $records;
     }
 
-    protected static function getLanguageIconLink($sysLanguageUid, $onclick, $uid): string
+    protected static function getLanguageIcon($sysLanguageUid): string
     {
-        $language = BackendUtility::getRecord('sys_language', $sysLanguageUid, 'title');
-
         if (self::$systemLanguages[$sysLanguageUid]['flagIcon']) {
             /* @var $iconFactory IconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-            $icon = $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
-        } else {
-            $icon = self::$systemLanguages[$sysLanguageUid]['title'];
+
+            return $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
         }
 
-        return '<a href="" onclick="'.htmlspecialchars($onclick).'" title="'.$uid.', '.
-            htmlspecialchars($language['title']).'">'.$icon.'</a>';
+        return self::$systemLanguages[$sysLanguageUid]['title'];
     }
 
     /**
