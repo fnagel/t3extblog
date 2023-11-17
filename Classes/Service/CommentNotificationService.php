@@ -14,6 +14,7 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -45,11 +46,11 @@ class CommentNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'processNewComment',
-//            [&$comment, $this]
-//        );
+        /** @var Event\Comment\Notification\CreateEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\Notification\CreateEvent($comment)
+        );
+        $comment = $event->getComment();
 
         $subscriber = null;
         if ($this->isNewSubscriptionValid($comment)) {
@@ -79,11 +80,11 @@ class CommentNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type Comment!');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'processChangedComment',
-//            [&$comment, $this]
-//        );
+        /** @var Event\Comment\Notification\CreateEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\Notification\ChangedEvent($comment)
+        );
+        $comment = $event->getComment();
 
         if ($comment->isValid()) {
             if (!empty($comment->getEmail())) {
@@ -171,9 +172,15 @@ class CommentNotificationService extends AbstractNotificationService
 
     /**
      * Send comment notification mails.
+     *
+     * @var Comment $comment
      */
-    protected function notifySubscribers(Comment $comment)
+    public function notifySubscribers($comment): void
     {
+        if (!($comment instanceof Comment)) {
+            throw new \InvalidArgumentException('Object should be of type Comment!');
+        }
+
         $settings = $this->subscriptionSettings['subscriber'];
 
         if (!$settings['enableNotifications']) {
@@ -192,11 +199,14 @@ class CommentNotificationService extends AbstractNotificationService
             'comment' => $comment,
         ];
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'notifySubscribers',
-//            [$post, &$comment, &$subscribers, &$subject, &$variables, $this]
-//        );
+        /** @var Event\Comment\Notification\SubscribersEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\Notification\SubscribersEvent($comment, $subscribers, $subject, $variables)
+        );
+        $comment = $event->getComment();
+        $subscribers = $event->getSubscribers();
+        $subject = $event->getSubject();
+        $variables = $event->getVariables();
 
         $this->getLog()->dev('Send post subscriber notification mails to '.count($subscribers).' users.');
 

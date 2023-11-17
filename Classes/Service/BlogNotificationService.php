@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -44,11 +45,11 @@ class BlogNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'processNewSubscriber',
-//            [&$subscriber, $this]
-//        );
+        /** @var Event\Post\Notification\CreateEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Post\Notification\CreateEvent($subscriber)
+        );
+        $subscriber = $event->getSubscriber();
 
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
@@ -67,11 +68,11 @@ class BlogNotificationService extends AbstractNotificationService
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'processChangedSubscriber',
-//            [&$subscriber, $this]
-//        );
+        /** @var Event\Post\Notification\ChangedEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Post\Notification\ChangedEvent($subscriber)
+        );
+        $subscriber = $event->getSubscriber();
 
         if ($subscriber->isValidForOptin()) {
             $this->sendOptInMail($subscriber);
@@ -98,9 +99,15 @@ class BlogNotificationService extends AbstractNotificationService
 
     /**
      * Send post notification mails.
+     *
+     * @param Post $post
      */
-    public function notifySubscribers(Post $post): ?int
+    public function notifySubscribers($post): ?int
     {
+        if (!($post instanceof Post)) {
+            throw new \InvalidArgumentException('Object should be of type Post!');
+        }
+
         $settings = $this->subscriptionSettings['subscriber'];
 
         if (!$settings['enableNotifications']) {
@@ -115,11 +122,13 @@ class BlogNotificationService extends AbstractNotificationService
         $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
         $variables = ['post' => $post];
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'notifySubscribers',
-//            [$post, &$subscribers, &$subject, &$variables, $this]
-//        );
+        /** @var Event\Post\Notification\SubscribersEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Post\Notification\SubscribersEvent($post, $subscribers, $subject, $variables)
+        );
+        $subscribers = $event->getSubscribers();
+        $subject = $event->getSubject();
+        $variables = $event->getVariables();
 
         $this->getLog()->dev('Send blog subscriber notification mails to '.count($subscribers).' users.');
 

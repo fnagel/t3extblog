@@ -20,16 +20,23 @@ use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 interface NotificationServiceInterface
 {
     /**
-     * Process added entity.
+     * Process an added entity.
      *
      * @param AbstractEntity $entity
      */
     public function processNewEntity($entity);
 
     /**
-     * Process changed status of a entity.
+     * Process changed status of an entity.
      *
      * @param AbstractEntity $entity
      */
     public function processChangedStatus($entity);
+
+    /**
+     * Notify subscribers of an entity.
+     *
+     * @param AbstractEntity $entity
+     */
+    public function notifySubscribers($entity);
 }

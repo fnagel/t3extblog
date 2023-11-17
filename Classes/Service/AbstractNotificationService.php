@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Service;
 
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -39,7 +40,8 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
     public function __construct(
         protected SettingsService $settingsService,
         protected EmailService $emailService,
-        protected FlushCacheService $cacheService
+        protected FlushCacheService $cacheService,
+        protected readonly EventDispatcherInterface $eventDispatcher
     ) {
 
     }

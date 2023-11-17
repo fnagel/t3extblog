@@ -32,6 +32,10 @@ https://github.com/fnagel/t3extblog/compare/7.x.x...8.0.0
 
 - Make use of new datetime, email and number TCA types
 
+- Use new backend module registration API
+
+- Introduce PSR-14 events
+
 - Lots of bugfixes and other improvements
 
 - Code clean-up and quality improvements
@@ -43,11 +47,13 @@ https://github.com/fnagel/t3extblog/compare/7.x.x...8.0.0
 
 - Removed support for PHP 7.x
 
-- Singal / Slot extension points have been removed, please migrate to PSR-14 events (be careful when extending EXT:t3extblog)
+- Signal / Slot functionality has been removed
 
 
 How to upgrade
 """"""""""""""
+
+#. Migrate your signal / slot extension points to :ref:`PSR-14 events <dev-guide-extending-events>` (optional)
 
 #. "Change fields" in DB using "Analyze Database" in Install tool / Maintenance module
 

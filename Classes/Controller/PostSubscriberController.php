@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Psr\Http\Message\ResponseInterface;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
@@ -42,6 +44,16 @@ class PostSubscriberController extends AbstractSubscriberController
         $this->subscriptionSettings = $this->settings['subscriptionManager']['comment']['subscriber'];
     }
 
+    protected function dispatchConfirmEvent(AbstractSubscriber $subscriber): AbstractSubscriber
+    {
+        /** @var Event\Comment\SubscriberDeleteEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\SubscriberConfirmEvent($subscriber)
+        );
+
+        return $event->getSubscriber();
+    }
+
     /**
      * Do not remove @param (needed for Extbase)
      *
@@ -53,6 +65,16 @@ class PostSubscriberController extends AbstractSubscriberController
         parent::deleteAction($subscriber);
 
         return $this->htmlResponse();
+    }
+
+    protected function dispatchDeleteEvent(AbstractSubscriber $subscriber): AbstractSubscriber
+    {
+        /** @var Event\Comment\SubscriberDeleteEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\SubscriberDeleteEvent($subscriber)
+        );
+
+        return $event->getSubscriber();
     }
 
     /**

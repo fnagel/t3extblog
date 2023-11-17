@@ -10,6 +10,8 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use FelixNagel\T3extblog\Event;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -42,8 +44,10 @@ class EmailService implements SingletonInterface
     /**
      * EmailService constructor.
      */
-    public function __construct(protected SettingsService $settingsService)
-    {
+    public function __construct(
+        protected SettingsService $settingsService,
+        protected readonly EventDispatcherInterface $eventDispatcher
+    ) {
     }
 
     public function initializeObject()
@@ -58,11 +62,15 @@ class EmailService implements SingletonInterface
      */
     public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
     {
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'sendEmail',
-//            [&$mailTo, &$mailFrom, &$subject, &$variables, &$templatePath, $this]
-//        );
+        /** @var Event\SendEmailEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\SendEmailEvent($mailTo, $mailFrom, $subject, $variables, $templatePath)
+        );
+        $mailTo = $event->getMailTo();
+        $mailFrom = $event->getMailFrom();
+        $subject = $event->getSubject();
+        $variables = $event->getVariables();
+        $templatePath = $event->getTemplatePath();
 
         // @extensionScannerIgnoreLine
         return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));

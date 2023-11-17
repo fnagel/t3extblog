@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator;
 use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
+use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
@@ -148,11 +149,12 @@ class CommentController extends AbstractCommentController
             $newComment->setApproved(true);
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'prePersist',
-//            [$post, &$newComment, $this]
-//        );
+        /** @var Event\Comment\CreatePrePersistEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\Comment\CreatePrePersistEvent($post, $newComment)
+        );
+        $post = $event->getPost();
+        $newComment = $event->getComment();
 
         $post->addComment($newComment);
         $this->persistAllEntities();

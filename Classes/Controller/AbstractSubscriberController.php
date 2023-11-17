@@ -65,11 +65,7 @@ abstract class AbstractSubscriberController extends AbstractController
             throw new \InvalidArgumentException('No authenticated subscriber given.');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'subscriberConfirmAction',
-//            [&$this->subscriber, $this]
-//        );
+        $this->subscriber = $this->dispatchConfirmEvent($this->subscriber);
 
         if ($this->subscriber->_getProperty('hidden') === true) {
             $this->subscriber->_setProperty('hidden', false);
@@ -82,6 +78,8 @@ abstract class AbstractSubscriberController extends AbstractController
         return $this->redirect('list', 'PostSubscriber');
     }
 
+    abstract protected function dispatchConfirmEvent(AbstractSubscriber $subscriber): AbstractSubscriber;
+
     public function deleteAction(AbstractSubscriber $subscriber = null): ResponseInterface
     {
         if (($authResult = $this->checkAuth()) instanceof ResponseInterface) {
@@ -92,11 +90,7 @@ abstract class AbstractSubscriberController extends AbstractController
             throw new \InvalidArgumentException('No subscriber given.');
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'subscriberDeleteAction',
-//            [&$this->subscriber, $this]
-//        );
+        $subscriber = $this->dispatchDeleteEvent($subscriber);
 
         // Check if the given subscriber is owned by authenticated user
         if ($subscriber->getEmail() !== $this->authentication->getEmail()) {
@@ -110,6 +104,8 @@ abstract class AbstractSubscriberController extends AbstractController
 
         return $this->redirect('list', 'Subscriber');
     }
+
+    abstract protected function dispatchDeleteEvent(AbstractSubscriber $subscriber): AbstractSubscriber;
 
     /**
      * Check authentication.

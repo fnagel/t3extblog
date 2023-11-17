@@ -39,60 +39,54 @@ More info on the topic:
 https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/DependencyInjection/Index.html
 
 
-Signal / Slot
-^^^^^^^^^^^^^
+Events
+^^^^^^
+.. _dev-guide-extending-events:
 
-T3extblog provides a couple of hooks to extend or change the default behavior.
-This is done by using the signal / slot functionality provided by TYPO3.
+T3extblog provides a couple of events to extend or change the default behavior.
+This is done by using PSR-14 events functionality provided by TYPO3.
 
+**Available events**
 
-**Available signals**
+* `Comment\CreatePrePersistEvent` (former `prePersist` signal)
+   in `FelixNagel\T3extblog\Controller\CommentController:createAction`
 
-* `sendEmail` in `FelixNagel\T3extblog\Service\EmailService`
+* `Comment\SubscriberConfirmEvent` (former `subscriberConfirmAction` signal)
+   in `FelixNagel\T3extblog\Controller\PostSubscriberController:confirmAction`
+* `Comment\SubscriberDeleteEvent` (former `subscriberDeleteAction` signal)
+   in `FelixNagel\T3extblog\Controller\PostSubscriberController:deleteAction`
 
-* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\BlogSubscriberController`
-* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\BlogSubscriberController`
+* `Post\SubscriberConfirmEvent` (former `subscriberConfirmAction` signal)
+   in `FelixNagel\T3extblog\Controller\BlogSubscriberController:confirmAction`
+* `Post\SubscriberDeleteEvent` (former `subscriberDeleteAction` signal)
+   in `FelixNagel\T3extblog\Controller\BlogSubscriberController:deleteAction`
 
-* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
-* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
+* `Comment\Notification\CreateEvent` (former `processNewComment` signal)
+   in `FelixNagel\T3extblog\Service\CommentNotificationService`
+* `Comment\Notification\ChangedEvent` (former `processChangedComment` signal)
+   in `FelixNagel\T3extblog\Service\CommentNotificationService`
+* `Comment\Notification\SubscribersEvent` (former `notifySubscribers` signal)
+   in `FelixNagel\T3extblog\Service\CommentNotificationService`
 
-* `processNewComment` in `FelixNagel\T3extblog\Service\CommentNotificationService`
-* `processChangedComment` in `FelixNagel\T3extblog\Service\CommentNotificationService`
-* `notifySubscribers` in `FelixNagel\T3extblog\Service\CommentNotificationService`
+* `Post\Notification\CreateEvent` (former `processNewSubscriber` signal)
+   in `FelixNagel\T3extblog\Service\BlogNotificationService`
+* `Post\Notification\ChangedEvent` (former `processChangedSubscriber` signal)
+   in `FelixNagel\T3extblog\Service\BlogNotificationService`
+* `Post\Notification\SubscribersEvent` (former `notifySubscribers` signal)
+   in `FelixNagel\T3extblog\Service\BlogNotificationService`
 
-* `processNewSubscriber` in `FelixNagel\T3extblog\Service\BlogNotificationService`
-* `processChangedSubscriber` in `FelixNagel\T3extblog\Service\BlogNotificationService`
-* `notifySubscribers` in `FelixNagel\T3extblog\Service\BlogNotificationService`
+* `SpamCheckEvent` (former `spamCheck` signal)
+   in `FelixNagel\T3extblog\Service\SpamCheckService`
 
-* `spamCheck` in `FelixNagel\T3extblog\Service\SpamCheckService`
-
-* `prePersist` in `FelixNagel\T3extblog\Controller\CommentController`
-
-
-**Example code**
-
-for using the EmailService sendEmail signal:
-
-.. code-block:: php
-
-	// typo3conf/ext/my_extension/ext_localconf.php
-	$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-	    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-	);
-	$signalSlotDispatcher->connect(
-	    FelixNagel\T3extblog\Service\EmailService::class,
-	    'sendEmail',
-	    MyVendor\MyExtension\Slot\MyEmailServiceSlot::class,
-	    'mySendEmailMethod'
-	);
+* `SendEmailEvent` (former `sendEmail` signal) in `FelixNagel\T3extblog\Service\EmailService`
 
 
 **More info**
 
-on signal / slots in TYPO3:
+on PSR-14 events  in TYPO3:
 
-* https://somethingphp.com/extending-classes-typo3/
-* https://usetypo3.com/signals-and-hooks-in-typo3.html
+* https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Events/EventDispatcher/Index.html
+* https://usetypo3.com/psr-14-events.html
 
 
 Code insights
@@ -139,7 +133,7 @@ Testing
 -------
 
 This needs to be done for latest supported TYPO3 versions in a multi-language site setup.
-It is recommenced to install T3extblog in TYPO3's default Bootstrap Package.
+It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 
 
 **What needs to be tested:**
@@ -157,7 +151,10 @@ It is recommenced to install T3extblog in TYPO3's default Bootstrap Package.
       * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
 	* Make sure mails are sent with localized links for multi language setups
 * New post subscription
-	* subscriber opt-in (frontend) and notification emails (button in BE module)
+	* Subscriber opt-in (frontend) and notification emails (button in BE module)
+* Dashboard widgets work as expected
+* Test request throttling
+* PSR-14 events
 
 
 **Quick test procedure**
@@ -173,6 +170,7 @@ It is recommenced to install T3extblog in TYPO3's default Bootstrap Package.
 * Add a valid comment for the translated post -> new comment mail sent (check localization and link)
 * Make sure there a two comments displayed for the default language post and only one for the localized post
 * Click envelope icon in "all post" view (T3extblog BE module) -> New post subscription mail sent
+* Check dashboard blog widgets functionality
 
 
 TER deployment

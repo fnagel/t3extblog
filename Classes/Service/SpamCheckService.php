@@ -9,13 +9,19 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use FelixNagel\T3extblog\Event;
 
 /**
  * Handles spam check.
  */
 class SpamCheckService implements SpamCheckServiceInterface
 {
+    public function __construct(protected readonly EventDispatcherInterface $eventDispatcher)
+    {
+    }
+
     /**
      * Checks GET / POST parameter for SPAM.
      *
@@ -54,13 +60,12 @@ class SpamCheckService implements SpamCheckServiceInterface
             $spamPoints += (int) $settings['link'];
         }
 
-//        $this->signalSlotDispatcher->dispatch(
-//            self::class,
-//            'spamCheck',
-//            [$settings, $arguments, &$spamPoints, $this]
-//        );
+        /** @var Event\SpamCheckEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new Event\SpamCheckEvent($settings, $arguments, $spamPoints)
+        );
 
-        return $spamPoints;
+        return $event->getSpamPoints();
     }
 
     /**
