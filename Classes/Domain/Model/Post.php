@@ -56,12 +56,7 @@ class Post extends AbstractLocalizedEntity
 
     protected ?int $allowComments = null;
 
-    /**
-     * This var annotation seems needed.
-     *
-     * @var string
-     */
-    protected ?string $tagCloud = null;
+    protected string $tagCloud = '';
 
     protected int $numberOfViews = 0;
 
