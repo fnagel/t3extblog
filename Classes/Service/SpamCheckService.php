@@ -45,7 +45,7 @@ class SpamCheckService implements SpamCheckServiceInterface
             $spamPoints += (int) $settings['isHumanCheckbox'];
         }
 
-        if ($settings['cookie'] && !$_COOKIE['fe_typo_user']) {
+        if ($settings['cookie'] && !isset($_COOKIE['fe_typo_user'])) {
             $spamPoints += (int) $settings['cookie'];
         }
 
