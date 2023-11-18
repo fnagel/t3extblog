@@ -29,21 +29,18 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @SuppressWarnings("PHPMD.ExcessivePublicCount")
  * @SuppressWarnings("PHPMD.TooManyPublicMethods")
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 class PostController extends AbstractCommentController
 {
-    /**
-     * PostController constructor.
-     *
-     */
     public function __construct(protected PostRepository $postRepository)
     {
     }
 
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
-        if ($exception instanceof  TargetNotFoundException) {
-            $this->pageNotFoundAndExit('Entity not found.');
+        if ($exception instanceof TargetNotFoundException) {
+            $this->pageNotFoundAndExit();
         }
 
         parent::handleKnownExceptionsElseThrowAgain($exception);

@@ -21,6 +21,9 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * AbstractSubscriberController.
+ *
+ * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+ * @SuppressWarnings("PHPMD.NPathComplexity")
  */
 abstract class AbstractSubscriberController extends AbstractController
 {
