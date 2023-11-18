@@ -25,7 +25,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
         $query = $this->createQuery();
 
         $query->matching(
-            $query->equals('postUid', $post->getUid())
+            $query->equals('postUid', $post->getLocalizedUid())
         );
 
         return $query->execute();

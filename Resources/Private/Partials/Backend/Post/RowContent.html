@@ -3,36 +3,36 @@
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <td class="title">
-	<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post">
+	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post">
 		{post.title}
 	</be:link.editRecord>
 </td>
 <td>{post.publishDate -> f:format.date(format: '{dateTimeFormat}')}</td>
 <td>{post.author.name}</td>
 <td class="comment">
-	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post}">
+	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post.localizedUid}">
 		{post.comments -> f:count()}
 	</f:link.action>
 </td>
 <td class="action">
-	<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post" title="{f:translate(key: 'module.post.help.edit')}">
+	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post" title="{f:translate(key: 'module.post.help.edit')}">
 		<t3b:spriteManagerIcon iconName="actions-document-open" />
 	</be:link.editRecord>
 
 	<f:if condition="{post.hidden}">
 		<f:then>
-			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=0" title="{f:translate(key: 'module.post.help.hide.0')}">
+			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.localizedUid}][hidden]=0" title="{f:translate(key: 'module.post.help.hide.0')}">
 				<t3b:spriteManagerIcon iconName="actions-edit-unhide" />
 			</t3b:link.issueCommand>
 		</f:then>
 		<f:else>
-			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.uid}][hidden]=1" title="{f:translate(key: 'module.post.help.hide.1')}">
+			<t3b:link.issueCommand parameters="data[tx_t3blog_post][{post.localizedUid}][hidden]=1" title="{f:translate(key: 'module.post.help.hide.1')}">
 				<t3b:spriteManagerIcon iconName="actions-edit-hide" />
 			</t3b:link.issueCommand>
 		</f:else>
 	</f:if>
 
-	<t3b:link.issueCommand parameters="cmd[tx_t3blog_post][{post.uid}][delete]=1"
+	<t3b:link.issueCommand parameters="cmd[tx_t3blog_post][{post.localizedUid}][delete]=1"
 		title="{f:translate(key: 'module.post.help.delete')}"
 	 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 		<t3b:spriteManagerIcon iconName="actions-edit-delete" />

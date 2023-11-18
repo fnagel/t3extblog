@@ -60,7 +60,7 @@ class ActionViewHelper extends AbstractViewHelper
             );
         }
 
-        return self::renderStaticFrontend($request, $arguments, $renderingContext);
+        return self::renderStaticFrontend($arguments, $renderingContext);
     }
 
     /**
@@ -75,8 +75,11 @@ class ActionViewHelper extends AbstractViewHelper
      * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::renderStatic
      * @return string
      */
-    protected static function renderStaticFrontend(RequestInterface $request, array $arguments, RenderingContext $renderingContext)
+    protected static function renderStaticFrontend(array $arguments, RenderingContext $renderingContext)
     {
+        /** @var RequestInterface $request */
+        $request = $renderingContext->getRequest();
+
         if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
             throw new InvalidArgumentException('Missing pageUid argument for extbase link generation from BE context. Check your template!');
         }

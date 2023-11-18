@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -74,12 +75,15 @@ abstract class AbstractRepository extends Repository
 
     protected function escapeStrForLike(string $value, string $table = null): string
     {
+        return $this->getQueryBuilder($table)->escapeLikeWildcards($value);
+    }
+
+    protected function getQueryBuilder(string $table = null): QueryBuilder
+    {
         if ($table === null) {
             $table = $this->getTableName();
         }
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-
-        return $queryBuilder->escapeLikeWildcards($value);
+        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
     }
 }

@@ -9,6 +9,9 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use FelixNagel\T3extblog\Domain\Model\Category;
@@ -51,7 +54,29 @@ class PostRepository extends AbstractRepository
      */
     public function findByLocalizedUid(int $uid, bool $respectEnableFields = true): ?Post
     {
-        return  $this->findByUid($uid, $respectEnableFields);
+        $table = $this->getTableName();
+        $queryBuilder = $this->getQueryBuilder($table);
+
+        if (!$respectEnableFields) {
+            $queryBuilder
+                ->getRestrictions()
+                ->removeAll()
+                ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        }
+
+        $queryBuilder
+            ->select('post.*')
+            ->from($table, 'post')
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)
+                ),
+            )
+            ->setMaxResults(1)
+        ;
+
+        return $this->createQuery()->statement($queryBuilder)->execute()->getFirst();
     }
 
     /**

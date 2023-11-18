@@ -493,7 +493,7 @@ class Post extends AbstractLocalizedEntity
     public function getLinkParameter(): array
     {
         return [
-            'post' => $this->getUid(),
+            'post' => $this->getLocalizedUid(),
         ];
     }
 }
