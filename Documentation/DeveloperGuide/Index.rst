@@ -159,16 +159,25 @@ It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
 
 **Quick test procedure**
 
+Make sure to have all related pages, folders and blog categories localized!
+
 * Create a new post and translate it
-* Add comment with subscription (saved but marked as SPAM) -> admin email sent
-* Mark as non SPAM using the dashboard (T3extblog BE module) -> subscription mail sent
+* Add comment with subscription (saved but marked as SPAM)
+   * admin email sent
+* Mark as non SPAM using the dashboard (in blog BE module)
+   * subscription mail sent
 * Confirm subscription by email link (check localization and link)
-* When in subscription manager, add new article subscription
-* Add another comment (saved but marked as SPAM) -> admin email sent
-* Edit the comment record you just created in "list" module
-* Un-check the SPAM checkbox, save record -> new comment mail sent (check localization and link)
-* Add a valid comment for the translated post -> new comment mail sent (check localization and link)
-* Make sure there a two comments displayed for the default language post and only one for the localized post
+* When in subscription manager -> add new article subscription
+* Add another comment (saved but marked as SPAM)
+   * admin email sent
+* Edit the comment record you just created (in list BE module)
+* Un-check the SPAM checkbox, save record
+   * new comment mail sent (check localization and link)
+* Add a valid comment for the translated post
+   * admin mail sent (check localization and link)
+* Make sure there
+   * are two comments displayed for the default language post and only one for the localized post
+   * is no "new comment" email for the default language subscription
 * Click envelope icon in "all post" view (T3extblog BE module) -> New post subscription mail sent
 * Check dashboard blog widgets functionality
 
