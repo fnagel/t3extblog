@@ -1,0 +1,2 @@
+# Add template path for dashboard widgets
+templates.typo3/cms-dashboard.1700145317 = felixnagel/t3extblog:Resources/Private

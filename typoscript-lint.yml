@@ -2,6 +2,14 @@ paths:
   - Configuration/TypoScript
   - Configuration/TSconfig
 
+filePatterns:
+  - "*.typoscript"
+  - "*.tsconfig"
+
+excludePatterns:
+  # @todo Fix this for TS linter, see https://github.com/martin-helmich/typo3-typoscript-lint/issues/175
+  - "Template.tsconfig"
+
 sniffs:
   - class: Indentation
     parameters:
