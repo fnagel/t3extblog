@@ -7,7 +7,18 @@ TCEFORM.tx_t3blog_post {
 	number_views.disabled = 1
 }
 
+# List module record order
+mod.web_list.tableDisplayOrder.tx_t3blog_post {
+	after = pages
+}
+mod.web_list.tableDisplayOrder.tx_t3blog_com {
+	after = tx_t3blog_post
+}
+mod.web_list.tableDisplayOrder.tx_t3blog_cat {
+	after = tx_t3blog_com
+}
+
 # Hide tt_content elements in list view
 [traverse(page, "module") == "t3blog"]
-mod.web_list.table.tt_content.hideTable = 1
+	mod.web_list.table.tt_content.hideTable = 1
 [global]
