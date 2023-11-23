@@ -43,6 +43,6 @@ call_user_func(static function ($packageKey) {
     $iconRegistry->registerIcon(
         'tcarecords-pages-contains-t3blog',
         BitmapIconProvider::class,
-        ['source' => 'EXT:t3extblog/Resources/Public/Icons/folder.png']
+        ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/folder.png']
     );
 }, 't3extblog');
