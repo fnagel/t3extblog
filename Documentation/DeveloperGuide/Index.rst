@@ -50,8 +50,8 @@ This is done by using the signal / slot functionality provided by TYPO3.
 
 * `sendEmail` in `FelixNagel\T3extblog\Service\EmailService`
 
-* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\CommentSubscriberController`
-* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\CommentSubscriberController`
+* `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\BlogSubscriberController`
+* `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\BlogSubscriberController`
 
 * `subscriberConfirmAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
 * `subscriberDeleteAction` in `FelixNagel\T3extblog\Controller\PostSubscriberController`
@@ -139,7 +139,7 @@ Testing
 -------
 
 This needs to be done for latest supported TYPO3 versions in a multi-language site setup.
-It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
+It is recommenced to install T3extblog in TYPO3's default Bootstrap Package.
 
 
 **What needs to be tested:**
