@@ -18,21 +18,37 @@ jobs:
     name: Check commit message
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Check type prefix
         uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^(?:\[!!!\])?\[(BUILD|TASK|BUGFIX|FIX|FEATURE|DOC|CLEANUP|RELEASE){1}\] .+$'
           flags: 'gm'
           error: 'The first line needs to start with a commit type like "[BUGFIX]".'
+          excludeTitle: "true"
+          excludeDescription: "true"
+          checkAllCommitMessages: "true"
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Check message format
-        uses: gsactions/commit-message-checker@v1
+        uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^(?:\[!!!\])?\[[A-Z]+\] [A-Z]+.+$'
           flags: 'gm'
           error: 'The actual message after the commit type should start with a uppercase letter.'
+          excludeTitle: "true"
+          excludeDescription: "true"
+          checkAllCommitMessages: "true"
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Check line length
         uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^.{10,72}$'
           flags: 'gm'
           error: 'The maximum line length of 72 characters is exceeded.'
+          excludeTitle: "true"
+          excludeDescription: "true"
+          checkAllCommitMessages: "true"
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
