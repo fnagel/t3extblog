@@ -23,14 +23,14 @@ When submitting a ticket, the following information should be included:
     * Message should start with an uppercase char
     * 72 chars max line length
 * Follow our CGL, see:
-    * [.editorconfig](.editorconfig)
-    * [.php-cs-fixer.dist.php (PSR-2)](.php-cs-fixer.dist.php)
-    * [typoscript-lint.yml](typoscript-lint.yml)
+    * [.editorconfig](../.editorconfig)
+    * [.php-cs-fixer.dist.php (PSR-2)](../.php-cs-fixer.dist.php)
+    * [typoscript-lint.yml](../typoscript-lint.yml)
 * Run `composer run test`
 * Test with all supported TYPO3 CMS versions (according to `composer.json`)
-* Test your changes following the [testing guide](Documentation/DeveloperGuide/Index.rst)
+* Test your changes following the [testing guide](../Documentation/DeveloperGuide/Index.rst)
 
 
 ## Additional Resources
 
-* See [developer guide](Documentation/DeveloperGuide) in documentation
+* See [developer guide](../Documentation/DeveloperGuide/Index.rst) in documentation
