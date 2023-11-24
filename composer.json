@@ -6,11 +6,11 @@
     "TYPO3 CMS",
     "blog"
   ],
-  "homepage": "https://extensions.typo3.org/extension/t3extblog/",
+  "homepage": "https://extensions.typo3.org/extension/t3extblog",
   "license": "GPL-2.0-or-later",
   "support": {
     "issues": "https://github.com/fnagel/t3extblog/issues",
-    "docs": "https://docs.typo3.org/typo3cms/extensions/t3extblog/",
+    "docs": "https://docs.typo3.org/p/felixnagel/t3extblog/main/en-us",
     "source": "https://github.com/fnagel/t3extblog"
   },
   "authors": [
