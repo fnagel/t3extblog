@@ -5,7 +5,7 @@
 
 			<f:for each="{flashMessages}" as="flashMessage">
 				<f:variable name="alertClass"><f:spaceless>
-					<f:switch expression="{flashMessage.severity}">
+					<f:switch expression="{flashMessage.severity.value}">
 						<f:case value="-2">primary</f:case>
 						<f:case value="-1">info</f:case>
 						<f:case value="0">success</f:case>
