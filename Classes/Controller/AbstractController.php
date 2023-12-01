@@ -300,4 +300,27 @@ abstract class AbstractController extends ActionController
 
         return $this->rateLimiter;
     }
+
+    /**
+     * Fix for EXT:vhs bug, see https://github.com/FluidTYPO3/vhs/issues/1892
+     *
+     * @todo Remove this!
+     */
+    protected function redirect(
+        $actionName,
+        $controllerName = null,
+        $extensionName = null,
+        array $arguments = null,
+        $pageUid = null,
+        $_ = null,
+        $statusCode = 303
+    ): ResponseInterface {
+        // Make sure we always have extension name configured, otherwise the redirect will contain
+        // an invalid location header URI when EXT:vhs is installed!
+        if ($extensionName === null) {
+            $extensionName = 'T3extblog';
+        }
+
+        return parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $_, $statusCode);
+    }
 }
