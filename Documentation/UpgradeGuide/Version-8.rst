@@ -26,26 +26,28 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/7.x.x...8.0.0
 
-- Support for TYPO3 12.4 LTS
+- Support for TYPO3 12.4 LTS and PHP 8.2
 
 - Improved configuration checks in BE module
 
-- Make use of new datetime, email and number TCA types
+- Make use of new file, datetime, email and number TCA types
 
-- Use new backend module registration API
+- Use new registration API for upgrade wizards, backend modules and dashboard widgets
 
 - Introduce PSR-14 events
 
-- Lots of bugfixes and other improvements
+- Lots of small bugfixes and other improvements
 
-- Code clean-up and quality improvements
+- Code clean-up and lots of code quality improvements
 
 
 **Breaking changes**
 
-- Removed support for TYPO3 11.x
+- Removed support for TYPO3 11
 
-- Removed support for PHP 7.x
+- Removed support for PHP 7
+
+- Replaced removed core BE user model with custom one
 
 - Signal / Slot functionality has been removed
 
@@ -58,5 +60,7 @@ How to upgrade
 #. "Change fields" in DB using "Analyze Database" in Install tool / Maintenance module
 
 #. Adjust your TypoScript configuration (RSS configuration has changed)
+
+#. Adjust your templates if needed (`FormErrors` and `FlashMessages` partials have changed)
 
 #. Clear all caches

@@ -133,7 +133,9 @@ Testing
 -------
 
 This needs to be done for latest supported TYPO3 versions in a multi-language site setup.
-It is recommenced to install T3extblog in TYPO3'S default Bootstrap Package.
+It is recommenced to install T3extblog in TYPO3's introduction package.
+
+https://extensions.typo3.org/extension/introduction
 
 
 **What needs to be tested:**
