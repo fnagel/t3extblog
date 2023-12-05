@@ -31,7 +31,11 @@ class LoggingService implements LoggingServiceInterface, SingletonInterface, Log
 
     public function initializeObject()
     {
-        $this->renderInFe = (bool)$this->settingsService->getTypoScriptByPath('debug.renderInFe');
+        try {
+            $this->renderInFe = (bool)$this->settingsService->getTypoScriptByPath('debug.renderInFe');
+        } catch (\Throwable) {
+            // Catch error when no TS is available
+        }
     }
 
     public function error($msg, array $data = [])
