@@ -141,6 +141,7 @@ https://extensions.typo3.org/extension/introduction
 **What needs to be tested:**
 
 * Creating blog posts (with and without preview image and text)
+   * Check post preview
 * Posting comments and subscribe for new comments
 	* With and without SPAM check triggered
 	* Test field validation

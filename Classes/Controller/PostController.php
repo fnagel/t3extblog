@@ -215,14 +215,15 @@ class PostController extends AbstractCommentController
     /**
      * Preview a post.
      */
-    public function previewAction($previewPost): ResponseInterface
+    public function previewAction(int $previewPost): ResponseInterface
     {
         if (!FrontendUtility::isValidBackendUser()) {
             throw new AccessDeniedException('Preview not allowed.');
         }
 
-        if (is_int($previewPost)) {
-            $post = $this->postRepository->findByUid($previewPost, false);
+        $post = $this->postRepository->findByUid($previewPost, false);
+
+        if ($post instanceof Post) {
             return (new ForwardResponse('show'))->withArguments(['post' => $post]);
         }
 
