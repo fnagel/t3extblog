@@ -29,6 +29,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'conflicts' => [
             't3blog' => '',
+            'vhs' => '7.0.0-7.0.1',
         ],
         'suggests' => [
             'seo' => '',
