@@ -86,7 +86,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
                     continue;
                 }
 
-                if (isset($translations['translations'][$sysLanguageUid])) {
+                if (isset($sysLanguageUid) && isset($translations['translations'][$sysLanguageUid])) {
                     $records[$sysLanguageUid] = [
                         'icon' => self::getLanguageIcon($sysLanguageUid),
                         'uid' => $translations['translations'][$sysLanguageUid]['uid'],
