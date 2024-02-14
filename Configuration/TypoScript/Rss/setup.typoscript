@@ -18,6 +18,8 @@ config {
 	disableCharsetHeader = 1
 	metaCharset = utf-8
 	additionalHeaders.10.header = Content-Type:application/rss+xml;charset=utf-8
+
+	forceAbsoluteUrls = 1
 }
 
 # clean up CSC to prevent unwanted HTML in the XML
