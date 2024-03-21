@@ -205,7 +205,7 @@ class Tcemain
         $queryBuilder
             ->select('uid')
             ->from($tableName)
-            ->where(CompositeExpression::and($constraints));
+            ->where(CompositeExpression::and(...$constraints));
 
         $rows = $queryBuilder->execute()->fetchAll();
 
