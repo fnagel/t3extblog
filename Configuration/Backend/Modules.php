@@ -13,7 +13,7 @@ return [
         'parent' => 'web',
         'position' => ['after' => 'web_info'],
         'access' => 'user,group',
-        'workspaces' => 'live',
+        'workspaces' => '*',
         'iconIdentifier' => 'extensions-t3extblog-plugin',
         'labels' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_mod.xlf',
         'extensionName' => 'T3extblog',
