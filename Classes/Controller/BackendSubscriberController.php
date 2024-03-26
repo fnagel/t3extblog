@@ -22,6 +22,7 @@ class BackendSubscriberController extends AbstractBackendController
     public function indexPostSubscriberAction(int $page = 1): ResponseInterface
     {
         return $this->paginationHtmlResponse(
+            'Subscriber/IndexPostSubscriber',
             $this->postSubscriberRepository->findByPage($this->pageId, false),
             $this->settings['backend']['subscriber']['post']['paginate'],
             $page
@@ -34,6 +35,7 @@ class BackendSubscriberController extends AbstractBackendController
     public function indexBlogSubscriberAction(int $page = 1): ResponseInterface
     {
         return $this->paginationHtmlResponse(
+            'Subscriber/IndexBlogSubscriber',
             $this->blogSubscriberRepository->findByPage($this->pageId, false),
             $this->settings['backend']['subscriber']['blog']['paginate'],
             $page

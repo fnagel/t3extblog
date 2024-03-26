@@ -100,18 +100,17 @@ abstract class AbstractBackendController extends ActionController
             $dateTimeFormat = trim($this->settings['backend']['dateTimeFormat']);
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        $this->moduleTemplate->assignMultiple([
             'pageId' => $this->pageId,
             'dateTimeFormat' => $dateTimeFormat,
             'pageNotice' => $this->pageInfo,
         ]);
 
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-
         // Configure module header
         $moduleService = GeneralUtility::makeInstance(
             BackendModuleService::class,
-            $this->view,
             $this->moduleTemplate,
             $this->pageId
         );
@@ -221,27 +220,26 @@ abstract class AbstractBackendController extends ActionController
         }
     }
 
-    protected function moduleResponse(): ResponseInterface
+    protected function moduleResponse(string $templateFileName): ResponseInterface
     {
-        $this->moduleTemplate->setContent($this->view->render());
-
-        return $this->htmlResponse($this->moduleTemplate->renderContent());
+        return $this->moduleTemplate->renderResponse('Backend'.$templateFileName);
     }
 
     protected function paginationHtmlResponse(
+        string $templateFileName,
         QueryResultInterface $result,
         array $paginationConfig,
         int $page = 1
     ): ResponseInterface {
         $paginator = new QueryResultPaginator($result, $page, (int)$paginationConfig['itemsPerPage'] ?: 10);
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'totalAmountOfItems' => $result->count(),
             'paginator' => $paginator,
             'pagination' => new SimplePagination($paginator),
         ]);
 
-        return $this->moduleResponse();
+        return $this->moduleResponse($templateFileName);
     }
 
     /**

@@ -22,12 +22,12 @@ class BackendDashboardController extends AbstractBackendController
     public function indexAction(): ResponseInterface
     {
         if (!isset($this->settings['backend'])) {
-            return $this->moduleResponse();
+            return $this->moduleResponse('Dashboard/Index');
         }
 
         $settings = $this->settings['backend']['dashboard'];
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'postDrafts' => $this->postRepository->findDrafts(
                 $this->pageId,
                 (int)$settings['postDrafts']['paginate']['itemsPerPage']
@@ -55,6 +55,6 @@ class BackendDashboardController extends AbstractBackendController
             'validBlogSubscribersCount' => $this->blogSubscriberRepository->findByPage($this->pageId)->count(),
         ]);
 
-        return $this->moduleResponse();
+        return $this->moduleResponse('Dashboard/Index');
     }
 }

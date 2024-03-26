@@ -13,7 +13,6 @@ use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Fluid\View\TemplateView as View;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -33,13 +32,8 @@ class BackendModuleService
 {
     /**
      * BackendModuleService constructor.
-     *
      */
-    public function __construct(
-        protected View $view,
-        protected ModuleTemplate $moduleTemplate,
-        protected int $pid
-    ) {
+    public function __construct(protected ModuleTemplate $moduleTemplate, protected int $pid) {
     }
 
     /**

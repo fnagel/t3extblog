@@ -26,6 +26,7 @@ class BackendPostController extends AbstractBackendController
     public function indexAction(int $page = 1): ResponseInterface
     {
         return $this->paginationHtmlResponse(
+            'Post/Index',
             $this->postRepository->findByPage($this->pageId, false),
             $this->settings['backend']['posts']['paginate'],
             $page

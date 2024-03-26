@@ -1,17 +1,22 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<div class="t3extblog">
+<div class="module t3extblog" data-module-name="{moduleName}">
+	<f:render partial="DocHeader" arguments="{docHeader:docHeader}" />
+
+	<div class="module-body t3js-module-body">
 		<h1>
 			<f:translate key="module.title" />
-			<small>
+			<small class="text-body-secondary">
 				<f:render section="headline" optional="1" />
 			</small>
 		</h1>
 
 		<f:flashMessages />
+
 		<f:render partial="Backend/PageNotice" arguments="{data: pageNotice}" />
 
-		<f:render section="main" />
+		<f:render section="main" arguments="{_all}" />
 	</div>
+</div>
 
 </html>
