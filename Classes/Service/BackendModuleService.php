@@ -33,7 +33,8 @@ class BackendModuleService
     /**
      * BackendModuleService constructor.
      */
-    public function __construct(protected ModuleTemplate $moduleTemplate, protected int $pid) {
+    public function __construct(protected ModuleTemplate $moduleTemplate, protected int $pid)
+    {
     }
 
     /**
