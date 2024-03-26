@@ -9,12 +9,14 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend\Link;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * A view helper for creating edit on click links.
+ *
+ * @todo Check if this VH is really needed!
  */
 class IssueCommandViewHelper extends AbstractTagBasedViewHelper
 {
@@ -37,9 +39,6 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * Returns a link with a command to TYPO3 Core Engine (tce_db.php).
-     *
-     * @see DocumentTemplate::issueCommand()
-     *
      */
     public function render(): string
     {
@@ -47,8 +46,14 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
         $redirectUrl = $this->arguments['redirectUrl'];
 
         // Needed in 7.x and 8.x
-        $parameters = '&id='.(int) GeneralUtility::_GP('id').'&'.$parameters;
-        $href = BackendUtility::getLinkToDataHandlerAction($parameters, $redirectUrl);
+        $request = $GLOBALS['TYPO3_REQUEST'];
+        $id = $request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0;
+        $parameters = '&id='.$id.'&'.$parameters;
+
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $href = (string)$uriBuilder->buildUriFromRoute('tce_db') . $parameters . '&redirect=';
+        // @extensionScannerIgnoreLine
+        $href .= rawurlencode($redirectUrl ?: $request->getAttribute('normalizedParams')->getRequestUri());
 
         $this->tag->addAttribute('href', $href);
         $this->tag->setContent($this->renderChildren());

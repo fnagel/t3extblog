@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Event;
 
@@ -30,8 +31,12 @@ class SpamCheckService implements SpamCheckServiceInterface
      */
     public function process(array $settings): int
     {
-        $arguments = GeneralUtility::_GPmerged('tx_t3extblog');
+        // @todo Replace this with a request argument
+        $request = $GLOBALS['TYPO3_REQUEST'];
+
         $spamPoints = 0;
+        $arguments = $request->getQueryParams()['tx_t3extblog'] ?? [];
+        ArrayUtility::mergeRecursiveWithOverrule($arguments, $request->getParsedBody()['tx_t3extblog']);
 
         if (!$settings['enable']) {
             return $spamPoints;
@@ -54,7 +59,7 @@ class SpamCheckService implements SpamCheckServiceInterface
         }
 
         if (isset($settings['link']) && $settings['link'] &&
-            ($comment = GeneralUtility::_POST('tx_t3extblog_blogsystem')) &&
+            ($comment = $request->getParsedBody()['tx_t3extblog_blogsystem']) &&
             isset($comment['newComment']['text']) && $this->checkTextForLinks($comment['newComment']['text'])
         ) {
             $spamPoints += (int) $settings['link'];

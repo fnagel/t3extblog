@@ -10,7 +10,6 @@ namespace FelixNagel\T3extblog\Configuration;
  */
 
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager
 {
@@ -33,7 +32,7 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
         $id = parent::getCurrentPageIdFromRequest($request);
 
         if (empty($id)) {
-            $id = (int) GeneralUtility::_GP('popViewId');
+            $id = (int)($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['popViewId'] ?? 0);
         }
 
         return $id;

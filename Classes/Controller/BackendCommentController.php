@@ -71,7 +71,7 @@ class BackendCommentController extends AbstractBackendController
     protected function getViewHeaderButtonItems(): array
     {
         $items = parent::getViewHeaderButtonItems();
-        $arguments = GeneralUtility::_GET('tx_t3extblog_web_t3extblogtxt3extblog');
+        $arguments = $this->request->getQueryParams()['tx_t3extblog_web_t3extblogtxt3extblog'] ?? null;
 
         if (!empty($arguments['post'])) {
             $items['comment']['defaults'] = [
