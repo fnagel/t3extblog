@@ -40,6 +40,7 @@ class PostController extends AbstractCommentController
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
     {
         if ($exception instanceof TargetNotFoundException) {
+            // @extensionScannerIgnoreLine
             $this->pageNotFoundAndExit();
         }
 

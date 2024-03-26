@@ -167,6 +167,7 @@ abstract class AbstractController extends ActionController
         FlushCacheService::clearPageCache();
     }
 
+    // @todo Does this need to be reworked for TYPO3 v13?
     protected function pageNotFoundAndExit(string $message = 'Entity not found.')
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
