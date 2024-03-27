@@ -27,12 +27,12 @@ class BackendConfigurationManager extends \TYPO3\CMS\Extbase\Configuration\Backe
      *
      * @todo Rework this: ugly hack but not sure how to solve this in a clean way
      */
-    protected function getCurrentPageIdFromRequest(ServerRequestInterface $request): int
+    protected function getCurrentPageIdFromRequest(): int
     {
-        $id = parent::getCurrentPageIdFromRequest($request);
+        $id = parent::getCurrentPageIdFromRequest();
 
-        if (empty($id)) {
-            $id = (int)($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['popViewId'] ?? 0);
+        if (empty($id) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+            $id = (int)($GLOBALS['TYPO3_REQUEST']->getParsedBody()['popViewId'] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()['popViewId'] ?? 0);
         }
 
         return $id;
