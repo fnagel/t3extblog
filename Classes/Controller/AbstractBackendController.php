@@ -198,7 +198,7 @@ abstract class AbstractBackendController extends ActionController
     /**
      * Initialize actions.
      */
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         $this->pageId = (int)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? 0);
         $this->pageInfo = $this->getBlogRelatedPageInfo();

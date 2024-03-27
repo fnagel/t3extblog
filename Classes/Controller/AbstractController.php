@@ -53,10 +53,8 @@ abstract class AbstractController extends ActionController
     /**
      * Injects the Configuration Manager and is initializing the framework settings
      * Function is used to override the merge of settings via TS & flexforms
-     *
-     * @param $configurationManager ConfigurationManagerInterface An instance of the Configuration Manager
      */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         parent::injectConfigurationManager($configurationManager);
 
@@ -91,7 +89,7 @@ abstract class AbstractController extends ActionController
         throw $exception;
     }
 
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         try {
             $this->validateTypoScriptConfiguration();
@@ -124,10 +122,8 @@ abstract class AbstractController extends ActionController
 
     /**
      * Override getErrorFlashMessage to present nice flash error messages.
-     *
-     * @return string|false
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool|string
     {
         $defaultFlashMessage = parent::getErrorFlashMessage();
         $locallangKey = sprintf('error.%s.%s', lcfirst($this->request->getControllerName()), $this->actionMethodName);
