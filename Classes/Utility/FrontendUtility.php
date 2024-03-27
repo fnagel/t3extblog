@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -67,6 +68,11 @@ class FrontendUtility implements SingletonInterface
         return GeneralUtility::makeInstance(PageRenderer::class);
     }
 
+    public static function getFrontendUser(): FrontendUserAuthentication
+    {
+        return $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user');
+    }
+
     /**
      * Check if FE user is logged in
      */
@@ -80,7 +86,7 @@ class FrontendUtility implements SingletonInterface
      */
     public static function isValidBackendUser(): bool
     {
-        return static::getTsFe()->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
+        return (bool)static::getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
     }
 
     protected static function getContext(): Context
