@@ -42,7 +42,7 @@ class BlogSubscriberController extends AbstractSubscriberController
         $this->subscriberRepository = $subscriberRepository;
     }
 
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         parent::initializeAction();
 
