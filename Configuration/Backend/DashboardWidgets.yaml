@@ -184,7 +184,6 @@ services:
   dashboard.widget.t3extblog.statisticChart:
     class: 'TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget'
     arguments:
-      $view: '@dashboard.views.widget'
       $dataProvider: '@FelixNagel\T3extblog\Dashboard\Provider\StatisticChartDataProvider'
     tags:
       - name: dashboard.widget
