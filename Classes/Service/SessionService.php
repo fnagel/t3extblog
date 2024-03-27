@@ -35,7 +35,7 @@ class SessionService implements SessionServiceInterface
      */
     public function __construct()
     {
-        $this->frontendUser = FrontendUtility::getTsFe()->fe_user;
+        $this->frontendUser = FrontendUtility::getFrontendUser();
     }
 
     public function setData(array $data): void

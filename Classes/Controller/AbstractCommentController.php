@@ -37,7 +37,7 @@ abstract class AbstractCommentController extends AbstractController
         $this->clearPageCache();
 
         if (FrontendUtility::isUserLoggedIn()) {
-            $comment->setEmail(FrontendUtility::getTsFe()->fe_user->user['email']);
+            $comment->setEmail($this->request->getAttribute('frontend.user')->user['email']);
             $comment->setAuthor($this->getNewCommentAuthor());
 
             return $comment;
@@ -57,7 +57,7 @@ abstract class AbstractCommentController extends AbstractController
     protected function getNewCommentAuthor(): string
     {
         $field = $this->settings['blogsystem']['comments']['prefillFields']['authorField'];
-        $user = FrontendUtility::getTsFe()->fe_user->user;
+        $user = $this->request->getAttribute('frontend.user')->user;
 
         if ($field === 'fullName') {
             $fullName = [];
