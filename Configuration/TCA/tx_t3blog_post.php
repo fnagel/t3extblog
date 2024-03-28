@@ -1,7 +1,7 @@
 <?php
 
+use TYPO3\CMS\Core\Resource\FileType;
 use FelixNagel\T3extblog\Domain\Model\Post;
-use TYPO3\CMS\Core\Resource\File;
 
 return [
     'ctrl' => [
@@ -383,7 +383,7 @@ return [
                 'maxitems' => 1,
                 'overrideChildTca' => [
                     'types' => [
-                        File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;t3extblogPostPreviewImagePalette,
                                 --palette--;;filePalette'

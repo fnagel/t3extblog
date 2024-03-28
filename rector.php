@@ -3,52 +3,50 @@
 declare(strict_types=1);
 
 use Rector\CodeQuality\Rector\FuncCall\SimplifyRegexPatternRector;
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
-use Rector\CodingStyle\Rector\FuncCall\ConsistentPregDelimiterRector;
+use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
 use Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector;
-use Rector\Core\ValueObject\PhpVersion;
+use Rector\ValueObject\PhpVersion;
 use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
+use Rector\Php81\Rector\ClassConst\FinalizePublicClassConstantRector;
+use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Config\RectorConfig;
+use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 // See https://github.com/sabbelasichon/typo3-rector/tree/main/docs
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
-        Typo3LevelSetList::UP_TO_TYPO3_12
+        SetList::CODING_STYLE,
+        SetList::CODE_QUALITY,
+        LevelSetList::UP_TO_PHP_82,
+
+        Typo3LevelSetList::UP_TO_TYPO3_12,
+        Typo3SetList::TYPO3_13,
     ]);
 
-    $rectorConfig->import(SetList::CODING_STYLE);
-    $rectorConfig->import(SetList::CODE_QUALITY);
-
-    $rectorConfig->import(SetList::PHP_52);
-    $rectorConfig->import(SetList::PHP_53);
-    $rectorConfig->import(SetList::PHP_54);
-    $rectorConfig->import(SetList::PHP_55);
-    $rectorConfig->import(SetList::PHP_56);
-    $rectorConfig->import(SetList::PHP_70);
-    $rectorConfig->import(SetList::PHP_71);
-    $rectorConfig->import(SetList::PHP_72);
-    $rectorConfig->import(SetList::PHP_73);
-    $rectorConfig->import(SetList::PHP_74);
-    $rectorConfig->import(SetList::PHP_80);
-    $rectorConfig->import(SetList::PHP_81);
-    $rectorConfig->import(SetList::PHP_82);
-
     // Define your target version which you want to support
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
+    $rectorConfig->phpVersion(PhpVersion::PHP_82);
 
     $rectorConfig->skip([
         ExplicitBoolCompareRector::class,
         SimplifyRegexPatternRector::class,
-        ConsistentPregDelimiterRector::class,
         RemoveUnusedVariableInCatchRector::class,
         CountArrayToEmptyArrayComparisonRector::class,
         AddLiteralSeparatorToNumberRector::class,
         SymplifyQuoteEscapeRector::class,
+        FinalizePublicClassConstantRector::class,
+        CatchExceptionNameMatchingTypeRector::class,
+        FlipTypeControlToUseExclusiveTypeRector::class,
+        NullToStrictStringFuncCallArgRector::class,
+        DisallowedEmptyRuleFixerRector::class,
     ]);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.

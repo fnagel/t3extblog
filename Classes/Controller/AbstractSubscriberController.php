@@ -115,10 +115,8 @@ abstract class AbstractSubscriberController extends AbstractController
      */
     protected function checkAuth(bool $isConfirmRequest = false): ?ResponseInterface
     {
-        if ($this->hasCodeArgument()) {
-            if (($authResult = $this->authenticate($isConfirmRequest)) instanceof ResponseInterface) {
-                return $authResult;
-            }
+        if ($this->hasCodeArgument() && ($authResult = $this->authenticate($isConfirmRequest)) instanceof ResponseInterface) {
+            return $authResult;
         }
 
         if ($this->authentication->isValid()) {

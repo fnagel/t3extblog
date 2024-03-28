@@ -39,8 +39,8 @@ class SubscriberController extends AbstractController
 
         $email = $this->authentication->getEmail();
 
-        $postSubscriber = $this->postSubscriberRepository->findByEmail($email);
-        $blogSubscriber = $this->blogSubscriberRepository->findOneByEmail($email);
+        $postSubscriber = $this->postSubscriberRepository->findBy(['email' => $email]);
+        $blogSubscriber = $this->blogSubscriberRepository->findOneBy(['email' => $email]);
 
         $this->view->assign('email', $email);
         $this->view->assign('postSubscriber', $postSubscriber);

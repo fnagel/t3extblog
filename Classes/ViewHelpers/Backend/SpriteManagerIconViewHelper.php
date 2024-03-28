@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -44,6 +45,6 @@ class SpriteManagerIconViewHelper extends AbstractBackendViewHelper
         /* @var $iconFactory \TYPO3\CMS\Core\Imaging\IconFactory */
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-        return $iconFactory->getIcon($iconName, Icon::SIZE_SMALL)->render();
+        return $iconFactory->getIcon($iconName, IconSize::SMALL->value)->render();
     }
 }

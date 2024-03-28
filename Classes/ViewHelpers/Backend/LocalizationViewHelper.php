@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Imaging\IconSize;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider;
@@ -106,7 +107,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
             /* @var $iconFactory IconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-            return $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], Icon::SIZE_SMALL)->render();
+            return $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], IconSize::SMALL->value)->render();
         }
 
         return self::$systemLanguages[$sysLanguageUid]['title'];
