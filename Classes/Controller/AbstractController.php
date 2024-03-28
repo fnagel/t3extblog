@@ -84,7 +84,7 @@ abstract class AbstractController extends ActionController
         return $response;
     }
 
-    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
+    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception): never
     {
         throw $exception;
     }
@@ -164,7 +164,7 @@ abstract class AbstractController extends ActionController
     }
 
     // @todo Does this need to be reworked for TYPO3 v13?
-    protected function pageNotFoundAndExit(string $message = 'Entity not found.')
+    protected function pageNotFoundAndExit(string $message = 'Entity not found.'): never
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
             $GLOBALS['TYPO3_REQUEST'],

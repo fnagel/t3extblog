@@ -117,7 +117,7 @@ class PostRepository extends AbstractRepository
         }
 
         if ($filter instanceof BackendUser) {
-            return $this->findByAuthor($filter);
+            return $this->findBy(['author' => $filter]);
         }
 
         if ($filter instanceof Category) {

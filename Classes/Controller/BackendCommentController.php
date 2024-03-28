@@ -50,7 +50,7 @@ class BackendCommentController extends AbstractBackendController
     public function listByPostAction(Post $post, int $page = 1): ResponseInterface
     {
         $this->view->assignMultiple([
-            'post' => $this->postRepository->findOneByUid($post),
+            'post' => $this->postRepository->findOneBy(['uid' => $post]),
             'pendingCommentsCount' => $this->commentRepository->countPendingByPost($post),
         ]);
 

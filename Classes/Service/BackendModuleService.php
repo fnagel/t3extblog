@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -116,7 +117,7 @@ class BackendModuleService
             $viewButton = $buttonBar->makeLinkButton()
                 ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($configuration['label'])
-                ->setIcon($iconFactory->getIcon($configuration['icon'], Icon::SIZE_SMALL, 'overlay-new'));
+                ->setIcon($iconFactory->getIcon($configuration['icon'], IconSize::SMALL->value, 'overlay-new'));
 
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, 10);
         }
@@ -126,7 +127,7 @@ class BackendModuleService
             $reloadButton = $buttonBar->makeLinkButton()
                 ->setHref(GeneralUtility::getIndpEnv('REQUEST_URI'))
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
-                ->setIcon($iconFactory->getIcon('actions-refresh', Icon::SIZE_SMALL));
+                ->setIcon($iconFactory->getIcon('actions-refresh', IconSize::SMALL->value));
             $buttonBar->addButton($reloadButton, ButtonBar::BUTTON_POSITION_RIGHT);
         }
 

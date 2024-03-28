@@ -57,7 +57,7 @@ class FrontendUtility implements SingletonInterface
      */
     public static function disableFrontendCache(): void
     {
-        static::getTsFe()->set_no_cache('EXT:t3extblog', true);
+        static::getTsFe()->set_no_cache('EXT:t3extblog');
     }
 
     /**
