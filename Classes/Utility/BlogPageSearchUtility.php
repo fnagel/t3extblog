@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Utility;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -60,10 +61,10 @@ class BlogPageSearchUtility implements SingletonInterface
             ->from($table)
             ->where(
                 $queryBuilder->expr()->eq('module', $queryBuilder->createNamedParameter('t3blog')),
-                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
             );
 
-        return $queryBuilder->execute()->fetchAll();
+        return $queryBuilder->fetchAllAssociative();
     }
 
     protected static function getPagesWithBlogRecords(string $joinTable): array
@@ -85,7 +86,7 @@ class BlogPageSearchUtility implements SingletonInterface
             )
         );
 
-        return $queryBuilder->execute()->fetchAll();
+        return $queryBuilder->fetchAllAssociative();
     }
 
     /**

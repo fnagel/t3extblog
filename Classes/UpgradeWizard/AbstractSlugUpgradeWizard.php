@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -54,7 +55,9 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
 
         foreach ($rows as $row) {
             $queryBuilder
-                ->update($table)->where($constraint, $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)))
+                ->update($table)->where($constraint, $queryBuilder->expr()->eq(
+                    'uid', $queryBuilder->createNamedParameter($row['uid'], ParameterType::INTEGER)
+                ))
                 ->set($slug, $slugService->generate($row, $row['pid']))
                 ->executeStatement();
         }
