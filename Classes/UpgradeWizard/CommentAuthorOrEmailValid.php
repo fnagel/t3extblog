@@ -39,7 +39,7 @@ class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
                 )
             );
 
-        $rows = $queryBuilder->execute()->fetchAll();
+        $rows = $queryBuilder->fetchAllAssociative();
 
         if (count($rows) === 0) {
             $this->output->writeln('All comment records look valid. Good job!');

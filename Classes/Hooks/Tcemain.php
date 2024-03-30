@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Hooks;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\ParameterType;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Service\CommentNotificationService;
@@ -192,7 +193,7 @@ class Tcemain
             ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 
         $constraints = [
-            $queryBuilder->expr()->eq($fieldName, $queryBuilder->createNamedParameter($postId, \PDO::PARAM_INT))
+            $queryBuilder->expr()->eq($fieldName, $queryBuilder->createNamedParameter($postId, ParameterType::INTEGER))
         ];
 
         if ($tableName === 'tt_content') {
@@ -207,7 +208,7 @@ class Tcemain
             ->from($tableName)
             ->where(CompositeExpression::and(...$constraints));
 
-        $rows = $queryBuilder->execute()->fetchAll();
+        $rows = $queryBuilder->fetchAllAssociative();
 
         foreach ($rows as $record) {
             $command[$record['uid']]['delete'] = 1;

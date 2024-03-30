@@ -38,7 +38,7 @@ class CommentUrlValidation extends AbstractManualCheckWizard
                 $queryBuilder->expr()->notLike('website', $queryBuilder->createNamedParameter('https%'))
             );
 
-        $rows = $queryBuilder->execute()->fetchAll();
+        $rows = $queryBuilder->fetchAllAssociative();
 
         if (count($rows) === 0) {
             $this->output->writeln('All comment URLs look valid. Good job!');

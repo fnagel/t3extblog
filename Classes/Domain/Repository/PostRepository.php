@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Database\Connection;
+use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -70,7 +70,7 @@ class PostRepository extends AbstractRepository
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::PARAM_INT)
                 ),
             )
             ->setMaxResults(1)
