@@ -81,7 +81,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $translations = self::getTranslateTools()->translationInfo($table, $row['uid'], 0, $row);
 
         if (is_array($translations) && is_array($translations['translations'])) {
-            foreach ($translations['translations'] as $sysLanguageUid) {
+            foreach ($translations['translations'] as $sysLanguageUid => $_) {
                 if (!$GLOBALS['BE_USER']->checkLanguageAccess($sysLanguageUid)) {
                     continue;
                 }
