@@ -74,6 +74,8 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      *
      * @param string $table The table
      * @param array  $row   The record for which to make the localization panel.
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public static function getLocalizedRecords(string $table, array $row): array
     {
