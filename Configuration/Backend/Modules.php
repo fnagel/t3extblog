@@ -12,7 +12,7 @@ return [
     'web_T3extblogBlogsystem' => [
         'parent' => 'web',
         'position' => ['after' => 'web_info'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaces' => '*',
         'iconIdentifier' => 'extensions-t3extblog-plugin',
         'labels' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_mod.xlf',
