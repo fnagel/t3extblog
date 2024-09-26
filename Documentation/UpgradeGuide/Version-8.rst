@@ -16,6 +16,30 @@ Version 8.x
    :depth: 3
 
 
+Upgrade to 8.0.2
+^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/8.0.0...8.0.2
+
+- Fix RSS links
+
+- Fixes for workspaces and permissions
+
+- Replace deprecated core functionality
+
+- Some more bugfixes
+
+
+How to upgrade
+""""""""""""""
+
+#. Clear all caches
+
+
+
 Upgrade to 8.0.0
 ^^^^^^^^^^^^^^^^
 
@@ -24,7 +48,7 @@ Upgrade to 8.0.0
 Changelog
 """""""""
 
-https://github.com/fnagel/t3extblog/compare/7.x.x...8.0.0
+https://github.com/fnagel/t3extblog/compare/7.0.0...8.0.0
 
 - Support for TYPO3 12.4 LTS and PHP 8.2
 
