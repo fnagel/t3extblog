@@ -113,16 +113,16 @@ https://github.com/fnagel/t3extblog/compare/2.0.0...3.0.0
 
 **Breaking changes**
 
-- ViewHelper changes
-	- Introduced custom `paginate` VH
-	- Removed custom `flashMessages` VH (use default one instead)
-	- Add `flashMessagesClearCache` VH in `Comment/New.html` partial (before `flashMessages` VH!)
+* ViewHelper changes
+    * Introduced custom `paginate` VH
+    * Removed custom `flashMessages` VH (use default one instead)
+    * Add `flashMessagesClearCache` VH in `Comment/New.html` partial (before `flashMessages` VH!)
 
-- Changed email template configuration
-	- Old `plugin.tx_t3extblog.email` configuration has been removed
-	- Use default `plugin.tx_t3extblog.view` configuration instead
-	- `Email/` is appended to the final template path when rendering emails
-	- No changes needed if default path structure has been used
+* Changed email template configuration
+    * Old `plugin.tx_t3extblog.email` configuration has been removed
+    * Use default `plugin.tx_t3extblog.view` configuration instead
+    * `Email/` is appended to the final template path when rendering emails
+    * No changes needed if default path structure has been used
 
 
 How to upgrade
