@@ -141,17 +141,17 @@ https://extensions.typo3.org/extension/introduction
 **What needs to be tested:**
 
 * Creating blog posts (with and without preview image and text)
-   * Check post preview
+    * Check post preview
 * Posting comments and subscribe for new comments
-	* With and without SPAM check triggered
-	* Test field validation
-   * Test prefilling fields
+    * With and without SPAM check triggered
+    * Test field validation
+    * Test prefilling fields
 * Using the subscription manager (confirm and delete for new comment and post subscription)
 * New comment subscription
-	* Admin, subscriber opt-in and notification emails
-	* Triggered by:
-      * Frontend & backend (confirm and un-spam a comment)
-      * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
+    * Admin, subscriber opt-in and notification emails
+    * Triggered by:
+        * Frontend & backend (confirm and un-spam a comment)
+        * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
 	* Make sure mails are sent with localized links for multi language setups
 * New post subscription
 	* Subscriber opt-in (frontend) and notification emails (button in BE module)
