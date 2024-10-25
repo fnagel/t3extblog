@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides xmlns="https://www.phpdoc.org/guides"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
+        links-are-relative="true">
+    <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+               project-home="https://extensions.typo3.org/extension/t3extblog"
+               project-contact=""
+               project-repository="https://github.com/fnagel/t3extblog"
+               project-issues="https://github.com/fnagel/t3extblog/issues"
+               edit-on-github-branch="master"
+               edit-on-github="fnagel/t3extblog"
+               typo3-core-preferred="12.4"
+               interlink-shortcode="fnagel/t3extblog"
+    />
+    <project title="T3Extblog"
+             release="master (development)"
+             version="master (development)"
+             copyright="2024"
+    />
+</guides>
