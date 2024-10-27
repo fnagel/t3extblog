@@ -1,28 +1,37 @@
 <?php
 
 use FelixNagel\T3extblog\Utility\TcaUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3') || die();
 
-TcaUtility::registerPlugin('Blogsystem', 'blogsystem.title');
+// Add group in new element wizard
+ExtensionManagementUtility::addTcaSelectItemGroup(
+    'tt_content',
+    'CType',
+    'blog',
+    'LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:tab.title',
+);
 
-TcaUtility::registerPlugin('SubscriptionManager', 'subscriptionmanager.title');
+TcaUtility::registerPlugin('Blogsystem', 'blogsystem');
 
-TcaUtility::registerPlugin('BlogSubscription', 'blogsubscription.title');
+TcaUtility::registerPlugin('SubscriptionManager', 'subscriptionmanager');
 
-TcaUtility::registerPlugin('Archive', 'archive.title');
+TcaUtility::registerPlugin('BlogSubscription', 'blogsubscription');
 
-TcaUtility::registerPlugin('Rss', 'rss.title');
+TcaUtility::registerPlugin('Archive', 'archive');
 
-TcaUtility::registerPlugin('Categories', 'categories.title');
+TcaUtility::registerPlugin('Rss', 'rss');
 
-TcaUtility::registerPlugin('LatestComments', 'latestcomments.title');
+TcaUtility::registerPlugin('Categories', 'categories');
+
+TcaUtility::registerPlugin('LatestComments', 'latestcomments');
 TcaUtility::addFlexForm(
     'LatestComments',
     '/Configuration/FlexForms/LatestComments.xml'
 );
 
-TcaUtility::registerPlugin('LatestPosts', 'latestposts.title');
+TcaUtility::registerPlugin('LatestPosts', 'latestposts');
 TcaUtility::addFlexForm(
     'LatestPosts',
     '/Configuration/FlexForms/LatestPosts.xml'

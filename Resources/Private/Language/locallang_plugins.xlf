@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="tab.title" xml:space="preserve">
-				<source>Blog</source>
+				<source>Blog elements</source>
 			</trans-unit>
 
 			<trans-unit id="blogsystem.title" xml:space="preserve">

@@ -29,17 +29,24 @@ class TcaUtility implements SingletonInterface
      * Register a plugin and hide default fields
      *
      */
-    public static function registerPlugin(string $pluginName, string $pluginTitleKey)
+    public static function registerPlugin(string $pluginName, string $localizationKey): void
     {
         // Register plugin
-        ExtensionUtility::registerPlugin(self::$packageKey, $pluginName, self::$localizationPrefix . $pluginTitleKey);
+        ExtensionUtility::registerPlugin(
+            self::$packageKey,
+            $pluginName,
+            self::$localizationPrefix.$localizationKey.'.title',
+            'extensions-t3extblog-plugin',
+            'blog',
+            self::$localizationPrefix.$localizationKey.'.description',
+        );
 
         // Disable default fields
         self::disablePluginDefaultFields(self::getPluginSignature($pluginName));
     }
 
-    
-    public static function addFlexForm(string $pluginName, string $flexFormFilePath)
+
+    public static function addFlexForm(string $pluginName, string $flexFormFilePath): void
     {
         $pluginSignature = self::getPluginSignature($pluginName);
 
@@ -50,19 +57,19 @@ class TcaUtility implements SingletonInterface
         );
     }
 
-    
-    protected static function disablePluginDefaultFields(string $pluginSignature)
+
+    protected static function disablePluginDefaultFields(string $pluginSignature): void
     {
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'pages, recursive';
     }
 
-    
+
     protected static function getPluginSignature(string $pluginName): string
     {
         return strtolower(self::getExtensionName()).'_'.strtolower($pluginName);
     }
 
-    
+
     protected static function getExtensionName(): string
     {
         if (self::$extensionName === null) {

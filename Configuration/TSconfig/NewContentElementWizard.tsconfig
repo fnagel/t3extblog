@@ -1,3 +1,4 @@
+# @todo Remove this when TYPO3 v12 is no longer relevant!
 mod.wizards.newContentElement.wizardItems.blog {
 	header = LLL:EXT:t3extblog/Resources/Private/Language/locallang_plugins.xlf:tab.title
 
