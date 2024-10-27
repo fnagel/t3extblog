@@ -82,7 +82,7 @@ abstract class AbstractUpgradeWizard implements UpgradeWizardInterface, ChattyIn
     {
         return array_key_exists(
             $field,
-            $this->connectionPool->getConnectionForTable($table)->getSchemaManager()->listTableColumns($table)
+            $this->connectionPool->getConnectionForTable($table)->createSchemaManager()->listTableColumns($table)
         );
     }
 }
