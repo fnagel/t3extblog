@@ -4,11 +4,11 @@
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers">
 
 <div class="widget-table-wrapper">
-	<table class="widget-table">
+	<table class="table widget-table">
 		<f:if condition="{options.table} == 'tx_t3blog_com_nl'">
 			<f:then>
 				<f:groupedFor each="{items}" as="subscribersByPost" groupBy="postUid" groupKey="currentPostUid">
-					<tr style="background-color: lightgrey">
+					<tr class="table-primary">
 						<th>
 							<be:link.editRecord uid="{currentPostUid}" table="tx_t3blog_post" returnUrl="{f:be.uri(route: 'dashboard')}" title="{f:translate(key: 'module.post.help.edit', extensionName: 't3extblog')}">
 								<f:format.crop maxCharacters="50" respectWordBoundaries="0">
