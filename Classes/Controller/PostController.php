@@ -37,7 +37,7 @@ class PostController extends AbstractCommentController
     {
     }
 
-    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception)
+    protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception): never
     {
         if ($exception instanceof TargetNotFoundException) {
             // @extensionScannerIgnoreLine
