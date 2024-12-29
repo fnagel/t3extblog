@@ -234,7 +234,7 @@ abstract class AbstractController extends ActionController
 
         // @extensionScannerIgnoreLine
         $this->request->getAttribute('frontend.cache.collector')->addCacheTags(
-            ...array_map(fn(string $tag) => new CacheTag($tag), $tags)
+            ...array_map(fn (string $tag) => new CacheTag($tag), $tags)
         );
     }
 
