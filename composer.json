@@ -81,8 +81,8 @@
       ".Build/bin/parallel-lint ./Configuration/TCA/"
     ],
     "test-php-cs-fixer": [
-      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Classes/",
-      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run ./Configuration/"
+      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --diff --dry-run ./Classes/",
+      ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --diff --dry-run ./Configuration/"
     ],
     "test-php-md": [
       ".Build/bin/phpmd ./Classes/ ansi codesize,design,unusedcode",
