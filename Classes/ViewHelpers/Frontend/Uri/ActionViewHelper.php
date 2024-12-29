@@ -19,7 +19,6 @@ use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for creating URIs to extbase actions.
@@ -28,8 +27,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class ActionViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     public function initializeArguments(): void
     {
         $this->registerArgument('action', 'string', 'Target action');
@@ -49,13 +46,10 @@ class ActionViewHelper extends AbstractViewHelper
         $this->registerArgument('argumentsToBeExcludedFromQueryString', 'array', 'arguments to be removed from the URI. Only active if $addQueryString = TRUE', false, []);
     }
 
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
+    public function render(): string
     {
         /** @var RenderingContext $renderingContext */
-        $request = $renderingContext->getRequest();
+        $request = $this->renderingContext->getRequest();
         if (!$request instanceof RequestInterface) {
             throw new Exception(
                 'ViewHelper t3b:uri.action can be used only in extbase context and needs a request implementing extbase RequestInterface.',
@@ -63,7 +57,7 @@ class ActionViewHelper extends AbstractViewHelper
             );
         }
 
-        return self::renderStaticFrontend($arguments, $renderingContext);
+        return self::renderFrontend($this->arguments, $this->renderingContext);
     }
 
     /**
@@ -75,10 +69,10 @@ class ActionViewHelper extends AbstractViewHelper
      * @SuppressWarnings("PHPMD.NPathComplexity")
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::renderStatic
+     * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::render
      * @return string
      */
-    protected static function renderStaticFrontend(array $arguments, RenderingContext $renderingContext)
+    protected static function renderFrontend(array $arguments, RenderingContextInterface $renderingContext)
     {
         /** @var RequestInterface $request */
         $request = $renderingContext->getRequest();

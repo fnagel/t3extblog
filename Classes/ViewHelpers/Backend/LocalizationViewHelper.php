@@ -13,20 +13,15 @@ use TYPO3\CMS\Core\Imaging\IconSize;
 use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Exception\Exception;
 use TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Get localized records view helper.
  */
 class LocalizationViewHelper extends AbstractBackendViewHelper
 {
-    use CompileWithRenderStatic;
-
     protected $escapeOutput = false;
 
     protected static ?TranslationConfigurationProvider $translateTools = null;
@@ -45,25 +40,25 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('object', 'object', 'Object to process', true);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $translations = $arguments['translations'];
-        $table = $arguments['table'];
-        $object = $arguments['object'];
+        $translations = $this->arguments['translations'];
+        $table = $this->arguments['table'];
+        $object = $this->arguments['object'];
 
         if (!$object instanceof AbstractEntity) {
             throw new Exception('Invalid object given!', 1592862844);
         }
 
         $content = '';
-        $templateVariableContainer = $renderingContext->getVariableProvider();
-
+        $templateVariableContainer = $this->renderingContext->getVariableProvider();
         self::$systemLanguages = self::getTranslateTools()->getSystemLanguages($object->getPid());
+
         if (count(self::$systemLanguages) > 2) {
             $records = self::getLocalizedRecords($table, $object->toArray());
 
             $templateVariableContainer->add($translations, $records);
-            $content = $renderChildrenClosure();
+            $content = $this->renderChildren();
             $templateVariableContainer->remove($translations);
         }
 
@@ -84,7 +79,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
         $translations = self::getTranslateTools()->translationInfo($table, $row['uid'], 0, $row);
 
         if (is_array($translations) && is_array($translations['translations'])) {
-            foreach ($translations['translations'] as $sysLanguageUid => $_) {
+            foreach (array_keys($translations['translations']) as $sysLanguageUid) {
                 if (!$GLOBALS['BE_USER']->checkLanguageAccess($sysLanguageUid)) {
                     continue;
                 }

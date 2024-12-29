@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Crypto\HashService;
 use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -87,7 +88,7 @@ abstract class AbstractSubscriber extends AbstractEntity
         /** @noinspection NonSecureUniqidUsageInspection */
         $input = $this->email.$now->getTimestamp().uniqid();
 
-        $this->code = substr(GeneralUtility::hmac($input), 0, 32);
+        $this->code = substr(GeneralUtility::makeInstance(HashService::class)->hmac($input, ''), 0, 32);
     }
 
     public function hasPrivacyPolicyAccepted(): bool

@@ -11,9 +11,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
 
 use FelixNagel\T3extblog\Seo\PageTitleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
@@ -21,8 +19,6 @@ use TYPO3\CMS\Core\Http\ApplicationType;
  */
 class TitleTagViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     public function initializeArguments()
     {
         $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
@@ -30,17 +26,15 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     /**
      * Override the title tag.
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): void
     {
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             return;
         }
 
-        $prepend = $arguments['prepend'];
-        $content = $renderChildrenClosure();
+        $prepend = $this->arguments['prepend'];
+        $content = $this->renderChildren();
 
         if (!empty($content)) {
             $titleProvider = GeneralUtility::makeInstance(PageTitleProvider::class);

@@ -13,17 +13,13 @@ use TYPO3\CMS\Backend\Backend\Avatar\AvatarProviderInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Get avatar for backend user.
  */
 class BackendUserAvatarViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     public function initializeArguments()
     {
         $this->registerArgument('uid', 'string', 'Uid of the backend user');
@@ -33,14 +29,12 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
 
     /**
      * Render the avatar image.
-     *
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $uid = $arguments['uid'];
-        $size = $arguments['size'];
-        $default = $arguments['default'];
+        $uid = $this->arguments['uid'];
+        $size = $this->arguments['size'];
+        $default = $this->arguments['default'];
         $url = self::getAvatarUrl($uid, $size);
 
         if ($url !== null) {

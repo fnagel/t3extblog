@@ -50,6 +50,8 @@ class TcaUtility implements SingletonInterface
     {
         $pluginSignature = self::getPluginSignature($pluginName);
 
+
+        // @todo Remove this in TYPO3 v14!
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
         ExtensionManagementUtility::addPiFlexFormValue(
             $pluginSignature,
@@ -57,7 +59,10 @@ class TcaUtility implements SingletonInterface
         );
     }
 
-
+    /**
+     * @todo Remove this in TYPO3 v14!
+     * @deprecated in TYPO3 13.4
+     */
     protected static function disablePluginDefaultFields(string $pluginSignature): void
     {
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'pages, recursive';
