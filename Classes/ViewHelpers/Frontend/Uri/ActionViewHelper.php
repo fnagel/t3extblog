@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend\Uri;
 
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Exception\InvalidArgumentException;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -50,6 +51,7 @@ class ActionViewHelper extends AbstractViewHelper
     {
         /** @var RenderingContext $renderingContext */
         $request = $this->renderingContext->getRequest();
+
         if (!$request instanceof RequestInterface) {
             throw new Exception(
                 'ViewHelper t3b:uri.action can be used only in extbase context and needs a request implementing extbase RequestInterface.',
@@ -75,7 +77,7 @@ class ActionViewHelper extends AbstractViewHelper
     protected static function renderFrontend(array $arguments, RenderingContextInterface $renderingContext)
     {
         /** @var RequestInterface $request */
-        $request = $renderingContext->getRequest();
+        $request = $renderingContext->getAttribute(ServerRequestInterface::class);
 
         if ($arguments['pageUid'] === null || !(int) $arguments['pageUid']) {
             throw new InvalidArgumentException('Missing pageUid argument for extbase link generation from BE context. Check your template!');

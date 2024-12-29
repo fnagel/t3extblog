@@ -21,6 +21,7 @@ use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Handles email sending and templating.
@@ -141,7 +142,6 @@ class EmailService implements SingletonInterface
 
         $format = pathinfo($templateFile, PATHINFO_EXTENSION);
         $emailView->setFormat($format);
-        $emailView->getTemplatePaths()->setFormat($format);
 
         $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
         $emailView->setTemplate($templateFile);
@@ -166,7 +166,12 @@ class EmailService implements SingletonInterface
         $extbaseAttribute = new ExtbaseRequestParameters();
         $extbaseAttribute->setControllerExtensionName($this->extensionName);
 
+        /* @var $request ServerRequestInterface */
         $request = $GLOBALS['TYPO3_REQUEST']->withAttribute('extbase', $extbaseAttribute);
+
+        if ($request->getAttribute('currentContentObject') === null) {
+            $request = $request->withAttribute('currentContentObject', GeneralUtility::makeInstance(ContentObjectRenderer::class));
+        }
 
         return (new Request($request));
     }
