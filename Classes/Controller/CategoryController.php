@@ -28,6 +28,7 @@ class CategoryController extends AbstractController
         $categories = $this->categoryRepository->findAll();
 
         // Add basic PID based cache tag
+        // @extensionScannerIgnoreLine
         $this->addCacheTags($categories->getFirst());
 
         $this->view->assign('categories', $categories);
@@ -37,6 +38,7 @@ class CategoryController extends AbstractController
 
     public function showAction(Category $category, int $page = 1): ResponseInterface
     {
+        // @extensionScannerIgnoreLine
         $this->addCacheTags($category);
         $this->view->assign('category', $category);
 

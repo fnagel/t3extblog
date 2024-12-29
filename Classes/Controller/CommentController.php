@@ -53,6 +53,7 @@ class CommentController extends AbstractCommentController
         }
 
         // Add basic PID based cache tag
+        // @extensionScannerIgnoreLine
         $this->addCacheTags($comments->getFirst());
 
         $this->view->assign('comments', $comments);

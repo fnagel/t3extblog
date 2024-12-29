@@ -144,6 +144,7 @@ class PostController extends AbstractCommentController
 
         if ($posts !== null) {
             // Add basic PID based cache tag
+            // @extensionScannerIgnoreLine
             $this->addCacheTags($posts->getFirst());
         }
 
@@ -193,8 +194,11 @@ class PostController extends AbstractCommentController
         }
 
         // Add cache tags
+        // @extensionScannerIgnoreLine
         $this->addCacheTags($post);
+        // @extensionScannerIgnoreLine
         $this->addCacheTags('tx_t3blog_com_pid_'.$post->getPid());
+        // @extensionScannerIgnoreLine
         $this->addCacheTags('tx_t3blog_post_uid_'.$post->getLocalizedUid());
 
         // @todo: This will not work as this action is cached

@@ -33,6 +33,7 @@ use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Utility\TypoScriptValidator;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
+use TYPO3\CMS\Core\Cache\CacheTag;
 
 /**
  * Abstract base controller.
@@ -95,8 +96,7 @@ abstract class AbstractController extends ActionController
             $this->validateTypoScriptConfiguration();
         } catch (\Exception $exception) {
             $this->getLog()->exception($exception, [
-                // @extensionScannerIgnoreLine
-                'pid' => FrontendUtility::getTsFe()->id,
+                'pid' => FrontendUtility::getPageUid(),
                 'context' => 'frontend',
             ]);
             throw $exception;
@@ -206,7 +206,7 @@ abstract class AbstractController extends ActionController
      *
      * @param mixed $object A cache tag string or a blog model object
      */
-    protected function addCacheTags(mixed $object = null)
+    protected function addCacheTags(mixed $object = null): void
     {
         $tags = is_array($object) ? $object : [];
 
@@ -232,7 +232,10 @@ abstract class AbstractController extends ActionController
             $tags[] = 'tx_t3blog_cat_pid_'.$object->getPid();
         }
 
-        FrontendUtility::getTsFe()->addCacheTags($tags);
+        // @extensionScannerIgnoreLine
+        $this->request->getAttribute('frontend.cache.collector')->addCacheTags(
+            ...array_map(fn(string $tag) => new CacheTag($tag), $tags)
+        );
     }
 
     /**
@@ -243,6 +246,7 @@ abstract class AbstractController extends ActionController
         static $cacheTagsSet = false;
 
         if ($cacheTagsSet === false) {
+            // @extensionScannerIgnoreLine
             $this->addCacheTags(['tx_t3extblog']);
 
             // We only want to set the tag once in one request
