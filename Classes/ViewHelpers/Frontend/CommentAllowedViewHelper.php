@@ -33,16 +33,9 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
 
     public static function verdict(array $arguments, RenderingContextInterface $renderingContext)
     {
-        $arguments['settings'] = $renderingContext->getVariableProvider()->get('settings');
-
-        return parent::verdict($arguments, $renderingContext);
-    }
-
-    protected static function evaluateCondition($arguments = null)
-    {
         /* @var Post $post */
         $post = $arguments['post'];
-        $settings = $arguments['settings'];
+        $settings = $renderingContext->getVariableProvider()->get('settings');
 
         if (!$settings['blogsystem']['comments']['allowed'] || $post->getAllowComments() === Post::ALLOW_COMMENTS_NOBODY) {
             return false;
