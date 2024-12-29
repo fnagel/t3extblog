@@ -5,26 +5,22 @@
 	<sheets>
 		<sDEF>
 			<ROOT>
-				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
-				</TCEforms>
+                <sheetTitle>Options</sheetTitle>
 				<type>array</type>
 				<el>
 					<settings.latestComments.paginate.itemsPerPage>
-						<TCEforms>
-							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestComments.paginate.itemsPerPage</label>
-							<config>
-								<type>input</type>
-								<max>100</max>
-								<size>3</size>
-								<eval>int</eval>
-								<range>
-									<lower>0</lower>
-									<upper>100</upper>
-								</range>
-							</config>
-						</TCEforms>
-					</settings.latestComments.paginate.itemsPerPage>
+                        <label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestComments.paginate.itemsPerPage</label>
+                        <config>
+                            <type>input</type>
+                            <max>100</max>
+                            <size>3</size>
+                            <eval>int</eval>
+                            <range>
+                                <lower>0</lower>
+                                <upper>100</upper>
+                            </range>
+                        </config>
+                    </settings.latestComments.paginate.itemsPerPage>
 				</el>
 			</ROOT>
 		</sDEF>

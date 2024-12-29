@@ -5,42 +5,36 @@
 	<sheets>
 		<sDEF>
 			<ROOT>
-				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
-				</TCEforms>
+                <sheetTitle>Options</sheetTitle>
 				<type>array</type>
 				<el>
 					<settings.latestPosts.categoryUid>
-						<TCEforms>
-							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.categoryUid</label>
-							<config>
-								<type>group</type>
-								<allowed>tx_t3blog_cat</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<wizards>
-									<suggest>
-										<type>suggest</type>
-									</suggest>
-								</wizards>
-							</config>
-						</TCEforms>
+                        <label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.categoryUid</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>tx_t3blog_cat</allowed>
+                            <size>1</size>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
 					</settings.latestPosts.categoryUid>
 					<settings.latestPosts.paginate.itemsPerPage>
-						<TCEforms>
-							<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.paginate.itemsPerPage</label>
-							<config>
-								<type>input</type>
-								<max>100</max>
-								<size>3</size>
-								<eval>int</eval>
-								<range>
-									<lower>0</lower>
-									<upper>100</upper>
-								</range>
-							</config>
-						</TCEforms>
+                        <label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestPosts.paginate.itemsPerPage</label>
+                        <config>
+                            <type>input</type>
+                            <max>100</max>
+                            <size>3</size>
+                            <eval>int</eval>
+                            <range>
+                                <lower>0</lower>
+                                <upper>100</upper>
+                            </range>
+                        </config>
 					</settings.latestPosts.paginate.itemsPerPage>
 				</el>
 			</ROOT>
