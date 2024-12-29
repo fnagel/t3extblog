@@ -34,7 +34,7 @@
 						<f:for each="{paginator.paginatedItems}" as="post">
 							<tr>
 								<td>
-									<a href="#" class="t3js-contextmenutrigger" data-uid="{post.uid}" data-table="tx_t3blog_post" title="{post.uid}">
+									<a href="#" data-contextmenu-trigger="click" data-contextmenu-uid="{post.uid}" data-contextmenu-table="tx_t3blog_post" title="{post.uid}">
 										<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 									</a>
 								</td>
@@ -56,7 +56,7 @@
 								<f:for each="{localizedRecords}" as="localizedPost">
 									<tr class="localized">
 										<td class="col-icon">
-											<a href="#" class="t3js-contextmenutrigger" data-uid="{localizedPost.uid}" data-table="tx_t3blog_post" title="{localizedPost.uid}">
+											<a href="#" data-contextmenu-trigger="click" data-contextmenu-uid="{localizedPost.uid}" data-contextmenu-table="tx_t3blog_post" title="{localizedPost.uid}">
 												<f:format.raw>{localizedPost.icon}</f:format.raw>
 											</a>
 										</td>

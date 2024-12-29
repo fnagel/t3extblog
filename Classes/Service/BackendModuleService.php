@@ -59,7 +59,7 @@ class BackendModuleService
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 
         foreach ($requireJsModules as $requireJsModule) {
-            $pageRenderer->loadRequireJsModule($requireJsModule);
+            $pageRenderer->loadJavaScriptModule($requireJsModule);
         }
 
         foreach ($cssLibraries as $cssLibrary) {

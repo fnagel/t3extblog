@@ -116,7 +116,7 @@ abstract class AbstractBackendController extends ActionController
         );
         $moduleService->addMetaInformation();
         $moduleService->addViewAssets(
-            ['TYPO3/CMS/Backend/ContextMenu'],
+            ['@typo3/backend/context-menu.js'],
             ['EXT:t3extblog/Resources/Public/Css/Backend/Style.css']
         );
         $moduleService->addViewHeaderMenu(
