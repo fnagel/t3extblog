@@ -169,7 +169,7 @@ class CommentController extends AbstractCommentController
             if ($newComment->isApproved()) {
                 $this->addFlashMessageByKey('created');
             } else {
-                $this->addFlashMessageByKey('createdDisapproved', Message::NOTICE);
+                $this->addFlashMessageByKey('createdDisapproved', Message::INFO);
             }
         }
 
@@ -254,7 +254,7 @@ class CommentController extends AbstractCommentController
         if ($comment->getSpamPoints() >= (int) $threshold['markAsSpam']) {
             $this->getLog()->notice('New comment marked as SPAM.', $logData);
             $comment->markAsSpam();
-            $this->addFlashMessageByKey('markedAsSpam', Message::NOTICE);
+            $this->addFlashMessageByKey('markedAsSpam', Message::INFO);
         }
 
         return null;

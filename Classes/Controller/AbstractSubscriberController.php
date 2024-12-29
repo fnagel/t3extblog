@@ -178,7 +178,7 @@ abstract class AbstractSubscriberController extends AbstractController
 
                 return (new ForwardResponse('processError'))
                     ->withControllerName('Subscriber')
-                    ->withArguments(['message' => 'alreadyRegistered', 'severity' => Message::NOTICE]);
+                    ->withArguments(['message' => 'alreadyRegistered', 'severity' => Message::INFO]);
             }
         }
 
