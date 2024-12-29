@@ -154,11 +154,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAva
     'provider' => DefaultAvatarProvider::class,
 ];
 
-// Overwrite classes
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][BackendConfigurationManager::class] = [
-    'className' => \FelixNagel\T3extblog\Configuration\BackendConfigurationManager::class,
-];
-
 // Routing
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostMapper'] = PostMapper::class;
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['aspects']['T3extblogPostTagMapper'] = PostTagMapper::class;

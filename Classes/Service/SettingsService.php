@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception;
@@ -40,10 +42,26 @@ class SettingsService
     protected ?array $frameworkSettings = null;
 
     /**
-     * SettingsService constructor.
+     * Make sure TS in BE context is generated from currently selected page.
+     *
+     * Needed basically to make extbase work in some situations. Without PID is set to 0
+     * (which is root) and persistence, TS generation, etc. will fail. This is the case
+     * in TYPO3 8-13 when editing a record.
+     *
+     * Example: right-click on a record using the context menu in the blog (or list)
+     * BE module and use edit (tab access, change to valid and click save) or change
+     * visibility directly in context menu which should trigger emails but does not.
      */
     public function __construct(protected ConfigurationManagerInterface $configurationManager, protected TypoScriptService $typoScriptService)
     {
+        if (($request = $GLOBALS['TYPO3_REQUEST']) instanceof ServerRequestInterface &&
+            !ApplicationType::fromRequest($request)->isFrontend()
+        ) {
+            $this->configurationManager->setRequest($request->withQueryParams([
+                ...$request->getQueryParams(),
+                ...['id' => ($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['popViewId'] ?? 0)]
+            ]));
+        }
     }
 
     /**
@@ -92,7 +110,6 @@ class SettingsService
      * "pages.uid" would return $this->settings['pages']['uid'].
      *
      * If the path is invalid or no entry is found, false is returned.
-     *
      */
     public function getTypoScriptByPath(string $path)
     {
