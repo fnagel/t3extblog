@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
+use TYPO3\CMS\Backend\Routing\RouteResult;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
@@ -210,7 +211,10 @@ abstract class AbstractBackendController extends ActionController
 
         } catch (InvalidConfigurationException $exception) {
             // On pages with blog records we need to make sure we have a valid configuration so escalate!
-            if ($this->pageInfo['show'] === false) {
+            if ($this->pageInfo['show'] === false || (
+                ($routing = $this->request->getAttribute('routing')) instanceof RouteResult &&
+                $routing->getRoute()->getOption('controller') !== 'BackendDashboard'
+            )) {
                 $this->getLog()->exception($exception, [
                     'pid' => $this->pageId,
                     'context' => 'backend',
