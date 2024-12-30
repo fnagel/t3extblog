@@ -9,12 +9,7 @@
 				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
 					<li>
 						<a href="{anchorLink}#{propertyPath}" class="alert-link" data-key="error.{propertyPath}.{errors.0.code}">
-							<f:comment>@todo Workaround for core bug, see https://forge.typo3.org/issues/102580</f:comment>
-							<f:variable name="message"><f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}" /></f:variable>
-							<f:if condition="{message}">
-								<f:then>{message}</f:then>
-								<f:else>{errors.0.message}</f:else>
-							</f:if>
+							<f:translate key="error.{propertyPath}.{errors.0.code}" arguments="{errors.0.arguments}">{errors.0.message}</f:translate>
 						</a>
 					</li>
 				</f:for>
