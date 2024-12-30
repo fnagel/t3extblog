@@ -50,7 +50,6 @@ class TcaUtility implements SingletonInterface
     {
         $pluginSignature = self::getPluginSignature($pluginName);
 
-
         // @todo Remove this in TYPO3 v14!
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
         ExtensionManagementUtility::addPiFlexFormValue(

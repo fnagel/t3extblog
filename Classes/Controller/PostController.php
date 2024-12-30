@@ -201,7 +201,7 @@ class PostController extends AbstractCommentController
         // @extensionScannerIgnoreLine
         $this->addCacheTags('tx_t3blog_post_uid_'.$post->getLocalizedUid());
 
-        // @todo: This will not work as this action is cached
+        // @todo: Implement this! See https://github.com/fnagel/t3extblog/issues/22
         // $post->riseNumberOfViews();
 
         $this->view->assign('post', $post);

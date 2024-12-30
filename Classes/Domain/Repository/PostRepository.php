@@ -70,7 +70,7 @@ class PostRepository extends AbstractRepository
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, ParameterType::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)
                 ),
             )
             ->setMaxResults(1)

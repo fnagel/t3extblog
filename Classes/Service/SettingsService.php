@@ -54,7 +54,7 @@ class SettingsService
      */
     public function __construct(protected ConfigurationManagerInterface $configurationManager, protected TypoScriptService $typoScriptService)
     {
-        if (($request = $GLOBALS['TYPO3_REQUEST']) instanceof ServerRequestInterface &&
+        if (isset($GLOBALS['TYPO3_REQUEST']) && ($request = $GLOBALS['TYPO3_REQUEST']) instanceof ServerRequestInterface &&
             !ApplicationType::fromRequest($request)->isFrontend()
         ) {
             $this->configurationManager->setRequest($request->withQueryParams([

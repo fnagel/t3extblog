@@ -88,7 +88,7 @@ abstract class AbstractSubscriber extends AbstractEntity
         /** @noinspection NonSecureUniqidUsageInspection */
         $input = $this->email.$now->getTimestamp().uniqid();
 
-        $this->code = substr(GeneralUtility::makeInstance(HashService::class)->hmac($input, ''), 0, 32);
+        $this->code = substr(GeneralUtility::makeInstance(HashService::class)->hmac($input, $now->getTimestamp()), 0, 32);
     }
 
     public function hasPrivacyPolicyAccepted(): bool

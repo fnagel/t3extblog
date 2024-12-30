@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
@@ -16,7 +17,6 @@ use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\RateLimiterServiceInterface;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
-use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -163,15 +163,14 @@ abstract class AbstractController extends ActionController
         FlushCacheService::clearPageCache();
     }
 
-    // @todo Does this need to be reworked for TYPO3 v13?
     protected function pageNotFoundAndExit(string $message = 'Entity not found.'): never
     {
         $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
-            $GLOBALS['TYPO3_REQUEST'],
+            $this->request,
             $message
         );
 
-        throw new ImmediateResponseException($response, 1576748646);
+        throw new PropagateResponseException($response, 1576748646);
     }
 
     /**
