@@ -76,7 +76,7 @@
 			</trans-unit>
 
 			<trans-unit id="category.button">
-				<source>Show categories</source>
+				<source>Toggle categories</source>
 			</trans-unit>
 
 			<trans-unit id="subscriber.headline">

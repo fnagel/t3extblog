@@ -3,16 +3,18 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<a class="btn btn-primary btn-block hidden-sm hidden-md hidden-lg" data-target=".blog-category-collapse" data-toggle="collapse">
-		<span class="caret" aria-hidden="true"></span> <f:translate key="category.button" />
-	</a>
+	<f:if condition="{settings.categories.collapse.enable}">
+		<a class="btn btn-primary d-block hidden-sm hidden-md hidden-lg" data-bs-target=".blog-category-collapse" data-bs-toggle="collapse">
+			<span class="caret" aria-hidden="true"></span> <f:translate key="category.button" />
+		</a>
+	</f:if>
 
-	<div class="navbar-collapse blog-category-collapse collapse">
-		<ul class="nav nav-list">
+	<div class="blog-category-collapse {f:if(condition: '{settings.categories.collapse.enable}', then: 'collapse')}{f:if(condition: '{settings.categories.collapse.enable} && {settings.categories.collapse.show}', then: ' show')}">
+		<ul class="nav nav-pills flex-column">
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
-				<li>
-					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}">
+				<li class="nav-item">
+					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
 						{category.name}
 					</f:link.action>
 					<f:if condition="{category.childCategories}">
@@ -28,8 +30,8 @@
 <f:section name="categoryTree">
 	<ul>
 	<f:for each="{categories}" as="category">
-		<li>
-			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}">
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
 				{category.name}
 			</f:link.action>
 			<f:if condition="{category.childCategories}">

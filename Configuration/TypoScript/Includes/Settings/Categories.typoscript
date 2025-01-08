@@ -1,5 +1,10 @@
 plugin.tx_t3extblog.settings {
 	categories {
+		collapse {
+			enable = 0
+			show = 1
+		}
+
 		paginate {
 			itemsPerPage = 10
 			insertAbove = 0
