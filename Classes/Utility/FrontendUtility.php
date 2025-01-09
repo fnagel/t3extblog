@@ -9,14 +9,13 @@ namespace FelixNagel\T3extblog\Utility;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Exception\Exception;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Cache\CacheInstruction;
 
 /**
  * General utility class.
@@ -24,23 +23,11 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class FrontendUtility implements SingletonInterface
 {
     /**
-     * Get TypoScript frontend controller.
-     */
-    public static function getTsFe(): TypoScriptFrontendController
-    {
-        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
-            throw new Exception('TSFE is not available in backend context!', 1582672848);
-        }
-
-        return $GLOBALS['TSFE'];
-    }
-
-    /**
      * Get FE page UID.
      */
     public static function getPageUid(): int
     {
-        return $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId();
+        return static::getRequest()->getAttribute('frontend.page.information')->getId();
     }
 
     /**
@@ -56,7 +43,9 @@ class FrontendUtility implements SingletonInterface
      */
     public static function disableFrontendCache(): void
     {
-        static::getTsFe()->set_no_cache('EXT:t3extblog');
+        /* @var $cache CacheInstruction */
+        $cache = static::getRequest()->getAttribute('frontend.cache.instruction');
+        $cache->disableCache('EXT:t3extblog');
     }
 
     /**
@@ -69,7 +58,7 @@ class FrontendUtility implements SingletonInterface
 
     public static function getFrontendUser(): FrontendUserAuthentication
     {
-        return $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user');
+        return static::getRequest()->getAttribute('frontend.user');
     }
 
     /**
@@ -91,5 +80,10 @@ class FrontendUtility implements SingletonInterface
     protected static function getContext(): Context
     {
         return GeneralUtility::makeInstance(Context::class);
+    }
+
+    protected static function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
