@@ -14,9 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
- * A view helper for creating edit on click links.
- *
- * @todo Check if this VH is really needed!
+ * A view helper for creating quick-edit links.
  */
 class IssueCommandViewHelper extends AbstractTagBasedViewHelper
 {
@@ -51,7 +49,7 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
         $parameters = '&id='.$id.'&'.$parameters;
 
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        $href = (string)$uriBuilder->buildUriFromRoute('tce_db') . $parameters . '&redirect=';
+        $href = $uriBuilder->buildUriFromRoute('tce_db') . $parameters . '&redirect=';
         // @extensionScannerIgnoreLine
         $href .= rawurlencode($redirectUrl ?: $request->getAttribute('normalizedParams')->getRequestUri());
 
