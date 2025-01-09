@@ -50,7 +50,8 @@ class SettingsService
      *
      * Example: right-click on a record using the context menu in the blog (or list)
      * BE module and use edit (tab access, change to valid and click save) or change
-     * visibility directly in context menu which should trigger emails but does not.
+     * visibility directly in context menu or using the quick-edit links in the blog
+     * module which should trigger emails but does not without this fix.
      */
     public function __construct(protected ConfigurationManagerInterface $configurationManager, protected TypoScriptService $typoScriptService)
     {
@@ -59,7 +60,7 @@ class SettingsService
         ) {
             $this->configurationManager->setRequest($request->withQueryParams([
                 ...$request->getQueryParams(),
-                ...['id' => ($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['popViewId'] ?? 0)]
+                ...['id' => ($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['id'] ?? 0)]
             ]));
         }
     }
