@@ -30,7 +30,7 @@ The output is managed via content modules. This means easy and flexible usage.
 Choose one or more of the plugins listed to build your blog. These can be distributed to different columns.
 
 
-.. figure:: ../Images/Installation/plugin_blogsystem.jpg
+.. figure:: ../Images/Installation/plugin_blogsystem.png
 	:alt: Modules
 
 

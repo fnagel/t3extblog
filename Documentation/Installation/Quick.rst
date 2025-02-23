@@ -39,7 +39,7 @@ T3Extblog can be installed quickly by using the constant editor. You need to per
 #. add plugins to the pages:
 	On our "main-page" we insert the plugin 'blogsystem' (see :ref:`Administration manual <admin-manual>` for the other plugins we can use).
 
-	.. figure:: ../Images/Installation/plugin_blogsystem.jpg
+	.. figure:: ../Images/Installation/plugin_blogsystem.png
 		:alt: Insert the "blogsystem"
 
 	On our "subscription"-page, we have to add the "Subscription Manager".
