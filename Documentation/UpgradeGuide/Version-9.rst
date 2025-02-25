@@ -26,13 +26,13 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/8.0.2...9.0.0
 
-- Support for TYPO3 13.4 LTS and PHP 8.2
+- Support for TYPO3 13.4 LTS and PHP 8.3
 
 - Replace `BackendConfigurationManager` override with improvements in settings service class
 
 - Updated images of the CMS backend in documentation
 
-- Categories collapsable functionality is now configurable
+- Categories collapsible functionality is now configurable
 
 - Lots of small bugfixes and replacements for deprecated core functionality
 
