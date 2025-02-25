@@ -41,7 +41,8 @@ Please see [/Documentation/Installation/Full.rst](./Documentation/Installation/F
 The extension is available using the [TYPO3 TER](https://extensions.typo3.org/extension/t3extblog/)
 or [composer with packagist](https://packagist.org/packages/felixnagel/t3extblog).
 
-* For TYPO3 12.x use the [master branch](https://github.com/fnagel/t3extblog/tree/master) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/master/en-us/)
+* For TYPO3 13.x use the [master branch](https://github.com/fnagel/t3extblog/tree/master) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/master/en-us/)
+* For TYPO3 12.x use the [8.x branch](https://github.com/fnagel/t3extblog/tree/8.x) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/8.0/en-us/)
 * For TYPO3 11.x use the [7.x branch](https://github.com/fnagel/t3extblog/tree/7.x) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/7.2/en-us/)
 * For TYPO3 10.x use the [6.x branch](https://github.com/fnagel/t3extblog/tree/6.x) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/6.2/en-us/)
 * For TYPO3 9.x use the [5.x branch](https://github.com/fnagel/t3extblog/tree/5.x) [(docs)](https://docs.typo3.org/p/felixnagel/t3extblog/5.1/en-us/)
