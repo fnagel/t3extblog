@@ -107,6 +107,7 @@ abstract class AbstractBackendController extends ActionController
             'pageId' => $this->pageId,
             'dateTimeFormat' => $dateTimeFormat,
             'pageNotice' => $this->pageInfo,
+            'settings' => $this->settings,
         ]);
 
         // Configure module header
