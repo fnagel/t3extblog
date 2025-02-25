@@ -59,7 +59,7 @@ jobs:
           tools: composer:v2
 
       - name: Install TYPO3 TER client
-        run: composer global require typo3/tailor "^1.4" --prefer-dist --no-progress --no-suggest
+        run: composer global require typo3/tailor "^1.6" --prefer-dist --no-progress --no-suggest
 
       - name: Remove .git folder
         run: rm -rf ./$TYPO3_EXTENSION_KEY/.git
