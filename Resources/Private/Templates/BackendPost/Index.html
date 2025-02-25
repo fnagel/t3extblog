@@ -61,7 +61,9 @@
 											</a>
 										</td>
 										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateTimeFormat: dateTimeFormat}" />
-										<td></td>
+										<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
+											<td></td>
+										</f:if>
 									</tr>
 								</f:for>
 							</t3b:backend.localization>
