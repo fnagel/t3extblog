@@ -213,6 +213,14 @@ See `/.github/workflows/release.yml` for more information.
 * Update maintained translations (German) on https://crowdin.com/project/typo3-extension-t3extblog
 
 
+**Manual release**
+
+Sometimes the tag based Github workflow fails. You can manually upload the release:
+
+* Create an archive: `git archive -o "t3extblog_x.y.z.zip" "x.y.z"`
+* Upload archive: https://extensions.typo3.org/my-extensions
+
+
 .. important::
 	Please be careful when pushing tags.
 	Do not push "non release" tags without changing the version number in :code:`/ext_emconf.php` to a dev version number
