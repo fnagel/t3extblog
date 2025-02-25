@@ -156,6 +156,7 @@ https://extensions.typo3.org/extension/introduction
 * New post subscription
 	* Subscriber opt-in (frontend) and notification emails (button in BE module)
 * Dashboard widgets work as expected
+* Test RSS feed
 * Test request throttling
 * PSR-14 events
 
@@ -183,6 +184,7 @@ Make sure to have all related pages, folders and blog categories localized!
    * is no "new comment" email for the default language subscription
 * Click envelope icon in "all post" view (T3extblog BE module) -> New post subscription mail sent
 * Check dashboard blog widgets functionality
+* Check RSS functionality (and check localization and links)
 
 
 TER deployment
