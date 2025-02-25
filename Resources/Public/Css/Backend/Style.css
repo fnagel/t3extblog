@@ -1,6 +1,7 @@
 /* Lists */
 table td.action {
-	width: 80px;
+	width: 85px;
+	text-align: right;
 }
 
 #pending-comments-list table tr.warning td {
@@ -17,7 +18,8 @@ table tr.localized td.col-icon {
 	float: left;
 }
 #dashboard-comments td.action {
-	width: 120px;
+	width: 125px;
+	text-align: right;
 }
 #dashboard-subscriptions td.action {
 	width: 70px;
@@ -25,24 +27,5 @@ table tr.localized td.col-icon {
 
 /* Paginate */
 .t3extblog .pagination {
-	display: inline-block;
 	margin: 5px;
-	padding: 0;
-}
-
-.t3extblog .pagination > li {
-	display: inline;
-}
-.t3extblog .pagination > li > a,
-.t3extblog .pagination > li > span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	text-decoration: none;
-}
-
-/* Callout */
-.t3extblog .callout {
-	margin-top: 0;
 }
