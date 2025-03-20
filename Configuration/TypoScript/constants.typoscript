@@ -45,9 +45,6 @@ plugin.tx_t3extblog {
 			height = 540c
 		}
 
-		# cat=plugin.tx_t3extblog/advanced/1; type=string; label=Twitter username (optional): Used for generating meta tags (if enabled)
-		twitterName =
-
 		privacyPolicy {
 			# cat=plugin.tx_t3extblog/privacy/1; type=boolean; label=Enable the privacyPolicy checkbox
 			enabled = 0

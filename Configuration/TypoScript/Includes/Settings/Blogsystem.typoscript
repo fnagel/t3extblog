@@ -28,13 +28,6 @@ plugin.tx_t3extblog {
 					# Add description and keyword meta tags
 					enable = 1
 
-					twitterCards {
-						enable = 1
-
-						# Your Twitter username
-						site = {$plugin.tx_t3extblog.settings.twitterName}
-					}
-
 					openGraph {
 						enable = 1
 					}

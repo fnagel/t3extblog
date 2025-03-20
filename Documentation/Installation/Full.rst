@@ -55,13 +55,6 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 							insertBelow = 1
 							maximumNumberOfLinks = 50
 						}
-						metadata {
-							enable = 1
-
-							twitterCards {
-								enable = 0
-							}
-						}
 					}
 					comments {
 						allowed = 1
