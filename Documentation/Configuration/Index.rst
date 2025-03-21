@@ -23,7 +23,8 @@ Minimal configuration
 
 .. _configuration-minimal:
 
-Make sure to setup at least the following settings (see :code:`/Configuration/TypoScript/constants.txt` for more details!):
+Make sure to setup at least the following settings (see :code:`/Configuration/TypoScript/constants.txt` or
+:code:`/Configuration/Sets/Default/settings.definitions.yaml` for more details!):
 
 .. code-block:: typoscript
 
@@ -132,46 +133,6 @@ change this by either:
 	See here for more info on site configuration and speaking URLs:
    https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/SiteHandling/Basics.html
    https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Routing/Examples.html#usage-with-imports
-
-
-RealURL
--------
-.. _configuration-realurl:
-
-This extension include a predefined setup for RealURL auto configuration, see :code:`typo3conf/ext/t3extblog/Classes/Hooks/RealUrl.php` for details.
-
-When using EXT:realurl or similar extension you will need to add additional StaticTS template
-`T3Extblog: additional RealUrl config (t3extblog)` (:code:`/Configuration/TypoScript/RealUrl/setup.txt`).
-
-When using RSS, add a :code:`config.tx_realurl_enable = 1` to your TS to get RealUrl running in the RSS-Feed.
-
-.. important::
-	Since version 5.x (and therefor TYPO3 9.x) it's recommended to use the core speaking URL feature (see above).
-
-.. important::
-	Add this static TS to the blogsystem plugin page only to preserve cache!
-
-.. important::
-	When not using the realurl autoconfig feature, you need to add the configuration by yourself!
-
-
-Responsive image rendering
---------------------------
-.. _configuration-rwd-images:
-
-T3extblog is able to make use of TYPO3's RWD image rendering (sourceCollection feature).
-
-This works by using a cObject ViewHelper within the templates which processes a TypoScript Lib:
-:code:`lib.tx_t3extblog.responsiveImage` (defined in :code:`/Configuration/TypoScript/setup.txt`)
-
-This feature is configured via TypoScript as described here:
-https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Image/Index.html
-
-By default, T3extblog makes uses of the tt_content image rendering configuration. It's possible to adjust the
-rendering for t3extblog by modifying this TypoScript lib or by using a custom (i.e. Fluid) rendering.
-
-.. important::
-	Since version 5.x (and therefor TYPO3 9.x) this feature has been removed as no longer provided by the TYPO3 core.
 
 
 Overwrite templates
