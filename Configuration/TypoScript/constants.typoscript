@@ -7,52 +7,52 @@
 
 plugin.tx_t3extblog {
 	view {
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom template root
+		# cat=plugin.tx_t3extblog/file; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.templateRootPath
 		templateRootPath =
 
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom  template partials
+		# cat=plugin.tx_t3extblog/file; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.partialRootPath
 		partialRootPath =
 
-		# cat=plugin.tx_t3extblog/file; type=string; label=Path to a custom  template layouts
+		# cat=plugin.tx_t3extblog/file; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.layoutRootPath
 		layoutRootPath =
 	}
 
 	persistence {
-		# cat=plugin.tx_t3extblog/persistence/1; type=string; label=Default storage PID: Page or Sysfolder containing your blog records
+		# cat=plugin.tx_t3extblog/persistence/1; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.persistence.storagePid
 		storagePid =
 	}
 
 	settings {
-		# cat=plugin.tx_t3extblog/basic/1; type=string; label=Blogname: Used within email and RSS templates
-		blogName = Testblog
+		# cat=plugin.tx_t3extblog/basic/1; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.blogName
+		blogName = Blog
 
-		# cat=plugin.tx_t3extblog/pid/1; type=int+; label=Blogsystem Plugin PID: Page containing the Blogsystem plugin
+		# cat=plugin.tx_t3extblog/pid/1; type=int+; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.blogsystem.pid
 		blogsystem.pid =
-		# cat=plugin.tx_t3extblog/pid/3; type=int+; label=Subscription Manager Plugin PID: Page containing the Subscription Manager plugin
+		# cat=plugin.tx_t3extblog/pid/2; type=int+; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.subscriptionManager.pid
 		subscriptionManager.pid =
 
 		## The following constants are shortcuts and DO NOT MATCH any TS setup
 
-		# cat=plugin.tx_t3extblog/email/1; type=string; label=Sender address: All emails are sent from this address
+		# cat=plugin.tx_t3extblog/email/1; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailFrom
 		emailFrom =
-		# cat=plugin.tx_t3extblog/email/2; type=string; label=Admin notification: Email address for sending admin notifications
+		# cat=plugin.tx_t3extblog/email/2; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailTo
 		emailTo =
 
 		previewImage {
-			# cat=plugin.tx_t3extblog/preview/image/1; type=string; label=Preview image width: Width of the preview image
+			# cat=plugin.tx_t3extblog/preview/image/1; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.previewImage.width
 			width = 960c
-			# cat=plugin.tx_t3extblog/preview/image/2; type=string; label=Preview image height: Height of the preview image
+			# cat=plugin.tx_t3extblog/preview/image/2; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.previewImage.height
 			height = 540c
 		}
 
 		privacyPolicy {
-			# cat=plugin.tx_t3extblog/privacy/1; type=boolean; label=Enable the privacyPolicy checkbox
+			# cat=plugin.tx_t3extblog/privacy/1; type=boolean; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.privacyPolicy.enabled
 			enabled = 0
-			# cat=plugin.tx_t3extblog/privacy/2; type=string; label=Typolink that links to the privacy policy page
+			# cat=plugin.tx_t3extblog/privacy/2; type=string; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.privacyPolicy.typolink
 			typolink =
 		}
 
-		# cat=plugin.tx_t3extblog/pid/4; type=int+; label=SPAM check redirect PID: Target when redirecting a client due to SPAM
+		# cat=plugin.tx_t3extblog/pid/3; type=int+; label=LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.spamCheck.redirect.pid
 		spamCheck.redirect.pid =
 	}
 }

@@ -21,6 +21,51 @@
 			<trans-unit id="constants.category.privacy" xml:space="preserve">
 				<source>Privacy policy</source>
 			</trans-unit>
+
+			<trans-unit id="constants.view.templateRootPath" xml:space="preserve">
+				<source>Path to a custom template root</source>
+			</trans-unit>
+			<trans-unit id="constants.view.partialRootPath" xml:space="preserve">
+				<source>Path to a custom template partials</source>
+			</trans-unit>
+			<trans-unit id="constants.view.layoutRootPath" xml:space="preserve">
+				<source>Path to a custom template layouts</source>
+			</trans-unit>
+
+			<trans-unit id="constants.persistence.storagePid" xml:space="preserve">
+				<source>Default storage PID: Page or Sysfolder containing your blog records</source>
+			</trans-unit>
+
+			<trans-unit id="constants.settings.blogName" xml:space="preserve">
+				<source>Blogname: Used in emails and RSS</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.blogsystem.pid" xml:space="preserve">
+				<source>Blogsystem Plugin PID: Page containing the Blogsystem plugin</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.subscriptionManager.pid" xml:space="preserve">
+				<source>Subscription Manager Plugin PID: Page containing the Subscription Manager plugin</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.emailFrom" xml:space="preserve">
+				<source>Sender address: All emails are sent from this address</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.emailTo" xml:space="preserve">
+				<source>Admin notification: Email address for sending admin notifications</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.previewImage.width" xml:space="preserve">
+				<source>Preview image width: Width of the preview image</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.previewImage.height" xml:space="preserve">
+				<source>Preview image height: Height of the preview image</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.privacyPolicy.enabled" xml:space="preserve">
+				<source>Enable the privacy policy checkbox</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.privacyPolicy.typolink" xml:space="preserve">
+				<source>Privacy policy page</source>
+			</trans-unit>
+			<trans-unit id="constants.settings.spamCheck.redirect.pid" xml:space="preserve">
+				<source>SPAM check redirect PID: Target when redirecting a client due to SPAM</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
