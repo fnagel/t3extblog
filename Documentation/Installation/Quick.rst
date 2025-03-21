@@ -18,41 +18,40 @@ Target group: **Integrators**
 Quick installation guide
 ------------------------
 
-T3Extblog can be installed quickly by using the constant editor. You need to perform the following steps:
+.. important::
 
-#. Install the extension via the Extension-Manager
+	This guide will use the "new" way of configuring an extension: site sets settings
 
-#. Include static template:
-	This can be done on your root-page or in an extension template places on a specific page.
-	Minimum requirement: `T3Extblog: Default Setup (needed) (t3extblog)`.
-	Do NOT include `T3Extblog: Rss setup (t3extblog)`! We will need this elsewhere.
+T3Extblog can be installed quickly by using the site settings. You need to perform the following steps:
 
-	.. figure:: ../Images/Installation/includestatic.png
-		:alt: Include static
+#. Import and install the extension
+	- via the extension manager
+	- or using composer
+
+#. Include configuration (site set)
+	Include the extension site set using the Sites module:
+
+	.. figure:: ../Images/Installation/site-set.png
+		:alt: Include site set
 
 #. Create a simple page structure for your blog
-	At least we need a page for the blogsystem and a page for the Subscription Manager. We recommend to create an sysfolder for your blogposts to.
+	At least we need a page for the actual blog and a page for the subscription manager.
+   We recommend to create a sysfolder for your blogposts too.
 
 	.. figure:: ../Images/QuickInstallation/quickinstallation_folderstructur.png
 		:alt: Recommended page structure for quick installation
 
-#. add plugins to the pages:
-	On our "main-page" we insert the plugin 'blogsystem' (see :ref:`Administration manual <admin-manual>` for the other plugins we can use).
+#. Add plugins to the pages:
+	On our main blog page we insert the plugin 'Blogsystem'
+   (see :ref:`Administration manual <admin-manual>` for the other plugins we can use).
 
 	.. figure:: ../Images/Installation/plugin_blogsystem.png
-		:alt: Insert the "blogsystem"
+		:alt: Insert the "Blogsystem"
 
-	On our "subscription"-page, we have to add the "Subscription Manager".
+	On our subscription manager page, we need to add the "Subscription Manager" plugin.
 
-#. Make Settings in the Constant Editor:
-	.. figure:: ../Images/QuickInstallation/constant_editor.png
-		:alt: Settings Constant Editor
-
+#. Configure settings in the settings module:
+	.. figure:: ../Images/Installation/site-set-configuration.png
+		:alt: Extension site set settings
 
 See :ref:`Configuration <configuration>` for all possible settings.
-
-.. important::
-
-	Except Twitter name and image sizes, all of these settings are mandatory!
-
-

@@ -1,0 +1,109 @@
+categories:
+  t3extblog:
+    label: 'T3Extblog'
+  t3extblog.basic:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.basic'
+    parent: t3extblog
+  t3extblog.pid:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.pid'
+    parent: t3extblog
+  t3extblog.persistence:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.persistence'
+    parent: t3extblog
+  t3extblog.email:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.email'
+    parent: t3extblog
+  t3extblog.preview:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.preview'
+    parent: t3extblog
+  t3extblog.privacy:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.category.privacy'
+    parent: t3extblog
+  t3extblog.templates:
+    label: 'Templates'
+    parent: t3extblog
+
+settings:
+  plugin.tx_t3extblog.view.templateRootPath:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.templateRootPath'
+    default: ''
+    type: string
+    category: t3extblog.templates
+
+  plugin.tx_t3extblog.view.partialRootPath:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.partialRootPath'
+    default: ''
+    type: string
+    category: t3extblog.templates
+
+  plugin.tx_t3extblog.view.layoutRootPath:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.view.layoutRootPath'
+    default: ''
+    type: string
+    category: t3extblog.templates
+
+  plugin.tx_t3extblog.persistence.storagePid:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.persistence.storagePid'
+    default: 0
+    type: int
+    category: t3extblog.persistence
+
+  plugin.tx_t3extblog.settings.blogName:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.blogName'
+    default: ''
+    type: string
+    category: t3extblog.basic
+
+  plugin.tx_t3extblog.settings.blogsystem.pid:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.blogsystem.pid'
+    default: 0
+    type: int
+    category: t3extblog.pid
+
+  plugin.tx_t3extblog.settings.subscriptionManager.pid:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.subscriptionManager.pid'
+    default: 0
+    type: int
+    category: t3extblog.pid
+
+  plugin.tx_t3extblog.settings.emailFrom:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailFrom'
+    default: ''
+    type: string
+    category: t3extblog.email
+
+  plugin.tx_t3extblog.settings.emailTo:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailTo'
+    default: ''
+    type: string
+    category: t3extblog.email
+
+  plugin.tx_t3extblog.settings.previewImage.width:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.previewImage.width'
+    default: '960c'
+    type: string
+    category: t3extblog.preview
+
+  plugin.tx_t3extblog.settings.previewImage.height:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.previewImage.height'
+    default: '960c'
+    type: string
+    category: t3extblog.preview
+
+  plugin.tx_t3extblog.settings.privacyPolicy.enabled:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.privacyPolicy.enabled'
+    default: false
+    type: bool
+    category: t3extblog.privacy
+
+  plugin.tx_t3extblog.settings.privacyPolicy.typolink:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.privacyPolicy.typolink'
+    default: ''
+    type: string
+    category: t3extblog.privacy
+
+  plugin.tx_t3extblog.settings.spamCheck.redirect.pid:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.spamCheck.redirect.pid'
+    default: 0
+    type: int
+    category: t3extblog.pid

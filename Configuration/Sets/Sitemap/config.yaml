@@ -1,0 +1,5 @@
+name: felixnagel/t3extblog-sitemap
+label: 'T3Extblog: Sitemap setup'
+dependencies:
+  - felixnagel/t3extblog
+  - typo3/seo-sitemap

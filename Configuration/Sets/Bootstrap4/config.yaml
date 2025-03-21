@@ -1,0 +1,4 @@
+name: felixnagel/t3extblog-bootstrap-4
+label: 'T3Extblog: Twitter Bootstrap 4 templates'
+dependencies:
+  - felixnagel/t3extblog
