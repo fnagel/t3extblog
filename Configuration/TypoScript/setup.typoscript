@@ -32,8 +32,8 @@ plugin.tx_t3extblog {
 	}
 }
 
-<INCLUDE_TYPOSCRIPT: source="DIR:EXT:t3extblog/Configuration/TypoScript/Includes/Settings/" extensions="typoscript">
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3extblog/Configuration/TypoScript/Includes/Libraries.typoscript">
+@import "EXT:t3extblog/Configuration/TypoScript/Includes/Settings/*.typoscript"
+@import "EXT:t3extblog/Configuration/TypoScript/Includes/Libraries.typoscript"
 
 # Configure BE module
 # Make sure to update the backend TS every time you change the TS!
