@@ -192,8 +192,6 @@ Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin
 
 **TypoScript configuration**
 
-Since T3extblog 5.x and TYPO3 9.x:
-
 .. code-block:: typoscript
 
    config.recordLinks {
@@ -210,52 +208,6 @@ Since T3extblog 5.x and TYPO3 9.x:
 
                30 = TEXT
                30.dataWrap = &tx_t3extblog_blogsystem[post]={field:uid}
-            }
-            title.field = title
-            useCacheHash = 1
-         }
-      }
-      tx_t3blog_cat {
-         typolink {
-            parameter = 456
-            additionalParams = &tx_t3extblog_blogsystem[category]={field:uid}
-            additionalParams.insertData = 1
-            useCacheHash = 1
-         }
-      }
-   }
-
-
-Older version of T3extblog and TYPO3 <= 8.x:
-
-.. code-block:: typoscript
-
-   config.recordLinks {
-      tx_t3blog_post {
-         typolink {
-            parameter = 456
-            additionalParams.cObject = COA
-            additionalParams.cObject {
-               10 = TEXT
-               10 {
-                  date = d
-                  field = date
-                  wrap = &tx_t3extblog_blogsystem[day]=|
-               }
-               20 = TEXT
-               20 {
-                  date = m
-                  field = date
-                  wrap = &tx_t3extblog_blogsystem[month]=|
-               }
-               30 = TEXT
-               30 {
-                  date = Y
-                  field = date
-                  wrap = &tx_t3extblog_blogsystem[year]=|
-               }
-               40 = TEXT
-               40.dataWrap = &tx_t3extblog_blogsystem[post]={field:uid}
             }
             title.field = title
             useCacheHash = 1
