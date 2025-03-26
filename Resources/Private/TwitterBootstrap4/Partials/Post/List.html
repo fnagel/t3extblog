@@ -28,7 +28,7 @@
 		</div>
 
 		<f:if condition="{post.previewMode} == 0 && {post.previewText} && {post.previewImage}">
-			<div class="card-img-top">
+			<div class="card-img">
 				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
 			</div>
 		</f:if>
@@ -50,7 +50,7 @@
 						<f:translate key="post.comments" />
 					</f:link.action>
 				</div>
-				<div class="col-sm-8 text-sm-right">
+				<div class="col-sm-8 text-sm-right text-sm-end">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
 				</div>
 			</div>

@@ -56,7 +56,7 @@ Currently implemented features:
 **Developer related**
 
 * Reasonable cache handling (using cache tags)
-* Default HTML markup matches Twitter Bootstrap 3.x or 4.x
+* Default HTML markup matches Twitter Bootstrap 3, 4 and 5
 * Using official TYPO3 localization tools (Crowdin, see https://crowdin.com/project/typo3-extension-t3extblog)
 * Using interfaces and signal / slot for easy extending
 * Supports migration from EXT:t3blog and is tested in TYPO3 6-12

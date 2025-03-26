@@ -1,9 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
 
-<div class="form-row mb-3">
+<div class="form-row row mb-3">
 	<div class="col-lg-6 form-group {t3b:formError(for: 'newComment.text')}">
-		<label class="sr-only" for="newComment.text">
+		<label class="sr-only visually-hidden-focusable" for="newComment.text">
 			<f:translate key="comment.text" />
 		</label>
 		<f:form.textarea additionalAttributes="{required: 'required'}" class="form-control" id="newComment.text" property="text" errorClass="is-invalid" rows="10" cols="10" />
@@ -12,7 +12,7 @@
 
 	<div class="col-lg-6">
 		<div class="form-group row {t3b:formError(for: 'newComment.title')}">
-			<label class="col-sm-3 col-form-label text-md-right" for="newComment.title">
+			<label class="col-sm-3 col-form-label text-md-right text-md-end" for="newComment.title">
 				<f:translate key="comment.title" />
 			</label>
 			<div class="col-sm-9">
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="form-group row {t3b:formError(for: 'newComment.author')}">
-			<label class="col-sm-3 col-form-label text-md-right" for="newComment.author">
+			<label class="col-sm-3 col-form-label text-md-right text-md-end" for="newComment.author">
 				<f:translate key="comment.author" />
 			</label>
 			<div class="col-sm-9">
@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="form-group row {t3b:formError(for: 'newComment.email')}">
-			<label class="col-sm-3 col-form-label text-md-right" for="newComment.email">
+			<label class="col-sm-3 col-form-label text-md-right text-md-end" for="newComment.email">
 				<f:translate key="comment.email" />
 			</label>
 			<div class="col-sm-9">
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div class="form-group row {t3b:formError(for: 'newComment.website')}">
-			<label class="col-sm-3 col-form-label text-md-right" for="newComment.website">
+			<label class="col-sm-3 col-form-label text-md-right text-md-end" for="newComment.website">
 				<f:translate key="comment.website" />
 			</label>
 			<div class="col-sm-9">

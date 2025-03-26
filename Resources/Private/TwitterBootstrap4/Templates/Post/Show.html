@@ -28,7 +28,7 @@
 		</div>
 
 		<f:if condition="{post.previewImage}">
-			<div class="card-img-top">
+			<div class="card-img">
 				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
 			</div>
 		</f:if>
@@ -55,7 +55,7 @@
 						<f:translate key="post.permalink" />
 					</f:link.action>
 				</div>
-				<div class="col-md-8 text-md-right">
+				<div class="col-md-8 text-md-right text-md-end">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
 				</div>
 			</div>
