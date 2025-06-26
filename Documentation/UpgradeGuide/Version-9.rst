@@ -16,6 +16,32 @@ Version 9.x
    :depth: 3
 
 
+Upgrade to 9.0.1
+^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/9.0.0...9.0.1
+
+- Bugfix Fluid namespace in RSS templates
+
+- Fix comment and post subscription delete
+
+- Some small bugfixes and improvements
+
+- Clean-up documentation
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust Fluid namespace of RSS template and partial if overridden
+
+#. Clear all caches
+
+
+
 Upgrade to 9.0.0
 ^^^^^^^^^^^^^^^^
 
