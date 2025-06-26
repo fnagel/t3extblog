@@ -28,7 +28,7 @@ class PostSubscriber extends AbstractSubscriber
     protected ?Post $post = null;
 
     /**
-     * @var ObjectStorage<Comment>
+     * @var ?ObjectStorage<Comment>
      */
     #[Lazy]
     protected ?ObjectStorage $postComments = null;

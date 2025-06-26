@@ -99,15 +99,10 @@ class BlogSubscriberController extends AbstractSubscriberController
         return $event->getSubscriber();
     }
 
-    /**
-     * Do not remove @param (needed for Extbase)
-     *
-     * @param BlogSubscriber $subscriber
-     */
     #[IgnoreValidation(['value' => 'subscriber'])]
-    public function deleteAction($subscriber = null): ResponseInterface
+    public function deleteAction(BlogSubscriber $subscriber = null): ResponseInterface
     {
-        return parent::deleteAction($subscriber);
+        return $this->delete($subscriber);
     }
 
     protected function dispatchDeleteEvent(AbstractSubscriber $subscriber): AbstractSubscriber
