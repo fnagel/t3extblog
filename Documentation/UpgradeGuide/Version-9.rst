@@ -16,6 +16,38 @@ Version 9.x
    :depth: 3
 
 
+Upgrade to 9.1.0
+^^^^^^^^^^^^^^^^
+
+*"Site sets support"*
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/9.0.0...9.1.0
+
+- Support for site sets
+
+- Support for Twitter Bootstrap 5
+
+- Some small bugfixes and improvements
+
+- Clean-up documentation
+
+
+**Breaking changes**
+
+- Removed support for twitter cards
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust your templates if needed (post meta partial)
+
+#. Clear all caches
+
+
 Upgrade to 9.0.0
 ^^^^^^^^^^^^^^^^
 
