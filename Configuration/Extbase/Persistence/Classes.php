@@ -174,9 +174,6 @@ return [
             'email' => [
                 'fieldName' => 'email'
             ],
-            'postUid' => [
-                'fieldName' => 'post_uid'
-            ],
             'lastSent' => [
                 'fieldName' => 'lastsent'
             ],
