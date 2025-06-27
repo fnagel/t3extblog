@@ -5,11 +5,12 @@
 
 .. include:: ../Includes.txt
 
-
 .. _upgrade-guide:
 
 Upgrade Guide
 -------------
+
+Target group: **Developers**
 
 .. toctree::
 	:maxdepth: 1
