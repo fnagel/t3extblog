@@ -1,17 +1,20 @@
 ﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. --- coding: utf-8 --- with BOM.
 
 .. include:: ../Includes.txt
 
 .. _installation:
 
-
 Installation
 ============
 
-Target group: **Administrators**
+Target group: --Administrators--
+
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 
 Installation process - step by step
@@ -27,64 +30,69 @@ Some steps are already described in the :ref:`Quick Installation <quick_installa
 
 #. Import and install the extension
 
-    * via the extension manager
-    * or using composer
+   - via the extension manager
+   - or using composer
 
-#.  Create the following pages
+#. Create the following pages
 
-    * See :ref:`Quick Installation <quick_installation>`
-    * Optional: add an RSS page (standard page) which will contain the RSS plugin
-    * Optional: add a page (standard page) for subscribing to new blog posts
+   - See :ref:`Quick Installation <quick_installation>`
+   - Optional: add an RSS page (standard page) which will contain the RSS plugin
+   - Optional: add a page (standard page) for subscribing to new blog posts
 
-    ..  figure:: ../Images/Installation/pagestructure.png
-        :class: with-shadow
-        :alt: Recommended page structure
+   .. figure:: ../Images/Installation/pagestructure.png
+      :alt: Recommended page structure
+      :class: with-shadow
 
-#.  Include static TypoScript template
-	This can be done on your root-page or in an extension template for a specific page.
-	Minimum requirement: `T3Extblog: Default Setup (needed)`.
-	Do NOT include `T3Extblog: RSS setup`! We will need this elsewhere.
+#. Include static TypoScript template
 
-	.. figure:: ../Images/Installation/includestatic.png
-		:alt: Include static
+   This can be done on your root-page or in an extension template for a specific page.
 
-#.  Add plugins to the pages
-    * See :ref:`Quick Installation <quick_installation>`
-    * Optional: add the RSS plugin to your RSS page
-    * Optional: add the blog subscription form plugin to the previously created page
+   Minimum requirement: `T3Extblog: Default Setup (needed)`.
+   Do NOT include `T3Extblog: RSS setup`! We will need this elsewhere.
 
-#.  Configure settings in the constant editor module:
-    ..  figure:: ../Images/Installation/constant_editor.png
-        :class: with-shadow
-		:alt: Constant editor backend module
+   .. figure:: ../Images/Installation/includestatic.png
+      :alt: Include static
+      :class: with-shadow
 
-Or use TypoScript:
+#. Add plugins to the pages
+
+   - See :ref:`Quick Installation <quick_installation>`
+   - Optional: add the RSS plugin to your RSS page
+   - Optional: add the blog subscription form plugin to the previously created page
+
+#. Configure settings in the constant editor module:
+
+   .. figure:: ../Images/Installation/constant_editor.png
+      :alt: Constant editor backend module
+      :class: with-shadow
+
+   Or use TypoScript:
 
 #. Start to configure your Blog. This is an TypoScript example:
 
-.. code-block:: typoscript
-	:linenos:
+   .. code-block:: typoscript
+      :linenos:
 
-		plugin.tx_t3extblog {
-			settings {
-				blogsystem {
-					posts {
-						paginate {
-							insertAbove = 1
-							maximumNumberOfLinks = 1
-						}
-					}
-					comments {
-						allowedUntil = +5 years
-						approvedByDefault = 1
-						subscribeForComments = 0
-					}
-				}
-			}
-		}
-		module.tx_t3extblog < plugin.tx_t3extblog
+         plugin.tx_t3extblog {
+            settings {
+               blogsystem {
+                  posts {
+                     paginate {
+                        insertAbove = 1
+                        maximumNumberOfLinks = 1
+                     }
+                  }
+                  comments {
+                     allowedUntil = +5 years
+                     approvedByDefault = 1
+                     subscribeForComments = 0
+                  }
+               }
+            }
+         }
+         module.tx_t3extblog < plugin.tx_t3extblog
 
-See :ref:`Configuration <configuration>` for all possible settings.
+   See :ref:`Configuration <configuration>` for all possible settings.
 
 
 .. important::

@@ -8,12 +8,14 @@
 
 .. _quick_installation:
 
-
 Quick Installation
 ==================
 
 Target group: **Integrators**
 
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 Quick installation guide
 ------------------------
@@ -25,33 +27,42 @@ Quick installation guide
 T3Extblog can be installed quickly by using the site settings. You need to perform the following steps:
 
 #. Import and install the extension
-	- via the extension manager
-	- or using composer
+
+   - via the extension manager
+   - or using composer
 
 #. Include configuration (site set)
+
 	Include the extension site set using the Sites module:
 
 	.. figure:: ../Images/Installation/site-set.png
 		:alt: Include site set
+      :class: with-shadow
 
 #. Create a simple page structure for your blog
+
 	At least we need a page for the actual blog and a page for the subscription manager.
    We recommend to create a sysfolder for your blogposts too.
 
 	.. figure:: ../Images/QuickInstallation/quickinstallation_folderstructur.png
 		:alt: Recommended page structure for quick installation
+      :class: with-shadow
 
 #. Add plugins to the pages:
+
 	On our main blog page we insert the plugin 'Blogsystem'
    (see :ref:`Administration manual <admin-manual>` for the other plugins we can use).
 
 	.. figure:: ../Images/Installation/plugin_blogsystem.png
 		:alt: Insert the "Blogsystem"
+      :class: with-shadow
 
 	On our subscription manager page, we need to add the "Subscription Manager" plugin.
 
 #. Configure settings in the settings module:
+
 	.. figure:: ../Images/Installation/site-set-configuration.png
 		:alt: Extension site set settings
+      :class: with-shadow
 
 See :ref:`Configuration <configuration>` for all possible settings.

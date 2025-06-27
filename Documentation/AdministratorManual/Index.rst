@@ -26,12 +26,14 @@ The output is managed via content modules. This means easy and flexible usage.
 
 .. figure:: ../Images/AdministratorManual/plugin.png
 	:alt: Insert plugin
+   :class: with-shadow
 
 Choose one or more of the plugins listed to build your blog. These can be distributed to different columns.
 
 
 .. figure:: ../Images/Installation/plugin_blogsystem.png
 	:alt: Modules
+   :class: with-shadow
 
 
 Plugins
@@ -44,6 +46,7 @@ Main plugin of the extension. Provides post list and detail view. Enables users 
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
 	:alt: Blogsystem
+   :class: with-shadow
 
 
 Archive
@@ -53,6 +56,7 @@ This plugin displays a list of your blog posts, nested by month and sorted by da
 
 .. figure:: ../Images/AdministratorManual/archive.png
 	:alt: Archive
+   :class: with-shadow
 
 
 Categories
@@ -89,6 +93,7 @@ Depending on your configuration users can confirm, add and remove subscriptions 
 
 .. figure:: ../Images/AdministratorManual/subscription-manager.png
 	:alt: Subscription Manager
+   :class: with-shadow
 
 We've already did some basic settings for this plugin in the installation process, but you should do so some more configuration.
 
@@ -127,12 +132,14 @@ The RSS-Module need some special treatment, but no need to worry. Just create a 
 
 .. figure:: ../Images/AdministratorManual/rssincludestatic.png
 	:alt: RSS include static
+   :class: with-shadow
 
 
 When you open the page, the output should look like this:
 
 .. figure:: ../Images/AdministratorManual/rssoutput.png
 	:alt: RSS output
+   :class: with-shadow
 
 Have a look at :code:`/Configuration/TypoScript/RSS/setup.typoscript`
 You can override the values by using an extension template on the page where your have insert the Rss-modul.

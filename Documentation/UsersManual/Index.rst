@@ -27,6 +27,7 @@ Another way to manage posts and comments is t3extblog's simple backend module. I
 
 .. figure:: ../Images/UserManual/module.png
 	:alt: Backend module
+   :class: with-shadow
 
 To write a blog post, just click the plus-icon on the top.
 
@@ -38,6 +39,7 @@ Create a blogpost
 
 .. figure:: ../Images/UserManual/createblogpost.png
 	:alt: Create blogpost
+   :class: with-shadow
 
 
 **Post:**
@@ -78,6 +80,7 @@ You need to add at least one blog category to your post.
 
 .. figure:: ../Images/UserManual/addcategories.png
 	:alt: Categorize your post
+   :class: with-shadow
 
 
 .. tip::
@@ -92,6 +95,7 @@ Use the list module and click the button "create new record", to add categories:
 
 .. figure:: ../Images/UserManual/categories.png
 	:alt: Add categories
+   :class: with-shadow
 
 
 Blog administration
