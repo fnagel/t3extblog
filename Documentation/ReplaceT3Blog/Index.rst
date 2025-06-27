@@ -8,14 +8,15 @@
 
 .. _replace-t3blog:
 
+Replace T3Blog
+==============
+
+Target group: **Developers**
 
 .. important::
 
 	Please note this is only a rough outline on how to update TYPO3 project from 4.x to 6.x.
 
-
-Replace T3Blog
-==============
 
 You have a TYPO3 4.5. with T3Blog (EXT:t3blog) installed. Goal is to get your blog running with TYPO3 6.2.
 

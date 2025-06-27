@@ -5,7 +5,6 @@
 
 .. include:: ../Includes.txt
 
-
 .. _upgrade-guide-v2:
 
 Version 2.x
@@ -14,7 +13,6 @@ Version 2.x
 .. contents:: Within this page
    :local:
    :depth: 3
-
 
 
 Upgrade from 2.2.x to 2.2.2
@@ -272,7 +270,6 @@ Please make sure to adapt these changes in your templates.
 **Responsive image rendering**
 
 T3extblog is now able to make use of TYPO3's RWD image rendering.
-See :ref:`Responsive image configuration <configuration-rwd-images>`
 
 
 How to upgrade
