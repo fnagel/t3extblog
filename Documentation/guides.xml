@@ -5,17 +5,24 @@
         links-are-relative="true">
     <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
                project-home="https://extensions.typo3.org/extension/t3extblog"
-               project-contact=""
                project-repository="https://github.com/fnagel/t3extblog"
                project-issues="https://github.com/fnagel/t3extblog/issues"
                edit-on-github-branch="master"
                edit-on-github="fnagel/t3extblog"
-               typo3-core-preferred="12.4"
+               typo3-core-preferred="13.4"
                interlink-shortcode="fnagel/t3extblog"
     />
-    <project title="T3Extblog"
+    <project title="T3Extblog (T3Blog Extbase)"
              release="master (development)"
              version="master (development)"
-             copyright="2024"
+             copyright="2025"
     />
+    <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/"/>
+    <inventory id="t3editors" url="https://docs.typo3.org/m/typo3/tutorial-editors/master/en-us/"/>
+    <inventory id="t3l10n" url="https://docs.typo3.org/m/typo3/guide-frontendlocalization/master/en-us/"/>
+    <inventory id="t3sitepackage" url="https://docs.typo3.org/m/typo3/tutorial-sitepackage/master/en-us/"/>
+    <inventory id="t3tca" url="https://docs.typo3.org/m/typo3/reference-tca/master/en-us/"/>
+    <inventory id="t3templating" url="https://docs.typo3.org/m/typo3/tutorial-templating-with-fluid/master/en-us/"/>
+    <inventory id="t3tsconfig" url="https://docs.typo3.org/m/typo3/reference-tsconfig/master/en-us/"/>
+    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/master/en-us/"/>
 </guides>
