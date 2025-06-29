@@ -62,3 +62,9 @@ jobs:
 
       - name: Run TypoScript linter
         run: composer run-script test-typoscript-lint
+
+      - name: Render and test documentation
+        run: |
+          mkdir -p Documentation-GENERATED-temp \
+          && docker run --rm --pull always -v $(pwd):/project \
+             ghcr.io/typo3-documentation/render-guides:latest --config=Documentation --no-progress --minimal-test

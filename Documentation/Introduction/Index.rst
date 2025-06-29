@@ -5,6 +5,10 @@
 
 .. include:: ../Includes.txt
 
+.. _introduction:
+
+Introduction
+====================
 
 .. contents:: Within this page
    :local:
@@ -12,7 +16,7 @@
 
 
 What does it do?
-================
+----------------
 
 A record based blog extension for TYPO3 CMS. Easy to use and packed with features. Flexible and powerful!
 
@@ -69,52 +73,58 @@ Currently implemented features:
 
 
 Screenshots
-===========
+-----------
 
 Screenshots taken from a TYPO3 CMS instance with "Introduction package" (EXT:introduction using
 EXT:bootstrap_package extension) and T3extblog installed.
 
 
 Frontend
---------
+^^^^^^^^
 
 **Blogsystem**
 
 .. figure:: ../Images/AdministratorManual/blogsystem.png
 	:alt: Blogsystem
+   :class: with-shadow
 
 
 **Comment form**
 
 .. figure:: ../Images/Screenshots/comment.png
 	:alt: Comment form
+   :class: with-shadow
 
 
 **Archive**
 
 .. figure:: ../Images/AdministratorManual/archive.png
 	:alt: Archive
+   :class: with-shadow
 
 
 **Subscription Manager**
 
 .. figure:: ../Images/AdministratorManual/subscription-manager.png
 	:alt: Subscription Manager
+   :class: with-shadow
 
 
 Backend
--------
+^^^^^^^
 
 **Core dashboard widgets**
 
 .. figure:: ../Images/Screenshots/dashboardwidgets.png
 	:alt: Core dashboard widgets
+   :class: with-shadow
 
 
 **Extension module dashboard**
 
 .. figure:: ../Images/Screenshots/dashboard.png
 	:alt: Dashboard backend module
+   :class: with-shadow
 
 
 **Post records list**
