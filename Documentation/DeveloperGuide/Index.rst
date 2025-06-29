@@ -18,7 +18,6 @@ Target group: **Developers**
    :depth: 3
 
 
-
 Extending T3extlog
 ------------------
 .. _dev-guide-extending:
@@ -121,12 +120,16 @@ Documentation
 Anyone is very welcome to help improving our documentation!
 Just send a pull request or add an issue at GitHub.
 
-To view your changes before submitting them you will need to install following extensions:
+This extension uses the PHP based rendering approach. See here for more info:
 
-* EXT:sphinx
-* EXT:restdoc
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Index.html
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Howto/RenderingDocs/Index.html
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Howto/Migration/Index.html
 
-See this link for more information: https://docs.typo3.org/typo3cms/extensions/sphinx/WritersManual/SphinxRest/Index.html
+
+Use this command to render the documentation locally (Docker is needed):
+
+`docker run --rm --pull always -v "$(pwd):/project" -t ghcr.io/typo3-documentation/render-guides:latest --config=Documentation`
 
 
 Testing
