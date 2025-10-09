@@ -1,0 +1,11 @@
+* text=auto
+
+/.Build export-ignore
+/.github export-ignore
+/.crowdin.yaml export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/ExtensionBuilder.json export-ignore
+/rector.php export-ignore
+/typoscript-lint.yml export-ignore
