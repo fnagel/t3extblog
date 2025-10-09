@@ -30,6 +30,10 @@ https://github.com/fnagel/t3extblog/compare/9.0.0...9.1.0
 
 - Support for Twitter Bootstrap 5
 
+- Bugfix Fluid namespace in RSS templates
+
+- Fix comment and post subscription delete
+
 - Some small bugfixes and improvements
 
 - Clean-up documentation
@@ -43,9 +47,12 @@ https://github.com/fnagel/t3extblog/compare/9.0.0...9.1.0
 How to upgrade
 """"""""""""""
 
+#. Adjust Fluid namespace of RSS template and partial if overridden
+
 #. Adjust your templates if needed (post meta partial)
 
 #. Clear all caches
+
 
 
 Upgrade to 9.0.0
