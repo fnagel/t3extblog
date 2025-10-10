@@ -18,7 +18,6 @@ Target group: **Developers**
    :depth: 3
 
 
-
 Extending T3extlog
 ------------------
 .. _dev-guide-extending:
@@ -121,12 +120,16 @@ Documentation
 Anyone is very welcome to help improving our documentation!
 Just send a pull request or add an issue at GitHub.
 
-To view your changes before submitting them you will need to install following extensions:
+This extension uses the PHP based rendering approach. See here for more info:
 
-* EXT:sphinx
-* EXT:restdoc
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Index.html
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Howto/RenderingDocs/Index.html
+* https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/Howto/Migration/Index.html
 
-See this link for more information: https://docs.typo3.org/typo3cms/extensions/sphinx/WritersManual/SphinxRest/Index.html
+
+Use this command to render the documentation locally (Docker is needed):
+
+`docker run --rm --pull always -v "$(pwd):/project" -t ghcr.io/typo3-documentation/render-guides:latest --config=Documentation`
 
 
 Testing
@@ -141,17 +144,17 @@ https://extensions.typo3.org/extension/introduction
 **What needs to be tested:**
 
 * Creating blog posts (with and without preview image and text)
-   * Check post preview
+    * Check post preview
 * Posting comments and subscribe for new comments
-	* With and without SPAM check triggered
-	* Test field validation
-   * Test prefilling fields
+    * With and without SPAM check triggered
+    * Test field validation
+    * Test prefilling fields
 * Using the subscription manager (confirm and delete for new comment and post subscription)
 * New comment subscription
-	* Admin, subscriber opt-in and notification emails
-	* Triggered by:
-      * Frontend & backend (confirm and un-spam a comment)
-      * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
+    * Admin, subscriber opt-in and notification emails
+    * Triggered by:
+        * Frontend & backend (confirm and un-spam a comment)
+        * Edit button (BE module and core dashboard) and direct spam / confirmed toggle buttons
 	* Make sure mails are sent with localized links for multi language setups
 * New post subscription
 	* Subscriber opt-in (frontend) and notification emails (button in BE module)

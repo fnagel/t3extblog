@@ -7,15 +7,14 @@
 
 Target group: **Administrators**
 
-.. contents:: Within this page
-   :local:
-   :depth: 3
-
-
 .. _configuration:
 
 Configuration
 =============
+
+.. contents:: Within this page
+   :local:
+   :depth: 3
 
 
 Minimal configuration
