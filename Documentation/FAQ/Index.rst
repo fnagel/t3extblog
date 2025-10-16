@@ -168,7 +168,7 @@ Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin
 
    TCEMAIN.linkHandler {
       tx_t3blog_post {
-          handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
+          handler = TYPO3\CMS\Backend\LinkHandler\RecordLinkHandler
           label = Blog-Post
           configuration {
               table = tx_t3blog_post
@@ -178,7 +178,7 @@ Replace 123 with your storage PID and 456 with the PID of your blogsystem plugin
           scanAfter = page
       }
       tx_t3blog_cat {
-          handler = TYPO3\CMS\Recordlist\LinkHandler\RecordLinkHandler
+          handler = TYPO3\CMS\Backend\LinkHandler\RecordLinkHandler
           label = Blog-Category
           configuration {
               table = tx_t3blog_cat
