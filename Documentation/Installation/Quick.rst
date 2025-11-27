@@ -33,36 +33,36 @@ T3Extblog can be installed quickly by using the site settings. You need to perfo
 
 #. Include configuration (site set)
 
-	Include the extension site set using the Sites module:
+   Include the extension site set using the Sites module:
 
-	.. figure:: ../Images/Installation/site-set.png
-		:alt: Include site set
+   .. figure:: ../Images/Installation/site-set.png
+      :alt: Include site set
       :class: with-shadow
 
 #. Create a simple page structure for your blog
 
-	At least we need a page for the actual blog and a page for the subscription manager.
+   At least we need a page for the actual blog and a page for the subscription manager.
    We recommend to create a sysfolder for your blogposts too.
 
-	.. figure:: ../Images/QuickInstallation/quickinstallation_folderstructur.png
-		:alt: Recommended page structure for quick installation
+   .. figure:: ../Images/QuickInstallation/quickinstallation_folderstructur.png
+      :alt: Recommended page structure for quick installation
       :class: with-shadow
 
 #. Add plugins to the pages:
 
-	On our main blog page we insert the plugin 'Blogsystem'
+   On our main blog page we insert the plugin 'Blogsystem'
    (see :ref:`Administration manual <admin-manual>` for the other plugins we can use).
 
-	.. figure:: ../Images/Installation/plugin_blogsystem.png
-		:alt: Insert the "Blogsystem"
+   .. figure:: ../Images/Installation/plugin_blogsystem.png
+      :alt: Insert the "Blogsystem"
       :class: with-shadow
 
-	On our subscription manager page, we need to add the "Subscription Manager" plugin.
+   On our subscription manager page, we need to add the "Subscription Manager" plugin.
 
 #. Configure settings in the settings module:
 
-	.. figure:: ../Images/Installation/site-set-configuration.png
-		:alt: Extension site set settings
+   .. figure:: ../Images/Installation/site-set-configuration.png
+      :alt: Extension site set settings
       :class: with-shadow
 
-See :ref:`Configuration <configuration>` for all possible settings.
+   See :ref:`Configuration <configuration>` for all possible settings.
