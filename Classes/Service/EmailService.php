@@ -17,9 +17,11 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -61,8 +63,13 @@ class EmailService implements SingletonInterface
      *
      * @return int the number of recipients who were accepted for delivery
      */
-    public function sendEmail(array $mailTo, array $mailFrom, string $subject, array $variables, string $templatePath): int
-    {
+    public function sendEmail(
+        array $mailTo,
+        array $mailFrom,
+        string $subject,
+        array $variables,
+        string $templatePath
+    ): int {
         /** @var Event\SendEmailEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new Event\SendEmailEvent($mailTo, $mailFrom, $subject, $variables, $templatePath)
@@ -136,29 +143,33 @@ class EmailService implements SingletonInterface
     /**
      * Create and configure the view.
      */
-    public function getEmailView(string $templateFile): StandaloneView
+    public function getEmailView(string $templateFile): ViewInterface
     {
-        $emailView = $this->createStandaloneView();
-
-        $format = pathinfo($templateFile, PATHINFO_EXTENSION);
-        $emailView->setFormat($format);
+        $emailView = $this->createStandaloneView($templateFile);
 
         $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-        $emailView->setTemplate($templateFile);
+        $emailView->getRenderingContext()->setControllerAction($templateFile);
 
         return $emailView;
     }
 
-    protected function createStandaloneView(): StandaloneView
+    protected function createStandaloneView(string $templateFile): ViewInterface
     {
-        /* @var $emailView StandaloneView */
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-        $this->setViewPaths($emailView);
-        // Create our own Extbase request object (since TYPO3 v12), see:
-        // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
-        $emailView->setRequest($this->creatRequest());
+        /* @var $viewFactory ViewFactoryInterface */
+        $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
 
-        return $emailView;
+        $frameworkConfig = $this->settingsService->getFrameworkSettings();
+        $viewFactoryData = new ViewFactoryData(
+            templateRootPaths: $frameworkConfig['view']['templateRootPaths'] ?? null,
+            partialRootPaths: $frameworkConfig['view']['partialRootPaths'] ?? null,
+            layoutRootPaths: $frameworkConfig['view']['layoutRootPaths'] ?? null,
+            // Create our own Extbase request object (since TYPO3 v12), see:
+            // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
+            request: $this->creatRequest(),
+            format: pathinfo($templateFile, PATHINFO_EXTENSION),
+        );
+
+        return $viewFactory->create($viewFactoryData);
     }
 
     protected function creatRequest(): ServerRequestInterface
@@ -170,27 +181,13 @@ class EmailService implements SingletonInterface
         $request = $GLOBALS['TYPO3_REQUEST']->withAttribute('extbase', $extbaseAttribute);
 
         if ($request->getAttribute('currentContentObject') === null) {
-            $request = $request->withAttribute('currentContentObject', GeneralUtility::makeInstance(ContentObjectRenderer::class));
+            $request = $request->withAttribute(
+                'currentContentObject',
+                GeneralUtility::makeInstance(ContentObjectRenderer::class)
+            );
         }
 
         return (new Request($request));
-    }
-
-    protected function setViewPaths(StandaloneView $emailView)
-    {
-        $frameworkConfig = $this->settingsService->getFrameworkSettings();
-
-        if (isset($frameworkConfig['view']['layoutRootPaths'])) {
-            $emailView->setLayoutRootPaths($frameworkConfig['view']['layoutRootPaths']);
-        }
-
-        if (isset($frameworkConfig['view']['partialRootPaths'])) {
-            $emailView->setPartialRootPaths($frameworkConfig['view']['partialRootPaths']);
-        }
-
-        if (isset($frameworkConfig['view']['templateRootPaths'])) {
-            $emailView->setTemplateRootPaths($frameworkConfig['view']['templateRootPaths']);
-        }
     }
 
     /**
