@@ -29,7 +29,6 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerUniversalTagAttributes();
 
         $this->registerArgument('parameters', 'string', 'Link parameters', true);
         $this->registerArgument('redirectUrl', 'string', 'Redirect URL', false, '');
