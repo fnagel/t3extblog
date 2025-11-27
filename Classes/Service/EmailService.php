@@ -27,6 +27,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Handles email sending and templating.
+ *
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 class EmailService implements SingletonInterface
 {
