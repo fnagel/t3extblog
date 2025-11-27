@@ -129,7 +129,7 @@ This extension uses the PHP based rendering approach. See here for more info:
 
 Use this command to render the documentation locally (Docker is needed):
 
-`docker run --rm --pull always -v "$(pwd):/project" -t ghcr.io/typo3-documentation/render-guides:latest --config=Documentation`
+`docker run --rm --pull always -v "./:/project" -t ghcr.io/typo3-documentation/render-guides:latest --config=Documentation`
 
 
 Testing
