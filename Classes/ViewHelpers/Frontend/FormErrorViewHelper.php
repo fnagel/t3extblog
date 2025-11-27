@@ -9,9 +9,9 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -26,7 +26,8 @@ class FormErrorViewHelper extends AbstractViewHelper
         $this->registerArgument(
             'for',
             'string',
-            'The name of the field (e.g. argument name or property name). This can also be a property path (like blog.title), and will then only display the validation errors of that property.'
+            'The name of the field (e.g. argument name or property name). This can also be a property path
+                (like blog.title), and will then only display the validation errors of that property.'
         );
         $this->registerArgument(
             'error',
@@ -37,18 +38,17 @@ class FormErrorViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
-     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render()
     {
         /** @var RenderingContext $renderingContext */
         /** @var ExtbaseRequestParameters $extbaseRequestParameters */
-        $extbaseRequestParameters = $renderingContext->getRequest()->getAttribute('extbase');
+        $extbaseRequestParameters = $this->renderingContext
+            ->getAttribute(ServerRequestInterface::class)
+            ->getAttribute('extbase');
         $validationResults = $extbaseRequestParameters->getOriginalRequestMappingResults();
 
-        $for = $arguments['for'];
-        $error = $arguments['error'];
+        $for = $this->arguments['for'];
+        $error = $this->arguments['error'];
 
         if ($validationResults !== null && $for !== '') {
             $validationResults = $validationResults->forProperty($for);
