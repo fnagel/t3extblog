@@ -27,12 +27,10 @@ class TcaUtility implements SingletonInterface
 
     /**
      * Register a plugin and hide default fields
-     *
      */
-    public static function registerPlugin(string $pluginName, string $localizationKey): void
+    public static function registerPlugin(string $pluginName, string $localizationKey): string
     {
-        // Register plugin
-        ExtensionUtility::registerPlugin(
+        return ExtensionUtility::registerPlugin(
             self::$packageKey,
             $pluginName,
             self::$localizationPrefix.$localizationKey.'.title',
@@ -40,39 +38,25 @@ class TcaUtility implements SingletonInterface
             'blog',
             self::$localizationPrefix.$localizationKey.'.description',
         );
-
-        // Disable default fields
-        self::disablePluginDefaultFields(self::getPluginSignature($pluginName));
     }
 
-
-    public static function addFlexForm(string $pluginName, string $flexFormFilePath): void
+    public static function addFlexForm(string $contentTypeName, string $flexFormFilePath): void
     {
-        $pluginSignature = self::getPluginSignature($pluginName);
-
-        // @todo Remove this in TYPO3 v14!
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+        // Add the FlexForm
         ExtensionManagementUtility::addPiFlexFormValue(
-            $pluginSignature,
-            'FILE:EXT:'.self::$packageKey.$flexFormFilePath
+            '*',
+            'FILE:EXT:'.self::$packageKey.$flexFormFilePath,
+            $contentTypeName
+        );
+
+        // Add the FlexForm to the show item list
+        ExtensionManagementUtility::addToAllTCAtypes(
+            'tt_content',
+            '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin, pi_flexform',
+            $contentTypeName,
+            'after:palette:headers'
         );
     }
-
-    /**
-     * @todo Remove this in TYPO3 v14!
-     * @deprecated in TYPO3 13.4
-     */
-    protected static function disablePluginDefaultFields(string $pluginSignature): void
-    {
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'pages, recursive';
-    }
-
-
-    protected static function getPluginSignature(string $pluginName): string
-    {
-        return strtolower(self::getExtensionName()).'_'.strtolower($pluginName);
-    }
-
 
     protected static function getExtensionName(): string
     {

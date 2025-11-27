@@ -25,14 +25,14 @@ TcaUtility::registerPlugin('Rss', 'rss');
 
 TcaUtility::registerPlugin('Categories', 'categories');
 
-TcaUtility::registerPlugin('LatestComments', 'latestcomments');
+$contentTypeName = TcaUtility::registerPlugin('LatestComments', 'latestcomments');
 TcaUtility::addFlexForm(
-    'LatestComments',
+    $contentTypeName,
     '/Configuration/FlexForms/LatestComments.xml'
 );
 
-TcaUtility::registerPlugin('LatestPosts', 'latestposts');
+$contentTypeName = TcaUtility::registerPlugin('LatestPosts', 'latestposts');
 TcaUtility::addFlexForm(
-    'LatestPosts',
+    $contentTypeName,
     '/Configuration/FlexForms/LatestPosts.xml'
 );
