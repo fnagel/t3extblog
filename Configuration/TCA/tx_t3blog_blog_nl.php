@@ -21,13 +21,6 @@ return [
         'searchFields' => 'email',
     ],
     'columns' => [
-        'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'language',
-            ],
-        ],
         'crdate' => [
             'config' => [
                 'type' => 'passthrough',
