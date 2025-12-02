@@ -37,14 +37,6 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-        'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-            'config' => [
-                'type' => 'check',
-                'default' => '0',
-            ],
-        ],
         'email' => [
             'label' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.email',
             'config' => [
