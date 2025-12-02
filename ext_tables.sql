@@ -88,10 +88,6 @@ CREATE TABLE tx_t3blog_blog_nl (
 # Table structure for table 'tx_t3blog_pingback'
 #
 CREATE TABLE tx_t3blog_pingback (
-    deleted tinyint(1) DEFAULT '0' NOT NULL,
-    hidden tinyint(1) DEFAULT '0' NOT NULL,
-    starttime int(11) DEFAULT '0' NOT NULL,
-    endtime int(11) DEFAULT '0' NOT NULL,
     title tinytext NOT NULL,
     url tinytext NOT NULL,
     date int(11) DEFAULT '0' NOT NULL,
