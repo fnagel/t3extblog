@@ -2,8 +2,10 @@
 page >
 page = PAGE
 page {
-	10 < tt_content.list.20.t3extblog_rss
+	10 = EXTBASEPLUGIN
 	10 {
+		extensionName = T3extblog
+		pluginName = Rss
 		settings < plugin.tx_t3extblog.settings
 	}
 }
@@ -22,7 +24,7 @@ config {
 	forceAbsoluteUrls = 1
 }
 
-# clean up CSC to prevent unwanted HTML in the XML
+# Clean up CSC to prevent unwanted HTML in the XML
 lib.stdheader >
 tt_content.stdWrap.innerWrap >
 tt_content.stdWrap.wrap >
