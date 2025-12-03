@@ -43,7 +43,7 @@ class CommentController extends AbstractCommentController
      *
      * @param Post|null $post Show only comments related to this post
      */
-    public function listAction(int $page = 1, Post $post = null): ResponseInterface
+    public function listAction(int $page = 1, ?Post $post = null): ResponseInterface
     {
         if ($post === null) {
             $comments = $this->commentRepository->findValid();
@@ -70,7 +70,7 @@ class CommentController extends AbstractCommentController
      *
      * @param Post|null $post Show only comments related to this post
      */
-    public function latestAction(int $page = 1, Post $post = null): ResponseInterface
+    public function latestAction(int $page = 1, ?Post $post = null): ResponseInterface
     {
         return $this->listAction($page, $post);
     }
@@ -93,7 +93,7 @@ class CommentController extends AbstractCommentController
      * @param Post $post The post the comment is related to
      */
     #[IgnoreValidation(['value' => 'newComment'])]
-    public function newAction(Post $post, Comment $newComment = null): ResponseInterface
+    public function newAction(Post $post, ?Comment $newComment = null): ResponseInterface
     {
         if ($newComment === null) {
             $newComment = $this->getNewComment();
@@ -122,7 +122,7 @@ class CommentController extends AbstractCommentController
      */
     #[Extbase\Validate(['validator' => CommentEmailValidator::class, 'param' => 'newComment'])]
     #[Extbase\Validate(['validator' => PrivacyPolicyValidator::class, 'param' => 'newComment', 'options' => ['key' => 'comment', 'property' => 'privacyPolicyAccepted']])]
-    public function createAction(Post $post, Comment $newComment = null): ResponseInterface
+    public function createAction(Post $post, ?Comment $newComment = null): ResponseInterface
     {
         // @todo Fix flash messages caching issue, see: https://github.com/fnagel/t3extblog/issues/112
         $this->clearPageCache();

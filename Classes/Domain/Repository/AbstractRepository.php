@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 abstract class AbstractRepository extends Repository
 {
-    public function createQuery(int $pageUid = null): QueryInterface
+    public function createQuery(?int $pageUid = null): QueryInterface
     {
         $query = parent::createQuery();
 
@@ -40,7 +40,7 @@ abstract class AbstractRepository extends Repository
     /**
      * Returns all objects with specific PID.
      */
-    public function findByPage(int $pid = null, bool $respectEnableFields = true, int $limit = null): QueryResultInterface
+    public function findByPage(?int $pid = null, bool $respectEnableFields = true, ?int $limit = null): QueryResultInterface
     {
         $query = $this->createQuery($pid);
 
@@ -59,7 +59,7 @@ abstract class AbstractRepository extends Repository
         return $query->execute();
     }
 
-    protected function getTableName(QueryInterface $query = null): string
+    protected function getTableName(?QueryInterface $query = null): string
     {
         if ($query === null) {
             $query = $this->createQuery();
@@ -73,12 +73,12 @@ abstract class AbstractRepository extends Repository
         return GeneralUtility::makeInstance(DataMapper::class)->convertClassNameToTableName($object);
     }
 
-    protected function escapeStrForLike(string $value, string $table = null): string
+    protected function escapeStrForLike(string $value, ?string $table = null): string
     {
         return $this->getQueryBuilder($table)->escapeLikeWildcards($value);
     }
 
-    protected function getQueryBuilder(string $table = null): QueryBuilder
+    protected function getQueryBuilder(?string $table = null): QueryBuilder
     {
         if ($table === null) {
             $table = $this->getTableName();

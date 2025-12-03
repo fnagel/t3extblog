@@ -50,7 +50,7 @@ class BlogSubscriberFormController extends AbstractController
     }
 
     #[IgnoreValidation(['value' => 'subscriber'])]
-    public function newAction(BlogSubscriber $subscriber = null): ResponseInterface
+    public function newAction(?BlogSubscriber $subscriber = null): ResponseInterface
     {
         /* @var $subscriber BlogSubscriber */
         if ($subscriber === null) {
@@ -62,7 +62,7 @@ class BlogSubscriberFormController extends AbstractController
         return $this->htmlResponse();
     }
 
-    public function initializeCreateAction()
+    public function initializeCreateAction(): void
     {
         $settings = $this->settings['blogSubscription']['rateLimit'];
 
@@ -74,7 +74,7 @@ class BlogSubscriberFormController extends AbstractController
     /**
      * Adds a subscriber.
      */
-    public function createAction(BlogSubscriber $subscriber = null): ResponseInterface
+    public function createAction(?BlogSubscriber $subscriber = null): ResponseInterface
     {
         if ($subscriber === null) {
             return $this->redirect('new');

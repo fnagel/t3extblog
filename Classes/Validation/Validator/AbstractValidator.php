@@ -18,7 +18,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as CoreAbstractVali
  */
 abstract class AbstractValidator extends CoreAbstractValidator
 {
-    protected function getConfiguration(string $key = null): array
+    protected function getConfiguration(?string $key = null): array
     {
         $settingsService = GeneralUtility::makeInstance(SettingsService::class);
 

@@ -171,7 +171,7 @@ class PostRepository extends AbstractRepository
     /**
      * Returns all hidden posts of a time frame from now.
      */
-    public function findDrafts(int $pid = 0, int $limit = null, string $until = '-12 months'): QueryResultInterface
+    public function findDrafts(int $pid = 0, ?int $limit = null, string $until = '-12 months'): QueryResultInterface
     {
         $query = $this->createQuery($pid);
         $query->getQuerySettings()->setIgnoreEnableFields(true);

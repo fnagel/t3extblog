@@ -187,7 +187,7 @@ class PostController extends AbstractCommentController
      * Displays one single post.
      */
     #[IgnoreValidation(['value' => 'newComment'])]
-    public function showAction(Post $post, int $page = 1, Comment $newComment = null): ResponseInterface
+    public function showAction(Post $post, int $page = 1, ?Comment $newComment = null): ResponseInterface
     {
         if (!$newComment instanceof Comment) {
             $newComment = $this->getNewComment();

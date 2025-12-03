@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class BlogSubscriberRepository extends AbstractSubscriberRepository
 {
-    public function createQuery(int $pageUid = null): QueryInterface
+    public function createQuery(?int $pageUid = null): QueryInterface
     {
         $query = parent::createQuery($pageUid);
 
@@ -34,7 +34,7 @@ class BlogSubscriberRepository extends AbstractSubscriberRepository
     /**
      * Search for already registered subscriptions.
      */
-    public function findExistingSubscriptions(string $email, int $excludeUid = null): QueryResultInterface
+    public function findExistingSubscriptions(string $email, ?int $excludeUid = null): QueryResultInterface
     {
         $query = $this->createQuery();
 

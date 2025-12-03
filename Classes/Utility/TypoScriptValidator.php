@@ -28,7 +28,7 @@ class TypoScriptValidator
      * @SuppressWarnings("PHPMD.CyclomaticComplexity")
      * @SuppressWarnings("PHPMD.NPathComplexity")
      */
-    public static function validateSettings(array $settings = null): void
+    public static function validateSettings(?array $settings = null): void
     {
         $key = 'plugin';
 

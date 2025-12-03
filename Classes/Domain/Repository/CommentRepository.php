@@ -26,7 +26,7 @@ class CommentRepository extends AbstractRepository
     /**
      * Finds all valid comments.
      */
-    public function findValid(int $pid = null): QueryResultInterface
+    public function findValid(?int $pid = null): QueryResultInterface
     {
         $query = $this->createQuery($pid);
 
@@ -93,7 +93,7 @@ class CommentRepository extends AbstractRepository
         return $query->execute();
     }
 
-    protected function createPendingQuery(int $pid = null, Post $post = null, int $limit = null): QueryInterface
+    protected function createPendingQuery(?int $pid = null, ?Post $post = null, ?int $limit = null): QueryInterface
     {
         $query = $this->createQuery($pid);
 
@@ -110,7 +110,7 @@ class CommentRepository extends AbstractRepository
         return $query;
     }
 
-    protected function getPendingConstraints(QueryInterface $query, Post $post = null): array
+    protected function getPendingConstraints(QueryInterface $query, ?Post $post = null): array
     {
         $constraints = [
             $query->logicalOr(
@@ -154,7 +154,7 @@ class CommentRepository extends AbstractRepository
     /**
      * Finds all pending comments by page.
      */
-    public function findPendingByPage(int $pid = 0, int $limit = null): QueryResultInterface
+    public function findPendingByPage(int $pid = 0, ?int $limit = null): QueryResultInterface
     {
         return $this->createPendingQuery($pid, null, $limit)->execute();
     }

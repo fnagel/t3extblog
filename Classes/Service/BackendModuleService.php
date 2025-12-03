@@ -94,7 +94,7 @@ class BackendModuleService
     /**
      * Create the panel of buttons
      */
-    public function addViewHeaderButtons(array $buttonItems, string $shortcutModuleName = null, bool $addRefreshButton = true)
+    public function addViewHeaderButtons(array $buttonItems, ?string $shortcutModuleName = null, bool $addRefreshButton = true)
     {
         $uriBuilder = GeneralUtility::makeInstance(BackendUriBuilder::class);
         $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();

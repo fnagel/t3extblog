@@ -34,7 +34,7 @@ class PostSubscriberRepository extends AbstractSubscriberRepository
     /**
      * Searchs for already registered subscriptions.
      */
-    public function findExistingSubscriptions(int $postUid, string $email, int $excludeUid = null): QueryResultInterface
+    public function findExistingSubscriptions(int $postUid, string $email, ?int $excludeUid = null): QueryResultInterface
     {
         $query = $this->createQuery();
 

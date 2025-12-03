@@ -26,7 +26,7 @@ class Typo3VersionViewHelper extends AbstractConditionViewHelper
         $this->registerArgument('operator', 'string', 'Compare operator', true, '>');
     }
 
-    protected static function evaluateCondition($arguments = null)
+    protected static function evaluateCondition(?array $arguments = null)
     {
         $version = $arguments['version'];
         $operator = $arguments['operator'];

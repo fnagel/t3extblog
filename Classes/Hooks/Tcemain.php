@@ -279,7 +279,7 @@ class Tcemain
     /**
      * Get record pid.
      */
-    protected function resolveRecordPid(string $table, int|string $id, DataHandler $tceMain, array $fields = null): int
+    protected function resolveRecordPid(string $table, int|string $id, DataHandler $tceMain, ?array $fields = null): int
     {
         // Changed records
         if (isset($tceMain->checkValue_currentRecord['pid'])) {

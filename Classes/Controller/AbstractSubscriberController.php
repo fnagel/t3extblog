@@ -83,7 +83,7 @@ abstract class AbstractSubscriberController extends AbstractController
 
     abstract protected function dispatchConfirmEvent(AbstractSubscriber $subscriber): AbstractSubscriber;
 
-    protected function delete(AbstractSubscriber $subscriber = null): ResponseInterface
+    protected function delete(?AbstractSubscriber $subscriber = null): ResponseInterface
     {
         if (($authResult = $this->checkAuth()) instanceof ResponseInterface) {
             return $authResult;

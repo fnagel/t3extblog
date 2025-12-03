@@ -21,7 +21,7 @@ class ModuleButtonProvider implements ButtonProviderInterface
     {
     }
 
-    protected function getModuleLink(int $id = null, array $arguments = []): string
+    protected function getModuleLink(?int $id = null, array $arguments = []): string
     {
         $parameters = [];
         $route = '';

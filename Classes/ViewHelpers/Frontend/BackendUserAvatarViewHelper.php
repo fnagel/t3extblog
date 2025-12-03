@@ -86,7 +86,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
      *
      * @param string|null $default Blank gif als fallback
      */
-    protected static function noAvatarFound(string $default = null): string
+    protected static function noAvatarFound(?string $default = null): string
     {
         if ($default === null || strlen(trim($default)) < 10) {
             $default = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';

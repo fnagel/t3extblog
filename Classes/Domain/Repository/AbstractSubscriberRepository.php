@@ -36,7 +36,7 @@ abstract class AbstractSubscriberRepository extends AbstractRepository
         return $query->execute()->getFirst();
     }
 
-    protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, string $email, int $excludeUid = null): array
+    protected function getBasicExistingSubscriptionConstraints(QueryInterface $query, string $email, ?int $excludeUid = null): array
     {
         $constraints = [];
 

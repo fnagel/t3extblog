@@ -100,7 +100,7 @@ class BlogSubscriberController extends AbstractSubscriberController
     }
 
     #[IgnoreValidation(['value' => 'subscriber'])]
-    public function deleteAction(BlogSubscriber $subscriber = null): ResponseInterface
+    public function deleteAction(?BlogSubscriber $subscriber = null): ResponseInterface
     {
         return $this->delete($subscriber);
     }
