@@ -16,6 +16,43 @@ Version 9.x
    :depth: 3
 
 
+Upgrade to 9.2.0
+^^^^^^^^^^^^^^^^
+
+*"Deprecation free"*
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/9.1.0...9.2.0
+
+- Added PHP 8.4 support
+
+- Deprecation free (in TYPO3 v13)
+
+- Migrated docs to PHP rendering
+
+- Clean-up documentation
+
+- Clean-up TCA configuration
+
+- Some small bugfixes and improvements
+
+
+**Breaking changes**
+
+- Migrated the plugin to a custom content element type
+
+
+How to upgrade
+""""""""""""""
+
+#. Use provided upgrade wizard in "Upgrade" BE module to migrate existing plugins to content elements
+
+#. Clear all caches
+
+
+
 Upgrade to 9.1.0
 ^^^^^^^^^^^^^^^^
 
