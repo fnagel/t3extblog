@@ -49,6 +49,8 @@ How to upgrade
 
 #. Use provided upgrade wizard in "Upgrade" BE module to migrate existing plugins to content elements
 
+#. Use "Compare database" in install tool to adjust changed DB fields
+
 #. Clear all caches
 
 

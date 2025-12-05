@@ -15,7 +15,7 @@ CREATE TABLE tx_t3blog_post (
     url_segment varchar(255) DEFAULT '' NOT NULL,
     author int(11) DEFAULT '0' NOT NULL,
     date int(11) DEFAULT '0' NOT NULL,
-    content text NOT NULL,
+    content int(11) DEFAULT '0' NOT NULL,
     allow_comments int(11) DEFAULT '0' NOT NULL,
     cat int(11) DEFAULT '0' NOT NULL,
     tagClouds text NOT NULL,
