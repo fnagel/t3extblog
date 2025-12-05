@@ -20,21 +20,6 @@ indent_size = 4
 indent_style = tab
 indent_size = 2
 
-# TMPL-Files
-[*.tmpl]
-indent_style = tab
-indent_size = 4
-
-# LESS-Files
-[*.less]
-indent_style = tab
-indent_size = 4
-
-# JS-Files
-[*.js]
-indent_style = tab
-indent_size = 4
-
 # JSON-Files
 [*.json]
 indent_style = space
@@ -55,11 +40,6 @@ indent_size = 3
 indent_style = space
 indent_size = 4
 
-# package.json or .travis.yml
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
-
 # TypoScript
 [{*.txt,*.ts,*.typoscript,*.tsconfig}]
 indent_style = tab
@@ -72,10 +52,5 @@ indent_size = 4
 
 # SQL-Files
 [*.sql]
-indent_style = tab
-indent_size = 2
-
-# Makefile
-[{Makefile,**.mk}]
-# Use tabs for indentation (Makefiles require tabs)
-indent_style = tab
+indent_style = space
+indent_size = 4
