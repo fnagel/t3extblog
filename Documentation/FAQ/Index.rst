@@ -16,16 +16,43 @@ FAQ
 
 
 
+Configure RTE
+-------------
+
+**Using TSconfig:**
+
+:code:`RTE.config.tt_content.bodytext.preset = my_rte_preset`
+:code:`RTE.config.tx_t3blog_post.preview_text.preset = my_rte_preset`
+
+.. important::
+
+	Be careful, this will configure the RTE for all `tt_content` `bodytext` fields!
+   Use TCA overrides if you want to configure the blog content RTE only.
+
+**Using TCA overrides:**
+
+Create a TCA override for post records:
+
+:code:`my_site_package/Configuration/TCA/Overrides/tx_t3blog_post.php`
+
+With this content:
+
+.. code-block:: php
+
+   $GLOBALS['TCA']['tx_t3blog_post']['columns']['content']['config']['overrideChildTca']['columns']['bodytext']['config']['richtextConfiguration'] = 'my_rte_preset';
+   $GLOBALS['TCA']['tx_t3blog_post']['columns']['preview_text']['config']['richtextConfiguration'] = 'my_rte_preset';
+
+
 Some links are broken, i.e. categories, archive or rss
 ------------------------------------------------------
 
-Check if :code:`plugin.tx_t3extblog.settings.blogsystem.pid` is set right (see :ref:`Installation <installation>`, 4.).
+Check if :code:`plugin.tx_t3extblog.settings.blogsystem.pid` is set right (see :ref:`Installation <installation>`).
 
 
 RSS Output instead of page
 --------------------------
 
-Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a seperate rss-page.
+Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a separate rss-page.
 
 
 Logging
@@ -101,7 +128,7 @@ Does it work together with "indexed search engine"?
 ---------------------------------------------------
 
 Yes! T3extblog works together with "indexed search engine". Once your posts are indexed, your visitors can search through all your posts.
-Your sould restrict indexing to the main content (blogposts) and exclude latest posts, the categorie module etc. to get usefull results.
+You should restrict indexing to the main content (blogposts) and exclude latest posts, the category module etc. to get useful results.
 
 
 Can I override the basic templates?
