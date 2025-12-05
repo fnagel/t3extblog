@@ -97,7 +97,7 @@ Code insights
 **Table mapping**
 
 This extension uses TYPO3 Extbase table mapping to make use of existing EXT:t3blog tables.
-Take a look at :code:`ext_typoscript_setup.txt` to see how this is done.
+Take a look at :code:`Configuration/Extbase/Persistence/Classes.php` to see how this is done.
 
 
 Translations
