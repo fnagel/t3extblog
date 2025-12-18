@@ -116,7 +116,7 @@ class BackendModuleService
             $viewButton = $buttonBar->makeLinkButton()
                 ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($configuration['label'])
-                ->setIcon($iconFactory->getIcon($configuration['icon'], IconSize::SMALL->value, 'overlay-new'));
+                ->setIcon($iconFactory->getIcon($configuration['icon'], IconSize::SMALL, 'overlay-new'));
 
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, 10);
         }
@@ -126,7 +126,7 @@ class BackendModuleService
             $reloadButton = $buttonBar->makeLinkButton()
                 ->setHref(GeneralUtility::getIndpEnv('REQUEST_URI'))
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
-                ->setIcon($iconFactory->getIcon('actions-refresh', IconSize::SMALL->value));
+                ->setIcon($iconFactory->getIcon('actions-refresh', IconSize::SMALL));
             $buttonBar->addButton($reloadButton, ButtonBar::BUTTON_POSITION_RIGHT);
         }
 

@@ -102,7 +102,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
             /* @var $iconFactory IconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-            return $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], IconSize::SMALL->value)->render();
+            return $iconFactory->getIcon(self::$systemLanguages[$sysLanguageUid]['flagIcon'], IconSize::SMALL)->render();
         }
 
         return self::$systemLanguages[$sysLanguageUid]['title'];

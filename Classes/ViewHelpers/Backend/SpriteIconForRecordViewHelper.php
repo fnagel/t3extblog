@@ -75,6 +75,6 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
         /* @var $iconFactory IconFactory */
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-        return $iconFactory->getIconForRecord($table, $row, IconSize::SMALL->value)->render();
+        return $iconFactory->getIconForRecord($table, $row, IconSize::SMALL)->render();
     }
 }
