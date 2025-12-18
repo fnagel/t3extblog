@@ -23,8 +23,8 @@
   ],
   "require": {
     "php": "^8.2",
-    "typo3/cms-core": ">=13.3.0,<=13.4.99",
-    "typo3/cms-dashboard": "^13"
+    "typo3/cms-core": "^14.0",
+    "typo3/cms-dashboard": "^14"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5",
@@ -53,7 +53,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-    "typo3/cms-seo": "^11"
+    "typo3/cms-seo": "^14"
   },
   "config": {
     "vendor-dir": ".Build/vendor",
