@@ -11,7 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
-use TYPO3\CMS\Fluid\View\TemplateView;
+use TYPO3\CMS\Core\View\ViewInterface;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\RateLimiterServiceInterface;
@@ -44,10 +44,7 @@ abstract class AbstractController extends ActionController
 {
     use LoggingTrait;
 
-    /**
-     * @var TemplateView
-     */
-    protected $view;
+    protected ViewInterface $view;
 
     protected ?RateLimiterServiceInterface $rateLimiter = null;
 
@@ -278,7 +275,7 @@ abstract class AbstractController extends ActionController
         return $this->xmlResponse();
     }
 
-    protected function xmlResponse(string $xml = null): ResponseInterface
+    protected function xmlResponse(?string $xml = null): ResponseInterface
     {
         $this->view->getTemplatePaths()->setFormat('xml');
 
