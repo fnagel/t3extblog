@@ -28,7 +28,7 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
      */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 

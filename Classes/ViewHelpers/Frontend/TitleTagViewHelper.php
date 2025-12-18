@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Http\ApplicationType;
  */
 class TitleTagViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
     }

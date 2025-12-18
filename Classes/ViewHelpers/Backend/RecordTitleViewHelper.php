@@ -20,7 +20,7 @@ class RecordTitleViewHelper extends AbstractBackendViewHelper
     /**
      * Arguments initialization.
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -28,7 +28,7 @@ class RecordTitleViewHelper extends AbstractBackendViewHelper
         $this->registerArgument('uid', 'int', 'Record UID', true);
     }
 
-    
+
     public function render(): string
     {
         $table = $this->arguments['table'];

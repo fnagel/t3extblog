@@ -31,7 +31,7 @@ class LocalizationViewHelper extends AbstractBackendViewHelper
      */
     public static array $systemLanguages = [];
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 

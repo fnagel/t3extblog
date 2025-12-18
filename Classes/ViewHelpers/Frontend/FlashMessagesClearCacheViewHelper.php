@@ -27,7 +27,7 @@ use FelixNagel\T3extblog\Utility\FrontendUtility;
  */
 class FlashMessagesClearCacheViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument(

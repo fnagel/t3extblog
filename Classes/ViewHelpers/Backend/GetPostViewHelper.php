@@ -21,7 +21,7 @@ class GetPostViewHelper extends AbstractBackendViewHelper
 {
     protected ?PostRepository $postRepository = null;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 

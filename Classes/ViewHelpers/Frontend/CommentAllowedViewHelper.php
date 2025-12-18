@@ -19,7 +19,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  */
 class CommentAllowedViewHelper extends AbstractConditionViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -31,7 +31,7 @@ class CommentAllowedViewHelper extends AbstractConditionViewHelper
         );
     }
 
-    public static function verdict(array $arguments, RenderingContextInterface $renderingContext)
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
     {
         /* @var Post $post */
         $post = $arguments['post'];

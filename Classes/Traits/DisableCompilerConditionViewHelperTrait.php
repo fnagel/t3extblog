@@ -28,7 +28,7 @@ trait DisableCompilerConditionViewHelperTrait
         &$initializationPhpCode,
         ViewHelperNode $node,
         TemplateCompiler $compiler
-    ) {
+    ): string {
         $compiler->disable();
     }
 }

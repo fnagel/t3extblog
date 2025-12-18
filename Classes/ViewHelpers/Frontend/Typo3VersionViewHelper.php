@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Information\Typo3Version;
  */
 class Typo3VersionViewHelper extends AbstractConditionViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 

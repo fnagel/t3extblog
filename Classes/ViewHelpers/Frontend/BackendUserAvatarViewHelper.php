@@ -20,7 +20,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class BackendUserAvatarViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('uid', 'string', 'Uid of the backend user');
         $this->registerArgument('size', 'int', 'Width of the avatar image');
