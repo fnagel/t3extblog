@@ -45,7 +45,7 @@ settings:
   plugin.tx_t3extblog.persistence.storagePid:
     label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.persistence.storagePid'
     default: 0
-    type: int
+    type: page
     category: t3extblog.persistence
 
   plugin.tx_t3extblog.settings.blogName:
@@ -57,13 +57,13 @@ settings:
   plugin.tx_t3extblog.settings.blogsystem.pid:
     label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.blogsystem.pid'
     default: 0
-    type: int
+    type: page
     category: t3extblog.pid
 
   plugin.tx_t3extblog.settings.subscriptionManager.pid:
     label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.subscriptionManager.pid'
     default: 0
-    type: int
+    type: page
     category: t3extblog.pid
 
   plugin.tx_t3extblog.settings.emailFrom:
@@ -105,5 +105,5 @@ settings:
   plugin.tx_t3extblog.settings.spamCheck.redirect.pid:
     label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.spamCheck.redirect.pid'
     default: 0
-    type: int
+    type: page
     category: t3extblog.pid
