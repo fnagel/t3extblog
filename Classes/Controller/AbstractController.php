@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Controller;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Core\View\ViewInterface;
+use TYPO3\CMS\Fluid\View\FluidViewAdapter;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\RateLimiterServiceInterface;
@@ -44,6 +45,9 @@ abstract class AbstractController extends ActionController
 {
     use LoggingTrait;
 
+    /**
+     * @var FluidViewAdapter
+     */
     protected ViewInterface $view;
 
     protected ?RateLimiterServiceInterface $rateLimiter = null;
@@ -277,11 +281,11 @@ abstract class AbstractController extends ActionController
 
     protected function xmlResponse(?string $xml = null): ResponseInterface
     {
-        $this->view->getTemplatePaths()->setFormat('xml');
+        $this->view->getRenderingContext()->getTemplatePaths()->setFormat('xml');
 
         return $this->responseFactory->createResponse()
             ->withHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->withBody($this->streamFactory->createStream((string)($xml ?? $this->view->render())));
+            ->withBody($this->streamFactory->createStream($xml ?? $this->view->render()));
     }
 
     protected function initRateLimiter(string $key, array $settings): RateLimiterServiceInterface
