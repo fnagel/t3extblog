@@ -76,7 +76,9 @@ class PostRepository extends AbstractRepository
             ->setMaxResults(1)
         ;
 
-        return $this->createQuery()->statement($queryBuilder)->execute()->getFirst();
+        return $this->createQuery()->statement($queryBuilder->getSQL(), $queryBuilder->getParameters())
+            ->execute()
+            ->getFirst();
     }
 
     /**
