@@ -13,6 +13,7 @@ use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Event;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -51,6 +52,7 @@ class EmailService implements SingletonInterface
      */
     public function __construct(
         protected SettingsService $settingsService,
+        protected MailerInterface $mailer,
         protected readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
@@ -108,7 +110,7 @@ class EmailService implements SingletonInterface
         $this->setMessageContent($message, $emailBody);
 
         if (!$this->settings['debug']['disableEmailTransmission']) {
-            $message->send();
+            $this->mailer->send($message);
         }
 
         $logData = [
@@ -116,7 +118,7 @@ class EmailService implements SingletonInterface
             'mailFrom' => $mailFrom,
             'subject' => $subject,
             'emailBody' => $emailBody,
-            'isSent' => $message->isSent(),
+            'isSent' => $this->mailer->getSentMessage() !== null,
         ];
         $this->getLog()->dev('Email sent.', $logData);
 
@@ -223,6 +225,8 @@ class EmailService implements SingletonInterface
 
     /**
      * Create mail message.
+     *
+     * @todo Switch to FluidEmail!
      */
     protected function createMailMessage(): MailMessage
     {
