@@ -1,19 +1,47 @@
 plugin.tx_t3extblog {
+	# Start with key 20 as 0 and 10 are used by the TYPO3 core when using FluidEmail
 	view {
 		# "Email/" is appended to the final template path when rendering emails
-		templateRootPaths.0 = EXT:t3extblog/Resources/Private/Templates/
-		templateRootPaths.10 = {$plugin.tx_t3extblog.view.templateRootPath}
+		templateRootPaths.20 = EXT:t3extblog/Resources/Private/Templates/
+		templateRootPaths.21 = {$plugin.tx_t3extblog.view.templateRootPath}
 
-		partialRootPaths.0 = EXT:t3extblog/Resources/Private/Partials/
-		partialRootPaths.10 = {$plugin.tx_t3extblog.view.partialRootPath}
+		partialRootPaths.20 = EXT:t3extblog/Resources/Private/Partials/
+		partialRootPaths.21 = {$plugin.tx_t3extblog.view.partialRootPath}
 
-		layoutRootPaths.0 = EXT:t3extblog/Resources/Private/Layouts/
-		layoutRootPaths.10 = {$plugin.tx_t3extblog.view.layoutRootPath}
+		layoutRootPaths.20 = EXT:t3extblog/Resources/Private/Layouts/
+		layoutRootPaths.21 = {$plugin.tx_t3extblog.view.layoutRootPath}
 	}
 
 	persistence {
 		storagePid = {$plugin.tx_t3extblog.persistence.storagePid}
 		enableAutomaticCacheClearing = 1
+	}
+
+	email {
+		# Configure email type
+		#
+		# This extension supports both, FluidEmail and MailMessage standard. See TYPO3 docs:
+		# https://docs.typo3.org/permalink/t3coreapi:mail-create
+		#
+		# FluidEmail is the TYPO3 standard for themed emails. It has a default email theme you might want to override.
+		# You can do so by configuring the $GLOBALS['TYPO3_CONF_VARS']['MAIL'] configuration. See TYPO3 docs:
+		# https://docs.typo3.org/permalink/t3coreapi:mail-configuration-fluid
+		#
+		# Both, the FluidEmail and the old MailMessage functionality can be configured as any Extbase extension by
+		# modifying the view settings: templateRootPaths, partialRootPaths, layoutRootPaths. This can be done using
+		# site settings, TypoScript constants or TypoScript setup.
+		#
+		# Options: mailMessage or fluidEmail
+		type = {$plugin.tx_t3extblog.settings.emailType}
+
+		# Configure email template
+		#
+		# - filepath by configuring "plugin.tx_t3extblog.view.templateRootPaths" (see above)
+		# - filename by configuring "template" value in "plugin.tx_t3extblog.settings.subscriptionManager"
+		# - email type (plain or html) by configuring the file extension of the file name
+		#	- txt extension for plain text emails
+		#	- html extension for HTML text emails
+		#	- no file extension to use both (only available with FluidEmail, make sure to make both file extension available)
 	}
 
 	settings {

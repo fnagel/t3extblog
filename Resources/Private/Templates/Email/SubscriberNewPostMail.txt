@@ -1,8 +1,8 @@
 {namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
 
-<f:layout name="Email" />
+<f:layout name="{layout}" />
 
-<f:section name="main">
+<f:section name="Main">
 Hello,
 
 a new post has been released on {settings.blogName}:

@@ -9,17 +9,19 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Mail\EmailWithViewInterface;
+use FelixNagel\T3extblog\Mail\FluidEmail;
+use FelixNagel\T3extblog\Mail\MailMessage;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Event;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\MailerInterface;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
-use TYPO3\CMS\Core\View\ViewFactoryData;
-use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -63,17 +65,16 @@ class EmailService implements SingletonInterface
     }
 
     /**
-     * This is the main-function for sending Mails using a template.
-     *
-     * @return int the number of recipients who were accepted for delivery
+     * This is the function for sending Mails using a template name.
      */
-    public function sendEmail(
+    // @extensionScannerIgnoreLine
+    public function send(
         array $mailTo,
         array $mailFrom,
         string $subject,
         array $variables,
         string $templatePath
-    ): int {
+    ): bool {
         /** @var Event\SendEmailEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new Event\SendEmailEvent($mailTo, $mailFrom, $subject, $variables, $templatePath)
@@ -84,12 +85,6 @@ class EmailService implements SingletonInterface
         $variables = $event->getVariables();
         $templatePath = $event->getTemplatePath();
 
-        // @extensionScannerIgnoreLine
-        return $this->send($mailTo, $mailFrom, $subject, $this->render($variables, $templatePath));
-    }
-
-    protected function send(array $mailTo, array $mailFrom, string $subject, string $emailBody): int
-    {
         if (!GeneralUtility::validEmail(key($mailTo))) {
             // @extensionScannerIgnoreLine
             $this->getLog()->error('Given mailto email address is invalid.', $mailTo);
@@ -97,17 +92,14 @@ class EmailService implements SingletonInterface
             return false;
         }
 
-        if (!GeneralUtility::validEmail(key($mailFrom))) {
-            $mailFrom = MailUtility::getSystemFrom();
-        }
-
-        $message = $this->createMailMessage();
+        $message = $this->getMessage($templatePath, $variables);
         $message
-            ->setSubject($subject)
-            ->setTo($mailTo)
-            ->setFrom($mailFrom);
-
-        $this->setMessageContent($message, $emailBody);
+            ->subject($subject)
+            ->to(new Address(key($mailFrom), current($mailFrom) ?? ''))
+            ->from(new Address(
+                GeneralUtility::validEmail(key($mailFrom)) ? key($mailFrom) : MailUtility::getSystemFromAddress(),
+                current($mailFrom) ?? MailUtility::getSystemFromName() ?? ''
+            ));
 
         if (!$this->settings['debug']['disableEmailTransmission']) {
             $this->mailer->send($message);
@@ -117,7 +109,7 @@ class EmailService implements SingletonInterface
             'mailTo' => $mailTo,
             'mailFrom' => $mailFrom,
             'subject' => $subject,
-            'emailBody' => $emailBody,
+            'emailBody' => $message->getBody(),
             'isSent' => $this->mailer->getSentMessage() !== null,
         ];
         $this->getLog()->dev('Email sent.', $logData);
@@ -125,55 +117,41 @@ class EmailService implements SingletonInterface
         return $logData['isSent'];
     }
 
-    /**
-     * This functions renders template to use in Mails and Other views.
-     *
-     * @param array  $variables    Arguments for template
-     * @param string $templatePath Choose a template
-     */
-    public function render(array $variables, string $templatePath = 'Default.txt'): string
+    protected function getMessage(string $template, array $variables): Email
     {
-        $emailView = $this->getEmailView($templatePath);
-        $emailView->assignMultiple($variables);
-        $emailView->assignMultiple([
-            'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
-            'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
-            'settings' => $this->settings,
-        ]);
+        $message = $this->createMessage($template);
 
-        return $emailView->render();
+        if ($message instanceof EmailWithViewInterface) {
+            $message->setRequest($this->creatRequest());
+
+            $context = $message->getRenderingContext();
+            $context->setControllerName(self::TEMPLATE_FOLDER);
+            $context->setControllerAction($template);
+        }
+
+        if ($message instanceof ViewInterface) {
+            $message->assignMultiple($variables);
+            $message->assignMultiple([
+                'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
+                'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
+                'settings' => $this->settings,
+                // Layout for templating
+                'layout' => $message->getLayout(),
+            ]);
+        }
+
+        return $message;
     }
 
-    /**
-     * Create and configure the view.
-     */
-    public function getEmailView(string $templateFile): ViewInterface
+    protected function createMessage(string $template): Email
     {
-        $emailView = $this->createStandaloneView($templateFile);
+        $settings = $this->settingsService->getFrameworkSettings();
 
-        $emailView->getRenderingContext()->setControllerName(self::TEMPLATE_FOLDER);
-        $emailView->getRenderingContext()->setControllerAction($templateFile);
-
-        return $emailView;
-    }
-
-    protected function createStandaloneView(string $templateFile): ViewInterface
-    {
-        /* @var $viewFactory ViewFactoryInterface */
-        $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
-
-        $frameworkConfig = $this->settingsService->getFrameworkSettings();
-        $viewFactoryData = new ViewFactoryData(
-            templateRootPaths: $frameworkConfig['view']['templateRootPaths'] ?? null,
-            partialRootPaths: $frameworkConfig['view']['partialRootPaths'] ?? null,
-            layoutRootPaths: $frameworkConfig['view']['layoutRootPaths'] ?? null,
-            // Create our own Extbase request object (since TYPO3 v12), see:
-            // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98377-FluidStandaloneViewDoesNotCreateAnExtbaseRequestAnymore.html
-            request: $this->creatRequest(),
-            format: pathinfo($templateFile, PATHINFO_EXTENSION),
+        return GeneralUtility::makeInstance(
+            $settings['email']['type'] === 'fluidEmail' ? FluidEmail::class : MailMessage::class,
+            $template,
+            $settings
         );
-
-        return $viewFactory->create($viewFactoryData);
     }
 
     protected function creatRequest(): ServerRequestInterface
@@ -192,44 +170,5 @@ class EmailService implements SingletonInterface
         }
 
         return (new Request($request));
-    }
-
-    /**
-     * Prepare html as plain text.
-     */
-    protected function preparePlainTextBody(string $html): string
-    {
-        // Remove style tags
-        $output = preg_replace('#<style\b[^>]*>(.*?)<\/style>#s', '', $html);
-
-        // Remove tags and extract url from link tags
-        $output = strip_tags(preg_replace('#<a.* href=(?:"|\')(.*)(?:"|\').*>#', '$1', $output));
-
-        // Break lines and clean up white spaces
-        $output = MailUtility::breakLinesForEmail($output);
-
-        return preg_replace('#(?:(?:\r\n|\r|\n)\s*){2}#s', "\n\n", $output);
-    }
-
-    protected function setMessageContent(MailMessage $message, string $emailBody): void
-    {
-        // Plain text only
-        if (strip_tags($emailBody) === $emailBody) {
-            $message->text($emailBody);
-        } else {
-            // Send as HTML and plain text
-            $message->html($emailBody);
-            $message->text($this->preparePlainTextBody($emailBody));
-        }
-    }
-
-    /**
-     * Create mail message.
-     *
-     * @todo Switch to FluidEmail!
-     */
-    protected function createMailMessage(): MailMessage
-    {
-        return GeneralUtility::makeInstance(MailMessage::class);
     }
 }

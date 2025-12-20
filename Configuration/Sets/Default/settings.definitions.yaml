@@ -66,6 +66,15 @@ settings:
     type: page
     category: t3extblog.pid
 
+  plugin.tx_t3extblog.settings.emailType:
+    label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailType'
+    default: mailMessage
+    type: string
+    category: t3extblog.email
+    enum:
+      mailMessage: 'MailMessage: standalone Fluid template rendering (legacy)'
+      fluidEmail: 'FluidEmail is the newer TYPO3 standard for themed emails'
+
   plugin.tx_t3extblog.settings.emailFrom:
     label: 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_constants.xlf:constants.settings.emailFrom'
     default: ''

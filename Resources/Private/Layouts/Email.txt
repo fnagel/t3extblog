@@ -1,5 +1,5 @@
 {namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
-<f:render section="main" />
+<f:render section="Main" />
 --
 <t3b:uri.action
 	extensionName="T3extblog"

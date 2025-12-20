@@ -91,7 +91,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     protected function sendEmail(array $mailTo, string $subject, string $template, array $settings, array $variables = [])
     {
-        $this->emailService->sendEmail(
+        $this->emailService->send(
             $mailTo,
             [$settings['mailFrom']['email'] => $settings['mailFrom']['name']],
             $subject,

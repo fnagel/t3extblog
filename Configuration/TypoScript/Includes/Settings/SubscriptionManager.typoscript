@@ -7,8 +7,8 @@ plugin.tx_t3extblog.settings {
 			admin {
 				enableNotifications = 1
 
-				# Configure email template file (txt or html)
-				# Path is controlled by plugin.tx_t3extblog.view.email[]
+				# Configure email template file name
+				# Use txt or html file extension or skip to use both
 				template = AdminNewCommentMail.txt
 
 				mailTo {
@@ -25,6 +25,8 @@ plugin.tx_t3extblog.settings {
 			subscriber {
 				enableNotifications = 1
 
+				# Configure email template file name
+				# Use txt or html file extension or skip to use both
 				template {
 					confirm = SubscriberOptinMail.txt
 					notification = SubscriberNewCommentMail.txt
@@ -44,6 +46,8 @@ plugin.tx_t3extblog.settings {
 			subscriber {
 				enableNotifications = 1
 
+				# Configure email template file name
+				# Use txt or html file extension or skip to use both
 				template {
 					confirm = BlogSubscriberOptinMail.txt
 					notification = SubscriberNewPostMail.txt
