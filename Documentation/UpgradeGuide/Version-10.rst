@@ -33,6 +33,8 @@ https://github.com/fnagel/t3extblog/compare/9.2.0...10.0.0
 
 - Support for fully localized emails
 
+- Make use of new meta tag view helpers
+
 - Lots of small bugfixes and replacements for deprecated core functionality
 
 - Code clean-up and lots of code quality improvements
@@ -44,9 +46,17 @@ https://github.com/fnagel/t3extblog/compare/9.2.0...10.0.0
 
 - Email templates have changed
 
+- Removed some custom view helpers (`MetaTag` and `HeaderData` VH)
+
 
 How to upgrade
 """"""""""""""
+
+#. Replace MetaTag view helper, e.g. `<t3b:metaTag property="keywords" content="xyz" />` with core VH
+   - Check `Resources/Private/Partials/Post/Meta.html` template if overridden
+
+#. Replace HeaderData view helper, e.g. `<t3b:headerData>...</t3b:headerData>` with core VH
+   - Check `Resources/Private/Partials/PaginationMeta.html` template if overridden
 
 #. Configure email type in site settings (`plugin.tx_t3extblog.settings.emailType`) or TypoScript:
    - `mailMessage`: MailMessage: standalone Fluid template rendering (legacy)

@@ -18,14 +18,14 @@
 
 <f:section name="seoMetaTags">
 	<f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
-		<t3b:headerData>
+		<f:page.headerData>
 			<link rel="prev" href="{f:uri.action(arguments: {page: pagination.previousPageNumber}, addQueryString: 1) -> f:format.htmlentities()}" />
-		</t3b:headerData>
+		</f:page.headerData>
 	</f:if>
 	<f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
-		<t3b:headerData>
+		<f:page.headerData>
 			<link rel="next" href="{f:uri.action(arguments: {page: pagination.nextPageNumber}, addQueryString: 1) -> f:format.htmlentities()}" />
-		</t3b:headerData>
+		</f:page.headerData>
 	</f:if>
 </f:section>
 
