@@ -114,6 +114,9 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage implements EmailWithV
         return parent::getHtmlBody();
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function render(string $templateFileName = ''): string
     {
         $this->setContent($content = $this->getView()->render());
