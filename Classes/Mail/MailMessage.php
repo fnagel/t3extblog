@@ -23,8 +23,7 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage implements EmailWithV
         string $template,
         array $frameworkConfig,
         protected ?ViewInterface $view = null,
-    )
-    {
+    ) {
         parent::__construct();
 
         if ($this->view === null) {

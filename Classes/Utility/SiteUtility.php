@@ -9,7 +9,6 @@ namespace FelixNagel\T3extblog\Utility;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\LocalizedEntityInterface;
 use TYPO3\CMS\Core\Localization\Locale;
 use TYPO3\CMS\Core\SingletonInterface;

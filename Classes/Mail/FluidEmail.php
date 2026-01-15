@@ -17,8 +17,7 @@ class FluidEmail extends \TYPO3\CMS\Core\Mail\FluidEmail implements EmailWithVie
     public function __construct(
         string $template,
         array $frameworkConfig,
-    )
-    {
+    ) {
         parent::__construct($this->getTemplatePaths($frameworkConfig['view']));
 
         $this->setTemplate($template);
@@ -39,11 +38,11 @@ class FluidEmail extends \TYPO3\CMS\Core\Mail\FluidEmail implements EmailWithVie
         )));
         $templatePaths->setLayoutRootPaths(array_filter(array_replace(
             $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'] ?? [],
-                $frameworkViewConfig['layoutRootPaths'] ?? [],
+            $frameworkViewConfig['layoutRootPaths'] ?? [],
         )));
         $templatePaths->setPartialRootPaths(array_filter(array_replace(
             $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'] ?? [],
-                $frameworkViewConfig['partialRootPaths'] ?? [],
+            $frameworkViewConfig['partialRootPaths'] ?? [],
         )));
 
         return $templatePaths;
@@ -102,7 +101,8 @@ class FluidEmail extends \TYPO3\CMS\Core\Mail\FluidEmail implements EmailWithVie
             'html' => self::FORMAT_HTML,
             'txt' => self::FORMAT_PLAIN,
             default => throw new \InvalidArgumentException(
-                'File extension must be "html" or "txt", no other formats are currently supported', 1580743848
+                'File extension must be "html" or "txt", no other formats are currently supported',
+                1580743848
             ),
         });
 

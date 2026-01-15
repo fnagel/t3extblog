@@ -60,8 +60,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         string $subject,
         string $template,
         array $variables = [],
-    ): void
-    {
+    ): void {
         if (empty($subscriber->getEmail())) {
             throw new Exception('Email address is a required property!', 1592248953);
         }
@@ -89,8 +88,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         array $settings,
         array $variables = [],
         ?SiteLanguage $language = null
-    ): void
-    {
+    ): void {
         $this->emailService->send(
             $mailTo,
             [$settings['mailFrom']['email'] => $settings['mailFrom']['name']],
