@@ -54,7 +54,7 @@ Currently implemented features:
 * Allow some HTML tags in comment message
 * GDPR / DSGVO checkboxes
 * Reasonable email sending, even when you accept comments in BE (extension module AND default list module, using TCEMAIN hooks)
-* Send HTML and / or text emails
+* Send HTML and / or text emails incl. support for TYPO3's `FluidEmail` standard
 
 
 **Developer related**

@@ -187,23 +187,20 @@ Working multi language TYPO3 CMS installation.
 
 **Needed steps:**
 
-* Translate blogsystem plugin page
+* Translate blog related page
 
 * Translate plugin elements
 
 * Translate record sysfolder
 
-* Start translating your posts and categories!
+* Translate post and category records
 
 
 **Email localization**
 
-All emails (subscription opt-in, new comment notify for admin and user) are single language only at the moment.
+All emails (post and blog subscription opt-in, new comment notify for admin and user) can be fully localized.
 
 .. important::
-	Please note: Added localization strings will work in frontend but not in backend context (e.g. when switch a comment visible from the BE).
-	It's recommended to only use and change the default localization to keep all emails consistent.
-	You may use FLUID if conditions within the email templates in order to localize your custom email templates.
-
-
-Please see here for more information: https://github.com/fnagel/t3extblog/issues/68
+	Please note: due to a core bug (https://forge.typo3.org/issues/108102) it is needed to always add the `languageKey`
+   argument with the `languageCode` value when using the translate VH: `<f:translate languageKey="{locale.languageCode}" />`
+   Using the Local object directly will result in wrong localization!
