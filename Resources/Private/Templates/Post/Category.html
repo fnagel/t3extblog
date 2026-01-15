@@ -1,11 +1,10 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
 
 <f:section name="main">
 
-	<t3b:metaTag property="robots" content="noindex,follow" />
+	<f:page.meta property="robots">noindex,follow</f:page.meta>
 	<f:render partial="Post/List" arguments="{_all}" />
 
 </f:section>

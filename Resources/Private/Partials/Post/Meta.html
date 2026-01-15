@@ -3,35 +3,38 @@
 
 <t3b:titleTag>{post.title}</t3b:titleTag>
 
+<f:if condition="{post.metaDescription}">
+	<f:then>
+		<f:variable name="description">{post.metaDescription}</f:variable>
+	</f:then>
+	<f:else>
+		<f:variable name="description">{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}</f:variable>
+	</f:else>
+</f:if>
+
 <f:if condition="{settings.blogsystem.posts.metadata.enable}">
-	<f:if condition="{post.metaDescription}">
-		<f:then>
-			<t3b:metaTag property="description" content="{post.metaDescription}" />
-		</f:then>
-		<f:else>
-			<t3b:metaTag property="description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
-		</f:else>
-	</f:if>
+	<f:page.meta property="description">{description}</f:page.meta>
 
 	<f:if condition="{post.metaKeywords}">
 		<f:then>
-			<t3b:metaTag property="keywords" content="{post.metaKeywords}" />
+			<f:page.meta property="keywords">{post.metaKeywords}</f:page.meta>
 		</f:then>
 		<f:else>
-			<t3b:metaTag property="keywords" content="{post.rawTagCloud}" />
+			<f:page.meta property="keywords">{post.rawTagCloud}</f:page.meta>
 		</f:else>
 	</f:if>
 </f:if>
 
 <f:if condition="{settings.blogsystem.posts.metadata.openGraph.enable}">
-	<t3b:metaTag property="og:url" useCurrentDomain="1" />
-	<t3b:metaTag property="og:title" content="{post.title}" />
-	<t3b:metaTag property="og:description" content="{post.preview -> f:format.crop(maxCharacters: 150, respectWordBoundaries: 'true')}" />
+	<f:page.meta property="og:url"><f:uri.action controller="Post" action="show" arguments="{post.linkParameter}" absolute="1" /></f:page.meta>
+	<f:page.meta property="og:title">{post.title}</f:page.meta>
+	<f:page.meta property="og:description">{description}</f:page.meta>
+	<f:page.meta property="og:type">article</f:page.meta>
 </f:if>
 
 <f:if condition="{settings.blogsystem.posts.metadata.openGraph.enable}">
 	<f:if condition="{post.previewImage}">
-		<t3b:metaTag property="og:image" forceAbsoluteUrl="1" content="{f:uri.image(src: '{post.previewImage.uid}', treatIdAsReference: 1, maxWidth: '500')}" />
+		<f:page.meta property="og:image">{f:uri.image(src: '{post.previewImage.uid}', treatIdAsReference: 1, maxWidth: '500', absolute: '1')}</f:page.meta>
 	</f:if>
 </f:if>
 
