@@ -9,7 +9,7 @@ plugin.tx_t3extblog.settings {
 
 				# Configure email template file name
 				# Use txt or html file extension or skip to use both
-				template = AdminNewCommentMail.txt
+				template = AdminNewCommentMail
 
 				mailTo {
 					email = {$plugin.tx_t3extblog.settings.emailTo}
@@ -28,8 +28,8 @@ plugin.tx_t3extblog.settings {
 				# Configure email template file name
 				# Use txt or html file extension or skip to use both
 				template {
-					confirm = SubscriberOptinMail.txt
-					notification = SubscriberNewCommentMail.txt
+					confirm = SubscriberOptinMail
+					notification = SubscriberNewCommentMail
 				}
 
 				# Email link invalid after
@@ -49,8 +49,8 @@ plugin.tx_t3extblog.settings {
 				# Configure email template file name
 				# Use txt or html file extension or skip to use both
 				template {
-					confirm = BlogSubscriberOptinMail.txt
-					notification = SubscriberNewPostMail.txt
+					confirm = BlogSubscriberOptinMail
+					notification = SubscriberNewPostMail
 				}
 
 				# Email link invalid after

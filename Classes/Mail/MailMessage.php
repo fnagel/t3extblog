@@ -50,7 +50,7 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage implements EmailWithV
             templateRootPaths: $frameworkConfig['templateRootPaths'] ?? null,
             partialRootPaths: $frameworkConfig['partialRootPaths'] ?? null,
             layoutRootPaths: $frameworkConfig['layoutRootPaths'] ?? null,
-            format: ($format = pathinfo($template, PATHINFO_EXTENSION)) === '' ? 'txt' : $format,
+            format: ($format = pathinfo($template, PATHINFO_EXTENSION)) === '' ? 'html' : $format,
         );
 
         return $viewFactory->create($viewFactoryData);
@@ -145,7 +145,7 @@ class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage implements EmailWithV
         $output = preg_replace('#<style\b[^>]*>(.*?)<\/style>#s', '', $html);
 
         // Remove tags and extract url from link tags
-        $output = strip_tags(preg_replace('#<a.* href=(?:"|\')(.*)(?:"|\').*>#', '$1', $output));
+        $output = strip_tags(preg_replace('#(?<=href=["\']).*?(?=["\'])#', '$1', $output));
 
         // Break lines and clean up white spaces
         $output = MailUtility::breakLinesForEmail($output);

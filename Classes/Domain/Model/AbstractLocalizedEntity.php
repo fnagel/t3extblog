@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
 /**
  * AbstractLocalizedEntity.
  */
-abstract class AbstractLocalizedEntity extends AbstractEntity
+abstract class AbstractLocalizedEntity extends AbstractEntity implements LocalizedEntityInterface
 {
     public function getLocalizedUid(): int
     {

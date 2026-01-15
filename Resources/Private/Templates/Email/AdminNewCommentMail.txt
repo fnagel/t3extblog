@@ -11,6 +11,8 @@ someone added a new comment!
 	<f:else>The new comment is invalid, please approve or remove it!</f:else>
 </f:if>
 
+Blog
+----
 Blogname: 	{settings.blogName}
 Blogpost: 	{post.title}
 Link:		<t3b:uri.action
@@ -26,6 +28,7 @@ Link:		<t3b:uri.action
 
 
 Comment
+-------
 Title: 		{comment.title}
 Author: 	{comment.author}
 Date: 		<f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date>
@@ -38,7 +41,7 @@ Text:
 
 
 You could manage comments in the TYPO3 backend of your installation:
-{domain}typo3
+{domain}typo3/record/edit?edit[tx_t3blog_com][{comment.uid}]=edit&module=web_T3extblogBlogsystem
 
 <f:render partial="Email/Footer" arguments="{_all}" />
 </f:section>

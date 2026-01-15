@@ -14,6 +14,7 @@ use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Event;
+use FelixNagel\T3extblog\Utility\SiteUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -92,7 +93,7 @@ class BlogNotificationService extends AbstractNotificationService
 
         $this->sendSubscriberEmail(
             $subscriber,
-            $this->translate('subject.subscriber.blog.new'),
+            $this->translate('subject.subscriber.blog.new', '', SiteUtility::getLocale($subscriber)),
             $this->subscriptionSettings['subscriber']['template']['confirm']
         );
     }
@@ -119,7 +120,7 @@ class BlogNotificationService extends AbstractNotificationService
         }
 
         $subscribers = $this->subscriberRepository->findForNotification();
-        $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle());
+        $subject = $this->translate('subject.subscriber.blog.notify', $post->getTitle(), SiteUtility::getLocale($post));
         $variables = ['post' => $post];
 
         /** @var Event\Post\Notification\SubscribersEvent $event */

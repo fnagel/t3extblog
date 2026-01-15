@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
 /**
  * PostSubscriber.
  */
-class BlogSubscriber extends AbstractSubscriber
+class BlogSubscriber extends AbstractSubscriber implements LocalizedEntityInterface
 {
     public function getSysLanguageUid(): int
     {

@@ -1,0 +1,64 @@
+{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
+
+<f:layout name="{layout}" />
+
+<f:section name="Main">
+	<f:spaceless>
+		<f:variable name="validUntilReadable"><f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date></f:variable>
+		<f:variable name="linkToConfirm"><t3b:uri.action
+			extensionName="T3extblog"
+			pluginName="SubscriptionManager"
+			controller="PostSubscriber"
+			action="confirm"
+			pageUid="{settings.subscriptionManager.pid}"
+			absolute="true"
+			arguments="{code: subscriber.code}"
+			additionalParams="{L: subscriber.sysLanguageUid}" /></f:variable>
+		<f:variable name="linkToPost"><t3b:uri.action
+			extensionName="T3extblog"
+			pluginName="Blogsystem"
+			controller="Post"
+			action="show"
+			pageUid="{settings.blogsystem.pid}"
+			absolute="true"
+			arguments="{post.linkParameter}"
+			additionalParams="{L: post.sysLanguageUid}"
+			section="comment-{comment.uid}" /></f:variable>
+	</f:spaceless>
+
+	<p>
+		<f:translate key="email.greeting" languageKey="{locale.languageCode}" arguments="{
+			0: settings.blogName,
+			1: subscriber.email,
+			2: validUntilReadable,
+			3: post.title
+		}" /><br>
+		<br>
+		<f:translate key="email.subscriber.comment.new.header" languageKey="{locale.languageCode}" arguments="{
+			0: settings.blogName,
+			1: subscriber.email,
+			2: validUntilReadable,
+			3: post.title
+		}" /><br>
+		<a href="{linkToPost}" target="_blank">{linkToPost}</a>
+	</p>
+	<p>
+		<f:translate key="email.subscriber.comment.new.text" languageKey="{locale.languageCode}" arguments="{
+			0: settings.blogName,
+			1: subscriber.email,
+			2: validUntilReadable,
+			3: post.title
+		}" /><br>
+		<a href="{linkToConfirm}" target="_blank">{linkToConfirm}</a>
+	</p>
+	<p>
+		<f:translate key="email.subscriber.footer" languageKey="{locale.languageCode}" arguments="{
+			0: settings.blogName,
+			1: subscriber.email,
+			2: validUntilReadable,
+			3: post.title
+		}" />
+	</p>
+
+	<f:render partial="Email/Footer" arguments="{_all}" />
+</f:section>

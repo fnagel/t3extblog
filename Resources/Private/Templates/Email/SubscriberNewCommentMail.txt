@@ -3,34 +3,57 @@
 <f:layout name="{layout}" />
 
 <f:section name="Main">
-Hello {subscriber.name},
+<f:spaceless>
+	<f:variable name="validUntilReadable"><f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date></f:variable>
+	<f:variable name="linkToManager"><t3b:uri.action
+		extensionName="T3extblog"
+		pluginName="SubscriptionManager"
+		controller="BlogSubscriber"
+		action="list"
+		pageUid="{settings.subscriptionManager.pid}"
+		absolute="true"
+		arguments="{code : subscriber.code}"
+		additionalParams="{L: subscriber.sysLanguageUid}" /></f:variable>
+	<f:variable name="linkToPost"><t3b:uri.action
+		extensionName="T3extblog"
+		pluginName="Blogsystem"
+		controller="Post"
+		action="show"
+		pageUid="{settings.blogsystem.pid}"
+		absolute="true"
+		arguments="{post.linkParameter}"
+		additionalParams="{L: subscriber.sysLanguageUid}"
+		section="comment-{comment.uid}"/></f:variable>
+</f:spaceless>
+<f:translate key="email.greeting" languageKey="{locale.languageCode}" arguments="{
+	0: settings.blogName,
+	1: subscriber.email,
+	2: validUntilReadable,
+	3: post.title
+}" />
 
-a new comment was posted on '{post.title}' at {settings.blogName}.
+<f:translate key="email.subscriber.comment.notify.header" languageKey="{locale.languageCode}" arguments="{
+	0: settings.blogName,
+	1: subscriber.email,
+	2: validUntilReadable,
+	3: post.title
+}" />
+{linkToPost}
 
+<f:translate key="email.subscriber.comment.notify.text" languageKey="{locale.languageCode}" arguments="{
+	0: settings.blogName,
+	1: subscriber.email,
+	2: validUntilReadable,
+	3: post.title
+}" />
+{linkToManager}
 
-See the comment: <t3b:uri.action
-					extensionName="T3extblog"
-					pluginName="Blogsystem"
-					controller="Post"
-					action="show"
-					pageUid="{settings.blogsystem.pid}"
-					absolute="true"
-					arguments="{post.linkParameter}"
-					additionalParams="{L: post.sysLanguageUid}"
-					section="comment-{comment.uid}" />
-
-You can manage your subscription by using this link:
- <t3b:uri.action
-	extensionName="T3extblog"
-	pluginName="SubscriptionManager"
-	controller="PostSubscriber"
-	action="list"
-	pageUid="{settings.subscriptionManager.pid}"
-	absolute="true"
-	arguments="{code : subscriber.code}"
-	additionalParams="{L: post.sysLanguageUid}" />
-
-This link is valid until: <f:format.date format="d.m.Y - H:i:s">{validUntil}</f:format.date>
+<f:translate key="email.subscriber.footer" languageKey="{locale.languageCode}" arguments="{
+	0: settings.blogName,
+	1: subscriber.email,
+	2: validUntilReadable,
+	3: post.title
+}" />
 
 <f:render partial="Email/Footer" arguments="{_all}" />
 </f:section>

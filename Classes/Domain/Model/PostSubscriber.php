@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
  * PostSubscriber.
  */
-class PostSubscriber extends AbstractSubscriber
+class PostSubscriber extends AbstractSubscriber implements LocalizedEntityInterface
 {
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $name = null;
@@ -42,6 +42,11 @@ class PostSubscriber extends AbstractSubscriber
     public function __construct(int $postUid)
     {
         $this->postUid = $postUid;
+    }
+
+    public function getSysLanguageUid(): int
+    {
+        return $this->getPost()->getSysLanguageUid();
     }
 
     public function getName(): string

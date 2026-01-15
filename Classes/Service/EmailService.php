@@ -18,6 +18,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use TYPO3\CMS\Core\Localization\Locale;
+use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -55,6 +57,7 @@ class EmailService implements SingletonInterface
     public function __construct(
         protected SettingsService $settingsService,
         protected MailerInterface $mailer,
+        protected Locales $locales,
         protected readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
@@ -73,7 +76,8 @@ class EmailService implements SingletonInterface
         array $mailFrom,
         string $subject,
         array $variables,
-        string $templatePath
+        string $templatePath,
+        ?Locale $locale = null
     ): bool {
         /** @var Event\SendEmailEvent $event */
         $event = $this->eventDispatcher->dispatch(
@@ -92,7 +96,7 @@ class EmailService implements SingletonInterface
             return false;
         }
 
-        $message = $this->getMessage($templatePath, $variables);
+        $message = $this->getMessage($templatePath, $variables, $locale);
         $message
             ->subject($subject)
             ->to(new Address(key($mailFrom), current($mailFrom) ?? ''))
@@ -117,7 +121,7 @@ class EmailService implements SingletonInterface
         return $logData['isSent'];
     }
 
-    protected function getMessage(string $template, array $variables): Email
+    protected function getMessage(string $template, array $variables, ?Locale $locale = null): Email
     {
         $message = $this->createMessage($template);
 
@@ -135,6 +139,7 @@ class EmailService implements SingletonInterface
                 'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
                 'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
                 'settings' => $this->settings,
+                'locale' => $locale ?? $this->locales->createLocale('default'),
                 // Layout for templating
                 'layout' => $message->getLayout(),
             ]);

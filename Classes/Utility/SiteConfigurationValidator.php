@@ -10,8 +10,6 @@ namespace FelixNagel\T3extblog\Utility;
  */
 
 use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Checks Site configuration.
@@ -27,9 +25,7 @@ class SiteConfigurationValidator
             return;
         }
 
-        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-        $site = $siteFinder->getSiteByPageId($pageId);
-        $configuration = $site->getConfiguration();
+        $configuration = SiteUtility::getConfiguration($pageId);
 
         if (is_array($configuration) && str_starts_with($configuration['base'], '/')) {
             throw new InvalidConfigurationException(

@@ -1,0 +1,96 @@
+{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
+
+<f:layout name="{layout}" />
+
+<f:section name="Main">
+	<p>
+		Hello Admin,<br>
+		<br>
+		someone added a new comment!
+	</p>
+
+	<f:if condition="{comment.valid}">
+		<f:else>
+			<p>
+				The new comment is invalid, please approve or remove it!
+			</p>
+		</f:else>
+	</f:if>
+
+	<br>
+
+	<table style="width: 100%;">
+		<caption>Blog</caption>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th style="width: 100px;">Blog name</th>
+			<td>{settings.blogName}</td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Blogpost</th>
+			<td>{post.title}</td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Link</th>
+			<td>
+				<f:variable name="linkToPost"><t3b:uri.action
+					extensionName="T3extblog"
+					pluginName="Blogsystem"
+					controller="Post"
+					action="show"
+					pageUid="{settings.blogsystem.pid}"
+					absolute="true"
+					arguments="{post.linkParameter}"
+					additionalParams="{L: post.sysLanguageUid}"
+					section="comment-{comment.uid}" /></f:variable>
+				<a href="{linkToPost}" target="_blank">{linkToPost}</a>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+
+	<table style="width: 100%;">
+		<caption>Comment</caption>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th style="width: 100px;">Title</th>
+			<td>{comment.title}</td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Author</th>
+			<td>{comment.author}</td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Date</th>
+			<td><f:format.date format="d.m.Y - H:i:s">{comment.date}</f:format.date></td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Website</th>
+			<td>
+				<f:if condition="{comment.website}">
+					<a href="{comment.website}" target="_blank">{comment.website}</a>
+				</f:if>
+			</td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Approved</th>
+			<td><f:if condition="{comment.approved}"><f:then>yes</f:then><f:else>no</f:else></f:if></td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Spam</th>
+			<td><f:if condition="{comment.spam}"><f:then>yes</f:then><f:else>no</f:else></f:if></td>
+		</tr>
+		<tr style="border-top: 1px solid currentcolor;">
+			<th>Text</th>
+			<td><f:format.stripTags>{comment.text}</f:format.stripTags></td>
+		</tr>
+	</table>
+
+	<br>
+
+	<p>
+		You could manage comments in the TYPO3 backend of your installation:<br>
+		<a href="{domain}typo3/record/edit?edit[tx_t3blog_com][{comment.uid}]=edit&module=web_T3extblogBlogsystem" target="_blank">{domain}typo3</a>
+	</p>
+
+	<f:render partial="Email/Footer" arguments="{_all}" />
+</f:section>

@@ -11,15 +11,16 @@ namespace FelixNagel\T3extblog\Service;
 
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use FelixNagel\T3extblog\Utility\SiteUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Localization\Locale;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
-use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\Comment;
-use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
@@ -58,23 +59,11 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         AbstractSubscriber $subscriber,
         string $subject,
         string $template,
-        array $variables = []
-    ) {
+        array $variables = [],
+    ): void
+    {
         if (empty($subscriber->getEmail())) {
             throw new Exception('Email address is a required property!', 1592248953);
-        }
-
-        $defaultVariables = [
-            'subscriber' => $subscriber,
-            'validUntil' => $this->getValidUntil(),
-        ];
-
-        if ($subscriber instanceof BlogSubscriber) {
-            $defaultVariables['languageUid'] = $subscriber->getSysLanguageUid();
-        }
-
-        if ($subscriber instanceof PostSubscriber) {
-            $defaultVariables['languageUid'] = $subscriber->getPost()->getSysLanguageUid();
         }
 
         $this->sendEmail(
@@ -82,22 +71,33 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
             $subject,
             $template,
             $this->subscriptionSettings['subscriber'],
-            array_merge($defaultVariables, $variables)
+            array_merge($variables, [
+                'subscriber' => $subscriber,
+                'validUntil' => $this->getValidUntil(),
+            ]),
+            SiteUtility::getLanguage($subscriber->getPid(), $subscriber->getSysLanguageUid())
         );
     }
 
     /**
      * Send notification emails.
      */
-    protected function sendEmail(array $mailTo, string $subject, string $template, array $settings, array $variables = [])
+    protected function sendEmail(
+        array $mailTo,
+        string $subject,
+        string $template,
+        array $settings,
+        array $variables = [],
+        ?SiteLanguage $language = null
+    ): void
     {
         $this->emailService->send(
             $mailTo,
             [$settings['mailFrom']['email'] => $settings['mailFrom']['name']],
             $subject,
-            // General language uid: fallback to default
-            array_merge(['languageUid' => 0], $variables),
-            $template
+            $variables,
+            $template,
+            $language->getLocale()
         );
     }
 
@@ -118,7 +118,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         return $date;
     }
 
-    protected function translate(string $key, string $variable = ''): ?string
+    protected function translate(string $key, string $variable = '', ?Locale $locale = null): ?string
     {
         return LocalizationUtility::translate(
             $key,
@@ -126,7 +126,11 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
             [
                 $this->settings['blogName'],
                 $variable,
-            ]
+            ],
+            // @todo Using the Local object directly will result in wrong localization!
+            // Same issue is true for the Fluid view helpers.
+            // Seems to be a core bug, see https://forge.typo3.org/issues/108102
+            $locale->getLanguageCode()
         );
     }
 

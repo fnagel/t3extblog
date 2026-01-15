@@ -9,12 +9,12 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Event;
+use FelixNagel\T3extblog\Utility\SiteUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -142,7 +142,7 @@ class CommentNotificationService extends AbstractNotificationService
 
         $this->sendSubscriberEmail(
             $subscriber,
-            $this->translate('subject.subscriber.comment.new', $post->getTitle()),
+            $this->translate('subject.subscriber.comment.new', $post->getTitle(), SiteUtility::getLocale($subscriber)),
             $this->subscriptionSettings['subscriber']['template']['confirm'],
             [
                 'post' => $post,
@@ -193,7 +193,7 @@ class CommentNotificationService extends AbstractNotificationService
 
         $post = $comment->getPost();
         $subscribers = $this->subscriberRepository->findForNotification($post);
-        $subject = $this->translate('subject.subscriber.comment.notify', $post->getTitle());
+        $subject = $this->translate('subject.subscriber.comment.notify', $post->getTitle(), SiteUtility::getLocale($post));
         $variables = [
             'post' => $post,
             'comment' => $comment,
@@ -239,7 +239,7 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * Notify the blog admin.
      */
-    public function notifyAdmin(Comment $comment)
+    public function notifyAdmin(Comment $comment): void
     {
         $settings = $this->subscriptionSettings['admin'];
 
@@ -256,21 +256,19 @@ class CommentNotificationService extends AbstractNotificationService
 
         $this->getLog()->dev('Send admin new comment notification mail.');
 
-        /* @var $post Post */
         $post = $comment->getPost();
-        $subject = $this->translate('subject.comment.admin.new', $post->getTitle());
-        $variables = [
-            'post' => $post,
-            'languageUid' => $post->getSysLanguageUid(),
-            'comment' => $comment,
-        ];
+        $language = SiteUtility::getLanguage($post->getPid(), $post->getSysLanguageUid());
 
         $this->sendEmail(
             [$settings['mailTo']['email'] => $settings['mailTo']['name']],
-            $subject,
+            $this->translate('subject.comment.admin.new', $post->getTitle(), $language->getLocale()),
             $settings['template'],
             $settings,
-            $variables
+            [
+                'post' => $post,
+                'comment' => $comment,
+            ],
+            $language
         );
     }
 }

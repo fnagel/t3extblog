@@ -1,2 +1,11 @@
+{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
 Regards
 {settings.blogName}
+<t3b:uri.action
+	extensionName="T3extblog"
+	pluginName="Blogsystem"
+	controller="Post"
+	action="list"
+	pageUid="{settings.blogsystem.pid}"
+	absolute="true"
+	additionalParams="{L: locale.sysLanguageUid}" />

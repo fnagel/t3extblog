@@ -132,20 +132,55 @@
 				<source>Submit</source>
 			</trans-unit>
 
-			<trans-unit id="subject.comment.admin.new">
+			<trans-unit id="subject.comment.admin.new" >
 				<source>%1$s: New comment</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.comment.notify">
-				<source>%1$s: New comment on '%2$s'</source>
+
+			<trans-unit id="email.greeting">
+				<source>Hello!</source>
 			</trans-unit>
+			<trans-unit id="email.subscriber.footer">
+				<source>This link for %2$s is valid until: %3$s</source>
+			</trans-unit>
+
 			<trans-unit id="subject.subscriber.comment.new">
 				<source>%1$s: Subscribe to '%2$s'</source>
 			</trans-unit>
+			<trans-unit id="email.subscriber.comment.new.header">
+				<source>Thanks for subscribing to new comments of this blog post:</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.comment.new.text">
+				<source>Please confirm your subscription by clicking this link:</source>
+			</trans-unit>
+
+			<trans-unit id="subject.subscriber.blog.new">
+				<source>%1$s: Subscribe to new blog posts</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.blog.new.header">
+				<source>Thanks for subscribing to new blog post of %1$s!</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.blog.new.text">
+				<source>Please confirm your subscription by clicking this link:</source>
+			</trans-unit>
+
+			<trans-unit id="subject.subscriber.comment.notify">
+				<source>%1$s: New comment on '%2$s'</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.comment.notify.header">
+				<source>A new comment has been posted on post %4$s. See the comment here:</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.comment.notify.text">
+				<source>You can manage your subscription by using this link:</source>
+			</trans-unit>
+
 			<trans-unit id="subject.subscriber.blog.notify">
 				<source>%1$s: New blog post '%2$s'</source>
 			</trans-unit>
-			<trans-unit id="subject.subscriber.blog.new">
-				<source>%1$s: Subscribe to new blog posts</source>
+			<trans-unit id="email.subscriber.blog.notify.header">
+				<source>A new blog post has been released on %1$s. See the new post here:</source>
+			</trans-unit>
+			<trans-unit id="email.subscriber.blog.notify.text">
+				<source>You can manage your subscription by using this link:</source>
 			</trans-unit>
 
 			<trans-unit id="flashMessage.blogSubscriber.alreadyRegistered.title">

@@ -8,6 +8,9 @@ plugin.tx_t3extblog {
 		partialRootPaths.20 = EXT:t3extblog/Resources/Private/Partials/
 		partialRootPaths.21 = {$plugin.tx_t3extblog.view.partialRootPath}
 
+		# E-Mail layout file name:
+		# "Email" (extension layout file: Resources/Private/Layouts/Email.html|txt) for type
+		# "SystemEmail" (file provided by TYPO3 core) for type fluidEmail
 		layoutRootPaths.20 = EXT:t3extblog/Resources/Private/Layouts/
 		layoutRootPaths.21 = {$plugin.tx_t3extblog.view.layoutRootPath}
 	}

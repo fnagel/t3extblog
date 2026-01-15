@@ -1,0 +1,16 @@
+{namespace t3b = FelixNagel\T3extblog\ViewHelpers\Frontend}
+<p>
+	Regards<br>
+	<em>{settings.blogName}</em><br>
+	<f:variable name="linkToBlog"><t3b:uri.action
+		extensionName="T3extblog"
+		pluginName="Blogsystem"
+		controller="Post"
+		action="list"
+		pageUid="{settings.blogsystem.pid}"
+		absolute="true"
+		additionalParams="{L: locale.sysLanguageUid}" /></f:variable>
+	<small>
+		<a href="{linkToBlog}" target="_blank">{linkToBlog}</a>
+	</small>
+</p>
