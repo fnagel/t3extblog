@@ -9,8 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Seo\PageTitleProvider;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\PageTitle\RecordTitleProvider;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
@@ -19,6 +18,10 @@ use TYPO3\CMS\Core\Http\ApplicationType;
  */
 class TitleTagViewHelper extends AbstractViewHelper
 {
+    public function __construct(protected readonly RecordTitleProvider $titleProvider)
+    {
+    }
+
     public function initializeArguments(): void
     {
         $this->registerArgument('prepend', 'bool', 'Prepend to the existing page path title', false, true);
@@ -37,15 +40,13 @@ class TitleTagViewHelper extends AbstractViewHelper
         $content = $this->renderChildren();
 
         if (!empty($content)) {
-            $titleProvider = GeneralUtility::makeInstance(PageTitleProvider::class);
-
             if ($prepend === true) {
-                $content .= $titleProvider->getTitle();
+                $content .= $this->titleProvider->getTitle();
             } else {
-                $content = $titleProvider->getTitle().$content;
+                $content = $this->titleProvider->getTitle().$content;
             }
 
-            $titleProvider->setTitle($content);
+            $this->titleProvider->setTitle($content);
         }
     }
 }
