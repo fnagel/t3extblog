@@ -1,5 +1,6 @@
 <?php
 
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
@@ -38,7 +39,12 @@ call_user_func(static function ($packageKey) {
     $iconRegistry->registerIcon(
         'extensions-t3extblog-plugin',
         BitmapIconProvider::class,
-        ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.png']
+        ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/plugin.png']
+    );
+    $iconRegistry->registerIcon(
+        'extensions-t3extblog-module',
+        SvgIconProvider::class,
+        ['source' => 'EXT:'.$packageKey.'/Resources/Public/Icons/module.svg']
     );
     $iconRegistry->registerIcon(
         'tcarecords-pages-contains-t3blog',

@@ -14,7 +14,7 @@ return [
         'position' => ['after' => 'web_info'],
         'access' => 'user',
         'workspaces' => '*',
-        'iconIdentifier' => 'extensions-t3extblog-plugin',
+        'iconIdentifier' => 'extensions-t3extblog-module',
         'labels' => 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_mod.xlf',
         'extensionName' => 'T3extblog',
         'controllerActions' => [
