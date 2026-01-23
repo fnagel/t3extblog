@@ -9,13 +9,13 @@
                project-issues="https://github.com/fnagel/t3extblog/issues"
                edit-on-github-branch="master"
                edit-on-github="fnagel/t3extblog"
-               typo3-core-preferred="13.4"
+               typo3-core-preferred="14.1"
                interlink-shortcode="fnagel/t3extblog"
     />
     <project title="T3Extblog (T3Blog Extbase)"
              release="master (development)"
              version="master (development)"
-             copyright="2025"
+             copyright="2026"
     />
     <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/"/>
     <inventory id="t3editors" url="https://docs.typo3.org/m/typo3/tutorial-editors/master/en-us/"/>

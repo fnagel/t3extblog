@@ -27,7 +27,7 @@ Changelog
 
 https://github.com/fnagel/t3extblog/compare/9.2.0...10.0.0
 
-- Support for TYPO3 14.0
+- Support for TYPO3 14
 
 - Support for TYPO3 FluidMail email standard
 
