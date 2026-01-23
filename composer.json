@@ -23,7 +23,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "typo3/cms-core": "^14.0",
+    "typo3/cms-core": "^14",
     "typo3/cms-dashboard": "^14"
   },
   "require-dev": {
