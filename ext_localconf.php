@@ -131,6 +131,19 @@ ExtensionUtility::configurePlugin(
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
+ExtensionUtility::configurePlugin(
+    'T3extblog',
+    'RelatedPosts',
+    [
+        PostController::class => 'related',
+    ],
+    // non-cacheable actions
+    [
+        PostController::class => '',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
 // Add BE hooks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = Tcemain::class;
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = Tcemain::class;

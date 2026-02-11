@@ -253,27 +253,32 @@ abstract class AbstractController extends ActionController
         }
     }
 
-    protected function assignPaginationVariables(QueryResultInterface $result, array $paginationConfig, int $page = 1): void
+    protected function getPaginationVariables(QueryResultInterface $result, array $config, int $page = 1): array
     {
-        $paginator = new QueryResultPaginator($result, $page, $paginationConfig['itemsPerPage'] ?: 10);
+        $paginator = new QueryResultPaginator($result, $page, $config['itemsPerPage'] ?? 10);
 
-        $this->view->assignMultiple([
+        return [
             'paginator' => $paginator,
-            'pagination' => new SlidingWindowPagination($paginator, $paginationConfig['maximumNumberOfLinks'] ?? 10),
-            'totalItems' => $result->count(),
-        ]);
+            'pagination' => new SlidingWindowPagination($paginator, $config['maximumNumberOfLinks'] ?? 10),
+        ];
     }
 
-    protected function paginationHtmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
-    {
-        $this->assignPaginationVariables($result, $paginationConfig, $page);
+    protected function paginationHtmlResponse(
+        QueryResultInterface $result,
+        array $config,
+        int $page = 1
+    ): ResponseInterface {
+        $this->view->assignMultiple($this->getPaginationVariables($result, $config, $page));
 
         return $this->htmlResponse();
     }
 
-    protected function paginationXmlResponse(QueryResultInterface $result, array $paginationConfig, int $page = 1): ResponseInterface
-    {
-        $this->assignPaginationVariables($result, $paginationConfig, $page);
+    protected function paginationXmlResponse(
+        QueryResultInterface $result,
+        array $config,
+        int $page = 1
+    ): ResponseInterface {
+        $this->view->assignMultiple($this->getPaginationVariables($result, $config, $page));
 
         return $this->xmlResponse();
     }

@@ -30,7 +30,7 @@ Currently implemented features:
 * Use all TYPO3 content elements within your blog posts
 * BE Module with dashboard and lists for posts, comments and subscriptions
 * Multiple core dashboard widgets
-* Views: list, detail, latest, categories, archive, latest posts and comments (each is a FE plugin)
+* Views: list, detail, latest, categories, archive, related posts, latest posts and comments (each is a FE plugin)
 * Filter posts by category, tag or author
 * Fields for preview text and image in list view
 * RSS feed for posts

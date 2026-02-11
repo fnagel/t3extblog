@@ -108,6 +108,26 @@ class PostRepository extends AbstractRepository
     }
 
     /**
+     * Get related posts.
+     */
+    public function relatedPosts(Post $post): ?QueryResultInterface
+    {
+        $query = $this->createQuery();
+
+        $constraints = [];
+        foreach ($post->getTagCloud() as $tag) {
+            $constraints[] = $query->like('tagCloud', '%'.$this->escapeStrForLike($tag).'%');
+        }
+
+        $query->matching($query->logicalAnd(
+            $query->logicalNot($query->equals('uid', $post->getUid())),
+            $query->logicalOr(...$constraints)
+        ));
+
+        return $query->execute();
+    }
+
+    /**
      * Find all or filtered by tag, category or author.
      */
     public function findByFilter($filter = null): ?QueryResultInterface

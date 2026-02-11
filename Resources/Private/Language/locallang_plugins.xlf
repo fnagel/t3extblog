@@ -62,6 +62,13 @@
 			<trans-unit id="latestcomments.description" xml:space="preserve">
 				<source>This plugin displays a list of the latest comments.</source>
 			</trans-unit>
+
+			<trans-unit id="relatedposts.title" xml:space="preserve">
+				<source>T3Extblog: Related posts</source>
+			</trans-unit>
+			<trans-unit id="relatedposts.description" xml:space="preserve">
+				<source>This plugin displays a list of related blog posts when rendered in detail view.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
