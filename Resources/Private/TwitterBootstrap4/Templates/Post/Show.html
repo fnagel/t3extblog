@@ -60,8 +60,52 @@
 				</div>
 			</div>
 		</div>
-
 	</article>
+
+	<f:if condition="{settings.blogsystem.posts.nextAndPreviousPosts.enable} || ({settings.blogsystem.posts.relatedPosts.enable} && {relatedPosts.paginator.paginatedItems})">
+			<div id="related-posts" class="card mt-4">
+				<f:if condition="{settings.blogsystem.posts.nextAndPreviousPosts.enable}">
+					<div class="card-footer d-flex align-items-center text-center">
+						<f:if condition="{previousPost}">
+							<f:then>
+								<f:link.action controller="Post" action="show" arguments="{previousPost.linkParameter}" title="{previousPost.title}" class="flex-fill btn btn-secondary">
+									<i class="icon icon-chevron-left" aria-hidden="true"></i> {f:translate(key:'post.previous')}
+								</f:link.action>
+							</f:then>
+							<f:else><div class="flex-fill"></div></f:else>
+						</f:if>
+
+						<f:if condition="{relatedPosts.paginator.paginatedItems}">
+							<strong class="flex-fill">{f:translate(key:'post.related')}</strong>
+						</f:if>
+
+						<f:if condition="{nextPost}">
+							<f:then>
+								<f:link.action controller="Post" action="show" arguments="{nextPost.linkParameter}" title="{nextPost.title}" class="flex-fill btn btn-secondary">
+									{f:translate(key:'post.next')} <i class="icon icon-chevron-right" aria-hidden="true"></i>
+								</f:link.action>
+							</f:then>
+							<f:else><div class="flex-fill"></div></f:else>
+						</f:if>
+					</div>
+				</f:if>
+
+				<f:if condition="{relatedPosts.paginator.paginatedItems}">
+					<div class="list-group list-group-flush">
+						<f:for each="{relatedPosts.paginator.paginatedItems}" as="relatedPost">
+								<f:link.action controller="Post" action="show" arguments="{relatedPost.linkParameter}" class="list-group-item list-group-item-action">
+									<div class="d-flex w-100 justify-content-between">
+										<h6 class="mb-0">{relatedPost.title}</h6>
+										<small>
+											<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{relatedPost.publishDate}')}" />
+										</small>
+									</div>
+								</f:link.action>
+						</f:for>
+					</div>
+				</f:if>
+			</div>
+	</f:if>
 
 	<f:if condition="{newComment}">
 		<div id="comment-section" class="mt-4">

@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+
+	<f:if condition="{paginator.paginatedItems}">
+		<div class="card mt-4">
+			<div class="card-header">
+				{f:translate(key:'post.related')}
+			</div>
+
+			<f:if condition="{settings.relatedPosts.paginate.insertAbove}">
+				<div class="card-footer">
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+				</div>
+			</f:if>
+
+			<div class="list-group list-group-flush">
+				<f:for each="{paginator.paginatedItems}" as="relatedPost">
+					<f:link.action controller="Post" action="show" arguments="{relatedPost.linkParameter}" class="list-group-item list-group-item-action">
+						<h6 class="mb-0">
+							<small class="text-muted d-block">
+								<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{relatedPost.publishDate}')}" />
+							</small>
+							{relatedPost.title}
+						</h6>
+					</f:link.action>
+				</f:for>
+			</div>
+
+			<f:if condition="{settings.relatedPosts.paginate.insertBelow}">
+				<div class="card-footer">
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+				</div>
+			</f:if>
+		</div>
+	</f:if>
+
+</f:section>
+
+</html>

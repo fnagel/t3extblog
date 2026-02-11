@@ -9,7 +9,10 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
@@ -122,6 +125,42 @@ class PostController extends AbstractCommentController
         );
     }
 
+    public static function isPostShowPage(?ServerRequestInterface $request): int|false
+    {
+        /* @var $routing PageArguments */
+        $routing = $request->getAttribute('routing');
+
+        return isset(
+            $routing->getArguments()['tx_t3extblog_blogsystem']['controller'],
+            $routing->getArguments()['tx_t3extblog_blogsystem']['action'],
+            $routing->getArguments()['tx_t3extblog_blogsystem']['post'],
+        ) &&
+            $routing->getArguments()['tx_t3extblog_blogsystem']['controller'] === 'Post' &&
+            $routing->getArguments()['tx_t3extblog_blogsystem']['action'] === 'show' &&
+            MathUtility::canBeInterpretedAsInteger($routing->getArguments()['tx_t3extblog_blogsystem']['post']) ?
+            (int)$routing->getArguments()['tx_t3extblog_blogsystem']['post'] : false;
+    }
+
+    /**
+     * Displays a list of related posts.
+     */
+    public function relatedAction(int $page = 1): ResponseInterface
+    {
+        if (($id = static::isPostShowPage($this->request)) === false ||
+            ($post = $this->postRepository->findByUid($id)) === null
+        ) {
+            return $this->htmlResponse('');
+        }
+
+        $this->view->assign('post', $post);
+
+        return $this->paginationHtmlResponse(
+            $this->postRepository->relatedPosts($post),
+            $this->settings['relatedPosts']['paginate'],
+            $page
+        );
+    }
+
     /**
      * Find all or filtered by tag, category or author.
      */
@@ -207,8 +246,17 @@ class PostController extends AbstractCommentController
         $this->view->assign('post', $post);
         $this->view->assign('newComment', $newComment);
 
-        $this->view->assign('nextPost', $this->postRepository->nextPost($post));
-        $this->view->assign('previousPost', $this->postRepository->previousPost($post));
+        // Related posts
+        if ($this->settings['blogsystem']['posts']['nextAndPreviousPosts']['enable']) {
+            $this->view->assign('nextPost', $this->postRepository->nextPost($post));
+            $this->view->assign('previousPost', $this->postRepository->previousPost($post));
+        }
+        if ($this->settings['blogsystem']['posts']['relatedPosts']['enable']) {
+            $this->view->assign('relatedPosts', $this->getPaginationVariables(
+                $this->postRepository->relatedPosts($post),
+                $this->settings['blogsystem']['posts']['relatedPosts']['paginate'],
+            ));
+        }
 
         return $this->paginationHtmlResponse(
             $post->getCommentsForPaginate(),

@@ -74,13 +74,19 @@ List of the latest comments. Configurable via :code:`paginate` settings.
 Latest Posts
 ^^^^^^^^^^^^
 
-List of the latest blog posts. Configurable via :code:`paginate` settings.
+List of the latest blog posts. Configurable via :code:`categoryUid` and :code:`paginate` settings.
+
+
+Related Posts
+^^^^^^^^^^^^^
+
+List of related blog posts. Related posts are determined using tags.
 
 
 RSS Feed
 ^^^^^^^^
 
-RSS output, see chapter RSS.
+RSS output, see :ref:`chapter RSS <administration-rss>`.
 
 
 Subscription Manager

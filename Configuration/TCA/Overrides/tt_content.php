@@ -36,3 +36,5 @@ TcaUtility::addFlexForm(
     $contentTypeName,
     '/Configuration/FlexForms/LatestPosts.xml'
 );
+
+TcaUtility::registerPlugin('RelatedPosts', 'relatedposts');
