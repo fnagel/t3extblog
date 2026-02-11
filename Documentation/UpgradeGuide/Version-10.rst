@@ -17,6 +17,36 @@ Version 10.x
 
 
 
+Upgrade to 10.1.0
+^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/10.0.0...10.1.0
+
+- Support for TYPO3 14.2
+
+- Added new "related posts" plugin
+
+- Added related posts to post detail page template
+
+- Added menu processor for breadcrumbs and EXT:schema support
+
+- Switched from `SimplePagination` to `SlidingWindowPagination` pagination
+
+- Some small bugfixes and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust post show template if needed
+
+#. Clear all caches
+
+
+
 Upgrade to 10.0.0
 ^^^^^^^^^^^^^^^^^
 
