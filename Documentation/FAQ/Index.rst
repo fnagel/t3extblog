@@ -52,7 +52,7 @@ Check if :code:`plugin.tx_t3extblog.settings.blogsystem.pid` is set right (see :
 RSS Output instead of page
 --------------------------
 
-Remove static template `T3Extblog: Rss setup (t3extblog)`. It should only be included on a separate rss-page.
+Remove static template `T3Extblog: RSS setup (t3extblog)`. It should only be included on a separate RSS specific page.
 
 
 Logging
@@ -159,8 +159,63 @@ See :code:`t3extblog/Configuration/TypoScript/Sitemap/setup.typoscript` for deta
    https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Feature-84525-XMLSitemap.html
 
 
-Does it work with dd_googlesitemap?
------------------------------------
+Breadcrumb menu
+---------------
+.. _faq-breadcrumb:
+
+This extension comes with a custom menu processor for blog posts. Use it like this:
+
+.. code-block:: typoscript
+
+   page = PAGE
+   page {
+      10 = FLUIDTEMPLATE
+      10 {
+         dataProcessing {
+            # Core menu processor for pages
+            100 = menu
+            100 {
+               as = schemaBreadcrumbMenu
+               special = rootline
+               special.range = 1|-1
+            }
+            # Custom menu processor for posts
+            110 = FelixNagel\T3extblog\DataProcessing\PostMenuProcessor
+            110 {
+               as = schemaBreadcrumbMenu
+            }
+         }
+      }
+   }
+
+
+Example usage with a simple breadcrumb markup (incl. schema.org semantic sugar):
+
+.. code-block:: xml
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+			<f:for as="menuItem" each="{schemaBreadcrumbMenu}" iteration="iterator">
+				<li class="breadcrumb-item{f:if(condition: '{menuItem.current}', then: ' active')}"
+						itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+					<a itemprop="item" href="{f:uri.typolink(parameter: menuItem.link, absolute: true)}">
+						<span itemprop="name">{menuItem.title}</span>
+					</a>
+					<meta itemprop="position" content="{iterator.cycle}" />
+				</li>
+			</f:for>
+		</ol>
+	</nav>
+
+
+.. important::
+
+	Alternatively, you can use EXT:schema (package name `brotkrueml/schema`) and use the built-in view helper:
+   :code:`<schema:breadcrumb breadcrumb="{schemaBreadcrumbMenu}"/>`
+
+
+Does it work with EXT:dd_googlesitemap?
+---------------------------------------
 
 Yes! Use this syntax: :code:`?eID=dd_googlesitemap&sitemap=t3extblog&pidList=123` (where 123 is your storage folder page id).
 Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=100`.
@@ -171,7 +226,7 @@ Add an optional 'limit' parameter for very large blogs. Example: :code:`&limit=1
 
 .. tip::
 
-	Since google supports RSS-Feeds, we recommend to use this solution!
+	Since Google supports RSS-Feeds, we recommend to use this solution!
 
 
 Filtering tags doesn't work?
@@ -387,13 +442,13 @@ Just add :code:`<f:count>{category.posts}</f:count>` to :code:`Templates/Categor
 This function is expensive, so we don't add it to the standard template files.
 
 
-Detail-View (Show post)
+Detail-View (show post)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Add prev/next-function
 """"""""""""""""""""""
 
-Link the previous / next article in the detais-view of a post. The following lines will do the job, add them in Templates/Post/Show.html
+Link the previous / next article in the detail view of a post. The following lines will do the job, add them in Templates/Post/Show.html
 
 
 .. code-block:: xml
