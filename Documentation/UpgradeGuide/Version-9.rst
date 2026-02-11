@@ -16,6 +16,34 @@ Version 9.x
    :depth: 3
 
 
+Upgrade to 9.3.0
+^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/9.2.0...9.3.0
+
+- Added new "related posts" plugin
+
+- Added related posts to post detail page template
+
+- Added menu processor for breadcrumbs and EXT:schema support
+
+- Switched from `SimplePagination` to `SlidingWindowPagination` pagination
+
+- Some small bugfixes and improvements
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust post show template if needed
+
+#. Clear all caches
+
+
+
 Upgrade to 9.2.0
 ^^^^^^^^^^^^^^^^
 
