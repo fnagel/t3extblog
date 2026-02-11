@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
@@ -17,7 +18,6 @@ use FelixNagel\T3extblog\Service\FlushCacheService;
 use FelixNagel\T3extblog\Service\RateLimiterServiceInterface;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\TypoScript;
-use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -259,7 +259,7 @@ abstract class AbstractController extends ActionController
 
         $this->view->assignMultiple([
             'paginator' => $paginator,
-            'pagination' => new SimplePagination($paginator),
+            'pagination' => new SlidingWindowPagination($paginator, $paginationConfig['maximumNumberOfLinks'] ?? 10),
             'totalItems' => $result->count(),
         ]);
     }

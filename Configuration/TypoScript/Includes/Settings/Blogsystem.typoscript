@@ -20,6 +20,7 @@ plugin.tx_t3extblog {
 				# Post list pagination
 				paginate {
 					itemsPerPage = 10
+					maximumNumberOfLinks = 10
 					insertAbove = 0
 					insertBelow = 1
 				}
