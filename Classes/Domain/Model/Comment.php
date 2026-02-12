@@ -20,10 +20,6 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 class Comment extends AbstractEntity
 {
-    protected bool $hidden = false;
-
-    protected bool $deleted = false;
-
     #[Extbase\Validate(['validator' => 'Text'])]
     protected ?string $title = null;
 
@@ -68,26 +64,6 @@ class Comment extends AbstractEntity
     public function __construct()
     {
         $this->date = new \DateTime();
-    }
-
-    public function setDeleted(bool $deleted): void
-    {
-        $this->deleted = $deleted;
-    }
-
-    public function getDeleted(): bool
-    {
-        return $this->deleted;
-    }
-
-    public function setHidden(bool $hidden): void
-    {
-        $this->hidden = $hidden;
-    }
-
-    public function getHidden(): bool
-    {
-        return $this->hidden;
     }
 
     public function getTitle(): string
@@ -260,6 +236,6 @@ class Comment extends AbstractEntity
      */
     public function isValid(): bool
     {
-        return !$this->spam && $this->approved && !$this->hidden && !$this->deleted;
+        return !$this->isSpam() && $this->isApproved() && !$this->isHidden() && !$this->isDeleted();
     }
 }

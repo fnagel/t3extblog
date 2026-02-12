@@ -42,10 +42,6 @@ class Post extends AbstractLocalizedEntity
      */
     public const ALLOW_COMMENTS_LOGIN = 2;
 
-    protected bool $hidden = true;
-
-    protected bool $deleted = false;
-
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $title = null;
 
@@ -132,26 +128,6 @@ class Post extends AbstractLocalizedEntity
         $this->subscriptions = new ObjectStorage();
         // @extensionScannerIgnoreLine
         $this->content = new ObjectStorage();
-    }
-
-    public function setDeleted(bool $deleted): void
-    {
-        $this->deleted = $deleted;
-    }
-
-    public function getDeleted(): bool
-    {
-        return $this->deleted;
-    }
-
-    public function setHidden(bool $hidden): void
-    {
-        $this->hidden = $hidden;
-    }
-
-    public function getHidden(): bool
-    {
-        return $this->hidden;
     }
 
     public function getTitle(): string
