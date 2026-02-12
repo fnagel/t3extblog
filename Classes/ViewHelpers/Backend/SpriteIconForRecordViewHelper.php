@@ -10,11 +10,9 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend;
  */
 
 use TYPO3\CMS\Core\Imaging\IconSize;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use FelixNagel\T3extblog\Domain\Model\BackendUser;
 
 /**
  * Views sprite icon for a record (object).
@@ -38,8 +36,6 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
 
     /**
      * Displays spriteIcon for database table and object.
-     *
-     * @see t3lib_iconWorks::getSpriteIconForRecord($table, $row)
      */
     public function render(): string
     {
@@ -56,20 +52,12 @@ class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
             'endTime' => false,
         ];
 
-        if (method_exists($object, 'getIsDisabled')) {
-            $row['disable'] = $object->getIsDisabled();
-        }
-
-        if ($table === 'be_users' && $object instanceof BackendUser) {
-            $row['admin'] = $object->getIsAdministrator();
-        }
-
-        if (method_exists($object, 'getStartDateAndTime')) {
-            $row['startTime'] = $object->getStartDateAndTime();
-        }
-
-        if (method_exists($object, 'getEndDateAndTime')) {
-            $row['endTime'] = $object->getEndDateAndTime();
+        if (method_exists($object, 'isValid')) {
+            $row['hidden'] = !$object->isValid();
+        } elseif (method_exists($object, 'isHidden')) {
+            $row['hidden'] = $object->isHidden();
+        } elseif (method_exists($object, 'isDisabled')) {
+            $row['disable'] = $object->isDisabled();
         }
 
         /* @var $iconFactory IconFactory */
