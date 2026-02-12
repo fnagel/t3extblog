@@ -24,14 +24,45 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyObjectStorage;
  */
 abstract class AbstractEntity extends CoreAbstractEntity
 {
-    /**
-     * Creation date and time.
-     */
+    protected bool $hidden = false;
+
+    protected bool $deleted = false;
+
     protected \DateTime $crdate;
 
     protected ?CommentRepository $commentRepository = null;
 
     protected ?PostRepository $postRepository = null;
+
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
+    }
+
+    public function getDeleted(): bool
+    {
+        return $this->isDeleted();
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function setHidden(bool $hidden): void
+    {
+        $this->hidden = $hidden;
+    }
+
+    public function getHidden(): bool
+    {
+        return $this->isHidden();
+    }
+
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
 
     public function getCrdate(): \DateTime
     {

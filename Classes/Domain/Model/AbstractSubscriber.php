@@ -19,10 +19,6 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 abstract class AbstractSubscriber extends AbstractEntity
 {
-    protected bool $hidden = true;
-
-    protected bool $deleted = false;
-
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     #[Extbase\Validate(['validator' => 'EmailAddress'])]
     protected ?string $email = null;
@@ -39,17 +35,7 @@ abstract class AbstractSubscriber extends AbstractEntity
      */
     public function isValidForOptin(): bool
     {
-        return $this->isHidden() && !$this->deleted && $this->getLastSent() === null;
-    }
-
-    public function isHidden(): bool
-    {
-        return $this->hidden;
-    }
-
-    public function setHidden(bool $hidden): void
-    {
-        $this->hidden = $hidden;
+        return $this->isHidden() && !$this->isDeleted() && $this->getLastSent() === null;
     }
 
     public function getEmail(): string
