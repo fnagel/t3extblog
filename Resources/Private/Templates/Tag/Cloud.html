@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	<ul class="list-inline d-flex justify-content-between flex-wrap" style="gap: 2px;">
+		<f:for each="{tags}" as="data">
+			<li class="align-self-center">
+				<f:link.action controller="Post" action="tag" arguments="{tag : '{data.title}'}"
+				 title="Tag: {data.title} ({data.posts})"
+				 class="label label-default badge badge-secondary"
+				 style="{f:render(section: 'style', arguments: '{_all}')}" rel="tag">{data.title}</f:link.action>
+			</li>
+		</f:for>
+	</ul>
+</f:section>
+
+<f:section name="style"><f:if condition="{data.posts} >= 20">
+	<f:then>font-size: 1.75rem;</f:then>
+	<f:else>
+		<f:if condition="{data.posts} >= 15">
+			<f:then>font-size: 1.5rem;</f:then>
+			<f:else>
+				<f:if condition="{data.posts} >= 10">font-size: 1.25rem;</f:if>
+			</f:else>
+		</f:if>
+	</f:else>
+</f:if></f:section>
+
+</html>

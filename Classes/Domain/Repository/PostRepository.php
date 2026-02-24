@@ -213,4 +213,48 @@ class PostRepository extends AbstractRepository
 
         return $query->execute();
     }
+
+    /**
+     * Get tag cloud.
+     *
+     * @return null|array{tag: string, posts: int}[]
+     */
+    public function tagCloud(int $limit = 10, int $minimum = 2): ?array
+    {
+        $table = $this->getTableName();
+        $connection = $this->getConnection($table);
+        $query = 'WITH RECURSIVE all_tags AS (
+            SELECT uid, TRIM(SUBSTRING_INDEX(tagClouds, ",", 1)) AS tag,
+            SUBSTRING(tagClouds, LENGTH(SUBSTRING_INDEX(tagClouds, ",", 1)) + 2) AS rest
+            FROM '.$table.'
+            WHERE tagClouds IS NOT NULL AND tagClouds <> "" AND '.$this->getFeEnableFields($table).'
+
+            UNION ALL
+
+            SELECT uid, TRIM(SUBSTRING_INDEX(rest, ",", 1)) AS tag,
+            CASE
+                WHEN rest LIKE "%,%" THEN SUBSTRING(rest, LENGTH(SUBSTRING_INDEX(rest, ",", 1)) + 2)
+            ELSE ""
+            END AS rest
+            FROM all_tags
+            WHERE rest <> ""
+        )
+        SELECT tag as title, COUNT(*) AS posts
+        FROM all_tags
+        GROUP BY tag
+        HAVING posts >= :minimum
+        ORDER BY posts DESC
+        LIMIT :limit';
+
+        $params = [
+            'limit' => $limit,
+            'minimum' => $minimum,
+        ];
+
+        $query = $connection->executeQuery($query, $params);
+        $result = $query->fetchAllAssociative() ?: null;
+        $query->free();
+
+        return $result;
+    }
 }
