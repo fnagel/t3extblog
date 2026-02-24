@@ -1,5 +1,6 @@
 <?php
 
+use FelixNagel\T3extblog\Controller\TagController;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use FelixNagel\T3extblog\Controller\PostController;
@@ -11,7 +12,6 @@ use FelixNagel\T3extblog\Controller\BlogSubscriberFormController;
 use FelixNagel\T3extblog\Controller\CategoryController;
 use FelixNagel\T3extblog\Hooks\Tcemain;
 use TYPO3\CMS\Backend\Backend\Avatar\DefaultAvatarProvider;
-use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
 use FelixNagel\T3extblog\Routing\Aspect\PostMapper;
 use FelixNagel\T3extblog\Routing\Aspect\PostTagMapper;
 use TYPO3\CMS\Core\Core\Environment;
@@ -101,6 +101,19 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         CategoryController::class => '',
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+ExtensionUtility::configurePlugin(
+    'T3extblog',
+    'Tags',
+    [
+        TagController::class => 'cloud',
+    ],
+    // non-cacheable actions
+    [
+        TagController::class => '',
     ],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );

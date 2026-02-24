@@ -53,6 +53,7 @@ settings.blogsystem                         All settings of your blog system, i.
 settings.subscriptionManager                Configure the subscription process, i.e. admin email, notification email...
 settings.blogSubscription                   Configure blog (new post) subscription form
 settings.categories                         Some settings for the category plugin
+settings.tags                               Some settings for the tags plugin
 settings.latestPosts                        Some settings for the latest posts plugin
 settings.latestComments                     Some settings for the latest comments plugin
 settings.relatedPosts                       Some settings for the related posts plugin

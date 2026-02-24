@@ -9,7 +9,9 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -37,6 +39,11 @@ abstract class AbstractRepository extends Repository
         return $query;
     }
 
+    public function getStoragePids(): array
+    {
+        return parent::createQuery()->getQuerySettings()->getStoragePageIds();
+    }
+
     /**
      * Returns all objects with specific PID.
      */
@@ -57,6 +64,14 @@ abstract class AbstractRepository extends Repository
         }
 
         return $query->execute();
+    }
+
+    protected function getFeEnableFields(string $table): string
+    {
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+        $expressionBuilder = $this->getQueryBuilder($table)->expr();
+
+        return $expressionBuilder->and(...$pageRepository->getDefaultConstraints($table));
     }
 
     protected function getTableName(?QueryInterface $query = null): string
@@ -84,6 +99,11 @@ abstract class AbstractRepository extends Repository
             $table = $this->getTableName();
         }
 
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
+        return $this->getConnection($table)->createQueryBuilder();
+    }
+
+    protected function getConnection(string $table): Connection
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
     }
 }

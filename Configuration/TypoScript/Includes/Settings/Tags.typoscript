@@ -1,0 +1,10 @@
+plugin.tx_t3extblog.settings {
+	tags {
+		# How many tags to render
+		limit = 30
+		# Randomize tag order (otherwise most used on top)
+		random = 1
+		# Minimum tag usage for being rendered
+		min = 3
+	}
+}

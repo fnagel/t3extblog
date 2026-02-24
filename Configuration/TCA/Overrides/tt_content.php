@@ -25,6 +25,8 @@ TcaUtility::registerPlugin('Rss', 'rss');
 
 TcaUtility::registerPlugin('Categories', 'categories');
 
+TcaUtility::registerPlugin('Tags', 'tags');
+
 $contentTypeName = TcaUtility::registerPlugin('LatestComments', 'latestcomments');
 TcaUtility::addFlexForm(
     $contentTypeName,

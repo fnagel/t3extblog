@@ -49,6 +49,13 @@
 				<source>This plugin displays all blog categories including sub categories</source>
 			</trans-unit>
 
+			<trans-unit id="tags.title" xml:space="preserve">
+				<source>T3Extblog: Tag Cloud</source>
+			</trans-unit>
+			<trans-unit id="tags.description" xml:space="preserve">
+				<source>This plugin displays a tag cloud</source>
+			</trans-unit>
+
 			<trans-unit id="latestposts.title" xml:space="preserve">
 				<source>T3Extblog: Latest posts</source>
 			</trans-unit>

@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
@@ -204,7 +205,7 @@ abstract class AbstractController extends ActionController
     /**
      * Add page cache tag by string or object.
      *
-     * @param mixed $object A cache tag string or a blog model object
+     * @param mixed $object A cache tag string, a blog model object or repository
      */
     protected function addCacheTags(mixed $object = null): void
     {
@@ -217,6 +218,11 @@ abstract class AbstractController extends ActionController
         // Add base PID based tag
         if ($object instanceof AbstractEntity) {
             $tags[] = 'tx_t3extblog_'.$object->getPid();
+
+        } elseif ($object instanceof AbstractRepository) {
+            foreach ($object->getStoragePids() as $storagePid) {
+                $tags[] = 'tx_t3extblog_'.$storagePid;
+            }
         }
 
         // Add model based tag

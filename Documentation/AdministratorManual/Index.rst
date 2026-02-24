@@ -65,6 +65,12 @@ Categories
 List all blog categories including sub categories.
 
 
+Tags
+^^^^
+
+Render a configurable tag cloud.
+
+
 Latest Comments
 ^^^^^^^^^^^^^^^
 
