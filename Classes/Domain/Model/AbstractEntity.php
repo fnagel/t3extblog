@@ -28,7 +28,8 @@ abstract class AbstractEntity extends CoreAbstractEntity
 
     protected bool $deleted = false;
 
-    protected \DateTime $crdate;
+    protected ?\DateTime $crdate = null;
+    protected ?\DateTime $tstamp = null;
 
     protected ?CommentRepository $commentRepository = null;
 
@@ -64,12 +65,12 @@ abstract class AbstractEntity extends CoreAbstractEntity
         return $this->hidden;
     }
 
-    public function getCrdate(): \DateTime
+    public function getCrdate(): ?\DateTime
     {
         return $this->crdate;
     }
 
-    public function getCreateDate(): \DateTime
+    public function getCreateDate(): ?\DateTime
     {
         return $this->getCrdate();
     }
@@ -77,6 +78,21 @@ abstract class AbstractEntity extends CoreAbstractEntity
     public function setCrdate(\DateTime $crdate): void
     {
         $this->crdate = $crdate;
+    }
+
+    public function getTstamp(): ?\DateTime
+    {
+        return $this->tstamp;
+    }
+
+    public function getUpdateDate(): ?\DateTime
+    {
+        return $this->getTstamp();
+    }
+
+    public function setTstamp($tstamp): void
+    {
+        $this->tstamp = $tstamp;
     }
 
     protected function getCommentRepository(): CommentRepository

@@ -17,8 +17,6 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 class Content extends AbstractLocalizedEntity
 {
-    protected ?\DateTime $tstamp = null;
-
     protected string $CType = '';
 
     protected string $header = '';
@@ -62,16 +60,6 @@ class Content extends AbstractLocalizedEntity
     protected string $headerLayout = '';
 
     protected string $listType = '';
-
-    public function getTstamp(): ?\DateTime
-    {
-        return $this->tstamp;
-    }
-
-    public function setTstamp($tstamp): void
-    {
-        $this->tstamp = $tstamp;
-    }
 
     public function getCType(): string
     {
