@@ -38,6 +38,10 @@ plugin.tx_t3extblog {
 					avatar.size = 32
 				}
 
+				# Show "post is old" notice in detail view, 0 = disabled
+				# use http://www.php.net/manual/en/datetime.formats.relative.php
+				markAsOldAfter = -1 year
+
 				# Detail page: next/prev post and related (by tags) posts
 				nextAndPreviousPosts {
 					enable = 1
