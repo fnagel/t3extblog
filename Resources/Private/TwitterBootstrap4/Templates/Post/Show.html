@@ -36,6 +36,7 @@
 		<div class="card-body">
 			<f:if condition="{post.content}">
 				<div class="card-text">
+					<f:render partial="Post/OldNotice" arguments="{_all}" />
 					<f:render partial="Post/Content" arguments="{post: post}" />
 				</div>
 			</f:if>

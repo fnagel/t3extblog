@@ -31,6 +31,9 @@
 			<trans-unit id="post.no-result">
 				<source>No posts found.</source>
 			</trans-unit>
+			<trans-unit id="post.outdated">
+				<source>Note: This post is quite old, the information may be outdated.</source>
+			</trans-unit>
 			<trans-unit id="post.previous">
 				<source>previous post</source>
 			</trans-unit>
