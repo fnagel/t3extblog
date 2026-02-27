@@ -3,25 +3,25 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<ul class="list-inline d-flex justify-content-between flex-wrap" style="gap: 2px;">
+	<ul class="list-inline d-flex flex-wrap" style="gap: 0.333rem;">
 		<f:for each="{tags}" as="data">
-			<li class="align-self-center">
+			<li class="flex-fill align-self-center">
 				<f:link.action controller="Post" action="tag" arguments="{tag : '{data.title}'}"
 				 title="Tag: {data.title} ({data.posts})"
-				 class="label label-default badge badge-secondary"
+				 class="d-block label label-default badge badge-secondary text-bg-secondary"
 				 style="{f:render(section: 'style', arguments: '{_all}')}" rel="tag">{data.title}</f:link.action>
 			</li>
 		</f:for>
 	</ul>
 </f:section>
 
-<f:section name="style"><f:if condition="{data.posts} >= 20">
+<f:section name="style"><f:if condition="{data.posts} >= {statistic.threshold.3}">
 	<f:then>font-size: 1.75rem;</f:then>
 	<f:else>
-		<f:if condition="{data.posts} >= 15">
+		<f:if condition="{data.posts} >= {statistic.threshold.2}">
 			<f:then>font-size: 1.5rem;</f:then>
 			<f:else>
-				<f:if condition="{data.posts} >= 10">font-size: 1.25rem;</f:if>
+				<f:if condition="{data.posts} >= {statistic.threshold.1}">font-size: 1.25rem;</f:if>
 			</f:else>
 		</f:if>
 	</f:else>
