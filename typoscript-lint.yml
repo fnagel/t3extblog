@@ -11,9 +11,13 @@ sniffs:
     parameters:
       useSpaces: false
       indentPerLevel: 1
+      indentConditions: true
   - class: DeadCode
     disabled: true
+  - class: OperatorWhitespace
   - class: RepeatingRValue
     disabled: true
+  - class: DuplicateAssignment
+  - class: EmptySection
   - class: NestingConsistency
     disabled: true
