@@ -89,7 +89,7 @@
       ".Build/bin/phpmd ./Configuration/ ansi codesize,design,unusedcode"
     ],
     "test-typoscript-lint": [
-      ".Build/bin/typoscript-lint"
+      ".Build/bin/typoscript-lint --fail-on-warnings"
     ]
   }
 }
