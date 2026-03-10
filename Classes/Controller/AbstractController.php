@@ -278,7 +278,7 @@ abstract class AbstractController extends ActionController
         return $this->xmlResponse();
     }
 
-    protected function xmlResponse(string $xml = null): ResponseInterface
+    protected function xmlResponse(?string $xml = null): ResponseInterface
     {
         $this->view->getTemplatePaths()->setFormat('xml');
 
