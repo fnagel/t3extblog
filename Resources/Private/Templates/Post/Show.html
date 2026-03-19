@@ -23,6 +23,8 @@
 			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format: 'U', date: '{post.publishDate}')}" />
 			-
 			<f:render partial="Post/Categories" arguments="{post: post}" />
+			-
+			<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
 		</p>
 
 		<f:if condition="{post.content}">

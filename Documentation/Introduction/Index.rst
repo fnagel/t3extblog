@@ -39,6 +39,7 @@ Currently implemented features:
 * Link validator support
 * Speaking URLs support
 * Sitemap support
+* Reading time calculation
 
 
 **Comments and subscriptions**

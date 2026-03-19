@@ -34,13 +34,17 @@
 
 		<div class="bottom row">
 			<div class="col-4">
-				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
-					<span class="badge text-bg-secondary">
-						<span class="icon icon-comments glyphicon glyphicon-comment" aria-hidden="true"></span>
+				<span class="badge text-bg-secondary">
+					<span class="icon icon-comments glyphicon glyphicon-comment" aria-hidden="true"></span>
+					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
 						<f:count subject="{post.comments}" />
 						<f:translate key="post.comments" />
-					</span>
-				</f:link.action>
+					</f:link.action>
+				</span>
+				<span class="badge text-bg-secondary ml-2 ms-2">
+					<span class="icon icon-clock glyphicon glyphicon-time" aria-hidden="true"></span>
+					<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
+				</span>
 			</div>
 			<div class="col-8 text-right">
 				<f:render partial="Post/TagCloud" arguments="{post: post}" />

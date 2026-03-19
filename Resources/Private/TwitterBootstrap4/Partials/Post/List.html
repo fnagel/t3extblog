@@ -44,11 +44,15 @@
 		<div class="card-footer text-muted small">
 			<div class="row">
 				<div class="col-sm-4">
+					<span class="icon icon-comments" aria-hidden="true"></span>
 					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
-						<span class="icon icon-comments" aria-hidden="true"></span>
 						<f:count subject="{post.comments}" />
 						<f:translate key="post.comments" />
 					</f:link.action>
+					<span class="ml-2 ms-2">
+						<span class="icon icon-clock glyphicon glyphicon-time" aria-hidden="true"></span>
+						<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
+					</span>
 				</div>
 				<div class="col-sm-8 text-sm-right text-sm-end">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
