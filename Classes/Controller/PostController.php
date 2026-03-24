@@ -162,7 +162,7 @@ class PostController extends AbstractCommentController
     }
 
     /**
-     * Find all or filtered by tag, category or author.
+     * Find all or filtered by tag, category, year or author.
      */
     protected function findPosts($filter = null): QueryResultInterface
     {
@@ -172,6 +172,10 @@ class PostController extends AbstractCommentController
 
         if ($filter instanceof Category) {
             $this->view->assign('category', $filter);
+        }
+
+        if (is_int($filter)) {
+            $this->view->assign('year', $filter);
         }
 
         if (is_string($filter) && strlen($filter) > 2) {
@@ -191,11 +195,24 @@ class PostController extends AbstractCommentController
     }
 
     /**
-     * Displays archive of all posts.
+     * Displays an archive of all posts.
      */
-    public function archiveAction(): ResponseInterface
+    public function archiveAction(?int $year = null): ResponseInterface
     {
-        $this->view->assign('posts', $this->findPosts());
+        $years = $this->postRepository->findYears();
+
+        $this->view->assignMultiple([
+            'year' => $year,
+            'years' => $years,
+        ]);
+
+        if ($year !== null && is_array($years)) {
+            if (!in_array($year, array_column($years, 'year'))) {
+                $this->pageNotFoundAndExit('No posts found for the given year!');
+            }
+
+            $this->view->assign('posts', $this->findPosts($year));
+        }
 
         return $this->htmlResponse();
     }

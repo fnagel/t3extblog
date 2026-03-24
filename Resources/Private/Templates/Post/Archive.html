@@ -3,8 +3,36 @@
 <f:layout name="Default" />
 
 <f:section name="main">
+	<f:if condition="{year}">
+		<f:then>
+			<f:render section="renderPostsByYear" arguments="{_all}" />
+		</f:then>
+		<f:else>
+			<f:render section="renderYears" arguments="{_all}" />
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="renderYears">
+	<div class="well">
+		<ul class="unstyled list-unstyled">
+			<f:for each="{years}" as="item" iteration="iterator">
+				<li>
+					<h4>
+						<f:link.action controller="Post" action="archive" arguments="{year: item.year}">
+							{item.year}
+						</f:link.action>
+						<small>({item.count})</small>
+					</h4>
+				</li>
+			</f:for>
+		</ul>
+	</div>
+</f:section>
+
+<f:section name="renderPostsByYear">
 	<f:groupedFor each="{posts}" as="postsByYear" groupBy="publishYear" groupKey="year">
-		<div class="well mb-5">
+		<div class="well">
 			<h3 class="mb-3">
 				{year}
 				<small>({postsByYear -> f:count()})</small>

@@ -19,7 +19,7 @@ use FelixNagel\T3extblog\Domain\Model\Post;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
- * PostRepository.
+ * @SuppressWarnings("PHPMD.TooManyPublicMethods")
  */
 class PostRepository extends AbstractRepository
 {
@@ -146,6 +146,10 @@ class PostRepository extends AbstractRepository
             return $this->findByCategory($filter);
         }
 
+        if (is_int($filter)) {
+            return $this->findByYear($filter);
+        }
+
         if (is_string($filter)) {
             return $this->findByTag($filter);
         }
@@ -168,7 +172,7 @@ class PostRepository extends AbstractRepository
     }
 
     /**
-     * Returns all objects of this repository with matching category.
+     * Returns all objects of this repository with a matching category.
      */
     public function findByCategory(Category $category): QueryResultInterface
     {
@@ -258,5 +262,49 @@ class PostRepository extends AbstractRepository
         $query->free();
 
         return $result;
+    }
+
+    /**
+     * @return null|arrray{year: int, count: int}[]
+     */
+    public function findYears(): ?array
+    {
+        $table = $this->getTableName();
+        $connection = $this->getConnection($table);
+        $query = 'SELECT YEAR(FROM_UNIXTIME(date)) AS year, COUNT(uid) AS count FROM '.$table.
+            ' WHERE '.$this->getFeEnableFields($table).' GROUP BY year ORDER BY year DESC';
+
+        $query = $connection->executeQuery($query);
+        $result = $query->fetchAllAssociative() ?: null;
+        $query->free();
+
+        return $result;
+    }
+
+    public function findByYear(int $year): QueryResultInterface
+    {
+        $until = new \DateTime();
+        $until->modify('midnight first day of January '.$year);
+
+        $from = clone $until;
+        $from->modify('+1 year - 1 second');
+
+        return $this->getDateQueryBuilder($until, $from)->execute();
+    }
+
+    protected function getDateQueryBuilder(\DateTime $until, ?\DateTime $from = null): QueryInterface
+    {
+        $query = $this->createQuery();
+        $constraints = [
+            $query->greaterThanOrEqual('publishDate', $until->getTimestamp()),
+        ];
+
+        if ($from !== null) {
+            $constraints[] = $query->lessThanOrEqual('publishDate', $from->getTimestamp());
+        }
+
+        $query->matching($query->logicalAnd(...$constraints));
+
+        return $query;
     }
 }

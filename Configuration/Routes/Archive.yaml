@@ -1,0 +1,22 @@
+routeEnhancers:
+  T3extblogArchivePlugin:
+    type: Extbase
+    # Use this to limit routing for specific pages
+    # limitToPages: [123, 456]
+    extension: t3extblog
+    plugin: Archive
+    defaultController: 'Post::archive'
+    routes:
+      - routePath: '/'
+        _controller: 'Post::archive'
+      - routePath: '/{archive_year}'
+        _controller: 'Post::archive'
+        _arguments:
+          'archive_year': 'year'
+    requirements:
+      archive_year: '^\d{4}$'
+    aspects:
+      archive_year:
+        type: StaticRangeMapper
+        start: '1970'
+        end: '2070'
