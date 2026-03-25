@@ -15,8 +15,8 @@
 					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
 						{category.name}
 					</f:link.action>
-					<f:if condition="{category.childCategories}">
-						<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
+					<f:if condition="{settings.categories.recursive} > 1 && {category.childCategories}">
+						<f:render section="categoryTree" arguments="{categories: category.childCategories, level: 1}" />
 					</f:if>
 				</li>
 				</f:if>
@@ -32,8 +32,9 @@
 			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
 				{category.name}
 			</f:link.action>
-			<f:if condition="{category.childCategories}">
-				<f:render section="categoryTree" arguments="{categories: category.childCategories}" />
+			<f:if condition="{settings.categories.recursive} > {level} && {category.childCategories}">
+				<f:variable name="level" value="{level + 1}" />
+				<f:render section="categoryTree" arguments="{categories: category.childCategories, level: level}" />
 			</f:if>
 		</li>
 	</f:for>

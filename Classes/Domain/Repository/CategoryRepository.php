@@ -28,10 +28,6 @@ class CategoryRepository extends AbstractRepository
      */
     public function findChildren(Category $category): ?QueryResultInterface
     {
-        if (!$category->isFirstLevel()) {
-            return null;
-        }
-
         $query = $this->createQuery();
         $query->matching(
             $query->equals('parent_id', $category->getUid())
