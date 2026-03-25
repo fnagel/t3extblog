@@ -44,7 +44,7 @@ abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implement
             ->where($constraint)
             ->setMaxResults($limit)
             ->executeQuery()
-            ->fetchAll();
+            ->fetchAllAssociative();
 
         if (count($rows) === 0) {
             return 0;
