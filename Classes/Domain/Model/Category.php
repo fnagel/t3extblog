@@ -94,10 +94,6 @@ class Category extends AbstractLocalizedEntity
      */
     public function getChildCategories(): ?ObjectStorage
     {
-        if (!$this->isFirstLevel()) {
-            return null;
-        }
-
         if ($this->childCategories === null) {
             /* @var $categoryRepository CategoryRepository */
             $categoryRepository = GeneralUtility::makeInstance(CategoryRepository::class);

@@ -1,10 +1,14 @@
 plugin.tx_t3extblog.settings {
 	categories {
+		# List view
 		collapse {
 			enable = 0
 			show = 1
 		}
+		# Number of category sub-levels in list view
+		recursive = 2
 
+		# Pagination in category detail view
 		paginate {
 			itemsPerPage = 10
 			insertAbove = 0
