@@ -42,6 +42,8 @@ class Post extends AbstractLocalizedEntity
      */
     public const ALLOW_COMMENTS_LOGIN = 2;
 
+    protected bool $hidden = true;
+
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected ?string $title = null;
 
