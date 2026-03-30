@@ -19,6 +19,8 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
  */
 abstract class AbstractSubscriber extends AbstractEntity
 {
+    protected bool $hidden = true;
+
     #[Extbase\Validate(['validator' => 'NotEmpty'])]
     #[Extbase\Validate(['validator' => 'EmailAddress'])]
     protected ?string $email = null;
