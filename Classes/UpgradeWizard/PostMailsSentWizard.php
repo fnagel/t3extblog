@@ -11,6 +11,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
 
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
+/**
+ * @codeCoverageIgnore
+ */
 #[UpgradeWizard(PostMailsSentWizard::class)]
 class PostMailsSentWizard extends AbstractMailsSentWizard
 {

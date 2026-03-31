@@ -135,6 +135,83 @@ Use this command to render the documentation locally (Docker is needed):
 Testing
 -------
 
+Automated Tests
+^^^^^^^^^^^^^^^
+
+Install development dependencies:
+
+.. code-block:: bash
+
+   composer install
+
+Run all checks and tests:
+
+.. code-block:: bash
+
+   composer test
+
+Run individual test suites:
+
+.. code-block:: bash
+
+   # Unit tests only (fast, no database required)
+   composer test-unit
+
+   # Functional tests only (requires pdo_sqlite PHP extension)
+   composer test-functional
+
+   # Acceptance tests only (requires pdo_sqlite PHP extension)
+   composer test-acceptance
+
+Tests use SQLite by default. To use MySQL/MariaDB instead:
+
+.. code-block:: bash
+
+   typo3DatabaseDriver=mysqli \
+   typo3DatabaseHost=127.0.0.1 \
+   typo3DatabaseName=typo3_test \
+   typo3DatabaseUsername=root \
+   typo3DatabasePassword=root \
+   composer test-functional
+
+
+Code Coverage
+^^^^^^^^^^^^^
+
+Coverage reports require either `PCOV <https://github.com/krakjoe/pcov>`__
+(recommended, faster) or `Xdebug <https://xdebug.org/>`__ PHP extension.
+
+.. code-block:: bash
+
+   # Unit test coverage (Clover XML + HTML report)
+   composer test-coverage-unit
+
+   # Functional test coverage (Clover XML + HTML report)
+   composer test-coverage-functional
+
+   # Acceptance test coverage (requires running Selenium + webserver)
+   composer test-coverage-acceptance
+
+.. tip::
+
+   When using Xdebug, the coverage scripts for acceptance tests handle
+   ``xdebug.mode=coverage`` automatically via ``-d`` flags.
+   For unit and functional tests, set ``XDEBUG_MODE=coverage`` or
+   configure ``xdebug.mode = coverage`` in your ``php.ini``.
+
+Reports are written to:
+
+* ``.Build/coverage/unit-html/`` and ``.Build/coverage/unit.xml``
+* ``.Build/coverage/functional-html/`` and ``.Build/coverage/functional.xml``
+* ``.Build/var/log/_output/coverage.xml`` (acceptance, Clover XML)
+
+On GitHub Actions, coverage is collected automatically on the latest PHP version matrix entry.
+A summary is displayed in the workflow job summary.
+
+
+Manual Testing
+^^^^^^^^^^^^^^
+
 This needs to be done for latest supported TYPO3 versions in a multi-language site setup.
 It is recommenced to install T3extblog in TYPO3's introduction package.
 

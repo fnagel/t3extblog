@@ -1,0 +1,6 @@
+"tx_t3blog_blog_nl"
+,"uid","pid","deleted","hidden","email","lastsent","code","privacy_policy_accepted","sys_language_uid"
+,1,1,0,0,"alice@example.com",1609459200,"alice_blog_code",1,0
+,2,1,0,1,"bob@example.com",0,"",0,0
+,3,1,0,1,"charlie@example.com",1609459200,"charlie_blog_code",1,0
+,4,1,0,0,"diana@example.com",1609459200,"diana_blog_code",1,0

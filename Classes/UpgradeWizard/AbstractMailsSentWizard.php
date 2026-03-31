@@ -11,6 +11,9 @@ use TYPO3\CMS\Install\Updates\ConfirmableInterface;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class AbstractMailsSentWizard extends AbstractUpgradeWizard implements ConfirmableInterface
 {
     protected function updateRecordsForMailsSent($table, $field = 'mails_sent'): int

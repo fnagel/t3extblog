@@ -1,0 +1,49 @@
+"sys_template"
+,"uid","pid","deleted","hidden","title","root","clear","sorting","config","constants"
+,1,1,0,0,"Root TypoScript",1,3,256,"@import 'EXT:t3extblog/Configuration/TypoScript/setup.typoscript'
+
+config.no_cache = 1
+
+plugin.tx_t3extblog {
+	settings {
+		blogsystem {
+		    comments.allowedUntil =
+		}
+
+		subscriptionManager {
+			comment {
+				admin {
+					mailTo.email = admin@example.com
+				}
+			}
+		}
+	}
+}
+
+# Re-copy module settings after inline plugin settings override the constants
+module.tx_t3extblog < plugin.tx_t3extblog
+
+page = PAGE
+page.10 = EXTBASEPLUGIN
+page.10 {
+	extensionName = T3extblog
+	pluginName = Blogsystem
+}","@import 'EXT:t3extblog/Configuration/TypoScript/constants.typoscript'
+
+plugin.tx_t3extblog {
+    persistence.storagePid = 1
+
+    settings {
+		blogName = Test Blog
+
+		blogsystem.pid = 1
+		subscriptionManager.pid = 1
+
+		emailFrom = no-reply@example.com
+		emailTo = admin@example.com
+
+		privacyPolicy {
+		    enabled = 1
+		}
+	}
+}"

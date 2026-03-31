@@ -1,0 +1,7 @@
+"tx_t3blog_cat"
+,"uid","pid","deleted","hidden","catname","url_segment","parent_id","description","sorting"
+,1,1,0,0,"PHP","php",0,"",10
+,2,1,0,0,"TYPO3","typo3",0,"",20
+,3,1,0,0,"Symfony","symfony",1,"A PHP framework",30
+,4,1,0,0,"Laravel","laravel",1,"Another PHP framework",40
+,5,1,0,1,"Hidden Child","hidden-child",1,"Should not appear",50

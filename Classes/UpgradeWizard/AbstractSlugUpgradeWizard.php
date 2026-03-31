@@ -16,6 +16,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\ConfirmableInterface;
 use TYPO3\CMS\Install\Updates\RepeatableInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class AbstractSlugUpgradeWizard extends AbstractUpgradeWizard implements ConfirmableInterface, RepeatableInterface
 {
     protected function countMissingSlugs(string $table = 'tx_t3blog_post', string $slug = 'url_segment'): int

@@ -1,0 +1,4 @@
+"tx_t3blog_com"
+,"uid","pid","deleted","hidden","fk_post","title","author","email","website","text","approved","spam","mails_sent","date"
+,1,1,0,0,1,"","Alice","alice@example.com","","Great post!",1,0,1,1609459200
+,2,1,0,0,1,"","Bob","bob@example.com","","Waiting for approval",0,0,0,1609545600

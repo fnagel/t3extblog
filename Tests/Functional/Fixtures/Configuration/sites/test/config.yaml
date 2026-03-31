@@ -1,0 +1,11 @@
+rootPageId: 1
+base: 'http://localhost/'
+languages:
+  -
+    languageId: 0
+    title: English
+    enabled: true
+    base: /
+    locale: 'en_US.UTF-8'
+errorHandling: []
+routes: []

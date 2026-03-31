@@ -1,0 +1,3 @@
+"fe_users"
+,"uid","pid","deleted","disable","username","password","email","first_name","middle_name","last_name","usergroup"
+,1,1,0,0,"testuser","$2y$12$placeholder","testuser@example.com","Max","","Mustermann","1"
