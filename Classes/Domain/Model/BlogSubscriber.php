@@ -10,7 +10,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 
 /**
- * PostSubscriber.
+ * BlogSubscriber.
  */
 class BlogSubscriber extends AbstractSubscriber implements LocalizedEntityInterface
 {

@@ -77,7 +77,7 @@ class BackendUser extends AbstractEntity
     /**
      * Gets the e-mail address of this user.
      *
-     * @return string the e-mail address, might be empty
+     * @return string The e-mail address (might be empty)
      */
     public function getEmail(): string
     {
@@ -87,7 +87,7 @@ class BackendUser extends AbstractEntity
     /**
      * Returns this user's real name.
      *
-     * @return string the real name. might be empty
+     * @return string The real name (might be empty)
      */
     public function getRealName(): string
     {
