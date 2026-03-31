@@ -16,9 +16,9 @@ use TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider;
  */
 class PostXmlSitemapDataProvider extends RecordsXmlSitemapDataProvider
 {
-    protected function getUrlFieldParameterMap(array $additionalParams, array $data): array
+    protected function getUrlFieldParameterMap(array $data): array
     {
-        $additionalParams = parent::getUrlFieldParameterMap($additionalParams, $data);
+        $additionalParams = parent::getUrlFieldParameterMap($data);
 
         if (isset($this->config['url']['addDateFieldsToParameterMap']) &&
             $this->config['url']['addDateFieldsToParameterMap']

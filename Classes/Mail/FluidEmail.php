@@ -8,7 +8,7 @@ namespace FelixNagel\T3extblog\Mail;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\View\ViewInterface;
+use TYPO3\CMS\Fluid\View\FluidViewAdapter;
 use TYPO3\CMS\Fluid\View\TemplatePaths;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
@@ -48,7 +48,7 @@ class FluidEmail extends \TYPO3\CMS\Core\Mail\FluidEmail implements EmailWithVie
         return $templatePaths;
     }
 
-    public function getView(): ViewInterface
+    public function getView(): FluidViewAdapter
     {
         return $this->view;
     }
