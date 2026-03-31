@@ -66,42 +66,42 @@ class Comment extends AbstractEntity
         $this->date = new \DateTime();
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): void
+    public function setAuthor(?string $author): void
     {
         $this->author = $author;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    public function getWebsite(): string
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    public function setWebsite(string $website): void
+    public function setWebsite(?string $website): void
     {
         $this->website = $website;
     }
@@ -116,7 +116,7 @@ class Comment extends AbstractEntity
         $this->date = $date;
     }
 
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -126,10 +126,10 @@ class Comment extends AbstractEntity
      */
     public function getPlainText(): string
     {
-        return strip_tags($this->text);
+        return $this->text ? strip_tags($this->text) : '';
     }
 
-    public function setText(string $text): void
+    public function setText(?string $text): void
     {
         $this->text = $text;
     }
@@ -164,7 +164,7 @@ class Comment extends AbstractEntity
         $this->spamPoints = $spamPoints;
     }
 
-    public function getSpamPoints(): int
+    public function getSpamPoints(): ?int
     {
         return $this->spamPoints;
     }
@@ -187,7 +187,7 @@ class Comment extends AbstractEntity
         $this->postId = $postId;
     }
 
-    public function getPostId(): int
+    public function getPostId(): ?int
     {
         return $this->postId;
     }

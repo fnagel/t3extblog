@@ -181,7 +181,7 @@ class Post extends AbstractLocalizedEntity
     /**
      * Checks if the post is too old for posting new comments.
      */
-    public function isExpired(string $expireDate = '+1 month'): string
+    public function isExpired(string $expireDate = '+1 month'): bool
     {
         $now = new \DateTime();
         $expire = clone $this->getPublishDate();
