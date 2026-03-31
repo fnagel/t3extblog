@@ -65,7 +65,8 @@ Currently implemented features:
 * Using official TYPO3 localization tools (Crowdin, see https://crowdin.com/project/typo3-extension-t3extblog)
 * Using interfaces and signal / slot for easy extending
 * Supports migration from EXT:t3blog and is tested in TYPO3 6-12
-* CGL and code quality tests
+* CGL, code quality and lint (PHP and TypoScript) tests
+* Unit, functional and acceptance tests
 
 
 .. tip::

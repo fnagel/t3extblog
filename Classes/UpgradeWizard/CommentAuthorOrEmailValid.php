@@ -11,6 +11,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
 
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
+/**
+ * @codeCoverageIgnore
+ */
 #[UpgradeWizard(CommentAuthorOrEmailValid::class)]
 class CommentAuthorOrEmailValid extends AbstractManualCheckWizard
 {

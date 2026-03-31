@@ -11,6 +11,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
 
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 
+/**
+ * @codeCoverageIgnore
+ */
 #[UpgradeWizard(CreateMissingCategorySlugs::class)]
 class CreateMissingCategorySlugs extends AbstractSlugUpgradeWizard
 {

@@ -12,6 +12,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
 
+/**
+ * @codeCoverageIgnore
+ */
 #[UpgradeWizard(CTypeMigrationWizard::class)]
 class CTypeMigrationWizard extends AbstractListTypeToCTypeUpdate
 {

@@ -1,0 +1,25 @@
+config.no_cache = 1
+
+# Test-specific plugin settings, overriding the empty defaults from constants/setup TypoScript.
+plugin.tx_t3extblog {
+	persistence.storagePid = 1
+
+	settings {
+		blogName = Test Blog
+		blogsystem.pid = 1
+		blogsystem.comments.allowedUntil =
+		subscriptionManager.pid = 1
+
+		subscriptionManager {
+			comment {
+				admin {
+					mailTo.email = admin@example.com
+				}
+			}
+		}
+	}
+}
+
+page = PAGE
+# page.10 rendering is added dynamically per test class via addTypoScriptToTemplateRecord()
+# using a direct EXTBASEPLUGIN object for the plugin under test.

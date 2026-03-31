@@ -12,4 +12,7 @@ vendor
 
 # Project specific
 composer.lock
-.Build
+.Build/*
+!.Build/phpunit/*.xml
+!.Build/.gitkeep
+c3.php

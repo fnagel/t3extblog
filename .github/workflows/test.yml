@@ -12,31 +12,41 @@ on:
       - synchronize
 
 jobs:
-  build:
-
+  test:
+    name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 2
+      max-parallel: 1
       matrix:
         php-versions: [8.2, 8.3, 8.4]
-        typo3-versions: [14.0]
+        typo3-versions: [14.2]
+        include:
+          - php-versions: 8.4
+            coverage: true
 
-    name: Run tests with PHP ${{ matrix.php-versions }} using TYPO3 ${{ matrix.typo3-versions }}
+    services:
+      selenium:
+        image: selenium/standalone-chrome:4
+        ports:
+          - 4444:4444
+        options: --shm-size=2g --add-host=webserver:host-gateway
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: intl, mbstring, pdo_sqlite
+          coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
 
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ matrix.php-versions }}-typo3-${{ matrix.typo3-versions }}-composer-${{ hashFiles('**/composer.json') }}
@@ -49,22 +59,110 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install composer dependencies
-        run: composer require typo3/cms-core "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress
+        run: composer require typo3/cms-core "${{ matrix.typo3-versions }}" --prefer-dist --no-progress
 
       - name: Run PHP lint
         run: composer run-script test-php-lint
 
       - name: Run PHPCS
+        if: matrix.coverage
         run: composer run-script test-php-cs-fixer
 
       - name: Run PHPMD
+        if: matrix.coverage
         run: composer run-script test-php-md
 
       - name: Run TypoScript linter
+        if: matrix.coverage
         run: composer run-script test-typoscript-lint
 
       - name: Render and test documentation
+        if: matrix.coverage
         run: |
           mkdir -p Documentation-GENERATED-temp \
           && docker run --rm --pull always -v $(pwd):/project \
              ghcr.io/typo3-documentation/render-guides:latest --config=Documentation --no-progress --minimal-test
+
+      - name: Run unit tests
+        run: composer run-script ${{ matrix.coverage && 'test-coverage-unit' || 'test-unit' }}
+
+      - name: Run functional tests
+        env:
+          typo3DatabaseDriver: pdo_sqlite
+        run: composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
+
+      - name: Run acceptance tests
+        env:
+          SELENIUM_HOST: 127.0.0.1
+        run: composer run-script ${{ matrix.coverage && 'test-coverage-acceptance' || 'test-acceptance' }}
+
+      - name: Upload acceptance test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-artifacts-php-${{ matrix.php-versions }}
+          path: .Build/var/log/_output/
+
+      - name: Upload coverage reports artifacts
+        if: matrix.coverage
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-artifacts
+          path: |
+            .Build/coverage/*.xml
+            .Build/coverage/unit-html/
+            .Build/coverage/functional-html/
+            .Build/var/log/_output/coverage.xml
+            .Build/var/log/_output/coverage/
+
+  report:
+    name: Report code coverage
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Setup .NET for report generator
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+          dotnet-quality: 'ga'
+
+      - name: Download coverage reports artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: coverage-artifacts
+          path: .Build
+
+      - name: Restore coverage history reports
+        uses: dawidd6/action-download-artifact@v19
+        with:
+          name: coverage-reports-artifacts
+          path: .Build/coverage/history
+        continue-on-error: true
+
+      - name: Run report generator
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.5.4
+        with:
+          reports: .Build/{coverage,var/log/_output}/*.xml
+          targetdir: .Build/coverage/report
+          historydir: .Build/coverage/history
+          reporttypes: MarkdownSummaryGithub;MarkdownDeltaSummary
+          title: 'Coverage report'
+
+      - name: Upload coverage history reports
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-reports-artifacts
+          path: .Build/coverage/history
+
+      - name: Publish coverage report in build summary
+        run: |
+          if test -f ".Build/coverage/report/DeltaSummary.md"; then
+            cat .Build/coverage/report/DeltaSummary.md >> $GITHUB_STEP_SUMMARY
+          fi
+          cat .Build/coverage/report/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          files: ".Build/coverage/unit.xml .Build/coverage/functional.xml .Build/var/log/_output/coverage.xml"

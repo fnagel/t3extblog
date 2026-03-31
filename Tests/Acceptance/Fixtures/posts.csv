@@ -1,0 +1,5 @@
+"tx_t3blog_post"
+,"uid","pid","deleted","hidden","title","url_segment","tagClouds","date","allow_comments","cat","trackback","mails_sent","crdate"
+,1,1,0,0,"First Post","first-post","php,typo3",1741392001,0,0,"",0,1741392000
+,2,1,0,0,"Second Post","second-post","typo3,testing",1612137600,0,0,"",0,1741392000
+,3,1,0,1,"Draft Post","draft-post","php",1614556800,0,0,"",0,1741392000

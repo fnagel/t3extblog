@@ -6,6 +6,8 @@
 /.editorconfig export-ignore
 /.gitattributes export-ignore
 /.php-cs-fixer.dist.php export-ignore
+/c3.php export-ignore
+/Tests export-ignore
 /ExtensionBuilder.json export-ignore
 /rector.php export-ignore
 /typoscript-lint.yml export-ignore

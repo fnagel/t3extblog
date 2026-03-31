@@ -1,0 +1,3 @@
+"be_dashboards"
+,"uid","pid","deleted","hidden","tstamp","crdate","cruser_id","identifier","title","widgets"
+,1,0,0,0,1700000000,1700000000,1,"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2","Blog Dashboard","{""w1"":{""identifier"":""t3extblogStatisticChart""},""w2"":{""identifier"":""t3extblogPendingCommentsNumberWithIconWidget""}}"

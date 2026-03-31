@@ -1,0 +1,14 @@
+rootPageId: 1
+base: 'http://webserver:8000/'
+languages:
+  -
+    languageId: 0
+    title: English
+    enabled: true
+    base: /
+    locale: 'en_US.UTF-8'
+errorHandling: []
+routes: []
+imports:
+  -
+    resource: 'EXT:t3extblog/Configuration/Routes/Default.yaml'

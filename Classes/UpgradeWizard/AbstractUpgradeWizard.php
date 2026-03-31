@@ -19,6 +19,8 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Abstract upgrade wizard for extension t3extblog.
+ *
+ * @codeCoverageIgnore
  */
 abstract class AbstractUpgradeWizard implements UpgradeWizardInterface, ChattyInterface
 {

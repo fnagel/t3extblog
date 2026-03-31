@@ -1,0 +1,9 @@
+"tx_t3blog_com"
+,"uid","pid","deleted","hidden","fk_post","title","author","email","website","text","approved","spam","mails_sent","date"
+,1,1,0,0,1,"","Alice","alice@example.com","","Great post!",1,0,1,1609459200
+,2,1,0,0,1,"","Bob","bob@example.com","","Waiting for approval",0,0,0,1609545600
+,3,1,0,0,1,"","Charlie","charlie@example.com","","Buy cheap watches",0,1,0,1609632000
+,4,1,0,0,2,"","Diana","diana@example.com","","Comment on post 2",1,0,1,1609718400
+,5,1,0,0,1,"","Alice","alice@example.com","","Second comment by Alice",1,0,1,1609804800
+,6,1,1,0,1,"","Frank","frank@example.com","","This was deleted",1,0,0,1609891200
+,7,1,0,1,1,"","Grace","grace@example.com","","Hidden but valid",1,0,0,1609977600

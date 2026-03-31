@@ -1,0 +1,71 @@
+params:
+  - env
+
+namespace: FelixNagel\T3extblog\Tests\Acceptance\Support
+suites:
+  frontend:
+    actor: AcceptanceTester
+    path: Acceptance/Frontend
+    modules:
+      enabled:
+        - Asserts
+        - WebDriver: &webdriver
+            url: 'http://webserver:8000'
+            browser: chrome
+            capabilities:
+              goog:chromeOptions:
+                args: ["--headless", "--no-sandbox", "--disable-dev-shm-usage"]
+            host: '%SELENIUM_HOST%'
+            port: 4444
+            wait: 3
+            window_size: 1280x1024
+        - Db:
+            dsn: 'sqlite:../.Build/Web/typo3temp/var/tests/acceptance-sqlite-dbs/test_acceptance.sqlite'
+            user: ''
+            password: ''
+            populate: false
+            cleanup: false
+            reconnect: true
+    extensions:
+      enabled:
+        - FelixNagel\T3extblog\Tests\Acceptance\Support\Extension\InstallExtension
+  backend:
+    actor: BackendTester
+    path: Acceptance/Backend
+    coverage:
+      enabled: false
+    modules:
+      enabled:
+        - Asserts
+        - WebDriver:
+            <<: *webdriver
+        - \TYPO3\TestingFramework\Core\Acceptance\Helper\Login:
+            sessions:
+              admin: supersecrettoken
+    extensions:
+      enabled:
+        - FelixNagel\T3extblog\Tests\Acceptance\Support\Extension\InstallExtension
+
+paths:
+  tests: .
+  output: ../.Build/var/log/_output
+  support: Acceptance/Support
+  data: Acceptance/Fixtures
+
+coverage:
+  enabled: true
+  remote: false
+  remote_config: Tests/codeception.yml
+  c3_url: 'http://localhost:8000'
+  include:
+    - ../Classes/*
+  exclude:
+    - ../Classes/Dashboard/*
+    - ../Classes/UpgradeWizard/*
+
+extensions:
+  enabled:
+    - Codeception\Extension\Recorder:
+        module: WebDriver
+        delete_successful: true
+        delete_orphaned: true

@@ -32,7 +32,16 @@
     "phpmd/phpmd": "^2.15",
     "php-parallel-lint/php-parallel-lint": "^1.3",
     "helmich/typo3-typoscript-lint": "^3.2",
-    "ssch/typo3-rector": "^3.0"
+    "ssch/typo3-rector": "^3.0",
+    "typo3/cms-seo": "^14",
+    "typo3/cms-dashboard": "^14",
+    "typo3/testing-framework": "^9.0",
+    "phpunit/phpunit": "^11.0",
+    "codeception/codeception": "^5.0",
+    "codeception/module-webdriver": "^4.0",
+    "codeception/module-asserts": "^3.0",
+    "codeception/c3": "^2.9",
+    "codeception/module-db": "^3.2"
   },
   "autoload": {
     "psr-4": {
@@ -60,7 +69,8 @@
     "bin-dir": ".Build/bin",
     "allow-plugins": {
       "typo3/class-alias-loader": true,
-      "typo3/cms-composer-installers": true
+      "typo3/cms-composer-installers": true,
+      "codeception/c3": true
     }
   },
   "extra": {
@@ -74,11 +84,29 @@
       "@test-php-lint",
       "@test-php-cs-fixer",
       "@test-php-md",
-      "@test-typoscript-lint"
+      "@test-typoscript-lint",
+      "@test-unit",
+      "@test-functional",
+      "@test-acceptance"
+    ],
+    "test-phpunit": [
+      "@test-unit",
+      "@test-functional",
+      "@test-acceptance"
+    ],
+    "test-unit": [
+      ".Build/bin/phpunit -c .Build/phpunit/UnitTests.xml"
+    ],
+    "test-functional": [
+      ".Build/bin/phpunit -c .Build/phpunit/FunctionalTests.xml"
+    ],
+    "test-acceptance": [
+      "bash Tests/run-acceptance.sh"
     ],
     "test-php-lint": [
       ".Build/bin/parallel-lint ./Classes/",
-      ".Build/bin/parallel-lint ./Configuration/TCA/"
+      ".Build/bin/parallel-lint ./Configuration/",
+      ".Build/bin/parallel-lint ./Tests/"
     ],
     "test-php-cs-fixer": [
       ".Build/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --diff --dry-run ./Classes/",
@@ -90,6 +118,23 @@
     ],
     "test-typoscript-lint": [
       ".Build/bin/typoscript-lint --fail-on-warnings"
+    ],
+    "test-coverage": [
+      "@test-coverage-unit",
+      "@test-coverage-functional",
+      "@test-coverage-acceptance"
+    ],
+    "test-coverage-unit": [
+      "mkdir -p .Build/coverage",
+      ".Build/bin/phpunit -c .Build/phpunit/UnitTests.xml --coverage-clover .Build/coverage/unit.xml --coverage-html .Build/coverage/unit-html"
+    ],
+    "test-coverage-functional": [
+      "mkdir -p .Build/coverage",
+      ".Build/bin/phpunit -c .Build/phpunit/FunctionalTests.xml --coverage-clover .Build/coverage/functional.xml --coverage-html .Build/coverage/functional-html"
+    ],
+    "test-coverage-acceptance": [
+      "Composer\\Config::disableProcessTimeout",
+      "COVERAGE=1 bash Tests/run-acceptance.sh"
     ]
   }
 }

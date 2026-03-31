@@ -9,6 +9,9 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class AbstractManualCheckWizard extends AbstractUpgradeWizard
 {
 }
