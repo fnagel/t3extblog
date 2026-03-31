@@ -265,14 +265,18 @@ class PostRepository extends AbstractRepository
     }
 
     /**
-     * @return null|arrray{year: int, count: int}[]
+     * @return null|array{year: int, count: int}[]
      */
     public function findYears(): ?array
     {
         $table = $this->getTableName();
         $connection = $this->getConnection($table);
-        $query = 'SELECT YEAR(FROM_UNIXTIME(date)) AS year, COUNT(uid) AS count FROM '.$table.
-            ' WHERE '.$this->getFeEnableFields($table).' GROUP BY year ORDER BY year DESC';
+
+        $yearExpr = $this->isSQLite($table)
+            ? "CAST(strftime('%Y', date, 'unixepoch') AS INTEGER)"
+            : 'YEAR(FROM_UNIXTIME(date))';
+        $query = 'SELECT ' . $yearExpr . ' AS year, COUNT(uid) AS count FROM ' . $table .
+            ' WHERE ' . $this->getFeEnableFields($table) . ' GROUP BY year ORDER BY year DESC';
 
         $query = $connection->executeQuery($query);
         $result = $query->fetchAllAssociative() ?: null;

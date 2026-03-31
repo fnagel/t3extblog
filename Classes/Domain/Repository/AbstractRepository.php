@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
@@ -105,5 +106,10 @@ abstract class AbstractRepository extends Repository
     protected function getConnection(string $table): Connection
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+    }
+
+    protected function isSQLite(string $table): bool
+    {
+        return $this->getConnection($table)->getDatabasePlatform() instanceof SQLitePlatform;
     }
 }
