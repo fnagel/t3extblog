@@ -85,6 +85,7 @@
       "@test-php-cs-fixer",
       "@test-php-md",
       "@test-typoscript-lint",
+      "@test-yaml-lint",
       "@test-unit",
       "@test-functional",
       "@test-acceptance"
@@ -118,6 +119,9 @@
     ],
     "test-typoscript-lint": [
       ".Build/bin/typoscript-lint --fail-on-warnings"
+    ],
+    "test-yaml-lint": [
+      ".Build/bin/typo3 lint:yaml Configuration"
     ],
     "test-coverage": [
       "@test-coverage-unit",
