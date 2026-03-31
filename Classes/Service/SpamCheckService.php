@@ -36,7 +36,7 @@ class SpamCheckService implements SpamCheckServiceInterface
 
         $spamPoints = 0;
         $arguments = $request->getQueryParams()['tx_t3extblog'] ?? [];
-        ArrayUtility::mergeRecursiveWithOverrule($arguments, $request->getParsedBody()['tx_t3extblog']);
+        ArrayUtility::mergeRecursiveWithOverrule($arguments, $request->getParsedBody()['tx_t3extblog'] ?? []);
 
         if (!$settings['enable']) {
             return $spamPoints;
