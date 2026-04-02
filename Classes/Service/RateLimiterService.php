@@ -14,10 +14,8 @@ use FelixNagel\T3extblog\Traits\LoggingTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\RateLimiter\LimiterInterface;
 use Symfony\Component\RateLimiter\RateLimit;
-use Symfony\Component\RateLimiter\RateLimiterFactory as Factory;
-use Symfony\Component\RateLimiter\Storage\InMemoryStorage;
 use TYPO3\CMS\Core\Http\NormalizedParams;
-use TYPO3\CMS\Core\RateLimiter\Storage\CachingFrameworkStorage;
+use TYPO3\CMS\Core\RateLimiter\RateLimiterFactoryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -40,6 +38,11 @@ class RateLimiterService implements RateLimiterServiceInterface
     protected array $rateLimits = [];
 
     protected ?string $ipAddress = null;
+
+    public function __construct(
+        protected readonly RateLimiterFactoryInterface $rateLimiterFactory,
+    ) {
+    }
 
     public function create(ServerRequestInterface $request, string $key, array $settings): self
     {
@@ -104,20 +107,20 @@ class RateLimiterService implements RateLimiterServiceInterface
 
     protected function createLimiter(string $remoteIp, string $key, array $settings): LimiterInterface
     {
-        $limiterId = sha1('t3extblog-' . $key);
+        $limiterId = 't3extblog-' . $key;
         $limit = (int)($settings['limit'] ?? 5);
         $interval = $settings['interval'] ?? '15 minutes';
         $enabled = !$this->isIpExcluded($settings, $remoteIp) && $limit > 0;
 
-        $config = [
-            'id' => $limiterId,
-            'policy' => ($enabled ? 'sliding_window' : 'no_limit'),
-            'limit' => $limit,
-            'interval' => $interval,
-        ];
-        $storage = ($enabled ? GeneralUtility::makeInstance(CachingFrameworkStorage::class) : new InMemoryStorage());
-
-        return (new Factory($config, $storage))->create($remoteIp);
+        return $this->rateLimiterFactory->createLimiter(
+            [
+                'id' => $limiterId,
+                'policy' => ($enabled ? 'sliding_window' : 'no_limit'),
+                'limit' => $limit,
+                'interval' => $interval,
+            ],
+            $remoteIp
+        );
     }
 
     protected function isIpExcluded(array $settings, string $remoteAddress): bool
