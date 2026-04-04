@@ -223,9 +223,9 @@ class PostRepository extends AbstractRepository
     /**
      * Get tag cloud.
      *
-     * @return null|array{tag: string, posts: int}[]
+     * @return array{tag: string, posts: int}[]
      */
-    public function tagCloud(int $limit = 10, int $minimum = 2): ?array
+    public function tagCloud(int $limit = 10, int $minimum = 2): array
     {
         $table = $this->getTableName();
         $connection = $this->getConnection($table);
@@ -258,7 +258,7 @@ class PostRepository extends AbstractRepository
         ];
 
         $query = $connection->executeQuery($query, $params);
-        $result = $query->fetchAllAssociative() ?: null;
+        $result = $query->fetchAllAssociative() ?: [];
         $query->free();
 
         return $result;
