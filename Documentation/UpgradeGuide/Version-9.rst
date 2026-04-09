@@ -26,13 +26,26 @@ https://github.com/fnagel/t3extblog/compare/9.2.0...9.3.0
 
 - Added new "related posts" plugin
 
-- Added related posts to post detail page template
+- Added related posts to post detail view
+
+- Added tag cloud plugin
 
 - Added menu processor for breadcrumbs and EXT:schema support
+
+- Added "this is an old post" notice for detail view
+
+- Option to configure recursive level in category list view
 
 - Switched from `SimplePagination` to `SlidingWindowPagination` pagination
 
 - Some small bugfixes and improvements
+
+
+**Breaking changes**
+
+- Some templates have changed
+   - Post show
+   - Category list
 
 
 How to upgrade
