@@ -201,11 +201,11 @@ See `/.github/workflows/release.yml` for more information.
 
 * Create upgrade guide!
 * Change version information in :code:`/ext_emconf.php`
-* Change year in :code:`/Documentation/Settings.cfg` if needed
+* Change year in :code:`/Documentation/guides.xml` if needed
 * Change year in :code:`/Documentation/Index.rst` if needed
 * Commit changes: Use [RELEASE] prefix, this commit message will be the TYPO3 TER release notice
 * Add tag to release commit (format: "1.2.3")
-* Change version information in :code:`/ext_emconf.php` to next bugfix version + "dev" (example: "1.2.4dev")
+* Change version information in :code:`/ext_emconf.php` to next bugfix version + "-dev" (example: "1.2.4-dev")
 * Push GIT changes incl. tag
 
 
