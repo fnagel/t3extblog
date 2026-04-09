@@ -52,7 +52,7 @@ Main plugin of the extension. Provides post list and detail view. Enables users 
 Archive
 ^^^^^^^
 
-This plugin displays a list of your blog posts, nested by month and sorted by date.
+This plugin displays a list of your blog posts filtered by year, nested by month and sorted by date.
 
 .. figure:: ../Images/AdministratorManual/archive.png
 	:alt: Archive

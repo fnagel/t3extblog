@@ -9,7 +9,7 @@
                project-issues="https://github.com/fnagel/t3extblog/issues"
                edit-on-github-branch="master"
                edit-on-github="fnagel/t3extblog"
-               typo3-core-preferred="14.1"
+               typo3-core-preferred="14.2"
                interlink-shortcode="fnagel/t3extblog"
     />
     <project title="T3Extblog (T3Blog Extbase)"

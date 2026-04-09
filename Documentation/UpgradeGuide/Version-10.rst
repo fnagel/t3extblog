@@ -20,6 +20,8 @@ Version 10.x
 Upgrade to 10.1.0
 ^^^^^^^^^^^^^^^^^
 
+*"Features & Tests"*
+
 Changelog
 """""""""
 
@@ -29,19 +31,46 @@ https://github.com/fnagel/t3extblog/compare/10.0.0...10.1.0
 
 - Added new "related posts" plugin
 
-- Added related posts to post detail page template
+- Added related posts to post detail view
+
+- Added reading time calculation to list and detail view (new `ReadingTimeViewHelper`)
+
+- Added "this is an old post" notice for detail view
+
+- Added year filter to archive plugin
+
+- Added tag cloud plugin
+
+- Option to configure recursive level in category list view
 
 - Added menu processor for breadcrumbs and EXT:schema support
 
 - Switched from `SimplePagination` to `SlidingWindowPagination` pagination
 
+- Added unit, functional and acceptance tests incl. CI
+
+- Added YAML lint test in CI
+
 - Some small bugfixes and improvements
+
+
+**Breaking changes**
+
+- Removed support for TYPO3 < 14.2
+
+- Some templates have changed
+   - Post show
+   - Post list
+   - Post archive
+   - Category list
 
 
 How to upgrade
 """"""""""""""
 
-#. Adjust post show template if needed
+#. Adjust templates if needed
+
+#. Add new archive plugin routing configuration (`Configuration/Routes/Archive.yaml`) if needed
 
 #. Clear all caches
 
