@@ -40,6 +40,7 @@ Currently implemented features:
 * Speaking URLs support
 * Sitemap support
 * Reading time calculation
+* Menu processor for easy breadcrumb generation
 
 
 **Comments and subscriptions**
@@ -64,8 +65,8 @@ Currently implemented features:
 * Default HTML markup matches Twitter Bootstrap 3, 4 and 5
 * Using official TYPO3 localization tools (Crowdin, see https://crowdin.com/project/typo3-extension-t3extblog)
 * Using interfaces and signal / slot for easy extending
-* Supports migration from EXT:t3blog and is tested in TYPO3 6-12
-* CGL, code quality and lint (PHP and TypoScript) tests
+* Supports migration from EXT:t3blog and is tested in TYPO3 6-14
+* CGL, code quality and lint (PHP, TypoScript and YAML) tests
 * Unit, functional and acceptance tests
 
 
