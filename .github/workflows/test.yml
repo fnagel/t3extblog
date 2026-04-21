@@ -19,8 +19,8 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        php-versions: [8.2]
-        typo3-versions: [14.2]
+        php-versions: [8.4]
+        typo3-versions: [14.3]
 
     steps:
       - uses: actions/checkout@v6
@@ -71,9 +71,10 @@ jobs:
       max-parallel: 1
       matrix:
         php-versions: [8.2, 8.3, 8.4]
-        typo3-versions: [14.2]
+        typo3-versions: [14.2, 14.3]
         include:
           - php-versions: 8.4
+          - typo3-versions: 14.3
             coverage: true
 
     services:
