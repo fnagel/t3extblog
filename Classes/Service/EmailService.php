@@ -99,7 +99,7 @@ class EmailService implements SingletonInterface
         $message = $this->getMessage($templatePath, $variables, $locale);
         $message
             ->subject($subject)
-            ->to(new Address(key($mailFrom), current($mailFrom) ?? ''))
+            ->to(new Address(key($mailTo), current($mailTo) ?? ''))
             ->from(new Address(
                 GeneralUtility::validEmail(key($mailFrom)) ? key($mailFrom) : MailUtility::getSystemFromAddress(),
                 current($mailFrom) ?? MailUtility::getSystemFromName() ?? ''
