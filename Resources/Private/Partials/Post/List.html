@@ -8,48 +8,58 @@
 </f:if>
 
 <f:for each="{paginator.paginatedItems}" as="post">
-	<article class="well">
-		<h2>
-			<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-				{post.title}
-			</f:link.action>
-		</h2>
-		<p class="top">
-			<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
-			<f:if condition="{post.author.uid}">
-				<f:link.action controller="Post" action="author" arguments="{author: post.author}">
-					<span class="author">{post.author.name}</span>
-				</f:link.action> -
-			</f:if>
-			<f:render partial="Post/Categories" arguments="{post: post}" />
-		</p>
+	<article class="card mb-3 mb-md-4 mb-lg-5">
 
-		<f:if condition="{post.content}">
-			<div class="teaser clearfix">
-				<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
+		<div class="card-header">
+			<h2>
+				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
+					{post.title}
+				</f:link.action>
+			</h2>
+			<h6 class="mb-0">
+				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />,
+				<f:if condition="{post.author.uid}">
+					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
+						<span class="author">{post.author.name}</span>
+					</f:link.action> -
+				</f:if>
+				<f:render partial="Post/Categories" arguments="{post: post}" />
+			</h6>
+		</div>
+
+		<f:if condition="{post.previewMode} == 0 && {post.previewText} && {post.previewImage}">
+			<div class="card-img">
+				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
 			</div>
 		</f:if>
 
-		<br>
+		<div class="card-body">
+			<f:if condition="{post.content}">
+				<div class="card-text">
+					<f:render partial="Post/Teaser" arguments="{post: post, settings: settings}" />
+				</div>
+			</f:if>
+		</div>
 
-		<div class="bottom row">
-			<div class="col-4">
-				<span class="badge text-bg-secondary">
-					<span class="icon icon-comments glyphicon glyphicon-comment" aria-hidden="true"></span>
+		<div class="card-footer text-muted small">
+			<div class="row">
+				<div class="col-sm-5">
+					<span class="icon icon-comments" aria-hidden="true"></span>
 					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-list">
 						<f:count subject="{post.comments}" />
 						<f:translate key="post.comments" />
 					</f:link.action>
-				</span>
-				<span class="badge text-bg-secondary ml-2 ms-2">
-					<span class="icon icon-clock glyphicon glyphicon-time" aria-hidden="true"></span>
-					<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
-				</span>
-			</div>
-			<div class="col-8 text-right">
-				<f:render partial="Post/TagCloud" arguments="{post: post}" />
+					<span class="ml-2 ms-2">
+						<span class="icon icon-clock" aria-hidden="true"></span>
+						<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
+					</span>
+				</div>
+				<div class="col-sm-7 text-sm-right text-sm-end">
+					<f:render partial="Post/TagCloud" arguments="{post: post}" />
+				</div>
 			</div>
 		</div>
+
 	</article>
 </f:for>
 

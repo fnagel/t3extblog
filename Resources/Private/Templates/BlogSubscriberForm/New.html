@@ -9,7 +9,6 @@
 		action="create"
 		section="subscriber-form"
 		id="subscriber-form"
-		class="form-horizontal"
 		name="subscriber"
 		object="{subscriber}">
 
@@ -19,17 +18,17 @@
 		<fieldset>
 			<legend><f:translate key="subscriber.form.new" /></legend>
 
-			<div class="form-group {t3b:formError(for: 'subscriber.email')}">
-				<label class="col-sm-3 control-label" for="subscriber.email">
+			<div class="form-group row {t3b:formError(for: 'subscriber.email')}">
+				<label class="col-sm-3 col-form-label" for="subscriber.email">
 					<f:translate key="subscriber.email" />
 				</label>
 				<div class="col-sm-9">
-					<f:form.textfield property="email" type="email" class="form-control" id="subscriber.email"
+					<f:form.textfield property="email" type="email" class="form-control" id="subscriber.email" errorClass="is-invalid"
 														additionalAttributes="{required: 'required'}" />
 				</div>
 			</div>
-			<div class="form-group {t3b:formError(for: 'subscriber.privacyPolicyAccepted')}">
-				<div class="col-sm-9 col-sm-offset-3">
+			<div class="form-group row {t3b:formError(for: 'subscriber.privacyPolicyAccepted')}">
+				<div class="col-sm-9 offset-sm-3">
 					<f:render partial="PrivacyPolicy" arguments="{
 						privacyPolicySettings: settings.blogSubscription.privacyPolicy,
 						id: 'subscriber.privacyPolicyAccepted',
@@ -37,8 +36,8 @@
 					}" />
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-3">
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
 					<f:render partial="IsHuman" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
 					<f:render partial="SpamCheck" arguments="{spamSettings: settings.blogSubscription.spamCheck}" />
 				</div>
@@ -46,8 +45,8 @@
 		</fieldset>
 
 		<fieldset>
-			<div class="form-group">
-				<div class="col-sm-offset-3 col-sm-9">
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
 					<button class="btn btn-primary">
 						{f:translate(key: 'subscriber.form.submit')}
 					</button>

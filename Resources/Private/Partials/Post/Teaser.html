@@ -4,10 +4,7 @@
 	<f:then>
 		<f:if condition="{post.previewText}">
 			<f:then>
-				<f:render partial="Post/PreviewImage" arguments="{post: post, settings: settings}" />
-
 				<f:format.html>{post.previewText}</f:format.html>
-
 				<f:render partial="Post/Button" arguments="{post: post, settings: settings}" />
 			</f:then>
 			<f:else>

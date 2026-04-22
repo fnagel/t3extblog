@@ -26,10 +26,3 @@ if (ExtensionManagementUtility::isLoaded('seo')) {
         'T3Extblog: Sitemap setup'
     );
 }
-
-// Twitter Bootstrap 4
-ExtensionManagementUtility::addStaticFile(
-    $packageKey,
-    'Configuration/TypoScript/TwitterBootstrap4',
-    'T3Extblog: Twitter Bootstrap 4 templates'
-);

@@ -3,14 +3,12 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-	<f:if condition="{settings.categories.collapse.enable}">
-		<a class="btn btn-primary d-block hidden-sm hidden-md hidden-lg" data-bs-target=".blog-category-collapse" data-bs-toggle="collapse">
-			<span class="caret" aria-hidden="true"></span> <f:translate key="category.button" />
-		</a>
-	</f:if>
+	<a href="#/" class="btn btn-primary btn-block d-block d-sm-none mb-3" data-target=".blog-category-collapse" data-toggle="collapse">
+		<span class="icon icon-caret-down" aria-hidden="true"></span> <f:translate key="category.button" />
+	</a>
 
-	<div class="blog-category-collapse {f:if(condition: '{settings.categories.collapse.enable}', then: 'collapse')}{f:if(condition: '{settings.categories.collapse.enable} && {settings.categories.collapse.show}', then: ' show')}">
-		<ul class="nav nav-pills flex-column">
+	<div class="navbar-collapse blog-category-collapse collapse show">
+		<ul class="nav nav-list flex-column">
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
 				<li class="nav-item">
@@ -28,7 +26,7 @@
 </f:section>
 
 <f:section name="categoryTree">
-	<ul>
+	<ul class="mb-3">
 	<f:for each="{categories}" as="category">
 		<li class="nav-item">
 			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">

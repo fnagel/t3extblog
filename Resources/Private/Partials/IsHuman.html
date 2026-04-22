@@ -1,9 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:if condition="{spamSettings.isHumanCheckbox} > 0">
-	<div class="checkbox">
-		<label for="is-human">
-			<input type="checkbox" id="is-human" name="tx_t3extblog[human]" value="1" autocomplete="off">
+	<div class="form-check">
+		<input type="checkbox" id="is-human" name="tx_t3extblog[human]" value="1" autocomplete="off" class="form-check-input">
+		<label for="is-human" class="form-check-label">
 			<f:translate key="comment.human" />
 		</label>
 	</div>

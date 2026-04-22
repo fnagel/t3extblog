@@ -1,9 +1,0 @@
-plugin.tx_t3extblog {
-	view {
-		templateRootPaths.25 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Templates/
-		partialRootPaths.25 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Partials/
-		layoutRootPaths.25 = EXT:t3extblog/Resources/Private/TwitterBootstrap4/Layouts/
-	}
-}
-
-module.tx_t3extblog < plugin.tx_t3extblog
