@@ -92,7 +92,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: intl, mbstring, pdo_sqlite, :xdebug
+          extensions: intl, mbstring, pdo_sqlite
           coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
 
       - name: Get composer cache directory
@@ -132,7 +132,7 @@ jobs:
       - name: Run functional tests
         env:
           typo3DatabaseDriver: pdo_sqlite
-        run: composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
+        run: ulimit -s unlimited && composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
 
       - name: Run acceptance tests
         env:
