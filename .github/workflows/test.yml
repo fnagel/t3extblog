@@ -132,7 +132,8 @@ jobs:
       - name: Run functional tests
         env:
           typo3DatabaseDriver: pdo_sqlite
-        run: ulimit -s unlimited && composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
+        # Issue with "Segmentation fault", see https://github.com/krakjoe/pcov/issues/130
+        run: ulimit -s 16384 && composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
 
       - name: Run acceptance tests
         env:
