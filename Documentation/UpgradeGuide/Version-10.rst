@@ -17,6 +17,33 @@ Version 10.x
 
 
 
+Upgrade to 10.2.0
+^^^^^^^^^^^^^^^^^
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/10.1.0...10.2.0
+
+- Support for TYPO3 14.3 LTS
+
+- Important email bugfix
+
+
+**Breaking changes**
+
+- Removed support for Twitter Boostrap version 3
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust templates if you need the old Twitter Boostrap templating
+
+#. Clear all caches
+
+
+
 Upgrade to 10.1.0
 ^^^^^^^^^^^^^^^^^
 
