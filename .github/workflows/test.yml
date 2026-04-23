@@ -73,7 +73,9 @@ jobs:
         php-versions: [8.2, 8.3, 8.4]
         typo3-versions: [14.2, 14.3]
         include:
-          - php-versions: 8.4
+          # Using PHP 8.3 as with 8.4, we run into "Segmentation fault" issues in functional tests with coverage
+          # See related issue: https://github.com/krakjoe/pcov/issues/130
+          - php-versions: 8.3
           - typo3-versions: 14.3
             coverage: true
 
