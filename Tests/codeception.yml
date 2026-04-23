@@ -60,7 +60,6 @@ coverage:
   include:
     - ../Classes/*
   exclude:
-    - ../Classes/Dashboard/*
     - ../Classes/UpgradeWizard/*
 
 extensions:
