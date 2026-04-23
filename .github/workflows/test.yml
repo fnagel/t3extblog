@@ -71,11 +71,11 @@ jobs:
       max-parallel: 1
       matrix:
 #        php-versions: [8.2, 8.3, 8.4]
-        php-versions: [8.3]
+        php-versions: [8.4]
 #        typo3-versions: [14.2, 14.3]
         typo3-versions: [14.3]
         include:
-          - php-versions: 8.3
+          - php-versions: 8.4
           - typo3-versions: 14.3
             coverage: true
 

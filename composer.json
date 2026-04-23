@@ -134,6 +134,7 @@
     ],
     "test-coverage-functional": [
       "mkdir -p .Build/coverage",
+      "ulimit -s 65536",
       ".Build/bin/phpunit -c .Build/phpunit/FunctionalTests.xml --coverage-clover .Build/coverage/functional.xml --coverage-html .Build/coverage/functional-html"
     ],
     "test-coverage-acceptance": [
