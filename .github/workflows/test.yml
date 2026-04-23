@@ -71,11 +71,11 @@ jobs:
       max-parallel: 1
       matrix:
 #        php-versions: [8.2, 8.3, 8.4]
-        php-versions: [8.4]
+        php-versions: [8.3]
 #        typo3-versions: [14.2, 14.3]
         typo3-versions: [14.3]
         include:
-          - php-versions: 8.4
+          - php-versions: 8.3
           - typo3-versions: 14.3
             coverage: true
 
@@ -132,8 +132,7 @@ jobs:
       - name: Run functional tests
         env:
           typo3DatabaseDriver: pdo_sqlite
-        # Issue with "Segmentation fault", see https://github.com/krakjoe/pcov/issues/130
-        run: ulimit -s 65536 && composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
+        run: composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
 
       - name: Run acceptance tests
         env:
