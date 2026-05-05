@@ -94,7 +94,7 @@ class BackendModuleService
     /**
      * Create the panel of buttons
      */
-    public function addViewHeaderButtons(array $buttonItems, ?string $shortcutModuleName = null, bool $addRefreshButton = true)
+    public function addViewHeaderButtons(array $buttonItems, ?string $shortcutModuleName = null)
     {
         $uriBuilder = GeneralUtility::makeInstance(BackendUriBuilder::class);
         $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
@@ -119,15 +119,6 @@ class BackendModuleService
                 ->setIcon($iconFactory->getIcon($configuration['icon'], IconSize::SMALL, 'overlay-new'));
 
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, 10);
-        }
-
-        // Refresh
-        if ($addRefreshButton) {
-            $reloadButton = $buttonBar->makeLinkButton()
-                ->setHref(GeneralUtility::getIndpEnv('REQUEST_URI'))
-                ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
-                ->setIcon($iconFactory->getIcon('actions-refresh', IconSize::SMALL));
-            $buttonBar->addButton($reloadButton, ButtonBar::BUTTON_POSITION_RIGHT);
         }
 
         // Shortcut
