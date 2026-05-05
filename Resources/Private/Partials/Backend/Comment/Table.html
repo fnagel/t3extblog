@@ -6,7 +6,7 @@
 		<f:then>
 			<div class="table-fit">
 				<f:if condition="{settings.backend.comments.paginate.insertAbove}">
-					<f:render partial="Backend/Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+					<f:render partial="Backend/Pagination" arguments="{action: action, pagination: pagination, paginator: paginator}" />
 				</f:if>
 
 				<table class="table table-striped table-hover">
@@ -44,7 +44,7 @@
 				</table>
 
 				<f:if condition="{settings.backend.comments.paginate.insertBelow}">
-					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
+					<f:render partial="Pagination" arguments="{action: action, pagination: pagination, paginator: paginator}" />
 				</f:if>
 			</div>
 		</f:then>
