@@ -18,8 +18,23 @@ class SpamCheckEvent extends AbstractEvent
     ) {
     }
 
+    public function getSettings(): array
+    {
+        return $this->settings;
+    }
+
+    public function getArguments(): array
+    {
+        return $this->arguments;
+    }
+
     public function getSpamPoints(): int
     {
         return $this->spamPoints;
+    }
+
+    public function setSpamPoints(int $spamPoints): void
+    {
+        $this->spamPoints = $spamPoints;
     }
 }

@@ -25,9 +25,19 @@ class SendEmailEvent extends AbstractEvent
         return $this->mailTo;
     }
 
+    public function setMailTo(array $mailTo): void
+    {
+        $this->mailTo = $mailTo;
+    }
+
     public function getMailFrom(): array
     {
         return $this->mailFrom;
+    }
+
+    public function setMailFrom(array $mailFrom): void
+    {
+        $this->mailFrom = $mailFrom;
     }
 
     public function getSubject(): string
@@ -35,13 +45,28 @@ class SendEmailEvent extends AbstractEvent
         return $this->subject;
     }
 
+    public function setSubject(string $subject): void
+    {
+        $this->subject = $subject;
+    }
+
     public function getVariables(): array
     {
         return $this->variables;
     }
 
+    public function setVariables(array $variables): void
+    {
+        $this->variables = $variables;
+    }
+
     public function getTemplatePath(): string
     {
         return $this->templatePath;
+    }
+
+    public function setTemplatePath(string $templatePath): void
+    {
+        $this->templatePath = $templatePath;
     }
 }
