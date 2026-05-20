@@ -33,13 +33,28 @@ class SubscribersEvent extends AbstractNotificationEvent
         return $this->subscribers;
     }
 
+    public function setSubscribers(QueryResultInterface|array $subscribers): void
+    {
+        $this->subscribers = $subscribers;
+    }
+
     public function getSubject(): string
     {
         return $this->subject;
     }
 
+    public function setSubject(string $subject): void
+    {
+        $this->subject = $subject;
+    }
+
     public function getVariables(): array
     {
         return $this->variables;
+    }
+
+    public function setVariables(array $variables): void
+    {
+        $this->variables = $variables;
     }
 }
