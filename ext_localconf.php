@@ -1,7 +1,6 @@
 <?php
 
 use FelixNagel\T3extblog\Controller\TagController;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use FelixNagel\T3extblog\Controller\PostController;
 use FelixNagel\T3extblog\Controller\CommentController;
