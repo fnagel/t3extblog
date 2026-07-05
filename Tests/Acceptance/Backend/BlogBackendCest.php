@@ -39,9 +39,12 @@ final class BlogBackendCest
     }
 
     /**
-     * Clicking the Blog module loads the backend dashboard/index view.
+     * Clicking the Blog module opens the default dashboard view (without a page id,
+     * i.e. the early-return branch of BackendDashboardController::indexAction) and
+     * renders without errors. The data-rich dashboard (with a page id) is asserted
+     * separately in BlogBackendListCest::dashboardIndexRendersSections.
      */
-    public function blogModuleDashboardLoads(BackendTester $I): void
+    public function blogModuleDefaultViewLoads(BackendTester $I): void
     {
         $I->click('Blog', '#modulemenu');
         $I->switchToContentFrame();

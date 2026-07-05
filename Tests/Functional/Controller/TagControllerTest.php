@@ -39,8 +39,15 @@ final class TagControllerTest extends AbstractControllerTestCase
                 ->withQueryParameter('tx_t3extblog_tags[action]', 'cloud')
         );
 
+        $body = (string)$response->getBody();
+
         self::assertSame(200, $response->getStatusCode());
-        self::assertStringContainsString('php', (string)$response->getBody());
-        self::assertStringContainsString('typo3', (string)$response->getBody());
+        // The cloud renders one linked <li> per tag with a "Tag: <title> (<count>)" title.
+        self::assertStringContainsString('rel="tag"', $body);
+        // typo3 is used by the visible posts 1, 2 and 4; php by the visible posts
+        // 1, 4 and 5. The hidden post 3 and the deleted post 6 (both tagged "php")
+        // must not be counted — proving the FE enable-field filtering works.
+        self::assertStringContainsString('Tag: typo3 (3)', $body);
+        self::assertStringContainsString('Tag: php (3)', $body);
     }
 }

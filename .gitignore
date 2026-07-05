@@ -12,7 +12,12 @@ vendor
 
 # Project specific
 composer.lock
+
+# Tests
 .Build/*
 !.Build/phpunit/*.xml
 !.Build/.gitkeep
 c3.php
+.php-cs-fixer.cache
+# TYPO3 runtime data created by `.Build/bin/typo3` (e.g. `composer test-yaml-lint`)
+/var/
