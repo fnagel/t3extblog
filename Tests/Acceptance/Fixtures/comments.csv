@@ -2,3 +2,13 @@
 ,"uid","pid","deleted","hidden","fk_post","title","author","email","website","text","approved","spam","mails_sent","date"
 ,1,1,0,0,1,"","Alice","alice@example.com","","Great post!",1,0,1,1609459200
 ,2,1,0,0,1,"","Bob","bob@example.com","","Waiting for approval",0,0,0,1609545600
+,3,1,0,0,1,"","Author3","author3@example.com","","Comment number 3",1,0,1,1609600300
+,4,1,0,0,1,"","Author4","author4@example.com","","Comment number 4",1,0,1,1609600400
+,5,1,0,0,1,"","Author5","author5@example.com","","Comment number 5",1,0,1,1609600500
+,6,1,0,0,1,"","Author6","author6@example.com","","Comment number 6",1,0,1,1609600600
+,7,1,0,0,1,"","Author7","author7@example.com","","Comment number 7",1,0,1,1609600700
+,8,1,0,0,1,"","Author8","author8@example.com","","Comment number 8",1,0,1,1609600800
+,9,1,0,0,1,"","Author9","author9@example.com","","Comment number 9",1,0,1,1609600900
+,10,1,0,0,1,"","Author10","author10@example.com","","Comment number 10",1,0,1,1609601000
+,11,1,0,0,1,"","Author11","author11@example.com","","Comment number 11",1,0,1,1609601100
+,12,1,0,0,1,"","Author12","author12@example.com","","Comment number 12",1,0,1,1609601200

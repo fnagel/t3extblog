@@ -85,6 +85,20 @@ jobs:
         ports:
           - 4444:4444
         options: --shm-size=2g --add-host=webserver:host-gateway
+      # Used by the coverage leg to run the functional tests on MariaDB. This is
+      # required to cover PostRepository::tagCloud(), which relies on the MySQL/
+      # MariaDB specific SUBSTRING_INDEX() and cannot run on SQLite.
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
     steps:
       - uses: actions/checkout@v6
@@ -129,9 +143,17 @@ jobs:
       - name: Run unit tests
         run: composer run-script ${{ matrix.coverage && 'test-coverage-unit' || 'test-unit' }}
 
+      # The coverage leg runs the functional tests on MariaDB so DB specific code
+      # (e.g. the tag cloud query) is exercised and reported; all other legs use the
+      # faster SQLite driver. The MariaDB connection variables are ignored by SQLite.
       - name: Run functional tests
         env:
-          typo3DatabaseDriver: pdo_sqlite
+          typo3DatabaseDriver: ${{ matrix.coverage && 'mysqli' || 'pdo_sqlite' }}
+          typo3DatabaseHost: 127.0.0.1
+          typo3DatabasePort: 3306
+          typo3DatabaseName: t3extblog_test
+          typo3DatabaseUsername: root
+          typo3DatabasePassword: root
         run: composer run-script ${{ matrix.coverage && 'test-coverage-functional' || 'test-functional' }}
 
       - name: Run acceptance tests

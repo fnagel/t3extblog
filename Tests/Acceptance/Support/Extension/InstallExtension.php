@@ -47,6 +47,7 @@ final class InstallExtension extends BackendEnvironment
             __DIR__ . '/../../Fixtures/comments.csv',
             __DIR__ . '/../../Fixtures/be_dashboards.csv',
             __DIR__ . '/../../Fixtures/post_subscribers.csv',
+            __DIR__ . '/../../Fixtures/blog_subscribers.csv',
         ],
         'configurationToUseInTestInstance' => [
             'SYS' => [
