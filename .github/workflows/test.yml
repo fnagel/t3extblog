@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install composer dependencies
-        run: composer require typo3/cms-core "${{ matrix.typo3-versions }}" --prefer-dist --no-progress
+        run: composer require typo3/cms-core "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress
 
       - name: Run YAML linter
         run: composer run-script test-yaml-lint
@@ -113,7 +113,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install composer dependencies
-        run: composer require typo3/cms-core "${{ matrix.typo3-versions }}" --prefer-dist --no-progress
+        run: composer require typo3/cms-core "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress
 
       - name: Run PHP lint
         run: composer run-script test-php-lint
