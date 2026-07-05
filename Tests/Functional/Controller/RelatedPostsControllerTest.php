@@ -27,18 +27,6 @@ final class RelatedPostsControllerTest extends AbstractControllerTestCase
     }
 
     #[Test]
-    public function relatedActionReturns200(): void
-    {
-        $response = $this->executeFrontendSubRequest(
-            (new InternalRequest())
-                ->withQueryParameter('tx_t3extblog_relatedposts[controller]', 'Post')
-                ->withQueryParameter('tx_t3extblog_relatedposts[action]', 'related')
-        );
-
-        self::assertSame(200, $response->getStatusCode());
-    }
-
-    #[Test]
     public function relatedActionRendersNoPostsWhenNotOnPostShowPage(): void
     {
         // The relatedAction checks PostController::isPostShowPage() — when accessed

@@ -17,6 +17,16 @@ plugin.tx_t3extblog {
 				}
 			}
 		}
+
+		# Small page sizes so the backend list views paginate with modest fixtures,
+		# independent of the (larger) production itemsPerPage defaults.
+		backend {
+			comments.paginate.itemsPerPage = 3
+			subscriber {
+				post.paginate.itemsPerPage = 3
+				blog.paginate.itemsPerPage = 3
+			}
+		}
 	}
 }
 

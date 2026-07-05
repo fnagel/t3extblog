@@ -18,10 +18,11 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 /**
  * Functional tests for the BlogSubscriberController (SubscriptionManager plugin).
  *
- * The subscriber actions are protected by an authentication code (a 32 character
- * alphanumeric token). These tests cover the successful confirmation of a pending
- * blog subscription as well as the failure paths (unknown code / no code), which
- * render the Subscriber error page with an HTTP 400 status.
+ * Focuses on the confirmation flow of a pending blog subscription, which is not
+ * covered elsewhere: the happy path (a valid code activates the subscriber) and
+ * its negative counterpart (a valid-format but unknown code must not activate
+ * anyone). The generic "no/invalid auth returns 400" paths are already covered by
+ * {@see SubscriptionManagerControllerTest}.
  */
 final class BlogSubscriberControllerTest extends AbstractControllerTestCase
 {
@@ -71,30 +72,6 @@ final class BlogSubscriberControllerTest extends AbstractControllerTestCase
         self::assertSame(400, $response->getStatusCode());
         // The subscriber must remain hidden (unconfirmed).
         self::assertSame(1, $this->fetchSubscriberHidden(10), 'Subscriber must not be confirmed with an unknown code.');
-    }
-
-    #[Test]
-    public function confirmActionWithMalformedCodeRendersError(): void
-    {
-        // A code that is not 32 alphanumeric chars is rejected before any DB lookup.
-        $response = $this->requestConfirm('too-short');
-
-        self::assertSame(400, $response->getStatusCode());
-        self::assertSame(1, $this->fetchSubscriberHidden(10));
-    }
-
-    #[Test]
-    public function listActionWithoutCodeRendersError(): void
-    {
-        // Without a code (and without an authenticated session) the controller
-        // forwards to the Subscriber error handling which renders HTTP 400.
-        $response = $this->executeFrontendSubRequest(
-            (new InternalRequest())
-                ->withQueryParameter(self::PLUGIN . '[controller]', 'BlogSubscriber')
-                ->withQueryParameter(self::PLUGIN . '[action]', 'list')
-        );
-
-        self::assertSame(400, $response->getStatusCode());
     }
 
     protected function requestConfirm(string $code): \Psr\Http\Message\ResponseInterface
