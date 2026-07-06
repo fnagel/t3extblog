@@ -33,7 +33,7 @@ suites:
     actor: BackendTester
     path: Acceptance/Backend
     coverage:
-      enabled: false
+      enabled: true
     modules:
       enabled:
         - Asserts

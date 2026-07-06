@@ -16,3 +16,4 @@ composer.lock
 !.Build/phpunit/*.xml
 !.Build/.gitkeep
 c3.php
+.php-cs-fixer.cache

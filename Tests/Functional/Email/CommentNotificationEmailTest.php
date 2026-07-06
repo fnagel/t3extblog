@@ -23,7 +23,7 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
  * triggers CommentNotificationService::notifyAdmin() and processNewEntity().
  * The resulting mails are captured through file spooling and asserted.
  */
-final class CommentNotificationEmailTest extends AbstractEmailTestCase
+class CommentNotificationEmailTest extends AbstractEmailTestCase
 {
     protected const ADMIN_EMAIL = 'admin@example.com';
 
@@ -41,15 +41,25 @@ final class CommentNotificationEmailTest extends AbstractEmailTestCase
         // Make comment creation actually succeed and configure mail addresses.
         $this->addTypoScriptToTemplateRecord(
             1,
-            implode("\n", [
+            implode("\n", array_merge([
                 'plugin.tx_t3extblog.settings.blogsystem.comments.spamCheck.enable = 0',
                 'plugin.tx_t3extblog.settings.blogsystem.comments.approvedByDefault = 1',
                 'plugin.tx_t3extblog.settings.blogsystem.comments.allowedUntil =',
                 'plugin.tx_t3extblog.settings.subscriptionManager.comment.admin.mailTo.email = ' . self::ADMIN_EMAIL,
                 'plugin.tx_t3extblog.settings.subscriptionManager.comment.admin.mailFrom.email = ' . self::FROM_EMAIL,
                 'plugin.tx_t3extblog.settings.subscriptionManager.comment.subscriber.mailFrom.email = ' . self::FROM_EMAIL,
-            ])
+            ], $this->additionalTypoScript()))
         );
+    }
+
+    /**
+     * Extra TypoScript setup lines for subclasses (e.g. to switch the email type).
+     *
+     * @return string[]
+     */
+    protected function additionalTypoScript(): array
+    {
+        return [];
     }
 
     #[Test]
