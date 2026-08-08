@@ -33,9 +33,11 @@
 		</f:else>
 	</f:if>
 
-	<t3b:link.issueCommand parameters="cmd[tx_t3blog_post][{post.localizedUid}][delete]=1"
-		title="{f:translate(key: 'module.post.help.delete')}"
-	 	onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
+	<t3b:link.issueCommand parameters="cmd[tx_t3blog_post][{post.localizedUid}][delete]=1" class="t3js-modal-trigger"
+	 title="{f:translate(key: 'module.post.help.delete')}"
+	 data-severity="warning"
+	 data-title="{f:translate(key: 'module.post.help.delete')}"
+	 data-content="{f:translate(key: 'general.confirm')}">
 		<core:icon identifier="actions-edit-delete" />
 	</t3b:link.issueCommand>
 </td>
