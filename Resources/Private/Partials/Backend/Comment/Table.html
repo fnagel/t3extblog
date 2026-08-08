@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <div class="panel panel-space panel-default">
 	<f:if condition="{paginator.paginatedItems}">
@@ -27,7 +27,7 @@
 					<f:groupedFor each="{paginator.paginatedItems}" as="paginatedCommentsByPost" groupBy="postId" groupKey="currentPostUid">
 						<tr>
 							<td colspan="9">
-								<b><t3b:backend.recordTitle table="tx_t3blog_post" uid="{currentPostUid}" /></b>
+								<b><t3b:recordTitle table="tx_t3blog_post" uid="{currentPostUid}" /></b>
 							</td>
 						</tr>
 						<f:for each="{paginatedCommentsByPost}" as="comment">

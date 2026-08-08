@@ -1,13 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
 			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
 			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <f:for each="{subscribers}" as="subscriber">
 	<tr>
 		<td>
 			<a href="#" data-contextmenu-trigger="click" data-contextmenu-uid="{subscriber.uid}" data-contextmenu-table="{table}" title="{subscriber.uid}">
-				<t3b:backend.spriteIconForRecord table="{table}" object="{subscriber}" />
+				<t3b:spriteIconForRecord table="{table}" object="{subscriber}" />
 			</a>
 		</td>
 		<td>
@@ -30,22 +30,22 @@
 
 			<f:if condition="{subscriber.hidden}">
 				<f:then>
-					<t3b:backend.link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=0" title="{f:translate(key: 'module.subscriber.help.hide.0')}">
+					<t3b:link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=0" title="{f:translate(key: 'module.subscriber.help.hide.0')}">
 						<core:icon identifier="actions-edit-unhide" />
-					</t3b:backend.link.issueCommand>
+					</t3b:link.issueCommand>
 				</f:then>
 				<f:else>
-					<t3b:backend.link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=1" title="{f:translate(key: 'module.subscriber.help.hide.1')}">
+					<t3b:link.issueCommand parameters="data[{table}][{subscriber.uid}][hidden]=1" title="{f:translate(key: 'module.subscriber.help.hide.1')}">
 						<core:icon identifier="actions-edit-hide" />
-					</t3b:backend.link.issueCommand>
+					</t3b:link.issueCommand>
 				</f:else>
 			</f:if>
 
-			<t3b:backend.link.issueCommand parameters="cmd[{table}][{subscriber.uid}][delete]=1"
+			<t3b:link.issueCommand parameters="cmd[{table}][{subscriber.uid}][delete]=1"
 				title="{f:translate(key: 'module.subscriber.help.delete')}"
 				onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
 				<core:icon identifier="actions-edit-delete" />
-			</t3b:backend.link.issueCommand>
+			</t3b:link.issueCommand>
 		</td>
 	</tr>
 </f:for>

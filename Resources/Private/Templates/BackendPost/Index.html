@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
 			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <f:layout name="Backend" />
 
@@ -36,7 +36,7 @@
 							<tr>
 								<td>
 									<a href="#" data-contextmenu-trigger="click" data-contextmenu-uid="{post.uid}" data-contextmenu-table="tx_t3blog_post" title="{post.uid}">
-										<t3b:backend.spriteIconForRecord table="tx_t3blog_post" object="{post}" />
+										<t3b:spriteIconForRecord table="tx_t3blog_post" object="{post}" />
 									</a>
 								</td>
 								<f:render partial="Backend/Post/RowContent" arguments="{post: post, dateTimeFormat: dateTimeFormat}" />
@@ -53,7 +53,7 @@
 									</td>
 								</f:if>
 							</tr>
-							<t3b:backend.localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
+							<t3b:localization translations="localizedRecords" table="tx_t3blog_post" object="{post}">
 								<f:for each="{localizedRecords}" as="localizedPost">
 									<tr class="localized">
 										<td class="col-icon">
@@ -61,13 +61,13 @@
 												<f:format.raw>{localizedPost.icon}</f:format.raw>
 											</a>
 										</td>
-										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:backend.getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateTimeFormat: dateTimeFormat}" />
+										<f:render partial="Backend/Post/RowContent" arguments="{post: '{t3b:getPost(uid: localizedPost.uid, respectEnableFields: 0)}', dateTimeFormat: dateTimeFormat}" />
 										<f:if condition="{settings.subscriptionManager.blog.subscriber.enableNotifications}">
 											<td></td>
 										</f:if>
 									</tr>
 								</f:for>
-							</t3b:backend.localization>
+							</t3b:localization>
 						</f:for>
 
 						<tr>
