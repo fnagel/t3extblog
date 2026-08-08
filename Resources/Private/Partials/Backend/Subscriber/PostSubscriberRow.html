@@ -12,7 +12,7 @@
 	<td>{subscriber.email}</td>
 	<td>{subscriber.crdate -> f:format.date(format: '{dateTimeFormat}')}</td>
 	<td class="action">
-		<be:link.editRecord uid="{subscriber.uid}" table="tx_t3blog_com_nl" title="{f:translate(key: 'module.subscriber.help.edit')}">
+		<be:link.editRecord uid="{subscriber.uid}" table="tx_t3blog_com_nl" contextual="true" title="{f:translate(key: 'module.subscriber.help.edit')}">
 			<t3b:spriteManagerIcon iconName="actions-document-open" />
 		</be:link.editRecord>
 

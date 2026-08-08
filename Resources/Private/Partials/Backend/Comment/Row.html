@@ -9,7 +9,7 @@
 		</a>
 	</td>
 	<td>
-		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" title="{comment.plainText -> f:format.crop(maxCharacters: 300)}">
+		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" contextual="true" title="{comment.plainText -> f:format.crop(maxCharacters: 300)}">
 			{comment.title -> f:format.crop(maxCharacters: 30)}
 		</be:link.editRecord>
 	</td>
@@ -46,7 +46,7 @@
 		</f:if>
 	</td>
 	<td class="action">
-		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" title="{f:translate(key: 'module.comment.help.edit')}">
+		<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" contextual="true" title="{f:translate(key: 'module.comment.help.edit')}">
 			<t3b:spriteManagerIcon iconName="actions-document-open" />
 		</be:link.editRecord>
 

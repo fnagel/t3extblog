@@ -3,19 +3,19 @@
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
 <td class="title">
-	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post">
+	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post" contextual="true">
 		{post.title}
 	</be:link.editRecord>
 </td>
 <td>{post.publishDate -> f:format.date(format: '{dateTimeFormat}')}</td>
 <td>{post.author.name}</td>
 <td class="comment">
-	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post.localizedUid}">
+	<f:link.action controller="BackendComment" action="listByPost" arguments="{post: post.localizedUid}" contextual="true">
 		{post.comments -> f:count()}
 	</f:link.action>
 </td>
 <td class="action">
-	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post" title="{f:translate(key: 'module.post.help.edit')}">
+	<be:link.editRecord uid="{post.localizedUid}" table="tx_t3blog_post" contextual="true" title="{f:translate(key: 'module.post.help.edit')}">
 		<t3b:spriteManagerIcon iconName="actions-document-open" />
 	</be:link.editRecord>
 

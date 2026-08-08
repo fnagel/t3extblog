@@ -22,7 +22,7 @@
 				</td>
 
 				<td class="title">
-					<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post">
+					<be:link.editRecord uid="{post.uid}" table="tx_t3blog_post" contextual="true">
 						{post.title -> f:format.crop(maxCharacters: 20, respectWordBoundaries: false)}
 					</be:link.editRecord>
 				</td>
