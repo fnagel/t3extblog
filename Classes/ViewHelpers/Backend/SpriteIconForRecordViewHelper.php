@@ -16,6 +16,8 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 
 /**
  * Views sprite icon for a record (object).
+ *
+ * Added some minimal logic but otherwise similar to the core IconForRecord VH.
  */
 class SpriteIconForRecordViewHelper extends AbstractBackendViewHelper
 {

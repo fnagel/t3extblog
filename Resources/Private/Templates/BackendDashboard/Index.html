@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:layout name="Backend" />
@@ -19,23 +20,23 @@
 
 				<div class="panel-body">
 					<f:link.action controller="BackendPost" action="index" class="btn btn-default btn-block">
-						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-post" />
+						<core:icon identifier="extensions-t3extblog-post" />
 						{f:translate(key: 'module.post.title')}
 					</f:link.action>
 					<f:link.action controller="BackendComment" action="index" class="btn btn-default btn-block">
-						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						<core:icon identifier="extensions-t3extblog-comment" />
 						{f:translate(key: 'module.comment.title.all')}
 					</f:link.action>
 					<f:link.action controller="BackendComment" action="listPending" class="btn btn-default btn-block">
-						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-comment" />
+						<core:icon identifier="extensions-t3extblog-comment" />
 						{f:translate(key: 'module.comment.title.pending')}
 					</f:link.action>
 					<f:link.action controller="BackendSubscriber" action="indexPostSubscriber" class="btn btn-default btn-block">
-						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						<core:icon identifier="extensions-t3extblog-subscriber" />
 						{f:translate(key: 'module.subscriber.post.title')}
 					</f:link.action>
 					<f:link.action controller="BackendSubscriber" action="indexBlogSubscriber" class="btn btn-default btn-block">
-						<t3b:backend.spriteManagerIcon iconName="extensions-t3extblog-subscriber" />
+						<core:icon identifier="extensions-t3extblog-subscriber" />
 						{f:translate(key: 'module.subscriber.blog.title')}
 					</f:link.action>
 				</div>

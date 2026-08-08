@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
 			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
 
@@ -41,18 +42,18 @@
 					<td>{comment.date -> f:format.date(format: '{dateTimeFormat}')}</td>
 					<td class="action">
 						<be:link.editRecord uid="{comment.uid}" table="tx_t3blog_com" contextual="true" title="{f:translate(key: 'module.comment.help.edit')}">
-							<t3b:backend.spriteManagerIcon iconName="actions-document-open" />
+							<core:icon identifier="actions-document-open" />
 						</be:link.editRecord>
 
 						<f:if condition="{comment.approved}">
 							<f:then>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=0" title="{f:translate(key: 'module.comment.help.approved.0')}">
-									<t3b:backend.spriteManagerIcon iconName="status-status-permission-granted" />
+									<core:icon identifier="status-status-permission-granted" />
 								</t3b:backend.link.issueCommand>
 							</f:then>
 							<f:else>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][approved]=1" title="{f:translate(key: 'module.comment.help.approved.1')}">
-									<t3b:backend.spriteManagerIcon iconName="status-status-permission-denied" />
+									<core:icon identifier="status-status-permission-denied" />
 								</t3b:backend.link.issueCommand>
 							</f:else>
 						</f:if>
@@ -60,12 +61,12 @@
 						<f:if condition="{comment.spam}">
 							<f:then>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=0" title="{f:translate(key: 'module.comment.help.spam.0')}">
-									<t3b:backend.spriteManagerIcon iconName="actions-edit-localize-status-high" />
+									<core:icon identifier="actions-edit-localize-status-high" />
 								</t3b:backend.link.issueCommand>
 							</f:then>
 							<f:else>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][spam]=1" title="{f:translate(key: 'module.comment.help.spam.1')}">
-									<t3b:backend.spriteManagerIcon iconName="actions-edit-localize-status-low" />
+									<core:icon identifier="actions-edit-localize-status-low" />
 								</t3b:backend.link.issueCommand>
 							</f:else>
 						</f:if>
@@ -73,20 +74,20 @@
 						<f:if condition="{comment.hidden}">
 							<f:then>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=0" title="{f:translate(key: 'module.comment.help.hide.0')}">
-									<t3b:backend.spriteManagerIcon iconName="actions-edit-unhide" />
+									<core:icon identifier="actions-edit-unhide" />
 								</t3b:backend.link.issueCommand>
 							</f:then>
 							<f:else>
 								<t3b:backend.link.issueCommand parameters="data[tx_t3blog_com][{comment.uid}][hidden]=1" title="{f:translate(key: 'module.comment.help.hide.1')}">
-									<t3b:backend.spriteManagerIcon iconName="actions-edit-hide" />
+									<core:icon identifier="actions-edit-hide" />
 								</t3b:backend.link.issueCommand>
 							</f:else>
 						</f:if>
 
 						<t3b:backend.link.issueCommand parameters="cmd[tx_t3blog_com][{comment.uid}][delete]=1"
-																					 title="{f:translate(key: 'module.comment.help.delete')}"
-																					 onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
-							<t3b:backend.spriteManagerIcon iconName="actions-edit-delete" />
+							 title="{f:translate(key: 'module.comment.help.delete')}"
+							 onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
+							<core:icon identifier="actions-edit-delete" />
 						</t3b:backend.link.issueCommand>
 					</td>
 				</tr>

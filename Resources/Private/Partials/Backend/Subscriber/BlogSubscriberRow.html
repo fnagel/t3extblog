@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+			xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
 			xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
 			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
 
@@ -12,18 +13,18 @@
 	<td>{subscriber.crdate -> f:format.date(format: '{dateTimeFormat}')}</td>
 	<td class="action">
 		<be:link.editRecord uid="{subscriber.uid}" table="tx_t3blog_blog_nl" contextual="true"  title="{f:translate(key: 'module.subscriber.help.edit')}">
-			<t3b:spriteManagerIcon iconName="actions-document-open" />
+			<core:icon identifier="actions-document-open" />
 		</be:link.editRecord>
 
 		<f:if condition="{subscriber.hidden}">
 			<f:then>
 				<t3b:link.issueCommand parameters="data[tx_t3blog_blog_nl][{subscriber.uid}][hidden]=0" title="{f:translate(key: 'module.subscriber.help.hide.0')}">
-					<t3b:spriteManagerIcon iconName="actions-edit-unhide" />
+					<core:icon identifier="actions-edit-unhide" />
 				</t3b:link.issueCommand>
 			</f:then>
 			<f:else>
 				<t3b:link.issueCommand parameters="data[tx_t3blog_blog_nl][{subscriber.uid}][hidden]=1" title="{f:translate(key: 'module.subscriber.help.hide.1')}">
-					<t3b:spriteManagerIcon iconName="actions-edit-hide" />
+					<core:icon identifier="actions-edit-hide" />
 				</t3b:link.issueCommand>
 			</f:else>
 		</f:if>
@@ -31,7 +32,7 @@
 		<t3b:link.issueCommand parameters="cmd[tx_t3blog_blog_nl][{subscriber.uid}][delete]=1"
 			title="{f:translate(key: 'module.subscriber.help.delete')}"
 			onclick="return confirm(\"{f:translate(key: 'general.confirm')}\");">
-			<t3b:spriteManagerIcon iconName="actions-edit-delete" />
+			<core:icon identifier="actions-edit-delete" />
 		</t3b:link.issueCommand>
 	</td>
 </tr>
