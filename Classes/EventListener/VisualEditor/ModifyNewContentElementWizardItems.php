@@ -22,7 +22,7 @@ class ModifyNewContentElementWizardItems
 
         // Add tt_content fields for blog posts
         if (array_key_exists('tx_t3extblog_blogsystem', $params)) {
-            foreach ($items as $key => $item) {
+            foreach (array_keys($items) as $key) {
                 $items[$key]['defaultValues']['irre_parenttable'] = 'tx_t3blog_post';
                 $items[$key]['defaultValues']['irre_parentid'] = (int)current(
                     // Remove visual editor link anchor from post argument
