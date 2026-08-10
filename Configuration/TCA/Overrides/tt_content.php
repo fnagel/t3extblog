@@ -40,3 +40,30 @@ TcaUtility::addFlexForm(
 );
 
 TcaUtility::registerPlugin('RelatedPosts', 'relatedposts');
+
+// Add columns
+$additionalColumns = [
+    'irre_parenttable' => [
+        'label' => 'Blog-Post',
+        'config' => [
+            'type' => 'passthrough',
+        ],
+    ],
+    'irre_parentid' => [
+        'label' => 'Blog-Post',
+        'config' => [
+            'type' => 'passthrough',
+        ],
+    ],
+];
+
+ExtensionManagementUtility::addTCAcolumns(
+    'tt_content',
+    $additionalColumns
+);
+
+ExtensionManagementUtility::addFieldsToPalette(
+    'tt_content',
+    'general',
+    'irre_parenttable, irre_parentid'
+);

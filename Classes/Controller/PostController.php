@@ -125,20 +125,25 @@ class PostController extends AbstractCommentController
         );
     }
 
-    public static function isPostShowPage(?ServerRequestInterface $request): int|false
+    public static function isPostShowPage(ServerRequestInterface $request): int|false
     {
         /* @var $routing PageArguments */
         $routing = $request->getAttribute('routing');
 
+        return static::isPostShowPageArguments($routing->getArguments());
+    }
+
+    public static function isPostShowPageArguments(array $arguments): int|false
+    {
         return isset(
-            $routing->getArguments()['tx_t3extblog_blogsystem']['controller'],
-            $routing->getArguments()['tx_t3extblog_blogsystem']['action'],
-            $routing->getArguments()['tx_t3extblog_blogsystem']['post'],
+            $arguments['tx_t3extblog_blogsystem']['controller'],
+            $arguments['tx_t3extblog_blogsystem']['action'],
+            $arguments['tx_t3extblog_blogsystem']['post'],
         ) &&
-            $routing->getArguments()['tx_t3extblog_blogsystem']['controller'] === 'Post' &&
-            $routing->getArguments()['tx_t3extblog_blogsystem']['action'] === 'show' &&
-            MathUtility::canBeInterpretedAsInteger($routing->getArguments()['tx_t3extblog_blogsystem']['post']) ?
-            (int)$routing->getArguments()['tx_t3extblog_blogsystem']['post'] : false;
+            $arguments['tx_t3extblog_blogsystem']['controller'] === 'Post' &&
+            $arguments['tx_t3extblog_blogsystem']['action'] === 'show' &&
+            MathUtility::canBeInterpretedAsInteger($arguments['tx_t3extblog_blogsystem']['post']) ?
+            (int)$arguments['tx_t3extblog_blogsystem']['post'] : false;
     }
 
     /**

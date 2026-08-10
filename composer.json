@@ -62,7 +62,8 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-    "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package."
+    "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package.",
+    "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality."
   },
   "config": {
     "vendor-dir": ".Build/vendor",

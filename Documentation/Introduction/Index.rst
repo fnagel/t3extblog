@@ -41,6 +41,7 @@ Currently implemented features:
 * Sitemap support
 * Reading time calculation
 * Menu processor for easy breadcrumb generation
+* Support for EXT:visual_editor (post title and content element editing)
 
 
 **Comments and subscriptions**

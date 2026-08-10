@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers" data-namespace-typo3-fluid="true">
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
 
@@ -10,13 +10,13 @@
 		<div class="card-header">
 			<h1>
 				<f:link.action controller="Post" action="show" arguments="{post.linkParameter}">
-					{post.title}
+					{post -> f:render.text(field: 'title')}
 				</f:link.action>
 			</h1>
 			<h6 class="mb-0">
 				<f:if condition="{post.author.uid}">
 					<f:link.action controller="Post" action="author" arguments="{author: post.author}">
-						<img src="{t3b:frontend.backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
+						<img src="{t3b:backendUserAvatar(uid: '{post.author.uid}', size: '{settings.blogsystem.posts.author.avatar.size}')}"
 								 class="rounded-circle mr-2" alt="Avatar of {post.author.name}" />
 						<span class="author">{post.author.name}</span>
 					</f:link.action> -
@@ -25,7 +25,7 @@
 				-
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 				-
-				<f:translate key="post.readingTime" arguments="{0: '{t3b:frontend.readingTime(post: post)}'}" />
+				<f:translate key="post.readingTime" arguments="{0: '{t3b:readingTime(post: post)}'}" />
 			</h6>
 		</div>
 
