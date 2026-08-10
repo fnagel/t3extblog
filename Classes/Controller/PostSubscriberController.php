@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use Psr\Http\Message\ResponseInterface;
@@ -25,12 +26,12 @@ class PostSubscriberController extends AbstractSubscriberController
     /**
      * @var PostSubscriberRepository
      */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
     /**
      * @var PostSubscriber
      */
-    protected $subscriber = null;
+    protected ?AbstractSubscriber $subscriber = null;
 
     public function __construct(PostSubscriberRepository $subscriberRepository)
     {
@@ -75,7 +76,7 @@ class PostSubscriberController extends AbstractSubscriberController
      *
      * @param PostSubscriber $subscriber
      */
-    protected function findExistingSubscriptions($subscriber): QueryResultInterface
+    protected function findExistingSubscriptions(AbstractSubscriber $subscriber): QueryResultInterface
     {
         return $this->subscriberRepository->findExistingSubscriptions(
             $subscriber->getPostUid(),

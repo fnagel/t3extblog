@@ -9,8 +9,10 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Post;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Event;
@@ -25,7 +27,7 @@ class BlogNotificationService extends AbstractNotificationService
     /**
      * @var BlogSubscriberRepository
      */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
     public function initializeObject()
     {
@@ -40,7 +42,7 @@ class BlogNotificationService extends AbstractNotificationService
      *
      * @param BlogSubscriber $subscriber
      */
-    public function processNewEntity($subscriber)
+    public function processNewEntity(AbstractEntity $subscriber)
     {
         if (!($subscriber instanceof BlogSubscriber)) {
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
@@ -63,7 +65,7 @@ class BlogNotificationService extends AbstractNotificationService
      *
      * @param BlogSubscriber $subscriber
      */
-    public function processChangedStatus($subscriber)
+    public function processChangedStatus(AbstractEntity $subscriber)
     {
         if (!($subscriber instanceof BlogSubscriber)) {
             throw new \InvalidArgumentException('Object should be of type BlogSubscriber!');
@@ -103,7 +105,7 @@ class BlogNotificationService extends AbstractNotificationService
      *
      * @param Post $post
      */
-    public function notifySubscribers($post): ?int
+    public function notifySubscribers(AbstractEntity $post): ?int
     {
         if (!($post instanceof Post)) {
             throw new \InvalidArgumentException('Object should be of type Post!');

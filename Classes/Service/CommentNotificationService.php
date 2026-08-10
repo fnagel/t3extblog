@@ -9,8 +9,10 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\AbstractEntity;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\Event;
@@ -25,7 +27,7 @@ class CommentNotificationService extends AbstractNotificationService
     /**
      * @var PostSubscriberRepository
      */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
     public function initializeObject()
     {
@@ -40,7 +42,7 @@ class CommentNotificationService extends AbstractNotificationService
      *
      * @param Comment $comment Comment
      */
-    public function processNewEntity($comment)
+    public function processNewEntity(AbstractEntity $comment)
     {
         if (!($comment instanceof Comment)) {
             throw new \InvalidArgumentException('Object should be of type Comment!');
@@ -74,7 +76,7 @@ class CommentNotificationService extends AbstractNotificationService
      *
      * @param Comment $comment Comment
      */
-    public function processChangedStatus($comment)
+    public function processChangedStatus(AbstractEntity $comment)
     {
         if (!($comment instanceof Comment)) {
             throw new \InvalidArgumentException('Object should be of type Comment!');
@@ -175,7 +177,7 @@ class CommentNotificationService extends AbstractNotificationService
      *
      * @var Comment $comment
      */
-    public function notifySubscribers($comment): void
+    public function notifySubscribers(AbstractEntity $comment): void
     {
         if (!($comment instanceof Comment)) {
             throw new \InvalidArgumentException('Object should be of type Comment!');

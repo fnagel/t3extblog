@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\SiteUtility;
@@ -32,7 +33,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
 {
     use LoggingTrait;
 
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
     protected array $settings = [];
 
@@ -44,7 +45,6 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
         protected FlushCacheService $cacheService,
         protected readonly EventDispatcherInterface $eventDispatcher
     ) {
-
     }
 
     public function initializeObject()

@@ -24,20 +24,11 @@ use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
  */
 class BlogSubscriberFormController extends AbstractController
 {
-    /**
-     * @var BlogSubscriberRepository
-     */
-    protected $blogSubscriberRepository;
+    protected BlogSubscriberRepository $blogSubscriberRepository;
 
-    /**
-     * @var BlogNotificationService
-     */
-    protected $notificationService;
+    protected BlogNotificationService $notificationService;
 
-    /**
-     * @var SpamCheckServiceInterface
-     */
-    protected $spamCheckService;
+    protected SpamCheckServiceInterface $spamCheckService;
 
     public function __construct(
         BlogSubscriberRepository $blogSubscriberRepository,

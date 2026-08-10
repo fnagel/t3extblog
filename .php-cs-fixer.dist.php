@@ -12,11 +12,11 @@ $config
         // PHPdocs / type hinting
         'no_empty_phpdoc' => true,
         // Those are risky, check manually if enabled!
-        // 'phpdoc_to_param_type' => true,
-        // 'phpdoc_to_return_type' => true,
-        // 'phpdoc_to_property_type' => true,
-        // 'phpdoc_trim_consecutive_blank_line_separation' => true,
-        // Removes @var annotations from Extbase models which is needed for TYPO3 v11 but seems almost ok for v12
+        //'phpdoc_to_param_type' => true,
+        //'phpdoc_to_return_type' => true,
+        //'phpdoc_to_property_type' => true,
+        //'phpdoc_trim_consecutive_blank_line_separation' => true,
+        // Removes @var annotations from Extbase models which seems to be needed in some cases (even in v14!)
         'no_superfluous_phpdoc_tags' => false,
     ]);
 

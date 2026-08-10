@@ -73,9 +73,8 @@ class ActionViewHelper extends AbstractViewHelper
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @see \TYPO3\CMS\Fluid\ViewHelpers\Uri\ActionViewHelper::render
-     * @return string
      */
-    protected static function renderFrontend(array $arguments, RenderingContextInterface $renderingContext)
+    protected static function renderFrontend(array $arguments, RenderingContextInterface $renderingContext): string
     {
         /** @var RequestInterface $request */
         $request = $renderingContext->getAttribute(ServerRequestInterface::class);

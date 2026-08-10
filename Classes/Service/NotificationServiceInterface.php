@@ -21,22 +21,16 @@ interface NotificationServiceInterface
 {
     /**
      * Process an added entity.
-     *
-     * @param AbstractEntity $entity
      */
-    public function processNewEntity($entity);
+    public function processNewEntity(AbstractEntity $entity);
 
     /**
      * Process changed status of an entity.
-     *
-     * @param AbstractEntity $entity
      */
-    public function processChangedStatus($entity);
+    public function processChangedStatus(AbstractEntity $entity);
 
     /**
      * Notify subscribers of an entity.
-     *
-     * @param AbstractEntity $entity
      */
-    public function notifySubscribers($entity);
+    public function notifySubscribers(AbstractEntity $entity);
 }

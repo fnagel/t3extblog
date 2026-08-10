@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Event;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -30,15 +31,17 @@ class BlogSubscriberController extends AbstractSubscriberController
     /**
      * @var BlogSubscriberRepository
      */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
     /**
      * @var PostSubscriber
      */
-    protected $subscriber = null;
+    protected ?AbstractSubscriber $subscriber = null;
 
-    public function __construct(BlogSubscriberRepository $subscriberRepository, protected BlogNotificationService $notificationService)
-    {
+    public function __construct(
+        BlogSubscriberRepository $subscriberRepository,
+        protected BlogNotificationService $notificationService
+    ) {
         $this->subscriberRepository = $subscriberRepository;
     }
 
@@ -120,7 +123,7 @@ class BlogSubscriberController extends AbstractSubscriberController
      *
      * @param BlogSubscriber $subscriber
      */
-    protected function findExistingSubscriptions($subscriber): QueryResultInterface
+    protected function findExistingSubscriptions(AbstractSubscriber $subscriber): QueryResultInterface
     {
         return $this->subscriberRepository->findExistingSubscriptions(
             $subscriber->getEmail(),

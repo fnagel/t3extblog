@@ -29,10 +29,7 @@ abstract class AbstractUpgradeWizard implements UpgradeWizardInterface, ChattyIn
      */
     protected ConnectionPool $connectionPool;
 
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
+    protected OutputInterface $output;
 
     public function __construct()
     {

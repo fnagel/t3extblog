@@ -56,7 +56,7 @@ class Post extends AbstractLocalizedEntity
     protected ?int $allowComments = null;
 
     /**
-     * This var annotation seems needed for Extbase.
+     * This var annotation seems needed for Extbase (even in v14!).
      *
      * @var string
      */

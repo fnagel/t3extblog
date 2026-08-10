@@ -27,15 +27,9 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 abstract class AbstractSubscriberController extends AbstractController
 {
-    /**
-     * @var AbstractSubscriberRepository
-     */
-    protected $subscriberRepository;
+    protected AbstractSubscriberRepository $subscriberRepository;
 
-    /**
-     * @var AbstractSubscriber
-     */
-    protected $subscriber = null;
+    protected ?AbstractSubscriber $subscriber = null;
 
     /**
      * Contains the subscription settings.
@@ -206,8 +200,5 @@ abstract class AbstractSubscriberController extends AbstractController
         return $this->request->getArgument('code');
     }
 
-    /**
-     * @param AbstractSubscriber $subscriber
-     */
-    abstract protected function findExistingSubscriptions($subscriber): QueryResultInterface;
+    abstract protected function findExistingSubscriptions(AbstractSubscriber $subscriber): QueryResultInterface;
 }
