@@ -285,7 +285,7 @@ return [
                 'type' => 'text',
                 'cols' => 45,
                 'rows' => 10,
-                'enableRichtext' => '1',
+                'enableRichtext' => true,
                 'richtextConfiguration' => 'default',
                 'softref' => 'typolink_tag,email[subst],url',
             ],

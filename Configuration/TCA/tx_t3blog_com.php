@@ -89,7 +89,7 @@ return [
                 'type' => 'text',
                 'cols' => 30,
                 'rows' => 5,
-                'enableRichtext' => '1',
+                'enableRichtext' => true,
                 'richtextConfiguration' => 'default',
                 'softref' => 'typolink_tag,email[subst],url',
             ],

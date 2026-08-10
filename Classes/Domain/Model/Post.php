@@ -17,6 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
+use TYPO3Tests\BlogExample\Domain\Model\TtContent;
 
 /**
  * Post.
@@ -311,6 +312,9 @@ class Post extends AbstractLocalizedEntity
         $this->previewImage = $previewImage;
     }
 
+    /**
+     * @return ObjectStorage<TtContent>
+     */
     public function getContent(): ObjectStorage
     {
         // @extensionScannerIgnoreLine
