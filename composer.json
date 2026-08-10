@@ -62,7 +62,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
-    "typo3/cms-seo": "^14"
+    "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package."
   },
   "config": {
     "vendor-dir": ".Build/vendor",
