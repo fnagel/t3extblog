@@ -71,12 +71,12 @@ jobs:
       max-parallel: 1
       matrix:
         php-versions: [8.2, 8.3, 8.4, 8.5]
-        typo3-versions: [14.3]
+        typo3-versions: [14.3.5]
         include:
           # Using PHP 8.3 as with 8.4, we run into "Segmentation fault" issues in functional tests with coverage
           # See related issue: https://github.com/krakjoe/pcov/issues/130
           - php-versions: 8.3
-            typo3-versions: 14.3
+            typo3-versions: 14.3.5
             coverage: true
 
     services:
@@ -126,7 +126,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install composer dependencies
-        run: composer require typo3/cms-core "^${{ matrix.typo3-versions }}" --prefer-dist --no-progress
+        run: composer require typo3/cms-core "${{ matrix.typo3-versions }}" --prefer-dist --no-progress
 
       - name: Run PHP lint
         run: composer run-script test-php-lint
