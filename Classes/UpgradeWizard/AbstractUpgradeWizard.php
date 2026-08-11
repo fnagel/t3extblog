@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Install\Updates\Confirmation;
+use TYPO3\CMS\Core\Upgrades\Confirmation;
 
 /**
  * Abstract upgrade wizard for extension t3extblog.
