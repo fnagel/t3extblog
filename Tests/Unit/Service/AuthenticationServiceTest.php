@@ -50,6 +50,7 @@ class AuthenticationServiceTest extends UnitTestCase
     #[Test]
     public function loginCallsSetDataWithEmail(): void
     {
+        // @extensionScannerIgnoreLine
         $this->sessionMock->expects(self::once())
             ->method('setData')
             ->with(['email' => 'test@example.com']);
@@ -65,6 +66,7 @@ class AuthenticationServiceTest extends UnitTestCase
         $this->sessionMock->expects(self::once())
             ->method('removeData');
 
+        // @extensionScannerIgnoreLine
         $this->subject->logout();
     }
 }

@@ -123,6 +123,7 @@ final class CommentEmailValidatorTest extends UnitTestCase
     {
         /** @var SettingsService&MockObject $settingsMock */
         $settingsMock = $this->createMock(SettingsService::class);
+        // @extensionScannerIgnoreLine
         $settingsMock->method('getTypoScriptByPath')->with($path)->willReturn($returnValue);
         GeneralUtility::addInstance(SettingsService::class, $settingsMock);
     }

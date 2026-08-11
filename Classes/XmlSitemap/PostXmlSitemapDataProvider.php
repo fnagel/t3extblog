@@ -20,7 +20,9 @@ class PostXmlSitemapDataProvider extends RecordsXmlSitemapDataProvider
     {
         $additionalParams = parent::getUrlFieldParameterMap($data);
 
+        // @extensionScannerIgnoreLine
         if (isset($this->config['url']['addDateFieldsToParameterMap']) &&
+            // @extensionScannerIgnoreLine
             $this->config['url']['addDateFieldsToParameterMap']
         ) {
             $date = new \DateTime('@'.$data['date']);

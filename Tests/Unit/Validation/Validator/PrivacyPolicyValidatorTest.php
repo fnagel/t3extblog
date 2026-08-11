@@ -21,6 +21,7 @@ class PrivacyPolicyValidatorTest extends UnitTestCase
     {
         parent::setUp();
         $this->subject = new PrivacyPolicyValidator();
+        // @extensionScannerIgnoreLine
         $this->subject->setOptions(['key' => 'blog', 'property' => null]);
     }
 

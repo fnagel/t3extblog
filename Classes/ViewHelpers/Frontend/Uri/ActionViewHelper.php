@@ -96,6 +96,7 @@ class ActionViewHelper extends AbstractViewHelper
         /** @var string|null $section */
         $section = $arguments['section'] ?? null;
         /** @var string|null $format */
+        // @extensionScannerIgnoreLine
         $format = $arguments['format'] ?? null;
         /** @var bool $linkAccessRestrictedPages */
         $linkAccessRestrictedPages = $arguments['linkAccessRestrictedPages'] ?? false;

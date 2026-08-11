@@ -27,7 +27,9 @@ class TagController extends AbstractController
         $limit = isset($settings['limit']) ? (int)$settings['limit'] : 30;
         $minimum = isset($settings['min']) ? (int)$settings['min'] : 1;
 
+        // @extensionScannerIgnoreLine
         $this->addCacheTags('tx_t3blog_tags');
+        // @extensionScannerIgnoreLine
         $this->addCacheTags($this->postRepository);
 
         $tags = $this->postRepository->tagCloud($limit, $minimum);

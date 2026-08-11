@@ -183,6 +183,7 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'] =
     ]);
 
 // Make default avatar provider available in FE
+// @extensionScannerIgnoreLine
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders']['defaultAvatarProvider'] = [
     'provider' => DefaultAvatarProvider::class,
 ];

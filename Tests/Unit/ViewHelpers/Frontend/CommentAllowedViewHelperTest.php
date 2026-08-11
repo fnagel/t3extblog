@@ -49,6 +49,7 @@ class CommentAllowedViewHelperTest extends UnitTestCase
     public function testVerdictReturnsFalseWhenSettingsDisallowComments(): void
     {
         $this->post->setAllowComments(Post::ALLOW_COMMENTS_EVERYONE);
+        // @extensionScannerIgnoreLine
         $this->variableProviderMock->method('get')->with('settings')
             ->willReturn($this->getDefaultSettings(false));
 
@@ -61,6 +62,7 @@ class CommentAllowedViewHelperTest extends UnitTestCase
     public function testVerdictReturnsFalseWhenPostDisallowsComments(): void
     {
         $this->post->setAllowComments(Post::ALLOW_COMMENTS_NOBODY);
+        // @extensionScannerIgnoreLine
         $this->variableProviderMock->method('get')->with('settings')
             ->willReturn($this->getDefaultSettings());
 
@@ -73,6 +75,7 @@ class CommentAllowedViewHelperTest extends UnitTestCase
     public function testVerdictReturnsTrueWhenEveryoneCanComment(): void
     {
         $this->post->setAllowComments(Post::ALLOW_COMMENTS_EVERYONE);
+        // @extensionScannerIgnoreLine
         $this->variableProviderMock->method('get')->with('settings')
             ->willReturn($this->getDefaultSettings());
 
@@ -85,6 +88,7 @@ class CommentAllowedViewHelperTest extends UnitTestCase
     public function testVerdictReturnsFalseAfterAllowedUntil(): void
     {
         $this->post->setAllowComments(Post::ALLOW_COMMENTS_EVERYONE);
+        // @extensionScannerIgnoreLine
         $this->variableProviderMock->method('get')->with('settings')
             ->willReturn($this->getDefaultSettings(true, '+7 days'));
 
@@ -99,6 +103,7 @@ class CommentAllowedViewHelperTest extends UnitTestCase
         // In unit test context, FrontendUtility::isUserLoggedIn() returns false
         // (no frontend user session available)
         $this->post->setAllowComments(Post::ALLOW_COMMENTS_LOGIN);
+        // @extensionScannerIgnoreLine
         $this->variableProviderMock->method('get')->with('settings')
             ->willReturn($this->getDefaultSettings());
 

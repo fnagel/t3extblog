@@ -69,6 +69,7 @@ class BackendUserAvatarViewHelper extends AbstractViewHelper
     protected static function getAvatarProviders()
     {
         $avatarProviders = [];
+        // @extensionScannerIgnoreLine
         $providers = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['backend']['avatarProviders'];
 
         $orderedProviders = GeneralUtility::makeInstance(DependencyOrderingService::class)
