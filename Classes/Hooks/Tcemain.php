@@ -292,9 +292,7 @@ class Tcemain
         }
 
         // Fallback (used for deleted records)
-        [$pid] = BackendUtility::getTSCpid($table, $id, '');
-
-        return (int) $pid;
+        return BackendUtility::getRealPageId($table, $id);
     }
 
     /**
