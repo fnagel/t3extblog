@@ -22,7 +22,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-comment',
         ],
-        'searchFields' => 'title,author,email,website,text',
     ],
     'columns' => [
         'crdate' => [
@@ -80,6 +79,7 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'default' => '0',
+                'searchable' => false,
             ],
         ],
         'text' => [
@@ -143,7 +143,7 @@ return [
                 --palette--;;main,
                 --palette--;;contact,
                 text,
-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+            --div--;core.form.tabs:access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
         ],
@@ -163,9 +163,9 @@ return [
         ],
         'access' => [
             'showitem' => '
-				starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.starttime_formlabel,
-				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
-				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel',
+				starttime,
+				endtime,
+				--linebreak--, fe_group',
         ],
     ],
 ];

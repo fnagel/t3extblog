@@ -29,7 +29,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-category',
         ],
-        'searchFields' => 'catname,description',
     ],
     'columns' => [
         'crdate' => [
@@ -97,6 +96,7 @@ return [
                         '/' => '-'
                     ],
                 ],
+                'searchable' => false,
             ],
         ],
         'description' => [
@@ -116,7 +116,7 @@ return [
         '0' => ['showitem' => '
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_cat.tabs.general,
                 l18n_parent,l18n_diffsource,catname,url_segment,description,parent_id,
-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+            --div--;core.form.tabs:access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
         ],
@@ -127,9 +127,9 @@ return [
         ],
         'access' => [
             'showitem' => '
-				starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.starttime_formlabel,
-				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
-				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel',
+				starttime,
+				endtime,
+				--linebreak--, fe_group',
         ],
     ],
 ];

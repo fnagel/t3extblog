@@ -7,9 +7,9 @@ use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 use Rector\CodingStyle\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
-use Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector;
 use Rector\ValueObject\PhpVersion;
-use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Set\ValueObject\LevelSetList;
@@ -25,26 +25,27 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
-        LevelSetList::UP_TO_PHP_83,
+        LevelSetList::UP_TO_PHP_85,
 
-        Typo3LevelSetList::UP_TO_TYPO3_13,
-        Typo3SetList::TYPO3_13,
+        Typo3LevelSetList::UP_TO_TYPO3_14,
+        Typo3SetList::TYPO3_14,
     ]);
 
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_82);
 
+    $rectorConfig->importShortClasses(false);
     $rectorConfig->skip([
         ExplicitBoolCompareRector::class,
         SimplifyRegexPatternRector::class,
         RemoveUnusedVariableInCatchRector::class,
         CountArrayToEmptyArrayComparisonRector::class,
-        AddLiteralSeparatorToNumberRector::class,
-        SymplifyQuoteEscapeRector::class,
         CatchExceptionNameMatchingTypeRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
         NullToStrictStringFuncCallArgRector::class,
         DisallowedEmptyRuleFixerRector::class,
+        DeclareStrictTypesRector::class,
+        SafeDeclareStrictTypesRector::class,
     ]);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
@@ -61,7 +62,8 @@ return static function (RectorConfig $rectorConfig): void {
 
     // If you use importNames(), you should consider excluding some TYPO3 files.
     $rectorConfig->skip([
-        __DIR__ . '/.github/*',
-        __DIR__ . '/.Build/*',
+        __DIR__ . '/.github',
+        __DIR__ . '/.Build',
+        __DIR__ . '/var',
     ]);
 };

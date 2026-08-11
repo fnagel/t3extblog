@@ -10,7 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Service\BlogNotificationService;
@@ -24,20 +24,11 @@ use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
  */
 class BlogSubscriberFormController extends AbstractController
 {
-    protected BlogSubscriberRepository $blogSubscriberRepository;
-
-    protected BlogNotificationService $notificationService;
-
-    protected SpamCheckServiceInterface $spamCheckService;
-
     public function __construct(
-        BlogSubscriberRepository $blogSubscriberRepository,
-        BlogNotificationService $notificationService,
-        SpamCheckServiceInterface $spamCheckService
+        protected BlogSubscriberRepository $blogSubscriberRepository,
+        protected BlogNotificationService $notificationService,
+        protected SpamCheckServiceInterface $spamCheckService
     ) {
-        $this->blogSubscriberRepository = $blogSubscriberRepository;
-        $this->notificationService = $notificationService;
-        $this->spamCheckService = $spamCheckService;
     }
 
     #[IgnoreValidation(['value' => 'subscriber'])]

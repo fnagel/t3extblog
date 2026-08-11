@@ -31,7 +31,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-post',
         ],
-        'searchFields' => 'title',
     ],
     'columns' => [
         'crdate' => [
@@ -74,6 +73,7 @@ return [
                         '/' => '-'
                     ],
                 ],
+                'searchable' => false,
             ],
         ],
         'tagClouds' => [
@@ -88,6 +88,7 @@ return [
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
+                'searchable' => false,
             ],
         ],
         'author' => [
@@ -112,6 +113,7 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'default' => mktime(date('H'), date('i'), 0, date('m'), date('d'), date('Y')),
+                'searchable' => false,
             ],
         ],
         'content' => [
@@ -205,6 +207,7 @@ return [
                 'rows' => 3,
                 'wrap' => 'off',
                 'softref' => 'url',
+                'searchable' => false,
             ],
         ],
         'trackback_hash' => [
@@ -215,6 +218,7 @@ return [
                 'size' => 30,
                 'max' => 130,
                 'eval' => 'trim',
+                'searchable' => false,
             ],
         ],
         'number_views' => [
@@ -233,6 +237,7 @@ return [
                 'type' => 'text',
                 'cols' => 45,
                 'rows' => 3,
+                'searchable' => false,
             ],
         ],
         'meta_keywords' => [
@@ -246,6 +251,7 @@ return [
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
+                'searchable' => false,
             ],
         ],
         'preview_mode' => [
@@ -288,6 +294,7 @@ return [
                 'enableRichtext' => true,
                 'richtextConfiguration' => 'default',
                 'softref' => 'typolink_tag,email[subst],url',
+                'searchable' => false,
             ],
         ],
         'preview_image' => [
@@ -332,7 +339,7 @@ return [
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.post,
                 --palette--;;meta,
                 title,url_segment,content,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+            --div--;core.form.tabs:language,
                 --palette--;;language,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.preview,
                 preview_mode,preview_image,preview_text,
@@ -342,7 +349,7 @@ return [
                 allow_comments,trackback,number_views,mails_sent,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_post.tabs.meta,
                 meta_description,meta_keywords,
-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+            --div--;core.form.tabs:access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.access;access'
         ],
@@ -359,9 +366,9 @@ return [
         ],
         'access' => [
             'showitem' => '
-				starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.starttime_formlabel,
-				endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.endtime_formlabel,
-				--linebreak--, fe_group;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.fe_group_formlabel',
+				starttime,
+				endtime,
+				--linebreak--, fe_group',
         ],
     ],
 ];

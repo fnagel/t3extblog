@@ -12,6 +12,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(PostSubscriber::class)]
 class PostSubscriberTest extends UnitTestCase
 {
+    public $subject;
+
     protected function setUp(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'testEncryptionKey';

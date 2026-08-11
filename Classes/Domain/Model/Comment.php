@@ -10,8 +10,8 @@ namespace FelixNagel\T3extblog\Domain\Model;
  */
 
 use FelixNagel\T3extblog\Validation\Validator\UrlValidator;
-use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
+use TYPO3\CMS\Extbase\Attribute as Extbase;
 
 /**
  * Comment.
@@ -141,7 +141,7 @@ class Comment extends AbstractEntity
 
     public function setApproved(bool $approved): void
     {
-        $this->approved = (boolean) $approved;
+        $this->approved = (bool) $approved;
     }
 
     public function isApproved(): bool

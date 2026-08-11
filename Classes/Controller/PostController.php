@@ -13,7 +13,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -212,7 +212,7 @@ class PostController extends AbstractCommentController
         ]);
 
         if ($year !== null && is_array($years)) {
-            if (!in_array($year, array_column($years, 'year'))) {
+            if (!in_array($year, array_column($years, 'year'), true)) {
                 $this->pageNotFoundAndExit('No posts found for the given year!');
             }
 
@@ -273,6 +273,7 @@ class PostController extends AbstractCommentController
             $this->view->assign('nextPost', $this->postRepository->nextPost($post));
             $this->view->assign('previousPost', $this->postRepository->previousPost($post));
         }
+
         if ($this->settings['blogsystem']['posts']['relatedPosts']['enable']) {
             $this->view->assign('relatedPosts', $this->getPaginationVariables(
                 $this->postRepository->relatedPosts($post),

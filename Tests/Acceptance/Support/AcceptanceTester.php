@@ -11,6 +11,10 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Codeception\Actor;
+use FelixNagel\T3extblog\Tests\Acceptance\Support\_generated\AcceptanceTesterActions;
+
+
 /**
  * Frontend acceptance tester.
  *
@@ -27,7 +31,7 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  */
-class AcceptanceTester extends \Codeception\Actor
+class AcceptanceTester extends Actor
 {
-    use _generated\AcceptanceTesterActions;
+    use AcceptanceTesterActions;
 }

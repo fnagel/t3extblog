@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Controller;
 
 use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
 use TYPO3\CMS\Backend\Routing\RouteResult;
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
@@ -68,7 +69,8 @@ abstract class AbstractBackendController extends ActionController
         protected CommentRepository $commentRepository,
         protected PostSubscriberRepository $postSubscriberRepository,
         protected BlogSubscriberRepository $blogSubscriberRepository,
-        private ModuleTemplateFactory $moduleTemplateFactory
+        protected ModuleTemplateFactory $moduleTemplateFactory,
+        protected ComponentFactory $componentFactory
     ) {
     }
 
@@ -114,6 +116,7 @@ abstract class AbstractBackendController extends ActionController
         $moduleService = GeneralUtility::makeInstance(
             BackendModuleService::class,
             $this->moduleTemplate,
+            $this->componentFactory,
             $this->pageId
         );
         $moduleService->addMetaInformation();
@@ -267,7 +270,7 @@ abstract class AbstractBackendController extends ActionController
 
     protected function translate(string $key): string
     {
-        return $this->getLanguageService()->sL('LLL:EXT:t3extblog/Resources/Private/Language/locallang.xlf:' . $key);
+        return $this->getLanguageService()->sL('t3extblog.messages:' . $key);
     }
 
     protected function getLanguageService(): LanguageService

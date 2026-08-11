@@ -9,8 +9,8 @@ namespace FelixNagel\T3extblog\UpgradeWizard;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 
 /**
  * @codeCoverageIgnore

@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use FelixNagel\T3extblog\Tests\Acceptance\Support\BackendTester;
 
 /**
@@ -115,7 +116,7 @@ final class BlogBackendListCest
         $this->openBlogModule($I);
 
         $href = $I->grabAttributeFrom('a[title="' . $menuTitle . '"]', 'href');
-        $I->executeInSelenium(static function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver) use ($href) {
+        $I->executeInSelenium(static function (RemoteWebDriver $webDriver) use ($href) {
             $webDriver->executeScript('window.location.href = "' . $href . '&id=1"');
         });
     }
@@ -129,7 +130,7 @@ final class BlogBackendListCest
         $I->seeElement('.pagination .page-item.next:not(.disabled)');
 
         $href = $I->grabAttributeFrom('.pagination .page-item.next a', 'href');
-        $I->executeInSelenium(static function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver) use ($href) {
+        $I->executeInSelenium(static function (RemoteWebDriver $webDriver) use ($href) {
             $webDriver->executeScript('window.location.href = "' . $href . '"');
         });
 

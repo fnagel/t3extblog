@@ -12,7 +12,7 @@ namespace FelixNagel\T3extblog\Domain\Model;
 use TYPO3\CMS\Core\Crypto\HashService;
 use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Attribute as Extbase;
 
 /**
  * AbstractSubscriber.

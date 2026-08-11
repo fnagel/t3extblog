@@ -15,6 +15,7 @@ if (is_file($file)) {
     // Let the server serve static files (CSS, JS, images) directly.
     return false;
 }
+
 $_SERVER['SCRIPT_FILENAME'] = $root . '/index.php';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 require $root . '/index.php';

@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Functional\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use Doctrine\DBAL\ParameterType;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
@@ -74,7 +75,7 @@ final class PostSubscriberControllerTest extends AbstractControllerTestCase
         self::assertSame(1, $this->fetchSubscriberHidden(10), 'Subscriber must not be confirmed with an unknown code.');
     }
 
-    protected function requestConfirm(string $code): \Psr\Http\Message\ResponseInterface
+    protected function requestConfirm(string $code): ResponseInterface
     {
         return $this->executeFrontendSubRequest(
             (new InternalRequest())

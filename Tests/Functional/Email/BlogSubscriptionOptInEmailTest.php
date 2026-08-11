@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Functional\Email;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Mime\Email;
@@ -74,7 +75,7 @@ final class BlogSubscriptionOptInEmailTest extends AbstractEmailTestCase
         self::assertNotSame($mail->getTo()[0]->getAddress(), $mail->getFrom()[0]->getAddress());
     }
 
-    protected function subscribe(string $email): \Psr\Http\Message\ResponseInterface
+    protected function subscribe(string $email): ResponseInterface
     {
         $trustedProperties = $this->buildTrustedPropertiesToken(self::PLUGIN, [
             self::PLUGIN . '[subscriber][email]',

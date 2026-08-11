@@ -11,6 +11,10 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Codeception\Actor;
+use FelixNagel\T3extblog\Tests\Acceptance\Support\_generated\BackendTesterActions;
+use TYPO3\TestingFramework\Core\Acceptance\Step\FrameSteps;
+
 /**
  * Backend acceptance tester.
  *
@@ -27,8 +31,8 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support;
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
  */
-class BackendTester extends \Codeception\Actor
+class BackendTester extends Actor
 {
-    use _generated\BackendTesterActions;
-    use \TYPO3\TestingFramework\Core\Acceptance\Step\FrameSteps;
+    use BackendTesterActions;
+    use FrameSteps;
 }

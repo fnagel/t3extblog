@@ -17,7 +17,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-trackback',
         ],
-        'searchFields' => 'title,fromurl,text,blogname',
     ],
     'columns' => [
         'fromurl' => [

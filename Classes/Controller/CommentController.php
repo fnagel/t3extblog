@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use FelixNagel\T3extblog\Validation\Validator\CommentEmailValidator;
 use FelixNagel\T3extblog\Validation\Validator\PrivacyPolicyValidator;
 use FelixNagel\T3extblog\Event;
@@ -20,7 +20,7 @@ use FelixNagel\T3extblog\Service\SpamCheckServiceInterface;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Domain\Model\Comment;
 use FelixNagel\T3extblog\Domain\Model\Post;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Attribute as Extbase;
 use Psr\Http\Message\ResponseInterface;
 
 /**

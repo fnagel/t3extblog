@@ -2,7 +2,7 @@
 
 namespace FelixNagel\T3extblog\UpgradeWizard;
 
-use TYPO3\CMS\Install\Updates\ConfirmableInterface;
+use TYPO3\CMS\Core\Upgrades\ConfirmableInterface;
 
 /**
  * This file is part of the "t3extblog" Extension for TYPO3 CMS.

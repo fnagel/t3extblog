@@ -120,6 +120,7 @@ final class PostRepositoryTest extends AbstractRepositoryTestCase
         foreach ($relatedPosts as $post) {
             $titles[] = $post->getTitle();
         }
+
         self::assertContains('Second Post', $titles);
     }
 

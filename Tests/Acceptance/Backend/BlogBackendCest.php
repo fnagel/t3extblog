@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use FelixNagel\T3extblog\Tests\Acceptance\Support\BackendTester;
 
 /**
@@ -65,7 +66,7 @@ final class BlogBackendCest
         // We grab the href from the link (which has the CSRF token) and navigate via JS
         // to stay within the list_frame context (window.location within iframe scope).
         $href = $I->grabAttributeFrom('a[title="Comments: Pending comments"]', 'href');
-        $I->executeInSelenium(static function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver) use ($href) {
+        $I->executeInSelenium(static function (RemoteWebDriver $webDriver) use ($href) {
             $webDriver->executeScript('window.location.href = "' . $href . '&id=1"');
         });
         $I->waitForText('Pending comments');

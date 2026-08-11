@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Functional\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
@@ -88,7 +89,7 @@ final class SubscriberControllerTest extends AbstractControllerTestCase
         self::assertStringNotContainsString('member@example.com', (string)$response->getBody());
     }
 
-    protected function extractSessionCookie(\Psr\Http\Message\ResponseInterface $response): string
+    protected function extractSessionCookie(ResponseInterface $response): string
     {
         foreach ($response->getHeader('Set-Cookie') as $setCookie) {
             if (str_starts_with($setCookie, 'fe_typo_user=')) {

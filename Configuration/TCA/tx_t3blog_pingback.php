@@ -19,7 +19,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-trackback',
         ],
-        'searchFields' => 'title,url,text,',
     ],
     'columns' => [
         'title' => [
@@ -45,6 +44,7 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'default' => '0',
+                'searchable' => false,
             ],
         ],
         'text' => [

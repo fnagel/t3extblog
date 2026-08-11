@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Backend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use FelixNagel\T3extblog\Tests\Acceptance\Support\BackendTester;
 
 /**
@@ -38,7 +39,7 @@ final class BlogBackendPostNotificationCest
         $I->switchToContentFrame();
 
         $postsHref = $I->grabAttributeFrom('a[title="Posts"]', 'href');
-        $I->executeInSelenium(static function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver) use ($postsHref) {
+        $I->executeInSelenium(static function (RemoteWebDriver $webDriver) use ($postsHref) {
             $webDriver->executeScript('window.location.href = "' . $postsHref . '&id=1"');
         });
         $I->waitForText('First Post', 10);
@@ -49,7 +50,7 @@ final class BlogBackendPostNotificationCest
             'a[title="Send new post notification mail to blog subscribers"]',
             'href'
         );
-        $I->executeInSelenium(static function (\Facebook\WebDriver\Remote\RemoteWebDriver $webDriver) use ($notifyHref) {
+        $I->executeInSelenium(static function (RemoteWebDriver $webDriver) use ($notifyHref) {
             $webDriver->executeScript('window.location.href = "' . $notifyHref . '"');
         });
 

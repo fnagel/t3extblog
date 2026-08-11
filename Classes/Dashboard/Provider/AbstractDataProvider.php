@@ -18,7 +18,7 @@ abstract class AbstractDataProvider
     /**
      * @var string
      */
-    public const LOCALLANG_FILE = 'LLL:EXT:t3extblog/Resources/Private/Language/locallang_dashboard.xlf:';
+    public const LOCALLANG_FILE = 't3extblog.dashboard:';
 
     protected function getStoragePids(): int
     {

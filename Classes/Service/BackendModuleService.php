@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -33,8 +34,11 @@ class BackendModuleService
     /**
      * BackendModuleService constructor.
      */
-    public function __construct(protected ModuleTemplate $moduleTemplate, protected int $pid)
-    {
+    public function __construct(
+        protected ModuleTemplate $moduleTemplate,
+        protected ComponentFactory $componentFactory,
+        protected int $pid
+    ) {
     }
 
     /**
@@ -46,7 +50,7 @@ class BackendModuleService
         $pageRecord = BackendUtility::readPageAccess($this->pid, $permissionClause);
 
         if ($pageRecord) {
-            $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation($pageRecord);
+            $this->moduleTemplate->getDocHeaderComponent()->setPageBreadcrumb($pageRecord);
         }
     }
 
@@ -72,7 +76,7 @@ class BackendModuleService
      */
     public function addViewHeaderMenu(Request $request, array $menuItems, string $menuIdentifier)
     {
-        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->componentFactory->createMenu();
         $menu->setIdentifier($menuIdentifier);
 
         $uriBuilder = GeneralUtility::makeInstance(MvcUriBuilder::class);
@@ -81,7 +85,7 @@ class BackendModuleService
         foreach ($menuItems as $menuItemConfig) {
             $isActive = ($request->getControllerActionName() === $menuItemConfig['action'] &&
                 $request->getControllerName() === $menuItemConfig['controller']);
-            $menuItem = $menu->makeMenuItem()
+            $menuItem = $this->componentFactory->createMenuItem()
                 ->setTitle($menuItemConfig['label'])
                 ->setHref($uriBuilder->reset()->uriFor($menuItemConfig['action'], [], $menuItemConfig['controller']))
                 ->setActive($isActive);
@@ -113,7 +117,7 @@ class BackendModuleService
                 $parameters['defVals'] = $configuration['defaults'];
             }
 
-            $viewButton = $buttonBar->makeLinkButton()
+            $viewButton = $this->componentFactory->createLinkButton()
                 ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($configuration['label'])
                 ->setIcon($iconFactory->getIcon($configuration['icon'], IconSize::SMALL, 'overlay-new'));
@@ -123,7 +127,7 @@ class BackendModuleService
 
         // Shortcut
         if ($shortcutModuleName !== null) {
-            $shortcutButton = $buttonBar->makeShortcutButton()
+            $shortcutButton = $this->componentFactory->createShortcutButton()
                 ->setRouteIdentifier($shortcutModuleName)
                 ->setDisplayName('Blog');
             $buttonBar->addButton($shortcutButton, ButtonBar::BUTTON_POSITION_RIGHT);

@@ -19,7 +19,6 @@ return [
         'typeicon_classes' => [
             'default' => 'extensions-t3extblog-subscriber',
         ],
-        'searchFields' => 'email,name',
     ],
     'columns' => [
         'crdate' => [
@@ -69,6 +68,7 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'default' => 0,
+                'searchable' => false,
             ],
         ],
         'code' => [
@@ -77,6 +77,7 @@ return [
                 'type' => 'input',
                 'readOnly' => true,
                 'size' => 30,
+                'searchable' => false,
             ],
         ],
         'privacy_policy_accepted' => [
@@ -93,7 +94,7 @@ return [
             --palette--;;contact,
             --div--;LLL:EXT:t3extblog/Resources/Private/Language/locallang_db.xlf:tx_t3blog_com_nl.tabs.meta,
                 --palette--;;subscription,
-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+            --div--;core.form.tabs:access,
                 --palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.palettes.visibility;visibility'
         ],
     ],

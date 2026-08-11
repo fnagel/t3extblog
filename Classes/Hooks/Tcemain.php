@@ -64,7 +64,7 @@ class Tcemain
         bool $commandIsProcessed,
         DataHandler $tceMain
     ) {
-        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com'])) {
+        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com'], true)) {
             return;
         }
 
@@ -124,7 +124,7 @@ class Tcemain
      */
     public function processDatamap_afterDatabaseOperations(string $status, string $table, mixed $id, array $fields, DataHandler $tceMain)
     {
-        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'])) {
+        if (!in_array($table, ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_cat'], true)) {
             return;
         }
 

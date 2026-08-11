@@ -23,9 +23,7 @@ class SpamCheckServiceRequestTest extends UnitTestCase
         parent::setUp();
         $this->eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
         $this->eventDispatcherMock->method('dispatch')
-            ->willReturnCallback(function (SpamCheckEvent $event) {
-                return $event;
-            });
+            ->willReturnCallback(fn(SpamCheckEvent $event) => $event);
 
         $this->subject = new SpamCheckService($this->eventDispatcherMock);
 

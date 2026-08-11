@@ -47,7 +47,7 @@ class AuthenticationService implements AuthenticationServiceInterface
     {
         $data = $this->getData();
 
-        if (!(is_array($data) && array_key_exists('email', $data))) {
+        if (!is_array($data) || !array_key_exists('email', $data)) {
             return false;
         }
 
