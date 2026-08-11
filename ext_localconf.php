@@ -31,7 +31,8 @@ ExtensionUtility::configurePlugin(
     [
         PostController::class => 'permalink, preview',
         CommentController::class => 'create',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -43,7 +44,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         PostController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -55,7 +57,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         PostController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -71,7 +74,8 @@ ExtensionUtility::configurePlugin(
         SubscriberController::class => 'list, error, logout',
         PostSubscriberController::class => 'list, delete, confirm',
         BlogSubscriberController::class => 'list, delete, confirm, create',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -83,7 +87,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         BlogSubscriberFormController::class => 'new, create, success',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -95,7 +100,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         CategoryController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -107,7 +113,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         TagController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -119,7 +126,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         PostController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -131,7 +139,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         CommentController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -143,7 +152,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         PostController::class => '',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 // Add BE hooks
