@@ -29,6 +29,9 @@ abstract class AbstractRepository extends Repository
     {
         $query = parent::createQuery();
 
+        $querySettings = $query->getQuerySettings();
+        $querySettings->setIgnoreEnableFields(false);
+
         if ($pageUid !== null) {
             if ($pageUid >= 0) {
                 $query->getQuerySettings()->setStoragePageIds([$pageUid]);
@@ -48,8 +51,11 @@ abstract class AbstractRepository extends Repository
     /**
      * Returns all objects with specific PID.
      */
-    public function findByPage(?int $pid = null, bool $respectEnableFields = true, ?int $limit = null): QueryResultInterface
-    {
+    public function findByPage(
+        ?int $pid = null,
+        bool $respectEnableFields = true,
+        ?int $limit = null
+    ): QueryResultInterface {
         $query = $this->createQuery($pid);
 
         if (is_int($limit) && $limit >= 1) {
