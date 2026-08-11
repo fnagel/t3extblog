@@ -28,34 +28,32 @@ class TcaUtility implements SingletonInterface
     /**
      * Register a plugin and hide default fields
      */
-    public static function registerPlugin(string $pluginName, string $localizationKey): string
-    {
-        return ExtensionUtility::registerPlugin(
+    public static function registerPlugin(
+        string $pluginName,
+        string $localizationKey,
+        ?string $flexFormFilePath = null
+    ): string {
+        $contentTypeName = ExtensionUtility::registerPlugin(
             self::$packageKey,
             $pluginName,
             self::$localizationPrefix.$localizationKey.'.title',
             'extensions-t3extblog-plugin',
             'blog',
             self::$localizationPrefix.$localizationKey.'.description',
-        );
-    }
-
-    public static function addFlexForm(string $contentTypeName, string $flexFormFilePath): void
-    {
-        // Add the FlexForm
-        ExtensionManagementUtility::addPiFlexFormValue(
-            '*',
-            'FILE:EXT:'.self::$packageKey.$flexFormFilePath,
-            $contentTypeName
+            $flexFormFilePath === null ? '' : 'FILE:EXT:'.self::$packageKey.$flexFormFilePath
         );
 
-        // Add the FlexForm to the show item list
-        ExtensionManagementUtility::addToAllTCAtypes(
-            'tt_content',
-            '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin, pi_flexform',
-            $contentTypeName,
-            'after:palette:headers'
-        );
+        if ($flexFormFilePath !== null) {
+            // Add the FlexForm to the show item list
+            ExtensionManagementUtility::addToAllTCAtypes(
+                'tt_content',
+                '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin, pi_flexform',
+                $contentTypeName,
+                'after:palette:headers'
+            );
+        }
+
+        return $contentTypeName;
     }
 
     protected static function getExtensionName(): string

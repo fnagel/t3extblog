@@ -27,17 +27,9 @@ TcaUtility::registerPlugin('Categories', 'categories');
 
 TcaUtility::registerPlugin('Tags', 'tags');
 
-$contentTypeName = TcaUtility::registerPlugin('LatestComments', 'latestcomments');
-TcaUtility::addFlexForm(
-    $contentTypeName,
-    '/Configuration/FlexForms/LatestComments.xml'
-);
+TcaUtility::registerPlugin('LatestComments', 'latestcomments', '/Configuration/FlexForms/LatestComments.xml');
 
-$contentTypeName = TcaUtility::registerPlugin('LatestPosts', 'latestposts');
-TcaUtility::addFlexForm(
-    $contentTypeName,
-    '/Configuration/FlexForms/LatestPosts.xml'
-);
+TcaUtility::registerPlugin('LatestPosts', 'latestposts', '/Configuration/FlexForms/LatestPosts.xml');
 
 TcaUtility::registerPlugin('RelatedPosts', 'relatedposts');
 
