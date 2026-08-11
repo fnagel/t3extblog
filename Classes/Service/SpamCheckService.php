@@ -9,9 +9,9 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use FelixNagel\T3extblog\Event;
 
 /**
@@ -32,7 +32,7 @@ class SpamCheckService implements SpamCheckServiceInterface
     public function process(array $settings): int
     {
         // @todo Replace this with a request argument
-        $request = $GLOBALS['TYPO3_REQUEST'];
+        $request = FrontendUtility::getRequest();
 
         $spamPoints = 0;
         $arguments = $request->getQueryParams()['tx_t3extblog'] ?? [];
@@ -54,7 +54,7 @@ class SpamCheckService implements SpamCheckServiceInterface
             $spamPoints += (int) $settings['cookie'];
         }
 
-        if ($settings['userAgent'] && GeneralUtility::getIndpEnv('HTTP_USER_AGENT') === '') {
+        if ($settings['userAgent'] && FrontendUtility::getNormalizedParams()->getHttpUserAgent() === '') {
             $spamPoints += (int) $settings['userAgent'];
         }
 

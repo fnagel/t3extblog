@@ -11,8 +11,8 @@ namespace FelixNagel\T3extblog\Routing\Aspect;
  */
 
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Routing\Aspect\PersistedAliasMapper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * PostMapper
@@ -26,7 +26,7 @@ abstract class AbstractPersistedAliasMapper extends PersistedAliasMapper
         // @extensionScannerIgnoreLine
         $this->getLog()->error($message, array_merge(
             [
-                'url' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),
+                'url' => FrontendUtility::getNormalizedParams()->getRequestUrl(),
             ],
             $this->settings
         ));

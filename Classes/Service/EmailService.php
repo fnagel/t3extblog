@@ -14,6 +14,7 @@ use FelixNagel\T3extblog\Mail\FluidEmail;
 use FelixNagel\T3extblog\Mail\MailMessage;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Event;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mime\Address;
@@ -137,7 +138,7 @@ class EmailService implements SingletonInterface
             $message->assignMultiple($variables);
             $message->assignMultiple([
                 'timestamp' => GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'),
-                'domain' => GeneralUtility::getIndpEnv('TYPO3_SITE_URL'),
+                'domain' => FrontendUtility::getNormalizedParams()->getSiteUrl(),
                 'settings' => $this->settings,
                 'locale' => $locale ?? $this->locales->createLocale('default'),
                 // Layout for templating
@@ -163,9 +164,7 @@ class EmailService implements SingletonInterface
     {
         $extbaseAttribute = new ExtbaseRequestParameters();
         $extbaseAttribute->setControllerExtensionName($this->extensionName);
-
-        /* @var $request ServerRequestInterface */
-        $request = $GLOBALS['TYPO3_REQUEST']->withAttribute('extbase', $extbaseAttribute);
+        $request = FrontendUtility::getRequest()->withAttribute('extbase', $extbaseAttribute);
 
         if ($request->getAttribute('currentContentObject') === null) {
             $request = $request->withAttribute(

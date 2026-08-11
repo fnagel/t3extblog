@@ -11,6 +11,7 @@ namespace FelixNagel\T3extblog\Utility;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -77,12 +78,17 @@ class FrontendUtility implements SingletonInterface
         return (bool)static::getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
     }
 
+    public static function getNormalizedParams(): NormalizedParams
+    {
+        return static::getRequest()->getAttribute('normalizedParams');
+    }
+
     protected static function getContext(): Context
     {
         return GeneralUtility::makeInstance(Context::class);
     }
 
-    protected static function getRequest(): ServerRequestInterface
+    public static function getRequest(): ServerRequestInterface
     {
         return $GLOBALS['TYPO3_REQUEST'];
     }

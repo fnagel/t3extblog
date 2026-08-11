@@ -12,6 +12,7 @@ namespace FelixNagel\T3extblog\Service;
 use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
 use FelixNagel\T3extblog\Exception\Exception;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use FelixNagel\T3extblog\Utility\SiteUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Localization\Locale;
@@ -156,7 +157,7 @@ abstract class AbstractNotificationService implements NotificationServiceInterfa
      */
     protected function persistToDatabase(bool $force = false)
     {
-        if ($force || ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if ($force || ApplicationType::fromRequest(FrontendUtility::getRequest())->isBackend()) {
             GeneralUtility::makeInstance(PersistenceManager::class)->persistAll();
         }
     }

@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
@@ -111,7 +112,8 @@ class BackendModuleService
                         $this->pid => 'new',
                     ],
                 ],
-                'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI'),
+                // @extensionScannerIgnoreLine
+                'returnUrl' => FrontendUtility::getNormalizedParams()->getRequestUri(),
             ];
             if (!empty($configuration['defaults'])) {
                 $parameters['defVals'] = $configuration['defaults'];

@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend\Link;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
@@ -43,14 +44,14 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
         $redirectUrl = $this->arguments['redirectUrl'];
 
         // Needed in 7.x and 8.x
-        $request = $GLOBALS['TYPO3_REQUEST'];
+        $request = FrontendUtility::getRequest();
         $id = $request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0;
         $parameters = '&id='.$id.'&'.$parameters;
 
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $href = $uriBuilder->buildUriFromRoute('tce_db') . $parameters . '&redirect=';
         // @extensionScannerIgnoreLine
-        $href .= rawurlencode($redirectUrl ?: $request->getAttribute('normalizedParams')->getRequestUri());
+        $href .= rawurlencode($redirectUrl ?: FrontendUtility::getNormalizedParams()->getRequestUri());
 
         $this->tag->addAttribute('href', $href);
         $this->tag->setContent($this->renderChildren());

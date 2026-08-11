@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Frontend;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\PageTitle\RecordTitleProvider;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Http\ApplicationType;
@@ -32,7 +33,7 @@ class TitleTagViewHelper extends AbstractViewHelper
      */
     public function render(): void
     {
-        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest(FrontendUtility::getRequest())->isBackend()) {
             return;
         }
 

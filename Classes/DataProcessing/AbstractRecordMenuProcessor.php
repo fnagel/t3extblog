@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\DataProcessing;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -68,7 +69,7 @@ abstract class AbstractRecordMenuProcessor implements DataProcessorInterface
             'title' => $this->getTitle($record),
             'active' => 1,
             'current' => 1,
-            'link' => GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'),
+            'link' => FrontendUtility::getNormalizedParams()->getSiteScript(),
         ];
     }
 }

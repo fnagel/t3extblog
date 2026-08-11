@@ -9,7 +9,7 @@ namespace FelixNagel\T3extblog\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Psr\Http\Message\ServerRequestInterface;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -53,11 +53,11 @@ class SettingsService
      * visibility directly in context menu or using the quick-edit links in the blog
      * module which should trigger emails but does not without this fix.
      */
-    public function __construct(protected ConfigurationManagerInterface $configurationManager, protected TypoScriptService $typoScriptService)
-    {
-        if (isset($GLOBALS['TYPO3_REQUEST']) && ($request = $GLOBALS['TYPO3_REQUEST']) instanceof ServerRequestInterface &&
-            !ApplicationType::fromRequest($request)->isFrontend()
-        ) {
+    public function __construct(
+        protected ConfigurationManagerInterface $configurationManager,
+        protected TypoScriptService $typoScriptService
+    ) {
+        if (($request = FrontendUtility::getRequest()) && !ApplicationType::fromRequest($request)->isFrontend()) {
             $this->configurationManager->setRequest($request->withQueryParams([
                 ...$request->getQueryParams(),
                 ...['id' => ($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['id'] ?? 0)]

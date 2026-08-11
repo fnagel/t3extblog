@@ -32,7 +32,7 @@ class TypoScriptValidator
     {
         $key = 'plugin';
 
-        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest(FrontendUtility::getRequest())->isBackend()) {
             $key = 'module';
         }
 
