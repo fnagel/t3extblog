@@ -23,8 +23,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "typo3/cms-core": "^14.2",
-    "typo3/cms-dashboard": "^14"
+    "typo3/cms-core": "^14.2"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5",
@@ -62,6 +61,7 @@
     "typo3-ter/t3extblog": "self.version"
   },
   "suggest": {
+    "typo3/cms-dashboard": "This extension supports dashboard widgets based on the TYPO3 CMS Dashboard package.",
     "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package.",
     "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality."
   },
