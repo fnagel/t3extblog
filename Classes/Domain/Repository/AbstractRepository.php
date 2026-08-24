@@ -29,9 +29,6 @@ abstract class AbstractRepository extends Repository
     {
         $query = parent::createQuery();
 
-        $querySettings = $query->getQuerySettings();
-        $querySettings->setIgnoreEnableFields(false);
-
         if ($pageUid !== null) {
             if ($pageUid >= 0) {
                 $query->getQuerySettings()->setStoragePageIds([$pageUid]);
