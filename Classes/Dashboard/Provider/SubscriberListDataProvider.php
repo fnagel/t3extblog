@@ -17,7 +17,6 @@ class SubscriberListDataProvider extends AbstractListDataProvider
         'limit' => 10,
     ];
 
-    
     public function __construct(protected AbstractSubscriberRepository $subscriberRepository, array $options = [])
     {
         $this->options = array_merge(

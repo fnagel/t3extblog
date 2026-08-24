@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use FelixNagel\T3extblog\Dashboard\ListWidget;
 use FelixNagel\T3extblog\Dashboard\NumberWithIconWidget;
 use FelixNagel\T3extblog\Dashboard\Provider\DraftPostListDataProvider;
 use FelixNagel\T3extblog\Dashboard\Provider\LatestCommentListDataProvider;
@@ -19,7 +20,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Backend\Controller\Event\ModifyNewContentElementWizardItemsEvent;
 use TYPO3\CMS\Dashboard\Widgets\DoughnutChartWidget;
-use TYPO3\CMS\Dashboard\Widgets\ListWidget;
 use TYPO3\CMS\Dashboard\WidgetRegistry;
 
 return function (ContainerConfigurator $configurator, ContainerBuilder $containerBuilder) {
@@ -69,7 +69,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.latestPosts', ListWidget::class)
         ->arg('$dataProvider', new Reference(LatestPostListDataProvider::class))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.latestPosts'))
-        ->arg('$options', ['partial' => 'PostWidget'])
+        ->arg('$options', ['partial' => 'PostWidget', 'limit' => 10])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogLatestPosts',
             'groupNames' => 't3extblog',
@@ -82,7 +82,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.draftPosts', ListWidget::class)
         ->arg('$dataProvider', new Reference(DraftPostListDataProvider::class))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.draftPosts'))
-        ->arg('$options', ['partial' => 'PostWidget'])
+        ->arg('$options', ['partial' => 'PostWidget', 'limit' => 4])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogDraftPosts',
             'groupNames' => 't3extblog',
@@ -95,7 +95,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.latestComments', ListWidget::class)
         ->arg('$dataProvider', new Reference(LatestCommentListDataProvider::class))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.latestComments'))
-        ->arg('$options', ['partial' => 'CommentWidget'])
+        ->arg('$options', ['partial' => 'CommentWidget', 'limit' => 10])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogLatestComments',
             'groupNames' => 't3extblog',
@@ -108,7 +108,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.pendingComments', ListWidget::class)
         ->arg('$dataProvider', new Reference(PendingCommentListDataProvider::class))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.pendingComments'))
-        ->arg('$options', ['partial' => 'CommentWidget'])
+        ->arg('$options', ['partial' => 'CommentWidget', 'limit' => 10])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogPendingComments',
             'groupNames' => 't3extblog',
@@ -140,7 +140,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.postSubscriber', ListWidget::class)
         ->arg('$dataProvider', new Reference('dashboard.provider.t3extblog.postSubscriber'))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.postSubscriber'))
-        ->arg('$options', ['table' => 'tx_t3blog_com_nl', 'partial' => 'SubscriberWidget'])
+        ->arg('$options', ['table' => 'tx_t3blog_com_nl', 'partial' => 'SubscriberWidget', 'limit' => 10])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogPostSubscriber',
             'groupNames' => 't3extblog',
@@ -156,7 +156,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     $services->set('dashboard.widget.t3extblog.blogSubscriber', ListWidget::class)
         ->arg('$dataProvider', new Reference('dashboard.provider.t3extblog.blogSubscriber'))
         ->arg('$buttonProvider', new Reference('dashboard.buttons.t3extblog.blogSubscriber'))
-        ->arg('$options', ['table' => 'tx_t3blog_blog_nl', 'partial' => 'SubscriberWidget'])
+        ->arg('$options', ['table' => 'tx_t3blog_blog_nl', 'partial' => 'SubscriberWidget', 'limit' => 10])
         ->tag('dashboard.widget', [
             'identifier' => 't3extblogBlogSubscriber',
             'groupNames' => 't3extblog',

@@ -16,4 +16,10 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
  */
 abstract class AbstractListDataProvider extends AbstractDataProvider implements ListDataProviderInterface
 {
+    protected array $options = [];
+
+    public function setOptions(array $options): void
+    {
+        $this->options = array_merge($this->options, $options);
+    }
 }
