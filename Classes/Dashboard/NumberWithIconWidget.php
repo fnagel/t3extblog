@@ -24,7 +24,7 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
  */
 class NumberWithIconWidget implements WidgetInterface, RequestAwareWidgetInterface
 {
-    private ServerRequestInterface $request;
+    protected ServerRequestInterface $request;
 
     public function __construct(
         private readonly WidgetConfigurationInterface $configuration,
