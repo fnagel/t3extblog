@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Domain\Repository;
  */
 
 use Doctrine\DBAL\Platforms\SQLitePlatform;
+use FelixNagel\T3extblog\Service\SettingsService;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
@@ -34,6 +35,14 @@ abstract class AbstractRepository extends Repository
                 $query->getQuerySettings()->setStoragePageIds([$pageUid]);
             } else {
                 $query->getQuerySettings()->setRespectStoragePage(false);
+            }
+        } elseif ($query->getQuerySettings()->getStoragePageIds() === [0]) {
+            // Ensure a proper storage PID. This is needed when using a PAGEVIEW page rendering setup.
+            $configuration = GeneralUtility::makeInstance(SettingsService::class)->getFrameworkSettings();
+            $storagePid = (int)($configuration['persistence']['storagePid'] ?? 0);
+
+            if ($storagePid > 0) {
+                $query->getQuerySettings()->setStoragePageIds([$storagePid]);
             }
         }
 
