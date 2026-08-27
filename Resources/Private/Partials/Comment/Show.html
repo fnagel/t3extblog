@@ -6,8 +6,14 @@
 			<div class="col-sm-4 text-sm-right text-sm-end">
 				<strong class="card-subtitle">
 					<f:if condition="{comment.website}">
-						<f:then><a href="{comment.website}" rel="nofollow">{comment.author}</a></f:then>
-						<f:else>{comment.author}</f:else>
+						<f:then>
+							<a href="{comment.website}" rel="nofollow">
+								{comment -> f:render.text(field: 'author')}
+							</a>
+						</f:then>
+						<f:else>
+							{comment -> f:render.text(field: 'author')}
+						</f:else>
 					</f:if>
 				</strong>
 				<p title="{comment.date -> f:format.date(format: 'd.m.Y - H:i:s')}">
@@ -18,9 +24,9 @@
 			</div>
 			<div class="col-sm-8">
 				<f:if condition="{comment.title}">
-					<strong>{comment.title}</strong>
+					<strong>{comment -> f:render.text(field: 'title')}</strong>
 				</f:if>
-				<f:format.html>{comment.text}</f:format.html>
+				{comment -> f:render.text(field: 'text')}
 			</div>
 		</div>
 	</div>
