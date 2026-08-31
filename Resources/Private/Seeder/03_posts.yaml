@@ -1,0 +1,64 @@
+# Blog posts
+tx_t3blog_post:
+  - identifier: post-1
+    pid: "{pages:blog}"
+    hidden: 0
+    title: 'Welcome to our new blog'
+    url_segment: 'welcome-to-our-new-blog'
+    date: 1756512000
+    author: "{be_users:blog-author}"
+    allow_comments: 0
+    cat:
+      - "{tx_t3blog_cat:news}"
+    tagClouds: 'welcome, blog'
+    trackback: ''
+    preview_mode: 0
+    preview_text: "{variable:postTeaser}"
+    meta_description: 'Welcome post of the demo blog.'
+    meta_keywords: 'blog, welcome, intro'
+    number_views: 42
+    content:
+      tt_content:
+        - identifier: post-1-body
+          CType: text
+          header: 'Getting started'
+          bodytext: "{variable:postBody}"
+
+  - identifier: post-2
+    pid: "{pages:blog}"
+    hidden: 0
+    title: 'Understanding TYPO3 Extbase'
+    url_segment: 'understanding-typo3-extbase'
+    date: 1756598400
+    author: "{be_users:blog-author}"
+    allow_comments: 0
+    cat:
+      - "{tx_t3blog_cat:tech}"
+    tagClouds: 'typo3, extbase, php'
+    trackback: ''
+    preview_mode: 1
+    preview_text: "{variable:postTeaser}"
+    meta_description: 'A deep dive into TYPO3 Extbase.'
+    number_views: 128
+
+  - identifier: post-3
+    pid: "{pages:blog}"
+    hidden: 0
+    title: 'Build your first Extbase extension'
+    url_segment: 'build-your-first-extbase-extension'
+    date: 1756684800
+    author: "{be_users:blog-author}"
+    allow_comments: 0
+    cat:
+      - "{tx_t3blog_cat:tutorials}"
+    tagClouds: 'typo3, tutorial, extbase'
+    trackback: ''
+    preview_mode: 2
+    preview_text: "{variable:postTeaser}"
+    number_views: 73
+    content:
+      tt_content:
+        - identifier: post-3-body
+          CType: text
+          header: 'Step by step'
+          bodytext: "{variable:postBody}"

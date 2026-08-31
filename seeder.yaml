@@ -1,0 +1,23 @@
+data:
+  loader: yaml
+  options:
+    type: 'folder'
+    path: 'EXT:t3extblog/Resources/Private/Seeder/'
+
+fal:
+  storages:
+    - identifier: default
+      storagePath: fileadmin/
+
+ordering:
+  # Ensure referenced records are created before they are used.
+  tt_content:
+    after: [ "be_users", "tx_t3blog_post" ]
+  tx_t3blog_cat:
+    after: [ "pages" ]
+  tx_t3blog_post:
+    after: [ "tx_t3blog_cat", "be_users" ]
+  tx_t3blog_com:
+    after: [ "tx_t3blog_post" ]
+  tx_t3blog_com_nl:
+    after: [ "tx_t3blog_post" ]

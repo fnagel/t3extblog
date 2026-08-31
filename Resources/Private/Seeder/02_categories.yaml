@@ -1,0 +1,20 @@
+# Blog categories (hierarchical via parent_id)
+tx_t3blog_cat:
+  - identifier: news
+    pid: "{pages:blog}"
+    catname: 'News'
+    url_segment: 'news'
+    description: 'Latest news and announcements'
+
+  - identifier: tech
+    pid: "{pages:blog}"
+    catname: 'Technology'
+    url_segment: 'technology'
+    description: 'Articles about technology and web development'
+
+  - identifier: tutorials
+    pid: "{pages:blog}"
+    parent_id: "{tx_t3blog_cat:tech}"
+    catname: 'Tutorials'
+    url_segment: 'tutorials'
+    description: 'Step by step tutorials'

@@ -1,0 +1,60 @@
+# Comments on posts
+tx_t3blog_com:
+  - identifier: comment-1
+    pid: "{pages:blog}"
+    hidden: 0
+    fk_post: "{tx_t3blog_post:post-1}"
+    title: 'Great post!'
+    author: 'Max Mustermann'
+    email: 'max@example.com'
+    website: 'https://example.com'
+    date: 1756771200
+    approved: 1
+    spam: 0
+    privacy_policy_accepted: 1
+    text: '<p>Thanks for the great introduction, really helpful!</p>'
+
+  - identifier: comment-2
+    pid: "{pages:blog}"
+    hidden: 0
+    fk_post: "{tx_t3blog_post:post-1}"
+    title: 'Question'
+    author: 'Erika Musterfrau'
+    email: 'erika@example.com'
+    website: ''
+    date: 1756857600
+    approved: 1
+    spam: 0
+    privacy_policy_accepted: 1
+    text: '<p>Looking forward to more content in this area.</p>'
+
+  - identifier: comment-3
+    pid: "{pages:blog}"
+    hidden: 0
+    fk_post: "{tx_t3blog_post:post-2}"
+    title: 'Thanks!'
+    author: 'Max Mustermann'
+    email: 'max@example.com'
+    website: ''
+    date: 1756944000
+    approved: 0
+    spam: 0
+    privacy_policy_accepted: 1
+    text: '<p>Thank your for the input!</p>'
+
+# Subscriptions (optional demo data)
+tx_t3blog_com_nl:
+  - identifier: comment-subscription
+    pid: "{pages:blog}"
+    hidden: 0
+    email: 'max@example.com'
+    name: 'Max Mustermann'
+    post_uid: "{tx_t3blog_post:post-1}"
+    privacy_policy_accepted: 1
+
+tx_t3blog_blog_nl:
+  - identifier: blog-subscription
+    pid: "{pages:blog}"
+    hidden: 0
+    email: 'erika@example.com'
+    privacy_policy_accepted: 1

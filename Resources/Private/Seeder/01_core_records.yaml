@@ -1,0 +1,157 @@
+pages:
+  - identifier: blog
+    pid: "{pages:root}"
+    doktype: 1
+    sorting: 10
+    title: "{variable:blogName}"
+    is_siteroot: 1
+
+  # Subpages for plugins
+  - identifier: plugin-latest-posts
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 10
+    title: 'Latest Posts'
+
+  - identifier: plugin-latest-comments
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 20
+    title: 'Latest Comments'
+
+  - identifier: plugin-related-posts
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 30
+    title: 'Related Posts'
+
+  - identifier: plugin-categories
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 40
+    title: 'Categories'
+
+  - identifier: plugin-tags
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 50
+    title: 'Tags'
+
+  - identifier: plugin-archive
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 60
+    title: 'Archive'
+
+  - identifier: plugin-rss
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 70
+    title: 'RSS'
+
+  - identifier: plugin-blog-subscription
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 80
+    title: 'Blog Subscription'
+
+  - identifier: plugin-subscription-manager
+    pid: "{pages:blog}"
+    doktype: 1
+    sorting: 90
+    title: 'Subscription Manager'
+
+# tt_content elements for the main blog plugin and all other plugins
+tt_content:
+  - identifier: blog-plugin
+    pid: "{pages:blog}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_blogsystem
+    header: "{variable:blogName}"
+    header_layout: 1
+
+  - identifier: plugin-latest-posts
+    pid: "{pages:plugin-latest-posts}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_latestposts
+    header: 'Latest Posts'
+    header_layout: 2
+
+  - identifier: plugin-latest-comments
+    pid: "{pages:plugin-latest-comments}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_latestcomments
+    header: 'Latest Comments'
+    header_layout: 2
+
+  - identifier: plugin-related-posts
+    pid: "{pages:plugin-related-posts}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_relatedposts
+    header: 'Related Posts'
+    header_layout: 2
+
+  - identifier: plugin-categories
+    pid: "{pages:plugin-categories}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_categories
+    header: 'Categories'
+    header_layout: 2
+
+  - identifier: plugin-tags
+    pid: "{pages:plugin-tags}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_tags
+    header: 'Tags'
+    header_layout: 2
+
+  - identifier: plugin-archive
+    pid: "{pages:plugin-archive}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_archive
+    header: 'Archive'
+    header_layout: 2
+
+  - identifier: plugin-rss
+    pid: "{pages:plugin-rss}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_rss
+    header: 'RSS'
+    header_layout: 2
+
+  - identifier: plugin-blog-subscription
+    pid: "{pages:plugin-blog-subscription}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_blogsubscription
+    header: 'Blog Subscription'
+    header_layout: 2
+
+  - identifier: plugin-subscription-manager
+    pid: "{pages:plugin-subscription-manager}"
+    colPos: 0
+    sorting: 10
+    CType: t3extblog_subscriptionmanager
+    header: 'Subscription Manager'
+    header_layout: 2
+
+# Backend user used as post author
+# Note: pid must be a page, so the record is processed within the blog subtree
+# BEFORE the posts (which reference it) are processed.
+# Password: "password" (bcrypt hash)
+be_users:
+  - identifier: blog-author
+    pid: "{pages:blog}"
+    username: 'blog-author'
+    password: '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+    email: 'author@example.com'
+    realName: 'Blog Author'
+    admin: 1

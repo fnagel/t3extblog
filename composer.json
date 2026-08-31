@@ -63,7 +63,8 @@
   "suggest": {
     "typo3/cms-dashboard": "This extension supports dashboard widgets based on the TYPO3 CMS Dashboard package.",
     "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package.",
-    "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality."
+    "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality.",
+    "km2/data-seeder": "Generate static data for a blog incl. pages, plugins, posts, categories, comments and subscriptions."
   },
   "config": {
     "vendor-dir": ".Build/vendor",

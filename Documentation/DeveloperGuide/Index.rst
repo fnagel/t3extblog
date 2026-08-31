@@ -93,11 +93,17 @@ Code insights
 
 *This section is incomplete*
 
-
 **Table mapping**
 
 This extension uses TYPO3 Extbase table mapping to make use of existing EXT:t3blog tables.
 Take a look at :code:`Configuration/Extbase/Persistence/Classes.php` to see how this is done.
+
+
+Import static data set
+----------------------
+
+This extension uses `km2/data-seeder` for generating static dummy data.
+Run :code:`vendor/bin/typo3 database:seed --config "EXT:t3extblog/seeder.yaml"`
 
 
 Translations
