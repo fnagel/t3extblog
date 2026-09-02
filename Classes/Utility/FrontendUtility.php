@@ -88,8 +88,8 @@ class FrontendUtility implements SingletonInterface
         return GeneralUtility::makeInstance(Context::class);
     }
 
-    public static function getRequest(): ServerRequestInterface
+    public static function getRequest(): ?ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'];
+        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }

@@ -57,7 +57,9 @@ class SettingsService
         protected ConfigurationManagerInterface $configurationManager,
         protected TypoScriptService $typoScriptService
     ) {
-        if (($request = FrontendUtility::getRequest()) && !ApplicationType::fromRequest($request)->isFrontend()) {
+        if (($request = FrontendUtility::getRequest()) !== null &&
+            !ApplicationType::fromRequest($request)->isFrontend()
+        ) {
             $this->configurationManager->setRequest($request->withQueryParams([
                 ...$request->getQueryParams(),
                 ...['id' => ($request->getParsedBody()['popViewId'] ?? $request->getQueryParams()['id'] ?? 0)]
