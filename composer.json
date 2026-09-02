@@ -56,7 +56,8 @@
   "conflict": {
     "typo3-ter/t3blog": ">=0.0.1",
     "dmitryd/typo3-realurl": ">=2.0.0,<=2.0.10",
-    "fluidtypo3/vhs": ">=7.0.0,<=7.0.1"
+    "fluidtypo3/vhs": ">=7.0.0,<=7.0.1",
+    "lochmueller/index": "<2.4.0"
   },
   "replace": {
     "typo3-ter/t3extblog": "self.version"
@@ -64,7 +65,8 @@
   "suggest": {
     "typo3/cms-dashboard": "This extension supports dashboard widgets based on the TYPO3 CMS Dashboard package.",
     "typo3/cms-seo": "This extension supports sitemaps based on the TYPO3 CMS SEO package.",
-    "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality."
+    "friendsoftypo3/visual-editor": "This extension supports the visual editor package. Make sure to use version >=1.10.0 for best functionality.",
+    "lochmueller/index": "This extension supports search indexing based on the index package."
   },
   "config": {
     "vendor-dir": ".Build/vendor",

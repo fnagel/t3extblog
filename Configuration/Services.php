@@ -15,6 +15,11 @@ use FelixNagel\T3extblog\Dashboard\Provider\SubscriberListDataProvider;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 use FelixNagel\T3extblog\EventListener\VisualEditor\ModifyNewContentElementWizardUrlParameter;
+use FelixNagel\T3extblog\Index\EventListener\AddPostTagEventListener;
+use FelixNagel\T3extblog\Index\Indexing\PostContentType;
+use FelixNagel\T3extblog\Index\Traversing\PostExtender;
+use Lochmueller\Index\Indexing\Database\ContentType\ContentTypeInterface;
+use Lochmueller\Seal\Event\BeforeSaveDocumentEvent;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
@@ -26,6 +31,17 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
     if (!$containerBuilder->hasExtension('visual_editor')) {
         $containerBuilder->removeDefinition(ModifyNewContentElementWizardUrlParameter::class);
         $containerBuilder->removeDefinition(ModifyNewContentElementWizardItemsEvent::class);
+    }
+
+    // Search indexing integration needs EXT:index (package lochmueller/index)
+    if (!interface_exists(ContentTypeInterface::class)) {
+        $containerBuilder->removeDefinition(PostContentType::class);
+        $containerBuilder->removeDefinition(PostExtender::class);
+    }
+
+    // Search integration needs EXT:seal (package lochmueller/seal)
+    if (!class_exists(BeforeSaveDocumentEvent::class)) {
+        $containerBuilder->removeDefinition(AddPostTagEventListener::class);
     }
 
     // Check if WidgetRegistry is defined, which means that EXT:dashboard is available.

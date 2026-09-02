@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
-			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend" data-namespace-typo3-fluid="true">
+			xmlns:t3b="http://typo3.org/ns/FelixNagel/T3extblog/ViewHelpers/Frontend"
+			data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
 
@@ -21,11 +22,13 @@
 						<span class="author">{post.author.name}</span>
 					</f:link.action> -
 				</f:if>
+				<!--TYPO3SEARCH_end-->
 				<f:cObject typoscriptObjectPath="lib.tx_t3extblog.date" data="{f:format.date(format:'U', date:'{post.publishDate}')}" />
 				-
 				<f:render partial="Post/Categories" arguments="{post: post}" />
 				-
 				<f:translate key="post.readingTime" arguments="{0: '{t3b:readingTime(post: post)}'}" />
+				<!--TYPO3SEARCH_begin-->
 			</h6>
 		</div>
 
@@ -47,6 +50,7 @@
 		<div class="card-footer text-muted small">
 			<div class="row">
 				<div class="col-md-4">
+					<!--TYPO3SEARCH_end-->
 					<f:link.action controller="Post" action="show" arguments="{post.linkParameter}" section="comment-section">
 						<span class="icon icon-comments" aria-hidden="true"></span>
 						<f:count subject="{post.comments}" />
@@ -57,6 +61,7 @@
 						<span class="icon icon-link" aria-hidden="true"></span>
 						<f:translate key="post.permalink" />
 					</f:link.action>
+					<!--TYPO3SEARCH_begin-->
 				</div>
 				<div class="col-md-8 text-md-right text-md-end">
 					<f:render partial="Post/TagCloud" arguments="{post: post}" />
@@ -66,6 +71,7 @@
 	</article>
 
 	<f:if condition="{settings.blogsystem.posts.nextAndPreviousPosts.enable} || ({settings.blogsystem.posts.relatedPosts.enable} && {relatedPosts.paginator.paginatedItems})">
+			<!--TYPO3SEARCH_end-->
 			<div id="related-posts" class="card mt-4">
 				<f:if condition="{settings.blogsystem.posts.nextAndPreviousPosts.enable}">
 					<div class="card-footer d-flex align-items-center text-center">
@@ -108,9 +114,11 @@
 					</div>
 				</f:if>
 			</div>
+			<!--TYPO3SEARCH_begin-->
 	</f:if>
 
 	<f:if condition="{newComment}">
+		<!--TYPO3SEARCH_end-->
 		<div id="comment-section" class="mt-4">
 			<div id="comment-form" class="card mb-4">
 				<div class="card-body">
@@ -137,6 +145,7 @@
 				</div>
 			</f:if>
 		</div>
+		<!--TYPO3SEARCH_begin-->
 	</f:if>
 </f:section>
 

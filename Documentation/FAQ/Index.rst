@@ -124,11 +124,102 @@ Use following TS config:
 	[global]
 
 
-Does it work together with "indexed search engine"?
----------------------------------------------------
+Does it work together with EXT:indexed_search?
+----------------------------------------------
 
 Yes! T3extblog works together with "indexed search engine". Once your posts are indexed, your visitors can search through all your posts.
 You should restrict indexing to the main content (blogposts) and exclude latest posts, the category module etc. to get useful results.
+
+
+Does it work together with EXT:index and EXT:seal?
+--------------------------------------------------
+.. _faq-index:
+
+Yes! This extension ships integrations for `EXT:index <https://github.com/lochmueller/index>`__
+(package name `lochmueller/index`), which is used by search extensions like
+`EXT:seal <https://github.com/lochmueller/seal>`__. Both integrations are registered automatically
+when EXT:index is installed.
+
+Which integration is used depends on the technology of the index configuration record:
+
+========================  ==========================================  ===============================================
+Technology                Integration                                 Configuration
+========================  ==========================================  ===============================================
+`database`                Content type for the blogsystem plugin      TypoScript `module.tx_t3extblog.persistence.storagePid`
+`frontend`, `http`        Extender `t3extblog-posts`                  `recordStorages` in the index configuration
+========================  ==========================================  ===============================================
+
+
+**Database indexing**
+
+The database indexing does not render the page, but reads the content elements of each page. The blogsystem
+plugin content element is replaced by one index entry per post, including the post title, the preview text
+and the post content elements.
+
+The posts are taken from the storage pages configured in the TypoScript of the blogsystem plugin page.
+As the indexing runs in backend context (usually CLI), the TypoScript :code:`module.tx_t3extblog` is used,
+like for the blog backend module. By default this is a copy of :code:`plugin.tx_t3extblog`.
+
+.. important::
+
+   Make sure to copy the configuration again when changing the storage PID after the default setup is
+   included, otherwise no posts are indexed (only the blogsystem plugin page itself):
+
+   .. code-block:: typoscript
+
+      plugin.tx_t3extblog.persistence.storagePid = 123
+      module.tx_t3extblog < plugin.tx_t3extblog
+
+No extender configuration is needed for database indexing.
+
+
+**Frontend and HTTP indexing**
+
+These technologies render or fetch each URI, so the post URIs need to be part of the page traversing. Add the
+extender to the configuration (JSON) of the index configuration record. Replace 123 with your storage PID and
+456 with the PID of your blogsystem plugin page:
+
+.. code-block:: json
+
+   {
+     "extender": [
+       {
+         "type": "t3extblog-posts",
+         "limitToPages": [456],
+         "recordStorages": [123],
+         "dropOriginalUri": false
+       }
+     ]
+   }
+
+The `t3extblog-posts` extender is a preset of the generic `record` extender of EXT:index, so all options of
+the generic extender (like `recordTypes` or `constraints`) are supported too. Set `dropOriginalUri` to `true`
+if the list view should not be indexed.
+
+
+**Filter and mark posts in EXT:seal**
+
+All post documents get the tag `BlogPost` (in addition to the default tags `Page` and the page keywords). Posts are
+detected by their URI, so this works for all index technologies.
+
+Add a filter of type "Tag condition" to the search plugin to let your visitors filter for posts. Use one line per
+tag in the format `value=Label`:
+
+.. code-block:: text
+
+   BlogPost=Blog posts
+   Page=Pages
+   File=Files
+
+To mark posts in the result list, overwrite the partial `Result/Item.html` of EXT:seal and check the tags:
+
+.. code-block:: xml
+
+   <f:for each="{item.tags}" as="tag">
+      <f:if condition="{tag} == 'BlogPost'">
+         <span class="badge">Blog post</span>
+      </f:if>
+   </f:for>
 
 
 Can I override the basic templates?

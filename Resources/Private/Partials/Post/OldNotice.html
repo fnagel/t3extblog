@@ -1,10 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.blogsystem.posts.markAsOldAfter} && {f:format.date(date: settings.blogsystem.posts.markAsOldAfter, format: 'U')} > {f:format.date(date: post.publishDate, format: 'U')}">
+	<!--TYPO3SEARCH_end-->
 	<p class="alert alert-info">
 		<f:translate key="post.outdated" />
 	</p>
 	<br>
+	<!--TYPO3SEARCH_begin-->
 </f:if>
 
 </html>
