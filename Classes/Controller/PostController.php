@@ -9,23 +9,23 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\BackendUser;
+use FelixNagel\T3extblog\Domain\Model\Category;
+use FelixNagel\T3extblog\Domain\Model\Comment;
+use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostRepository;
+use FelixNagel\T3extblog\Exception\AccessDeniedException;
+use FelixNagel\T3extblog\Utility\FrontendUtility;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use FelixNagel\T3extblog\Domain\Model\BackendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
-use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
-use FelixNagel\T3extblog\Domain\Repository\PostRepository;
-use FelixNagel\T3extblog\Exception\AccessDeniedException;
-use FelixNagel\T3extblog\Utility\FrontendUtility;
-use FelixNagel\T3extblog\Domain\Model\Category;
-use FelixNagel\T3extblog\Domain\Model\Post;
-use FelixNagel\T3extblog\Domain\Model\Comment;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * PostController.
@@ -36,8 +36,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PostController extends AbstractCommentController
 {
-    public function __construct(protected PostRepository $postRepository)
-    {
+    public function __construct(
+        protected PostRepository $postRepository,
+        protected CategoryRepository $categoryRepository
+    ) {
     }
 
     protected function handleKnownExceptionsElseThrowAgain(\Throwable $exception): never
@@ -55,6 +57,8 @@ class PostController extends AbstractCommentController
      */
     public function listAction(int $page = 1): ResponseInterface
     {
+        $this->addCategoryVariables();
+
         return $this->paginationHtmlResponse(
             $this->findPosts(),
             $this->settings['blogsystem']['posts']['paginate'],
@@ -67,6 +71,8 @@ class PostController extends AbstractCommentController
      */
     public function categoryAction(Category $category, int $page = 1): ResponseInterface
     {
+        $this->addCategoryVariables($category);
+
         return $this->paginationHtmlResponse(
             $this->findPosts($category),
             $this->settings['blogsystem']['posts']['paginate'],
@@ -79,6 +85,8 @@ class PostController extends AbstractCommentController
      */
     public function authorAction(BackendUser $author, int $page = 1): ResponseInterface
     {
+        $this->addCategoryVariables();
+
         return $this->paginationHtmlResponse(
             $this->findPosts($author),
             $this->settings['blogsystem']['posts']['paginate'],
@@ -99,6 +107,8 @@ class PostController extends AbstractCommentController
             $this->pageNotFoundAndExit('Tag not found!');
         }
 
+        $this->addCategoryVariables();
+
         return $this->paginationHtmlResponse(
             $posts,
             $this->settings['blogsystem']['posts']['paginate'],
@@ -118,11 +128,21 @@ class PostController extends AbstractCommentController
                 ->findByUid((int) $this->settings['latestPosts']['categoryUid']);
         }
 
+        $this->addCategoryVariables($category);
+
         return $this->paginationHtmlResponse(
             $this->findPosts($category),
             $this->settings['latestPosts']['paginate'],
             $page
         );
+    }
+
+    protected function addCategoryVariables(?Category $category = null): void
+    {
+        $this->view->assignMultiple([
+            'categories' => $this->categoryRepository->findAll(),
+            'currentCategory' => $category,
+        ]);
     }
 
     public static function isPostShowPage(ServerRequestInterface $request): int|false
