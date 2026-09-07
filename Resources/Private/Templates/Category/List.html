@@ -12,7 +12,8 @@
 			<f:for each="{categories}" as="category">
 				<f:if condition="{category.firstLevel}">
 				<li class="nav-item">
-					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
+					<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}"
+												 class="nav-link {f:if(condition: '{category.uid} == {currentCategory.uid}', then: 'active')}">
 						{category.name}
 					</f:link.action>
 					<f:if condition="{settings.categories.recursive} > 1 && {category.childCategories}">
@@ -29,7 +30,8 @@
 	<ul class="mb-3">
 	<f:for each="{categories}" as="category">
 		<li class="nav-item">
-			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}" class="nav-link">
+			<f:link.action pageUid="{settings.blogsystem.pid}" pluginName="Blogsystem" controller="Post" action="category" arguments="{category: category}"
+										 class="nav-link {f:if(condition: '{category.uid} == {currentCategory.uid}', then: 'active')}">
 				{category.name}
 			</f:link.action>
 			<f:if condition="{settings.categories.recursive} > {level} && {category.childCategories}">

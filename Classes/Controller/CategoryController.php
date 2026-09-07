@@ -9,10 +9,12 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Domain\Model\Category;
 use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
-use FelixNagel\T3extblog\Domain\Model\Category;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Routing\PageArguments;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * CategoryController.
@@ -26,14 +28,37 @@ class CategoryController extends AbstractController
     public function listAction(): ResponseInterface
     {
         $categories = $this->categoryRepository->findAll();
+        $category = null;
+
+        /* @var $routing PageArguments */
+        $routing = $this->request->getAttribute('routing');
+        if (($categoryUid = $this->isCategoryArguments($routing->getArguments())) !== false) {
+            $category = $this->categoryRepository->findByUid($categoryUid);
+        }
 
         // Add basic PID based cache tag
         // @extensionScannerIgnoreLine
         $this->addCacheTags($categories->getFirst());
 
-        $this->view->assign('categories', $categories);
+        $this->view->assignMultiple([
+            'categories' => $categories,
+            'currentCategory' => $category,
+        ]);
 
         return $this->htmlResponse();
+    }
+
+    protected function isCategoryArguments(array $arguments): int|false
+    {
+        return isset(
+            $arguments['tx_t3extblog_blogsystem']['controller'],
+            $arguments['tx_t3extblog_blogsystem']['action'],
+            $arguments['tx_t3extblog_blogsystem']['category'],
+        ) &&
+            $arguments['tx_t3extblog_blogsystem']['controller'] === 'Post' &&
+            $arguments['tx_t3extblog_blogsystem']['action'] === 'category' &&
+            MathUtility::canBeInterpretedAsInteger($arguments['tx_t3extblog_blogsystem']['category']) ?
+            (int)$arguments['tx_t3extblog_blogsystem']['category'] : false;
     }
 
     public function showAction(Category $category, int $page = 1): ResponseInterface
