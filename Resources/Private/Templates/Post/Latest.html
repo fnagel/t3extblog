@@ -11,9 +11,11 @@
 			<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator}" />
 		</f:if>
 
-		<div class="card-deck">
+		<div class="card-deck row row-cols-1 row-cols-md-2 g-4">
 			<f:for each="{paginator.paginatedItems}" as="post">
-				<f:render partial="Post/Latest" arguments="{post: post, settings: settings}" />
+				<div class="col">
+					<f:render partial="Post/Latest" arguments="{post: post, settings: settings}" />
+				</div>
 			</f:for>
 		</div>
 
