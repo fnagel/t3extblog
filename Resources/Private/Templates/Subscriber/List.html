@@ -14,21 +14,21 @@
 	<br>
 
 	<div class="clearfix">
-		<f:link.action class="btn btn-info pull-right float-right" action="logout">
+		<f:link.action class="btn btn-info float-right float-end" action="logout">
 			<span class="icon icon-unlock-alt"></span>
 			<f:translate key="subscriber.logout" />
 		</f:link.action>
 
 		<f:if condition="{blogSubscriber}">
 			<f:then>
-				<f:link.action class="btn btn-danger pull-left float-left" controller="BlogSubscriber" action="delete" arguments="{subscriber: blogSubscriber}">
+				<f:link.action class="btn btn-danger float-left float-start" controller="BlogSubscriber" action="delete" arguments="{subscriber: blogSubscriber}">
 					<span class="icon icon-sign-out"></span>
 					<f:translate key="subscriber.blog.delete" />
 				</f:link.action>
 			</f:then>
 			<f:else>
 				<f:if condition="{settings.blogSubscription.subscribeForPosts}">
-					<f:link.action class="btn btn-primary pull-left float-left" controller="BlogSubscriber" action="create">
+					<f:link.action class="btn btn-primary float-left float-start" controller="BlogSubscriber" action="create">
 						<span class="icon icon-sign-in"></span>
 						<f:translate key="subscriber.blog.create" />
 					</f:link.action>
