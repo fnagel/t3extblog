@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-    <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
-        <channel>
-            <title>{settings.blogName}</title>
-            <link><f:uri.typolink parameter="{settings.blogsystem.pid}" absolute="true" /></link>
-            <description></description>
-            <language></language>
-            <copyright></copyright>
-            <pubDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></pubDate>
-            <lastBuildDate><f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date></lastBuildDate>
-            <category></category>
-            <generator>t3extblog extension for TYPO3</generator>
-            <image>
-                <url></url>
-                <title></title>
-                <link></link>
-            </image>
-
-            <f:if condition="{paginator.paginatedItems}">
-                <f:for each="{paginator.paginatedItems}" as="post">
-                    <f:render partial="Post/RssItem.xml" arguments="{_all}" />
-                </f:for>
-            </f:if>
-        </channel>
-    </rss>
+	<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+		<channel>
+			<title>{settings.blogName}</title>
+			<link>
+				<f:uri.typolink parameter="{settings.blogsystem.pid}" absolute="true" />
+			</link>
+			<description/>
+			<language/>
+			<copyright/>
+			<pubDate>
+				<f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date>
+			</pubDate>
+			<lastBuildDate>
+				<f:format.date format="D, d M Y H:i:s O">+0 week 0 days 0 hours 0 seconds</f:format.date>
+			</lastBuildDate>
+			<category/>
+			<generator>t3extblog extension for TYPO3</generator>
+			<image>
+				<url />
+				<title />
+				<link />
+			</image>
+			<f:if condition="{paginator.paginatedItems}">
+				<f:for each="{paginator.paginatedItems}" as="post">
+					<f:render partial="Post/RssItem.xml" arguments="{_all}" />
+				</f:for>
+			</f:if>
+		</channel>
+	</rss>
 </html>

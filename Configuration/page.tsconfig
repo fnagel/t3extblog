@@ -1,1 +1,1 @@
-@import "EXT:t3extblog/Configuration/TSconfig/*.tsconfig"
+@import 'EXT:t3extblog/Configuration/TSconfig/*.tsconfig'

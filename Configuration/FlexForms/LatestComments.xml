@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <T3DataStructure>
 	<meta>
 		<langDisable>1</langDisable>
@@ -5,22 +6,21 @@
 	<sheets>
 		<sDEF>
 			<ROOT>
-                <sheetTitle>Options</sheetTitle>
+				<sheetTitle>Options</sheetTitle>
 				<type>array</type>
 				<el>
 					<settings.latestComments.paginate.itemsPerPage>
-                        <label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestComments.paginate.itemsPerPage</label>
-                        <config>
-                            <type>input</type>
-                            <max>100</max>
-                            <size>3</size>
-                            <eval>int</eval>
-                            <range>
-                                <lower>0</lower>
-                                <upper>100</upper>
-                            </range>
-                        </config>
-                    </settings.latestComments.paginate.itemsPerPage>
+						<label>LLL:EXT:t3extblog/Resources/Private/Language/locallang_flexform.xlf:latestComments.paginate.itemsPerPage</label>
+						<config>
+							<type>number</type>
+							<max>100</max>
+							<size>3</size>
+							<range>
+								<lower>0</lower>
+								<upper>100</upper>
+							</range>
+						</config>
+					</settings.latestComments.paginate.itemsPerPage>
 				</el>
 			</ROOT>
 		</sDEF>

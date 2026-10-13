@@ -67,7 +67,9 @@
 				<source>Author</source>
 			</trans-unit>
 			<trans-unit id="tx_t3blog_com.date">
-				<source><![CDATA[Date & Time]]></source>
+				<source>
+					<![CDATA[Date & Time]]>
+				</source>
 			</trans-unit>
 			<trans-unit id="tx_t3blog_com.email">
 				<source>Email</source>
@@ -163,7 +165,9 @@
 				<source>Contents</source>
 			</trans-unit>
 			<trans-unit id="tx_t3blog_post.date">
-				<source><![CDATA[Date & Time]]></source>
+				<source>
+					<![CDATA[Date & Time]]>
+				</source>
 			</trans-unit>
 			<trans-unit id="tx_t3blog_post.mails_sent">
 				<source>Notification mails already sent</source>

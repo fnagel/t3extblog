@@ -18,7 +18,6 @@ config {
 	disablePrefixComment = 1
 
 	disableCharsetHeader = 1
-	metaCharset = utf-8
 	additionalHeaders.10.header = Content-Type:application/rss+xml;charset=utf-8
 
 	forceAbsoluteUrls = 1
