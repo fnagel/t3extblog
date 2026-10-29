@@ -10,7 +10,7 @@
                edit-on-github-branch="master"
                edit-on-github="fnagel/t3extblog"
                typo3-core-preferred="14.3"
-               interlink-shortcode="fnagel/t3extblog"
+               interlink-shortcode="felixnagel/t3extblog"
     />
     <project title="T3Extblog (T3Blog Extbase)"
              release="master (development)"
