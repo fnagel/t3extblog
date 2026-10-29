@@ -17,6 +17,60 @@ Version 10.x
 
 
 
+Upgrade to 10.3.0
+^^^^^^^^^^^^^^^^^
+
+*"TYPO3 Developer Days 2026"*
+
+Changelog
+"""""""""
+
+https://github.com/fnagel/t3extblog/compare/10.2.1...10.3.0
+
+- Support PHP 8.5
+
+- Make EXT:dashboard optional and introduce settings for widgets
+
+- Use contextual record editing in BE module
+
+- Use render content area, record and text VH
+
+- Add support for EXT:visual_editor
+
+- Extend functional and acceptance tests
+
+- Add `currentCategory` variable in category and post list views
+
+- Use built-in modals for action confirm
+
+- Lots of small bugfixes and replacements for deprecated core functionality
+
+- Code clean-up and lots of code quality improvements
+
+
+**Breaking changes**
+
+- Obsolete `SpriteManagerIconViewHelper` removed
+
+- Some frontend templates have changed
+   - Post show
+   - Post RSS
+   - Post latest
+   - Category list
+   - Category show
+   - Comment show
+   - Subscriber list
+
+
+How to upgrade
+""""""""""""""
+
+#. Adjust backend and frontend templates if needed
+
+#. Clear all caches
+
+
+
 Upgrade to 10.2.0
 ^^^^^^^^^^^^^^^^^
 
@@ -38,7 +92,7 @@ https://github.com/fnagel/t3extblog/compare/10.1.0...10.2.0
 How to upgrade
 """"""""""""""
 
-#. Adjust templates if you need the old Twitter Boostrap templating
+#. Adjust templates if you need the old Twitter Bootstrap templating
 
 #. Clear all caches
 
