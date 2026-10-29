@@ -79,7 +79,7 @@
   "extra": {
     "typo3/cms": {
       "extension-key": "t3extblog",
-      "version": "10.2.2+dev",
+      "version": "10.3.0",
       "Package": {
         "providesPackages": {}
       },
