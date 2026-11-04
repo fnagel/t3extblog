@@ -73,6 +73,8 @@ class PostContentType implements ContentTypeInterface
 
     /**
      * @param \SplQueue<DatabaseIndexingDto> $queue
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function addVariants(Record $record, \SplQueue &$queue): void
     {
