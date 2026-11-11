@@ -1,9 +1,14 @@
-name: Crowdin
+name: Crowdin localization
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+    paths:
+      - '**.xlf'
 
 jobs:
   sync:
