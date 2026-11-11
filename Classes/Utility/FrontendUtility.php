@@ -80,7 +80,9 @@ class FrontendUtility implements SingletonInterface
 
     public static function getNormalizedParams(): NormalizedParams
     {
-        return static::getRequest()->getAttribute('normalizedParams');
+        // Route aspects are resolved before $GLOBALS['TYPO3_REQUEST'] is set, so fall back to the server params
+        return FrontendUtility::getRequest()?->getAttribute('normalizedParams')
+            ?? NormalizedParams::createFromServerParams($_SERVER);
     }
 
     protected static function getContext(): Context
