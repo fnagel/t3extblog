@@ -46,7 +46,7 @@
 				<source>Subscription Manager Plugin PID: Page containing the Subscription Manager plugin</source>
 			</trans-unit>
 			<trans-unit id="constants.settings.emailType" xml:space="preserve">
-				<source>Email standard: Use FluidEmail and MailMessage standard. See TYPO3 docs: https://docs.typo3.org/permalink/t3coreapi:mail-create</source>
+				<source>Email standard: Use FluidEmail or MailMessage standard. See TYPO3 docs: https://docs.typo3.org/permalink/t3coreapi:mail-create</source>
 			</trans-unit>
 			<trans-unit id="constants.settings.emailFrom" xml:space="preserve">
 				<source>Sender address: All emails are sent from this address</source>

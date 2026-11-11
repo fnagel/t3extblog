@@ -182,7 +182,7 @@
 				<source>%1$s: New comment on '%2$s'</source>
 			</trans-unit>
 			<trans-unit id="email.subscriber.comment.notify.header">
-				<source>A new comment has been posted on post %4$s. See the comment here:</source>
+				<source>A new comment has been posted on post %4$s. See the new comment here:</source>
 			</trans-unit>
 			<trans-unit id="email.subscriber.comment.notify.text">
 				<source>You can manage your subscription by using this link:</source>
@@ -279,7 +279,7 @@
 				<source>The authentication link seems to be invalid.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.rateLimit.title">
-				<source>Request Rate Limited.</source>
+				<source>Request rate limited.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.subscriber.rateLimit">
 				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
@@ -334,7 +334,7 @@
 				<source>No comment submitted.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.rateLimit.title">
-				<source>Request Rate Limited.</source>
+				<source>Request rate limited.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.comment.rateLimit">
 				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
@@ -365,7 +365,7 @@
 				<source>Thanks, your subscription has been saved. A confirmation email has been sent.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.rateLimit.title">
-				<source>Request Rate Limited.</source>
+				<source>Request rate limited.</source>
 			</trans-unit>
 			<trans-unit id="flashMessage.blogSubscriberForm.rateLimit">
 				<source>Your request has been blocked due to too many failed attempts from your IP address.</source>
