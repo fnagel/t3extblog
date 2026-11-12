@@ -61,9 +61,12 @@ class PostContentType implements ContentTypeInterface
         }
         $record = $this->recordSelection->mapRecord($table, $row);
 
+        // @extensionScannerIgnoreLine
         $dto->title = $record->get('title') . ' | ' . $dto->site->getAttribute('websiteTitle');
 
+        // @extensionScannerIgnoreLine
         $dto->content .= $record->get('title') . ' ';
+        // @extensionScannerIgnoreLine
         $dto->content .= $record->get('preview_text') . ' ';
 
         foreach ($record->get('content') as $ce) {
@@ -93,7 +96,9 @@ class PostContentType implements ContentTypeInterface
             ];
 
             $variants[] = new DatabaseIndexingDto(
+                // @extensionScannerIgnoreLine
                 $dto->title,
+                // @extensionScannerIgnoreLine
                 $dto->content,
                 $dto->pageUid,
                 $dto->languageUid,

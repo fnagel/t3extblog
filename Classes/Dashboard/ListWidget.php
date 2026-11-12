@@ -61,6 +61,7 @@ class ListWidget implements WidgetRendererInterface, RequestAwareWidgetInterface
     public function renderWidget(WidgetContext $context): WidgetResult
     {
         if ($this->dataProvider instanceof AbstractListDataProvider) {
+            // @extensionScannerIgnoreLine
             $this->dataProvider->setOptions(['limit' => (int)$context->settings->get('limit')]);
         }
 

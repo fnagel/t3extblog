@@ -51,6 +51,7 @@ class AddPostTagEventListener
             $request = new ServerRequest($uri, 'GET');
             $routeResult = $this->siteMatcher->matchRequest($request);
             // No language for empty or unknown URIs, page routing would fail
+            // @extensionScannerIgnoreLine
             if (!$routeResult instanceof SiteRouteResult || $routeResult->getLanguage() === null) {
                 return false;
             }
