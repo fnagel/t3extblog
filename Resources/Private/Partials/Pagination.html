@@ -3,7 +3,7 @@
 <f:render partial="PaginationMeta" arguments="{_all}" />
 
 <nav>
-	<ul class="f3-widget-paginator pagination">
+	<ul class="f3-widget-paginator pagination flex-wrap row-gap-2">
 		<f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
 			<f:then>
 				<li class="page-item first">
