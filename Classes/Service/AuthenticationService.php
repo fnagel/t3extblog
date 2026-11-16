@@ -43,7 +43,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->session->removeData();
     }
 
-    public function getEmail(): string
+    public function getEmail(): string|false
     {
         $data = $this->getData();
 

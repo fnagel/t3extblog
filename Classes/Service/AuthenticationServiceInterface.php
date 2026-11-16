@@ -23,5 +23,5 @@ interface AuthenticationServiceInterface
     /**
      * Returns email of the subscriber object.
      */
-    public function getEmail(): string;
+    public function getEmail(): string|false;
 }
