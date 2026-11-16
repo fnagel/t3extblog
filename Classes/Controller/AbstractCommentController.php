@@ -34,7 +34,7 @@ abstract class AbstractCommentController extends AbstractController
         }
 
         // In this case, the page needs to be uncached
-        $this->clearPageCache();
+        FrontendUtility::disableFrontendCache();
 
         if (FrontendUtility::isUserLoggedIn()) {
             $comment->setEmail($this->request->getAttribute('frontend.user')->user['email']);
