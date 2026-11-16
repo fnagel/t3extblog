@@ -173,8 +173,6 @@ class CommentController extends AbstractCommentController
             }
         }
 
-        $this->getRateLimiter()->reset('comment-create');
-
         return $this->redirect('show', 'Post', null, $post->getLinkParameter());
     }
 

@@ -96,7 +96,6 @@ class BlogSubscriberFormController extends AbstractController
         $this->notificationService->processNewEntity($subscriber);
 
         $this->addFlashMessageByKey('created');
-        $this->getRateLimiter()->reset('blog-subscriber-create');
 
         return $this->redirect('success');
     }
