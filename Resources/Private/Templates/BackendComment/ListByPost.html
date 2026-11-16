@@ -4,7 +4,7 @@
 <f:layout name="Backend" />
 
 <f:section name="headline">
-	{f:translate(key: 'module.comment.title.byPost', arguments: {0: post.title}) -> f:format.raw()}
+	{f:translate(key: 'module.comment.title.byPost', arguments: {0: '{post.title -> f:format.htmlspecialchars()}'}) -> f:format.raw()}
 </f:section>
 
 <f:section name="main">
