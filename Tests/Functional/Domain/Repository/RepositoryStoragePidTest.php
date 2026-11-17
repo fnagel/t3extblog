@@ -53,6 +53,39 @@ final class RepositoryStoragePidTest extends AbstractFunctionalTestCase
         self::assertSame([400], $query->getQuerySettings()->getStoragePageIds());
     }
 
+    #[Test]
+    public function createQueryUsesGivenStoragePid(): void
+    {
+        $this->provideFrontendRequest();
+
+        $querySettings = $this->get(CommentRepository::class)->createQuery(12)->getQuerySettings();
+
+        self::assertTrue($querySettings->getRespectStoragePage());
+        self::assertSame([12], $querySettings->getStoragePageIds());
+    }
+
+    #[Test]
+    public function createQueryUsesMultipleGivenStoragePids(): void
+    {
+        $this->provideFrontendRequest();
+
+        // Page UIDs from database queries might be strings
+        $querySettings = $this->get(CommentRepository::class)->createQuery([12, '13'])->getQuerySettings();
+
+        self::assertTrue($querySettings->getRespectStoragePage());
+        self::assertSame([12, 13], $querySettings->getStoragePageIds());
+    }
+
+    #[Test]
+    public function createQueryWithNegativeStoragePidDisablesStoragePageRestriction(): void
+    {
+        $this->provideFrontendRequest();
+
+        $querySettings = $this->get(CommentRepository::class)->createQuery(-1)->getQuerySettings();
+
+        self::assertFalse($querySettings->getRespectStoragePage());
+    }
+
     /**
      * Simulates a frontend request whose inline Extbase configuration is still empty
      * (the state before the plugin Bootstrap has called setConfiguration()), but which

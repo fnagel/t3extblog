@@ -26,11 +26,16 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 abstract class AbstractRepository extends Repository
 {
-    public function createQuery(?int $pageUid = null): QueryInterface
+    /**
+     * @param int|int[]|null $pageUid Storage page UID(s), negative value to disable the storage page restriction
+     */
+    public function createQuery(int|array|null $pageUid = null): QueryInterface
     {
         $query = parent::createQuery();
 
-        if ($pageUid !== null) {
+        if (is_array($pageUid)) {
+            $query->getQuerySettings()->setStoragePageIds(array_map(intval(...), $pageUid));
+        } elseif ($pageUid !== null) {
             if ($pageUid >= 0) {
                 $query->getQuerySettings()->setStoragePageIds([$pageUid]);
             } else {
@@ -57,7 +62,7 @@ abstract class AbstractRepository extends Repository
     /**
      * Returns all objects with specific PID.
      */
-    public function findByPage(?int $pid = null, bool $respectEnableFields = true, ?int $limit = null): QueryResultInterface
+    public function findByPage(int|array|null $pid = null, bool $respectEnableFields = true, ?int $limit = null): QueryResultInterface
     {
         $query = $this->createQuery($pid);
 

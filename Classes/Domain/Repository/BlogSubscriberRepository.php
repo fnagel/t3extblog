@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class BlogSubscriberRepository extends AbstractSubscriberRepository
 {
-    public function createQuery(?int $pageUid = null): QueryInterface
+    public function createQuery(int|array|null $pageUid = null): QueryInterface
     {
         $query = parent::createQuery($pageUid);
 
