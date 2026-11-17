@@ -28,12 +28,10 @@ class StatisticChartDataProvider extends AbstractDataProvider implements ChartDa
 
     public function getChartData(): array
     {
-        $pids = $this->getStoragePids();
-
-        $postsCount = $this->postRepository->findByPage($pids)->count();
-        $commentsCount = $this->commentRepository->findValid($pids)->count();
-        $blogSubscribersCount = $this->blogSubscriberRepository->findByPage($pids)->count();
-        $postSubscribersCount = $this->postSubscriberRepository->findByPage($pids)->count();
+        $postsCount = $this->postRepository->findByPage($this->getStoragePids('tx_t3blog_post'))->count();
+        $commentsCount = $this->commentRepository->findValid($this->getStoragePids('tx_t3blog_com'))->count();
+        $blogSubscribersCount = $this->blogSubscriberRepository->findByPage($this->getStoragePids('tx_t3blog_blog_nl'))->count();
+        $postSubscribersCount = $this->postSubscriberRepository->findByPage($this->getStoragePids('tx_t3blog_com_nl'))->count();
 
         $chartColors = WidgetApi::getDefaultChartColors();
 

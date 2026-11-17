@@ -9,6 +9,8 @@ namespace FelixNagel\T3extblog\Dashboard\Provider;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Exception\AccessDeniedException;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 use TYPO3\CMS\Core\Localization\LanguageService;
 
 abstract class AbstractDataProvider
@@ -20,12 +22,25 @@ abstract class AbstractDataProvider
      */
     public const LOCALLANG_FILE = 't3extblog.dashboard:';
 
-    protected function getStoragePids(): int
+    /**
+     * Returns the blog pages the current backend user has access to.
+     *
+     * @return int[]
+     */
+    protected function getStoragePids(string $table): array
     {
+        PermissionUtility::assertTableAccess([$table]);
+
         $pages = $this->getBlogPageUids();
 
-        // @todo Remove this and make repo method able to use multiple PIDs
-        return (count($pages) === 1) ? current($pages) : -1;
+        if ($pages === []) {
+            throw new AccessDeniedException(
+                'No accessible blog page found. ' . PermissionUtility::ACCESS_DENIED_HINT,
+                1794816005
+            );
+        }
+
+        return $pages;
     }
 
     protected function translate(string $key): string

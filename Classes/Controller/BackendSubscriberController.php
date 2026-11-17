@@ -16,6 +16,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 class BackendSubscriberController extends AbstractBackendController
 {
+    protected array $requiredTables = [
+        'indexPostSubscriber' => ['tx_t3blog_com_nl'],
+        'indexBlogSubscriber' => ['tx_t3blog_blog_nl'],
+    ];
+
     /**
      * Show post subscribers.
      */

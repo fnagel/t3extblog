@@ -17,6 +17,6 @@ class DraftPostListDataProvider extends AbstractPostListDataProvider
 
     public function getItems(): array
     {
-        return $this->postRepository->findDrafts($this->getStoragePids(), $this->options['limit'])->toArray();
+        return $this->postRepository->findDrafts($this->getStoragePids('tx_t3blog_post'), $this->options['limit'])->toArray();
     }
 }

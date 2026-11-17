@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
 use TYPO3\CMS\Backend\Routing\RouteResult;
 use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
@@ -43,6 +44,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 abstract class AbstractBackendController extends ActionController
 {
     use LoggingTrait;
+
+    /**
+     * Tables the backend user needs read access to, by action name ("*" for all actions).
+     */
+    protected array $requiredTables = [];
 
     /**
      * The page id.
@@ -206,6 +212,14 @@ abstract class AbstractBackendController extends ActionController
     protected function initializeAction(): void
     {
         $this->pageId = (int)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? 0);
+        // Page 0 is allowed as blog records can not be stored on root level, so nothing is shown there.
+        // Negative page IDs are denied as they would disable the storage PID restriction.
+        if ($this->pageId !== 0) {
+            PermissionUtility::assertPageAccess($this->pageId);
+        }
+        PermissionUtility::assertTableAccess(
+            $this->requiredTables[$this->request->getControllerActionName()] ?? $this->requiredTables['*'] ?? []
+        );
         $this->pageInfo = $this->getBlogRelatedPageInfo();
 
         try {
@@ -255,7 +269,8 @@ abstract class AbstractBackendController extends ActionController
      */
     protected function getBlogRelatedPageInfo(): array
     {
-        $blogPages = BlogPageSearchUtility::getBlogRelatedPages();
+        // Only show pages the user has access to
+        $blogPages = PermissionUtility::filterAccessiblePages(BlogPageSearchUtility::getBlogRelatedPages());
         $blogPagesCurrentPageKey = array_search($this->pageId, array_column($blogPages, 'uid'), true);
 
         if ($blogPagesCurrentPageKey !== false) {

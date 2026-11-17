@@ -185,7 +185,8 @@ the page where the blogsystem plugin is included).
 	}
 
 
-By default, hidden posts are only visible to authenticated backend users.
+Hidden posts are only visible to authenticated backend users with read access to the post table and the
+page the post is stored on.
 
 
 

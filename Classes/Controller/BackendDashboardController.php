@@ -16,6 +16,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class BackendDashboardController extends AbstractBackendController
 {
+    protected array $requiredTables = [
+        '*' => ['tx_t3blog_post', 'tx_t3blog_com', 'tx_t3blog_com_nl', 'tx_t3blog_blog_nl'],
+    ];
+
     /**
      * Blog dashboard.
      */

@@ -20,6 +20,6 @@ class PendingCommentNumberWithIconDataProvider extends AbstractDataProvider impl
 
     public function getNumber(): int
     {
-        return $this->commentRepository->findPendingByPage($this->getStoragePids())->count();
+        return $this->commentRepository->findPendingByPage($this->getStoragePids('tx_t3blog_com'))->count();
     }
 }

@@ -10,20 +10,18 @@ namespace FelixNagel\T3extblog\Service;
  */
 
 use FelixNagel\T3extblog\Utility\FrontendUtility;
-use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Type\Bitmask\Permission;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder as MvcUriBuilder;
-use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 
 /**
  * BackendModuleService.
@@ -45,10 +43,9 @@ class BackendModuleService
     /**
      * Add doc header meta information
      */
-    public function addMetaInformation()
+    public function addMetaInformation(): void
     {
-        $permissionClause = $this->getBackendUserAuthentication()->getPagePermsClause(Permission::PAGE_SHOW);
-        $pageRecord = BackendUtility::readPageAccess($this->pid, $permissionClause);
+        $pageRecord = PermissionUtility::getPage($this->pid);
 
         if ($pageRecord) {
             $this->moduleTemplate->getDocHeaderComponent()->setPageBreadcrumb($pageRecord);
@@ -58,7 +55,7 @@ class BackendModuleService
     /**
      * Add JS and CSS assets to the view
      */
-    public function addViewAssets(array $requireJsModules = [], array $cssLibraries = [])
+    public function addViewAssets(array $requireJsModules = [], array $cssLibraries = []): void
     {
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 
@@ -75,7 +72,7 @@ class BackendModuleService
      * Generates the action menu
      *
      */
-    public function addViewHeaderMenu(Request $request, array $menuItems, string $menuIdentifier)
+    public function addViewHeaderMenu(Request $request, array $menuItems, string $menuIdentifier): void
     {
         $menu = $this->componentFactory->createMenu();
         $menu->setIdentifier($menuIdentifier);
@@ -99,7 +96,7 @@ class BackendModuleService
     /**
      * Create the panel of buttons
      */
-    public function addViewHeaderButtons(array $buttonItems, ?string $shortcutModuleName = null)
+    public function addViewHeaderButtons(array $buttonItems, ?string $shortcutModuleName = null): void
     {
         $uriBuilder = GeneralUtility::makeInstance(BackendUriBuilder::class);
         $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
@@ -136,15 +133,8 @@ class BackendModuleService
         }
     }
 
-
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-
-    protected function getBackendUserAuthentication(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
     }
 }

@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Dashboard\Provider;
  */
 
 use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
+use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
 
 class SubscriberListDataProvider extends AbstractListDataProvider
 {
@@ -28,7 +29,9 @@ class SubscriberListDataProvider extends AbstractListDataProvider
     public function getItems(): array
     {
         return $this->subscriberRepository->findByPage(
-            $this->getStoragePids(),
+            $this->getStoragePids(
+                $this->subscriberRepository instanceof PostSubscriberRepository ? 'tx_t3blog_com_nl' : 'tx_t3blog_blog_nl'
+            ),
             false,
             $this->options['limit']
         )->toArray();

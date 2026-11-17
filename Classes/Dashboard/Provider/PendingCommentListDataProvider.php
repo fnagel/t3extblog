@@ -13,6 +13,6 @@ class PendingCommentListDataProvider extends AbstractCommentListDataProvider
 {
     public function getItems(): array
     {
-        return $this->commentRepository->findPendingByPage($this->getStoragePids(), $this->options['limit'])->toArray();
+        return $this->commentRepository->findPendingByPage($this->getStoragePids('tx_t3blog_com'), $this->options['limit'])->toArray();
     }
 }

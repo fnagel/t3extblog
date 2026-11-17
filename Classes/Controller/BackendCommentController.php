@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Domain\Model\Post;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -18,6 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class BackendCommentController extends AbstractBackendController
 {
+    protected array $requiredTables = [
+        '*' => ['tx_t3blog_com'],
+        'listByPost' => ['tx_t3blog_com', 'tx_t3blog_post'],
+    ];
+
     /**
      * Displays all comments.
      */
@@ -49,6 +55,8 @@ class BackendCommentController extends AbstractBackendController
      */
     public function listByPostAction(Post $post, int $page = 1): ResponseInterface
     {
+        PermissionUtility::assertPageAccess((int)$post->getPid());
+
         $this->view->assignMultiple([
             'post' => $this->postRepository->findOneBy(['uid' => $post]),
             'pendingCommentsCount' => $this->commentRepository->countPendingByPost($post),

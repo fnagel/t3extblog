@@ -10,6 +10,7 @@ namespace FelixNagel\T3extblog\Controller;
  */
 
 use FelixNagel\T3extblog\Service\BlogNotificationService;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use FelixNagel\T3extblog\Domain\Model\Post;
@@ -20,6 +21,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class BackendPostController extends AbstractBackendController
 {
+    protected array $requiredTables = [
+        '*' => ['tx_t3blog_post'],
+    ];
+
     /**
      * Displays posts.
      */
@@ -38,6 +43,10 @@ class BackendPostController extends AbstractBackendController
      */
     public function sendPostNotificationsAction(Post $post): ResponseInterface
     {
+        // Sending the mails modifies the post (not using the DataHandler, so check the permissions here)
+        PermissionUtility::assertTableAccess(['tx_t3blog_post'], true);
+        PermissionUtility::assertPageAccess((int)$post->getPid());
+
         /* @var $notificationService BlogNotificationService */
         $notificationService = GeneralUtility::makeInstance(BlogNotificationService::class);
         $amount = $notificationService->notifySubscribers($post);

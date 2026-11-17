@@ -14,7 +14,7 @@ class LatestCommentListDataProvider extends AbstractCommentListDataProvider
     public function getItems(): array
     {
         return $this->commentRepository->findByPage(
-            $this->getStoragePids(),
+            $this->getStoragePids('tx_t3blog_com'),
             true,
             $this->options['limit']
         )->toArray();

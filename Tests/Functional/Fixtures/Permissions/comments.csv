@@ -1,0 +1,6 @@
+"tx_t3blog_com"
+,"uid","pid","deleted","hidden","fk_post","title","author","email","website","text","approved","spam","mails_sent","date"
+,1,2,0,0,1,"","Alice","alice@example.com","","Pending on blog storage",0,0,0,1609459200
+,2,2,0,0,1,"","Bob","bob@example.com","","Pending on blog storage",0,0,0,1609545600
+,3,3,0,0,1,"","Charlie","charlie@example.com","","Pending on other root",0,0,0,1609632000
+,4,4,0,0,1,"","Dave","dave@example.com","","Pending on restricted storage",0,0,0,1609718400

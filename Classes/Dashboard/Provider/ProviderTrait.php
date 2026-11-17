@@ -10,14 +10,20 @@ namespace FelixNagel\T3extblog\Dashboard\Provider;
  */
 
 use FelixNagel\T3extblog\Utility\BlogPageSearchUtility;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 
 trait ProviderTrait
 {
     /**
+     * Returns the UIDs of all blog pages the current backend user has access to.
+     *
      * @todo Add dashboard specific TSconfig based PID configuration
+     * @return int[]
      */
     protected function getBlogPageUids(): array
     {
-        return BlogPageSearchUtility::getBlogPageUids();
+        return array_map(
+            intval(...), PermissionUtility::filterAccessiblePages(BlogPageSearchUtility::getBlogPageUids())
+        );
     }
 }

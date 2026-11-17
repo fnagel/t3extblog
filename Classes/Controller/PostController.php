@@ -17,6 +17,7 @@ use FelixNagel\T3extblog\Domain\Repository\CategoryRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Exception\AccessDeniedException;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -319,10 +320,13 @@ class PostController extends AbstractCommentController
 
         $post = $this->postRepository->findByUid($previewPost, false);
 
-        if ($post instanceof Post) {
-            return (new ForwardResponse('show'))->withArguments(['post' => $post]);
+        if (!$post instanceof Post) {
+            return $this->errorAction();
         }
 
-        return $this->errorAction();
+        PermissionUtility::assertTableAccess(['tx_t3blog_post']);
+        PermissionUtility::assertPageAccess((int)$post->getPid());
+
+        return (new ForwardResponse('show'))->withArguments(['post' => $post]);
     }
 }

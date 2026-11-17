@@ -14,7 +14,7 @@ class LatestPostListDataProvider extends AbstractPostListDataProvider
     public function getItems(): array
     {
         return $this->postRepository->findByPage(
-            $this->getStoragePids(),
+            $this->getStoragePids('tx_t3blog_post'),
             true,
             $this->options['limit']
         )->toArray();
