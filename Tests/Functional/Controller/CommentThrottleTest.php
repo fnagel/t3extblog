@@ -13,6 +13,7 @@ namespace FelixNagel\T3extblog\Tests\Functional\Controller;
 
 use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 
 /**
@@ -36,6 +37,9 @@ final class CommentThrottleTest extends AbstractControllerTestCase
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/be_users.csv');
 
         $this->setUpFrontendWithTypoScript();
+
+        // The rate limiter state is stored in a file cache which is shared by all tests of this class
+        $this->get(CacheManager::class)->getCache('ratelimiter')->flush();
     }
 
     /**
@@ -47,6 +51,8 @@ final class CommentThrottleTest extends AbstractControllerTestCase
         $ns = 'tx_t3extblog_blogsystem';
         $trustedProperties = $this->buildTrustedPropertiesToken($ns, [
             "{$ns}[post]",
+            "{$ns}[newComment][title]",
+            "{$ns}[newComment][website]",
             "{$ns}[newComment][author]",
             "{$ns}[newComment][email]",
             "{$ns}[newComment][text]",
@@ -62,6 +68,9 @@ final class CommentThrottleTest extends AbstractControllerTestCase
                     '__trustedProperties' => $trustedProperties,
                     'post' => '1',
                     'newComment' => [
+                        // Always submitted by the comment form, the database fields must not be NULL
+                        'title' => '',
+                        'website' => '',
                         'author' => 'Throttle Tester ' . $suffix,
                         'email' => 'throttle' . $suffix . '@example.com',
                         'text' => 'Throttle test comment ' . $suffix,
@@ -105,6 +114,38 @@ final class CommentThrottleTest extends AbstractControllerTestCase
         $response3 = $this->executeFrontendSubRequest($this->buildCommentRequest('c'));
         // The error action renders HTML, not a redirect
         self::assertNotSame(303, $response3->getStatusCode());
+    }
+
+    #[Test]
+    public function successfulCommentsCountAgainstRateLimit(): void
+    {
+        // Disable the spam check so the comments are actually created
+        $this->addTypoScriptToTemplateRecord(
+            1,
+            'plugin.tx_t3extblog.settings.blogsystem.comments.rateLimit.limit = 2'
+            . "\n" . 'plugin.tx_t3extblog.settings.blogsystem.comments.spamCheck.enable = 0'
+        );
+
+        // First two comments are created successfully (redirect to post)
+        $response1 = $this->executeFrontendSubRequest($this->buildCommentRequest('success1'));
+        self::assertSame(303, $response1->getStatusCode());
+        self::assertSame(1, $this->countCommentsByEmail('throttlesuccess1@example.com'));
+
+        $response2 = $this->executeFrontendSubRequest($this->buildCommentRequest('success2'));
+        self::assertSame(303, $response2->getStatusCode());
+        self::assertSame(1, $this->countCommentsByEmail('throttlesuccess2@example.com'));
+
+        // Third comment must be rate limited, the limiter must not be reset after a successful request
+        $response3 = $this->executeFrontendSubRequest($this->buildCommentRequest('success3'));
+        self::assertNotSame(303, $response3->getStatusCode());
+        self::assertSame(0, $this->countCommentsByEmail('throttlesuccess3@example.com'));
+    }
+
+    protected function countCommentsByEmail(string $email): int
+    {
+        return $this->getConnectionPool()
+            ->getConnectionForTable('tx_t3blog_com')
+            ->count('*', 'tx_t3blog_com', ['email' => $email]);
     }
 
     #[Test]
