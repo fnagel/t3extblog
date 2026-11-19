@@ -11,7 +11,6 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support\Extension;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Codeception\Events;
 use TYPO3\TestingFramework\Core\Acceptance\Extension\BackendEnvironment;
 
 /**

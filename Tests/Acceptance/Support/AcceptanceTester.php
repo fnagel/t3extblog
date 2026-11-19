@@ -14,7 +14,6 @@ namespace FelixNagel\T3extblog\Tests\Acceptance\Support;
 use Codeception\Actor;
 use FelixNagel\T3extblog\Tests\Acceptance\Support\_generated\AcceptanceTesterActions;
 
-
 /**
  * Frontend acceptance tester.
  *

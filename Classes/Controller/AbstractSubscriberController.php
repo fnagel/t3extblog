@@ -9,14 +9,14 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
-use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
 use FelixNagel\T3extblog\Domain\Model\AbstractSubscriber;
 use FelixNagel\T3extblog\Domain\Model\BlogSubscriber;
 use FelixNagel\T3extblog\Domain\Model\PostSubscriber;
+use FelixNagel\T3extblog\Domain\Repository\AbstractSubscriberRepository;
+use FelixNagel\T3extblog\Service\AuthenticationServiceInterface;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity as Message;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**

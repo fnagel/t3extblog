@@ -48,7 +48,7 @@ final class BlogSubscriberRepositoryTest extends AbstractRepositoryTestCase
         $results = $this->getRepository()->findForNotification();
 
         self::assertCount(2, $results);
-        $emails = array_map(fn(BlogSubscriber $s) => $s->getEmail(), iterator_to_array($results));
+        $emails = array_map(fn (BlogSubscriber $s) => $s->getEmail(), iterator_to_array($results));
         self::assertContains('alice@example.com', $emails);
         self::assertContains('diana@example.com', $emails);
     }

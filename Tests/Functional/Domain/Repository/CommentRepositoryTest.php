@@ -100,7 +100,7 @@ final class CommentRepositoryTest extends AbstractRepositoryTestCase
 
         // uid=2 (unapproved) and uid=3 (spam) are pending; hidden/deleted are excluded.
         self::assertCount(2, $results);
-        $uids = array_map(fn(Comment $c) => $c->getUid(), iterator_to_array($results));
+        $uids = array_map(fn (Comment $c) => $c->getUid(), iterator_to_array($results));
         self::assertContains(2, $uids);
         self::assertContains(3, $uids);
     }

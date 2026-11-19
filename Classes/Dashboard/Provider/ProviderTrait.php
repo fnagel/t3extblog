@@ -23,7 +23,8 @@ trait ProviderTrait
     protected function getBlogPageUids(): array
     {
         return array_map(
-            intval(...), PermissionUtility::filterAccessiblePages(BlogPageSearchUtility::getBlogPageUids())
+            intval(...),
+            PermissionUtility::filterAccessiblePages(BlogPageSearchUtility::getBlogPageUids())
         );
     }
 }
