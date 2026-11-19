@@ -21,7 +21,7 @@ class FlushCacheService implements SingletonInterface
 {
     protected array $cacheTagsToFlush = [];
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
         // Clear cache on shutdown
         register_shutdown_function([$this, 'flushFrontendCache']);
@@ -32,7 +32,7 @@ class FlushCacheService implements SingletonInterface
      *
      * @note This function should be public as it's called by register_shutdown_function()!
      */
-    public function flushFrontendCache()
+    public function flushFrontendCache(): void
     {
         static::flushFrontendCacheByTags($this->cacheTagsToFlush);
     }
@@ -40,7 +40,7 @@ class FlushCacheService implements SingletonInterface
     /**
      * Add a cache tag to flush.
      */
-    public function addCacheTagsToFlush(string|array $cacheTagsToFlush)
+    public function addCacheTagsToFlush(string|array $cacheTagsToFlush): void
     {
         if (!is_array($cacheTagsToFlush)) {
             $cacheTagsToFlush = [$cacheTagsToFlush];
@@ -56,7 +56,7 @@ class FlushCacheService implements SingletonInterface
     /**
      * Clear frontend page cache by tags.
      */
-    public static function flushFrontendCacheByTags(array $cacheTagsToFlush)
+    public static function flushFrontendCacheByTags(array $cacheTagsToFlush): void
     {
         if (count($cacheTagsToFlush) < 1) {
             return;
@@ -73,7 +73,7 @@ class FlushCacheService implements SingletonInterface
     /**
      * Clear current frontend page cache.
      */
-    public static function clearPageCache()
+    public static function clearPageCache(): void
     {
         $pageUid = FrontendUtility::getPageUid();
 

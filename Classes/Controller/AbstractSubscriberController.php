@@ -187,13 +187,13 @@ abstract class AbstractSubscriberController extends AbstractController
     /**
      * If the request has argument 'code'.
      */
-    protected function hasCodeArgument(): string
+    protected function hasCodeArgument(): bool
     {
         return $this->request->hasArgument('code') && strlen($this->request->getArgument('code')) > 0;
     }
 
     /**
-     * Checks the code.
+     * Gets the code.
      */
     protected function getCodeArgument(): string
     {
