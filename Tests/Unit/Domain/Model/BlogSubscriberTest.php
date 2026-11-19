@@ -79,6 +79,14 @@ class BlogSubscriberTest extends UnitTestCase
     }
 
     #[Test]
+    public function isAuthCodeExpiredReturnsTrueWithoutLastSent(): void
+    {
+        // E.g. subscriber created in backend or imported, no auth mail has been sent
+        self::assertNull($this->subject->getLastSent());
+        self::assertTrue($this->subject->isAuthCodeExpired('+48 hours'));
+    }
+
+    #[Test]
     public function getMailToReturnsEmailNameArray(): void
     {
         $result = $this->subject->getMailTo();

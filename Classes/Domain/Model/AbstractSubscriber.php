@@ -117,6 +117,11 @@ abstract class AbstractSubscriber extends AbstractEntity
      */
     public function isAuthCodeExpired(string $expireDate): bool
     {
+        // No mail sent (e.g. record created in backend or imported): there is no valid auth code
+        if (!$this->getLastSent() instanceof \DateTime) {
+            return true;
+        }
+
         $now = new \DateTime();
         $expire = clone $this->getLastSent();
 
