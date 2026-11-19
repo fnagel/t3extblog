@@ -9,6 +9,7 @@ namespace FelixNagel\T3extblog\ViewHelpers\Backend\Link;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use FelixNagel\T3extblog\Controller\AbstractBackendController;
 use FelixNagel\T3extblog\Utility\FrontendUtility;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -40,18 +41,16 @@ class IssueCommandViewHelper extends AbstractTagBasedViewHelper
      */
     public function render(): string
     {
-        $parameters = $this->arguments['parameters'];
-        $redirectUrl = $this->arguments['redirectUrl'];
+        parse_str($this->arguments['parameters'], $parameters);
 
-        // Needed in 7.x and 8.x
-        $request = FrontendUtility::getRequest();
-        $id = $request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0;
-        $parameters = '&id='.$id.'&'.$parameters;
+        // The page ID is needed to resolve the TypoScript settings in the DataHandler hook (notification mails)
+        $parameters['id'] = AbstractBackendController::getPid(FrontendUtility::getRequest());
+
+        // @extensionScannerIgnoreLine
+        $parameters['redirect'] = $this->arguments['redirectUrl'] ?: FrontendUtility::getNormalizedParams()->getRequestUri();
 
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        $href = $uriBuilder->buildUriFromRoute('tce_db') . $parameters . '&redirect=';
-        // @extensionScannerIgnoreLine
-        $href .= rawurlencode($redirectUrl ?: FrontendUtility::getNormalizedParams()->getRequestUri());
+        $href = (string)$uriBuilder->buildUriFromRoute('tce_db', $parameters);
 
         $this->tag->addAttribute('href', $href);
         $this->tag->setContent($this->renderChildren());

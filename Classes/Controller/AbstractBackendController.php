@@ -9,29 +9,30 @@ namespace FelixNagel\T3extblog\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use FelixNagel\T3extblog\Utility\PermissionUtility;
-use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
-use TYPO3\CMS\Backend\Routing\RouteResult;
-use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
-use TYPO3\CMS\Backend\Template\ModuleTemplate;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use FelixNagel\T3extblog\Domain\Repository\BlogSubscriberRepository;
 use FelixNagel\T3extblog\Domain\Repository\CommentRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostRepository;
 use FelixNagel\T3extblog\Domain\Repository\PostSubscriberRepository;
+use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
 use FelixNagel\T3extblog\Service\BackendModuleService;
 use FelixNagel\T3extblog\Traits\LoggingTrait;
 use FelixNagel\T3extblog\Utility\BlogPageSearchUtility;
+use FelixNagel\T3extblog\Utility\PermissionUtility;
+use FelixNagel\T3extblog\Utility\SiteConfigurationValidator;
+use FelixNagel\T3extblog\Utility\TypoScriptValidator;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Routing\RouteResult;
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception;
-use FelixNagel\T3extblog\Exception\InvalidConfigurationException;
-use FelixNagel\T3extblog\Utility\TypoScriptValidator;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -78,6 +79,11 @@ abstract class AbstractBackendController extends ActionController
         protected ModuleTemplateFactory $moduleTemplateFactory,
         protected ComponentFactory $componentFactory
     ) {
+    }
+
+    public static function getPid(ServerRequestInterface $request): int
+    {
+        return (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
     }
 
     /**
@@ -211,7 +217,7 @@ abstract class AbstractBackendController extends ActionController
      */
     protected function initializeAction(): void
     {
-        $this->pageId = (int)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? 0);
+        $this->pageId = static::getPid($this->request);
         // Page 0 is allowed as blog records can not be stored on root level, so nothing is shown there.
         // Negative page IDs are denied as they would disable the storage PID restriction.
         if ($this->pageId !== 0) {
