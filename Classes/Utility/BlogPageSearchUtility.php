@@ -71,10 +71,11 @@ class BlogPageSearchUtility implements SingletonInterface
     {
         $table = 'pages';
         $queryBuilder = self::getDatabaseConnection()->getQueryBuilderForTable($table);
+        // Use DISTINCT instead of GROUP BY, which fails with ONLY_FULL_GROUP_BY (MySQL / MariaDB)
         $queryBuilder
             ->select($table . '.uid', $table . '.title')
-            ->from($table)
-            ->groupBy($table.'.uid');
+            ->distinct()
+            ->from($table);
 
         $queryBuilder->join(
             $table,
